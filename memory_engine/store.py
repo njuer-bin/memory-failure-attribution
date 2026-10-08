@@ -127,7 +127,8 @@ class SQLiteStore:
                 role TEXT NOT NULL,
                 content TEXT NOT NULL,
                 timestamp INTEGER NOT NULL,
-                chunk_index INTEGER NOT NULL DEFAULT 0
+                chunk_index INTEGER NOT NULL DEFAULT 0,
+                source_turn_id TEXT
             );
 
             CREATE TABLE IF NOT EXISTS atomic_facts (
@@ -145,7 +146,10 @@ class SQLiteStore:
                 supersedes_id TEXT,
                 source TEXT NOT NULL DEFAULT 'user',
                 conflict_status TEXT NOT NULL DEFAULT 'none',
-                conflict_group_id TEXT
+                conflict_group_id TEXT,
+                source_raw_id TEXT,
+                source_session_id TEXT,
+                source_turn_id TEXT
             );
 
             CREATE TABLE IF NOT EXISTS conflict_logs (
@@ -169,7 +173,10 @@ class SQLiteStore:
                 object TEXT NOT NULL,
                 content TEXT NOT NULL,
                 timestamp INTEGER NOT NULL,
-                fingerprint TEXT NOT NULL
+                fingerprint TEXT NOT NULL,
+                source_raw_id TEXT,
+                source_session_id TEXT,
+                source_turn_id TEXT
             );
 
             CREATE TABLE IF NOT EXISTS timeline_events (
@@ -181,7 +188,10 @@ class SQLiteStore:
                 fingerprint TEXT NOT NULL,
                 event_start INTEGER,
                 event_end INTEGER,
-                temporal_text TEXT
+                temporal_text TEXT,
+                source_raw_id TEXT,
+                source_session_id TEXT,
+                source_turn_id TEXT
             );
 
             CREATE TABLE IF NOT EXISTS rule_memories (
@@ -190,7 +200,10 @@ class SQLiteStore:
                 rule TEXT NOT NULL,
                 content TEXT NOT NULL,
                 timestamp INTEGER NOT NULL,
-                fingerprint TEXT NOT NULL
+                fingerprint TEXT NOT NULL,
+                source_raw_id TEXT,
+                source_session_id TEXT,
+                source_turn_id TEXT
             );
 
             CREATE TABLE IF NOT EXISTS user_profiles (
@@ -199,6 +212,9 @@ class SQLiteStore:
                 value TEXT NOT NULL,
                 content TEXT NOT NULL,
                 timestamp INTEGER NOT NULL,
+                source_raw_id TEXT,
+                source_session_id TEXT,
+                source_turn_id TEXT,
                 PRIMARY KEY(user_id, key)
             );
 
@@ -251,6 +267,14 @@ class SQLiteStore:
             c.execute("ALTER TABLE atomic_facts ADD COLUMN IF NOT EXISTS source TEXT NOT NULL DEFAULT 'user'")
             c.execute("ALTER TABLE atomic_facts ADD COLUMN IF NOT EXISTS conflict_status TEXT NOT NULL DEFAULT 'none'")
             c.execute("ALTER TABLE atomic_facts ADD COLUMN IF NOT EXISTS conflict_group_id TEXT")
+            for name in ("source_raw_id", "source_session_id", "source_turn_id"):
+                c.execute(f"ALTER TABLE atomic_facts ADD COLUMN IF NOT EXISTS {name} TEXT")
+            for table in ("raw_memories", "entity_relations", "timeline_events", "rule_memories", "user_profiles"):
+                for name in ("source_raw_id", "source_session_id", "source_turn_id"):
+                    try:
+                        c.execute(f"ALTER TABLE {table} ADD COLUMN {name} TEXT")
+                    except Exception:
+                        pass
 
     def claim_request(self, request_id: str, user_id: str) -> bool:
         """Atomically claim a request_id for processing.
@@ -276,11 +300,11 @@ class SQLiteStore:
         with self._lock, self.connect() as c:
             c.execute("""
                 INSERT INTO raw_memories
-                (id,request_id,user_id,session_id,role,content,timestamp,chunk_index)
-                VALUES(?,?,?,?,?,?,?,?)
+                (id,request_id,user_id,session_id,role,content,timestamp,chunk_index,source_turn_id)
+                VALUES(?,?,?,?,?,?,?,?,?)
             """, (
                 row["id"], row["request_id"], row["user_id"], row["session_id"],
-                row["role"], row["content"], row["timestamp"], row.get("chunk_index", 0)
+                row["role"], row["content"], row["timestamp"], row.get("chunk_index", 0), row.get("source_turn_id")
             ))
 
     def insert_fact(self, f):
@@ -288,14 +312,16 @@ class SQLiteStore:
             c.execute("""
                 INSERT INTO atomic_facts
                 (id,user_id,subject,predicate,object,content,timestamp,fingerprint,
-                 valid_from,valid_to,status,supersedes_id,source,conflict_status,conflict_group_id)
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                 valid_from,valid_to,status,supersedes_id,source,conflict_status,conflict_group_id,
+                 source_raw_id,source_session_id,source_turn_id)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """, (
                 f.id, f.user_id, f.subject, f.predicate, f.object, f.content,
                 f.timestamp, f.fingerprint, f.valid_from, f.valid_to,
                 f.status, getattr(f, "supersedes_id", None),
                 getattr(f, "source", "user"), getattr(f, "conflict_status", "none"),
-                getattr(f, "conflict_group_id", None)
+                getattr(f, "conflict_group_id", None), getattr(f, "source_raw_id", None),
+                getattr(f, "source_session_id", None), getattr(f, "source_turn_id", None)
             ))
 
     def insert_conflict_log(self, row: dict[str, Any]):
@@ -337,39 +363,40 @@ class SQLiteStore:
         with self._lock, self.connect() as c:
             c.execute("""
                 INSERT INTO entity_relations
-                (id,user_id,subject,predicate,object,content,timestamp,fingerprint)
-                VALUES(?,?,?,?,?,?,?,?)
+                (id,user_id,subject,predicate,object,content,timestamp,fingerprint,source_raw_id,source_session_id,source_turn_id)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?)
             """, (r.id,r.user_id,r.subject,r.predicate,r.object,r.content,
-                  r.timestamp,r.fingerprint))
+                  r.timestamp,r.fingerprint,getattr(r, "source_raw_id", None),getattr(r, "source_session_id", None),getattr(r, "source_turn_id", None)))
 
     def insert_event(self, e):
         with self._lock, self.connect() as c:
             c.execute("""
                 INSERT INTO timeline_events
-                (id,user_id,event,content,timestamp,fingerprint,event_start,event_end,temporal_text)
-                VALUES(?,?,?,?,?,?,?,?,?)
+                (id,user_id,event,content,timestamp,fingerprint,event_start,event_end,temporal_text,source_raw_id,source_session_id,source_turn_id)
+                VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
             """, (e.id,e.user_id,e.event,e.content,e.timestamp,e.fingerprint,
                   getattr(e, "event_start", None), getattr(e, "event_end", None),
-                  getattr(e, "temporal_text", "")))
+                  getattr(e, "temporal_text", ""), getattr(e, "source_raw_id", None),
+                  getattr(e, "source_session_id", None), getattr(e, "source_turn_id", None)))
 
     def insert_rule(self, r):
         with self._lock, self.connect() as c:
             c.execute("""
                 INSERT INTO rule_memories
-                (id,user_id,rule,content,timestamp,fingerprint)
-                VALUES(?,?,?,?,?,?)
-            """, (r.id,r.user_id,r.rule,r.content,r.timestamp,r.fingerprint))
+                (id,user_id,rule,content,timestamp,fingerprint,source_raw_id,source_session_id,source_turn_id)
+                VALUES(?,?,?,?,?,?,?,?,?)
+            """, (r.id,r.user_id,r.rule,r.content,r.timestamp,r.fingerprint,getattr(r, "source_raw_id", None),getattr(r, "source_session_id", None),getattr(r, "source_turn_id", None)))
 
     def upsert_profile(self, p):
         with self._lock, self.connect() as c:
             c.execute("""
-                INSERT INTO user_profiles(user_id,key,value,content,timestamp)
-                VALUES(?,?,?,?,?)
+                INSERT INTO user_profiles(user_id,key,value,content,timestamp,source_raw_id,source_session_id,source_turn_id)
+                VALUES(?,?,?,?,?,?,?,?)
                 ON CONFLICT(user_id,key) DO UPDATE SET
                     value=excluded.value,
                     content=excluded.content,
                     timestamp=excluded.timestamp
-            """, (p.user_id,p.key,p.value,p.content,p.timestamp))
+            """, (p.user_id,p.key,p.value,p.content,p.timestamp,getattr(p, "source_raw_id", None),getattr(p, "source_session_id", None),getattr(p, "source_turn_id", None)))
 
     def embed(self, memory_id: str, user_id: str, vector: list[float]):
         # 先更新内存 cache，再持久化；同一进程内 Add -> Search 立即可见。
