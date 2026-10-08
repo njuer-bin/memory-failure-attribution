@@ -486,3 +486,18 @@ The semantic calibration gate is now passed at n=10:
 4. F6 is reserved for evidence-sufficient, context-complete, semantically incorrect cases.
 
 The next stage is to scale the same frozen protocol to a larger LongMemEval sample, starting with n=50. The protocol should not be changed after inspecting individual 50-sample outcomes except for pre-registered implementation bugs or clearly documented evaluator failures.
+
+
+## 2026-10-08 — LoCoMo n=50 integration failure identified and adapter fix implemented
+
+The previous 50-record LoCoMo-Refined run completed with 0 execution errors, but its 49/50 formation loss and 0/50 answer accuracy across all three modes are scientifically implausible. Oracle Memory recovered Gold Evidence for 50/50, so the run is invalid for failure attribution and is retained only as a methodological negative result.
+
+Root cause: the LoCoMo adapter did not reliably resolve benchmark evidence references to the same turn identifiers used by MemoryEngine, which persists provenance as session_id:turn_index. The adapter also did not consistently pass the loaded conversation into normalization, and list-valued answers were not normalized for the existing lexical scorer.
+
+Fix implemented: LoCoMo normalization now loads the matching conversation, flattens turns into canonical provenance, maps benchmark dialogue/message IDs to MemoryEngine session:turn identifiers, preserves the original benchmark turn ID, resolves evidence by benchmark ID/engine ID/source/text, marks unresolved evidence explicitly, normalizes list/dict answers, and passes the conversation into normalize_locomo_refined.
+
+The previous n=50 LoCoMo result must not be used as a paper result. Re-run validation with:
+
+    G:\\aconda\\python.exe -u -m experiments.run_oracle_experiments --dataset locomo_refined_public --limit 50
+
+Do not run semantic calibration until the new lifecycle and answer-alignment checks pass.
