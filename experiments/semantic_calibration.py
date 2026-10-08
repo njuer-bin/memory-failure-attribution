@@ -171,7 +171,7 @@ def main() -> None:
     )
     print("\n=== F6 CANDIDATES ===", flush=True)
     for item in f6_candidates:
-        print(f"[{item["question_id"]}] {item["question"]}", flush=True)
+        print(f"[{item['question_id']}] {item['question']}", flush=True)
         print(f"  candidate: {item["candidate"]}", flush=True)
         print(f"  judge: {item["reason"]}", flush=True)
     print(json.dumps(summary, ensure_ascii=False, indent=2), flush=True)
