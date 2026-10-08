@@ -12,7 +12,7 @@ def _artifact(row: Any) -> dict[str, Any]:
     result = {}
     for key in (
         "id", "content", "session_id", "source_id", "turn_id",
-        "source_turn_id", "timestamp", "memory_type", "status",
+        "source_raw_id", "source_session_id", "source_turn_id", "timestamp", "memory_type", "status",
     ):
         if hasattr(row, key):
             result[key] = getattr(row, key)
@@ -39,6 +39,10 @@ def artifacts_from_store(engine: Any, user_id: str) -> dict[str, list[dict[str, 
             # than inventing lineage.
             if kind == "raw":
                 item["source_id"] = item.get("session_id")
+            else:
+                item["source_id"] = item.get("source_session_id") or item.get("session_id")
+                item["source_turn_id"] = item.get("source_turn_id")
+                item["source_raw_id"] = item.get("source_raw_id")
             output.append(item)
         return output
 
