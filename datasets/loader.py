@@ -47,13 +47,24 @@ def _iter_parquet(path:Path)->Iterator[dict[str,Any]]:
         if isinstance(row,dict):
             yield row
 
+def _locomo_conversations()->dict[str,dict[str,Any]]:
+    path=ROOT/"locomo_refined_dataset/public/conversations.jsonl"
+    if not path.exists():
+        return {}
+    result={}
+    for row in _iter_jsonl(path):
+        cid=row.get("sample_id") or row.get("conversation_id") or row.get("id")
+        if cid is not None:
+            result[str(cid)]=row
+    return result
+
 def iter_raw(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any]]:
     info=dataset_info(dataset_id)
     source=ROOT/info["source"]
     if info["format"]=="json":
         iterator=_iter_json(source)
     elif info["format"]=="jsonl":
-        iterator=(row for row in _iter_jsonl(ROOT/"locomo_refined_dataset/public/questions.jsonl"))
+        iterator=_iter_jsonl(ROOT/"locomo_refined_dataset/public/questions.jsonl")
     elif info["format"]=="parquet":
         iterator=_iter_parquet(source)
     else:
@@ -64,7 +75,18 @@ def iter_raw(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any]]:
         yield row
 
 def iter_normalized(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any]]:
+    from .adapters import normalize_locomo_refined, normalize_longmemeval
     from .normalize import normalize_record
     info=dataset_info(dataset_id)
+    conversations=_locomo_conversations() if dataset_id=="locomo_refined_public" else {}
     for idx,raw in enumerate(iter_raw(dataset_id,limit=limit)):
-        yield normalize_record(raw,dataset=dataset_id,family=info["family"],index=idx,task_type=info.get("capabilities",[]))
+        if dataset_id in {"longmemeval_s_sample10","longmemeval_oracle"}:
+            yield normalize_longmemeval(raw,dataset=dataset_id,index=idx)
+        elif dataset_id=="locomo_refined_public":
+            record=normalize_locomo_refined(raw,index=idx)
+            cid=record.get("conversation_id")
+            if cid and cid in conversations:
+                record["conversation"]=conversations[cid]
+            yield record
+        else:
+            yield normalize_record(raw,dataset=dataset_id,family=info["family"],index=idx,task_type=info.get("capabilities",[]))
