@@ -163,14 +163,11 @@ class MemoryEngine:
         )
         hybrid_ms = (time.perf_counter() - t0) * 1000
 
-        retrieval_candidates = []
         result = []
         for d, score in candidates:
             item = dict(d)
             item["score"] = score
             result.append(item)
-        retrieval_candidates = list(result)
-
         # 查询级时间约束：优先使用显式时间窗口；“以前/去年/上个月”等
         # 会由 QueryAnalyzer 归一化后应用到候选证据。
         if plan.temporal and (plan.temporal_start is not None or plan.temporal_end is not None):
@@ -230,6 +227,7 @@ class MemoryEngine:
                 dedup[key] = r
 
         ranked = list(dedup.values())
+        retrieval_candidates = list(ranked)
         t0 = time.perf_counter()
         pre_rerank = list(ranked)
         ranked = self.reranker.rerank(
