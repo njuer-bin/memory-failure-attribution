@@ -37,19 +37,30 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
         for idx, message in enumerate(raw_turns):
             if not isinstance(message, dict):
                 continue
-            turn_id = (
+            benchmark_turn_id = (
                 message.get("turn_id")
                 or message.get("dia_id")
                 or message.get("message_id")
                 or message.get("id")
                 or f"turn_{idx}"
             )
+            source_id = str(
+                message.get("session_id")
+                or message.get("source_id")
+                or conversation.get("sample_id")
+                or conversation.get("conversation_id")
+                or ""
+            )
+            # MemoryEngine persists provenance as <session_id>:turn_<index>.
+            # Keep the benchmark id separately and match the engine id here.
+            turn_id = f"{source_id}:turn_{idx}" if source_id else str(benchmark_turn_id)
             text = _message_text(message)
             if not text:
                 continue
             turns.append({
                 "turn_id": str(turn_id),
-                "source_id": str(message.get("session_id") or message.get("source_id") or conversation.get("sample_id") or ""),
+                "source_id": source_id,
+                "benchmark_turn_id": str(benchmark_turn_id),
                 "text": text,
                 "role": str(message.get("role") or message.get("speaker") or ""),
                 "timestamp": message.get("timestamp"),
