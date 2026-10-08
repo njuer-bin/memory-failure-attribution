@@ -124,7 +124,7 @@ def _real_engine(record: dict[str, Any], idx: int) -> tuple[MemoryEngine, str]:
     return engine, user_id
 
 
-def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEngine, user_id: str, real: list[dict[str, Any]]) -> None:
+def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEngine, user_id: str, real: list[dict[str, Any]], search_trace: dict[str, Any]) -> None:
     stored = artifacts_from_store(engine, user_id)
 
     # Formation is approximated by extracted semantic memories. Raw messages
@@ -142,13 +142,12 @@ def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEng
     trace.formation = type(trace.formation)(**_stage(gold, formation, "real_memory"))
     trace.storage = type(trace.storage)(**_stage(gold, storage, "real_memory"))
     trace.evolution = type(trace.evolution)(**_stage(gold, evolution, "real_memory"))
-    trace.retrieval = type(trace.retrieval)(**_stage(gold, real, "real_memory"))
-
-    # MemoryEngine.search currently exposes its final ranked results, not a
-    # pre-rerank candidate list. Keep this boundary explicit instead of
-    # pretending we measured an independent reranker.
-    trace.rerank = type(trace.rerank)(**_stage(gold, real, "real_memory_final_search"))
-    trace.context = type(trace.context)(**_stage(gold, real, "real_memory_final_search"))
+    retrieval = search_trace.get("retrieval_candidates") or real
+    rerank = search_trace.get("reranked") or real
+    context = search_trace.get("context") or real
+    trace.retrieval = type(trace.retrieval)(**_stage(gold, retrieval, "real_memory_retrieval_candidates"))
+    trace.rerank = type(trace.rerank)(**_stage(gold, rerank, "real_memory_reranked"))
+    trace.context = type(trace.context)(**_stage(gold, context, "real_memory_context"))
 
 
 def _oracle_memory_trace(trace: Any, gold: list[dict[str, Any]], oracle: list[dict[str, Any]]) -> dict[str, Any]:
@@ -191,7 +190,7 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     real = retrieval_artifacts(results)
     log(f"    [real] retrieval done in {time.perf_counter() - t0:.2f}s; artifacts={len(real)}")
 
-    _real_trace_stages(trace, gold, engine, user_id, real)
+    _real_trace_stages(trace, gold, engine, user_id, real, engine.last_search_trace)
     trace.answer = {
         "correct": None,
         "answer": None,
@@ -271,11 +270,11 @@ def _build_summary(dataset: str, limit: int, rows: list[dict[str, Any]], errors:
         "answer_scoring": "not_run",
         "note": (
             "Evidence availability control only; no answer accuracy is claimed. "
-            "Real formation is approximated by extracted semantic memories; raw "
-            "messages are treated as storage. The current MemoryEngine search "
-            "returns final ranked results, so retrieval/rerank are not independently "
-            "measured. Oracle Memory bypasses real formation/retrieval/reranking "
-            "with gold evidence to estimate an evidence ceiling."
+            "Real formation is measured from extracted semantic memories with persisted source provenance; "
+            "raw messages are treated as storage. Search tracing now exposes retrieval candidates, "
+            "reranked candidates, and final context separately. Oracle Memory bypasses real "
+            "formation/retrieval/reranking with gold evidence to estimate an evidence ceiling. "
+            "Answer scoring is intentionally not run in this experiment."
         ),
     }
 
