@@ -28,6 +28,7 @@ from memory_engine.models import AddMessage, AddRequest, SearchRequest
 from tracing.dataset_trace import record_to_trace
 from tracing.engine_trace import artifacts_from_store, retrieval_artifacts, stage_match
 from tracing.failure_attribution import attribute_failure
+from evaluation.answer_generation import generate_and_score
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -253,6 +254,85 @@ def _oracle_context_trace(gold: list[dict[str, Any]], oracle: list[dict[str, Any
     }
 
 
+def _answer_failure_type(mode_data: dict[str, Any]) -> str | None:
+    """Attribute an incorrect answer to the earliest observed boundary.
+
+    F1-F5 are evidence-boundary failures. F6 is only assigned when the answer
+    is wrong while all gold evidence reaches final context, or when the oracle
+    context itself cannot produce a correct answer.
+    """
+    answer = mode_data.get("answer") or {}
+    if answer.get("correct") is not False:
+        return None
+
+    gold = {str(x.get("evidence_id")) for x in mode_data.get("gold_evidence", []) if x.get("evidence_id")}
+    if not gold:
+        return "F6_REASONING"
+
+    for stage, failure in (
+        ("formation", "F1_FORMATION"),
+        ("storage", "F2_STORAGE"),
+        ("evolution", "F3_EVOLUTION"),
+        ("retrieval", "F4_RETRIEVAL"),
+        ("rerank", "F4_RETRIEVAL"),
+        ("context", "F5_CONTEXT"),
+    ):
+        found = {str(x) for x in (mode_data.get(stage) or {}).get("found", [])}
+        if not gold.issubset(found):
+            return failure
+    return "F6_REASONING"
+
+
+def _score_mode_answer(
+    question: str,
+    reference: str,
+    context: list[dict[str, Any]],
+) -> dict[str, Any]:
+    """Generate and score an answer, keeping model errors explicit."""
+    try:
+        return generate_and_score(question, reference, context)
+    except Exception as exc:
+        return {
+            "answer": None,
+            "correct": None,
+            "exact_match": None,
+            "token_f1": None,
+            "threshold": None,
+            "model_error": f"{type(exc).__name__}: {exc}",
+        }
+
+
+def _answer_summary(rows: list[dict[str, Any]], mode: str) -> dict[str, Any]:
+    answers = [(r.get("modes", {}).get(mode, {}).get("answer") or {}) for r in rows]
+    scored = [a for a in answers if a.get("correct") is not None]
+    correct = sum(1 for a in scored if a.get("correct") is True)
+    return {
+        "count": len(answers),
+        "scored": len(scored),
+        "correct": correct,
+        "accuracy": correct / len(scored) if scored else None,
+        "exact_match": (
+            sum(float(a.get("exact_match", 0.0)) for a in scored) / len(scored)
+            if scored else None
+        ),
+        "token_f1": (
+            sum(float(a.get("token_f1", 0.0)) for a in scored) / len(scored)
+            if scored else None
+        ),
+        "model_errors": sum(1 for a in answers if a.get("model_error")),
+    }
+
+
+def _first_answer_failure_distribution(rows: list[dict[str, Any]]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for row in rows:
+        mode = row.get("modes", {}).get("real_memory", {})
+        failure = mode.get("answer_failure_type")
+        if failure:
+            counts[failure] = counts.get(failure, 0) + 1
+    return counts
+
+
 def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     trace = record_to_trace(record)
     gold = [e.__dict__ for e in trace.gold_evidence]
@@ -274,18 +354,36 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     log(f"    [real] retrieval done in {time.perf_counter() - t0:.2f}s; artifacts={len(real)}")
 
     _real_trace_stages(trace, gold, engine, user_id, real, engine.last_search_trace)
+    real_context = search_trace.get("context") or real
+    real_answer = _score_mode_answer(record["question"], record.get("answer", ""), real_context)
+    oracle_memory_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle)
+    oracle_context_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle)
+
     trace.answer = {
-        "correct": None,
-        "answer": None,
-        "mode": "evidence-only-control",
-        "answer_scoring": "not_run",
+        **real_answer,
+        "mode": "real_memory",
+        "answer_scoring": "token_f1",
     }
     trace.failure_type = attribute_failure(trace.to_dict())
 
     oracle_memory = _oracle_memory_trace(trace, gold, oracle)
     oracle_context = _oracle_context_trace(gold, oracle)
+    oracle_memory["answer"] = {
+        **oracle_memory_answer,
+        "mode": "oracle_memory",
+        "answer_scoring": "token_f1",
+    }
+    oracle_context["answer"] = {
+        **oracle_context_answer,
+        "mode": "oracle_context",
+        "answer_scoring": "token_f1",
+    }
 
-    return {
+    # Keep evidence-boundary attribution and answer-level attribution separate.
+    # This prevents a correct answer with missing redundant evidence from being
+    # mislabeled as a reasoning failure.
+
+    row = {
         "question_id": trace.question_id,
         "question": trace.question,
         "modes": {
@@ -297,6 +395,7 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
                 "rerank": trace.rerank.to_dict(),
                 "context": trace.context.to_dict(),
                 "failure_type": trace.failure_type,
+                "answer": real_answer,
             },
             "oracle_memory": oracle_memory,
             "oracle_context": oracle_context,
@@ -304,6 +403,11 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
         "gold_evidence_count": len(gold),
         "gold_evidence": gold,
     }
+    for mode in ("real_memory", "oracle_memory", "oracle_context"):
+        row["modes"][mode]["answer_failure_type"] = _answer_failure_type(
+            {"gold_evidence": gold, **row["modes"][mode]}
+        )
+    return row
 
 
 def _write_jsonl(path: Path, row: dict[str, Any]) -> None:
@@ -350,14 +454,21 @@ def _build_summary(dataset: str, limit: int, rows: list[dict[str, Any]], errors:
         "real_memory": summarize_traces([_mode_trace(r, "real_memory") for r in rows]) if rows else {},
         "oracle_memory": summarize_traces([_mode_trace(r, "oracle_memory") for r in rows]) if rows else {},
         "oracle_context": _context_only_summary(rows),
-        "answer_scoring": "not_run",
+        "answer_scoring": {
+            "method": "local_ollama_token_f1",
+            "real_memory": _answer_summary(rows, "real_memory"),
+            "oracle_memory": _answer_summary(rows, "oracle_memory"),
+            "oracle_context": _answer_summary(rows, "oracle_context"),
+            "first_answer_failure_distribution": _first_answer_failure_distribution(rows),
+        },
         "note": (
-            "Evidence availability control only; no answer accuracy is claimed. "
-            "Real formation is measured from extracted semantic memories with persisted source provenance; "
-            "raw messages are treated as storage. Search tracing now exposes retrieval candidates, "
-            "reranked candidates, and final context separately. Oracle Memory bypasses real "
-            "formation/retrieval/reranking with gold evidence to estimate an evidence ceiling. "
-            "Answer scoring is intentionally not run in this experiment."
+            "Evidence lifecycle and answer scoring are reported separately. "
+            "Answer correctness uses exact match OR token F1 >= ANSWER_F1_THRESHOLD "
+            "against the benchmark reference answer. Oracle Context is the reasoning "
+            "control: when its answer is correct but Real Memory is wrong, the answer "
+            "error is attributed to the earliest missing evidence boundary; when all "
+            "real evidence reaches context and the answer is wrong, it is F6_REASONING. "
+            "This is not an LLM-judge score."
         ),
     }
 
