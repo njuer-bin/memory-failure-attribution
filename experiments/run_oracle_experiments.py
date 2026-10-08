@@ -1,14 +1,15 @@
 """Run evidence-boundary control experiments with observable progress.
 
 Modes:
-1. Real Memory: ingest the benchmark conversation and retrieve with MemoryEngine.
-2. Oracle Memory: expose gold evidence at the memory boundary.
-3. Oracle Context: expose gold evidence directly at the context boundary.
+1. Real Memory: ingest the benchmark conversation and inspect formation/storage/
+   evolution artifacts plus the engine's final search output.
+2. Oracle Memory: assume gold evidence survives memory formation/storage/evolution
+   and reaches the rerank boundary.
+3. Oracle Context: place gold evidence directly at the final context boundary.
 
-This is an evidence-availability experiment. It deliberately does not fabricate
-answer accuracy until a benchmark-aligned answer-generation/scoring path exists.
-Each completed record is checkpointed immediately so long runs are observable
-and resumable from the output files.
+This experiment measures evidence availability. It deliberately does not
+fabricate answer accuracy until a benchmark-aligned answer-generation/scoring
+path exists.
 """
 from __future__ import annotations
 
@@ -21,11 +22,11 @@ from pathlib import Path
 from typing import Any
 
 from datasets.loader import iter_normalized
-from evaluation.lifecycle_metrics import summarize_traces
+from evaluation.lifecycle_metrics import STAGES, summarize_traces
 from memory_engine.engine import MemoryEngine
 from memory_engine.models import AddMessage, AddRequest, SearchRequest
 from tracing.dataset_trace import record_to_trace
-from tracing.engine_trace import retrieval_artifacts, stage_match
+from tracing.engine_trace import artifacts_from_store, retrieval_artifacts, stage_match
 from tracing.failure_attribution import attribute_failure
 
 
@@ -75,11 +76,7 @@ def _gold_artifacts(record: dict[str, Any]) -> list[dict[str, Any]]:
     ]
 
 
-def _stage(
-    gold: list[dict[str, Any]],
-    artifacts: list[dict[str, Any]],
-    mode: str,
-) -> dict[str, Any]:
+def _stage(gold: list[dict[str, Any]], artifacts: list[dict[str, Any]], mode: str) -> dict[str, Any]:
     match = stage_match(gold, artifacts)
     return {
         "found": match["found"],
@@ -121,11 +118,55 @@ def _real_engine(record: dict[str, Any], idx: int) -> tuple[MemoryEngine, str]:
                 user_id=user_id,
                 session_id=session["session_id"],
             ))
-    log(
-        f"    [ingest] {message_count} messages in "
-        f"{time.perf_counter() - t0:.2f}s"
-    )
+    log(f"    [ingest] {message_count} messages in {time.perf_counter() - t0:.2f}s")
     return engine, user_id
+
+
+def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEngine, user_id: str, real: list[dict[str, Any]]) -> None:
+    stored = artifacts_from_store(engine, user_id)
+
+    # Formation is approximated by extracted semantic memories. Raw messages
+    # are intentionally excluded: raw retention is storage, not formation.
+    formation = (
+        stored["facts"]
+        + stored["relations"]
+        + stored["events"]
+        + stored["rules"]
+        + stored["profiles"]
+    )
+    storage = stored["raw"] + formation
+    evolution = stored["facts"] + stored["relations"] + stored["events"] + stored["rules"] + stored["profiles"]
+
+    trace.formation = type(trace.formation)(**_stage(gold, formation, "real_memory"))
+    trace.storage = type(trace.storage)(**_stage(gold, storage, "real_memory"))
+    trace.evolution = type(trace.evolution)(**_stage(gold, evolution, "real_memory"))
+    trace.retrieval = type(trace.retrieval)(**_stage(gold, real, "real_memory"))
+
+    # MemoryEngine.search currently exposes its final ranked results, not a
+    # pre-rerank candidate list. Keep this boundary explicit instead of
+    # pretending we measured an independent reranker.
+    trace.rerank = type(trace.rerank)(**_stage(gold, real, "real_memory_final_search"))
+    trace.context = type(trace.context)(**_stage(gold, real, "real_memory_final_search"))
+
+
+def _oracle_memory_trace(trace: Any, gold: list[dict[str, Any]], oracle: list[dict[str, Any]]) -> dict[str, Any]:
+    stages = {}
+    for stage in ("formation", "storage", "evolution", "rerank"):
+        stages[stage] = _stage(gold, oracle, "oracle_memory")
+    stages["retrieval"] = _stage(gold, oracle, "oracle_memory_bypass")
+    stages["context"] = _stage(gold, oracle, "oracle_memory_context")
+    return stages
+
+
+def _oracle_context_trace(gold: list[dict[str, Any]], oracle: list[dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "formation": _stage(gold, [], "oracle_context_not_measured"),
+        "storage": _stage(gold, [], "oracle_context_not_measured"),
+        "evolution": _stage(gold, [], "oracle_context_not_measured"),
+        "retrieval": _stage(gold, [], "oracle_context_not_measured"),
+        "rerank": _stage(gold, [], "oracle_context_not_measured"),
+        "context": _stage(gold, oracle, "oracle_context"),
+    }
 
 
 def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
@@ -136,8 +177,9 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     log("    [real] building memory")
     engine, user_id = _real_engine(record, idx)
 
-    log("    [real] retrieval")
+    log("    [real] reading lifecycle artifacts")
     t0 = time.perf_counter()
+    log("    [real] retrieval")
     results = engine.search(SearchRequest(
         query=record["question"],
         user_id=user_id,
@@ -145,34 +187,9 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
         multi_hop=True,
     ))
     real = retrieval_artifacts(results)
-    log(
-        f"    [real] retrieval done in {time.perf_counter() - t0:.2f}s; "
-        f"artifacts={len(real)}"
-    )
+    log(f"    [real] retrieval done in {time.perf_counter() - t0:.2f}s; artifacts={len(real)}")
 
-    # Real Memory: actual end-to-end memory retrieval.
-    trace.retrieval = type(trace.retrieval)(
-        **_stage(gold, real, "real_memory")
-    )
-
-    # Oracle Memory: pretend all gold evidence survived formation/storage/
-    # evolution, then expose it at the rerank boundary. This is an evidence
-    # control, not a claim that the real reranker processed these artifacts.
-    trace.storage = type(trace.storage)(
-        **_stage(gold, oracle, "oracle_memory")
-    )
-    trace.evolution = type(trace.evolution)(
-        **_stage(gold, oracle, "oracle_memory")
-    )
-    trace.rerank = type(trace.rerank)(
-        **_stage(gold, oracle, "oracle_memory")
-    )
-
-    # Oracle Context: gold evidence is placed directly at the final boundary.
-    trace.context = type(trace.context)(
-        **_stage(gold, oracle, "oracle_context")
-    )
-
+    _real_trace_stages(trace, gold, engine, user_id, real)
     trace.answer = {
         "correct": None,
         "answer": None,
@@ -181,22 +198,24 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     }
     trace.failure_type = attribute_failure(trace.to_dict())
 
+    oracle_memory = _oracle_memory_trace(trace, gold, oracle)
+    oracle_context = _oracle_context_trace(gold, oracle)
+
     return {
         "question_id": trace.question_id,
         "question": trace.question,
         "modes": {
             "real_memory": {
-                "retrieval": trace.retrieval.to_dict(),
-                "failure_type": trace.failure_type,
-            },
-            "oracle_memory": {
+                "formation": trace.formation.to_dict(),
                 "storage": trace.storage.to_dict(),
                 "evolution": trace.evolution.to_dict(),
+                "retrieval": trace.retrieval.to_dict(),
                 "rerank": trace.rerank.to_dict(),
-            },
-            "oracle_context": {
                 "context": trace.context.to_dict(),
+                "failure_type": trace.failure_type,
             },
+            "oracle_memory": oracle_memory,
+            "oracle_context": oracle_context,
         },
         "gold_evidence_count": len(gold),
         "gold_evidence": gold,
@@ -210,50 +229,51 @@ def _write_jsonl(path: Path, row: dict[str, Any]) -> None:
 
 
 def _write_progress(path: Path, payload: dict[str, Any]) -> None:
-    path.write_text(
-        json.dumps(payload, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def _build_summary(
-    dataset: str,
-    limit: int,
-    rows: list[dict[str, Any]],
-    errors: int,
-) -> dict[str, Any]:
-    real_traces = []
-    oracle_traces = []
-    context_traces = []
+def _mode_trace(row: dict[str, Any], mode: str) -> dict[str, Any]:
+    return {
+        "gold_evidence": row.get("gold_evidence", []),
+        **row["modes"][mode],
+    }
+
+
+def _context_only_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    count = len(rows)
+    if not count:
+        return {"count": 0, "stage_recall": {}, "first_loss_distribution": {"not_applicable": 0}}
+    total = {stage: 0.0 for stage in STAGES}
     for row in rows:
-        gold = row.get("gold_evidence", [])
-        real_traces.append({
-            "gold_evidence": gold,
-            "retrieval": row["modes"]["real_memory"]["retrieval"],
-        })
-        oracle_traces.append({
-            "gold_evidence": gold,
-            "context": row["modes"]["oracle_memory"]["rerank"],
-        })
-        context_traces.append({
-            "gold_evidence": gold,
-            "context": row["modes"]["oracle_context"]["context"],
-        })
+        trace = _mode_trace(row, "oracle_context")
+        gold = {str(x.get("evidence_id")) for x in trace["gold_evidence"] if x.get("evidence_id")}
+        for stage in STAGES:
+            found = {str(x) for x in (trace.get(stage) or {}).get("found", [])}
+            total[stage] += len(gold & found) / len(gold) if gold else 1.0
+    return {
+        "count": count,
+        "stage_recall": {stage: total[stage] / count for stage in STAGES},
+        "first_loss_distribution": {"not_applicable": count},
+    }
 
+
+def _build_summary(dataset: str, limit: int, rows: list[dict[str, Any]], errors: int) -> dict[str, Any]:
     return {
         "dataset": dataset,
         "limit": limit,
         "records": len(rows),
         "errors": errors,
-        "real_memory": summarize_traces(real_traces) if rows else {},
-        "oracle_memory": summarize_traces(oracle_traces) if rows else {},
-        "oracle_context": summarize_traces(context_traces) if rows else {},
+        "real_memory": summarize_traces([_mode_trace(r, "real_memory") for r in rows]) if rows else {},
+        "oracle_memory": summarize_traces([_mode_trace(r, "oracle_memory") for r in rows]) if rows else {},
+        "oracle_context": _context_only_summary(rows),
         "answer_scoring": "not_run",
         "note": (
-            "Evidence availability control only; no answer accuracy is "
-            "claimed. Oracle Memory currently bypasses formation/storage/"
-            "evolution and exposes gold evidence at the rerank accounting "
-            "boundary rather than running the real reranker."
+            "Evidence availability control only; no answer accuracy is claimed. "
+            "Real formation is approximated by extracted semantic memories; raw "
+            "messages are treated as storage. The current MemoryEngine search "
+            "returns final ranked results, so retrieval/rerank are not independently "
+            "measured. Oracle Memory bypasses real formation/retrieval/reranking "
+            "with gold evidence to estimate an evidence ceiling."
         ),
     }
 
@@ -264,7 +284,6 @@ def run(dataset: str, limit: int) -> dict[str, Any]:
     progress_path = OUT / "progress.json"
     summary_path = OUT / "summary.json"
 
-    # Start a fresh checkpoint file for this invocation.
     jsonl.write_text("", encoding="utf-8")
     rows: list[dict[str, Any]] = []
     errors = 0
@@ -289,31 +308,26 @@ def run(dataset: str, limit: int) -> dict[str, Any]:
         question_id = str(record.get("question_id") or record.get("example_id") or f"row_{idx}")
         log(f"\n[{number}/{limit}] START question_id={question_id}")
         t0 = time.perf_counter()
-
         try:
             row = run_record(record, idx)
             row["_status"] = "ok"
             row["_elapsed_seconds"] = round(time.perf_counter() - t0, 3)
             rows.append(row)
             _write_jsonl(jsonl, row)
-
-            failure = row["modes"]["real_memory"].get("failure_type")
             log(
-                f"[{number}/{limit}] DONE "
-                f"{row['_elapsed_seconds']:.2f}s "
-                f"failure={failure}"
+                f"[{number}/{limit}] DONE {row['_elapsed_seconds']:.2f}s "
+                f"failure={row['modes']['real_memory'].get('failure_type')}"
             )
         except Exception as exc:
             errors += 1
             elapsed = round(time.perf_counter() - t0, 3)
-            error_row = {
+            _write_jsonl(jsonl, {
                 "question_id": question_id,
                 "question": record.get("question"),
                 "_status": "error",
                 "_elapsed_seconds": elapsed,
                 "error": f"{type(exc).__name__}: {exc}",
-            }
-            _write_jsonl(jsonl, error_row)
+            })
             log(f"[{number}/{limit}] ERROR after {elapsed:.2f}s: {exc}")
             traceback.print_exc()
 
@@ -329,10 +343,7 @@ def run(dataset: str, limit: int) -> dict[str, Any]:
         })
 
     summary = _build_summary(dataset, limit, rows, errors)
-    summary_path.write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     _write_progress(progress_path, {
         "status": "completed",
         "dataset": dataset,
@@ -344,10 +355,7 @@ def run(dataset: str, limit: int) -> dict[str, Any]:
     })
 
     log("\n" + "=" * 72)
-    log(
-        f"EXPERIMENT FINISHED: successful={len(rows)}, "
-        f"errors={errors}, elapsed={time.perf_counter() - started:.2f}s"
-    )
+    log(f"EXPERIMENT FINISHED: successful={len(rows)}, errors={errors}, elapsed={time.perf_counter() - started:.2f}s")
     log(f"Results: {jsonl}")
     log(f"Summary: {summary_path}")
     log("=" * 72)
