@@ -156,26 +156,29 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
             },
         },
         "gold_evidence_count": len(gold),
+        "gold_evidence": gold,
     }
 
 
 def run(dataset: str, limit: int) -> dict[str, Any]:
     rows = [run_record(record, i) for i, record in enumerate(iter_normalized(dataset, limit=limit))]
+    # The per-row traces retain the original benchmark evidence IDs. Do not
+    # replace them with positional IDs: that would corrupt recall calculations.
     real_traces = []
     oracle_traces = []
     context_traces = []
     for row in rows:
-        gold_n = row["gold_evidence_count"]
+        gold = row.get("gold_evidence", [])
         real_traces.append({
-            "gold_evidence": [{"evidence_id": str(i)} for i in range(gold_n)],
+            "gold_evidence": gold,
             "retrieval": row["modes"]["real_memory"]["retrieval"],
         })
         oracle_traces.append({
-            "gold_evidence": [{"evidence_id": str(i)} for i in range(gold_n)],
+            "gold_evidence": gold,
             "context": row["modes"]["oracle_memory"]["rerank"],
         })
         context_traces.append({
-            "gold_evidence": [{"evidence_id": str(i)} for i in range(gold_n)],
+            "gold_evidence": gold,
             "context": row["modes"]["oracle_context"]["context"],
         })
 
