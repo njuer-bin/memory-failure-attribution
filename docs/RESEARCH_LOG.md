@@ -338,3 +338,95 @@ This is a refinement of the original research protocol rather than a change of r
 The original 3 F6 cases are no longer treated as confirmed reasoning failures. They are retained as F6 candidates pending semantic calibration.
 
 The next experimental gate is semantic calibration on the existing 10 samples. Only after this protocol is stable should larger LongMemEval experiments be run.
+
+
+## 2026-10-08 — Semantic calibration revealed evaluator and evidence-sufficiency confounds
+
+The 10-sample semantic calibration exposed a second layer of attribution risk: an LLM semantic judge can itself produce false-negative verdicts, and some benchmark Gold Evidence does not fully answer the exact question.
+
+The four apparent F6 candidates were manually inspected:
+
+| ID | Initial semantic verdict | Calibrated interpretation |
+|---|---|---|
+| e47becba | Incorrect | Evaluator false negative. The candidate "Business Administration" directly answers "What degree did I graduate with?" and the Gold Evidence explicitly states a degree in Business Administration. |
+| 58bf7951 | Incorrect | Evaluator false negative. The candidate identifies The Glass Menagerie, exactly matching the Gold Evidence. |
+| 6ade9755 | Incorrect | E0 Evidence/Question Mismatch. The evidence mentions Serenity Yoga but does not explicitly establish that the user takes yoga classes there. |
+| 58ef2f1c | Incorrect | E0 Evidence/Question Mismatch. The evidence describes volunteering at the "Love is in the Air" fundraising dinner on Valentine's Day, while the question asks about a local animal shelter fundraising dinner. |
+
+Therefore the initial four F6 candidates contain 0 confirmed F6 reasoning failures in this 10-sample calibration.
+
+### Protocol revision
+
+The answer-level attribution protocol was revised from:
+
+    semantic incorrect + evidence reaches context -> F6 candidate
+
+to:
+
+    semantic evaluation
+          ↓
+    evidence sufficient?
+       ├── no  -> E0_EVIDENCE_INSUFFICIENT
+       └── yes
+             ↓
+       evidence reaches context?
+       ├── no  -> F1–F5
+       └── yes
+             ↓
+       semantically incorrect with non-low confidence
+             -> F6_REASONING_CANDIDATE
+
+An additional EVAL_SEMANTIC_UNCERTAIN category is used when the semantic evaluation itself cannot support a stable attribution.
+
+### Semantic judge robustness
+
+The semantic evaluator now returns:
+
+- correct
+- evidence_sufficient
+- confidence
+- reason
+- adjudication
+
+A conservative lexical-anchor adjudicator repairs only obvious semantic-judge false negatives when:
+
+1. the judge says the evidence is sufficient;
+2. the judge confidence is not low; and
+3. the candidate contains a meaningful exact phrase shared with the evidence.
+
+This specifically protects against errors such as:
+
+- "Business Administration" being judged as not specifying the degree;
+- "The Glass Menagerie" being judged as a different play.
+
+The lexical-anchor rule is deliberately not applied when evidence is insufficient, so cases such as "Serenity Yoga" are not incorrectly promoted to correct answers merely because the entity name appears in the evidence.
+
+### New attribution categories
+
+The current protocol distinguishes:
+
+- F1_FORMATION
+- F2_STORAGE
+- F3_EVOLUTION
+- F4_RETRIEVAL
+- F5_CONTEXT
+- F6_REASONING_CANDIDATE
+- E0_EVIDENCE_INSUFFICIENT
+- EVAL_SEMANTIC_UNCERTAIN
+
+This is a methodological improvement: answer failure, evidence insufficiency, and reasoning failure are no longer conflated.
+
+### Current scientific conclusion
+
+The 10-sample experiment does not yet demonstrate a confirmed F6 reasoning failure.
+
+Instead, it demonstrates two important methodological facts:
+
+1. lexical and LLM-based answer evaluation can both create attribution artifacts;
+2. Gold Evidence must be checked for sufficiency against the exact question before a downstream reasoning failure can be claimed.
+
+This strengthens the research framing:
+
+> Memory-to-reasoning failure attribution requires both lifecycle evidence tracing and an explicit answer-evaluation/evidence-sufficiency layer.
+
+The experiment should remain at n=10 until this revised protocol is rerun and inspected. Only then should LongMemEval be scaled to 50–100+ samples.
