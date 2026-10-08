@@ -14,6 +14,96 @@ def _message_has_answer(message: Any) -> bool:
     return isinstance(message, dict) and bool(message.get("has_answer"))
 
 
+
+def _answer_text(value: Any) -> str | None:
+    if value is None:
+        return None
+    if isinstance(value, (list, tuple)):
+        parts = [str(x).strip() for x in value if str(x).strip()]
+        return " / ".join(parts) if parts else None
+    if isinstance(value, dict):
+        for key in ("answer", "text", "content", "value"):
+            if value.get(key) is not None:
+                return str(value[key])
+    return str(value)
+
+
+def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
+    if not isinstance(conversation, dict):
+        return []
+    raw_turns = conversation.get("conversation") or conversation.get("messages") or conversation.get("turns") or []
+    turns = []
+    if isinstance(raw_turns, list):
+        for idx, message in enumerate(raw_turns):
+            if not isinstance(message, dict):
+                continue
+            turn_id = (
+                message.get("turn_id")
+                or message.get("dia_id")
+                or message.get("message_id")
+                or message.get("id")
+                or f"turn_{idx}"
+            )
+            text = _message_text(message)
+            if not text:
+                continue
+            turns.append({
+                "turn_id": str(turn_id),
+                "source_id": str(message.get("session_id") or message.get("source_id") or conversation.get("sample_id") or ""),
+                "text": text,
+                "role": str(message.get("role") or message.get("speaker") or ""),
+                "timestamp": message.get("timestamp"),
+            })
+    return turns
+
+
+def _locomo_evidence(raw_evidence: Any, *, example_id: str, conversation: Any) -> list[dict[str, Any]]:
+    turns = _locomo_turns(conversation)
+    by_turn = {t["turn_id"]: t for t in turns}
+    by_text = {t["text"].strip(): t for t in turns}
+    if raw_evidence is None:
+        return []
+    if isinstance(raw_evidence, (str, int, float)):
+        raw_evidence = [raw_evidence]
+    elif isinstance(raw_evidence, dict):
+        raw_evidence = [raw_evidence]
+    result = []
+    for idx, item in enumerate(raw_evidence if isinstance(raw_evidence, list) else []):
+        if isinstance(item, dict):
+            evidence_id = _first(item, "evidence_id", "memory_id", default=f"{example_id}:e{idx}")
+            turn_ref = _first(item, "turn_id", "turn", "dia_id", "dialogue_id", "source_turn_id", "message_id")
+            source_ref = _first(item, "source_id", "session_id", "source", "doc_id")
+            text = _first(item, "text", "content", "evidence", "memory", default="")
+        else:
+            evidence_id, turn_ref, source_ref, text = f"{example_id}:e{idx}", None, None, str(item)
+        turn = by_turn.get(str(turn_ref)) if turn_ref is not None else None
+        if turn is None and str(source_ref or "") in by_turn:
+            turn = by_turn[str(source_ref)]
+        if turn is None and str(text).strip() in by_text:
+            turn = by_text[str(text).strip()]
+        if turn is not None:
+            result.append({
+                "evidence_id": str(evidence_id),
+                "source_id": turn["source_id"] or None,
+                "turn_id": turn["turn_id"],
+                "timestamp": turn.get("timestamp"),
+                "text": turn["text"],
+                "role": turn.get("role", ""),
+                "granularity": "turn",
+            })
+        else:
+            result.append({
+                "evidence_id": str(evidence_id),
+                "source_id": str(source_ref) if source_ref is not None else None,
+                "turn_id": str(turn_ref) if turn_ref is not None else None,
+                "timestamp": item.get("timestamp") if isinstance(item, dict) else None,
+                "text": str(text or ""),
+                "role": str(item.get("role") or item.get("speaker") or "") if isinstance(item, dict) else "",
+                "granularity": "unresolved",
+            })
+    return result
+
+
 def normalize_longmemeval(raw: dict[str, Any], *, dataset: str, index: int) -> dict[str, Any]:
     qid = str(raw.get("question_id", index))
     session_ids = raw.get("haystack_session_ids", []) or []
@@ -84,7 +174,7 @@ def normalize_longmemeval(raw: dict[str, Any], *, dataset: str, index: int) -> d
     }
 
 
-def normalize_locomo_refined(raw: dict[str, Any], *, index: int) -> dict[str, Any]:
+def normalize_locomo_refined(raw: dict[str, Any], *, index: int, conversation: dict[str, Any] | None = None) -> dict[str, Any]:
     qid = str(_first(raw, "qa_id", "question_id", "id", default=index))
     sample_id = _first(raw, "sample_id", "conversation_id")
     answer = raw.get("answer")
@@ -98,11 +188,11 @@ def normalize_locomo_refined(raw: dict[str, Any], *, index: int) -> dict[str, An
         "split": "public", "example_id": f"locomo_refined_public:{qid}",
         "conversation_id": str(sample_id) if sample_id is not None else None,
         "question_id": qid, "question": str(raw.get("question", "")),
-        "answer": answer, "gold_evidence": evidence, "conversation": [],
+        "answer": _answer_text(answer), "gold_evidence": evidence, "conversation": conversation,
         "task_type": task,
         "metadata": {
             "conversation_idx": raw.get("conversation_idx"),
             "qa_index": raw.get("qa_index"), "raw": raw,
-            "normalization": "locomo_refined_v1",
+            "normalization": "locomo_refined_v2_turn_provenance",\n            "evidence_resolution": {\n                "resolved_turns": sum(1 for e in evidence if e.get("granularity") == "turn"),\n                "unresolved": sum(1 for e in evidence if e.get("granularity") == "unresolved"),\n            },
         },
     }
