@@ -265,6 +265,9 @@ def _answer_failure_type(mode_data: dict[str, Any]) -> str | None:
     if answer.get("correct") is not False:
         return None
 
+    if mode_data.get("mode") == "oracle_context":
+        return "F6_REASONING"
+
     gold = {str(x.get("evidence_id")) for x in mode_data.get("gold_evidence", []) if x.get("evidence_id")}
     if not gold:
         return "F6_REASONING"
@@ -354,6 +357,7 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     log(f"    [real] retrieval done in {time.perf_counter() - t0:.2f}s; artifacts={len(real)}")
 
     _real_trace_stages(trace, gold, engine, user_id, real, engine.last_search_trace)
+    search_trace = engine.last_search_trace
     real_context = search_trace.get("context") or real
     real_answer = _score_mode_answer(record["question"], record.get("answer", ""), real_context)
     oracle_memory_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle)
@@ -405,7 +409,7 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     }
     for mode in ("real_memory", "oracle_memory", "oracle_context"):
         row["modes"][mode]["answer_failure_type"] = _answer_failure_type(
-            {"gold_evidence": gold, **row["modes"][mode]}
+            {"gold_evidence": gold, "mode": mode, **row["modes"][mode]}
         )
     return row
 
