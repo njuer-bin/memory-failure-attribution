@@ -16,11 +16,12 @@ def evidence_items(record: dict[str, Any]) -> list[EvidenceItem]:
                 evidence_id=str(item["evidence_id"]),
                 text=str(item.get("text") or ""),
                 source=item.get("source_id") or item.get("source"),
+                turn_id=item.get("turn_id") or item.get("turn"),
                 timestamp=item.get("timestamp"),
                 metadata={
                     k: v
                     for k, v in item.items()
-                    if k not in {"evidence_id", "text", "source_id", "source", "timestamp"}
+                    if k not in {"evidence_id", "text", "source_id", "source", "turn_id", "turn", "timestamp"}
                 },
             )
         )
@@ -28,11 +29,7 @@ def evidence_items(record: dict[str, Any]) -> list[EvidenceItem]:
 
 
 def record_to_trace(record: dict[str, Any]) -> MemoryTrace:
-    """Create an empty lifecycle trace populated with benchmark gold evidence.
-
-    Pipeline implementations can then fill formation/storage/evolution/retrieval/
-    rerank/context and answer fields without knowing the source benchmark schema.
-    """
+    """Create an empty lifecycle trace populated with benchmark gold evidence."""
     return MemoryTrace(
         question_id=str(record.get("question_id") or record.get("example_id") or ""),
         question=str(record.get("question") or ""),
