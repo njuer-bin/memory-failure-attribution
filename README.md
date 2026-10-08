@@ -25,8 +25,10 @@ Conversation → Formation → Storage → Evolution → Retrieval → Reranking
 - **F4 Retrieval** — required evidence exists in memory but is not retrieved or reranked into the usable set.
 - **F5 Context** — required evidence is lost before the final answer context.
 - **F6 Reasoning** — required evidence reaches the final context and a semantically incorrect answer is still produced.
+- **E0 Evidence Insufficiency** — Gold Evidence does not actually establish the attribute requested by the question, or the benchmark evidence/question pairing is mismatched.
+- **EVAL Semantic Uncertainty** — answer evaluation is not reliable enough to support attribution.
 
-F6 is treated as a **candidate attribution** until answer correctness has been validated by the semantic evaluation protocol.
+F6 is treated as a **candidate attribution** only when evidence is sufficient, all required evidence reaches final context, and semantic evaluation is sufficiently confident.
 
 ## Repository structure
 
@@ -49,7 +51,7 @@ The core diagnosis compares three controlled conditions:
 
 The oracle conditions are controls, not competing production systems. Their purpose is to isolate memory-induced evidence loss from downstream answer failures.
 
-## Two-layer evaluation protocol
+## Answer evaluation and attribution protocol
 
 A key methodological lesson from the first 10-sample experiment is that lexical answer matching is insufficient for open-ended benchmark QA.
 
@@ -68,13 +70,40 @@ The project therefore keeps the original reproducible lexical metrics:
 - Exact Match (EM)
 - Token F1
 
-and adds an independent semantic answer evaluation layer:
+and adds a semantic evaluation layer that separately asks:
 
-- **Semantic Correctness** — whether the candidate answer correctly answers the question and is supported by Gold Evidence, without requiring lexical overlap with a long reference sentence.
+1. **Is the Gold Evidence sufficient to answer the exact question?**
+2. **If sufficient, is the candidate answer semantically correct?**
+3. **Is the evaluator confident enough to support attribution?**
+
+The attribution rule is conservative:
+
+    Answer evaluation
+          ↓
+    Evidence sufficient?
+       ├── no  → E0_EVIDENCE_INSUFFICIENT
+       └── yes
+             ↓
+       Gold Evidence reaches final context?
+       ├── no  → F1–F5
+       └── yes
+             ↓
+       Semantically incorrect + non-low confidence
+             → F6_REASONING_CANDIDATE
+
+If the evaluator itself is unavailable or uncertain, the result is recorded as
+EVAL_SEMANTIC_UNCERTAIN rather than being forced into F6.
+
+The semantic evaluator also contains a narrow lexical-anchor adjudication rule:
+when the judge says evidence is sufficient but incorrectly rejects a candidate that
+contains a meaningful exact phrase from the evidence, the result can be repaired.
+This is deliberately disabled for evidence-insufficient cases, so merely mentioning
+an entity such as "Serenity Yoga" does not prove that the evidence answers "Where do
+I take yoga classes?"
 
 This distinction is important because answer correctness is upstream of F6 attribution:
 
-Evidence tracing + reliable answer evaluation → reliable failure attribution
+Evidence tracing + evidence sufficiency + reliable answer evaluation → reliable failure attribution
 
 ## Diagnostic metrics
 
@@ -110,9 +139,16 @@ The initial lexical scoring produced:
 | Oracle Memory | 0.50 | 0.40 | 0.5808 |
 | Oracle Context | 0.50 | 0.40 | 0.5808 |
 
-However, post-hoc inspection found that some apparent errors were actually **reference-answer lexical mismatches**. For example, concise answers such as The Glass Menagerie and From a sports store downtown. are semantically supported by the evidence even though their token overlap with a longer reference can be low.
+However, post-hoc inspection showed that lexical scoring can create apparent answer failures when a concise correct answer is compared with a longer reference.
 
-Therefore the original 3 F6 cases are now treated as **F6 candidates**, not confirmed reasoning failures.
+Semantic calibration then exposed two additional issues: the semantic judge itself produced false-negative judgments, and some Gold Evidence did not fully answer the exact question. In the 10-sample calibration, the four apparent F6 candidates were reclassified as:
+
+- e47becba — evaluator false negative
+- 58bf7951 — evaluator false negative
+- 6ade9755 — E0 evidence/question mismatch
+- 58ef2f1c — E0 evidence/question mismatch
+
+Thus the current 10-sample result contains **0 confirmed F6 reasoning failures**. This is a protocol-calibration result, not evidence that F6 never occurs.
 
 The unexpected Real Memory > Oracle Context ordering is also not interpreted as a memory-system advantage. It is being investigated jointly with answer-evaluation calibration.
 
@@ -148,7 +184,7 @@ The project currently has:
 - semantic answer calibration
 - post-hoc anomaly analysis
 
-The immediate next step is to run semantic calibration on the existing 10 samples. Only after the answer-evaluation protocol is stable should the benchmark be scaled to 50–100+ LongMemEval samples, followed by LoCoMo cross-benchmark validation and statistically useful failure-attribution tables.
+The immediate next step is to rerun the revised semantic calibration on the existing 10 samples and inspect the new E0/F6 distributions. Only after the revised answer-evaluation and evidence-sufficiency protocol is stable should the benchmark be scaled to 50–100+ LongMemEval samples, followed by LoCoMo cross-benchmark validation and statistically useful failure-attribution tables.
 
 Detailed experimental history is maintained in docs/RESEARCH_LOG.md.
 
