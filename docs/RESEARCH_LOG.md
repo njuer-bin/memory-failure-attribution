@@ -501,3 +501,19 @@ The previous n=50 LoCoMo result must not be used as a paper result. Re-run valid
     G:\\aconda\\python.exe -u -m experiments.run_oracle_experiments --dataset locomo_refined_public --limit 50
 
 Do not run semantic calibration until the new lifecycle and answer-alignment checks pass.
+
+## 2026-10-08 — LoCoMo adapter fix v2: nested session structure
+
+The first provenance fix did not change the anomalous n=50 result. Code inspection identified a second, more specific adapter defect: LoCoMo's `conversation` field is session-structured (11 sessions), while the adapter's turn normalizer treated the session list itself as a flat message list. Consequently, no canonical turn records were produced for most evidence matching, leaving 49/50 cases at the formation boundary.
+
+The adapter has now been corrected to explicitly flatten:
+
+    conversation -> sessions -> messages
+
+and construct canonical provenance per message:
+
+    <session_id>:turn_<message_index>
+
+while preserving the benchmark `dia_id/message_id` separately. Conversation lookup was also hardened with a conversation-index fallback.
+
+The previous two LoCoMo n=50 runs remain invalid for scientific attribution. A fresh n=50 run is required before any semantic calibration.
