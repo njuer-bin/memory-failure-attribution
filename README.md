@@ -41,7 +41,7 @@ This separates upstream memory loss from downstream reasoning failure.
 
 ## Diagnostic metrics
 
-The project records Evidence Recall, Evidence Precision, Complete Evidence, Answer F1/EM, Temporal Accuracy, Failure Distribution, and first-loss accuracy.
+The project records Evidence Recall, Evidence Precision, Complete Evidence, Answer F1/EM, Temporal Accuracy, Failure Distribution, and first-loss accuracy. Answer scoring is now implemented for the oracle experiment using a configurable local Ollama model plus exact match/token-F1 scoring; an answer-level F6 reasoning attribution is emitted when the final context contains all required evidence but the answer remains incorrect.
 
 ## Relationship to agent_memory
 
@@ -49,4 +49,4 @@ njuer-bin/agent_memory remains the AML competition implementation. This reposito
 
 ## Research status
 
-The reusable memory engine and the first research-layer tracing and metric scaffolding are now in place. The next implementation stage is to connect these traces to the existing LoCoMo and AML test runners, then generate the first failure-attribution tables and oracle comparisons.
+The reusable memory engine, lifecycle tracing, oracle controls, and benchmark answer scoring are now in place. The next stage is to calibrate the answer threshold and run larger LongMemEval/LoCoMo samples, then generate statistically useful failure-attribution tables and oracle comparisons.
