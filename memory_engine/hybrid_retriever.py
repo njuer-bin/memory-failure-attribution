@@ -41,10 +41,12 @@ class HybridRetriever:
             docs.append({
                 "id": r["id"], "content": r["content"], "role": r["role"],
                 "timestamp": r["timestamp"], "user_id": user_id,
-                "session_id": r["session_id"], "memory_type": "raw",
+                "session_id": r["session_id"], "source_session_id": r["session_id"], "source_turn_id": r.get("source_turn_id"),
+                "source_raw_id": r["id"], "memory_type": "raw",
                 "status": "active", "source": "raw",
                 "valid_from": r["timestamp"], "valid_to": None,
-                "metadata": {"request_id": r["request_id"]},
+                "metadata": {"request_id": r["request_id"], "source_raw_id": r["id"],
+                             "source_session_id": r["session_id"], "source_turn_id": r.get("source_turn_id")},
             })
 
         for f in facts:
@@ -54,6 +56,8 @@ class HybridRetriever:
                 "session_id": f.get("source_session_id") or "", "memory_type": "fact",
                 "status": f["status"], "source": "atomic_fact",
                 "valid_from": f["valid_from"], "valid_to": f["valid_to"],
+                "source_raw_id": f.get("source_raw_id"), "source_session_id": f.get("source_session_id"),
+                "source_turn_id": f.get("source_turn_id"),
                 "metadata": {"subject":f["subject"],"predicate":f["predicate"],
                              "object":f["object"],"supersedes_id":f["supersedes_id"],
                              "source":f.get("source", "user"),
@@ -86,6 +90,8 @@ class HybridRetriever:
                 "session_id": r.get("source_session_id") or "", "memory_type": "relation",
                 "status": "active", "source": "graph",
                 "valid_from": r["timestamp"], "valid_to": None,
+                "source_raw_id": r.get("source_raw_id"), "source_session_id": r.get("source_session_id"),
+                "source_turn_id": r.get("source_turn_id"),
                 "metadata": {"subject":r["subject"],"predicate":r["predicate"],
                              "object":r["object"], "source_raw_id":r.get("source_raw_id"),
                              "source_session_id":r.get("source_session_id"), "source_turn_id":r.get("source_turn_id")},
@@ -98,6 +104,8 @@ class HybridRetriever:
                 "session_id": r.get("source_session_id") or "", "memory_type": "rule",
                 "status": "active", "source": "rule",
                 "valid_from": r["timestamp"], "valid_to": None,
+                "source_raw_id": r.get("source_raw_id"), "source_session_id": r.get("source_session_id"),
+                "source_turn_id": r.get("source_turn_id"),
                 "metadata": {"source_raw_id":r.get("source_raw_id"), "source_session_id":r.get("source_session_id"), "source_turn_id":r.get("source_turn_id")},
             })
 
@@ -109,7 +117,10 @@ class HybridRetriever:
                 "session_id": "", "memory_type": "profile",
                 "status": "active", "source": "profile",
                 "valid_from": p["timestamp"], "valid_to": None,
-                "metadata": {"key":p["key"],"value":p["value"]},
+                "source_raw_id": p.get("source_raw_id"), "source_session_id": p.get("source_session_id"),
+                "source_turn_id": p.get("source_turn_id"),
+                "metadata": {"key":p["key"],"value":p["value"], "source_raw_id":p.get("source_raw_id"),
+                             "source_session_id":p.get("source_session_id"), "source_turn_id":p.get("source_turn_id")},
             })
 
         if memory_types:
