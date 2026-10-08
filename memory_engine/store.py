@@ -238,11 +238,36 @@ class SQLiteStore:
             self._ensure_sqlite_columns(c)
 
     def _ensure_sqlite_columns(self, c):
-        existing = {row[1] for row in c.execute("PRAGMA table_info(atomic_facts)").fetchall()}
-        wanted = {"source": "TEXT NOT NULL DEFAULT 'user'", "conflict_status": "TEXT NOT NULL DEFAULT 'none'", "conflict_group_id": "TEXT"}
-        for name, definition in wanted.items():
-            if name not in existing:
-                c.execute(f"ALTER TABLE atomic_facts ADD COLUMN {name} {definition}")
+        tables = {
+            "raw_memories": {
+                "source_turn_id": "TEXT",
+            },
+            "atomic_facts": {
+                "source": "TEXT NOT NULL DEFAULT 'user'",
+                "conflict_status": "TEXT NOT NULL DEFAULT 'none'",
+                "conflict_group_id": "TEXT",
+                "source_raw_id": "TEXT",
+                "source_session_id": "TEXT",
+                "source_turn_id": "TEXT",
+            },
+            "entity_relations": {
+                "source_raw_id": "TEXT", "source_session_id": "TEXT", "source_turn_id": "TEXT",
+            },
+            "timeline_events": {
+                "source_raw_id": "TEXT", "source_session_id": "TEXT", "source_turn_id": "TEXT",
+            },
+            "rule_memories": {
+                "source_raw_id": "TEXT", "source_session_id": "TEXT", "source_turn_id": "TEXT",
+            },
+            "user_profiles": {
+                "source_raw_id": "TEXT", "source_session_id": "TEXT", "source_turn_id": "TEXT",
+            },
+        }
+        for table, wanted in tables.items():
+            existing = {row[1] for row in c.execute(f"PRAGMA table_info({table})").fetchall()}
+            for name, definition in wanted.items():
+                if name not in existing:
+                    c.execute(f"ALTER TABLE {table} ADD COLUMN {name} {definition}")
 
     def _init_postgres(self):
         statements = [
