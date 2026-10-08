@@ -71,6 +71,7 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
 def _locomo_evidence(raw_evidence: Any, *, example_id: str, conversation: Any) -> list[dict[str, Any]]:
     turns = _locomo_turns(conversation)
     by_turn = {t["turn_id"]: t for t in turns}
+    by_benchmark_turn = {t["benchmark_turn_id"]: t for t in turns}
     by_text = {t["text"].strip(): t for t in turns}
     if raw_evidence is None:
         return []
@@ -88,6 +89,8 @@ def _locomo_evidence(raw_evidence: Any, *, example_id: str, conversation: Any) -
         else:
             evidence_id, turn_ref, source_ref, text = f"{example_id}:e{idx}", None, None, str(item)
         turn = by_turn.get(str(turn_ref)) if turn_ref is not None else None
+        if turn is None and turn_ref is not None:
+            turn = by_benchmark_turn.get(str(turn_ref))
         if turn is None and str(source_ref or "") in by_turn:
             turn = by_turn[str(source_ref)]
         if turn is None and str(text).strip() in by_text:
