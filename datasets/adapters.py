@@ -191,22 +191,39 @@ def normalize_longmemeval(raw: dict[str, Any], *, dataset: str, index: int) -> d
 def normalize_locomo_refined(raw: dict[str, Any], *, index: int, conversation: dict[str, Any] | None = None) -> dict[str, Any]:
     qid = str(_first(raw, "qa_id", "question_id", "id", default=index))
     sample_id = _first(raw, "sample_id", "conversation_id")
+    conversation = conversation or {}
     answer = raw.get("answer")
-    evidence = _evidence_items(
-        _first(raw, "evidence", "gold_evidence", "supporting_evidence"),
-        f"locomo_refined_public:{qid}",
+    raw_evidence = _first(raw, "evidence", "gold_evidence", "supporting_evidence")
+    evidence = _locomo_evidence(
+        raw_evidence,
+        example_id=f"locomo_refined_public:{qid}",
+        conversation=conversation,
     )
     task = [str(raw.get("category"))] if raw.get("category") is not None else []
     return {
-        "dataset": "locomo_refined_public", "family": "LoCoMo-Refined",
-        "split": "public", "example_id": f"locomo_refined_public:{qid}",
+        "dataset": "locomo_refined_public",
+        "family": "LoCoMo-Refined",
+        "split": "public",
+        "example_id": f"locomo_refined_public:{qid}",
         "conversation_id": str(sample_id) if sample_id is not None else None,
-        "question_id": qid, "question": str(raw.get("question", "")),
-        "answer": _answer_text(answer), "gold_evidence": evidence, "conversation": conversation,
+        "question_id": qid,
+        "question": str(raw.get("question", "")),
+        "answer": _answer_text(answer),
+        "gold_evidence": evidence,
+        "conversation": conversation,
         "task_type": task,
         "metadata": {
             "conversation_idx": raw.get("conversation_idx"),
-            "qa_index": raw.get("qa_index"), "raw": raw,
-            "normalization": "locomo_refined_v2_turn_provenance",\n            "evidence_resolution": {\n                "resolved_turns": sum(1 for e in evidence if e.get("granularity") == "turn"),\n                "unresolved": sum(1 for e in evidence if e.get("granularity") == "unresolved"),\n            },
+            "qa_index": raw.get("qa_index"),
+            "raw": raw,
+            "normalization": "locomo_refined_v2_turn_provenance",
+            "evidence_resolution": {
+                "resolved_turns": sum(
+                    1 for e in evidence if e.get("granularity") == "turn"
+                ),
+                "unresolved": sum(
+                    1 for e in evidence if e.get("granularity") == "unresolved"
+                ),
+            },
         },
     }
