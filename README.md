@@ -148,7 +148,7 @@ Semantic calibration then exposed two additional issues: the semantic judge itse
 - 6ade9755 — E0 evidence/question mismatch
 - 58ef2f1c — E0 evidence/question mismatch
 
-Thus the current 10-sample result contains **0 confirmed F6 reasoning failures**. This is a protocol-calibration result, not evidence that F6 never occurs.
+The revised 10-sample calibration now contains **0 F6 reasoning candidates**, **1 E0 evidence-insufficiency case**, and **0 semantic-evaluation-uncertain cases**. This is a protocol-calibration result, not evidence that F6 never occurs. The remaining E0 case is the local-animal-shelter fundraising-dinner question, whose Gold Evidence describes a different fundraising dinner. Oracle Memory scores 10/10 semantically, while Oracle Context remains 9/10 because the same deficient Gold Evidence is supplied directly to the answer model.
 
 The unexpected Real Memory > Oracle Context ordering is also not interpreted as a memory-system advantage. It is being investigated jointly with answer-evaluation calibration.
 
@@ -184,7 +184,7 @@ The project currently has:
 - semantic answer calibration
 - post-hoc anomaly analysis
 
-The immediate next step is to rerun the revised semantic calibration on the existing 10 samples and inspect the new E0/F6 distributions. Only after the revised answer-evaluation and evidence-sufficiency protocol is stable should the benchmark be scaled to 50–100+ LongMemEval samples, followed by LoCoMo cross-benchmark validation and statistically useful failure-attribution tables.
+The revised n=10 semantic calibration gate is now stable. The next step is to freeze this protocol and scale to n=50 LongMemEval samples, followed by inspection and then larger evaluation. LoCoMo cross-benchmark validation and statistically useful failure-attribution tables come after the larger LongMemEval run.
 
 Detailed experimental history is maintained in docs/RESEARCH_LOG.md.
 
