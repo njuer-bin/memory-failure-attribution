@@ -430,3 +430,59 @@ This strengthens the research framing:
 > Memory-to-reasoning failure attribution requires both lifecycle evidence tracing and an explicit answer-evaluation/evidence-sufficiency layer.
 
 The experiment should remain at n=10 until this revised protocol is rerun and inspected. Only then should LongMemEval be scaled to 50–100+ samples.
+
+
+## 2026-10-08 — Semantic calibration protocol stabilized on n=10
+
+The revised 10-sample calibration was rerun after strengthening the evidence-sufficiency adjudication rule.
+
+Command:
+
+    G:\\aconda\\python.exe -u -m experiments.semantic_calibration
+
+Results:
+
+- records: 10
+- semantic evaluation errors: 0
+- F6 candidates: 0
+- E0 evidence-insufficiency cases: 1
+- evaluation-uncertain cases: 0
+
+Real Memory: semantic correct 9/10; semantic incorrect 1/10; F6 candidates 0; E0 cases 1.
+
+Oracle Memory: semantic correct 10/10; semantic incorrect 0/10.
+
+Oracle Context: semantic correct 9/10; semantic incorrect 1/10.
+
+The remaining non-correct case is 58ef2f1c, which is now correctly classified as E0 rather than F6. Its Gold Evidence describes volunteering at the “Love is in the Air” fundraising dinner on Valentine’s Day, while the question asks about a local animal shelter fundraising dinner. The evidence therefore does not establish the requested event.
+
+### Protocol outcome
+
+The revised calibration successfully removed the four previously observed false F6 pathways: two semantic-judge false negatives were repaired by the narrow lexical-anchor adjudicator, and two evidence/question mismatches were prevented from becoming F6 through the evidence-sufficiency guard.
+
+The current 10-sample protocol therefore produces:
+
+    F6_REASONING_CANDIDATE = 0
+    E0_EVIDENCE_INSUFFICIENT = 1
+    EVAL_SEMANTIC_UNCERTAIN = 0
+
+This is the first stable calibration point for the revised attribution protocol.
+
+### Important interpretation
+
+The result does not mean that the memory system is perfect or that reasoning failures do not exist. It means only that this 10-sample calibration set contains no case that currently satisfies all conditions required for a conservative F6 attribution.
+
+The difference between Real Memory 9/10 and Oracle Memory 10/10 should not yet be interpreted as a quantified memory failure rate. The sample is too small, and the E0 case highlights that benchmark evidence quality itself can affect answer-level scoring.
+
+Oracle Context remains 9/10 because the same E0 benchmark/evidence mismatch is still present when Gold Evidence is passed directly to the answer model. This is expected under the current protocol: Oracle Context is a control for memory-side evidence loss, not a repair mechanism for deficient Gold Evidence.
+
+### Research gate
+
+The semantic calibration gate is now passed at n=10:
+
+1. lexical false negatives are explicitly handled;
+2. evidence/question mismatch is separated as E0;
+3. uncertain semantic judgments are separated as EVAL;
+4. F6 is reserved for evidence-sufficient, context-complete, semantically incorrect cases.
+
+The next stage is to scale the same frozen protocol to a larger LongMemEval sample, starting with n=50. The protocol should not be changed after inspecting individual 50-sample outcomes except for pre-registered implementation bugs or clearly documented evaluator failures.
