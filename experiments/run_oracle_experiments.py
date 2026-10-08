@@ -124,6 +124,66 @@ def _real_engine(record: dict[str, Any], idx: int) -> tuple[MemoryEngine, str]:
     return engine, user_id
 
 
+def _formation_diagnostics(
+    gold: list[dict[str, Any]],
+    stored: dict[str, list[dict[str, Any]]],
+) -> list[dict[str, Any]]:
+    """Explain why each gold turn did or did not form semantic memory.
+
+    This deliberately separates extractor coverage from provenance bugs. A raw
+    source turn can exist in storage while producing no fact/relation/event/rule/
+    profile at all; that is an extractor miss, not storage loss.
+    """
+    semantic = (
+        stored["facts"]
+        + stored["relations"]
+        + stored["events"]
+        + stored["rules"]
+        + stored["profiles"]
+    )
+    raw = stored["raw"]
+    diagnostics = []
+
+    for evidence in gold:
+        source_id = str(evidence.get("source_id") or evidence.get("source") or "")
+        turn_id = str(evidence.get("turn_id") or evidence.get("turn") or "")
+        raw_matches = [
+            item for item in raw
+            if (turn_id and str(item.get("source_turn_id") or item.get("turn_id") or "") == turn_id)
+            or (source_id and str(item.get("source_id") or item.get("session_id") or "") == source_id)
+        ]
+        turn_semantic = [
+            item for item in semantic
+            if turn_id and str(item.get("source_turn_id") or item.get("turn_id") or "") == turn_id
+        ]
+        session_semantic = [
+            item for item in semantic
+            if source_id and str(item.get("source_session_id") or item.get("source_id") or item.get("session_id") or "") == source_id
+        ]
+
+        if not raw_matches:
+            classification = "F1d_UNKNOWN"
+        elif turn_semantic:
+            classification = "FORMATION_OK"
+        elif session_semantic:
+            classification = "F1c_REPRESENTATION_MISMATCH"
+        else:
+            classification = "F1a_EXTRACTOR_MISS"
+
+        diagnostics.append({
+            "gold_evidence_id": evidence.get("evidence_id"),
+            "source_session_id": source_id or None,
+            "source_turn_id": turn_id or None,
+            "source_message_found": bool(raw_matches),
+            "source_message_count": len(raw_matches),
+            "semantic_memory_count_same_turn": len(turn_semantic),
+            "semantic_memory_count_same_session": len(session_semantic),
+            "semantic_memory_ids_same_turn": [str(x.get("id")) for x in turn_semantic if x.get("id")],
+            "classification": classification,
+        })
+    return diagnostics
+
+
 def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEngine, user_id: str, real: list[dict[str, Any]], search_trace: dict[str, Any]) -> None:
     stored = artifacts_from_store(engine, user_id)
 
@@ -140,6 +200,7 @@ def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEng
     evolution = stored["facts"] + stored["relations"] + stored["events"] + stored["rules"] + stored["profiles"]
 
     trace.formation = type(trace.formation)(**_stage(gold, formation, "real_memory"))
+    trace.formation.details["diagnostics"] = _formation_diagnostics(gold, stored)
     trace.storage = type(trace.storage)(**_stage(gold, storage, "real_memory"))
     trace.evolution = type(trace.evolution)(**_stage(gold, evolution, "real_memory"))
     retrieval = search_trace.get("retrieval_candidates") or real
