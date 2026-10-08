@@ -1,4 +1,4 @@
-"""Helpers for matching benchmark evidence to memory-engine artifacts."""
+"""Evidence matching across memory-lifecycle stages."""
 from __future__ import annotations
 
 import re
@@ -16,42 +16,104 @@ def _text(item: Any) -> str:
     return str(item or "")
 
 
-def match_evidence(gold: Iterable[dict[str, Any]], observed: Iterable[Any]) -> dict[str, Any]:
-    """Match gold evidence to observed memory objects by normalized text.
+def _tokens(text: str) -> set[str]:
+    # Character bigrams make the matcher useful for Chinese without requiring
+    # a heavyweight tokenizer; word tokens are retained for Latin text.
+    value = normalize_text(text)
+    chars = {value[i:i + 2] for i in range(max(0, len(value) - 1))}
+    words = set(re.findall(r"[a-z0-9_]+", value))
+    return chars | words
 
-    Benchmark source IDs and engine-generated memory IDs are intentionally kept
-    separate. This makes the attribution layer benchmark-agnostic and avoids
-    pretending that a raw benchmark turn ID is an internal memory ID.
+
+def _semantic_similarity(a: str, b: str) -> float:
+    ta, tb = _tokens(a), _tokens(b)
+    if not ta or not tb:
+        return 0.0
+    return len(ta & tb) / max(1, min(len(ta), len(tb)))
+
+
+def _source_match(evidence: dict[str, Any], artifact: Any) -> bool:
+    if not isinstance(artifact, dict):
+        return False
+    source = evidence.get("source_id") or evidence.get("source")
+    turn = evidence.get("turn_id")
+    artifact_source = artifact.get("source_id") or artifact.get("session_id")
+    artifact_turn = artifact.get("turn_id") or artifact.get("source_turn_id")
+    if turn and artifact_turn and str(turn) == str(artifact_turn):
+        return True
+    return bool(source and artifact_source and str(source) == str(artifact_source))
+
+
+def match_evidence(
+    gold: Iterable[dict[str, Any]],
+    observed: Iterable[Any],
+    *,
+    semantic_threshold: float = 0.55,
+) -> dict[str, Any]:
+    """Match gold evidence using exact, provenance, then semantic evidence.
+
+    Exact text is strongest. Provenance/source matching is used when an
+    artifact carries benchmark turn/session lineage. Semantic matching handles
+    normal memory formation, where a fact such as "用户居住在杭州" is a
+    faithful representation of a longer source turn.
     """
     observed_list = list(observed)
-    buckets: dict[str, list[Any]] = {}
-    for item in observed_list:
-        key = normalize_text(_text(item))
-        if key:
-            buckets.setdefault(key, []).append(item)
+    found: list[str] = []
+    missing: list[str] = []
+    matches: dict[str, Any] = {}
+    match_types: dict[str, str] = {}
+    match_scores: dict[str, float] = {}
 
-    found, missing = [], []
-    matches = {}
     for idx, evidence in enumerate(gold):
         evidence_id = str(evidence.get("evidence_id") or f"gold_{idx}")
-        key = normalize_text(evidence.get("text"))
-        hit = bool(key and buckets.get(key))
-        if hit:
-            found.append(evidence_id)
-            matches[evidence_id] = buckets[key][0]
-        else:
+        gold_text = str(evidence.get("text") or "")
+        best = None
+        best_type = None
+        best_score = 0.0
+
+        # 1. Exact text.
+        norm_gold = normalize_text(gold_text)
+        if norm_gold:
+            for artifact in observed_list:
+                if normalize_text(_text(artifact)) == norm_gold:
+                    best, best_type, best_score = artifact, "exact", 1.0
+                    break
+
+        # 2. Provenance. This can succeed even when memory formation rewrites
+        # the source text.
+        if best is None:
+            for artifact in observed_list:
+                if _source_match(evidence, artifact):
+                    best, best_type, best_score = artifact, "provenance", 1.0
+                    break
+
+        # 3. Semantic representation.
+        if best is None and gold_text:
+            for artifact in observed_list:
+                score = _semantic_similarity(gold_text, _text(artifact))
+                if score > best_score:
+                    best, best_type, best_score = artifact, "semantic", score
+            if best_score < semantic_threshold:
+                best, best_type, best_score = None, None, 0.0
+
+        if best is None:
             missing.append(evidence_id)
+        else:
+            found.append(evidence_id)
+            matches[evidence_id] = best
+            match_types[evidence_id] = best_type
+            match_scores[evidence_id] = round(best_score, 4)
 
     return {
         "found": sorted(found),
         "missing": sorted(missing),
         "matches": matches,
+        "match_types": match_types,
+        "match_scores": match_scores,
         "observed_count": len(observed_list),
     }
 
 
-def stage_from_observed(
-    gold: Iterable[dict[str, Any]], observed: Iterable[Any]
-) -> dict[str, Any]:
+def stage_from_observed(gold: Iterable[dict[str, Any]], observed: Iterable[Any]) -> dict[str, Any]:
     result = match_evidence(gold, observed)
     return {k: v for k, v in result.items() if k != "matches"}
