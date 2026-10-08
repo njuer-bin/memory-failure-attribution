@@ -1,0 +1,1902 @@
+[
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "1",
+  "theme": "Creating a basic app to track income and expenses with simple analytics",
+  "n_messages": 188,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "2",
+  "theme": "Fetching and displaying weather data for user-specified locations",
+  "n_messages": 200,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "3",
+  "theme": "Creating a personal portfolio to showcase skills and projects",
+  "n_messages": 194,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "4",
+  "theme": "Investigating properties, theorems, and problem-solving techniques related to triangles",
+  "n_messages": 212,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "5",
+  "theme": "Calculating simple probabilities and exploring common probability puzzles",
+  "n_messages": 238,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "6",
+  "theme": "Structuring, optimizing, and tailoring resumes for multiple industries and career stages",
+  "n_messages": 258,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "7",
+  "theme": "From research planning to compelling argumentation in essays across disciplines",
+  "n_messages": 260,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "8",
+  "theme": "Personalizing, storytelling, and aligning with employer values",
+  "n_messages": 268,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "9",
+  "theme": "Balancing personal narrative with professional credibility for academic, visa, and grant applications",
+  "n_messages": 270,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "10",
+  "theme": "Techniques, tools, and mental models for refining writing quality over time",
+  "n_messages": 344,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "11",
+  "theme": "Balancing efficiency with fairness, privacy, and bias concerns in recruitment",
+  "n_messages": 388,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "12",
+  "theme": "Weighing philosophical, scientific, and practical consequences of accepting or rejecting free will",
+  "n_messages": 392,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "13",
+  "theme": "Exploring different genres to find a captivating long-form reading experience",
+  "n_messages": 310,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "14",
+  "theme": "Balancing entertainment value, age appropriateness, and availability across platforms",
+  "n_messages": 268,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "15",
+  "theme": "Finding footwear that combines fashion, comfort, and durability",
+  "n_messages": 272,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "16",
+  "theme": "Managing money wisely to reduce stress and support your long-term goals",
+  "n_messages": 322,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "17",
+  "theme": "Organizing your schedule to achieve goals while protecting personal well-being",
+  "n_messages": 286,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "18",
+  "theme": "Restoring energy, rediscovering purpose, and preventing future burnout",
+  "n_messages": 362,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "19",
+  "theme": "Protecting assets and ensuring wishes are honored after death",
+  "n_messages": 328,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "100K-00000-of-00001.parquet",
+  "conversation_id": "20",
+  "theme": "Navigating the patent process from concept to legal protection",
+  "n_messages": 372,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00000-of-00002.parquet",
+  "conversation_id": "1",
+  "theme": "Integrating massive document retrieval with LLM-powered answers",
+  "n_messages": 19895,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00000-of-00002.parquet",
+  "conversation_id": "2",
+  "theme": "Building a virtual testbed for autonomous driving algorithms",
+  "n_messages": 19057,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00000-of-00002.parquet",
+  "conversation_id": "3",
+  "theme": "Simulating cooperation and competition among autonomous agents",
+  "n_messages": 20192,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00000-of-00002.parquet",
+  "conversation_id": "4",
+  "theme": "Studying and solving complex PDEs with theoretical and applied approaches",
+  "n_messages": 19202,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00000-of-00002.parquet",
+  "conversation_id": "5",
+  "theme": "Studying the theory of vector spaces with infinite dimensions",
+  "n_messages": 18760,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00001-of-00002.parquet",
+  "conversation_id": "6",
+  "theme": "Mastering technique, theory, and practice habits for beginner to advanced levels",
+  "n_messages": 19958,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00001-of-00002.parquet",
+  "conversation_id": "7",
+  "theme": "Setting strategic goals, building skills, and preparing for long-term professional success",
+  "n_messages": 22652,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00001-of-00002.parquet",
+  "conversation_id": "8",
+  "theme": "Driving from New York to Los Angeles",
+  "n_messages": 22560,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00001-of-00002.parquet",
+  "conversation_id": "9",
+  "theme": "Creating a dream honeymoon experience",
+  "n_messages": 22704,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "10M-00001-of-00002.parquet",
+  "conversation_id": "10",
+  "theme": "Managing every detail of a wedding for a flawless and unforgettable day",
+  "n_messages": 23716,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "1",
+  "theme": "Creating a chatbot that remembers past conversations and switches languages dynamically",
+  "n_messages": 1710,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "2",
+  "theme": "Collecting news articles, ranking by relevance, and summarizing with NLP",
+  "n_messages": 1780,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "3",
+  "theme": "Building an AI system to trade based on real-time market data",
+  "n_messages": 1556,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "4",
+  "theme": "Combining diffusion models for image feature enhancement with transformer architectures for generating highly descriptive captions",
+  "n_messages": 1600,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "5",
+  "theme": "Designing an interactive game with server-side physics and player synchronization",
+  "n_messages": 1750,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "6",
+  "theme": "Exploring calculus in two and three variables",
+  "n_messages": 1772,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "7",
+  "theme": "Analytical and numerical solutions of first- and second-order ODEs",
+  "n_messages": 1662,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "8",
+  "theme": "Studying properties of integers and their applications",
+  "n_messages": 1764,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "9",
+  "theme": "Solving complex counting and probability problems",
+  "n_messages": 1802,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "10",
+  "theme": "Studying hyperbolic and spherical geometries",
+  "n_messages": 1776,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "11",
+  "theme": "Strategic relationship-building for career growth, opportunity discovery, and knowledge exchange",
+  "n_messages": 2294,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "12",
+  "theme": "A complete journey through crafting standout applications, acing interviews, and negotiating offers",
+  "n_messages": 2214,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "13",
+  "theme": "Exploring property types, financing options, and rental income strategies for beginners",
+  "n_messages": 2988,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "14",
+  "theme": "Understanding blockchain technology, evaluating coins, and managing crypto investment risks",
+  "n_messages": 2694,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "15",
+  "theme": "Building exercise habits that improve strength, endurance, and overall health",
+  "n_messages": 1936,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "16",
+  "theme": "Identifying warning signs, knowing when to seek care, and communicating effectively with healthcare providers",
+  "n_messages": 2182,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "17",
+  "theme": "Understanding sleep science and creating routines that promote restorative rest",
+  "n_messages": 1966,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "18",
+  "theme": "Building trust, resolving conflicts, and deepening emotional intimacy with your partner",
+  "n_messages": 2612,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "19",
+  "theme": "Building speaking, listening, reading, and writing skills for fluency and cultural connection",
+  "n_messages": 1970,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "20",
+  "theme": "Guidance on budgeting, financing, and choosing the right property for your needs",
+  "n_messages": 2410,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "21",
+  "theme": "Preparing, marketing, and closing a successful home sale",
+  "n_messages": 2334,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "22",
+  "theme": "Planning and executing home projects that save money and increase value",
+  "n_messages": 2202,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "23",
+  "theme": "Cooking authentic dishes from around the world while learning cultural context",
+  "n_messages": 2016,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "24",
+  "theme": "Saving time and money by preparing meals in advance",
+  "n_messages": 1894,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "25",
+  "theme": "Turning an idea into a functioning and profitable business",
+  "n_messages": 3008,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "26",
+  "theme": "Expanding operations, increasing revenue, and managing growth effectively",
+  "n_messages": 2418,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "27",
+  "theme": "Learning to play, following matches, and engaging with the global soccer community",
+  "n_messages": 2210,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "28",
+  "theme": "Participating in indoor and beach volleyball while following global competitions",
+  "n_messages": 2356,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "29",
+  "theme": "Learning to play, watching tournaments, and engaging with the tennis community",
+  "n_messages": 2026,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "30",
+  "theme": "Planning a safe and memorable outdoor trip in one of the world’s most breathtaking landscapes",
+  "n_messages": 2356,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "31",
+  "theme": "Exploring traditional and modern Japanese culture",
+  "n_messages": 1982,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "32",
+  "theme": "A 30-day solo adventure on a tight budget",
+  "n_messages": 2088,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "33",
+  "theme": "Organizing a personalized celebration from concept to clean-up",
+  "n_messages": 2312,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "34",
+  "theme": "Bringing together local culture, entertainment, and vendors for a large-scale public event",
+  "n_messages": 2874,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "1M-00000-of-00001.parquet",
+  "conversation_id": "35",
+  "theme": "Creating seasonal gatherings with memorable activities and décor",
+  "n_messages": 2116,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "1",
+  "theme": "Creating a browser-based chatroom with instant messaging and user presence",
+  "n_messages": 796,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "2",
+  "theme": "Analyzing resumes for skills, keywords, and job match scoring",
+  "n_messages": 880,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "3",
+  "theme": "Using pre-trained models to detect objects from a webcam feed",
+  "n_messages": 772,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "4",
+  "theme": "Combining collaborative filtering and content-based methods for personalized suggestions",
+  "n_messages": 836,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "5",
+  "theme": "Scheduling and posting content across multiple platforms",
+  "n_messages": 884,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "6",
+  "theme": "Linking algebra and geometry through coordinate methods",
+  "n_messages": 1024,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "7",
+  "theme": "Proving statements about integers using inductive reasoning",
+  "n_messages": 1364,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "8",
+  "theme": "Studying the geometry and equations of parabolas, ellipses, and hyperbolas",
+  "n_messages": 1246,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "9",
+  "theme": "Analyzing arithmetic and geometric progressions and their sums",
+  "n_messages": 1030,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "10",
+  "theme": "Learning derivatives and their applications",
+  "n_messages": 1248,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "11",
+  "theme": "Balancing performance, camera quality, and battery life within your budget",
+  "n_messages": 1090,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "12",
+  "theme": "Selecting a portable yet powerful device for productivity and leisure",
+  "n_messages": 1120,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "13",
+  "theme": "Adapting parenting styles to meet the evolving needs of children from infancy to adolescence",
+  "n_messages": 1234,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "14",
+  "theme": "Addressing betrayal, misunderstandings, or conflict to restore connection and respect",
+  "n_messages": 1274,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "15",
+  "theme": "Building respectful, supportive connections while managing differences in traditions, values, and expectations",
+  "n_messages": 1122,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "16",
+  "theme": "Processing grief, preserving memories, and moving toward acceptance",
+  "n_messages": 1056,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "17",
+  "theme": "Addressing deep-rooted wounds while fostering emotional safety and personal growth",
+  "n_messages": 1226,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "18",
+  "theme": "Rebuilding self-worth, processing emotions, and fostering healthier future connections",
+  "n_messages": 1076,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "19",
+  "theme": "Developing leadership skills, strategic thinking, and influence to transition into higher management positions",
+  "n_messages": 1180,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "20",
+  "theme": "Demonstrating value, expanding responsibilities, and aligning with organizational goals",
+  "n_messages": 1034,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "21",
+  "theme": "Understanding fundamentals, diversifying portfolios, and managing risk over decades",
+  "n_messages": 1208,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "22",
+  "theme": "Allocating across asset classes to match risk tolerance and financial goals",
+  "n_messages": 1296,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "23",
+  "theme": "Designing balanced diets tailored to health goals, preferences, and lifestyle",
+  "n_messages": 1088,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "24",
+  "theme": "Education, lifestyle adaptation, and treatment strategies for living well with long-term health conditions",
+  "n_messages": 1018,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "25",
+  "theme": "Understanding camera settings, composition, and editing to capture professional-quality photos",
+  "n_messages": 1122,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "26",
+  "theme": "Building stage presence, body control, and emotional expression through performance arts",
+  "n_messages": 1066,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "27",
+  "theme": "Finding, applying for, and managing a rental property successfully",
+  "n_messages": 1190,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "28",
+  "theme": "Organizing, decorating, and optimizing your living space for daily life",
+  "n_messages": 942,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "29",
+  "theme": "Creating nutritious meals in under 30 minutes without sacrificing flavor",
+  "n_messages": 910,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "30",
+  "theme": "Perfecting breads, pastries, and desserts through science and technique",
+  "n_messages": 1060,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "31",
+  "theme": "Creating delicious meals while accommodating dietary restrictions",
+  "n_messages": 1072,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "32",
+  "theme": "Creating and growing a startup with limited resources in a competitive market",
+  "n_messages": 1424,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "33",
+  "theme": "Playing, watching, and staying connected to the world of basketball",
+  "n_messages": 986,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "34",
+  "theme": "Playing, supporting teams, and staying up to date with professional hockey",
+  "n_messages": 1182,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ },
+ {
+  "file": "500K-00000-of-00001.parquet",
+  "conversation_id": "35",
+  "theme": "Understanding eligibility, documentation, and interview preparation for spousal immigration",
+  "n_messages": 1002,
+  "n_probing_questions": 20,
+  "probing_question_types": {
+   "abstention": 2,
+   "contradiction_resolution": 2,
+   "event_ordering": 2,
+   "information_extraction": 2,
+   "instruction_following": 2,
+   "knowledge_update": 2,
+   "multi_session_reasoning": 2,
+   "preference_following": 2,
+   "summarization": 2,
+   "temporal_reasoning": 2
+  }
+ }
+]
