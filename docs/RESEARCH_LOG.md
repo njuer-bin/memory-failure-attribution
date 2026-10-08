@@ -1,3 +1,119 @@
+## Historical progress — before 2026-10-08
+
+### Phase 1 — Research direction and system framing
+
+The project started from the observation that long-term agent memory failures are usually discussed as a single retrieval problem. The research question was reframed as:
+
+> When an agent answers incorrectly, where in the memory lifecycle was the required information lost?
+
+The initial lifecycle decomposition was:
+
+Conversation → Formation → Storage → Evolution → Retrieval → Reranking → Context → LLM
+
+This led to the initial five-stage failure taxonomy:
+
+- F1 Formation Failure — information exists in raw conversation but is not converted into usable semantic memory.
+- F2 Storage Failure — extracted memory is not correctly persisted or cannot be recovered.
+- F3 Evolution Failure — updates, conflicts, stale information, or temporal changes are handled incorrectly.
+- F4 Retrieval Failure — required information exists in memory but is not retrieved.
+- F5 Context Failure — retrieved evidence is lost, truncated, or otherwise unavailable to the final model.
+
+A central methodological decision was to attribute a failure to the earliest stage where required evidence becomes unavailable, rather than simply labeling every wrong answer as a retrieval failure.
+
+### Phase 2 — Reusing and extending the agent_memory infrastructure
+
+The memory engine was ported from the AML-oriented njuer-bin/agent_memory project into this research repository.
+
+The reusable engine includes raw conversation storage, atomic fact extraction, entity/relationship memories, timeline/event memories, rule memories, user profiles, hybrid retrieval, reranking, provenance-aware storage, query analysis, and multi-hop support.
+
+The research fork deliberately separates the memory system implementation from the failure diagnosis layer.
+
+### Phase 3 — Provenance tracing
+
+A major engineering problem was that memory artifacts originally did not provide sufficiently precise provenance for lifecycle attribution.
+
+The project therefore added provenance fields connecting:
+
+raw message → semantic memory → retrieval candidate → reranked candidate → final context
+
+Important provenance identifiers include source_raw_id, source_session_id, source_turn_id, and turn_id.
+
+The turn-level provenance matcher was later tightened so that an exact turn identifier takes precedence over session identity. This prevents repeated utterances in the same session from being incorrectly attributed to the wrong turn.
+
+This was a methodological improvement, not merely an implementation detail: reliable failure attribution requires evidence identity to survive the entire pipeline.
+
+### Phase 4 — LongMemEval adapter and evidence normalization
+
+A LongMemEval adapter was added to normalize benchmark evidence into a common internal representation containing evidence ID, evidence text, source/session information, turn ID, timestamp, and role where available.
+
+Gold evidence can therefore be traced through the lifecycle independently of the underlying benchmark format.
+
+### Phase 5 — Formation diagnostics
+
+The first version of formation attribution produced misleading results because the analyzer was initially designed around Chinese-language patterns while LongMemEval contains English conversations.
+
+The project explicitly identified this as a language coverage confound, rather than treating the initial F1 failures as scientific evidence.
+
+Basic English formation patterns were then added for common LongMemEval facts including degree, school, residence, workplace, occupation, likes/dislikes, birthday, name, language, origin, common interpersonal relations, simple rules/preferences, and common life events.
+
+Formation diagnostics were made more explicit by comparing the Gold Evidence turn, semantic memories extracted from the same turn, and semantic memories from the same session.
+
+The diagnostic distinguishes FORMATION_OK, F1a_EXTRACTOR_MISS, F1c_REPRESENTATION_MISMATCH, and F1d_UNKNOWN.
+
+This made F1 measurement more interpretable and prevented benchmark-language limitations from being mistaken for memory failures.
+
+### Phase 6 — Lifecycle stage tracing
+
+The search pipeline was instrumented to expose separate boundaries: retrieval candidates, pre-rerank candidates, reranked candidates, and final context.
+
+This enabled stage-specific evidence matching instead of treating the search result as a single opaque operation.
+
+The lifecycle evaluator then computed stage evidence recall, first-loss stage, and first-loss failure type.
+
+The initial failure mapping was intentionally conservative: formation → F1; storage → F2; evolution → F3; retrieval/rerank → F4; context → F5.
+
+### Phase 7 — Oracle control design
+
+The project introduced three controlled experimental conditions:
+
+1. Real Memory — real conversation is ingested into the memory system and queried normally.
+2. Oracle Memory — Gold Evidence is injected or bypassed into the memory-side pipeline to estimate the downstream evidence ceiling.
+3. Oracle Context — Gold Evidence is supplied directly to the final answer context, bypassing the memory lifecycle.
+
+The purpose is not to claim that oracle conditions are realistic systems. They are controls for isolating where failures originate.
+
+The core comparison became: Real Memory vs Oracle Memory vs Oracle Context.
+
+### Phase 8 — First evidence-only oracle experiment
+
+Before answer scoring was added, a 10-sample LongMemEval oracle experiment was run successfully.
+
+Results: 10 records, 0 errors, and all 10 samples had evidence-level recall of 1.00 across Formation, Storage, Evolution, Retrieval, Rerank, and Context in the Real Memory condition. First-loss distribution was none: 10. Oracle Memory also preserved all Gold Evidence through its measured downstream stages.
+
+At this stage the project explicitly did not claim answer accuracy. The experiment was correctly described as an evidence-availability control.
+
+This distinction was important because evidence recall and answer correctness are different quantities.
+
+### Phase 9 — Engineering reliability and reproducibility
+
+The repository accumulated regression-oriented improvements around provenance persistence, turn-level evidence identity, LongMemEval role preservation, lifecycle search tracing, oracle experiment output, answer-generation configuration, and local Ollama integration.
+
+Experiment outputs were standardized into comparison.jsonl for per-question traces and summary.json for aggregate metrics.
+
+The repository README was updated throughout the process so the research motivation, architecture, experiment design, and current status remain synchronized with the implementation.
+
+### Overall evolution of the research question
+
+Initial: Where is information lost in a long-term agent memory system?
+
+After lifecycle tracing: At which memory lifecycle boundary does the first loss of required evidence occur?
+
+After oracle controls: Can controlled evidence injection distinguish memory-induced failures from downstream failures?
+
+Current: Across the memory-to-reasoning lifecycle, where does a long-term agent fail, and how can evidence loss be distinguished from answer failures that persist despite complete evidence availability?
+
+This is an extension of the original research direction, not a replacement of it.
+
 # Research Progress Log
 
 This file records reproducible research progress, experimental observations, methodological decisions, and caveats for later paper writing.
