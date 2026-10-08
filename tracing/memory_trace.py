@@ -2,6 +2,7 @@
 from dataclasses import dataclass, field, asdict
 from typing import Any, Dict, List, Optional
 
+
 @dataclass
 class EvidenceItem:
     evidence_id: str
@@ -10,12 +11,17 @@ class EvidenceItem:
     timestamp: Optional[str] = None
     metadata: Dict[str, Any] = field(default_factory=dict)
 
+
 @dataclass
 class StageTrace:
     found: List[str] = field(default_factory=list)
     missing: List[str] = field(default_factory=list)
     dropped: List[str] = field(default_factory=list)
     details: Dict[str, Any] = field(default_factory=dict)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return asdict(self)
+
 
 @dataclass
 class MemoryTrace:
