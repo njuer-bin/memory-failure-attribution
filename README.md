@@ -191,3 +191,12 @@ Detailed experimental history is maintained in docs/RESEARCH_LOG.md.
 ## Relationship to agent_memory
 
 njuer-bin/agent_memory remains the AML competition implementation. This repository is a research fork that reuses its memory infrastructure while adding explicit lifecycle tracing, failure attribution, controlled oracle experiments, answer-evaluation calibration, and reproducible diagnostics.
+
+
+### LoCoMo cross-benchmark validation status (2026-10-08)
+
+The first LoCoMo-Refined n=50 execution exposed a benchmark adapter/provenance alignment problem: Real Memory showed a uniform 49/50 formation loss while Oracle Memory recovered all Gold Evidence. The run is therefore **not treated as a scientific formation result**.
+
+The adapter has now been corrected to map LoCoMo benchmark turn identifiers onto the MemoryEngine session:turn provenance scheme, preserve benchmark IDs, resolve evidence against canonical turns, pass the loaded conversation into normalization, and normalize non-scalar answers. The original anomalous run is retained as a reproducibility/negative-result record.
+
+The next step is to rerun LoCoMo n=50 and validate evidence alignment and answer-reference handling before applying semantic failure attribution.
