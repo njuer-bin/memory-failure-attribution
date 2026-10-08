@@ -183,6 +183,8 @@ class MemoryAnalyzer:
                     valid_to=valid_to,
                     temporal_text=temporal_text,
                     source=source,
+                    source_raw_id=source_raw_id, source_session_id=source_session_id,
+                    source_turn_id=source_turn_id,
                 ))
                 profiles.append(Profile(
                     user_id=user_id, key=current_predicate, value=obj,
