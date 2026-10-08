@@ -68,6 +68,7 @@ def main() -> None:
         for mode in MODES
     }
     attribution = {}
+    f6_candidates = []
 
     with output.open("w", encoding="utf-8") as out:
         for i, row in enumerate(rows, 1):
@@ -135,6 +136,16 @@ def main() -> None:
             real["semantic_answer_failure_type"] = failure
             if failure:
                 attribution[failure] = attribution.get(failure, 0) + 1
+            if failure == "F6_REASONING_CANDIDATE":
+                f6_candidates.append(
+                    {
+                        "question_id": row.get("question_id"),
+                        "question": question,
+                        "candidate": str(real["answer"].get("answer") or ""),
+                        "reason": str(real["answer"].get("semantic_reason") or ""),
+                        "gold_evidence": evidence,
+                    }
+                )
 
             out.write(json.dumps(new_row, ensure_ascii=False) + "\n")
             out.flush()
@@ -143,7 +154,8 @@ def main() -> None:
         "input": args.input,
         "output": args.output,
         "records": len(rows),
-        "judge_model": counts["real_memory"].get("model"),
+        "judge_model": f6_candidates[0].get("judge_model") if f6_candidates and f6_candidates[0].get("judge_model") else "configured in evaluation/answer_semantic_eval.py",
+        "f6_candidates": f6_candidates,
         "modes": counts,
         "real_memory_semantic_failure_distribution": attribution,
         "note": (
@@ -157,6 +169,11 @@ def main() -> None:
         json.dumps(summary, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    print("\n=== F6 CANDIDATES ===", flush=True)
+    for item in f6_candidates:
+        print(f"[{item["question_id"]}] {item["question"]}", flush=True)
+        print(f"  candidate: {item["candidate"]}", flush=True)
+        print(f"  judge: {item["reason"]}", flush=True)
     print(json.dumps(summary, ensure_ascii=False, indent=2), flush=True)
 
 
