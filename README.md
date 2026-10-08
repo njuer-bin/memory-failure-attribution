@@ -47,6 +47,13 @@ The project records Evidence Recall, Evidence Precision, Complete Evidence, Answ
 
 njuer-bin/agent_memory remains the AML competition implementation. This repository is a research fork that reuses its memory infrastructure while adding explicit lifecycle tracing, failure attribution, controlled oracle experiments, and reproducible diagnostics.
 
+
+### Latest preliminary result (2026-10-08)
+
+On a 10-sample LongMemEval sanity-check, the Real Memory condition achieved 1.00 evidence recall at Formation, Storage, Evolution, Retrieval, Rerank, and Context, with no evidence-level first loss. Answer scoring with local Ollama `qwen2.5:7b` classified 7/10 Real Memory answers as correct, versus 5/10 for both Oracle Memory and Oracle Context under the current exact-match-or-token-F1>=0.5 protocol. Three Real Memory cases were provisionally attributed to F6 because required evidence reached final context while the answer remained incorrect.
+
+These numbers are preliminary (`n=10`) and are not yet benchmark-level conclusions. In particular, the unexpected Real Memory > Oracle ordering requires per-example inspection and scoring calibration. Detailed experimental history is maintained in `docs/RESEARCH_LOG.md`.
+
 ## Research status
 
 The reusable memory engine, lifecycle tracing, oracle controls, and benchmark answer scoring are now in place. The next stage is to calibrate the answer threshold and run larger LongMemEval/LoCoMo samples, then generate statistically useful failure-attribution tables and oracle comparisons.
