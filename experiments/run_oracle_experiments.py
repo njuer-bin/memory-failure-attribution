@@ -84,6 +84,8 @@ def _stage(gold: list[dict[str, Any]], artifacts: list[dict[str, Any]], mode: st
         "details": {
             "mode": mode,
             "observed_count": match["observed_count"],
+            "match_types": match.get("match_types", {}),
+            "match_scores": match.get("match_scores", {}),
             "matches": match["matches"],
         },
     }
