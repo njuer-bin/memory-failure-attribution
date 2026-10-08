@@ -1,1 +1,107 @@
-"""Benchmark answer generation and scoring helpers.\n\nThe experiment keeps answer generation provider-independent by using a small\nHTTP adapter for local Ollama. Endpoint and model are configurable through\nenvironment variables.\n"""\nfrom __future__ import annotations\n\nimport json\nimport os\nimport re\nimport urllib.error\nimport urllib.request\nfrom typing import Any\n\nfrom evaluation.answer_metrics import exact_match, token_f1\n\n\nBASE_URL = os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434").rstrip("/")\nMODEL = os.getenv("ANSWER_MODEL", "qwen3:8b")\nTEMPERATURE = float(os.getenv("ANSWER_TEMPERATURE", "0"))\nTIMEOUT = float(os.getenv("ANSWER_TIMEOUT_SECONDS", "180"))\nF1_THRESHOLD = float(os.getenv("ANSWER_F1_THRESHOLD", "0.5"))\n\n\ndef _normalize(text: str) -> str:\n    text = str(text or "").strip().lower()\n    return re.sub(r"\\s+", " ", text)\n\n\ndef _prompt(question: str, context: list[dict[str, Any]]) -> str:\n    evidence = "\\n".join(\n        f"[{i + 1}] {str(item.get("content") or "").strip()}"\n        for i, item in enumerate(context)\n        if str(item.get("content") or "").strip()\n    )\n    return (\n        "Answer the question using only the evidence below. "\n        "Do not invent facts. Give the shortest direct answer possible. "\n        "Do not mention the evidence or your reasoning.\\n\\n"\n        f"Question: {question}\\n\\n"\n        f"Evidence:\\n{evidence}\\n\\n"\n        "Answer:"\n    )\n\n\ndef generate_answer(question: str, context: list[dict[str, Any]]) -> str:\n    """Generate one answer from the supplied context with local Ollama."""\n    payload = {\n        "model": MODEL,\n        "prompt": _prompt(question, context),\n        "stream": False,\n        "options": {"temperature": TEMPERATURE},\n    }\n    request = urllib.request.Request(\n        f"{BASE_URL}/api/generate",\n        data=json.dumps(payload).encode("utf-8"),\n        headers={"Content-Type": "application/json"},\n        method="POST",\n    )\n    try:\n        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:\n            body = json.loads(response.read().decode("utf-8"))\n    except urllib.error.URLError as exc:\n        raise RuntimeError(\n            f"answer model unavailable at {BASE_URL} (model={MODEL}): {exc}"\n        ) from exc\n    answer = str(body.get("response") or "").strip()\n    if not answer:\n        raise RuntimeError("answer model returned an empty response")\n    return answer\n\n\ndef score_answer(prediction: str, reference: str) -> dict[str, Any]:\n    """Score a generated answer without an external judge."""\n    pred = _normalize(prediction)\n    ref = _normalize(reference)\n    em = exact_match(pred, ref)\n    f1 = token_f1(pred, ref)\n    return {\n        "exact_match": em,\n        "token_f1": f1,\n        "threshold": F1_THRESHOLD,\n        "correct": bool(em == 1.0 or f1 >= F1_THRESHOLD),\n    }\n\n\ndef generate_and_score(\n    question: str,\n    reference: str,\n    context: list[dict[str, Any]],\n) -> dict[str, Any]:\n    answer = generate_answer(question, context)\n    return {\n        "answer": answer,\n        **score_answer(answer, reference),\n        "model": MODEL,\n        "base_url": BASE_URL,\n    }\n
+"""Benchmark answer generation and scoring helpers.
+
+The experiment keeps answer generation provider-independent by using a small
+HTTP adapter for local Ollama. Endpoint and model are configurable through
+environment variables.
+"""
+from __future__ import annotations
+
+import json
+import os
+import re
+import urllib.error
+import urllib.request
+from typing import Any
+
+from evaluation.answer_metrics import exact_match, token_f1
+
+
+BASE_URL = os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
+MODEL = os.getenv("ANSWER_MODEL", "qwen3:8b")
+TEMPERATURE = float(os.getenv("ANSWER_TEMPERATURE", "0"))
+TIMEOUT = float(os.getenv("ANSWER_TIMEOUT_SECONDS", "180"))
+F1_THRESHOLD = float(os.getenv("ANSWER_F1_THRESHOLD", "0.5"))
+
+
+def _normalize(text: str) -> str:
+    text = str(text or "").strip().lower()
+    return re.sub(r"\\s+", " ", text)
+
+
+def _prompt(question: str, context: list[dict[str, Any]]) -> str:
+    evidence = "\
+".join(
+        f"[{i + 1}] {str(item.get("content") or "").strip()}"
+        for i, item in enumerate(context)
+        if str(item.get("content") or "").strip()
+    )
+    return (
+        "Answer the question using only the evidence below. "
+        "Do not invent facts. Give the shortest direct answer possible. "
+        "Do not mention the evidence or your reasoning.\
+\
+"
+        f"Question: {question}\
+\
+"
+        f"Evidence:\
+{evidence}\
+\
+"
+        "Answer:"
+    )
+
+
+def generate_answer(question: str, context: list[dict[str, Any]]) -> str:
+    """Generate one answer from the supplied context with local Ollama."""
+    payload = {
+        "model": MODEL,
+        "prompt": _prompt(question, context),
+        "stream": False,
+        "options": {"temperature": TEMPERATURE},
+    }
+    request = urllib.request.Request(
+        f"{BASE_URL}/api/generate",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            body = json.loads(response.read().decode("utf-8"))
+    except urllib.error.URLError as exc:
+        raise RuntimeError(
+            f"answer model unavailable at {BASE_URL} (model={MODEL}): {exc}"
+        ) from exc
+    answer = str(body.get("response") or "").strip()
+    if not answer:
+        raise RuntimeError("answer model returned an empty response")
+    return answer
+
+
+def score_answer(prediction: str, reference: str) -> dict[str, Any]:
+    """Score a generated answer without an external judge."""
+    pred = _normalize(prediction)
+    ref = _normalize(reference)
+    em = exact_match(pred, ref)
+    f1 = token_f1(pred, ref)
+    return {
+        "exact_match": em,
+        "token_f1": f1,
+        "threshold": F1_THRESHOLD,
+        "correct": bool(em == 1.0 or f1 >= F1_THRESHOLD),
+    }
+
+
+def generate_and_score(
+    question: str,
+    reference: str,
+    context: list[dict[str, Any]],
+) -> dict[str, Any]:
+    answer = generate_answer(question, context)
+    return {
+        "answer": answer,
+        **score_answer(answer, reference),
+        "model": MODEL,
+        "base_url": BASE_URL,
+    }
