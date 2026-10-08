@@ -39,11 +39,26 @@ def _prompt(question: str, candidate: str, evidence: list[dict[str, Any]]) -> st
 Evaluate the candidate using ONLY the supplied Gold Evidence.
 
 First decide whether the Gold Evidence is sufficient to answer the exact question.
-Set "evidence_sufficient" to false when the evidence only mentions a related entity,
-event, place, or attribute without actually establishing the information requested.
+This is a strict evidence-coverage test, not a plausibility test.
+
+Set "evidence_sufficient" to false when:
+- the evidence only mentions a related entity, event, place, or attribute without
+  establishing the information requested;
+- the question asks about a specific entity/event but the evidence describes a
+  different entity/event;
+- the evidence contains a phrase that merely implies a relationship, but does not
+  explicitly establish that relationship;
+- the requested attribute (such as where, when, who, what, or why) cannot be
+  determined from the evidence alone.
+
 For example, if the question asks where someone takes yoga classes and the evidence
 only says they cannot make it to "Serenity Yoga", that is NOT sufficient evidence
 that they take classes there.
+
+Another example: if the question asks when someone volunteered at the local animal
+shelter's fundraising dinner, but the evidence only says they volunteered at a
+different fundraising dinner called "Love is in the Air" on Valentine's Day, the
+evidence is NOT sufficient. Do not infer that the two events are the same.
 
 If evidence_sufficient is true, decide whether the candidate correctly answers the
 question. Accept concise answers and semantically equivalent wording. Do not require
@@ -101,9 +116,35 @@ def _meaningful_exact_anchor(candidate: str, evidence: list[dict[str, Any]]) -> 
                 if span in spans:
                     phrase = " ".join(span)
                     # Avoid treating generic stop-word-only matches as anchors.
-                    if any(len(token) >= 3 or re.search(r"[\u4e00-\u9fff]", token) for token in span):
+                    if any(
+                        len(token) >= 3 or re.search(r"[\u4e00-\u9fff]", token)
+                        for token in span
+                    ):
                         return phrase
     return None
+
+
+def _reason_indicates_insufficient_evidence(reason: str) -> bool:
+    """Catch cases where the judge's own explanation explicitly describes a mismatch.
+
+    The judge can occasionally emit an internally inconsistent verdict such as
+    evidence_sufficient=true while its reason says that the evidence describes a
+    different event. This rule is deliberately narrow and only acts on strong
+    mismatch language; it does not try to infer sufficiency from generic wording.
+    """
+    text = reason.strip().lower()
+    if not text:
+        return False
+
+    strong_patterns = (
+        r"only mentions? a different",
+        r"mentions? a different (?:event|entity|place|person|thing)",
+        r"does not (?:provide|contain|establish) (?:information|evidence)",
+        r"not (?:the )?(?:same|requested)",
+        r"different (?:event|entity|place|person)",
+        r"does not specify the (?:local|specific|requested)",
+    )
+    return any(re.search(pattern, text) for pattern in strong_patterns)
 
 
 def evaluate_answer(question: str, candidate: str, evidence: list[dict[str, Any]]) -> dict[str, Any]:
@@ -149,6 +190,15 @@ def evaluate_answer(question: str, candidate: str, evidence: list[dict[str, Any]
     confidence = str(verdict.get("confidence") or "medium").strip().lower()
     if confidence not in {"high", "medium", "low"}:
         confidence = "medium"
+    reason = str(verdict.get("reason") or "").strip()
+
+    # Guard against an internally inconsistent judge verdict. If the judge itself
+    # explicitly says the evidence is a different event/entity or otherwise lacks
+    # the requested information, treat the evidence as insufficient. This prevents
+    # such cases from becoming spurious F6 reasoning failures.
+    if evidence_sufficient and _reason_indicates_insufficient_evidence(reason):
+        evidence_sufficient = False
+        judge_correct = False
 
     final_correct = judge_correct
     adjudication = "judge"
@@ -168,7 +218,7 @@ def evaluate_answer(question: str, candidate: str, evidence: list[dict[str, Any]
         "judge_correct": judge_correct,
         "evidence_sufficient": evidence_sufficient,
         "confidence": confidence,
-        "reason": str(verdict.get("reason") or "").strip(),
+        "reason": reason,
         "adjudication": adjudication,
         "adjudication_anchor": anchor,
         "model": MODEL,
