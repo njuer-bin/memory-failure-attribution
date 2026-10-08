@@ -265,3 +265,76 @@ A useful current formulation is:
 > Long-term agent failures should not be treated solely as retrieval failures. Even when required evidence survives the memory lifecycle and reaches the final context, the answer can still be incorrect. Oracle controls therefore allow memory-induced evidence loss to be separated from downstream answer failures.
 
 This statement is a preliminary research observation and should be validated on larger samples before being presented as a general empirical claim.
+
+## 2026-10-08 — Answer-evaluation calibration: lexical mismatch identified
+
+### Post-hoc inspection
+
+The first 10-sample answer experiment was inspected at the question, Gold Evidence, prediction, and score level.
+
+Three cases were initially classified as F6_REASONING:
+
+- 51a45a95 — “Where did I redeem a $5 coupon on coffee creamer?”
+- 58bf7951 — “What play did I attend at the local community theater?”
+- f8c5f88b — “Where did I buy my new tennis racket from?”
+
+The inspection showed that the lexical scorer can produce false answer failures.
+
+For 58bf7951, the evidence states that the play was *The Glass Menagerie*, and the model answered “The Glass Menagerie.” The answer is semantically supported, but its token F1 against a longer benchmark-style reference was only 0.36.
+
+For f8c5f88b, the evidence states that the racket was obtained from a sports store downtown, and the model answered “From a sports store downtown.” The answer is semantically supported, but its token F1 was only 0.44.
+
+For 51a45a95, the question asks “Where,” while the available Gold Evidence only states “last Sunday.” This case remains a genuine candidate for downstream answer failure or benchmark/evidence alignment error and requires semantic evaluation.
+
+### Methodological change
+
+The project therefore separates answer evaluation into two layers:
+
+1. Lexical metrics — Exact Match and Token F1, retained for reproducibility.
+2. Semantic correctness — an independent judge evaluates whether the candidate answer correctly answers the question and is supported by Gold Evidence without requiring lexical overlap with a long reference sentence.
+
+The revised attribution rule is:
+
+> F6 is only a candidate when all required evidence reaches the final context and semantic answer evaluation judges the answer incorrect.
+
+This prevents lexical reference mismatch from being automatically converted into a reasoning failure.
+
+### New implementation
+
+Added:
+
+- evaluation/answer_semantic_eval.py
+- experiments/semantic_calibration.py
+
+The calibration experiment is post-hoc: it reads the existing comparison.jsonl and does not rebuild memory or rerun answer generation.
+
+Command:
+
+    G:\aconda\python.exe -u -m experiments.semantic_calibration
+
+Outputs:
+
+- results/oracle_experiments/comparison_semantic.jsonl
+- results/oracle_experiments/semantic_summary.json
+
+### Scientific significance
+
+This result reveals an important methodological dependency:
+
+> Failure attribution is only as reliable as the answer evaluation layer used after evidence tracing.
+
+The current framework therefore distinguishes:
+
+    Evidence Availability
+            +
+    Semantic Answer Correctness
+            ↓
+    Failure Attribution
+
+This is a refinement of the original research protocol rather than a change of research direction.
+
+### Current status
+
+The original 3 F6 cases are no longer treated as confirmed reasoning failures. They are retained as F6 candidates pending semantic calibration.
+
+The next experimental gate is semantic calibration on the existing 10 samples. Only after this protocol is stable should larger LongMemEval experiments be run.
