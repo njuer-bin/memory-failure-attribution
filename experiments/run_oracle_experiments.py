@@ -68,6 +68,8 @@ def _gold_artifacts(record: dict[str, Any]) -> list[dict[str, Any]]:
             "id": str(e["evidence_id"]),
             "content": str(e.get("text") or ""),
             "source_id": e.get("source_id"),
+            "turn_id": e.get("turn_id"),
+            "role": e.get("role", ""),
             "timestamp": e.get("timestamp"),
             "memory_type": "oracle",
         }
@@ -179,6 +181,16 @@ def _formation_diagnostics(
             "semantic_memory_count_same_turn": len(turn_semantic),
             "semantic_memory_count_same_session": len(session_semantic),
             "semantic_memory_ids_same_turn": [str(x.get("id")) for x in turn_semantic if x.get("id")],
+            "semantic_memory_types_same_turn": [str(x.get("memory_type") or "") for x in turn_semantic],
+            "semantic_memory_candidates_same_session": [
+                {
+                    "id": str(x.get("id")) if x.get("id") else None,
+                    "memory_type": str(x.get("memory_type") or ""),
+                    "source_turn_id": x.get("source_turn_id") or x.get("turn_id"),
+                    "content": str(x.get("content") or "")[:240],
+                }
+                for x in session_semantic[:20]
+            ],
             "classification": classification,
         })
     return diagnostics
@@ -201,6 +213,16 @@ def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEng
 
     trace.formation = type(trace.formation)(**_stage(gold, formation, "real_memory"))
     trace.formation.details["diagnostics"] = _formation_diagnostics(gold, stored)
+    trace.formation.details["semantic_memory_counts"] = {
+        "total": len(formation),
+        "by_type": {
+            "fact": len(stored["facts"]),
+            "relation": len(stored["relations"]),
+            "event": len(stored["events"]),
+            "rule": len(stored["rules"]),
+            "profile": len(stored["profiles"]),
+        },
+    }
     trace.storage = type(trace.storage)(**_stage(gold, storage, "real_memory"))
     trace.evolution = type(trace.evolution)(**_stage(gold, evolution, "real_memory"))
     retrieval = search_trace.get("retrieval_candidates") or real
