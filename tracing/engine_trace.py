@@ -1,10 +1,4 @@
-"""Bridge MemoryEngine artifacts into lifecycle traces.
-
-The engine does not retain benchmark evidence IDs, so this adapter uses
-content/source matching and records the engine IDs in stage details. It is
-deliberately non-invasive: no benchmark-specific fields are written into the
-memory engine itself.
-"""
+"""Bridge MemoryEngine artifacts into lifecycle traces."""
 from __future__ import annotations
 
 from typing import Any, Iterable
@@ -16,7 +10,10 @@ def _artifact(row: Any) -> dict[str, Any]:
     if isinstance(row, dict):
         return dict(row)
     result = {}
-    for key in ("id", "content", "session_id", "source", "timestamp", "memory_type", "status"):
+    for key in (
+        "id", "content", "session_id", "source_id", "turn_id",
+        "source_turn_id", "timestamp", "memory_type", "status",
+    ):
         if hasattr(row, key):
             result[key] = getattr(row, key)
     return result
@@ -36,6 +33,12 @@ def artifacts_from_store(engine: Any, user_id: str) -> dict[str, list[dict[str, 
         for row in rows:
             item = _artifact(row)
             item["memory_type"] = kind
+            # Raw records already carry the benchmark session id through the
+            # AddRequest session_id. Semantic memories currently do not persist
+            # turn provenance, so source_id is deliberately left unset rather
+            # than inventing lineage.
+            if kind == "raw":
+                item["source_id"] = item.get("session_id")
             output.append(item)
         return output
 
