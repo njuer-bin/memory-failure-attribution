@@ -1,14 +1,8 @@
-"""Benchmark answer generation and scoring helpers.
-
-The experiment keeps answer generation provider-independent by using a small
-HTTP adapter for local Ollama. Endpoint and model are configurable through
-environment variables.
-"""
+"""Benchmark answer generation and scoring helpers."""
 from __future__ import annotations
 
 import json
 import os
-import re
 import urllib.error
 import urllib.request
 from typing import Any
@@ -17,43 +11,36 @@ from evaluation.answer_metrics import exact_match, token_f1
 
 
 BASE_URL = os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
-MODEL = os.getenv("ANSWER_MODEL", "qwen3:8b")
+MODEL = os.getenv("ANSWER_MODEL", "qwen2.5:7b")
 TEMPERATURE = float(os.getenv("ANSWER_TEMPERATURE", "0"))
 TIMEOUT = float(os.getenv("ANSWER_TIMEOUT_SECONDS", "180"))
 F1_THRESHOLD = float(os.getenv("ANSWER_F1_THRESHOLD", "0.5"))
 
 
 def _normalize(text: str) -> str:
-    text = str(text or "").strip().lower()
-    return re.sub(r"\\s+", " ", text)
+    return " ".join(str(text or "").strip().lower().split())
 
 
 def _prompt(question: str, context: list[dict[str, Any]]) -> str:
-    evidence = "\
-".join(
-        f"[{i + 1}] {str(item.get("content") or "").strip()}"
+    evidence = chr(10).join(
+        "[{}] {}".format(i + 1, str(item.get("content") or "").strip())
         for i, item in enumerate(context)
         if str(item.get("content") or "").strip()
     )
     return (
         "Answer the question using only the evidence below. "
         "Do not invent facts. Give the shortest direct answer possible. "
-        "Do not mention the evidence or your reasoning.\
-\
-"
-        f"Question: {question}\
-\
-"
-        f"Evidence:\
-{evidence}\
-\
-"
-        "Answer:"
+        "Do not mention the evidence or your reasoning."
+        + chr(10) + chr(10)
+        + "Question: " + question
+        + chr(10) + chr(10)
+        + "Evidence:" + chr(10) + evidence
+        + chr(10) + chr(10)
+        + "Answer:"
     )
 
 
 def generate_answer(question: str, context: list[dict[str, Any]]) -> str:
-    """Generate one answer from the supplied context with local Ollama."""
     payload = {
         "model": MODEL,
         "prompt": _prompt(question, context),
@@ -80,7 +67,6 @@ def generate_answer(question: str, context: list[dict[str, Any]]) -> str:
 
 
 def score_answer(prediction: str, reference: str) -> dict[str, Any]:
-    """Score a generated answer without an external judge."""
     pred = _normalize(prediction)
     ref = _normalize(reference)
     em = exact_match(pred, ref)
