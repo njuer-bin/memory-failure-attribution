@@ -47,6 +47,7 @@ def normalize_longmemeval(raw: dict[str, Any], *, dataset: str, index: int) -> d
                             "turn_id": f"{sid}:turn_{j}",
                             "timestamp": date,
                             "text": text,
+                            "role": str(message.get("role") or message.get("speaker") or "") if isinstance(message, dict) else "",
                             "granularity": "turn",
                         })
             else:
@@ -56,6 +57,7 @@ def normalize_longmemeval(raw: dict[str, Any], *, dataset: str, index: int) -> d
                     "source_id": sid,
                     "timestamp": date,
                     "text": "\n".join(_message_text(m) for m in messages if _message_text(m)),
+                    "role": "",
                     "granularity": "session",
                 })
 
