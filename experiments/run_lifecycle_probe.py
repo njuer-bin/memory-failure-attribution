@@ -20,6 +20,7 @@ from memory_engine.engine import MemoryEngine
 from memory_engine.models import AddMessage, AddRequest, SearchRequest
 from tracing.dataset_trace import record_to_trace
 from tracing.failure_attribution import attribute_failure
+from tracing.engine_trace import artifacts_from_store, retrieval_artifacts, stage_match
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -67,9 +68,9 @@ def _stage_observed(gold: list[dict[str, Any]], artifacts: list[dict[str, Any]])
 
 def run_record(engine: MemoryEngine, record: dict[str, Any], user_id: str) -> dict[str, Any]:
     trace = record_to_trace(record)
+    gold = [x.__dict__ for x in trace.gold_evidence]
     sessions = _sessions(record)
 
-    # Formation: inspect what the analyzer actually extracts from each source session.
     formation_artifacts = []
     for session in sessions:
         for msg in session["messages"]:
@@ -83,53 +84,30 @@ def run_record(engine: MemoryEngine, record: dict[str, Any], user_id: str) -> di
                         "source_id": session["session_id"],
                         "content": getattr(item, "content", str(item)),
                         "memory_type": key,
+                        "id": getattr(item, "id", None),
                     })
-    trace.formation = type(trace.formation)(**_stage_observed(trace.to_dict()["gold_evidence"], formation_artifacts))
+    m = stage_match(gold, formation_artifacts)
+    trace.formation = type(trace.formation)(found=m["found"], missing=m["missing"],
+                                            details={"matches": m["matches"], "observed_count": m["observed_count"]})
 
-    # Storage: raw session memories are the authoritative persisted source.
-    stored = engine.store.all_raw(user_id)
-    storage_artifacts = [
-        {"source_id": row.get("session_id"), "content": row.get("content"), "id": row.get("id")}
-        for row in stored
-    ]
-    trace.storage = type(trace.storage)(**_stage_observed(trace.to_dict()["gold_evidence"], storage_artifacts))
+    artifacts = artifacts_from_store(engine, user_id)
+    m = stage_match(gold, artifacts["raw"])
+    trace.storage = type(trace.storage)(found=m["found"], missing=m["missing"],
+                                        details={"matches": m["matches"], "observed_count": m["observed_count"]})
+    evolved = artifacts["facts"] + artifacts["relations"] + artifacts["events"] + artifacts["rules"] + artifacts["profiles"]
+    m = stage_match(gold, evolved)
+    trace.evolution = type(trace.evolution)(found=m["found"], missing=m["missing"],
+                                            details={"matches": m["matches"], "observed_count": m["observed_count"]})
 
-    # Evolution: active structured facts/events are retained; this stage is kept
-    # explicit so future temporal/conflict experiments can distinguish stale loss.
-    evolved = engine.store.active_facts(user_id, include_history=True) + engine.store.events(user_id)
-    evolution_artifacts = [
-        {"source_id": row.get("session_id") or row.get("source"), "content": row.get("content")}
-        for row in evolved
-    ]
-    trace.evolution = type(trace.evolution)(**_stage_observed(trace.to_dict()["gold_evidence"], evolution_artifacts))
-
-    results = engine.search(
-        SearchRequest(
-            query=record["question"],
-            user_id=user_id,
-            top_k=10,
-            multi_hop=True,
-        )
-    )
-    retrieval_artifacts = [
-        {
-            "source_id": row.get("session_id") or row.get("source"),
-            "content": row.get("content"),
-            "id": row.get("id"),
-        }
-        for row in results
-    ]
-    trace.retrieval = type(trace.retrieval)(**_stage_observed(trace.to_dict()["gold_evidence"], retrieval_artifacts))
+    results = engine.search(SearchRequest(query=record["question"], user_id=user_id, top_k=10, multi_hop=True))
+    m = stage_match(gold, retrieval_artifacts(results))
+    trace.retrieval = type(trace.retrieval)(found=m["found"], missing=m["missing"],
+                                             details={"matches": m["matches"], "observed_count": m["observed_count"]})
     trace.rerank = trace.retrieval
     trace.context = trace.retrieval
-    trace.answer = {
-        "correct": None,
-        "answer": None,
-        "mode": "search-only-diagnostic",
-    }
+    trace.answer = {"correct": None, "answer": None, "mode": "search-only-diagnostic"}
     trace.failure_type = attribute_failure(trace.to_dict())
     return trace.to_dict()
-
 
 def run(dataset: str, limit: int) -> list[dict[str, Any]]:
     OUT.parent.mkdir(parents=True, exist_ok=True)
