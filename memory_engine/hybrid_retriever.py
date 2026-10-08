@@ -51,27 +51,31 @@ class HybridRetriever:
             docs.append({
                 "id": f["id"], "content": f["content"], "role": "memory",
                 "timestamp": f["timestamp"], "user_id": user_id,
-                "session_id": "", "memory_type": "fact",
+                "session_id": f.get("source_session_id") or "", "memory_type": "fact",
                 "status": f["status"], "source": "atomic_fact",
                 "valid_from": f["valid_from"], "valid_to": f["valid_to"],
                 "metadata": {"subject":f["subject"],"predicate":f["predicate"],
                              "object":f["object"],"supersedes_id":f["supersedes_id"],
                              "source":f.get("source", "user"),
                              "conflict_status":f.get("conflict_status", "none"),
-                             "conflict_group_id":f.get("conflict_group_id")},
+                             "conflict_group_id":f.get("conflict_group_id"),
+                             "source_raw_id":f.get("source_raw_id"), "source_session_id":f.get("source_session_id"),
+                             "source_turn_id":f.get("source_turn_id")},
             })
 
         for e in events:
             docs.append({
                 "id": e["id"], "content": e["content"], "role": "event",
                 "timestamp": e["timestamp"], "user_id": user_id,
-                "session_id": "", "memory_type": "event",
+                "session_id": e.get("source_session_id") or "", "memory_type": "event",
                 "status": "active", "source": "timeline",
                 "valid_from": e.get("event_start") or e["timestamp"],
                 "valid_to": e.get("event_end"),
                 "metadata": {
                     "event": e["event"],
                     "temporal_text": e.get("temporal_text") or "",
+                    "source_raw_id": e.get("source_raw_id"), "source_session_id": e.get("source_session_id"),
+                    "source_turn_id": e.get("source_turn_id"),
                 },
             })
 
@@ -79,21 +83,22 @@ class HybridRetriever:
             docs.append({
                 "id": r["id"], "content": r["content"], "role": "relation",
                 "timestamp": r["timestamp"], "user_id": user_id,
-                "session_id": "", "memory_type": "relation",
+                "session_id": r.get("source_session_id") or "", "memory_type": "relation",
                 "status": "active", "source": "graph",
                 "valid_from": r["timestamp"], "valid_to": None,
                 "metadata": {"subject":r["subject"],"predicate":r["predicate"],
-                             "object":r["object"]},
+                             "object":r["object"], "source_raw_id":r.get("source_raw_id"),
+                             "source_session_id":r.get("source_session_id"), "source_turn_id":r.get("source_turn_id")},
             })
 
         for r in rules:
             docs.append({
                 "id": r["id"], "content": r["content"], "role": "rule",
                 "timestamp": r["timestamp"], "user_id": user_id,
-                "session_id": "", "memory_type": "rule",
+                "session_id": r.get("source_session_id") or "", "memory_type": "rule",
                 "status": "active", "source": "rule",
                 "valid_from": r["timestamp"], "valid_to": None,
-                "metadata": {},
+                "metadata": {"source_raw_id":r.get("source_raw_id"), "source_session_id":r.get("source_session_id"), "source_turn_id":r.get("source_turn_id")},
             })
 
         for p in profiles:
