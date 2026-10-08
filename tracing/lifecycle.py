@@ -33,14 +33,22 @@ def _semantic_similarity(a: str, b: str) -> float:
 
 
 def _source_match(evidence: dict[str, Any], artifact: Any) -> bool:
+    """Match provenance without allowing session identity to override a turn id."""
     if not isinstance(artifact, dict):
         return False
-    source = evidence.get("source_id") or evidence.get("source")
-    turn = evidence.get("turn_id")
-    artifact_source = artifact.get("source_id") or artifact.get("session_id")
+
+    evidence_turn = evidence.get("turn_id") or evidence.get("source_turn_id")
     artifact_turn = artifact.get("turn_id") or artifact.get("source_turn_id")
-    if turn and artifact_turn and str(turn) == str(artifact_turn):
-        return True
+    if evidence_turn:
+        return bool(artifact_turn and str(evidence_turn) == str(artifact_turn))
+
+    evidence_raw = evidence.get("source_raw_id") or evidence.get("raw_id")
+    artifact_raw = artifact.get("source_raw_id") or artifact.get("raw_id") or artifact.get("id")
+    if evidence_raw:
+        return bool(artifact_raw and str(evidence_raw) == str(artifact_raw))
+
+    source = evidence.get("source_id") or evidence.get("source")
+    artifact_source = artifact.get("source_id") or artifact.get("session_id")
     return bool(source and artifact_source and str(source) == str(artifact_source))
 
 
@@ -71,20 +79,20 @@ def match_evidence(
         best_type = None
         best_score = 0.0
 
-        # 1. Exact text.
+        # 1. Provenance. For turn-level evidence this must be checked before
+        # text matching, otherwise repeated text from another turn can be
+        # incorrectly attributed to the gold turn.
+        for artifact in observed_list:
+            if _source_match(evidence, artifact):
+                best, best_type, best_score = artifact, "provenance", 1.0
+                break
+
+        # 2. Exact text.
         norm_gold = normalize_text(gold_text)
-        if norm_gold:
+        if best is None and norm_gold:
             for artifact in observed_list:
                 if normalize_text(_text(artifact)) == norm_gold:
                     best, best_type, best_score = artifact, "exact", 1.0
-                    break
-
-        # 2. Provenance. This can succeed even when memory formation rewrites
-        # the source text.
-        if best is None:
-            for artifact in observed_list:
-                if _source_match(evidence, artifact):
-                    best, best_type, best_score = artifact, "provenance", 1.0
                     break
 
         # 3. Semantic representation.
