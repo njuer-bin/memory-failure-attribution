@@ -33,10 +33,8 @@ def artifacts_from_store(engine: Any, user_id: str) -> dict[str, list[dict[str, 
         for row in rows:
             item = _artifact(row)
             item["memory_type"] = kind
-            # Raw records already carry the benchmark session id through the
-            # AddRequest session_id. Semantic memories currently do not persist
-            # turn provenance, so source_id is deliberately left unset rather
-            # than inventing lineage.
+            # Raw records carry the benchmark session id. Semantic memories
+            # carry persisted source session/turn provenance when available.
             if kind == "raw":
                 item["source_id"] = item.get("session_id")
             else:
