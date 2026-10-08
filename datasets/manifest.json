@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "purpose": "Unified registry for memory-failure attribution experiments.",
+  "record_schema": "datasets/schema.json",
+  "datasets": [
+    {"id":"locomo_refined_public","family":"LoCoMo-Refined","source":"locomo_refined_dataset/public","format":"jsonl","files":["conversations.jsonl","questions.jsonl"],"raw_file":"locomo_refined_dataset/raw/locomo_refined.json","size_hint":{"conversations":10,"questions":1382},"capabilities":["multi_hop","temporal","entity_attribution","abstention","evidence_coverage"],"status":"ready"},
+    {"id":"longmemeval_s_sample10","family":"LongMemEval","source":"longmemeval_s_sample10.json","format":"json","capabilities":["single_hop","multi_hop","temporal","knowledge_update","conflict","abstention"],"status":"ready"},
+    {"id":"longmemeval_oracle","family":"LongMemEval","source":"longmemeval_oracle.json","format":"json","capabilities":["oracle_memory","evidence_diagnostics","multi_hop","temporal"],"status":"ready"},
+    {"id":"beam_100k","family":"BEAM","source":"100K-00000-of-00001.parquet","preview":"beam_preview.json","format":"parquet","capabilities":["abstention","contradiction_resolution","event_ordering","information_extraction","multi_hop"],"status":"ready","notes":"Full records are loaded lazily with pyarrow."},
+    {"id":"sample_conversation","family":"local_sample","source":"sample_conversation.json","format":"json","capabilities":["smoke_test","schema_validation"],"status":"ready"}
+  ]
+}
