@@ -29,44 +29,53 @@ def _answer_text(value: Any) -> str | None:
 
 
 def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
+    """Flatten LoCoMo's session -> message structure into engine provenance."""
     if not isinstance(conversation, dict):
         return []
-    raw_turns = conversation.get("conversation") or conversation.get("messages") or conversation.get("turns") or []
+    raw_sessions = conversation.get("conversation") or conversation.get("sessions") or []
     turns = []
-    if isinstance(raw_turns, list):
-        for idx, message in enumerate(raw_turns):
-            if not isinstance(message, dict):
-                continue
-            benchmark_turn_id = (
-                message.get("turn_id")
-                or message.get("dia_id")
-                or message.get("message_id")
-                or message.get("id")
-                or f"turn_{idx}"
-            )
-            source_id = str(
-                message.get("session_id")
-                or message.get("source_id")
-                or conversation.get("sample_id")
-                or conversation.get("conversation_id")
-                or ""
-            )
-            # MemoryEngine persists provenance as <session_id>:turn_<index>.
-            # Keep the benchmark id separately and match the engine id here.
-            turn_id = f"{source_id}:turn_{idx}" if source_id else str(benchmark_turn_id)
+    if isinstance(raw_sessions, dict):
+        raw_sessions = [
+            {"session_id": sid, "messages": messages}
+            for sid, messages in raw_sessions.items()
+        ]
+    for session_idx, session in enumerate(raw_sessions if isinstance(raw_sessions, list) else []):
+        if not isinstance(session, dict):
+            continue
+        source_id = str(
+            session.get("session_id")
+            or session.get("id")
+            or f"session_{session_idx}"
+        )
+        messages = session.get("messages") or session.get("turns") or []
+        if isinstance(messages, dict):
+            messages = [messages]
+        for msg_idx, message in enumerate(messages if isinstance(messages, list) else []):
+            benchmark_turn_id = ""
+            if isinstance(message, dict):
+                benchmark_turn_id = str(
+                    message.get("turn_id")
+                    or message.get("dia_id")
+                    or message.get("message_id")
+                    or message.get("id")
+                    or f"turn_{msg_idx}"
+                )
+            else:
+                benchmark_turn_id = f"turn_{msg_idx}"
             text = _message_text(message)
             if not text:
                 continue
             turns.append({
-                "turn_id": str(turn_id),
+                "turn_id": f"{source_id}:turn_{msg_idx}",
                 "source_id": source_id,
-                "benchmark_turn_id": str(benchmark_turn_id),
+                "benchmark_turn_id": benchmark_turn_id,
                 "text": text,
-                "role": str(message.get("role") or message.get("speaker") or ""),
-                "timestamp": message.get("timestamp"),
+                "role": str(message.get("role") or message.get("speaker") or "")
+                    if isinstance(message, dict) else "user",
+                "timestamp": message.get("timestamp")
+                    if isinstance(message, dict) else None,
             })
     return turns
-
 
 def _locomo_evidence(raw_evidence: Any, *, example_id: str, conversation: Any) -> list[dict[str, Any]]:
     turns = _locomo_turns(conversation)
