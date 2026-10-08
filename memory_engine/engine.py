@@ -34,6 +34,7 @@ class MemoryEngine:
         self.query_analyzer = QueryAnalyzer()
         self.reranker = LightweightReranker()
         self.evidence = EvidenceBuilder()
+        self.last_search_trace: dict[str, Any] = {}
 
     def add(self, request):
         # Claim request_id atomically before doing any writes. This closes the
@@ -64,6 +65,7 @@ class MemoryEngine:
         if current:
             batches.append(current)
 
+        turn_counter = 0
         for batch_idx, batch in enumerate(batches):
             for msg_idx, msg in enumerate(batch):
                 ts = msg.timestamp or now_ms()
@@ -77,6 +79,7 @@ class MemoryEngine:
                     "content": msg.content,
                     "timestamp": ts,
                     "chunk_index": batch_idx,
+                    "source_turn_id": f"{request.session_id}:turn_{turn_counter}",
                 })
 
                 # 原始记忆同时写入 SQLite 和进程级向量索引，保证 Add -> Search 立即可见。
@@ -87,7 +90,10 @@ class MemoryEngine:
                 role = (msg.role or "user").strip().lower()
                 source = "system" if role == "system" else ("assistant" if role in {"assistant", "model"} else "user")
                 analyzed = self.analyzer.analyze(
-                    request.user_id, msg.content, ts, source=source
+                    request.user_id, msg.content, ts, source=source,
+                    source_raw_id=raw_id,
+                    source_session_id=request.session_id,
+                    source_turn_id=f"{request.session_id}:turn_{turn_counter}",
                 )
 
                 for fact in analyzed["facts"]:
@@ -117,6 +123,7 @@ class MemoryEngine:
 
                 for profile in analyzed["profiles"]:
                     self.store.upsert_profile(profile)
+                turn_counter += 1
 
         # request_id was already atomically claimed before processing.
         return True
@@ -156,11 +163,13 @@ class MemoryEngine:
         )
         hybrid_ms = (time.perf_counter() - t0) * 1000
 
+        retrieval_candidates = []
         result = []
         for d, score in candidates:
             item = dict(d)
             item["score"] = score
             result.append(item)
+        retrieval_candidates = list(result)
 
         # 查询级时间约束：优先使用显式时间窗口；“以前/去年/上个月”等
         # 会由 QueryAnalyzer 归一化后应用到候选证据。
@@ -222,6 +231,7 @@ class MemoryEngine:
 
         ranked = list(dedup.values())
         t0 = time.perf_counter()
+        pre_rerank = list(ranked)
         ranked = self.reranker.rerank(
             plan.rewritten,
             ranked,
@@ -236,7 +246,9 @@ class MemoryEngine:
         rerank_ms = (time.perf_counter() - t0) * 1000
 
         t0 = time.perf_counter()
+        reranked = list(ranked)
         ranked = self.evidence.build(ranked, request.top_k)
+        context_items = list(ranked)
         evidence_ms = (time.perf_counter() - t0) * 1000
 
         # 时间查询的结果顺序：当前有效事实优先；历史查询保留时间信息。
@@ -251,6 +263,20 @@ class MemoryEngine:
             )
 
         total_ms = (time.perf_counter() - search_t0) * 1000
+        self.last_search_trace = {
+            "query": query,
+            "retrieval_candidates": retrieval_candidates,
+            "pre_rerank_candidates": pre_rerank,
+            "reranked": reranked,
+            "context": context_items,
+            "timings_ms": {
+                "latest": round(latest_ms, 3), "analyze": round(analyze_ms, 3),
+                "hybrid": round(hybrid_ms, 3), "second_round": round(second_round_ms, 3),
+                "graph": round(graph_ms, 3), "rerank": round(rerank_ms, 3),
+                "evidence": round(evidence_ms, 3), "total": round(total_ms, 3),
+            },
+        }
+
         if os.getenv("MEMORY_PROFILE", "").strip() == "1":
             logger.info(
                 "SEARCH_PROFILE query=%r total=%.2f latest=%.2f analyze=%.2f hybrid=%.2f "
