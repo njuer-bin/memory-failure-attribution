@@ -115,6 +115,19 @@ class MemoryAnalyzer:
         (re.compile(r"我常用的语言是([^\n，。,.；;]+)"), "language"),
         (re.compile(r"我来自([^\n，。,.；;]+)"), "origin"),
         (re.compile(r"我毕业于([^\n，。,.；;]+)"), "school"),
+        # English benchmark coverage (e.g. LongMemEval).
+        (re.compile(r"\bI\s+graduated\s+with\s+(?:a|an)\s+degree\s+in\s+([^\n.,;!?]+)", re.I), "degree"),
+        (re.compile(r"\bI\s+graduated\s+from\s+([^\n.,;!?]+)", re.I), "school"),
+        (re.compile(r"\bI\s+(?:currently\s+)?live\s+in\s+([^\n.,;!?]+)", re.I), "residence"),
+        (re.compile(r"\bI\s+(?:currently\s+)?work\s+(?:at|for)\s+([^\n.,;!?]+)", re.I), "workplace"),
+        (re.compile(r"\bI\s+(?:am|\'m)\s+(?:a|an)\s+([^\n.,;!?]+)", re.I), "occupation"),
+        (re.compile(r"\bI\s+(?:really\s+)?like\s+([^\n.,;!?]+)", re.I), "like"),
+        (re.compile(r"\bI\s+(?:really\s+)?(?:do not|don\'t)\s+like\s+([^\n.,;!?]+)", re.I), "dislike"),
+        (re.compile(r"\bI\s+hate\s+([^\n.,;!?]+)", re.I), "dislike"),
+        (re.compile(r"\bMy\s+birthday\s+is\s+([^\n.,;!?]+)", re.I), "birthday"),
+        (re.compile(r"\bMy\s+name\s+is\s+([^\n.,;!?]+)", re.I), "name"),
+        (re.compile(r"\bI\s+(?:speak|use)\s+([^\n.,;!?]+)", re.I), "language"),
+        (re.compile(r"\bI\s+(?:am\s+)?from\s+([^\n.,;!?]+)", re.I), "origin"),
     ]
 
     REL_PATTERNS = [
@@ -125,6 +138,12 @@ class MemoryAnalyzer:
         (re.compile(r"(?:我的|我)?(?:爸爸|父亲)\s*([A-Za-z0-9_\u4e00-\u9fff]{1,20})"), "father"),
         (re.compile(r"(?:我的|我)?妻子\s*([A-Za-z0-9_\u4e00-\u9fff]{1,20})"), "wife"),
         (re.compile(r"(?:我的|我)?丈夫\s*([A-Za-z0-9_\u4e00-\u9fff]{1,20})"), "husband"),
+        (re.compile(r"\bmy\s+friend\s+is\s+([A-Za-z][A-Za-z0-9_-]{1,40})", re.I), "friend"),
+        (re.compile(r"\bmy\s+colleague\s+is\s+([A-Za-z][A-Za-z0-9_-]{1,40})", re.I), "colleague"),
+        (re.compile(r"\bmy\s+(?:boss|manager)\s+is\s+([A-Za-z][A-Za-z0-9_-]{1,40})", re.I), "boss"),
+        (re.compile(r"\bmy\s+(?:mother|mom)\s+is\s+([A-Za-z][A-Za-z0-9_-]{1,40})", re.I), "mother"),
+        (re.compile(r"\bmy\s+(?:father|dad)\s+is\s+([A-Za-z][A-Za-z0-9_-]{1,40})", re.I), "father"),
+        (re.compile(r"\bmy\s+(?:wife|husband)\s+is\s+([A-Za-z][A-Za-z0-9_-]{1,40})", re.I), "spouse"),
     ]
 
     RULE_PATTERNS = [
@@ -132,12 +151,18 @@ class MemoryAnalyzer:
         re.compile(r"(?:请记住|记住)[，,:： ]*(.*)"),
         re.compile(r"(?:我的习惯是)[，,:： ]*(.*)"),
         re.compile(r"(?:我通常|我一般)(.*)"),
+        re.compile(r"\bremember(?: that)?\s+(.+)", re.I),
+        re.compile(r"\bfrom now on[, ]+(.+)", re.I),
+        re.compile(r"\bi usually\s+(.+)", re.I),
+        re.compile(r"\bi normally\s+(.+)", re.I),
     ]
 
     EVENT_WORDS = (
         "搬到", "搬家", "毕业", "入职", "离职", "结婚", "分手",
         "旅行", "去过", "参加", "开始", "结束", "购买", "买了",
         "完成", "搬去", "搬来", "加入", "辞职", "回到",
+        "graduated", "moved", "married", "divorced", "started", "finished",
+        "joined", "left", "bought", "purchased", "visited", "traveled",
     )
 
     CORRECTION_MARKERS = ("不是", "改成", "改为", "其实是", "更正为", "纠正一下")
@@ -163,6 +188,8 @@ class MemoryAnalyzer:
 
                 # “我不喜欢X”不应被 like 规则截断为“不喜欢X”
                 if current_predicate == "like" and obj.startswith(("不", "讨厌")):
+                    current_predicate = "dislike"
+                if current_predicate == "like" and re.match(r"^(?:do not|don't)\s+", obj, re.I):
                     current_predicate = "dislike"
 
                 fact_text = m.group(0).strip()
