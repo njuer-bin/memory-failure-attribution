@@ -83,7 +83,7 @@ def iter_normalized(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any
         if dataset_id in {"longmemeval_s_sample10","longmemeval_oracle"}:
             yield normalize_longmemeval(raw,dataset=dataset_id,index=idx)
         elif dataset_id=="locomo_refined_public":
-            record=normalize_locomo_refined(raw,index=idx)
+            record=normalize_locomo_refined(raw,index=idx,conversation=conversations.get(str(raw.get("sample_id") or raw.get("conversation_id") or "")))
             cid=record.get("conversation_id")
             if cid and cid in conversations:
                 record["conversation"]=conversations[cid]
