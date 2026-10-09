@@ -28,18 +28,39 @@ TIMEOUT = float(os.getenv("SEMANTIC_JUDGE_TIMEOUT_SECONDS", "180"))
 MIN_ANCHOR_TOKENS = int(os.getenv("SEMANTIC_MIN_ANCHOR_TOKENS", "2"))
 
 
+def _evidence_text(evidence: list[dict[str, Any]]) -> str:
+    """Render evidence with provenance metadata needed for temporal questions."""
+    rows: list[str] = []
+    for i, item in enumerate(evidence):
+        content = str(item.get("content") or "").strip()
+        if not content:
+            continue
+        metadata: list[str] = []
+        for label, key in (("source", "source_id"), ("turn", "turn_id"), ("timestamp", "timestamp")):
+            value = item.get(key)
+            if value is not None and str(value).strip():
+                metadata.append(f"{label}={value}")
+        suffix = f" ({', '.join(metadata)})" if metadata else ""
+        rows.append(f"[{i + 1}] {content}{suffix}")
+    return "\n".join(rows)
+
+
 def _prompt(question: str, candidate: str, evidence: list[dict[str, Any]]) -> str:
-    evidence_text = "\n".join(
-        f"[{i + 1}] {str(item.get('content') or '').strip()}"
-        for i, item in enumerate(evidence)
-        if str(item.get("content") or "").strip()
-    )
+    evidence_text = _evidence_text(evidence)
     return f"""You are an answer-quality evaluator for a research experiment.
 
-Evaluate the candidate using ONLY the supplied Gold Evidence.
+The candidate answer below is the benchmark reference answer. Use it as the target
+that the benchmark expects, but do NOT assume it is supported by the evidence.
 
-First decide whether the Gold Evidence is sufficient to answer the exact question.
-This is a strict evidence-coverage test, not a plausibility test.
+Your first and most important task is to decide whether the supplied Gold Evidence
+is sufficient to establish the information requested by the exact question AND to
+support the benchmark reference answer. This is a strict evidence-coverage test,
+not a plausibility test.
+
+Important: evidence metadata is part of the evidence. In particular, a timestamp can
+be necessary to resolve relative temporal expressions such as "yesterday", "last
+week", "last Saturday", or "next month". Do not mark such evidence insufficient merely
+because the relative expression is not itself an absolute calendar date.
 
 Set "evidence_sufficient" to false when:
 - the evidence only mentions a related entity, event, place, or attribute without
@@ -49,7 +70,7 @@ Set "evidence_sufficient" to false when:
 - the evidence contains a phrase that merely implies a relationship, but does not
   explicitly establish that relationship;
 - the requested attribute (such as where, when, who, what, or why) cannot be
-  determined from the evidence alone.
+  determined from the evidence plus its supplied metadata.
 
 For example, if the question asks where someone takes yoga classes and the evidence
 only says they cannot make it to "Serenity Yoga", that is NOT sufficient evidence
@@ -60,9 +81,10 @@ shelter's fundraising dinner, but the evidence only says they volunteered at a
 different fundraising dinner called "Love is in the Air" on Valentine's Day, the
 evidence is NOT sufficient. Do not infer that the two events are the same.
 
-If evidence_sufficient is true, decide whether the candidate correctly answers the
-question. Accept concise answers and semantically equivalent wording. Do not require
-the candidate to repeat explanatory text from the evidence.
+If evidence_sufficient is true, then decide whether the candidate/reference answer
+correctly answers the question using that evidence. Accept concise answers and
+semantically equivalent wording. Do not require the candidate to repeat explanatory
+text from the evidence.
 
 Set "correct" to false when the candidate answers a different question, contradicts
 the evidence, invents unsupported information, or omits necessary information.
@@ -76,7 +98,7 @@ Return ONLY valid JSON with exactly these fields:
 Question:
 {question}
 
-Candidate answer:
+Benchmark reference answer / candidate:
 {candidate}
 
 Gold Evidence:
@@ -115,7 +137,6 @@ def _meaningful_exact_anchor(candidate: str, evidence: list[dict[str, Any]]) -> 
                 span = tuple(evidence_tokens[i : i + size])
                 if span in spans:
                     phrase = " ".join(span)
-                    # Avoid treating generic stop-word-only matches as anchors.
                     if any(
                         len(token) >= 3 or re.search(r"[\u4e00-\u9fff]", token)
                         for token in span
@@ -125,13 +146,7 @@ def _meaningful_exact_anchor(candidate: str, evidence: list[dict[str, Any]]) -> 
 
 
 def _reason_indicates_insufficient_evidence(reason: str) -> bool:
-    """Catch cases where the judge's own explanation explicitly describes a mismatch.
-
-    The judge can occasionally emit an internally inconsistent verdict such as
-    evidence_sufficient=true while its reason says that the evidence describes a
-    different event. This rule is deliberately narrow and only acts on strong
-    mismatch language; it does not try to infer sufficiency from generic wording.
-    """
+    """Catch strong judge language indicating an evidence mismatch."""
     text = reason.strip().lower()
     if not text:
         return False
@@ -192,20 +207,12 @@ def evaluate_answer(question: str, candidate: str, evidence: list[dict[str, Any]
         confidence = "medium"
     reason = str(verdict.get("reason") or "").strip()
 
-    # Guard against an internally inconsistent judge verdict. If the judge itself
-    # explicitly says the evidence is a different event/entity or otherwise lacks
-    # the requested information, treat the evidence as insufficient. This prevents
-    # such cases from becoming spurious F6 reasoning failures.
     if evidence_sufficient and _reason_indicates_insufficient_evidence(reason):
         evidence_sufficient = False
         judge_correct = False
 
     final_correct = judge_correct
     adjudication = "judge"
-
-    # Conservative repair for obvious judge false-negatives:
-    # only if evidence is sufficient, the judge is confident, and the candidate
-    # contains a meaningful exact phrase from the supplied evidence.
     anchor = None
     if evidence_sufficient and not judge_correct and confidence != "low":
         anchor = _meaningful_exact_anchor(candidate, evidence)
