@@ -91,9 +91,6 @@ def iter_normalized(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any
                 except (ValueError, IndexError):
                     conversation = None
             record=normalize_locomo_refined(raw,index=idx,conversation=conversation)
-            cid=record.get("conversation_id")
-            if cid and cid in conversations:
-                record["conversation"]=conversations[cid]
             yield record
         else:
             yield normalize_record(raw,dataset=dataset_id,family=info["family"],index=idx,task_type=info.get("capabilities",[]))
