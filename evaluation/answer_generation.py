@@ -146,14 +146,27 @@ def score_answer(
     em = exact_match(pred, ref)
     f1 = token_f1(pred, ref)
     anchor_date = _context_anchor_date(context or [])
+    pred_date = _extract_date(pred)
+    ref_date = _extract_date(ref)
     temporal_equivalent = _temporal_equivalent(pred, ref, anchor_date)
+
+    # A factual date mismatch must not be rescued by token overlap. For
+    # example, "6 May 2023" vs "7 May 2023" has a high token F1 because the
+    # month and year overlap, but the underlying dates are different.
+    explicit_date_mismatch = bool(pred_date and ref_date and pred_date != ref_date)
+    if explicit_date_mismatch:
+        correct = False
+    else:
+        correct = bool(em == 1.0 or f1 >= F1_THRESHOLD or temporal_equivalent)
+
     return {
         "exact_match": em,
         "token_f1": f1,
         "threshold": F1_THRESHOLD,
         "temporal_equivalent": temporal_equivalent,
         "temporal_anchor_date": anchor_date.isoformat() if anchor_date else None,
-        "correct": bool(em == 1.0 or f1 >= F1_THRESHOLD or temporal_equivalent),
+        "explicit_date_mismatch": explicit_date_mismatch,
+        "correct": correct,
     }
 
 
