@@ -535,3 +535,14 @@ Do not treat the earlier LoCoMo n=50 runs as paper results. Before spending anot
 - Oracle Context prediction, reference answer, and scoring components.
 
 The answer results from the previous run (Real Memory 6%, Oracle Memory 4%, Oracle Context 4%) also fail the benchmark-validity gate. In particular, Oracle Context's low score means answer/reference alignment and answer generation must be inspected separately; it must not be interpreted as evidence of reasoning failure.
+
+### 2026-10-09 — Provenance regression tests pass
+
+The local regression suite for the latest adapter indexing change was run from the repository root:
+
+    G:\\aconda\\python.exe -m pytest tests/test_locomo_turn_provenance.py -q
+
+Result: **2 passed in 0.04s**. The tests cover (1) empty/whitespace messages not consuming the engine turn index while benchmark IDs remain preserved, and (2) turn-index reset for each session.
+
+This verifies the adapter's indexing contract for the covered fixtures only. It does not yet validate persisted MemoryEngine provenance, Gold Evidence resolution on a real LoCoMo record, or Oracle Context answer/reference scoring. The single-record end-to-end validation gate above remains open; do not rerun n=50 yet.
+
