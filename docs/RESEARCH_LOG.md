@@ -517,3 +517,21 @@ and construct canonical provenance per message:
 while preserving the benchmark `dia_id/message_id` separately. Conversation lookup was also hardened with a conversation-index fallback.
 
 The previous two LoCoMo n=50 runs remain invalid for scientific attribution. A fresh n=50 run is required before any semantic calibration.
+
+## 2026-10-09 — LoCoMo provenance indexing fix after repeated n=50 anomaly
+
+A third LoCoMo n=50 run again produced 49/50 F1_FORMATION and only 2% lifecycle evidence recall. This remains an invalid integration result and is not evidence that the memory engine has a 98% formation failure rate.
+
+A code-level indexing discrepancy was identified in the adapter: _locomo_turns() generated canonical turn IDs from the original message-list index, while MemoryEngine._add_claimed() increments its persisted turn_counter only for messages actually ingested. Empty messages are skipped before the engine receives AddMessage, so the two counters can diverge after any empty message in a session.
+
+The adapter now uses a separate engine_turn_idx that advances only for non-empty message content, matching the ingestion rule, while preserving the original benchmark turn ID for lookup. This is a targeted provenance-alignment fix, not yet a validated benchmark result.
+
+### Validation gate before another full run
+
+Do not treat the earlier LoCoMo n=50 runs as paper results. Before spending another ~50 minutes on n=50, validate a single question and inspect:
+- normalized Gold Evidence turn/session IDs and resolution status;
+- matching raw message IDs and persisted source_turn_id;
+- semantic memories sharing the source turn/session;
+- Oracle Context prediction, reference answer, and scoring components.
+
+The answer results from the previous run (Real Memory 6%, Oracle Memory 4%, Oracle Context 4%) also fail the benchmark-validity gate. In particular, Oracle Context's low score means answer/reference alignment and answer generation must be inspected separately; it must not be interpreted as evidence of reasoning failure.
