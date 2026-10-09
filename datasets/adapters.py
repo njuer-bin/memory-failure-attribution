@@ -14,7 +14,6 @@ def _message_has_answer(message: Any) -> bool:
     return isinstance(message, dict) and bool(message.get("has_answer"))
 
 
-
 def _answer_text(value: Any) -> str | None:
     if value is None:
         return None
@@ -28,35 +27,67 @@ def _answer_text(value: Any) -> str | None:
     return str(value)
 
 
-def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
-    """Flatten LoCoMo sessions using the exact turn-indexing rule of MemoryEngine.
+def _locomo_sessions(conversation: Any) -> list[dict[str, Any]]:
+    """Normalize the public LoCoMo conversation object to the runner schema.
 
-    MemoryEngine increments its per-session turn counter only after a non-empty
-    message is ingested. The adapter must do the same; using the raw list index
-    causes every subsequent provenance ID to drift after an empty message.
+    The public conversation file stores sessions under ``sessions`` and does
+    not provide ``session_id``. The benchmark's ``dia_id`` (for example
+    ``D1:3``) identifies the session, so derive ``D1`` from the first
+    non-empty message when no explicit session ID exists.
     """
     if not isinstance(conversation, dict):
         return []
     raw_sessions = conversation.get("conversation") or conversation.get("sessions") or []
-    turns = []
     if isinstance(raw_sessions, dict):
         raw_sessions = [
             {"session_id": sid, "messages": messages}
             for sid, messages in raw_sessions.items()
         ]
+    result: list[dict[str, Any]] = []
     for session_idx, session in enumerate(raw_sessions if isinstance(raw_sessions, list) else []):
         if not isinstance(session, dict):
             continue
-        source_id = str(
-            session.get("session_id")
-            or session.get("id")
-            or f"session_{session_idx}"
-        )
         messages = session.get("messages") or session.get("turns") or []
         if isinstance(messages, dict):
             messages = [messages]
-        # Match MemoryEngine._add_claimed: turn_counter advances only for
-        # messages that actually reach AddMessage (non-empty content).
+        messages = list(messages) if isinstance(messages, list) else []
+        explicit_sid = session.get("session_id") or session.get("id")
+        sid = str(explicit_sid) if explicit_sid is not None else ""
+        if not sid:
+            for message in messages:
+                if not isinstance(message, dict):
+                    continue
+                dia_id = str(message.get("dia_id") or "")
+                if ":" in dia_id:
+                    sid = dia_id.split(":", 1)[0]
+                    break
+        if not sid:
+            sid = f"session_{session_idx}"
+        result.append({
+            "session_id": sid,
+            "date": session.get("date") or session.get("date_time"),
+            "messages": messages,
+        })
+    return result
+
+
+def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
+    """Flatten LoCoMo sessions using MemoryEngine's non-empty turn indexing."""
+    raw_sessions = (
+        _locomo_sessions(conversation)
+        if isinstance(conversation, dict)
+        else conversation if isinstance(conversation, list)
+        else []
+    )
+    turns: list[dict[str, Any]] = []
+    for session_idx, session in enumerate(raw_sessions):
+        if not isinstance(session, dict):
+            continue
+        source_id = str(session.get("session_id") or session.get("id") or f"session_{session_idx}")
+        session_timestamp = session.get("timestamp") or session.get("date") or session.get("date_time")
+        messages = session.get("messages") or session.get("turns") or []
+        if isinstance(messages, dict):
+            messages = [messages]
         engine_turn_idx = 0
         for msg_idx, message in enumerate(messages if isinstance(messages, list) else []):
             text = _message_text(message).strip()
@@ -71,11 +102,11 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
                     or f"turn_{msg_idx}"
                 )
                 role = str(message.get("role") or message.get("speaker") or "")
-                timestamp = message.get("timestamp")
+                timestamp = message.get("timestamp") or message.get("session_date_time") or session_timestamp
             else:
                 benchmark_turn_id = f"turn_{msg_idx}"
                 role = "user"
-                timestamp = None
+                timestamp = session_timestamp
             turns.append({
                 "turn_id": f"{source_id}:turn_{engine_turn_idx}",
                 "source_id": source_id,
@@ -86,6 +117,7 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
             })
             engine_turn_idx += 1
     return turns
+
 
 def _locomo_evidence(raw_evidence: Any, *, example_id: str, conversation: Any) -> list[dict[str, Any]]:
     turns = _locomo_turns(conversation)
@@ -106,7 +138,7 @@ def _locomo_evidence(raw_evidence: Any, *, example_id: str, conversation: Any) -
             source_ref = _first(item, "source_id", "session_id", "source", "doc_id")
             text = _first(item, "text", "content", "evidence", "memory", default="")
         else:
-            evidence_id, turn_ref, source_ref, text = f"{example_id}:e{idx}", None, None, str(item)
+            evidence_id, turn_ref, source_ref, text = f"{example_id}:e{idx}", str(item), None, ""
         turn = by_turn.get(str(turn_ref)) if turn_ref is not None else None
         if turn is None and turn_ref is not None:
             turn = by_benchmark_turn.get(str(turn_ref))
@@ -143,51 +175,35 @@ def normalize_longmemeval(raw: dict[str, Any], *, dataset: str, index: int) -> d
     dates = raw.get("haystack_dates", []) or []
     sessions = raw.get("haystack_sessions", []) or []
     answer_ids = {str(x) for x in (raw.get("answer_session_ids", []) or [])}
-
     conversation = []
     evidence = []
     for i, session in enumerate(sessions):
         sid = str(session_ids[i]) if i < len(session_ids) else f"session_{i}"
         date = dates[i] if i < len(dates) else None
         messages = list(session or []) if isinstance(session, list) else [session]
-        item = {"session_id": sid, "date": date, "messages": messages}
-        conversation.append(item)
-
-        # LongMemEval annotates answer-bearing turns with has_answer. Prefer
-        # turn-level evidence because session-level evidence overstates the
-        # amount of information that must survive the memory lifecycle.
-        answer_turns = [
-            (j, m) for j, m in enumerate(messages) if _message_has_answer(m)
-        ]
+        conversation.append({"session_id": sid, "date": date, "messages": messages})
+        answer_turns = [(j, m) for j, m in enumerate(messages) if _message_has_answer(m)]
         if sid in answer_ids:
             if answer_turns:
                 for j, message in answer_turns:
                     text = _message_text(message)
                     if text:
                         evidence.append({
-                            "evidence_id": f"{qid}:{sid}:turn_{j}",
-                            "source_id": sid,
-                            "turn_id": f"{sid}:turn_{j}",
-                            "timestamp": date,
+                            "evidence_id": f"{qid}:{sid}:turn_{j}", "source_id": sid,
+                            "turn_id": f"{sid}:turn_{j}", "timestamp": date,
                             "text": text,
                             "role": str(message.get("role") or message.get("speaker") or "") if isinstance(message, dict) else "",
                             "granularity": "turn",
                         })
             else:
-                # Backward-compatible fallback for files without has_answer.
                 evidence.append({
-                    "evidence_id": f"{qid}:{sid}",
-                    "source_id": sid,
-                    "timestamp": date,
+                    "evidence_id": f"{qid}:{sid}", "source_id": sid, "timestamp": date,
                     "text": "\n".join(_message_text(m) for m in messages if _message_text(m)),
-                    "role": "",
-                    "granularity": "session",
+                    "role": "", "granularity": "session",
                 })
-
     qtype = raw.get("question_type", "unknown")
     if str(qid).endswith("_abs"):
         qtype = f"{qtype},abstention"
-
     return {
         "dataset": dataset, "family": "LongMemEval", "split": None,
         "example_id": f"{dataset}:{qid}", "conversation_id": qid,
@@ -195,14 +211,9 @@ def normalize_longmemeval(raw: dict[str, Any], *, dataset: str, index: int) -> d
         "answer": raw.get("answer"), "gold_evidence": evidence,
         "conversation": conversation, "task_type": [qtype],
         "metadata": {
-            "question_date": raw.get("question_date"),
-            "answer_session_ids": list(answer_ids),
-            "gold_evidence_granularity": (
-                "turn" if any(e.get("granularity") == "turn" for e in evidence)
-                else "session"
-            ),
-            "raw": raw,
-            "normalization": "longmemeval_v2_turn_level",
+            "question_date": raw.get("question_date"), "answer_session_ids": list(answer_ids),
+            "gold_evidence_granularity": "turn" if any(e.get("granularity") == "turn" for e in evidence) else "session",
+            "raw": raw, "normalization": "longmemeval_v2_turn_level",
         },
     }
 
@@ -211,38 +222,28 @@ def normalize_locomo_refined(raw: dict[str, Any], *, index: int, conversation: d
     qid = str(_first(raw, "qa_id", "question_id", "id", default=index))
     sample_id = _first(raw, "sample_id", "conversation_id")
     conversation = conversation or {}
+    normalized_conversation = _locomo_sessions(conversation)
     answer = raw.get("answer")
     raw_evidence = _first(raw, "evidence", "gold_evidence", "supporting_evidence")
     evidence = _locomo_evidence(
         raw_evidence,
         example_id=f"locomo_refined_public:{qid}",
-        conversation=conversation,
+        conversation=normalized_conversation,
     )
     task = [str(raw.get("category"))] if raw.get("category") is not None else []
     return {
-        "dataset": "locomo_refined_public",
-        "family": "LoCoMo-Refined",
-        "split": "public",
+        "dataset": "locomo_refined_public", "family": "LoCoMo-Refined", "split": "public",
         "example_id": f"locomo_refined_public:{qid}",
         "conversation_id": str(sample_id) if sample_id is not None else None,
-        "question_id": qid,
-        "question": str(raw.get("question", "")),
-        "answer": _answer_text(answer),
-        "gold_evidence": evidence,
-        "conversation": conversation,
-        "task_type": task,
+        "question_id": qid, "question": str(raw.get("question", "")),
+        "answer": _answer_text(answer), "gold_evidence": evidence,
+        "conversation": normalized_conversation, "task_type": task,
         "metadata": {
-            "conversation_idx": raw.get("conversation_idx"),
-            "qa_index": raw.get("qa_index"),
-            "raw": raw,
-            "normalization": "locomo_refined_v2_turn_provenance",
+            "conversation_idx": raw.get("conversation_idx"), "qa_index": raw.get("qa_index"),
+            "raw": raw, "normalization": "locomo_refined_v3_canonical_sessions",
             "evidence_resolution": {
-                "resolved_turns": sum(
-                    1 for e in evidence if e.get("granularity") == "turn"
-                ),
-                "unresolved": sum(
-                    1 for e in evidence if e.get("granularity") == "unresolved"
-                ),
+                "resolved_turns": sum(1 for e in evidence if e.get("granularity") == "turn"),
+                "unresolved": sum(1 for e in evidence if e.get("granularity") == "unresolved"),
             },
         },
     }
