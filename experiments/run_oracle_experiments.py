@@ -200,8 +200,6 @@ def _formation_diagnostics(
 def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEngine, user_id: str, real: list[dict[str, Any]], search_trace: dict[str, Any]) -> None:
     stored = artifacts_from_store(engine, user_id)
 
-    # Formation is approximated by extracted semantic memories. Raw messages
-    # are intentionally excluded: raw retention is storage, not formation.
     formation = (
         stored["facts"]
         + stored["relations"]
@@ -258,19 +256,20 @@ def _answer_failure_type(mode_data: dict[str, Any]) -> str | None:
     """Attribute an incorrect answer to the earliest observed boundary.
 
     F1-F5 are evidence-boundary failures. F6 is only assigned when the answer
-    is wrong while all gold evidence reaches final context, or when the oracle
-    context itself cannot produce a correct answer.
+    is wrong while all gold evidence reaches final context. Oracle Context is a
+    control, not a proof of memory failure; its own wrong answer is marked as
+    a reasoning-control failure by the experiment runner.
     """
     answer = mode_data.get("answer") or {}
     if answer.get("correct") is not False:
         return None
 
     if mode_data.get("mode") == "oracle_context":
-        return "F6_REASONING"
+        return "RC_REASONING_CONTROL_FAILURE"
 
     gold = {str(x.get("evidence_id")) for x in mode_data.get("gold_evidence", []) if x.get("evidence_id")}
     if not gold:
-        return "F6_REASONING"
+        return "E0_EVIDENCE_INSUFFICIENCY"
 
     for stage, failure in (
         ("formation", "F1_FORMATION"),
@@ -366,7 +365,7 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     trace.answer = {
         **real_answer,
         "mode": "real_memory",
-        "answer_scoring": "token_f1",
+        "answer_scoring": "token_f1_plus_temporal_phrase_rules",
     }
     trace.failure_type = attribute_failure(trace.to_dict())
 
@@ -375,17 +374,13 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     oracle_memory["answer"] = {
         **oracle_memory_answer,
         "mode": "oracle_memory",
-        "answer_scoring": "token_f1",
+        "answer_scoring": "token_f1_plus_temporal_phrase_rules",
     }
     oracle_context["answer"] = {
         **oracle_context_answer,
         "mode": "oracle_context",
-        "answer_scoring": "token_f1",
+        "answer_scoring": "token_f1_plus_temporal_phrase_rules",
     }
-
-    # Keep evidence-boundary attribution and answer-level attribution separate.
-    # This prevents a correct answer with missing redundant evidence from being
-    # mislabeled as a reasoning failure.
 
     row = {
         "question_id": trace.question_id,
@@ -459,7 +454,7 @@ def _build_summary(dataset: str, limit: int, rows: list[dict[str, Any]], errors:
         "oracle_memory": summarize_traces([_mode_trace(r, "oracle_memory") for r in rows]) if rows else {},
         "oracle_context": _context_only_summary(rows),
         "answer_scoring": {
-            "method": "local_ollama_token_f1",
+            "method": "local_ollama_token_f1_plus_temporal_phrase_rules",
             "real_memory": _answer_summary(rows, "real_memory"),
             "oracle_memory": _answer_summary(rows, "oracle_memory"),
             "oracle_context": _answer_summary(rows, "oracle_context"),
@@ -468,11 +463,13 @@ def _build_summary(dataset: str, limit: int, rows: list[dict[str, Any]], errors:
         "note": (
             "Evidence lifecycle and answer scoring are reported separately. "
             "Answer correctness uses exact match OR token F1 >= ANSWER_F1_THRESHOLD "
-            "against the benchmark reference answer. Oracle Context is the reasoning "
-            "control: when its answer is correct but Real Memory is wrong, the answer "
-            "error is attributed to the earliest missing evidence boundary; when all "
-            "real evidence reaches context and the answer is wrong, it is F6_REASONING. "
-            "This is not an LLM-judge score."
+            "OR explicitly resolvable temporal equivalence OR a normalized reference "
+            "phrase contained in a fuller prediction. Explicit date mismatches always "
+            "override token overlap. Oracle Context is the reasoning control; its own "
+            "incorrect answer is reported as RC_REASONING_CONTROL_FAILURE and must not "
+            "be treated as evidence of memory failure. Evidence-question sufficiency "
+            "still requires separate benchmark-level validation before F6 prevalence "
+            "claims are made. This is not an LLM-judge score."
         ),
     }
 
@@ -519,55 +516,44 @@ def run(dataset: str, limit: int) -> dict[str, Any]:
             )
         except Exception as exc:
             errors += 1
-            elapsed = round(time.perf_counter() - t0, 3)
-            _write_jsonl(jsonl, {
-                "question_id": question_id,
-                "question": record.get("question"),
+            payload = {
                 "_status": "error",
-                "_elapsed_seconds": elapsed,
+                "question_id": question_id,
                 "error": f"{type(exc).__name__}: {exc}",
-            })
-            log(f"[{number}/{limit}] ERROR after {elapsed:.2f}s: {exc}")
-            traceback.print_exc()
+                "traceback": traceback.format_exc(),
+            }
+            _write_jsonl(jsonl, payload)
+            log(f"[{number}/{limit}] ERROR {payload['error']}")
 
         _write_progress(progress_path, {
             "status": "running",
             "dataset": dataset,
             "limit": limit,
             "completed": number,
-            "successful": len(rows),
             "errors": errors,
-            "last_question_id": question_id,
             "elapsed_seconds": round(time.perf_counter() - started, 3),
         })
 
     summary = _build_summary(dataset, limit, rows, errors)
-    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     _write_progress(progress_path, {
         "status": "completed",
         "dataset": dataset,
         "limit": limit,
         "completed": len(rows) + errors,
-        "successful": len(rows),
         "errors": errors,
         "elapsed_seconds": round(time.perf_counter() - started, 3),
     })
-
-    log("\n" + "=" * 72)
-    log(f"EXPERIMENT FINISHED: successful={len(rows)}, errors={errors}, elapsed={time.perf_counter() - started:.2f}s")
-    log(f"Results: {jsonl}")
-    log(f"Summary: {summary_path}")
-    log("=" * 72)
+    summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     return summary
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--dataset", default="longmemeval_s_sample10")
+    parser.add_argument("--dataset", default="locomo_refined_public")
     parser.add_argument("--limit", type=int, default=10)
     args = parser.parse_args()
     summary = run(args.dataset, args.limit)
-    print(json.dumps(summary, ensure_ascii=False, indent=2), flush=True)
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 
 if __name__ == "__main__":
