@@ -6,6 +6,7 @@ import os
 import re
 import urllib.error
 import urllib.request
+from calendar import monthrange
 from datetime import date, datetime, timedelta
 from typing import Any
 
@@ -61,6 +62,55 @@ def _relative_date(text: str, anchor: date | None) -> date | None:
     return None
 
 
+def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None:
+    """Resolve common benchmark-relative periods against a known anchor date.
+
+    Only unambiguous calendar/benchmark expressions are handled. This avoids
+    guessing when a phrase such as "recently" has no deterministic meaning.
+    """
+    if anchor is None:
+        return None
+    normalized = _normalize(text).strip(" .!?;:")
+
+    if normalized == "this week":
+        start = anchor - timedelta(days=anchor.weekday())
+        return start, start + timedelta(days=6)
+    if normalized == "last week":
+        start = anchor - timedelta(days=anchor.weekday() + 7)
+        return start, start + timedelta(days=6)
+    if normalized == "next week":
+        start = anchor - timedelta(days=anchor.weekday() - 7)
+        return start, start + timedelta(days=6)
+
+    if normalized in {"this month", "last month", "next month"}:
+        offset = {"this month": 0, "last month": -1, "next month": 1}[normalized]
+        year = anchor.year + (anchor.month - 1 + offset) // 12
+        month = (anchor.month - 1 + offset) % 12 + 1
+        start = date(year, month, 1)
+        end = date(year, month, monthrange(year, month)[1])
+        return start, end
+
+    # Weekday-relative expressions are intentionally limited to the common
+    # benchmark form "last <weekday>" / "next <weekday>".
+    weekdays = {
+        "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
+        "friday": 4, "saturday": 5, "sunday": 6,
+    }
+    match = re.fullmatch(r"(last|next) (monday|tuesday|wednesday|thursday|friday|saturday|sunday)", normalized)
+    if match:
+        direction, weekday_name = match.groups()
+        target = weekdays[weekday_name]
+        delta = (target - anchor.weekday()) % 7
+        if direction == "last":
+            delta = delta - 7 if delta == 0 else delta - 7
+        else:
+            delta = delta + 7 if delta == 0 else delta
+        resolved = anchor + timedelta(days=delta)
+        return resolved, resolved
+
+    return None
+
+
 def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
     """Find a benchmark/event date from context without inventing one.
 
@@ -77,17 +127,39 @@ def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
 
 
 def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -> bool:
-    """Return True only for an explicitly resolvable relative/date pair."""
+    """Return True only for explicitly resolvable relative/date pairs."""
     pred_date = _extract_date(prediction)
     ref_date = _extract_date(reference)
     pred_relative = _relative_date(prediction, anchor)
     ref_relative = _relative_date(reference, anchor)
+    pred_period = _temporal_period(prediction, anchor)
+    ref_period = _temporal_period(reference, anchor)
 
     if pred_date and ref_relative:
         return pred_date == ref_relative
     if ref_date and pred_relative:
         return pred_relative == ref_date
+    if pred_date and ref_period:
+        return ref_period[0] <= pred_date <= ref_period[1]
+    if ref_date and pred_period:
+        return pred_period[0] <= ref_date <= pred_period[1]
+    if pred_period and ref_period:
+        return pred_period == ref_period
     return False
+
+
+def _phrase_match(prediction: str, reference: str) -> bool:
+    """Accept a clear reference phrase contained in a fuller direct answer.
+
+    This is deliberately one-way and conservative: a short reference must be
+    present verbatim in the normalized prediction. We do not use word-overlap
+    to infer semantic entailment.
+    """
+    if not prediction or not reference or prediction == reference:
+        return False
+    if len(reference.split()) < 2:
+        return False
+    return reference in prediction
 
 
 def _prompt(question: str, context: list[dict[str, Any]]) -> str:
@@ -149,6 +221,7 @@ def score_answer(
     pred_date = _extract_date(pred)
     ref_date = _extract_date(ref)
     temporal_equivalent = _temporal_equivalent(pred, ref, anchor_date)
+    phrase_match = _phrase_match(pred, ref)
 
     # A factual date mismatch must not be rescued by token overlap. For
     # example, "6 May 2023" vs "7 May 2023" has a high token F1 because the
@@ -157,7 +230,12 @@ def score_answer(
     if explicit_date_mismatch:
         correct = False
     else:
-        correct = bool(em == 1.0 or f1 >= F1_THRESHOLD or temporal_equivalent)
+        correct = bool(
+            em == 1.0
+            or f1 >= F1_THRESHOLD
+            or temporal_equivalent
+            or phrase_match
+        )
 
     return {
         "exact_match": em,
@@ -165,6 +243,7 @@ def score_answer(
         "threshold": F1_THRESHOLD,
         "temporal_equivalent": temporal_equivalent,
         "temporal_anchor_date": anchor_date.isoformat() if anchor_date else None,
+        "phrase_match": phrase_match,
         "explicit_date_mismatch": explicit_date_mismatch,
         "correct": correct,
     }
