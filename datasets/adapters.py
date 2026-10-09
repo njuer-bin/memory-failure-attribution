@@ -29,7 +29,12 @@ def _answer_text(value: Any) -> str | None:
 
 
 def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
-    """Flatten LoCoMo's session -> message structure into engine provenance."""
+    """Flatten LoCoMo sessions using the exact turn-indexing rule of MemoryEngine.
+
+    MemoryEngine increments its per-session turn counter only after a non-empty
+    message is ingested. The adapter must do the same; using the raw list index
+    causes every subsequent provenance ID to drift after an empty message.
+    """
     if not isinstance(conversation, dict):
         return []
     raw_sessions = conversation.get("conversation") or conversation.get("sessions") or []
@@ -50,8 +55,13 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
         messages = session.get("messages") or session.get("turns") or []
         if isinstance(messages, dict):
             messages = [messages]
+        # Match MemoryEngine._add_claimed: turn_counter advances only for
+        # messages that actually reach AddMessage (non-empty content).
+        engine_turn_idx = 0
         for msg_idx, message in enumerate(messages if isinstance(messages, list) else []):
-            benchmark_turn_id = ""
+            text = _message_text(message).strip()
+            if not text:
+                continue
             if isinstance(message, dict):
                 benchmark_turn_id = str(
                     message.get("turn_id")
@@ -60,21 +70,21 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
                     or message.get("id")
                     or f"turn_{msg_idx}"
                 )
+                role = str(message.get("role") or message.get("speaker") or "")
+                timestamp = message.get("timestamp")
             else:
                 benchmark_turn_id = f"turn_{msg_idx}"
-            text = _message_text(message)
-            if not text:
-                continue
+                role = "user"
+                timestamp = None
             turns.append({
-                "turn_id": f"{source_id}:turn_{msg_idx}",
+                "turn_id": f"{source_id}:turn_{engine_turn_idx}",
                 "source_id": source_id,
                 "benchmark_turn_id": benchmark_turn_id,
                 "text": text,
-                "role": str(message.get("role") or message.get("speaker") or "")
-                    if isinstance(message, dict) else "user",
-                "timestamp": message.get("timestamp")
-                    if isinstance(message, dict) else None,
+                "role": role,
+                "timestamp": timestamp,
             })
+            engine_turn_idx += 1
     return turns
 
 def _locomo_evidence(raw_evidence: Any, *, example_id: str, conversation: Any) -> list[dict[str, Any]]:
