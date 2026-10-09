@@ -200,13 +200,19 @@ def _oracle_memory_trace(gold: list[dict[str, Any]], oracle: list[dict[str, Any]
 
 
 def _oracle_context_trace(gold: list[dict[str, Any]], oracle: list[dict[str, Any]]) -> dict[str, Any]:
-    empty = {"formation": [], "storage": [], "evolution": [], "retrieval": [], "rerank": []}
-    result = {stage: _stage(gold, [], "oracle_context_not_measured") for stage in empty}
+    result = {stage: _stage(gold, [], "oracle_context_not_measured") for stage in ("formation", "storage", "evolution", "retrieval", "rerank")}
     result["context"] = _stage(gold, oracle, "oracle_context")
     return result
 
 
-def _evidence_sufficiency(question: str, candidate: str, gold: list[dict[str, Any]]) -> dict[str, Any]:
+def _evidence_sufficiency(question: str, benchmark_answer: str, gold: list[dict[str, Any]]) -> dict[str, Any]:
+    """Validate the benchmark Gold Evidence against the benchmark answer.
+
+    The gate must be independent of the Real Memory prediction. Using the model's
+    failed answer here would make E0 depend on the very system failure we are trying
+    to attribute. The benchmark reference answer is therefore the candidate used by
+    the semantic evidence-coverage judge.
+    """
     if not gold:
         return {
             "status": "insufficient", "evidence_sufficient": False,
@@ -214,7 +220,7 @@ def _evidence_sufficiency(question: str, candidate: str, gold: list[dict[str, An
             "adjudication": "no_gold_evidence",
         }
     try:
-        verdict = evaluate_answer(question, candidate, gold)
+        verdict = evaluate_answer(question, str(benchmark_answer or ""), gold)
     except Exception as exc:
         return {
             "status": "error", "evidence_sufficient": None, "confidence": "low",
@@ -311,7 +317,7 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     oracle_memory_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle)
     oracle_context_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle)
 
-    gate = _evidence_sufficiency(record["question"], str(real_answer.get("answer") or ""), gold)
+    gate = _evidence_sufficiency(record["question"], record.get("answer", ""), gold)
     trace.answer = {**real_answer, "mode": "real_memory", "answer_scoring": "token_f1_plus_temporal_phrase_rules"}
     trace.failure_type = attribute_failure({**trace.to_dict(), "evidence_sufficiency": gate})
 
@@ -391,7 +397,8 @@ def _build_summary(dataset: str, limit: int, rows: list[dict[str, Any]], errors:
         },
         "note": (
             "Evidence lifecycle and answer scoring are reported separately. "
-            "Before F1-F6 attribution, Gold Evidence is checked for question-answer sufficiency. "
+            "Before F1-F6 attribution, Gold Evidence is checked for question-answer sufficiency "
+            "using the benchmark reference answer rather than the Real Memory prediction. "
             "Insufficient evidence is E0; uncertain or judge-error cases are EVAL. "
             "F6 is assigned only when the gate is sufficient, all gold evidence reaches final context, "
             "and the benchmark answer scorer still marks the answer incorrect. Oracle Context remains "
@@ -418,26 +425,32 @@ def run(dataset: str, limit: int) -> dict[str, Any]:
 
     for idx, record in enumerate(iter_normalized(dataset, limit=limit)):
         number = idx + 1
-        question_id = str(record.get("question_id") or record.get("example_id") or f"row_{idx}")
-        log(f"\n[{number}/{limit}] START question_id={question_id}")
+        log(f"\n[{number}/{limit}] START question_id={record.get('question_id')}")
         t0 = time.perf_counter()
         try:
             row = run_record(record, idx)
-            row["_status"] = "ok"
-            row["_elapsed_seconds"] = round(time.perf_counter() - t0, 3)
             rows.append(row)
             _write_jsonl(jsonl, row)
-            log(f"[{number}/{limit}] DONE {row['_elapsed_seconds']:.2f}s failure={row['modes']['real_memory'].get('failure_type')}")
+            failure = row["modes"]["real_memory"].get("answer_failure_type")
+            log(f"[{number}/{limit}] DONE {time.perf_counter() - t0:.2f}s failure={failure}")
         except Exception as exc:
             errors += 1
-            payload = {"_status": "error", "question_id": question_id, "error": f"{type(exc).__name__}: {exc}", "traceback": traceback.format_exc()}
-            _write_jsonl(jsonl, payload)
-            log(f"[{number}/{limit}] ERROR {payload['error']}")
-        _write_progress(progress_path, {"status": "running", "dataset": dataset, "limit": limit, "completed": number, "errors": errors, "elapsed_seconds": round(time.perf_counter() - started, 3)})
+            log(f"[{number}/{limit}] ERROR {type(exc).__name__}: {exc}")
+            traceback.print_exc()
+        _write_progress(progress_path, {
+            "status": "running", "dataset": dataset, "limit": limit,
+            "completed": number, "errors": errors,
+            "elapsed_seconds": time.perf_counter() - started,
+        })
 
     summary = _build_summary(dataset, limit, rows, errors)
-    _write_progress(progress_path, {"status": "completed", "dataset": dataset, "limit": limit, "completed": len(rows) + errors, "errors": errors, "elapsed_seconds": round(time.perf_counter() - started, 3)})
     summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    _write_progress(progress_path, {
+        "status": "completed", "dataset": dataset, "limit": limit,
+        "completed": len(rows), "errors": errors,
+        "elapsed_seconds": time.perf_counter() - started,
+    })
+    print(json.dumps(summary, ensure_ascii=False, indent=2))
     return summary
 
 
@@ -446,7 +459,7 @@ def main() -> None:
     parser.add_argument("--dataset", default="locomo_refined_public")
     parser.add_argument("--limit", type=int, default=10)
     args = parser.parse_args()
-    print(json.dumps(run(args.dataset, args.limit), ensure_ascii=False, indent=2))
+    run(args.dataset, args.limit)
 
 
 if __name__ == "__main__":
