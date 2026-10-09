@@ -25,6 +25,10 @@ _DATE_PATTERNS = (
     re.compile(r"\b(?P<month>January|February|March|April|May|June|July|August|September|October|November|December)\s+(?P<day>\d{1,2}),?\s+(?P<year>\d{4})\b", re.I),
     re.compile(r"\b(?P<year>\d{4})[-/]\s*(?P<month>\d{1,2})[-/]\s*(?P<day>\d{1,2})\b"),
 )
+_MONTH_YEAR_PATTERN = re.compile(
+    r"\b(?P<month>January|February|March|April|May|June|July|August|September|October|November|December)\s+(?P<year>\d{4})\b",
+    re.I,
+)
 
 
 def _normalize(text: str) -> str:
@@ -48,6 +52,20 @@ def _extract_date(text: str) -> date | None:
     return None
 
 
+def _extract_month_period(text: str) -> tuple[date, date] | None:
+    """Parse an explicit month/year such as ``June 2023`` as a calendar period."""
+    match = _MONTH_YEAR_PATTERN.search(str(text or ""))
+    if not match:
+        return None
+    try:
+        month = datetime.strptime(match.group("month")[:3], "%b").month
+        year = int(match.group("year"))
+        start = date(year, month, 1)
+        return start, date(year, month, monthrange(year, month)[1])
+    except (TypeError, ValueError):
+        return None
+
+
 def _relative_date(text: str, anchor: date | None) -> date | None:
     if anchor is None:
         return None
@@ -63,11 +81,7 @@ def _relative_date(text: str, anchor: date | None) -> date | None:
 
 
 def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None:
-    """Resolve common benchmark-relative periods against a known anchor date.
-
-    Only unambiguous calendar/benchmark expressions are handled. This avoids
-    guessing when a phrase such as "recently" has no deterministic meaning.
-    """
+    """Resolve common benchmark-relative periods against a known anchor date."""
     if anchor is None:
         return None
     normalized = _normalize(text).strip(" .!?;:")
@@ -90,8 +104,6 @@ def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None
         end = date(year, month, monthrange(year, month)[1])
         return start, end
 
-    # Weekday-relative expressions are intentionally limited to the common
-    # benchmark form "last <weekday>" / "next <weekday>".
     weekdays = {
         "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
         "friday": 4, "saturday": 5, "sunday": 6,
@@ -101,10 +113,7 @@ def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None
         direction, weekday_name = match.groups()
         target = weekdays[weekday_name]
         delta = (target - anchor.weekday()) % 7
-        if direction == "last":
-            delta = delta - 7 if delta == 0 else delta - 7
-        else:
-            delta = delta + 7 if delta == 0 else delta
+        delta = delta - 7 if direction == "last" else delta + 7
         resolved = anchor + timedelta(days=delta)
         return resolved, resolved
 
@@ -112,12 +121,7 @@ def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None
 
 
 def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
-    """Find a benchmark/event date from context without inventing one.
-
-    Context timestamps are preferred over arbitrary dates embedded in content.
-    This is intentionally conservative: if no parseable timestamp exists, the
-    temporal equivalence check is simply not applied.
-    """
+    """Find a benchmark/event date from context without inventing one."""
     for item in context:
         for key in ("timestamp", "event_timestamp", "date_time", "datetime"):
             anchor = _extract_date(str(item.get(key) or ""))
@@ -134,6 +138,8 @@ def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -
     ref_relative = _relative_date(reference, anchor)
     pred_period = _temporal_period(prediction, anchor)
     ref_period = _temporal_period(reference, anchor)
+    pred_month = _extract_month_period(prediction)
+    ref_month = _extract_month_period(reference)
 
     if pred_date and ref_relative:
         return pred_date == ref_relative
@@ -145,16 +151,15 @@ def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -
         return pred_period[0] <= ref_date <= pred_period[1]
     if pred_period and ref_period:
         return pred_period == ref_period
+    if pred_period and ref_month:
+        return pred_period == ref_month
+    if ref_period and pred_month:
+        return ref_period == pred_month
     return False
 
 
 def _phrase_match(prediction: str, reference: str) -> bool:
-    """Accept a clear reference phrase contained in a fuller direct answer.
-
-    This is deliberately one-way and conservative: a short reference must be
-    present verbatim in the normalized prediction. We do not use word-overlap
-    to infer semantic entailment.
-    """
+    """Accept a clear reference phrase contained in a fuller direct answer."""
     if not prediction or not reference or prediction == reference:
         return False
     if len(reference.split()) < 2:
@@ -223,9 +228,6 @@ def score_answer(
     temporal_equivalent = _temporal_equivalent(pred, ref, anchor_date)
     phrase_match = _phrase_match(pred, ref)
 
-    # A factual date mismatch must not be rescued by token overlap. For
-    # example, "6 May 2023" vs "7 May 2023" has a high token F1 because the
-    # month and year overlap, but the underlying dates are different.
     explicit_date_mismatch = bool(pred_date and ref_date and pred_date != ref_date)
     if explicit_date_mismatch:
         correct = False
