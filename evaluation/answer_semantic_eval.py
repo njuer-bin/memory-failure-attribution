@@ -102,12 +102,23 @@ def _call_judge(prompt: str) -> dict[str, Any]:
 
 
 def _reason_indicates_insufficient_evidence(reason: str) -> bool:
+    """Detect judge explanations that contradict an affirmative sufficiency flag.
+
+    Small local models occasionally return evidence_sufficient=true while their
+    natural-language explanation explicitly says that the evidence does not mention,
+    answer, or support the requested fact. Treating that contradiction as sufficient
+    would create a false-positive evidence gate.
+    """
     lowered = reason.lower()
     patterns = (
         "does not provide information", "does not provide any information",
+        "does not mention", "doesn't mention",
         "no information", "evidence is missing", "no evidence",
-        "different event", "different entity", "cannot determine",
-        "cannot be determined", "not enough evidence", "insufficient evidence",
+        "different event", "different entity", "different interaction",
+        "cannot determine", "cannot be determined", "cannot answer",
+        "does not answer", "doesn't answer",
+        "does not support", "doesn't support",
+        "not enough evidence", "insufficient evidence",
     )
     return any(pattern in lowered for pattern in patterns)
 
