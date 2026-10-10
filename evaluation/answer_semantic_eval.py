@@ -124,17 +124,27 @@ def _parse_timestamp(value: Any) -> datetime | None:
         return value
     if not isinstance(value, str):
         return None
-    match = re.search(r"(\d{1,2})\s+(.+?)\s+on\s+(\d{1,2})\s+([A-Za-z]+),\s+(\d{4})", value)
-    if not match:
-        return None
-    hour = int(match.group(1))
-    month_day = match.group(3)
-    month_name = match.group(4)
-    year = int(match.group(5))
-    try:
-        return datetime.strptime(f"{month_day} {month_name} {year} {hour}", "%d %B %Y %H")
-    except ValueError:
-        return None
+    value = value.strip()
+    patterns = (
+        (r"(\d{1,2}:\d{2})\s*([ap]m)\s+on\s+(\d{1,2})\s+([A-Za-z]+),\s+(\d{4})", "%I:%M %p %d %B %Y"),
+        (r"(\d{1,2})\s*([ap]m)\s+on\s+(\d{1,2})\s+([A-Za-z]+),\s+(\d{4})", "%I %p %d %B %Y"),
+        (r"(\d{1,2})\s+([A-Za-z]+)\s+(\d{1,2}),\s+(\d{4})", "%H %B %d %Y"),
+    )
+    for pattern, date_format in patterns:
+        match = re.search(pattern, value, flags=re.IGNORECASE)
+        if not match:
+            continue
+        if date_format == "%I:%M %p %d %B %Y":
+            normalized = f"{match.group(1)} {match.group(2)} {match.group(3)} {match.group(4)} {match.group(5)}"
+        elif date_format == "%I %p %d %B %Y":
+            normalized = f"{match.group(1)} {match.group(2)} {match.group(3)} {match.group(4)} {match.group(5)}"
+        else:
+            normalized = f"{match.group(1)} {match.group(2)} {match.group(3)} {match.group(4)}"
+        try:
+            return datetime.strptime(normalized, date_format)
+        except ValueError:
+            continue
+    return None
 
 
 def _question_dates(question: str) -> set[str]:
