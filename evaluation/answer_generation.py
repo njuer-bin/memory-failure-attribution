@@ -127,6 +127,19 @@ def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
             anchor = _extract_date(str(item.get(key) or ""))
             if anchor:
                 return anchor
+            raw = str(item.get(key) or "").strip()
+            match = re.search(
+                r"\b(?:\d{1,2}:\d{2}|\d{1,2})\s*[ap]m\s+on\s+(\d{1,2})\s+"
+                r"(January|February|March|April|May|June|July|August|September|October|November|December),?\s+(\d{4})\b",
+                raw,
+                flags=re.IGNORECASE,
+            )
+            if match:
+                try:
+                    month = datetime.strptime(match.group(2)[:3], "%b").month
+                    return date(int(match.group(3)), month, int(match.group(1)))
+                except ValueError:
+                    pass
     return None
 
 
