@@ -340,9 +340,12 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     })
 
     row = {
-        "question_id": trace.question_id, "question": trace.question,
+        "question_id": trace.question_id,
+        "question": trace.question,
+        "gold_answer": record.get("answer"),
         "modes": {"real_memory": real_mode, "oracle_memory": oracle_memory, "oracle_context": oracle_context},
-        "gold_evidence_count": len(gold), "gold_evidence": gold,
+        "gold_evidence_count": len(gold),
+        "gold_evidence": gold,
     }
     for mode in ("real_memory", "oracle_memory", "oracle_context"):
         row["modes"][mode]["answer_failure_type"] = _answer_failure_type({"gold_evidence": gold, "mode": mode, **row["modes"][mode]})
