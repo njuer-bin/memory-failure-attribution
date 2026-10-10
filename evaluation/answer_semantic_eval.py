@@ -9,8 +9,6 @@ import urllib.request
 from datetime import datetime, timedelta
 from typing import Any
 
-from evaluation.answer_metrics import score_answer
-
 BASE_URL = os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
 MODEL = os.getenv("SEMANTIC_JUDGE_MODEL", os.getenv("ANSWER_MODEL", "qwen2.5:7b"))
 TEMPERATURE = float(os.getenv("SEMANTIC_JUDGE_TEMPERATURE", "0"))
