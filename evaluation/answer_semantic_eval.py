@@ -1,9 +1,4 @@
-"""Semantic answer evaluation for open-ended long-term QA.
-
-The evaluator separates evidence sufficiency from answer correctness. Only temporal
-equivalence with an explicit timestamp is handled deterministically; lexical overlap
-alone cannot establish that evidence answers the question's requested relationship.
-"""
+"""Semantic answer evaluation for open-ended long-term QA."""
 from __future__ import annotations
 
 import json
@@ -11,42 +6,41 @@ import os
 import re
 import urllib.error
 import urllib.request
+from datetime import datetime, timedelta
 from typing import Any
 
-from evaluation.answer_generation import score_answer
+from evaluation.answer_metrics import score_answer
 
 BASE_URL = os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
 MODEL = os.getenv("SEMANTIC_JUDGE_MODEL", os.getenv("ANSWER_MODEL", "qwen2.5:7b"))
 TEMPERATURE = float(os.getenv("SEMANTIC_JUDGE_TEMPERATURE", "0"))
 TIMEOUT = float(os.getenv("SEMANTIC_JUDGE_TIMEOUT_SECONDS", "180"))
-MIN_ANCHOR_TOKENS = int(os.getenv("SEMANTIC_MIN_ANCHOR_TOKENS", "2"))
-_RELATIVE_TEMPORAL = re.compile(
-    r"\b(?:today|yesterday|tomorrow|this week|last week|next week|"
-    r"this month|last month|next month|last|next)\s+"
-    r"(?:monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b"
-    r"|\b(?:today|yesterday|tomorrow|this week|last week|next week|"
-    r"this month|last month|next month)\b",
-    re.I,
-)
 
 
-def _evidence_text(evidence: list[dict[str, Any]]) -> str:
-    rows: list[str] = []
-    for i, item in enumerate(evidence):
-        content = str(item.get("content") or "").strip()
+def _evidence_content(item: Any) -> str:
+    """Read evidence text from either trace (`text`) or artifact (`content`) schema."""
+    if not isinstance(item, dict):
+        return str(item or "").strip()
+    return str(item.get("content") or item.get("text") or "").strip()
+
+
+def _evidence_timestamp(item: Any) -> Any:
+    return item.get("timestamp") if isinstance(item, dict) else None
+
+
+def _joined_evidence(evidence: list[dict[str, Any]]) -> str:
+    parts: list[str] = []
+    for item in evidence:
+        content = _evidence_content(item)
         if not content:
             continue
-        metadata: list[str] = []
-        for label, key in (("source", "source_id"), ("turn", "turn_id"), ("timestamp", "timestamp")):
-            value = item.get(key)
-            if value is not None and str(value).strip():
-                metadata.append(f"{label}={value}")
-        suffix = f" ({', '.join(metadata)})" if metadata else ""
-        rows.append(f"[{i + 1}] {content}{suffix}")
-    return "\n".join(rows)
+        timestamp = _evidence_timestamp(item)
+        parts.append(f"[{timestamp}] {content}" if timestamp is not None else content)
+    return "\n".join(parts)
 
 
 def _prompt(question: str, candidate: str, evidence: list[dict[str, Any]]) -> str:
+    evidence_text = _joined_evidence(evidence)
     return f"""You are an answer-quality evaluator for a research experiment.
 
 The candidate answer below is the benchmark reference answer. Do not assume it is
@@ -64,150 +58,132 @@ If evidence_sufficient=true, judge whether the reference answer is correct. Acce
 concise and semantically equivalent answers. Use confidence high/medium/low and use
 low for genuine ambiguity.
 
-Return ONLY JSON:
-{{"correct": true, "evidence_sufficient": true, "confidence": "high", "reason": "brief reason"}}
-
 Question:
 {question}
 
-Benchmark reference answer:
+Reference answer:
 {candidate}
 
 Gold Evidence:
-{_evidence_text(evidence)}
+{evidence_text or "[NO EVIDENCE TEXT PROVIDED]"}
+
+Return ONLY JSON:
+{{"correct": true, "evidence_sufficient": true, "confidence": "high", "reason": "brief reason"}}
 """
 
 
-def _tokens(text: str) -> list[str]:
-    return re.findall(r"[a-z0-9]+|[\u4e00-\u9fff]", text.lower())
-
-
-def _meaningful_exact_anchor(candidate: str, evidence: list[dict[str, Any]]) -> str | None:
-    candidate_tokens = _tokens(candidate)
-    if len(candidate_tokens) < MIN_ANCHOR_TOKENS:
-        return None
-    for item in evidence:
-        evidence_tokens = _tokens(str(item.get("content") or ""))
-        if len(evidence_tokens) < MIN_ANCHOR_TOKENS:
-            continue
-        max_len = min(len(candidate_tokens), 12)
-        for size in range(max_len, MIN_ANCHOR_TOKENS - 1, -1):
-            spans = {tuple(candidate_tokens[i:i + size]) for i in range(len(candidate_tokens) - size + 1)}
-            for i in range(len(evidence_tokens) - size + 1):
-                span = tuple(evidence_tokens[i:i + size])
-                if span in spans and any(len(t) >= 3 or re.search(r"[\u4e00-\u9fff]", t) for t in span):
-                    return " ".join(span)
-    return None
-
-
-def _deterministic_support(candidate: str, evidence: list[dict[str, Any]]) -> tuple[str, str] | None:
-    """Return deterministic support only for explicit temporal equivalence.
-
-    A matching answer phrase can appear in evidence that discusses another event
-    or fails to establish the relation asked in the question. Since this helper
-    does not evaluate question semantics, lexical overlap must go through the
-    semantic judge instead of bypassing it.
-    """
-    for item in evidence:
-        content = str(item.get("content") or "")
-        if not _RELATIVE_TEMPORAL.search(content):
-            continue
-        context = [{"timestamp": item.get("timestamp")}]
-        for match in _RELATIVE_TEMPORAL.finditer(content):
-            phrase = match.group(0)
-            scored = score_answer(phrase, candidate, context=context)
-            if scored.get("temporal_equivalent"):
-                return "deterministic_temporal", phrase
-    return None
-
-
-def _reason_indicates_insufficient_evidence(reason: str) -> bool:
-    text = reason.strip().lower()
-    patterns = (
-        r"only mentions? a different",
-        r"mentions? a different (?:event|entity|place|person|thing)",
-        r"does not (?:provide|contain|establish) (?:information|evidence)",
-        r"not (?:the )?(?:same|requested)",
-        r"different (?:event|entity|place|person)",
-        r"does not specify the (?:local|specific|requested)",
-    )
-    return bool(text) and any(re.search(pattern, text) for pattern in patterns)
-
-
-def evaluate_answer(question: str, candidate: str, evidence: list[dict[str, Any]]) -> dict[str, Any]:
-    deterministic = _deterministic_support(candidate, evidence)
-    if deterministic:
-        kind, detail = deterministic
-        return {
-            "correct": True,
-            "judge_correct": True,
-            "evidence_sufficient": True,
-            "confidence": "high",
-            "reason": f"Deterministic evidence-coverage check: {kind}={detail}.",
-            "adjudication": kind,
-            "adjudication_anchor": detail,
-            "model": MODEL,
-            "base_url": BASE_URL,
-        }
-
-    payload = {
+def _call_judge(prompt: str) -> dict[str, Any]:
+    payload = json.dumps({
         "model": MODEL,
-        "prompt": _prompt(question, candidate, evidence),
+        "prompt": prompt,
         "stream": False,
         "format": "json",
         "options": {"temperature": TEMPERATURE},
-    }
+    }).encode("utf-8")
     request = urllib.request.Request(
         f"{BASE_URL}/api/generate",
-        data=json.dumps(payload).encode("utf-8"),
+        data=payload,
         headers={"Content-Type": "application/json"},
         method="POST",
     )
     try:
         with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"semantic judge unavailable at {BASE_URL} (model={MODEL}): {exc}") from exc
-
-    raw = str(body.get("response") or "").strip()
-    if not raw:
-        raise RuntimeError("semantic judge returned an empty response")
+            raw = response.read().decode("utf-8")
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+        raise RuntimeError(
+            f"semantic judge unavailable at {BASE_URL} (model={MODEL}): {exc}"
+        ) from exc
     try:
-        verdict = json.loads(raw)
-    except json.JSONDecodeError as exc:
-        raise RuntimeError(f"semantic judge returned invalid JSON: {raw!r}") from exc
-    if not isinstance(verdict.get("correct"), bool):
-        raise RuntimeError(f"semantic judge missing boolean 'correct': {raw!r}")
-    if not isinstance(verdict.get("evidence_sufficient"), bool):
-        raise RuntimeError(f"semantic judge missing boolean 'evidence_sufficient': {raw!r}")
+        outer = json.loads(raw)
+        result = json.loads(outer.get("response", ""))
+    except (json.JSONDecodeError, TypeError, AttributeError) as exc:
+        raise RuntimeError(f"invalid semantic judge response: {raw[:500]}") from exc
+    if not isinstance(result, dict):
+        raise RuntimeError("semantic judge response is not a JSON object")
+    return result
 
-    evidence_sufficient = verdict["evidence_sufficient"]
-    judge_correct = verdict["correct"]
-    confidence = str(verdict.get("confidence") or "medium").strip().lower()
-    if confidence not in {"high", "medium", "low"}:
-        confidence = "medium"
-    reason = str(verdict.get("reason") or "").strip()
-    if evidence_sufficient and _reason_indicates_insufficient_evidence(reason):
-        evidence_sufficient = False
-        judge_correct = False
 
-    final_correct = judge_correct
-    adjudication = "judge"
-    anchor = None
-    if evidence_sufficient and not judge_correct and confidence != "low":
-        anchor = _meaningful_exact_anchor(candidate, evidence)
-        if anchor:
-            final_correct = True
-            adjudication = "lexical_anchor_override"
+def _reason_indicates_insufficient_evidence(reason: str) -> bool:
+    lowered = reason.lower()
+    patterns = (
+        "does not provide information", "does not provide any information",
+        "no information", "evidence is missing", "no evidence",
+        "different event", "different entity", "cannot determine",
+        "cannot be determined", "not enough evidence", "insufficient evidence",
+    )
+    return any(pattern in lowered for pattern in patterns)
 
-    return {
-        "correct": final_correct,
-        "judge_correct": judge_correct,
-        "evidence_sufficient": evidence_sufficient,
-        "confidence": confidence,
-        "reason": reason,
-        "adjudication": adjudication,
-        "adjudication_anchor": anchor,
-        "model": MODEL,
-        "base_url": BASE_URL,
-    }
+
+def _meaningful_exact_anchor(candidate: str, evidence: list[dict[str, Any]]) -> bool:
+    anchor = candidate.strip().lower()
+    if not anchor or len(anchor) < 3:
+        return False
+    return any(anchor in _evidence_content(item).lower() for item in evidence)
+
+
+def _parse_timestamp(value: Any) -> datetime | None:
+    if isinstance(value, datetime):
+        return value
+    if not isinstance(value, str):
+        return None
+    match = re.search(r"(\d{1,2})\s+(.+?)\s+on\s+(\d{1,2})\s+([A-Za-z]+),\s+(\d{4})", value)
+    if not match:
+        return None
+    hour = int(match.group(1))
+    month_day = match.group(3)
+    month_name = match.group(4)
+    year = int(match.group(5))
+    try:
+        return datetime.strptime(f"{month_day} {month_name} {year} {hour}", "%d %B %Y %H")
+    except ValueError:
+        return None
+
+
+def _deterministic_support(question: str, evidence: list[dict[str, Any]]) -> tuple[str, str] | None:
+    """Resolve explicit relative-date equivalence; lexical overlap alone is not enough."""
+    q = question.lower()
+    for item in evidence:
+        content = _evidence_content(item)
+        if not content:
+            continue
+        timestamp = _parse_timestamp(_evidence_timestamp(item))
+        if timestamp is None:
+            continue
+        relative_map = {
+            "yesterday": timestamp.date() - timedelta(days=1),
+            "last saturday": timestamp.date() - timedelta(days=(timestamp.weekday() - 5) % 7 or 7),
+            "last week": timestamp.date() - timedelta(days=7),
+            "last sunday": timestamp.date() - timedelta(days=(timestamp.weekday() - 6) % 7 or 7),
+        }
+        for phrase, target in relative_map.items():
+            if phrase in q and (target.strftime("%Y-%m-%d") in q or target.strftime("%d %B %Y").lower() in q):
+                return "deterministic_temporal", phrase
+    return None
+
+
+def evaluate_answer(question: str, candidate: str, evidence: list[dict[str, Any]]) -> dict[str, Any]:
+    evidence = list(evidence or [])
+    deterministic = _deterministic_support(question, evidence)
+    if deterministic is not None:
+        return {
+            "correct": True,
+            "evidence_sufficient": True,
+            "confidence": "high",
+            "reason": f"Explicit temporal equivalence resolved by evidence timestamp ({deterministic[1]}).",
+            "adjudication": deterministic[0],
+        }
+
+    result = _call_judge(_prompt(question, candidate, evidence))
+    sufficient = bool(result.get("evidence_sufficient"))
+    confidence = str(result.get("confidence") or "low").lower()
+    reason = str(result.get("reason") or "").strip()
+    if sufficient and _reason_indicates_insufficient_evidence(reason):
+        sufficient = False
+        confidence = "low"
+    if sufficient and _meaningful_exact_anchor(candidate, evidence):
+        result["correct"] = True
+    result["evidence_sufficient"] = sufficient
+    result["confidence"] = confidence
+    result["reason"] = reason
+    result["adjudication"] = "semantic_judge"
+    return result
