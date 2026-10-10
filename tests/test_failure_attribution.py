@@ -4,6 +4,7 @@ import tracing.failure_attribution as failure_attribution
 def _trace(answer_correct=False):
     return {
         "question": "When did Caroline go to the LGBTQ support group?",
+        "reference_answer": "7 May 2023",
         "gold_evidence": [
             {
                 "evidence_id": "e0",
@@ -27,6 +28,7 @@ def _trace(answer_correct=False):
 
 def test_insufficient_evidence_is_e0(monkeypatch):
     def fake_judge(question, candidate, evidence):
+        assert candidate == "7 May 2023"
         return {
             "correct": False,
             "evidence_sufficient": False,
@@ -57,6 +59,18 @@ def test_uncertain_evidence_gate_is_eval(monkeypatch):
 
     assert failure_attribution.attribute_failure(trace) == "EVAL_EVIDENCE_SUFFICIENCY"
     assert trace["evidence_sufficiency"]["status"] == "uncertain"
+
+
+def test_missing_reference_answer_does_not_use_prediction(monkeypatch):
+    def unexpected_judge(*args, **kwargs):
+        raise AssertionError("judge must not use the generated prediction as a reference")
+
+    monkeypatch.setattr(failure_attribution, "evaluate_answer", unexpected_judge)
+    trace = _trace()
+    trace.pop("reference_answer")
+
+    assert failure_attribution.attribute_failure(trace) == "EVAL_EVIDENCE_SUFFICIENCY"
+    assert trace["evidence_sufficiency"]["adjudication"] == "missing_reference_answer"
 
 
 def test_retrieval_failure_survives_sufficiency_gate(monkeypatch):
