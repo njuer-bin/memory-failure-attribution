@@ -2,6 +2,7 @@
 
 This is a post-hoc diagnostic step. It:
 - prints every sample's question/reference/predictions;
+- exposes answer-scoring diagnostics for temporal and semantic calibration;
 - isolates F6 candidates;
 - checks Real-vs-Oracle inversions;
 - sweeps token-F1 thresholds using already generated predictions;
@@ -13,7 +14,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import random
 from pathlib import Path
 from typing import Any
@@ -92,8 +92,19 @@ def print_sample_table(rows: list[dict[str, Any]]) -> None:
             print(
                 f"{mode}: correct={a.get('correct')} "
                 f"EM={a.get('exact_match')} F1={a.get('token_f1')} "
+                f"temporal={a.get('temporal_equivalent')} "
+                f"anchor={a.get('temporal_anchor_date')} "
+                f"phrase={a.get('phrase_match')} "
                 f"answer={a.get('answer')!r}"
             )
+        gate = row.get("modes", {}).get("real_memory", {}).get("evidence_sufficiency") or {}
+        print(
+            "evidence gate:",
+            gate.get("status"),
+            "confidence=", gate.get("confidence"),
+            "adjudication=", gate.get("adjudication"),
+            "reason=", gate.get("reason", ""),
+        )
         real = row["modes"]["real_memory"]
         print("failure:", real.get("answer_failure_type"))
         print("stage recall:", stage_recall(row, "real_memory"))
@@ -110,6 +121,7 @@ def print_f6(rows: list[dict[str, Any]]) -> None:
         return
     for row in candidates:
         print(f"\n{row.get('question_id')}: {row.get('question')}")
+        print("Benchmark reference:", row.get("gold_answer", "(not stored)"))
         print("Gold evidence:")
         for e in row.get("gold_evidence", []):
             print(" -", e.get("text", ""))
@@ -118,6 +130,8 @@ def print_f6(rows: list[dict[str, Any]]) -> None:
             print(
                 f"{mode}: {a.get('answer')!r}; "
                 f"EM={a.get('exact_match')}, F1={a.get('token_f1')}, "
+                f"temporal={a.get('temporal_equivalent')}, "
+                f"anchor={a.get('temporal_anchor_date')}, "
                 f"correct={a.get('correct')}"
             )
 
@@ -150,7 +164,6 @@ def print_threshold_sweep(rows: list[dict[str, Any]], modes: tuple[str, ...]) ->
             vals.append(f"{a:.3f}" if a is not None else "NA")
         print(f"{threshold:.2f}\t" + "\t".join(vals))
 
-    # Confidence intervals are most useful after choosing a protocol.
     threshold = 0.50
     print("\nBootstrap 95% CI at threshold=0.50:")
     for mode in modes:
