@@ -1,8 +1,8 @@
 """Semantic answer evaluation for open-ended long-term QA.
 
-The evaluator separates evidence sufficiency from answer correctness. The LLM judge
-handles ambiguous cases, while deterministic checks protect clear lexical and temporal
-cases from judge false-negatives.
+The evaluator separates evidence sufficiency from answer correctness. Only temporal
+equivalence with an explicit timestamp is handled deterministically; lexical overlap
+alone cannot establish that evidence answers the question's requested relationship.
 """
 from __future__ import annotations
 
@@ -101,11 +101,13 @@ def _meaningful_exact_anchor(candidate: str, evidence: list[dict[str, Any]]) -> 
 
 
 def _deterministic_support(candidate: str, evidence: list[dict[str, Any]]) -> tuple[str, str] | None:
-    """Return (kind, detail) only for strong evidence-coverage cases."""
-    anchor = _meaningful_exact_anchor(candidate, evidence)
-    if anchor:
-        return "deterministic_lexical", anchor
+    """Return deterministic support only for explicit temporal equivalence.
 
+    A matching answer phrase can appear in evidence that discusses another event
+    or fails to establish the relation asked in the question. Since this helper
+    does not evaluate question semantics, lexical overlap must go through the
+    semantic judge instead of bypassing it.
+    """
     for item in evidence:
         content = str(item.get("content") or "")
         if not _RELATIVE_TEMPORAL.search(content):
