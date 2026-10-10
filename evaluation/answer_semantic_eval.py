@@ -137,16 +137,36 @@ def _parse_timestamp(value: Any) -> datetime | None:
         return None
 
 
+def _question_dates(question: str) -> set[str]:
+    """Extract explicit dates from a question in the benchmark's common formats."""
+    dates: set[str] = set()
+    for match in re.finditer(r"\b(\d{1,2})\s+([A-Za-z]+),?\s+(\d{4})\b", question):
+        try:
+            dates.add(datetime.strptime(match.group(0).replace(",", ""), "%d %B %Y").date().isoformat())
+        except ValueError:
+            pass
+    for match in re.finditer(r"\b(\d{4})-(\d{1,2})-(\d{1,2})\b", question):
+        try:
+            dates.add(datetime.strptime(match.group(0), "%Y-%m-%d").date().isoformat())
+        except ValueError:
+            pass
+    return dates
+
+
 def _deterministic_support(question: str, evidence: list[dict[str, Any]]) -> tuple[str, str] | None:
     """Resolve explicit relative-date equivalence; lexical overlap alone is not enough."""
-    q = question.lower()
+    question_dates = _question_dates(question)
+    if not question_dates:
+        return None
+
     for item in evidence:
-        content = _evidence_content(item)
+        content = _evidence_content(item).lower()
         if not content:
             continue
         timestamp = _parse_timestamp(_evidence_timestamp(item))
         if timestamp is None:
             continue
+
         relative_map = {
             "yesterday": timestamp.date() - timedelta(days=1),
             "last saturday": timestamp.date() - timedelta(days=(timestamp.weekday() - 5) % 7 or 7),
@@ -154,7 +174,7 @@ def _deterministic_support(question: str, evidence: list[dict[str, Any]]) -> tup
             "last sunday": timestamp.date() - timedelta(days=(timestamp.weekday() - 6) % 7 or 7),
         }
         for phrase, target in relative_map.items():
-            if phrase in q and (target.strftime("%Y-%m-%d") in q or target.strftime("%d %B %Y").lower() in q):
+            if phrase in content and target.isoformat() in question_dates:
                 return "deterministic_temporal", phrase
     return None
 
