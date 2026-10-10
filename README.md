@@ -53,7 +53,7 @@ The oracle conditions are controls, not competing production systems. Their purp
 
 ## Answer evaluation and attribution protocol
 
-A key methodological lesson from the first 10-sample experiment is that lexical answer matching is insufficient for open-ended benchmark QA.
+A key methodological lesson from the first experiments is that lexical answer matching is insufficient for open-ended benchmark QA.
 
 For example, the evidence can state:
 
@@ -184,7 +184,7 @@ The project currently has:
 - semantic answer calibration
 - post-hoc anomaly analysis
 
-The revised n=10 semantic calibration gate is now stable. The next step is to freeze this protocol and scale to n=50 LongMemEval samples, followed by inspection and then larger evaluation. LoCoMo cross-benchmark validation and statistically useful failure-attribution tables come after the larger LongMemEval run.
+The revised evidence-sufficiency gate is regression-tested. The next stage is to validate the gate and answer-evaluation protocol on LoCoMo and then scale to larger samples.
 
 Detailed experimental history is maintained in docs/RESEARCH_LOG.md.
 
@@ -192,11 +192,16 @@ Detailed experimental history is maintained in docs/RESEARCH_LOG.md.
 
 njuer-bin/agent_memory remains the AML competition implementation. This repository is a research fork that reuses its memory infrastructure while adding explicit lifecycle tracing, failure attribution, controlled oracle experiments, answer-evaluation calibration, and reproducible diagnostics.
 
-
-### LoCoMo cross-benchmark validation status (2026-10-08)
+## LoCoMo cross-benchmark validation
 
 The first LoCoMo-Refined n=50 execution exposed a benchmark adapter/provenance alignment problem: Real Memory showed a uniform 49/50 formation loss while Oracle Memory recovered all Gold Evidence. The run is therefore **not treated as a scientific formation result**.
 
-The adapter has now been corrected to map LoCoMo benchmark turn identifiers onto the MemoryEngine session:turn provenance scheme, preserve benchmark IDs, resolve evidence against canonical turns, pass the loaded conversation into normalization, and normalize non-scalar answers. The original anomalous run is retained as a reproducibility/negative-result record.
+The adapter was corrected to map LoCoMo benchmark turn identifiers onto the MemoryEngine session:turn provenance scheme, preserve benchmark IDs, resolve evidence against canonical turns, pass the loaded conversation into normalization, and normalize non-scalar answers. The original anomalous run is retained as a reproducibility/negative-result record.
 
-The next step is to rerun LoCoMo n=50 and validate evidence alignment and answer-reference handling before applying semantic failure attribution.
+A subsequent LoCoMo-Refined n=10 validation was completed after the evidence-sufficiency gate hardening. All 10 rows completed successfully and the local regression suite passed 22/22 tests. The n=10 attribution output contains 7 E0 evidence-insufficiency cases, 2 F6 reasoning candidates, and 1 case with no failure attribution.
+
+Four samples show `real_memory=False` while `oracle_memory=True`, demonstrating that the oracle control can expose cases where improved memory evidence changes the accepted answer outcome. However, two F6 candidates have apparently matching concise answers such as "Last Saturday." and "Last week." while their semantic `correct` field is false and Token F1 is 0.0. This indicates that answer evaluation still needs calibration before those cases are interpreted as genuine reasoning failures.
+
+The same run reports semantic `correct` rates of 1/10 for Real Memory and 5/10 for both Oracle Memory and Oracle Context, while the Token-F1 threshold sweep at 0.50 reports 10%, 20%, and 20%, respectively. These metrics are not interchangeable and are now an explicit evaluation-methodology issue to resolve before larger-scale claims.
+
+The detailed checkpoint is recorded in `docs/research/2026-10-10-locomo-n10-semantic-gate-validation.md`. The next gate is to reconcile semantic correctness with lexical metrics, re-run the n=10 validation if needed, and only then scale to LoCoMo n=50 and larger cross-benchmark experiments.
