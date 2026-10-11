@@ -17,8 +17,6 @@ def test_relative_temporal_evidence_is_deterministically_sufficient():
 
 
 def test_lexical_overlap_alone_does_not_bypass_semantic_judge():
-    # A phrase match is not proof that the evidence answers the requested
-    # relation. The semantic judge must inspect the question and evidence.
     evidence = [
         {"content": "A review mentioned The Glass Menagerie in passing."},
     ]
@@ -59,3 +57,24 @@ def test_contradictory_judge_reason_downgrades_sufficiency(monkeypatch):
     assert result["evidence_sufficient"] is False
     assert result["confidence"] == "low"
     assert result["adjudication"] == "semantic_judge"
+
+
+def test_contradictory_specification_reason_downgrades_sufficiency(monkeypatch):
+    monkeypatch.setattr(
+        "evaluation.answer_semantic_eval._call_judge",
+        lambda prompt: {
+            "correct": False,
+            "evidence_sufficient": True,
+            "confidence": "high",
+            "reason": "The evidence does not specify that Caroline and Melanie attended together or that it was in 2022.",
+        },
+    )
+
+    result = evaluate_answer(
+        "When did Caroline and Melanie go to a Pride festival together?",
+        "2022",
+        [{"content": "We had a blast last year at the Pride fest."}],
+    )
+
+    assert result["evidence_sufficient"] is False
+    assert result["confidence"] == "low"
