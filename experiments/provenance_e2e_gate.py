@@ -19,8 +19,6 @@ from memory_engine.engine import MemoryEngine
 from memory_engine.models import AddMessage, AddRequest, SearchRequest
 from tracing.engine_trace import artifacts_from_store, retrieval_artifacts, stage_match
 
-ROOT = Path(__file__).resolve().parents[1]
-
 
 def _record(dataset: str, question_id: str) -> dict[str, Any]:
     for record in iter_normalized(dataset):
@@ -106,11 +104,12 @@ def _stage_provenance(gold: list[dict[str, Any]], artifacts: list[dict[str, Any]
         evidence = by_id[str(gid)]
         expected_turn = str(evidence.get("turn_id") or "")
         actual_turn = str(artifact.get("source_turn_id") or artifact.get("turn_id") or "")
-        if expected_turn and actual_turn and expected_turn != actual_turn:
+        if expected_turn and actual_turn != expected_turn:
             provenance_errors.append({
                 "evidence_id": str(gid),
                 "expected_turn_id": expected_turn,
-                "actual_turn_id": actual_turn,
+                "actual_turn_id": actual_turn or None,
+                "error": "missing_or_mismatched_turn_provenance",
             })
     return {
         "found": matched.get("found", []),
