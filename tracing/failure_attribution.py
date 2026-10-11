@@ -29,19 +29,20 @@ def _gold_evidence(trace: Dict[str, Any]) -> list[dict[str, Any]]:
 
 
 def _ensure_evidence_sufficiency(trace: Dict[str, Any]) -> dict[str, Any]:
-    """Evaluate whether the benchmark gold evidence can answer the question.
+    """Check Gold Evidence against the benchmark reference, not the prediction.
 
-    This is deliberately performed against the candidate answer that already
-    failed the deterministic answer scorer. We use only the judge's
-    ``evidence_sufficient`` decision for the attribution gate; the judge's
-    answer-correctness decision never overrides the benchmark answer scorer.
+    Using the generated answer to decide whether the evidence is sufficient
+    would make E0 depend on the system failure being diagnosed. If the
+    reference answer is unavailable, attribution is conservatively deferred
+    to the evaluation-uncertain category.
     """
     existing = trace.get("evidence_sufficiency")
     if isinstance(existing, dict):
         return existing
 
     evidence = _gold_evidence(trace)
-    candidate = str((trace.get("answer") or {}).get("answer") or "")
+    answer = trace.get("answer") or {}
+    reference = trace.get("reference_answer") or answer.get("reference_answer") or answer.get("reference")
     question = str(trace.get("question") or "")
     if not evidence:
         return {
@@ -51,9 +52,17 @@ def _ensure_evidence_sufficiency(trace: Dict[str, Any]) -> dict[str, Any]:
             "reason": "No benchmark gold evidence is available.",
             "adjudication": "no_gold_evidence",
         }
+    if not isinstance(reference, str) or not reference.strip():
+        return {
+            "status": "uncertain",
+            "evidence_sufficient": None,
+            "confidence": "low",
+            "reason": "Benchmark reference answer is unavailable; evidence sufficiency cannot be assessed independently of the prediction.",
+            "adjudication": "missing_reference_answer",
+        }
 
     try:
-        verdict = evaluate_answer(question, candidate, evidence)
+        verdict = evaluate_answer(question, reference, evidence)
     except Exception as exc:
         return {
             "status": "error",
