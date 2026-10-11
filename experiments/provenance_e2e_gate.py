@@ -29,11 +29,12 @@ def _record(dataset: str, question_id: str) -> dict[str, Any]:
     raise SystemExit(f"question_id not found: {question_id}")
 
 
-def _msg(raw: Any) -> tuple[str, str, Any]:
+def _msg(raw: Any) -> tuple[str, str, int | None]:
     if isinstance(raw, dict):
         role = str(raw.get("role") or raw.get("speaker") or "user")
         text = str(raw.get("content") or raw.get("text") or raw.get("message") or "").strip()
-        return role, text, raw.get("timestamp")
+        timestamp = raw.get("timestamp")
+        return role, text, timestamp if isinstance(timestamp, int) else None
     return "user", str(raw).strip(), None
 
 
@@ -134,9 +135,6 @@ def run(question_id: str) -> dict[str, Any]:
         stored = artifacts_from_store(engine, user_id)
         formation = stored["facts"] + stored["relations"] + stored["events"] + stored["rules"] + stored["profiles"]
         storage = stored["raw"] + formation
-        retrieval = []
-        reranked = []
-        context = []
         results = engine.search(SearchRequest(
             query=record["question"], user_id=user_id, top_k=10, multi_hop=True,
         ))
