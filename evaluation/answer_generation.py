@@ -35,21 +35,28 @@ def _normalize(text: str) -> str:
     return " ".join(str(text or "").strip().lower().split())
 
 
-def _extract_date(text: str) -> date | None:
+def _extract_dates(text: str) -> list[date]:
+    """Extract all explicit calendar dates from benchmark answers."""
     text = str(text or "")
+    dates: list[date] = []
     for pattern in _DATE_PATTERNS:
-        match = pattern.search(text)
-        if not match:
-            continue
-        try:
-            groups = match.groupdict()
-            month = groups["month"]
-            if not month.isdigit():
-                month = datetime.strptime(month[:3], "%b").month
-            return date(int(groups["year"]), int(month), int(groups["day"]))
-        except (TypeError, ValueError):
-            continue
-    return None
+        for match in pattern.finditer(text):
+            try:
+                groups = match.groupdict()
+                month = groups["month"]
+                if not month.isdigit():
+                    month = datetime.strptime(month[:3], "%b").month
+                parsed = date(int(groups["year"]), int(month), int(groups["day"]))
+            except (TypeError, ValueError):
+                continue
+            if parsed not in dates:
+                dates.append(parsed)
+    return dates
+
+
+def _extract_date(text: str) -> date | None:
+    dates = _extract_dates(text)
+    return dates[0] if dates else None
 
 
 def _extract_month_period(text: str) -> tuple[date, date] | None:
@@ -70,13 +77,13 @@ def _relative_date(text: str, anchor: date | None) -> date | None:
     if anchor is None:
         return None
     normalized = _normalize(text).strip(" .!?;:")
-    offsets = {
-        "today": 0,
-        "yesterday": -1,
-        "tomorrow": 1,
-    }
+    offsets = {"today": 0, "yesterday": -1, "tomorrow": 1}
     if normalized in offsets:
         return anchor + timedelta(days=offsets[normalized])
+    match = re.fullmatch(r"(one|two|three) days? ago", normalized)
+    if match:
+        count = {"one": 1, "two": 2, "three": 3}[match.group(1)]
+        return anchor - timedelta(days=count)
     return None
 
 
@@ -104,6 +111,13 @@ def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None
         end = date(year, month, monthrange(year, month)[1])
         return start, end
 
+    if normalized in {"last weekend", "next weekend"}:
+        if normalized == "last weekend":
+            saturday = anchor - timedelta(days=(anchor.weekday() - 5) % 7 or 7)
+        else:
+            saturday = anchor + timedelta(days=(5 - anchor.weekday()) % 7 or 7)
+        return saturday, saturday + timedelta(days=1)
+
     weekdays = {
         "monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3,
         "friday": 4, "saturday": 5, "sunday": 6,
@@ -116,7 +130,6 @@ def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None
         delta = delta - 7 if direction == "last" else delta + 7
         resolved = anchor + timedelta(days=delta)
         return resolved, resolved
-
     return None
 
 
@@ -146,7 +159,9 @@ def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
 def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -> bool:
     """Return True only for explicitly resolvable relative/date pairs."""
     pred_date = _extract_date(prediction)
-    ref_date = _extract_date(reference)
+    ref_dates = _extract_dates(reference)
+    pred_dates = _extract_dates(prediction)
+    ref_date = ref_dates[0] if ref_dates else None
     pred_relative = _relative_date(prediction, anchor)
     ref_relative = _relative_date(reference, anchor)
     pred_period = _temporal_period(prediction, anchor)
@@ -158,10 +173,16 @@ def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -
         return pred_date == ref_relative
     if ref_date and pred_relative:
         return pred_relative == ref_date
-    if pred_date and ref_period:
-        return ref_period[0] <= pred_date <= ref_period[1]
-    if ref_date and pred_period:
-        return pred_period[0] <= ref_date <= pred_period[1]
+    if pred_relative and any(pred_relative == d for d in ref_dates):
+        return True
+    if pred_period and len(ref_dates) >= 2:
+        ref_range = (min(ref_dates), max(ref_dates))
+        if pred_period == ref_range:
+            return True
+    if pred_period and any(pred_period[0] <= d <= pred_period[1] for d in ref_dates):
+        return True
+    if pred_dates and ref_period:
+        return any(ref_period[0] <= d <= ref_period[1] for d in pred_dates)
     if pred_period and ref_period:
         return pred_period == ref_period
     if pred_period and ref_month:
@@ -245,12 +266,7 @@ def score_answer(
     if explicit_date_mismatch:
         correct = False
     else:
-        correct = bool(
-            em == 1.0
-            or f1 >= F1_THRESHOLD
-            or temporal_equivalent
-            or phrase_match
-        )
+        correct = bool(em == 1.0 or f1 >= F1_THRESHOLD or temporal_equivalent or phrase_match)
 
     return {
         "exact_match": em,
@@ -264,15 +280,6 @@ def score_answer(
     }
 
 
-def generate_and_score(
-    question: str,
-    reference: str,
-    context: list[dict[str, Any]],
-) -> dict[str, Any]:
+def generate_and_score(question: str, reference: str, context: list[dict[str, Any]]) -> dict[str, Any]:
     answer = generate_answer(question, context)
-    return {
-        "answer": answer,
-        **score_answer(answer, reference, context=context),
-        "model": MODEL,
-        "base_url": BASE_URL,
-    }
+    return {"answer": answer, **score_answer(answer, reference, context=context), "model": MODEL, "base_url": BASE_URL}
