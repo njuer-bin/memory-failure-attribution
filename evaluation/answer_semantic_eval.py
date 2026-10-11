@@ -16,7 +16,6 @@ TIMEOUT = float(os.getenv("SEMANTIC_JUDGE_TIMEOUT_SECONDS", "180"))
 
 
 def _evidence_content(item: Any) -> str:
-    """Read evidence text from either trace (`text`) or artifact (`content`) schema."""
     if not isinstance(item, dict):
         return str(item or "").strip()
     return str(item.get("content") or item.get("text") or "").strip()
@@ -102,13 +101,7 @@ def _call_judge(prompt: str) -> dict[str, Any]:
 
 
 def _reason_indicates_insufficient_evidence(reason: str) -> bool:
-    """Detect judge explanations that contradict an affirmative sufficiency flag.
-
-    Small local models occasionally return evidence_sufficient=true while their
-    natural-language explanation explicitly says that the evidence does not mention,
-    answer, or support the requested fact. Treating that contradiction as sufficient
-    would create a false-positive evidence gate.
-    """
+    """Detect judge explanations that contradict an affirmative sufficiency flag."""
     lowered = reason.lower()
     patterns = (
         "does not provide information", "does not provide any information",
@@ -118,6 +111,8 @@ def _reason_indicates_insufficient_evidence(reason: str) -> bool:
         "cannot determine", "cannot be determined", "cannot answer",
         "does not answer", "doesn't answer",
         "does not support", "doesn't support",
+        "does not specify", "doesn't specify",
+        "does not establish", "doesn't establish",
         "not enough evidence", "insufficient evidence",
     )
     return any(pattern in lowered for pattern in patterns)
@@ -159,7 +154,6 @@ def _parse_timestamp(value: Any) -> datetime | None:
 
 
 def _question_dates(question: str) -> set[str]:
-    """Extract explicit dates from a question in the benchmark's common formats."""
     dates: set[str] = set()
     for match in re.finditer(r"\b(\d{1,2})\s+([A-Za-z]+),?\s+(\d{4})\b", question):
         try:
@@ -179,7 +173,6 @@ def _deterministic_support(question: str, evidence: list[dict[str, Any]]) -> tup
     question_dates = _question_dates(question)
     if not question_dates:
         return None
-
     for item in evidence:
         content = _evidence_content(item).lower()
         if not content:
@@ -187,7 +180,6 @@ def _deterministic_support(question: str, evidence: list[dict[str, Any]]) -> tup
         timestamp = _parse_timestamp(_evidence_timestamp(item))
         if timestamp is None:
             continue
-
         relative_map = {
             "yesterday": timestamp.date() - timedelta(days=1),
             "last saturday": timestamp.date() - timedelta(days=(timestamp.weekday() - 5) % 7 or 7),
@@ -211,7 +203,6 @@ def evaluate_answer(question: str, candidate: str, evidence: list[dict[str, Any]
             "reason": f"Explicit temporal equivalence resolved by evidence timestamp ({deterministic[1]}).",
             "adjudication": deterministic[0],
         }
-
     result = _call_judge(_prompt(question, candidate, evidence))
     sufficient = bool(result.get("evidence_sufficient"))
     confidence = str(result.get("confidence") or "low").lower()
