@@ -19,8 +19,9 @@ def test_locomo_turn_ids_follow_ingested_nonempty_message_index():
     }
     turns = _locomo_turns(conversation)
     assert [turn["turn_id"] for turn in turns] == [
-        "session_1:turn_0", "session_1:turn_1", "session_1:turn_2",
+        "D1:turn_0", "D1:turn_1", "D1:turn_2",
     ]
+    assert [turn["source_id"] for turn in turns] == ["D1", "D1", "D1"]
     assert [turn["benchmark_turn_id"] for turn in turns] == ["D1", "D3", "D5"]
     assert [turn["text"] for turn in turns] == [
         "first turn", "third source item", "last turn",
@@ -38,6 +39,26 @@ def test_locomo_turn_ids_reset_for_each_session():
     assert [turn["turn_id"] for turn in turns] == [
         "session_1:turn_0", "session_2:turn_0", "session_2:turn_1",
     ]
+
+
+def test_locomo_benchmark_dia_id_overrides_conflicting_container_session_id():
+    conversation = {
+        "sessions": [
+            {
+                "session_id": "D10",
+                "messages": [
+                    {"dia_id": "D1:1", "text": "first"},
+                    {"dia_id": "D1:2", "text": "second"},
+                    {"dia_id": "D1:3", "text": "target evidence"},
+                ],
+            }
+        ]
+    }
+    turns = _locomo_turns(conversation)
+    assert [turn["turn_id"] for turn in turns] == [
+        "D1:turn_0", "D1:turn_1", "D1:turn_2",
+    ]
+    assert all(turn["source_id"] == "D1" for turn in turns)
 
 
 def test_locomo_public_dia_reference_resolves_to_message_text():
