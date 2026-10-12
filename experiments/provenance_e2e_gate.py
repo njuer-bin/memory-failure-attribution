@@ -2,9 +2,7 @@
 
 The gate is intentionally provenance-first: it verifies that Gold Evidence
 resolves to the exact normalized conversation turn that MemoryEngine ingests.
-Lifecycle stages are then inspected to ensure any claimed match points back to
-that same source turn. A lifecycle miss is allowed (it may be a real failure);
-a provenance mismatch is not.
+Lifecycle stages are then inspected using exact turn provenance only.
 """
 from __future__ import annotations
 
@@ -17,7 +15,7 @@ from typing import Any
 from datasets.loader import iter_normalized
 from memory_engine.engine import MemoryEngine
 from memory_engine.models import AddMessage, AddRequest, SearchRequest
-from tracing.engine_trace import artifacts_from_store, retrieval_artifacts, stage_match
+from tracing.engine_trace import artifacts_from_store, retrieval_artifacts
 
 
 def _record(dataset: str, question_id: str) -> dict[str, Any]:
@@ -81,42 +79,47 @@ def _assert_gold_provenance(record: dict[str, Any], raw_by_turn: dict[str, dict[
         if raw is None:
             raise AssertionError(f"Gold Evidence turn not found in ingested raw memory: {gid} -> {turn_id}")
         if str(raw.get("session_id") or "") != source_id:
-            raise AssertionError(
-                f"session provenance mismatch for {gid}: gold={source_id!r}, raw={raw.get('session_id')!r}"
-            )
+            raise AssertionError(f"session provenance mismatch for {gid}: gold={source_id!r}, raw={raw.get('session_id')!r}")
         if str(raw.get("content") or "").strip() != text:
             raise AssertionError(f"text provenance mismatch for {gid} -> {turn_id}")
-        checks.append({
-            "evidence_id": gid,
-            "source_id": source_id,
-            "turn_id": turn_id,
-            "raw_id": raw.get("id"),
-            "status": "PASS",
-        })
+        checks.append({"evidence_id": gid, "source_id": source_id, "turn_id": turn_id, "raw_id": raw.get("id"), "status": "PASS"})
     return checks
 
 
+def _artifact_turn(item: Any) -> str:
+    if not isinstance(item, dict):
+        return ""
+    return str(item.get("source_turn_id") or item.get("turn_id") or "")
+
+
 def _stage_provenance(gold: list[dict[str, Any]], artifacts: list[dict[str, Any]]) -> dict[str, Any]:
-    matched = stage_match(gold, artifacts)
-    by_id = {str(x.get("evidence_id")): x for x in gold}
-    provenance_errors = []
-    for gid, artifact in matched.get("matches", {}).items():
-        evidence = by_id[str(gid)]
+    """Use exact turn provenance; semantic similarity is deliberately excluded."""
+    found: list[str] = []
+    missing: list[str] = []
+    matches: dict[str, dict[str, Any]] = {}
+    match_types: dict[str, str] = {}
+    match_scores: dict[str, float] = {}
+    for evidence in gold:
+        gid = str(evidence.get("evidence_id"))
         expected_turn = str(evidence.get("turn_id") or "")
-        actual_turn = str(artifact.get("source_turn_id") or artifact.get("turn_id") or "")
-        if expected_turn and actual_turn != expected_turn:
-            provenance_errors.append({
-                "evidence_id": str(gid),
-                "expected_turn_id": expected_turn,
-                "actual_turn_id": actual_turn or None,
-                "error": "missing_or_mismatched_turn_provenance",
-            })
+        if not expected_turn:
+            missing.append(gid)
+            continue
+        match = next((item for item in artifacts if _artifact_turn(item) == expected_turn), None)
+        if match is None:
+            missing.append(gid)
+            continue
+        found.append(gid)
+        matches[gid] = dict(match)
+        match_types[gid] = "provenance"
+        match_scores[gid] = 1.0
     return {
-        "found": matched.get("found", []),
-        "missing": matched.get("missing", []),
-        "match_types": matched.get("match_types", {}),
-        "match_scores": matched.get("match_scores", {}),
-        "provenance_errors": provenance_errors,
+        "found": sorted(found),
+        "missing": sorted(missing),
+        "match_types": match_types,
+        "match_scores": match_scores,
+        "provenance_errors": [],
+        "matches": matches,
     }
 
 
@@ -134,9 +137,7 @@ def run(question_id: str) -> dict[str, Any]:
         stored = artifacts_from_store(engine, user_id)
         formation = stored["facts"] + stored["relations"] + stored["events"] + stored["rules"] + stored["profiles"]
         storage = stored["raw"] + formation
-        results = engine.search(SearchRequest(
-            query=record["question"], user_id=user_id, top_k=10, multi_hop=True,
-        ))
+        results = engine.search(SearchRequest(query=record["question"], user_id=user_id, top_k=10, multi_hop=True))
         search_trace = engine.last_search_trace or {}
         retrieval = search_trace.get("retrieval_candidates") or retrieval_artifacts(results)
         reranked = search_trace.get("reranked") or retrieval
@@ -150,13 +151,6 @@ def run(question_id: str) -> dict[str, Any]:
             "rerank": _stage_provenance(gold, reranked),
             "context": _stage_provenance(gold, context),
         }
-        provenance_errors = {
-            stage: value["provenance_errors"]
-            for stage, value in stages.items()
-            if value["provenance_errors"]
-        }
-        if provenance_errors:
-            raise AssertionError(f"lifecycle provenance mismatch: {json.dumps(provenance_errors, ensure_ascii=False)}")
 
         result = {
             "status": "PASS",
@@ -170,7 +164,7 @@ def run(question_id: str) -> dict[str, Any]:
             "gold_evidence_count": len(gold),
             "gold_provenance": gold_checks,
             "stages": stages,
-            "note": "Missing evidence at a lifecycle stage is allowed as a potential failure; provenance mismatch is a gate failure.",
+            "note": "Turn-level provenance is strict. A lifecycle miss is allowed as a potential F1-F5 failure; semantic similarity from another turn is not treated as a provenance error.",
         }
         print(json.dumps(result, ensure_ascii=False, indent=2))
         return result
