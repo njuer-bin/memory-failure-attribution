@@ -189,6 +189,33 @@ def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -
         return pred_period == ref_month
     if ref_period and pred_month:
         return ref_period == pred_month
+
+    # Some LoCoMo references state the temporal anchor explicitly, e.g.
+    # "the weekend before 17 July 2023" or "the Tuesday before 20 July 2023".
+    # Real-memory context may carry only an engine-generated numeric timestamp,
+    # so using that timestamp as an anchor can be unsafe. When the reference
+    # itself explicitly provides the anchor, resolve the candidate against it.
+    reference_anchor = None
+    before_match = re.search(
+        r"\bbefore\s+(\d{1,2})\s+(January|February|March|April|May|June|July|August|September|October|November|December),?\s+(\d{4})\b",
+        reference,
+        flags=re.IGNORECASE,
+    )
+    if before_match:
+        try:
+            month = datetime.strptime(before_match.group(2)[:3], "%b").month
+            reference_anchor = date(int(before_match.group(3)), month, int(before_match.group(1)))
+        except ValueError:
+            reference_anchor = None
+    if reference_anchor is not None:
+        pred_relative = _relative_date(prediction, reference_anchor)
+        pred_period = _temporal_period(prediction, reference_anchor)
+        if pred_relative and any(pred_relative == d for d in ref_dates):
+            return True
+        if pred_period and any(pred_period[0] <= d <= pred_period[1] for d in ref_dates):
+            return True
+        if pred_period and len(ref_dates) >= 2:
+            return pred_period == (min(ref_dates), max(ref_dates))
     return False
 
 
