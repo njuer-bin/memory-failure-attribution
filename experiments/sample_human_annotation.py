@@ -11,6 +11,11 @@ Default allocation for the LoCoMo n=50 audit:
 - F5_CONTEXT: 1
 - all remaining labels: 6
 
+The mandatory strata are fixed first. The remaining slots are sampled from
+non-mandatory labels first, so a dominant F1 class cannot silently consume all
+of the exploratory slots. If there are not enough non-mandatory rows, the
+remaining slots fall back to the full remaining pool.
+
 Sampling is deterministic and stratified. The script never edits comparison
 results and never calls a model.
 """
@@ -106,11 +111,32 @@ def _select_stratified(rows: list[dict[str, Any]], total: int, seed: int) -> lis
             selected_ids.add(str(row.get("question_id")))
 
     remaining_needed = total - len(selected)
+    if remaining_needed < 0:
+        raise ValueError("total must be at least the sum of mandatory strata")
+
     remaining = [r for r in rows if str(r.get("question_id")) not in selected_ids]
-    rng.shuffle(remaining)
-    if remaining_needed < 0 or len(remaining) < remaining_needed:
-        raise ValueError("Not enough rows to complete the requested sample")
-    selected.extend(remaining[:remaining_needed])
+
+    # Prefer labels outside the mandatory strata for the exploratory slots.
+    # This prevents a dominant F1 bucket from consuming the entire remainder.
+    exploratory = [
+        r for r in remaining if _auto_failure(r) not in TARGET_COUNTS
+    ]
+    rng.shuffle(exploratory)
+
+    if len(exploratory) >= remaining_needed:
+        selected.extend(exploratory[:remaining_needed])
+    else:
+        selected.extend(exploratory)
+        exploratory_ids = {str(r.get("question_id")) for r in exploratory}
+        fallback = [
+            r for r in remaining if str(r.get("question_id")) not in exploratory_ids
+        ]
+        rng.shuffle(fallback)
+        need = remaining_needed - len(exploratory)
+        if len(fallback) < need:
+            raise ValueError("Not enough rows to complete the requested sample")
+        selected.extend(fallback[:need])
+
     rng.shuffle(selected)
     return selected
 
