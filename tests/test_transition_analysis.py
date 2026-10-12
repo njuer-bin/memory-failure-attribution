@@ -61,3 +61,49 @@ def test_evidence_level_transition_handles_partial_multi_evidence_cases():
     assert report["eligible_evidence"] == 2
     assert report["transitions"]["formation_to_storage"]["conditional_survival"] == 1.0
     assert report["transitions"]["storage_to_evolution"]["conditional_survival"] == 0.5
+
+
+def test_cumulative_question_transition_requires_all_upstream_stages():
+    rows = [
+        _row(found={
+            "formation": ["e0"], "storage": ["e0"], "evolution": ["e0"],
+            "retrieval": ["e0"], "rerank": ["e0"], "context": [],
+        }),
+        # Storage succeeds, but formation fails. This row must not enter the
+        # cumulative retrieval denominator.
+        _row(found={
+            "formation": [], "storage": ["e0"], "evolution": [],
+            "retrieval": ["e0"], "rerank": [], "context": [],
+        }),
+    ]
+    report = transition_stats(rows, gate_sufficient_only=True)
+    cumulative = report["cumulative_transitions"]
+    assert cumulative["evolution_given_upstream"]["eligible_after_upstream"] == 1
+    assert cumulative["evolution_given_upstream"]["survived_current"] == 1
+    assert cumulative["retrieval_given_upstream"]["eligible_after_upstream"] == 1
+    assert cumulative["retrieval_given_upstream"]["survived_current"] == 1
+    assert cumulative["context_given_upstream"]["eligible_after_upstream"] == 1
+    assert cumulative["context_given_upstream"]["survived_current"] == 0
+
+
+def test_cumulative_evidence_transition_requires_all_upstream_stages():
+    row = {
+        "gold_evidence": [{"evidence_id": "e0"}, {"evidence_id": "e1"}],
+        "modes": {"real_memory": {
+            "evidence_sufficiency": {"status": "sufficient"},
+            "formation": {"found": ["e0", "e1"]},
+            "storage": {"found": ["e0", "e1"]},
+            "evolution": {"found": ["e0"]},
+            "retrieval": {"found": ["e0"]},
+            "rerank": {"found": ["e0"]},
+            "context": {"found": ["e0"]},
+        }},
+    }
+    report = evidence_level_transition_stats([row], gate_sufficient_only=True)
+    cumulative = report["cumulative_transitions"]
+    assert cumulative["evolution_given_upstream"]["eligible_after_upstream"] == 2
+    assert cumulative["evolution_given_upstream"]["survived_current"] == 1
+    assert cumulative["retrieval_given_upstream"]["eligible_after_upstream"] == 1
+    assert cumulative["retrieval_given_upstream"]["survived_current"] == 1
+    assert cumulative["context_given_upstream"]["eligible_after_upstream"] == 1
+    assert cumulative["context_given_upstream"]["survived_current"] == 1
