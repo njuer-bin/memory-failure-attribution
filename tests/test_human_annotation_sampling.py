@@ -1,5 +1,6 @@
 from experiments.sample_human_annotation import (
     TARGET_COUNTS,
+    _gold_evidence_text,
     _select_stratified,
     build_rows,
 )
@@ -48,3 +49,23 @@ def test_stratified_sample_is_reproducible():
     a = _select_stratified(rows, total=25, seed=20261012)
     b = _select_stratified(rows, total=25, seed=20261012)
     assert [r["question_id"] for r in a] == [r["question_id"] for r in b]
+
+
+def test_gold_evidence_text_includes_resolved_time_context():
+    row = _row("time-case", "NONE")
+    text, context = _gold_evidence_text(
+        row,
+        time_index={"D1:turn_1": {"timestamp": "8 May 2023"}},
+    )
+    assert "[D1:turn_1 | 8 May 2023] evidence" == text
+    assert context == "D1:turn_1 = 8 May 2023"
+
+
+def test_build_rows_exposes_time_context_column():
+    row = _row("time-case", "NONE")
+    built = build_rows(
+        [row],
+        time_index={"D1:turn_1": {"timestamp": "8 May 2023"}},
+    )
+    assert built[0]["gold_evidence_time_context"] == "D1:turn_1 = 8 May 2023"
+    assert "8 May 2023" in built[0]["gold_evidence"]
