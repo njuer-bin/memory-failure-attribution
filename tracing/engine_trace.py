@@ -19,6 +19,14 @@ def _artifact(row: Any) -> dict[str, Any]:
     return result
 
 
+def _artifact_turn_id(item: dict[str, Any]) -> str:
+    return str(item.get("source_turn_id") or item.get("turn_id") or "")
+
+
+def _gold_turn_id(item: dict[str, Any]) -> str:
+    return str(item.get("turn_id") or item.get("turn") or "")
+
+
 def artifacts_from_store(engine: Any, user_id: str) -> dict[str, list[dict[str, Any]]]:
     store = engine.store
     raw = store.all_raw(user_id)
@@ -55,11 +63,65 @@ def artifacts_from_store(engine: Any, user_id: str) -> dict[str, list[dict[str, 
 
 
 def stage_match(gold: Iterable[dict[str, Any]], artifacts: Iterable[Any]) -> dict[str, Any]:
-    result = match_evidence(gold, [_artifact(x) for x in artifacts])
-    result["matches"] = {
-        gid: _artifact(value) for gid, value in result.get("matches", {}).items()
+    """Match lifecycle evidence by exact turn provenance.
+
+    Semantic matching remains available as diagnostics, but it is never allowed
+    to promote an artifact from another turn to ``found``. This prevents a
+    representation from a semantically similar conversation turn from masking
+    a formation/storage/retrieval loss and shifting attribution to a later stage.
+    """
+    gold_items = [dict(item) for item in gold]
+    artifact_items = [_artifact(x) for x in artifacts]
+    semantic = match_evidence(gold_items, artifact_items)
+
+    found: list[str] = []
+    missing: list[str] = []
+    matches: dict[str, dict[str, Any]] = {}
+    match_types: dict[str, str] = {}
+    match_scores: dict[str, float] = {}
+    wrong_source: dict[str, dict[str, Any]] = {}
+
+    for evidence in gold_items:
+        gid = str(evidence.get("evidence_id") or evidence.get("id") or "")
+        if not gid:
+            continue
+        expected_turn = _gold_turn_id(evidence)
+        exact = [item for item in artifact_items if expected_turn and _artifact_turn_id(item) == expected_turn]
+        if exact:
+            found.append(gid)
+            matches[gid] = exact[0]
+            match_types[gid] = "provenance"
+            match_scores[gid] = 1.0
+            continue
+
+        missing.append(gid)
+        semantic_match = semantic.get("matches", {}).get(gid)
+        if semantic_match is not None:
+            wrong_source[gid] = _artifact(semantic_match)
+
+    semantic_match_types = semantic.get("match_types", {})
+    semantic_match_scores = semantic.get("match_scores", {})
+
+    return {
+        "found": found,
+        "missing": missing,
+        "dropped": semantic.get("dropped", []),
+        "observed_count": len(artifact_items),
+        "match_types": match_types,
+        "match_scores": match_scores,
+        "matches": matches,
+        "semantic_matches": wrong_source,
+        "semantic_match_types": {
+            gid: semantic_match_types[gid]
+            for gid in wrong_source
+            if gid in semantic_match_types
+        },
+        "semantic_match_scores": {
+            gid: semantic_match_scores[gid]
+            for gid in wrong_source
+            if gid in semantic_match_scores
+        },
     }
-    return result
 
 
 def retrieval_artifacts(results: Iterable[Any]) -> list[dict[str, Any]]:
