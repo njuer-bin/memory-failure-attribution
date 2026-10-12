@@ -90,22 +90,24 @@ def _format_time_context(value: Any) -> str:
     return str(value)
 
 
-def _evidence_time_index() -> dict[str, dict[str, Any]]:
-    """Build a LoCoMo benchmark-turn index with canonical timestamps.
+def _evidence_time_index() -> dict[tuple[str, str], dict[str, Any]]:
+    """Build a LoCoMo benchmark-turn index scoped by question/conversation.
 
-    The normalized adapter preserves the benchmark session/message timestamp
-    on each resolved evidence turn. This lets the annotation CSV display the
-    time anchor without asking the researcher to look up D*:turn_* manually.
+    Turn IDs such as ``D1:turn_2`` are only unique *inside a LoCoMo
+    conversation*. A global ``turn_id -> timestamp`` map can silently overwrite
+    one conversation with another and give human annotators the wrong temporal
+    anchor. The index therefore uses ``(question_id, turn_id)`` as its key.
     """
     try:
         from datasets.loader import iter_normalized
 
-        index: dict[str, dict[str, Any]] = {}
+        index: dict[tuple[str, str], dict[str, Any]] = {}
         for record in iter_normalized("locomo_refined_public"):
+            question_id = str(record.get("question_id") or "")
             for evidence in record.get("gold_evidence") or []:
                 turn_id = str(evidence.get("turn_id") or "")
-                if turn_id:
-                    index[turn_id] = {
+                if question_id and turn_id:
+                    index[(question_id, turn_id)] = {
                         "timestamp": evidence.get("timestamp"),
                         "source_id": evidence.get("source_id"),
                     }
@@ -119,20 +121,29 @@ def _evidence_time_index() -> dict[str, dict[str, Any]]:
 def _gold_evidence_text(
     row: dict[str, Any],
     *,
-    time_index: dict[str, dict[str, Any]] | None = None,
+    time_index: dict[Any, dict[str, Any]] | None = None,
 ) -> tuple[str, str]:
     items = row.get("gold_evidence") or []
     rendered: list[str] = []
     contexts: list[str] = []
     time_index = time_index or {}
+    question_id = str(row.get("question_id") or "")
     for item in items:
         if isinstance(item, dict):
             turn = item.get("source_turn_id") or item.get("turn_id") or "unknown_turn"
             text = item.get("text") or item.get("content") or ""
-            resolved = time_index.get(str(turn), {})
-            timestamp = resolved.get("timestamp")
+            # Prefer the timestamp already persisted with the Gold Evidence.
+            # Only fall back to the benchmark index when the row itself does
+            # not carry a timestamp. This prevents stale/ambiguous lookup data
+            # from overriding the canonical evidence timestamp.
+            timestamp = item.get("timestamp")
             if timestamp is None:
-                timestamp = item.get("timestamp")
+                resolved = time_index.get((question_id, str(turn)), {})
+                timestamp = resolved.get("timestamp")
+                # Backward-compatible support for unit tests/callers that pass
+                # the old turn-only lookup shape.
+                if timestamp is None:
+                    timestamp = time_index.get(str(turn), {}).get("timestamp")
             time_text = _format_time_context(timestamp)
             if time_text:
                 rendered.append(f"[{turn} | {time_text}] {text}")
@@ -192,7 +203,7 @@ def _select_stratified(rows: list[dict[str, Any]], total: int, seed: int) -> lis
 def build_rows(
     selected: list[dict[str, Any]],
     *,
-    time_index: dict[str, dict[str, Any]] | None = None,
+    time_index: dict[Any, dict[str, Any]] | None = None,
 ) -> list[dict[str, Any]]:
     output: list[dict[str, Any]] = []
     for row in selected:
@@ -221,6 +232,51 @@ def build_rows(
             "notes": "",
         })
     return output
+
+
+def _select_stratified(rows: list[dict[str, Any]], total: int, seed: int) -> list[dict[str, Any]]:
+    rng = random.Random(seed)
+    buckets: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        buckets.setdefault(_auto_failure(row), []).append(row)
+
+    selected: list[dict[str, Any]] = []
+    selected_ids: set[str] = set()
+    for label, count in TARGET_COUNTS.items():
+        candidates = list(buckets.get(label, []))
+        rng.shuffle(candidates)
+        if len(candidates) < count:
+            raise ValueError(
+                f"Not enough rows for {label}: need {count}, found {len(candidates)}"
+            )
+        for row in candidates[:count]:
+            selected.append(row)
+            selected_ids.add(str(row.get("question_id")))
+
+    remaining_needed = total - len(selected)
+    if remaining_needed < 0:
+        raise ValueError("total must be at least the sum of mandatory strata")
+
+    remaining = [r for r in rows if str(r.get("question_id")) not in selected_ids]
+    exploratory = [r for r in remaining if _auto_failure(r) not in TARGET_COUNTS]
+    rng.shuffle(exploratory)
+
+    if len(exploratory) >= remaining_needed:
+        selected.extend(exploratory[:remaining_needed])
+    else:
+        selected.extend(exploratory)
+        exploratory_ids = {str(r.get("question_id")) for r in exploratory}
+        fallback = [
+            r for r in remaining if str(r.get("question_id")) not in exploratory_ids
+        ]
+        rng.shuffle(fallback)
+        need = remaining_needed - len(exploratory)
+        if len(fallback) < need:
+            raise ValueError("Not enough rows to complete the requested sample")
+        selected.extend(fallback[:need])
+
+    rng.shuffle(selected)
+    return selected
 
 
 def sample(
