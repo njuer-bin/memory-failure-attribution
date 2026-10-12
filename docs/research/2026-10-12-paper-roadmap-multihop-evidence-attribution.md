@@ -1,8 +1,23 @@
-# 论文路线升级：从生命周期归因到多跳 Evidence Composition Attribution
+# 论文路线：先完成 CCF-C，再以实验结果升级 CCF-B
 
 日期：2026-10-12
 
-## 1. 研究定位升级
+## 0. 总策略
+
+本研究采用 **C-first, B-upgrade** 路线：
+
+> **第一阶段先把论文做成一篇完整、严谨、可复现的 CCF-C 级工作；第二阶段不预设一定冲 CCF-B，而是根据实验结果决定是否升级。**
+
+这样做的原则是：
+
+- CCF-C 是当前必须完成的目标；
+- CCF-B 是实验结果足够强时的升级目标；
+- 后续 B 实验不能推翻 C 的主线，而应作为 C 的自然增强；
+- 现在所有工程和实验设计都应保留升级 B 的接口，但不为了“看起来像 B”而提前堆复杂模块。
+
+---
+
+## 1. 研究定位
 
 当前工作的核心贡献是：把 Agent Memory 的最终答错拆解到记忆生命周期中的最早失败位置，而不是只报告最终 Accuracy。
 
@@ -22,13 +37,13 @@ Formation → Storage → Evolution → Retrieval/Rerank → Context → Reasoni
 - F5：Context failure
 - F6：Reasoning / Answer failure
 
-P10 的启发不是简单加入一个“多跳检索模块”，而是发现当前生命周期划分在 Retrieval/Rerank 与 Context 之间仍隐藏了一层重要问题：**Evidence Composition**。
+P10 的启发不是简单加入一个“多跳检索模块”，而是发现 Retrieval/Rerank 与 Context 之间仍隐藏一层重要问题：**Evidence Composition**。
 
 多跳问题的关键不是“检索到更多 memory”，而是：
 
-> 让多个正确 memory 以正确的关系、路径和顺序共同到达最终 context。
+> **让多个正确 memory 以正确的关系、路径和顺序共同到达最终 context。**
 
-因此论文路线升级为：
+因此论文升级为：
 
 ```text
 Memory Lifecycle Failure Attribution
@@ -36,55 +51,39 @@ Memory Lifecycle Failure Attribution
 Multi-hop Evidence Composition Attribution
 ```
 
-目标是回答两个层次的问题：
+---
 
-1. Agent Memory 在生命周期的哪个阶段失败？
-2. 对于需要多条记忆协同的多跳问题，失败到底发生在证据缺失、证据连接、路径恢复、bridge 保留、context 还是最终 reasoning？
+## 2. CCF-C 阶段必须回答的问题
+
+### RQ1：Where do Agent Memory failures occur across the memory lifecycle?
+
+验证 E0/F1-F6 framework 能否稳定定位 Agent Memory 的最早失败位置。
+
+### RQ2：When memory agents fail, is the cause upstream memory failure, retrieval/context failure, or reasoning failure?
+
+通过 Real Memory、Oracle Memory、Oracle Context 和严格 provenance 区分不同阶段。
+
+### RQ3：Multi-hop failures 是否存在独立于普通 retrieval failure 的 Evidence Composition 问题？
+
+初步定义：
+
+```text
+Evidence Missing
+vs.
+Evidence Found but Not Composed
+vs.
+Composed but Not Preserved
+vs.
+Composed and Preserved but Reasoning Wrong
+```
+
+CCF-C 阶段的目标不是证明 R1-R4 已经是一个“全新的理论”，而是建立可靠、可验证的诊断层，并用实验确认它是否值得进一步升级。
 
 ---
 
-## 2. 新的核心假设
+## 3. Failure Taxonomy
 
-### H1：Memory Recall 不等于 Evidence Recall
-
-系统可能找到了若干相关 memory，但没有找全回答所需的 gold evidence。
-
-### H2：Evidence Recall 不等于 Evidence Composition
-
-即使 A、B、C 三条 memory 都被检索出来，也可能没有恢复：
-
-```text
-A → B → C
-```
-
-因此需要区分“找到证据”和“把证据正确连接起来”。
-
-### H3：Evidence Composition 不等于 Context Preservation
-
-系统可能已经建立完整证据链，但 rerank/context compression 仍然可能删除关键 bridge memory。
-
-例如：
-
-```text
-A → B → C
-
-Rerank 保留：A, C
-Rerank 丢弃：B
-
-Final Context = A + C
-```
-
-此时问题不是 Retrieval failure，也不是最终 Reasoning failure，而是 **Bridge Preservation Failure**。
-
-### H4：Multi-hop failure rate 应随 hop complexity 分解
-
-Single-hop、2-hop、3-hop 问题不应只比较最终 Accuracy，而应比较各类 failure distribution。
-
----
-
-## 3. 推荐的新 failure taxonomy
-
-保留已有 E0/F1-F6，不推倒重来；在 F4/F5 中间增加 Evidence Composition 层。
+保留已有 E0/F1-F6，不推倒重来；针对 multi-hop / evidence-chain questions 增加 R1-R4。
 
 ```text
 E0 Evidence Sufficiency
@@ -110,8 +109,6 @@ F5 Context
 F6 Reasoning / Answer
 ```
 
-其中 R1-R4 是针对 multi-hop / evidence-chain 问题的诊断层，不要求每道 single-hop 问题都经过所有 R 层。
-
 ### R1 Evidence Recall Failure
 
 Gold evidence 中至少一条关键 memory 未进入候选 evidence。
@@ -122,15 +119,17 @@ Gold evidence 中至少一条关键 memory 未进入候选 evidence。
 
 ### R3 Path Completeness Failure
 
-已经发现局部关系，但完整的 A→B→C 路径缺失，尤其是 bridge/intermediate evidence 缺失。
+局部关系已发现，但完整 A→B→C 路径缺失，尤其是 bridge/intermediate evidence 缺失。
 
 ### R4 Bridge Preservation Failure
 
-完整 evidence chain 已经构建，但 rerank、top-k 截断、context compression 或邻域选择导致关键 bridge memory 没有进入最终 context。
+完整 evidence chain 已构建，但 rerank、top-k 截断、context compression 或邻域选择导致关键 bridge memory 没有进入最终 context。
+
+Single-hop 问题继续使用 E0/F1-F6；R1-R4 主要用于 multi-hop/evidence-chain questions，避免 taxonomy 过度复杂化。
 
 ---
 
-## 4. 为什么这个升级比单纯增加 Multi-hop Retrieval 更有论文价值
+## 4. 为什么这条主线有价值
 
 传统 evaluation 通常是：
 
@@ -138,16 +137,16 @@ Gold evidence 中至少一条关键 memory 未进入候选 evidence。
 Question → Memory System → Answer → Accuracy
 ```
 
-这种 evaluation 无法回答：
+但 Accuracy 无法回答：
 
-- 是没有记住？
+- 是没有形成记忆？
 - 是没有检索到？
 - 是检索到了但没有连接？
 - 是路径不完整？
 - 是 bridge 被 rerank/context 丢掉？
 - 还是 evidence 已完整进入 context，但 LLM 仍然推理错误？
 
-本研究应把 evaluation 改造成：
+本研究改成：
 
 ```text
 Question
@@ -167,53 +166,15 @@ Answer
 Earliest Failure Attribution
 ```
 
-核心贡献不是提出一个新的 Memory Engine，而是提出一个能够解释 **why memory reasoning fails** 的诊断框架。
+核心贡献是 **why memory reasoning fails 的诊断框架**，而不是提出一个新的 Memory Engine。
 
 ---
 
-## 5. 新 Research Questions
+## 5. CCF-C 主实验路线
 
-### RQ1：Where do Agent Memory failures occur across the memory lifecycle?
+### Phase A：冻结 evaluator
 
-保留原始主问题，验证 F1-F6/E0 framework 的有效性。
-
-### RQ2：How does failure distribution change with multi-hop complexity?
-
-比较：
-
-- Single-hop
-- 2-hop
-- 3-hop（如果数据集允许）
-
-重点报告 R1-R4、F5、F6 的变化。
-
-### RQ3：When a memory agent fails on a multi-hop question, is the cause missing evidence or failed evidence composition?
-
-这是论文升级后的核心问题。
-
-区分：
-
-```text
-Evidence Missing
-vs.
-Evidence Found but Not Composed
-vs.
-Composed but Not Preserved
-vs.
-Composed and Preserved but Reasoning Wrong
-```
-
-### RQ4：Can lifecycle attribution guide targeted system improvement?
-
-用 attribution → intervention → re-evaluation 验证诊断框架是否具有实际价值。
-
----
-
-## 6. 实验路线
-
-### Phase A：冻结现有 attribution evaluator
-
-在增加新实验前固定：
+在继续增加实验前冻结：
 
 - E0 evidence sufficiency protocol
 - strict provenance
@@ -222,18 +183,16 @@ Composed and Preserved but Reasoning Wrong
 - human ground-truth protocol
 - first-loss attribution boundary
 
-已有 25-case human GT：
+已有 25-case Human Ground Truth：
 
 - final label exact agreement：21/25 = 84%
 - Cohen's κ ≈ 0.774
 
-这部分作为 evaluator validation evidence，不再频繁修改规则后重复解释结果。
-
----
+这部分作为 evaluator validation evidence，不再因为新实验频繁修改规则。
 
 ### Phase B：建立 Multi-hop Gold Evidence Schema
 
-对 benchmark question 增加研究字段：
+至少保存：
 
 ```text
 question_id
@@ -253,25 +212,13 @@ bridge_evidence
 ordered_path = [A, B, C]
 ```
 
-表示回答所需 evidence path。
-
-关系可以包括：
-
-- entity relation
-- temporal relation
-- causal relation
-- event transition
-- speaker/action relation
-
-不要把“hop count”仅定义成图 BFS 深度；应以回答所需 evidence chain 为准。
-
----
+表示回答所需 evidence path。hop count 应由回答所需 evidence chain 定义，而不是简单等同于 BFS depth。
 
 ### Phase C：Multi-hop Attribution Baseline
 
-先不要修改 Memory Engine。
+**先不修改 Memory Engine。**
 
-直接在当前真实系统上建立：
+直接在当前真实系统上记录：
 
 ```text
 Question
@@ -284,27 +231,52 @@ Question
  → Answer
 ```
 
-记录每一层是否保留 gold evidence。
-
 输出：
 
-- evidence recall
-- linking recall
-- path completeness
-- bridge preservation
-- context recall
-- answer accuracy
-- earliest failure
+- Evidence Recall
+- Evidence Linking Rate
+- Path Completeness
+- Bridge Preservation
+- Context Recall
+- Answer Accuracy
+- Earliest Failure
 
-这样可以先回答“问题到底发生在哪里”，而不是先回答“如何把系统变强”。
+### Phase D：跨数据集验证
+
+目标数据集：
+
+- LoCoMo
+- LongMemEval
+
+最终规模目标：每个 benchmark 至少 n≥100；当前 n=50 仅用于 pipeline validation 与 failure-pattern exploration。
+
+统计要求：
+
+- bootstrap confidence intervals
+- single-hop / multi-hop 分层统计
+- per-class confusion matrix
+- attribution precision / recall / F1
+
+### Phase E：Human Validation
+
+继续使用独立人工标注验证自动 attribution；R1-R4 的人工标注必须独立于自动 attribution，避免 circular evaluation。
 
 ---
 
-### Phase D：P10-inspired Ablation
+## 6. P10-inspired Ablation：作为 C 的增强实验，同时为 B 留接口
 
-将 `agent_memory` P10 当作 motivating case study，而不是把 P10 本身作为论文贡献。
+将 `agent_memory` P10 定位为 motivating case study，而不是论文贡献本身。
 
-建议逐层增加机制：
+已知基础：
+
+- P2：bounded graph traversal / BFS
+- P3：multi-hop evidence anchors
+- P4：evidence-chain construction
+- P10：进一步强化 evidence/context preservation、neighbor-window、state/temporal/session synthesis
+
+因此不把 P10 表述为“第一次实现 multi-hop”。
+
+建议 controlled ablation：
 
 ```text
 B0：普通 retrieval baseline
@@ -320,50 +292,114 @@ B4：+ neighboring-turn / result-window expansion
 B5：+ temporal/state/session synthesis
 ```
 
-重点观察：
+每次只增加一个机制，记录：
 
-```text
-Accuracy
-Multi-hop Accuracy
-Evidence Recall
-Path Completeness
-Bridge Preservation
-Context Recall
-Failure Distribution
-```
+- Accuracy
+- Multi-hop Accuracy
+- Evidence Recall
+- Path Completeness
+- Bridge Preservation
+- Context Recall
+- Failure Distribution
 
-重要：每一步只增加一个机制，避免无法归因的“大改版”。
+这组实验首先服务 CCF-C 的“诊断是否具有实际价值”，同时为后续 B 升级保留完整实验接口。
 
 ---
 
-## 7. P10 的正确定位
+## 7. CCF-C 完成标准（必须先达成）
 
-P10 不应被表述为“第一次实现 multi-hop”。当前仓库分析显示，多跳相关基础已经分布在此前分支：
+在考虑 B 之前，至少完成：
 
-- P2：bounded graph traversal / BFS
-- P3：multi-hop evidence anchors
-- P4：evidence-chain construction
-- P10：在既有能力上强化 evidence/context preservation、neighbor-window、state/temporal/session synthesis 等能力
+1. E0/F1-F6 evaluator 冻结；
+2. provenance、temporal scorer、Human GT protocol 稳定；
+3. R1-R4 定义和标注规则冻结；
+4. LoCoMo ≥100；
+5. LongMemEval ≥100；
+6. 至少 20–30 个独立 Human Validation cases；
+7. bootstrap CIs；
+8. baseline multi-hop attribution；
+9. 至少一个完整 R1/R2/R3/R4 failure case study；
+10. 至少一组 controlled ablation；
+11. 完整 confusion matrix 和 per-class metrics；
+12. 论文能够形成“问题 → 方法 → 验证 → 发现 → 限制”的闭环。
 
-因此论文应该借 P10 说明一个更重要的问题：
-
-> Multi-hop capability is a lifecycle property of evidence composition, not merely a retrieval feature.
-
-即：
-
-```text
-Multi-hop
-≠ retrieve more memories
-
-Multi-hop
-= retrieve + link + complete path + preserve bridge + compose context + reason
-```
+达到这里，就以 CCF-C 投稿为第一目标，不等待 B 实验全部完成。
 
 ---
 
-## 8. 最重要的 Case Study 设计
+## 8. CCF-B 升级不是预设目标，而是结果驱动
 
-至少构造一个完整失败案例：
+CCF-C 完成后，根据实验结果设置 **B-upgrade gate**。
+
+只有满足大部分条件才值得冲 B：
+
+### B-Gate 1：R1-R4 必须是高频或结构性失败
+
+如果绝大多数错误仍然来自 F1/F4/F5，而 R1-R4 很少出现，则不应强行把 Evidence Composition 包装成核心创新。
+
+### B-Gate 2：失败率应随 hop complexity 呈现可解释变化
+
+比较：
+
+```text
+Single-hop
+2-hop
+3-hop（数据允许时）
+```
+
+如果 hop 增加伴随 R1-R4 明显增加，说明 multi-hop evidence composition 是真实的系统性瓶颈。
+
+### B-Gate 3：R1-R4 必须具有可区分性
+
+需要能够稳定区分：
+
+```text
+R1：evidence missing
+R2：evidence found but disconnected
+R3：path incomplete
+R4：bridge dropped
+F6：evidence complete but reasoning wrong
+```
+
+### B-Gate 4：人工验证支持 taxonomy
+
+R1-R4 的自动 attribution 必须获得可靠的人类一致性，而不是只依赖自动规则。
+
+### B-Gate 5：跨数据集成立
+
+至少在 LoCoMo + LongMemEval 中出现一致或具有解释力的趋势。
+
+### B-Gate 6：Intervention 有效
+
+最重要的升级证据是：
+
+```text
+Attribution
+   ↓
+Targeted Intervention
+   ↓
+Re-evaluation
+```
+
+例如系统被诊断为 R4 后，只增加 bridge-aware preservation；如果 R4 类错误显著下降，同时其他类别没有异常恶化，就证明 attribution 不只是“解释”，而具有诊断指导能力。
+
+### B-Gate 7：形成新的科学结论
+
+理想结果不是：
+
+> “我们的模块让 Accuracy 提高了 X%。”
+
+而是：
+
+> **多跳 Agent Memory 的主要瓶颈不仅是 memory retrieval；证据之间的连接、路径完整性和 bridge preservation 构成了一个可独立测量、可归因、可干预的中间失败层。**
+
+只有实验真正支持这一结论，才升级为 CCF-B 版本。
+
+---
+
+## 9. 最关键 Case Study
+
+至少准备一个完整失败案例：
 
 ```text
 Question
@@ -381,7 +417,7 @@ Final Context: A, C
 Wrong Answer
 ```
 
-归因结果应为：
+此时应归因：
 
 ```text
 R4 Bridge Preservation Failure
@@ -393,145 +429,84 @@ R4 Bridge Preservation Failure
 F6 Reasoning Failure
 ```
 
-该案例用于直观证明：只看最终 answer accuracy 无法定位 memory reasoning failure。
+该案例用于证明只看最终 Accuracy 无法定位 memory reasoning failure。
 
 ---
 
-## 9. Evaluation 指标升级
+## 10. 论文最终结构
 
-除了最终 Accuracy，建议至少报告：
+### CCF-C 版本
 
-### Lifecycle metrics
+```text
+1. Introduction
+2. Related Work
+3. Problem Definition
+4. Lifecycle Failure Attribution Framework
+5. Evidence Composition Attribution for Multi-hop Memory
+6. Experimental Setup
+7. Lifecycle Failure Analysis
+8. Multi-hop Evidence Composition Analysis
+9. Human Validation and Case Studies
+10. Controlled Ablation / Intervention
+11. Limitations
+12. Conclusion
+```
 
-- Formation recall
-- Storage recall
-- Evolution recall
-- Retrieval recall
-- Rerank recall
-- Context recall
+核心故事：
 
-### Evidence composition metrics
+> Existing agent-memory benchmarks report whether an agent answers correctly, but provide limited information about where and why memory-based reasoning fails. We introduce a lifecycle-based failure attribution framework that traces errors from memory formation to final reasoning. We further investigate multi-hop questions and identify an intermediate evidence-composition layer where retrieved memories may fail to be linked, complete the required path, preserve bridge evidence, or reach final context.
 
-- Evidence Recall
-- Evidence Linking Rate
-- Path Completeness
-- Bridge Preservation Rate
-- Final Context Evidence Recall
+### CCF-B 升级版本
 
-### Answer metrics
+**不需要重写整个研究。**
 
-- Accuracy
-- Exact Match
-- Token F1
+在 CCF-C 基础上重点增强：
 
-### Attribution metrics
+- 更大规模实验
+- hop-complexity 分层
+- R1-R4 独立性证据
+- 更强 ablation
+- targeted intervention
+- 跨 benchmark 一致性
+- 更完整 case studies
+- 更强 statistical analysis
 
-- Human agreement
-- Cohen's κ
-- Per-class precision / recall / F1
-- Earliest-failure accuracy
-
----
-
-## 10. 论文实验矩阵
-
-最终建议形成下面的核心表格：
-
-| System / Ablation | Single-hop Acc | 2-hop Acc | 3-hop Acc | Evidence Recall | Path Completeness | Bridge Preservation | Context Recall | F6 Reasoning |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Baseline | | | | | | | | |
-| + Linking | | | | | | | | |
-| + Chain | | | | | | | | |
-| + Bridge | | | | | | | | |
-| + Window | | | | | | | | |
-| + State/Temporal | | | | | | | | |
-
-这里所有数字必须来自实际实验，不允许用示意数字替代。
+如果这些结果不足以支撑更强结论，就保留 CCF-C 版本。
 
 ---
 
-## 11. 统计与可靠性要求
+## 11. 当前执行顺序
 
-当前 n=50 结果主要用于 pipeline validation 和 failure pattern exploration，不应作为最终强结论。
+严格按以下顺序，不提前堆复杂模型：
 
-最终实验建议：
-
-- 每个 benchmark 至少 n≥100
-- bootstrap confidence intervals
-- single-hop / multi-hop 分层统计
-- 预先冻结 evaluator
-- human annotation 20–30 作为独立验证集
-- 报告 per-class confusion matrix
-- 对关键 attribution 类别报告 precision / recall / F1
-
-尤其注意：R1-R4 新类别的人工标注必须独立于自动 attribution，避免 circular evaluation。
-
----
-
-## 12. 防止论文出现的主要风险
-
-### 风险 1：把 P10 的功能直接当创新
-
-避免：论文贡献是 attribution framework，不是“复刻 P10”。
-
-### 风险 2：把 BFS depth 当 multi-hop 真值
-
-避免：hop 应由 gold evidence chain / question dependency 定义。
-
-### 风险 3：把 evidence found 当 reasoning solved
-
-避免：必须检查 evidence relation、path 和 final context。
-
-### 风险 4：把所有最终错误都归到 F6
-
-避免：F6 必须满足 E0 sufficient + gold evidence reaches final context + answer scorer confirms incorrect。
-
-### 风险 5：样本太小
-
-避免：n=50 只用于探索，最终结论基于扩大后的 benchmark。
-
-### 风险 6：新 taxonomy 太复杂
-
-避免：R1-R4 只针对 multi-hop/evidence-chain questions；single-hop 继续使用原 F1-F6。
+```text
+1. Freeze E0/F1-F6 evaluator
+        ↓
+2. Freeze Human GT / provenance / temporal protocol
+        ↓
+3. Define and freeze R1-R4
+        ↓
+4. Build Multi-hop Gold Evidence Schema
+        ↓
+5. Run baseline attribution
+        ↓
+6. Expand LoCoMo / LongMemEval to ≥100 each
+        ↓
+7. Human validation
+        ↓
+8. Controlled P10-inspired ablation
+        ↓
+9. Complete CCF-C paper package
+        ↓
+10. CCF-C readiness decision
+        ↓
+11. Run B-upgrade experiments only if justified
+        ↓
+12. Decide CCF-C submission or CCF-B upgrade
+```
 
 ---
 
-## 13. 最终论文故事
+## 12. 一句话研究主线
 
-论文不应该讲成：
-
-> 我实现了一个 Memory Failure Analyzer。
-
-而应该讲成：
-
-> Existing agent-memory benchmarks report whether an agent answers correctly, but provide limited information about where and why memory-based reasoning fails. We introduce a lifecycle-based failure attribution framework that traces errors from memory formation to final reasoning. We further show that multi-hop questions expose an overlooked intermediate failure layer: evidence composition. Even when individual memories are successfully retrieved, the system may fail to link evidence, complete the required path, preserve bridge evidence, or deliver the chain to the final context. We formalize these failure modes and use controlled ablations to quantify their contribution to memory reasoning failures.
-
-中文核心叙事：
-
-> **记忆系统的失败不只是“有没有记住”，多跳推理的关键也不只是“有没有检索到”。真正决定最终回答的是：正确证据能否被找到、连接、组成完整路径、保留关键桥接信息，并共同到达最终上下文。**
-
----
-
-## 14. 后续执行顺序
-
-按以下顺序推进，不提前堆复杂模型：
-
-1. **冻结当前 E0/F1-F6 evaluator。**
-2. **定义 R1-R4 operational criteria。**
-3. **从现有 benchmark 中构建 single-hop / 2-hop / 3-hop 样本。**
-4. **建立 Gold Evidence + Gold Evidence Path。**
-5. **实现 evidence-chain tracing，但先不修改 Memory Engine。**
-6. **跑 baseline，得到 multi-hop failure distribution。**
-7. **做 linking / chain / bridge / context-window ablation。**
-8. **至少 n≥100 后进行 bootstrap CI。**
-9. **对 R1-R4 做独立 human annotation。**
-10. **整理 case studies。**
-11. **最后再决定是否需要修改 Memory Engine。**
-
----
-
-## 15. 研究主线的一句话版本
-
-> **从“Agent Memory 为什么答错”升级到“Agent Memory 的多跳推理到底在哪一层证据链断裂”。**
-
-这条路线应成为后续实验、论文结构和 GitHub research log 的统一主线。
+> **先建立一个可信的 Agent Memory 生命周期失败归因框架，再证明多跳问题中存在可独立诊断的 Evidence Composition 失败层；先完成 CCF-C 的完整闭环，再由实验结果决定是否升级 CCF-B。**
