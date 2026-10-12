@@ -11,9 +11,6 @@ import json
 import time
 from pathlib import Path
 
-from datasets.loader import iter_normalized
-from experiments.run_oracle_experiments import run_record
-
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results" / "oracle_experiments"
 
@@ -28,6 +25,11 @@ def main() -> None:
         help="Exact normalized question ID. Repeat the option for multiple questions.",
     )
     args = parser.parse_args()
+
+    # Keep CLI help usable in a lightweight CI environment. These imports pull
+    # in the full experiment stack and are only needed after argument parsing.
+    from datasets.loader import iter_normalized
+    from experiments.run_oracle_experiments import run_record
 
     wanted = set(args.question_id)
     records = []
