@@ -80,6 +80,28 @@ def test_relative_period_without_anchor_is_conservative():
     assert result["correct"] is False
 
 
+def test_reference_anchor_resolves_last_weekend_without_context_timestamp():
+    result = score_answer(
+        "Last weekend.",
+        "The weekend before 17 July 2023 / From July 15, 2023 to July 16, 2023",
+        context=[{"timestamp": 1791770627945}],
+    )
+
+    assert result["temporal_equivalent"] is True
+    assert result["correct"] is True
+
+
+def test_reference_anchor_resolves_last_weekday_without_context_timestamp():
+    result = score_answer(
+        "Last Tuesday.",
+        "The Tuesday before 20 July 2023 / July 18, 2023",
+        context=[{"timestamp": 1791770712498}],
+    )
+
+    assert result["temporal_equivalent"] is True
+    assert result["correct"] is True
+
+
 def test_full_answer_containing_reference_phrase_is_correct():
     result = score_answer(
         "Caroline researched adoption agencies.",
