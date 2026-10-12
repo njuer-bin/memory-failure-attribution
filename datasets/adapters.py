@@ -27,13 +27,26 @@ def _answer_text(value: Any) -> str | None:
     return str(value)
 
 
+def _dia_session_id(dia_id: Any) -> str:
+    """Return the benchmark session prefix from a LoCoMo dia_id.
+
+    Examples: ``D1:3`` -> ``D1`` and ``D10:2`` -> ``D10``.
+    Plain ids such as ``D1`` are also accepted.
+    """
+    value = str(dia_id or "").strip()
+    if not value:
+        return ""
+    return value.split(":", 1)[0]
+
+
 def _locomo_sessions(conversation: Any) -> list[dict[str, Any]]:
     """Normalize the public LoCoMo conversation object to the runner schema.
 
     The public conversation file stores sessions under ``sessions`` and does
-    not provide ``session_id``. The benchmark's ``dia_id`` (for example
-    ``D1:3``) identifies the session, so derive ``D1`` from the first
-    non-empty message when no explicit session ID exists.
+    not provide a reliable explicit session id. The benchmark's ``dia_id``
+    (for example ``D1:3``) is authoritative for provenance. If a container
+    session carries a conflicting/generated id, prefer the unique session id
+    encoded by its non-empty messages instead of silently renumbering it.
     """
     if not isinstance(conversation, dict):
         return []
@@ -51,18 +64,28 @@ def _locomo_sessions(conversation: Any) -> list[dict[str, Any]]:
         if isinstance(messages, dict):
             messages = [messages]
         messages = list(messages) if isinstance(messages, list) else []
+
         explicit_sid = session.get("session_id") or session.get("id")
-        sid = str(explicit_sid) if explicit_sid is not None else ""
-        if not sid:
-            for message in messages:
-                if not isinstance(message, dict):
-                    continue
-                dia_id = str(message.get("dia_id") or "")
-                if ":" in dia_id:
-                    sid = dia_id.split(":", 1)[0]
-                    break
-        if not sid:
+        explicit_sid = str(explicit_sid).strip() if explicit_sid is not None else ""
+
+        benchmark_sids: list[str] = []
+        seen_sids: set[str] = set()
+        for message in messages:
+            if not isinstance(message, dict) or not _message_text(message).strip():
+                continue
+            sid = _dia_session_id(message.get("dia_id"))
+            if sid and sid not in seen_sids:
+                seen_sids.add(sid)
+                benchmark_sids.append(sid)
+
+        # Benchmark dia_id provenance wins over a stale/generated container id.
+        if len(benchmark_sids) == 1:
+            sid = benchmark_sids[0]
+        elif explicit_sid:
+            sid = explicit_sid
+        else:
             sid = f"session_{session_idx}"
+
         result.append({
             "session_id": sid,
             "date": session.get("date") or session.get("date_time"),
@@ -72,7 +95,7 @@ def _locomo_sessions(conversation: Any) -> list[dict[str, Any]]:
 
 
 def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
-    """Flatten LoCoMo sessions using MemoryEngine's non-empty turn indexing."""
+    """Flatten LoCoMo sessions while preserving benchmark session provenance."""
     raw_sessions = (
         _locomo_sessions(conversation)
         if isinstance(conversation, dict)
@@ -83,7 +106,7 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
     for session_idx, session in enumerate(raw_sessions):
         if not isinstance(session, dict):
             continue
-        source_id = str(session.get("session_id") or session.get("id") or f"session_{session_idx}")
+        container_source_id = str(session.get("session_id") or session.get("id") or f"session_{session_idx}")
         session_timestamp = session.get("timestamp") or session.get("date") or session.get("date_time")
         messages = session.get("messages") or session.get("turns") or []
         if isinstance(messages, dict):
@@ -101,10 +124,14 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
                     or message.get("id")
                     or f"turn_{msg_idx}"
                 )
+                # The message-level dia_id is the strongest provenance source.
+                message_source_id = _dia_session_id(benchmark_turn_id)
+                source_id = message_source_id or container_source_id
                 role = str(message.get("role") or message.get("speaker") or "")
                 timestamp = message.get("timestamp") or message.get("session_date_time") or session_timestamp
             else:
                 benchmark_turn_id = f"turn_{msg_idx}"
+                source_id = container_source_id
                 role = "user"
                 timestamp = session_timestamp
             turns.append({
@@ -240,7 +267,7 @@ def normalize_locomo_refined(raw: dict[str, Any], *, index: int, conversation: d
         "conversation": normalized_conversation, "task_type": task,
         "metadata": {
             "conversation_idx": raw.get("conversation_idx"), "qa_index": raw.get("qa_index"),
-            "raw": raw, "normalization": "locomo_refined_v3_canonical_sessions",
+            "raw": raw, "normalization": "locomo_refined_v4_provenance_safe_sessions",
             "evidence_resolution": {
                 "resolved_turns": sum(1 for e in evidence if e.get("granularity") == "turn"),
                 "unresolved": sum(1 for e in evidence if e.get("granularity") == "unresolved"),
