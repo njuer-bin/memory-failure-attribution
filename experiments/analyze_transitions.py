@@ -1,9 +1,10 @@
 """Analyze conditional lifecycle survival from an existing oracle comparison.
 
 The strict provenance evaluator makes each stage a causal boundary. Raw stage
-recall is still confounded by upstream losses, so this module reports both:
-1. stage recall across all eligible samples; and
-2. conditional transition survival given success at the previous stage.
+recall is still confounded by upstream losses, so this module reports:
+1. stage recall across eligible samples;
+2. adjacent transition survival given success at the previous stage; and
+3. cumulative upstream transition survival, which is the primary causal view.
 
 No model calls are made.
 """
@@ -45,6 +46,14 @@ def stage_all_pass(row: dict[str, Any], stage: str) -> bool:
     return bool(gold) and gold.issubset(found_ids(row, stage))
 
 
+def stage_chain_pass(row: dict[str, Any], through_stage: str) -> bool:
+    """Return whether every stage up to and including ``through_stage`` passes."""
+    if through_stage not in STAGES:
+        raise ValueError(f"unknown stage: {through_stage}")
+    end = STAGES.index(through_stage)
+    return all(stage_all_pass(row, stage) for stage in STAGES[: end + 1])
+
+
 def gate_status(row: dict[str, Any]) -> str:
     return str(
         row.get("modes", {})
@@ -65,6 +74,7 @@ def transition_stats(rows: list[dict[str, Any]], gate_sufficient_only: bool = Fa
         "gate_sufficient_only": gate_sufficient_only,
         "stage": {},
         "transitions": {},
+        "cumulative_transitions": {},
     }
 
     for stage in STAGES:
@@ -75,6 +85,7 @@ def transition_stats(rows: list[dict[str, Any]], gate_sufficient_only: bool = Fa
             "rate": passed / len(eligible) if eligible else None,
         }
 
+    # Adjacent transitions are retained as descriptive diagnostics.
     for previous, current in zip(STAGES, STAGES[1:]):
         conditional_rows = [row for row in eligible if stage_all_pass(row, previous)]
         survived = sum(stage_all_pass(row, current) for row in conditional_rows)
@@ -86,6 +97,27 @@ def transition_stats(rows: list[dict[str, Any]], gate_sufficient_only: bool = Fa
             "conditional_survival": survived / len(conditional_rows) if conditional_rows else None,
             "conditional_failure": (
                 1 - survived / len(conditional_rows) if conditional_rows else None
+            ),
+        }
+
+    # Primary causal view: require all upstream stages to have passed before
+    # asking whether the next stage also survives. This avoids treating rows
+    # that already failed upstream as if they were valid denominators.
+    for index in range(1, len(STAGES)):
+        previous = STAGES[index - 1]
+        current = STAGES[index]
+        eligible_chain = [
+            row for row in eligible if stage_chain_pass(row, previous)
+        ]
+        survived = sum(stage_all_pass(row, current) for row in eligible_chain)
+        result["cumulative_transitions"][f"{current}_given_upstream"] = {
+            "upstream_through": previous,
+            "current_stage": current,
+            "eligible_after_upstream": len(eligible_chain),
+            "survived_current": survived,
+            "conditional_survival": survived / len(eligible_chain) if eligible_chain else None,
+            "conditional_failure": (
+                1 - survived / len(eligible_chain) if eligible_chain else None
             ),
         }
     return result
@@ -107,7 +139,17 @@ def evidence_level_transition_stats(rows: list[dict[str, Any]], gate_sufficient_
     def passed(row: dict[str, Any], evidence_id: str, stage: str) -> bool:
         return evidence_id in found_ids(row, stage)
 
-    result: dict[str, Any] = {"eligible_evidence": len(pairs), "transitions": {}}
+    def chain_passed(row: dict[str, Any], evidence_id: str, through_stage: str) -> bool:
+        if through_stage not in STAGES:
+            raise ValueError(f"unknown stage: {through_stage}")
+        end = STAGES.index(through_stage)
+        return all(passed(row, evidence_id, stage) for stage in STAGES[: end + 1])
+
+    result: dict[str, Any] = {
+        "eligible_evidence": len(pairs),
+        "transitions": {},
+        "cumulative_transitions": {},
+    }
     for previous, current in zip(STAGES, STAGES[1:]):
         eligible = [(r, e) for r, e in pairs if passed(r, e, previous)]
         survived = sum(passed(r, e, current) for r, e in eligible)
@@ -117,7 +159,31 @@ def evidence_level_transition_stats(rows: list[dict[str, Any]], gate_sufficient_
             "conditional_survival": survived / len(eligible) if eligible else None,
             "conditional_failure": 1 - survived / len(eligible) if eligible else None,
         }
+
+    for index in range(1, len(STAGES)):
+        previous = STAGES[index - 1]
+        current = STAGES[index]
+        eligible = [
+            (row, evidence_id)
+            for row, evidence_id in pairs
+            if chain_passed(row, evidence_id, previous)
+        ]
+        survived = sum(passed(row, evidence_id, current) for row, evidence_id in eligible)
+        result["cumulative_transitions"][f"{current}_given_upstream"] = {
+            "upstream_through": previous,
+            "current_stage": current,
+            "eligible_after_upstream": len(eligible),
+            "survived_current": survived,
+            "conditional_survival": survived / len(eligible) if eligible else None,
+            "conditional_failure": (
+                1 - survived / len(eligible) if eligible else None
+            ),
+        }
     return result
+
+
+def _fmt_rate(value: float | None) -> str:
+    return "NA" if value is None else f"{value:.3f}"
 
 
 def print_report(rows: list[dict[str, Any]]) -> None:
@@ -129,29 +195,34 @@ def print_report(rows: list[dict[str, Any]]) -> None:
         print("Stage\tPASS\tTOTAL\tRATE")
         for stage in STAGES:
             item = report["stage"][stage]
-            rate = "NA" if item["rate"] is None else f"{item['rate']:.3f}"
-            print(f"{stage}\t{item['passed']}\t{item['total']}\t{rate}")
-        print("\nTransition\tEligible\tSurvived\tConditional survival\tConditional failure")
+            print(f"{stage}\t{item['passed']}\t{item['total']}\t{_fmt_rate(item['rate'])}")
+        print("\nAdjacent transition\tEligible\tSurvived\tConditional survival\tConditional failure")
         for name, item in report["transitions"].items():
-            survival = item["conditional_survival"]
-            failure = item["conditional_failure"]
             print(
                 f"{name}\t{item['eligible_after_previous']}\t{item['survived_current']}\t"
-                f"{'NA' if survival is None else f'{survival:.3f}'}\t"
-                f"{'NA' if failure is None else f'{failure:.3f}'}"
+                f"{_fmt_rate(item['conditional_survival'])}\t{_fmt_rate(item['conditional_failure'])}"
+            )
+        print("\nCUMULATIVE UPSTREAM CONDITIONALS (PRIMARY)\nTransition\tEligible after upstream\tSurvived\tConditional survival\tConditional failure")
+        for name, item in report["cumulative_transitions"].items():
+            print(
+                f"{name}\t{item['eligible_after_upstream']}\t{item['survived_current']}\t"
+                f"{_fmt_rate(item['conditional_survival'])}\t{_fmt_rate(item['conditional_failure'])}"
             )
 
         evidence = evidence_level_transition_stats(rows, gate_only)
         print(f"\n=== EVIDENCE-LEVEL TRANSITIONS ({label}) ===")
         print(f"Eligible evidence items: {evidence['eligible_evidence']}")
-        print("Transition\tEligible\tSurvived\tConditional survival\tConditional failure")
+        print("Adjacent transition\tEligible\tSurvived\tConditional survival\tConditional failure")
         for name, item in evidence["transitions"].items():
-            survival = item["conditional_survival"]
-            failure = item["conditional_failure"]
             print(
                 f"{name}\t{item['eligible_after_previous']}\t{item['survived_current']}\t"
-                f"{'NA' if survival is None else f'{survival:.3f}'}\t"
-                f"{'NA' if failure is None else f'{failure:.3f}'}"
+                f"{_fmt_rate(item['conditional_survival'])}\t{_fmt_rate(item['conditional_failure'])}"
+            )
+        print("\nCUMULATIVE UPSTREAM CONDITIONALS (PRIMARY)\nTransition\tEligible after upstream\tSurvived\tConditional survival\tConditional failure")
+        for name, item in evidence["cumulative_transitions"].items():
+            print(
+                f"{name}\t{item['eligible_after_upstream']}\t{item['survived_current']}\t"
+                f"{_fmt_rate(item['conditional_survival'])}\t{_fmt_rate(item['conditional_failure'])}"
             )
 
 
