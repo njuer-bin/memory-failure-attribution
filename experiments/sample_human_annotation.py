@@ -4,6 +4,11 @@ The source is the local deterministic-rescore JSONL produced by
 ``experiments.rescore_existing_results``. The sampled cases are exported as a
 CSV so the researcher can annotate them without changing the experiment rows.
 
+For LoCoMo, the exported Gold Evidence now includes the resolved benchmark
+turn date/time when available. This is important for human annotation of
+relative expressions such as ``yesterday``, ``last week`` and ``last Tuesday``:
+the annotator should not have to infer the date from a turn ID alone.
+
 Default allocation for the LoCoMo n=50 audit:
 - F1_FORMATION: 12
 - E0_EVIDENCE_INSUFFICIENCY: 4
@@ -46,6 +51,7 @@ FIELDS = [
     "question",
     "reference_answer",
     "gold_evidence",
+    "gold_evidence_time_context",
     "auto_failure",
     "auto_real_correct",
     "human_evidence_sufficiency",
@@ -78,17 +84,64 @@ def _auto_failure(row: dict[str, Any]) -> str:
     return str(failure or "NONE")
 
 
-def _gold_evidence_text(row: dict[str, Any]) -> str:
+def _format_time_context(value: Any) -> str:
+    if value is None or value == "":
+        return ""
+    return str(value)
+
+
+def _evidence_time_index() -> dict[str, dict[str, Any]]:
+    """Build a LoCoMo benchmark-turn index with canonical timestamps.
+
+    The normalized adapter preserves the benchmark session/message timestamp
+    on each resolved evidence turn. This lets the annotation CSV display the
+    time anchor without asking the researcher to look up D*:turn_* manually.
+    """
+    try:
+        from datasets.loader import iter_normalized
+
+        index: dict[str, dict[str, Any]] = {}
+        for record in iter_normalized("locomo_refined_public"):
+            for evidence in record.get("gold_evidence") or []:
+                turn_id = str(evidence.get("turn_id") or "")
+                if turn_id:
+                    index[turn_id] = {
+                        "timestamp": evidence.get("timestamp"),
+                        "source_id": evidence.get("source_id"),
+                    }
+        return index
+    except Exception:
+        # Sampling must remain usable even when the optional benchmark files
+        # are unavailable. In that case the time-context column stays blank.
+        return {}
+
+
+def _gold_evidence_text(
+    row: dict[str, Any],
+    *,
+    time_index: dict[str, dict[str, Any]] | None = None,
+) -> tuple[str, str]:
     items = row.get("gold_evidence") or []
     rendered: list[str] = []
+    contexts: list[str] = []
+    time_index = time_index or {}
     for item in items:
         if isinstance(item, dict):
             turn = item.get("source_turn_id") or item.get("turn_id") or "unknown_turn"
             text = item.get("text") or item.get("content") or ""
-            rendered.append(f"[{turn}] {text}")
+            resolved = time_index.get(str(turn), {})
+            timestamp = resolved.get("timestamp")
+            if timestamp is None:
+                timestamp = item.get("timestamp")
+            time_text = _format_time_context(timestamp)
+            if time_text:
+                rendered.append(f"[{turn} | {time_text}] {text}")
+                contexts.append(f"{turn} = {time_text}")
+            else:
+                rendered.append(f"[{turn}] {text}")
         else:
             rendered.append(str(item))
-    return "\n".join(rendered)
+    return "\n".join(rendered), "; ".join(contexts)
 
 
 def _select_stratified(rows: list[dict[str, Any]], total: int, seed: int) -> list[dict[str, Any]]:
@@ -115,12 +168,7 @@ def _select_stratified(rows: list[dict[str, Any]], total: int, seed: int) -> lis
         raise ValueError("total must be at least the sum of mandatory strata")
 
     remaining = [r for r in rows if str(r.get("question_id")) not in selected_ids]
-
-    # Prefer labels outside the mandatory strata for the exploratory slots.
-    # This prevents a dominant F1 bucket from consuming the entire remainder.
-    exploratory = [
-        r for r in remaining if _auto_failure(r) not in TARGET_COUNTS
-    ]
+    exploratory = [r for r in remaining if _auto_failure(r) not in TARGET_COUNTS]
     rng.shuffle(exploratory)
 
     if len(exploratory) >= remaining_needed:
@@ -141,16 +189,22 @@ def _select_stratified(rows: list[dict[str, Any]], total: int, seed: int) -> lis
     return selected
 
 
-def build_rows(selected: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def build_rows(
+    selected: list[dict[str, Any]],
+    *,
+    time_index: dict[str, dict[str, Any]] | None = None,
+) -> list[dict[str, Any]]:
     output: list[dict[str, Any]] = []
     for row in selected:
         real = row.get("modes", {}).get("real_memory") or {}
         answer = real.get("answer") or {}
+        evidence_text, time_context = _gold_evidence_text(row, time_index=time_index)
         output.append({
             "question_id": row.get("question_id", ""),
             "question": row.get("question", ""),
             "reference_answer": row.get("gold_answer", ""),
-            "gold_evidence": _gold_evidence_text(row),
+            "gold_evidence": evidence_text,
+            "gold_evidence_time_context": time_context,
             "auto_failure": _auto_failure(row),
             "auto_real_correct": answer.get("correct", ""),
             "human_evidence_sufficiency": "",
@@ -181,7 +235,8 @@ def sample(
         raise ValueError("total must be at least the sum of mandatory strata")
 
     selected = _select_stratified(rows, total, seed)
-    output_rows = build_rows(selected)
+    time_index = _evidence_time_index()
+    output_rows = build_rows(selected, time_index=time_index)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=FIELDS)
@@ -192,6 +247,7 @@ def sample(
     print(f"Selected {len(output_rows)} cases (seed={seed})")
     for label, count in sorted(counts.items()):
         print(f"  {label}: {count}")
+    print(f"Time-context entries: {sum(bool(r['gold_evidence_time_context']) for r in output_rows)}/{len(output_rows)}")
     print(f"Output: {output_path}")
     return counts
 
