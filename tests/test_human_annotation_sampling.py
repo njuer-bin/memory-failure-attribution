@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from experiments.sample_human_annotation import (
     TARGET_COUNTS,
     _select_stratified,
@@ -22,15 +20,18 @@ def _row(question_id: str, failure: str) -> dict:
     }
 
 
-def test_stratified_sample_contains_required_counts():
+def _synthetic_rows() -> list[dict]:
     rows = []
     for failure, count in {
         **TARGET_COUNTS,
         "NONE": 10,
     }.items():
         rows.extend(_row(f"{failure}-{i}", failure) for i in range(count))
+    return rows
 
-    selected = _select_stratified(rows, total=25, seed=20261012)
+
+def test_stratified_sample_contains_required_counts():
+    selected = _select_stratified(_synthetic_rows(), total=25, seed=20261012)
     built = build_rows(selected)
     counts = {}
     for row in built:
@@ -38,11 +39,12 @@ def test_stratified_sample_contains_required_counts():
 
     for label, expected in TARGET_COUNTS.items():
         assert counts[label] == expected
+    assert counts["NONE"] == 6
     assert len(built) == 25
 
 
 def test_stratified_sample_is_reproducible():
-    rows = [_row(f"q{i}", "F1_FORMATION" if i < 20 else "NONE") for i in range(30)]
-    a = _select_stratified(rows, total=10, seed=20261012)
-    b = _select_stratified(rows, total=10, seed=20261012)
+    rows = _synthetic_rows()
+    a = _select_stratified(rows, total=25, seed=20261012)
+    b = _select_stratified(rows, total=25, seed=20261012)
     assert [r["question_id"] for r in a] == [r["question_id"] for r in b]
