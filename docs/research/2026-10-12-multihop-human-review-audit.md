@@ -17,13 +17,11 @@ Audited all 65 reviewed candidate rows in the submitted human-review CSV. The au
 
 ## Overall result
 
-The CSV is mechanically complete and the reviewer applied the intended conservative rule well to most direct, temporal, and causal questions. However, there is a major conceptual issue before this dataset can be frozen as a **multi-hop chain** Gold set:
+The CSV is mechanically complete and the reviewer applied the intended conservative rule well to most direct, temporal, and causal questions. However, there is a major conceptual issue before this dataset can be frozen as a **relational multi-hop chain** Gold set:
 
-> 10 of the 11 rows currently labeled `human_is_multi_hop=yes` are better described by their own notes as **multi-evidence aggregation/enumeration/counting**, not relational multi-hop chains.
+> Of the 11 rows currently labeled `human_is_multi_hop=yes`, 8 are clearly multi-evidence aggregation/enumeration/counting rather than relational multi-hop chains, 2 are strong relational chains, and 1 (`q0041`) is ambiguous because the supplied textual evidence does not expose the image content needed for adjudication.
 
 Only two rows currently have strong, text-verifiable multi-hop structure: `q0011` and `q0059`.
-
-One additional row, `q0041`, should be re-adjudicated because the supplied evidence text does not expose the image content needed to verify the claimed shared subject.
 
 Therefore, **do not freeze the current `yes` labels as the R1-R4 chain Gold set yet.**
 
@@ -76,61 +74,26 @@ This is a genuine relational/co-reference chain rather than simple independent e
 
 **Audit verdict: KEEP as multi-hop.**
 
-## Rows requiring relabeling or taxonomy separation
+## Clear aggregation rows
 
-### q0016 — independent location enumeration
+The following 8 rows are better modeled as `aggregation` because each evidence item contributes an independent answer item or count component, without an evidence-to-evidence relation/path:
 
-`e0`, `e1`, and `e2` independently provide beach, mountains, and forest. There is no evidence-to-evidence relation/path. The note itself calls this `Enumeration aggregation`.
+- `q0016` — beach, mountains, forest.
+- `q0029` — activist group, pride parade, art show, mentorship program.
+- `q0030` — count of two beach mentions.
+- `q0036` — requested supporter groups are directly supplied rather than derived through a path.
+- `q0038` — independent pet-name enumeration.
+- `q0045` — clarinet + violin.
+- `q0046` — Summer Sounds + Matt Patterson.
+- `q0062` — figurines + shoes.
 
-**Audit verdict: not relational multi-hop.**
+These are legitimate evidence-composition tasks and should be retained as an **aggregation/evidence-set** subset, not discarded.
 
-### q0029 — independent activity enumeration
-
-The four evidence items independently supply four LGBTQ-community activities: activist group, pride parade, art show, and mentorship program. The answer is a union of independent facts.
-
-**Audit verdict: not relational multi-hop.**
-
-### q0030 — counting aggregation
-
-Two independent beach mentions are combined to answer a count of 2. This is aggregation/counting, not a two-hop relation chain.
-
-**Audit verdict: not relational multi-hop.**
-
-### q0036 — one evidence already names the requested supporter groups
-
-e1 directly names `friends, family and mentors`. e0 provides contextual support after the negative experience, but the reference answer's entities are already supplied by e1. The current note says both are needed, but the requested names are not derived through a path.
-
-**Audit verdict: not relational multi-hop; likely single/direct or evidence aggregation.**
-
-### q0038 — independent pet-name enumeration
-
-e0/e1 distribute pet names across messages. Their union gives Oliver, Luna, Bailey, but there is no relation chain between evidence nodes.
-
-**Audit verdict: not relational multi-hop.**
-
-### q0041 — shared-subject/image evidence ambiguity
+## q0041 — requires adjudication
 
 The answer is `Sunsets`, but the textual evidence shown in the CSV only says that Caroline and Melanie painted; it does not state `sunset` in the text. The current annotation treats each evidence item as contributing the shared subject, but that subject appears to depend on image content not represented in the textual evidence.
 
-**Audit verdict: RE-ADJUDICATE.** If image evidence is available and both images independently establish `sunset`, this is multi-evidence aggregation, not a relational chain. If the image content is unavailable, keep `uncertain`.
-
-### q0045 — independent instrument enumeration
-
-e0 supplies clarinet and e1 supplies violin. Combining the two facts gives the answer, but there is no evidence-to-evidence relation.
-
-**Audit verdict: not relational multi-hop.**
-
-### q0046 — independent artist/band enumeration
-
-e0 supplies Summer Sounds and e1 supplies Matt Patterson. This is a union of independent facts, not a chain.
-
-**Audit verdict: not relational multi-hop.**
-
-### q0062 — independent purchase enumeration
-
-e0 supplies figurines and e1 supplies shoes. The answer is the union of two independent purchase facts.
-
-**Audit verdict: not relational multi-hop.**
+**Audit verdict: keep `uncertain` in the frozen derived dataset until image evidence is explicitly available.** If image evidence later establishes that both images depict sunsets, classify it as `aggregation`, not a relational chain.
 
 ## Important methodological finding
 
@@ -146,41 +109,48 @@ The current annotation has implicitly mixed two different capabilities:
 
 These are both legitimate memory capabilities, but they should not share the same `multi_hop` label if the intended R1-R4 study is specifically about **evidence linking, path completeness, and bridge preservation**.
 
-## Recommended schema change before freezing Gold
+## Schema change
 
-Add an explicit evidence-structure field, for example:
+The derived Gold representation now uses an explicit `evidence_structure` field:
 
 - `chain`: evidence nodes form a verifiable relational path;
 - `aggregation`: multiple independent evidence items must be combined;
 - `single`: one evidence item is sufficient;
 - `uncertain`: structure cannot be established.
 
-Alternatively, extend `human_hop_type` with `aggregation` and reserve `multi_hop` for genuine relational chains.
-
-This would prevent a counting question such as q0030 from being interpreted as evidence-linking failure when the real capability being tested is evidence aggregation/counting.
+The original human annotation CSV is preserved unchanged. A separate freeze utility produces a structure-aware derived CSV.
 
 ## R1-R4 consequence
 
-For the planned attribution study, the current 11 `yes` rows should **not** all be used as chain-style multi-hop Gold.
+For the planned attribution study, only `chain` rows should be used as the primary R1-R4 relational multi-hop Gold set. The aggregation rows should be evaluated separately because their failure modes are about evidence-set completeness rather than bridge/path linking.
 
-The strongest current chain subset is:
+Current confirmed chain subset:
 
 - q0011
 - q0059
 
-with q0041 requiring adjudication.
+Current aggregation subset:
 
-The remaining apparent multi-hop rows are valuable, but they should be retained as a separate **aggregation/evidence-set** subset rather than discarded.
+- q0016
+- q0029
+- q0030
+- q0036
+- q0038
+- q0045
+- q0046
+- q0062
+
+Current unresolved structure:
+
+- q0041
 
 ## Freeze decision
 
-**NOT READY TO FREEZE AS A RELATIONAL MULTI-HOP GOLD SET.**
+**The original annotation remains unfrozen as relational multi-hop Gold. The new structure-aware derived dataset is the controlled input for the next experiment.**
 
-Recommended next action:
+Next action:
 
-1. re-adjudicate q0041;
-2. separate `chain` from `aggregation` in the schema;
-3. relabel the 9 clear aggregation rows as aggregation rather than multi-hop;
-4. keep q0011 and q0059 as confirmed chain cases;
-5. regenerate summary statistics;
-6. only then construct R1-R4 attribution experiments.
+1. use `experiments/freeze_multihop_structure.py` to generate the derived dataset;
+2. validate `chain` / `aggregation` / `single` / `uncertain` invariants with tests;
+3. build R1-R4 attribution only on confirmed `chain` cases;
+4. analyze aggregation cases separately.

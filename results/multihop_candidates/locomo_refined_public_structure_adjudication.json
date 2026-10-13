@@ -1,0 +1,28 @@
+{
+  "source": "results/multihop_candidates/locomo_refined_public_human_review_annotated.csv",
+  "preserve_source_unchanged": true,
+  "structure_version": "v1",
+  "rules": {
+    "chain": "Confirmed relational/co-reference/causal/temporal/entity evidence path.",
+    "aggregation": "Multiple independent evidence items jointly required for enumeration/counting/set-style answer.",
+    "single": "One evidence item is sufficient.",
+    "uncertain": "Structure cannot be established from the supplied evidence."
+  },
+  "chain": ["conv-26#q0011", "conv-26#q0059"],
+  "aggregation": [
+    "conv-26#q0016",
+    "conv-26#q0029",
+    "conv-26#q0030",
+    "conv-26#q0036",
+    "conv-26#q0038",
+    "conv-26#q0045",
+    "conv-26#q0046",
+    "conv-26#q0062"
+  ],
+  "uncertain": ["conv-26#q0041", "conv-26#q0001", "conv-26#q0054", "conv-26#q0091"],
+  "notes": {
+    "conv-26#q0041": "Image-dependent shared-subject claim cannot be verified from supplied textual evidence. If image evidence becomes available and establishes both sunsets, classify as aggregation, not chain.",
+    "conv-26#q0011": "e0 'my home country' -> e1 'my home country, Sweden'.",
+    "conv-26#q0059": "Co-reference/count chain; e0 establishes a son and e1 uses 'their brother' to derive additional children."
+  }
+}
