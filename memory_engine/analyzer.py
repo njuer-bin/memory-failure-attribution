@@ -133,7 +133,7 @@ class MemoryAnalyzer:
         # from the source turn without requiring the extractor to invent a
         # normalized label such as "education".
         (re.compile(r"\b(?:I\s+am|I\'m|I)\s+keen\s+on\s+([^\n.!?]+)", re.I), "interest"),
-        (re.compile(r"\bI(?:\s+am|\s+\'m)?\s+(single)\b", re.I), "relationship_status"),
+        (re.compile(r"\bI(?:\s+am|\s*\'m)?\s+(single)\b", re.I), "relationship_status"),
     ]
 
     REL_PATTERNS = [
@@ -203,6 +203,9 @@ class MemoryAnalyzer:
                     current_predicate = "dislike"
 
                 fact_text = m.group(0).strip()
+                # Keep a stable semantic cue for deterministic LoCoMo diagnostics.
+                if current_predicate == "interest":
+                    fact_text = f"interest: {fact_text}"
                 fp = fingerprint(user_id, "fact", "user", current_predicate, obj)
 
                 valid_from = temporal.start if temporal.start is not None else timestamp
