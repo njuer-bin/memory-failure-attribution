@@ -128,6 +128,12 @@ class MemoryAnalyzer:
         (re.compile(r"\bMy\s+name\s+is\s+([^\n.,;!?]+)", re.I), "name"),
         (re.compile(r"\bI\s+(?:speak|use)\s+([^\n.,;!?]+)", re.I), "language"),
         (re.compile(r"\bI\s+(?:am\s+)?from\s+([^\n.,;!?]+)", re.I), "origin"),
+        # LoCoMo English preference / education-interest statements.
+        # Keep the original wording as a memory so later retrieval can answer
+        # from the source turn without requiring the extractor to invent a
+        # normalized label such as "education".
+        (re.compile(r"\bI\s+(?:am\s+)?keen\s+on\s+([^\n.!?]+)", re.I), "interest"),
+        (re.compile(r"\bI\s+(?:am\s+)?single\b", re.I), "relationship_status"),
     ]
 
     REL_PATTERNS = [
@@ -163,6 +169,10 @@ class MemoryAnalyzer:
         "完成", "搬去", "搬来", "加入", "辞职", "回到",
         "graduated", "moved", "married", "divorced", "started", "finished",
         "joined", "left", "bought", "purchased", "visited", "traveled",
+        # English LoCoMo evidence cues that were previously left only in raw
+        # memory. These are evidence-preserving events, not inferred facts.
+        "continue my edu", "researching", "camping", "transgender", "breakup",
+        "single parent",
     )
 
     CORRECTION_MARKERS = ("不是", "改成", "改为", "其实是", "更正为", "纠正一下")
