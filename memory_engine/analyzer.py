@@ -264,8 +264,9 @@ class MemoryAnalyzer:
                     ))
 
         # 事件：一条消息只要包含事件词就保留原句作为证据，并结构化时间。
+        content_lower = content.lower()
         for word in self.EVENT_WORDS:
-            if word in content:
+            if word.lower() in content_lower:
                 events.append(Event(
                     id=new_id("event"), user_id=user_id, event=word,
                     content=content.strip(), timestamp=timestamp,
