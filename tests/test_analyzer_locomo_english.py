@@ -29,4 +29,4 @@ def test_interest_and_relationship_status_are_structured_without_inference():
     assert any(f.predicate == "interest" and "counseling" in f.object.lower() for f in result["facts"])
 
     result = analyzer.analyze("u", "I'm single.", 1, source_turn_id="D3:turn_12")
-    assert any(f.predicate == "relationship_status" and f.object.lower() == "" for f in result["facts"]) is False
+    assert any(f.predicate == "relationship_status" and f.object.lower() == "single" for f in result["facts"])
