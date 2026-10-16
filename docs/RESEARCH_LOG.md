@@ -546,3 +546,52 @@ Result: **2 passed in 0.04s**. The tests cover (1) empty/whitespace messages not
 
 This verifies the adapter's indexing contract for the covered fixtures only. It does not yet validate persisted MemoryEngine provenance, Gold Evidence resolution on a real LoCoMo record, or Oracle Context answer/reference scoring. The single-record end-to-end validation gate above remains open; do not rerun n=50 yet.
 
+
+
+## 2026-10-16 — LoCoMo q0002 case study: confirmed formation-origin failure
+
+A concrete LoCoMo-Refined result was inspected after the provenance-alignment fix:
+
+- Question: `conv-26#q0002`
+- Question: “What fields would Caroline be likely to pursue in her education?”
+- Gold answer: “Counseling or mental health”
+- Gold evidence: `D1:turn_8` and `D1:turn_10`
+- `D1:turn_10` explicitly states Caroline is interested in counseling or working in mental health.
+
+### Evidence trace
+
+Real Memory:
+
+- Formation: both Gold Evidence items missing.
+- Formation diagnostics: both classified as `F1a_EXTRACTOR_MISS`.
+- Raw storage: both evidence items are present and matched by provenance with score 1.0.
+- Semantic memory inventory: 21 memories in total (fact=1, relation=0, event=15, rule=4, profile=1), but no semantic memory was associated with either Gold Evidence turn.
+- Retrieval candidates: both missing.
+- Reranking: both missing.
+- Final context: both missing.
+- Real answer: “Counseling”; token F1=0.4, below the 0.5 correctness threshold; attributed failure: `F1_FORMATION`.
+
+Oracle Memory:
+
+- Both Gold Evidence items are injected and preserved through the downstream stages.
+- Final context contains both Gold Evidence items.
+- Answer: “counseling, mental health”; token F1≈0.857; semantically correct.
+
+### Interpretation
+
+This example is consistent with a formation-origin failure rather than a storage or retrieval failure. The raw conversation is preserved, but the extractor does not produce a usable semantic memory for the relevant turns. Because the evidence never enters the semantic-memory layer, downstream retrieval cannot recover it.
+
+The case also demonstrates why “retrieval failure” should not be used as the root-cause label when an earlier lifecycle boundary has already lost the evidence.
+
+This is a case study, not yet a population-level conclusion. The next task is to determine whether similar `F1a_EXTRACTOR_MISS` cases share a systematic linguistic/semantic pattern.
+
+### Immediate research implication
+
+Do not modify the memory extractor yet. First perform the planned LoCoMo n=50 formation diagnostic and manually inspect a stratified sample of `F1a_EXTRACTOR_MISS` and `F1c_REPRESENTATION_MISMATCH` cases. The goal is to separate:
+
+1. genuine extractor misses;
+2. representation/provenance matching artifacts; and
+3. benchmark evidence/question mismatches.
+
+Only after this diagnostic gate is stable should extractor improvements be evaluated as an intervention.
+
