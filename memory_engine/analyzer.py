@@ -132,7 +132,7 @@ class MemoryAnalyzer:
         # Keep the original wording as a memory so later retrieval can answer
         # from the source turn without requiring the extractor to invent a
         # normalized label such as "education".
-        (re.compile(r"\bI(?:\s+am|\s+\'m)?\s+keen\s+on\s+([^\n.!?]+)", re.I), "interest"),
+        (re.compile(r"\b(?:I\s+am|I\s+\'m|I)\s+keen\s+on\s+([^\n.!?]+)", re.I), "interest"),
         (re.compile(r"\bI(?:\s+am|\s+\'m)?\s+(single)\b", re.I), "relationship_status"),
     ]
 
