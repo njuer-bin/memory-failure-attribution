@@ -133,7 +133,7 @@ class MemoryAnalyzer:
         # from the source turn without requiring the extractor to invent a
         # normalized label such as "education".
         (re.compile(r"\bI\s+(?:am\s+)?keen\s+on\s+([^\n.!?]+)", re.I), "interest"),
-        (re.compile(r"\bI\s+(?:am\s+)?single\b", re.I), "relationship_status"),
+        (re.compile(r"\bI\s+(?:am\s+)?(single)\b", re.I), "relationship_status"),
     ]
 
     REL_PATTERNS = [
