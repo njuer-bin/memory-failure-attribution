@@ -260,6 +260,15 @@ def _answer_failure_type(mode_data: dict[str, Any]) -> str | None:
     gold = {str(x.get("evidence_id")) for x in mode_data.get("gold_evidence", []) if x.get("evidence_id")}
     if not gold:
         return "E0_EVIDENCE_INSUFFICIENCY"
+    # Context-availability precedence (documented attribution rule): when ALL
+    # gold evidence reached the final answer context, an upstream semantic miss
+    # was recovered before the answer model saw the context (e.g. raw-channel
+    # retrieval) and cannot explain the wrong answer. The documented rule is
+    # "Gold Evidence reaches final context? yes -> F6", so the context check
+    # takes precedence over the upstream stage walk.
+    context_found = {str(x) for x in (mode_data.get("context") or {}).get("found", [])}
+    if gold.issubset(context_found):
+        return "F6_REASONING"
     for stage, failure in (("formation", "F1_FORMATION"), ("storage", "F2_STORAGE"), ("evolution", "F3_EVOLUTION"), ("retrieval", "F4_RETRIEVAL"), ("rerank", "F4_RETRIEVAL"), ("context", "F5_CONTEXT")):
         found = {str(x) for x in (mode_data.get(stage) or {}).get("found", [])}
         if not gold.issubset(found):
@@ -267,9 +276,14 @@ def _answer_failure_type(mode_data: dict[str, Any]) -> str | None:
     return "F6_REASONING"
 
 
-def _score_mode_answer(question: str, reference: str, context: list[dict[str, Any]]) -> dict[str, Any]:
+def _score_mode_answer(
+    question: str,
+    reference: str,
+    context: list[dict[str, Any]],
+    evidence_timestamps: list[str] | None = None,
+) -> dict[str, Any]:
     try:
-        return generate_and_score(question, reference, context)
+        return generate_and_score(question, reference, context, evidence_timestamps=evidence_timestamps)
     except Exception as exc:
         return {"answer": None, "correct": None, "exact_match": None, "token_f1": None, "threshold": None, "model_error": f"{type(exc).__name__}: {exc}"}
 
@@ -313,9 +327,13 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     _real_trace_stages(trace, gold, engine, user_id, real, engine.last_search_trace)
     search_trace = engine.last_search_trace
     real_context = search_trace.get("context") or real
-    real_answer = _score_mode_answer(record["question"], record.get("answer", ""), real_context)
-    oracle_memory_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle)
-    oracle_context_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle)
+    # Benchmark conversation timestamps of the gold evidence (LoCoMo session
+    # date_time). Used only as a temporal anchor fallback for relative-time
+    # answers; never the engine ingestion timestamp.
+    evidence_timestamps = [e.get("timestamp") for e in gold if e.get("timestamp")]
+    real_answer = _score_mode_answer(record["question"], record.get("answer", ""), real_context, evidence_timestamps)
+    oracle_memory_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle, evidence_timestamps)
+    oracle_context_answer = _score_mode_answer(record["question"], record.get("answer", ""), oracle, evidence_timestamps)
 
     gate = _evidence_sufficiency(record["question"], record.get("answer", ""), gold)
     trace.answer = {**real_answer, "mode": "real_memory", "answer_scoring": "token_f1_plus_temporal_phrase_rules"}

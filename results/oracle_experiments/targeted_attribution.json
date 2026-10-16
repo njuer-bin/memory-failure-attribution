@@ -1,0 +1,643 @@
+{
+  "dataset": "locomo_refined_public",
+  "question_ids": [
+    "conv-26#q0031"
+  ],
+  "records": 1,
+  "elapsed_seconds": 24.615870099994936,
+  "results": [
+    {
+      "question_id": "conv-26#q0031",
+      "question": "When did Caroline join a new activist group?",
+      "gold_answer": "The Tuesday before 20 July 2023 / July 18, 2023",
+      "modes": {
+        "real_memory": {
+          "formation": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "dropped": [],
+            "details": {
+              "mode": "real_memory",
+              "observed_count": 21,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "event_b068c10d83c14d11bca8ad4acbcc86ab",
+                  "user_id": "oracle_0_d0b959768eb744e09d49106f79e916fd",
+                  "event": "joined",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "timestamp": 1791773779414,
+                  "fingerprint": "36bf6b61f1636671247ccdd017e9dd81bb69364fd3b758ddb898d7dc2772e14f",
+                  "event_start": null,
+                  "event_end": null,
+                  "temporal_text": "",
+                  "source_raw_id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "source_session_id": "D10",
+                  "source_turn_id": "D10:turn_2",
+                  "memory_type": "event",
+                  "source_id": "D10"
+                }
+              },
+              "diagnostics": [
+                {
+                  "gold_evidence_id": "locomo_refined_public:conv-26#q0031:e0",
+                  "source_session_id": "D10",
+                  "source_turn_id": "D10:turn_2",
+                  "source_message_found": true,
+                  "source_message_count": 24,
+                  "semantic_memory_count_same_turn": 1,
+                  "semantic_memory_count_same_session": 2,
+                  "semantic_memory_ids_same_turn": [
+                    "event_b068c10d83c14d11bca8ad4acbcc86ab"
+                  ],
+                  "semantic_memory_types_same_turn": [
+                    "event"
+                  ],
+                  "semantic_memory_candidates_same_session": [
+                    {
+                      "id": "event_b068c10d83c14d11bca8ad4acbcc86ab",
+                      "memory_type": "event",
+                      "source_turn_id": "D10:turn_2",
+                      "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real di"
+                    },
+                    {
+                      "id": "rule_282a82228328493199f42dd8fd643966",
+                      "memory_type": "rule",
+                      "source_turn_id": "D10:turn_13",
+                      "content": "remember our camping trip last year when we saw the Perseid meteor shower. It was so amazing lying there and watching the sky light up with streaks of light. We all made wishes and felt so at one with the universe. That's a memory I'll neve"
+                    }
+                  ],
+                  "classification": "FORMATION_OK"
+                }
+              ],
+              "semantic_memory_counts": {
+                "total": 21,
+                "by_type": {
+                  "fact": 1,
+                  "relation": 0,
+                  "event": 15,
+                  "rule": 4,
+                  "profile": 1
+                }
+              }
+            }
+          },
+          "storage": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "dropped": [],
+            "details": {
+              "mode": "real_memory",
+              "observed_count": 440,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "request_id": "oracle_0_d0b959768eb744e09d49106f79e916fd:D10",
+                  "user_id": "oracle_0_d0b959768eb744e09d49106f79e916fd",
+                  "session_id": "D10",
+                  "role": "user",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "timestamp": 1791773779414,
+                  "chunk_index": 0,
+                  "source_turn_id": "D10:turn_2",
+                  "memory_type": "raw",
+                  "source_id": "D10"
+                }
+              }
+            }
+          },
+          "evolution": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "dropped": [],
+            "details": {
+              "mode": "real_memory",
+              "observed_count": 21,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "event_b068c10d83c14d11bca8ad4acbcc86ab",
+                  "user_id": "oracle_0_d0b959768eb744e09d49106f79e916fd",
+                  "event": "joined",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "timestamp": 1791773779414,
+                  "fingerprint": "36bf6b61f1636671247ccdd017e9dd81bb69364fd3b758ddb898d7dc2772e14f",
+                  "event_start": null,
+                  "event_end": null,
+                  "temporal_text": "",
+                  "source_raw_id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "source_session_id": "D10",
+                  "source_turn_id": "D10:turn_2",
+                  "memory_type": "event",
+                  "source_id": "D10"
+                }
+              }
+            }
+          },
+          "retrieval": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "dropped": [],
+            "details": {
+              "mode": "real_memory_retrieval_candidates",
+              "observed_count": 50,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "role": "user",
+                  "timestamp": 1791773779414,
+                  "user_id": "oracle_0_d0b959768eb744e09d49106f79e916fd",
+                  "session_id": "D10",
+                  "source_session_id": "D10",
+                  "source_turn_id": "D10:turn_2",
+                  "source_raw_id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "memory_type": "raw",
+                  "status": "active",
+                  "source": "raw",
+                  "valid_from": 1791773779414,
+                  "valid_to": null,
+                  "metadata": {
+                    "request_id": "oracle_0_d0b959768eb744e09d49106f79e916fd:D10",
+                    "source_raw_id": "raw_578d8103b11e4769ab96b486304be9c9",
+                    "source_session_id": "D10",
+                    "source_turn_id": "D10:turn_2"
+                  },
+                  "score": 0.025932953826691967
+                }
+              }
+            }
+          },
+          "rerank": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "dropped": [],
+            "details": {
+              "mode": "real_memory_reranked",
+              "observed_count": 30,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "role": "user",
+                  "timestamp": 1791773779414,
+                  "user_id": "oracle_0_d0b959768eb744e09d49106f79e916fd",
+                  "session_id": "D10",
+                  "source_session_id": "D10",
+                  "source_turn_id": "D10:turn_2",
+                  "source_raw_id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "memory_type": "raw",
+                  "status": "active",
+                  "source": "raw",
+                  "valid_from": 1791773779414,
+                  "valid_to": null,
+                  "metadata": {
+                    "request_id": "oracle_0_d0b959768eb744e09d49106f79e916fd:D10",
+                    "source_raw_id": "raw_578d8103b11e4769ab96b486304be9c9",
+                    "source_session_id": "D10",
+                    "source_turn_id": "D10:turn_2",
+                    "rerank_score": 0.344444,
+                    "expanded_rerank_score": 0.344444,
+                    "structured_bonus": 0.0,
+                    "retrieval_signal": 0.518659
+                  },
+                  "score": 0.350269
+                }
+              }
+            }
+          },
+          "context": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "dropped": [],
+            "details": {
+              "mode": "real_memory_context",
+              "observed_count": 4,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "role": "user",
+                  "timestamp": 1791773779414,
+                  "user_id": "oracle_0_d0b959768eb744e09d49106f79e916fd",
+                  "session_id": "D10",
+                  "source_session_id": "D10",
+                  "source_turn_id": "D10:turn_2",
+                  "source_raw_id": "raw_578d8103b11e4769ab96b486304be9c9",
+                  "memory_type": "raw",
+                  "status": "active",
+                  "source": "raw",
+                  "valid_from": 1791773779414,
+                  "valid_to": null,
+                  "metadata": {
+                    "request_id": "oracle_0_d0b959768eb744e09d49106f79e916fd:D10",
+                    "source_raw_id": "raw_578d8103b11e4769ab96b486304be9c9",
+                    "source_session_id": "D10",
+                    "source_turn_id": "D10:turn_2",
+                    "rerank_score": 0.344444,
+                    "expanded_rerank_score": 0.344444,
+                    "structured_bonus": 0.0,
+                    "retrieval_signal": 0.518659
+                  },
+                  "score": 0.350269
+                }
+              }
+            }
+          },
+          "failure_type": null,
+          "answer": {
+            "answer": "Last Tuesday.",
+            "exact_match": 0.0,
+            "token_f1": 0.0,
+            "threshold": 0.5,
+            "temporal_equivalent": true,
+            "temporal_anchor_date": null,
+            "phrase_match": false,
+            "explicit_date_mismatch": false,
+            "correct": true,
+            "model": "qwen2.5:7b",
+            "base_url": "http://127.0.0.1:11434"
+          },
+          "evidence_sufficiency": {
+            "status": "sufficient",
+            "evidence_sufficient": true,
+            "confidence": "high",
+            "reason": "The evidence clearly states that Caroline joined a new activist group on the Tuesday before 20 July 2023, which is July 18, 2023.",
+            "adjudication": "semantic_judge",
+            "adjudication_anchor": null,
+            "model": null
+          },
+          "answer_failure_type": null
+        },
+        "oracle_memory": {
+          "formation": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "details": {
+              "mode": "oracle_memory",
+              "observed_count": 1,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "locomo_refined_public:conv-26#q0031:e0",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "source_id": "D10",
+                  "turn_id": "D10:turn_2",
+                  "role": "user",
+                  "timestamp": "8:56 pm on 20 July, 2023",
+                  "memory_type": "oracle"
+                }
+              }
+            }
+          },
+          "storage": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "details": {
+              "mode": "oracle_memory",
+              "observed_count": 1,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "locomo_refined_public:conv-26#q0031:e0",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "source_id": "D10",
+                  "turn_id": "D10:turn_2",
+                  "role": "user",
+                  "timestamp": "8:56 pm on 20 July, 2023",
+                  "memory_type": "oracle"
+                }
+              }
+            }
+          },
+          "evolution": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "details": {
+              "mode": "oracle_memory",
+              "observed_count": 1,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "locomo_refined_public:conv-26#q0031:e0",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "source_id": "D10",
+                  "turn_id": "D10:turn_2",
+                  "role": "user",
+                  "timestamp": "8:56 pm on 20 July, 2023",
+                  "memory_type": "oracle"
+                }
+              }
+            }
+          },
+          "rerank": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "details": {
+              "mode": "oracle_memory",
+              "observed_count": 1,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "locomo_refined_public:conv-26#q0031:e0",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "source_id": "D10",
+                  "turn_id": "D10:turn_2",
+                  "role": "user",
+                  "timestamp": "8:56 pm on 20 July, 2023",
+                  "memory_type": "oracle"
+                }
+              }
+            }
+          },
+          "retrieval": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "details": {
+              "mode": "oracle_memory_bypass",
+              "observed_count": 1,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "locomo_refined_public:conv-26#q0031:e0",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "source_id": "D10",
+                  "turn_id": "D10:turn_2",
+                  "role": "user",
+                  "timestamp": "8:56 pm on 20 July, 2023",
+                  "memory_type": "oracle"
+                }
+              }
+            }
+          },
+          "context": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "details": {
+              "mode": "oracle_memory_context",
+              "observed_count": 1,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "locomo_refined_public:conv-26#q0031:e0",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "source_id": "D10",
+                  "turn_id": "D10:turn_2",
+                  "role": "user",
+                  "timestamp": "8:56 pm on 20 July, 2023",
+                  "memory_type": "oracle"
+                }
+              }
+            }
+          },
+          "answer": {
+            "answer": "Last Tuesday.",
+            "exact_match": 0.0,
+            "token_f1": 0.0,
+            "threshold": 0.5,
+            "temporal_equivalent": true,
+            "temporal_anchor_date": "2023-07-20",
+            "phrase_match": false,
+            "explicit_date_mismatch": false,
+            "correct": true,
+            "model": "qwen2.5:7b",
+            "base_url": "http://127.0.0.1:11434",
+            "mode": "oracle_memory",
+            "answer_scoring": "token_f1_plus_temporal_phrase_rules"
+          },
+          "evidence_sufficiency": {
+            "status": "sufficient",
+            "evidence_sufficient": true,
+            "confidence": "high",
+            "reason": "The evidence clearly states that Caroline joined a new activist group on the Tuesday before 20 July 2023, which is July 18, 2023.",
+            "adjudication": "semantic_judge",
+            "adjudication_anchor": null,
+            "model": null
+          },
+          "answer_failure_type": null
+        },
+        "oracle_context": {
+          "formation": {
+            "found": [],
+            "missing": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "details": {
+              "mode": "oracle_context_not_measured",
+              "observed_count": 0,
+              "match_types": {},
+              "match_scores": {},
+              "matches": {}
+            }
+          },
+          "storage": {
+            "found": [],
+            "missing": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "details": {
+              "mode": "oracle_context_not_measured",
+              "observed_count": 0,
+              "match_types": {},
+              "match_scores": {},
+              "matches": {}
+            }
+          },
+          "evolution": {
+            "found": [],
+            "missing": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "details": {
+              "mode": "oracle_context_not_measured",
+              "observed_count": 0,
+              "match_types": {},
+              "match_scores": {},
+              "matches": {}
+            }
+          },
+          "retrieval": {
+            "found": [],
+            "missing": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "details": {
+              "mode": "oracle_context_not_measured",
+              "observed_count": 0,
+              "match_types": {},
+              "match_scores": {},
+              "matches": {}
+            }
+          },
+          "rerank": {
+            "found": [],
+            "missing": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "details": {
+              "mode": "oracle_context_not_measured",
+              "observed_count": 0,
+              "match_types": {},
+              "match_scores": {},
+              "matches": {}
+            }
+          },
+          "context": {
+            "found": [
+              "locomo_refined_public:conv-26#q0031:e0"
+            ],
+            "missing": [],
+            "details": {
+              "mode": "oracle_context",
+              "observed_count": 1,
+              "match_types": {
+                "locomo_refined_public:conv-26#q0031:e0": "provenance"
+              },
+              "match_scores": {
+                "locomo_refined_public:conv-26#q0031:e0": 1.0
+              },
+              "matches": {
+                "locomo_refined_public:conv-26#q0031:e0": {
+                  "id": "locomo_refined_public:conv-26#q0031:e0",
+                  "content": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+                  "source_id": "D10",
+                  "turn_id": "D10:turn_2",
+                  "role": "user",
+                  "timestamp": "8:56 pm on 20 July, 2023",
+                  "memory_type": "oracle"
+                }
+              }
+            }
+          },
+          "answer": {
+            "answer": "Last Tuesday.",
+            "exact_match": 0.0,
+            "token_f1": 0.0,
+            "threshold": 0.5,
+            "temporal_equivalent": true,
+            "temporal_anchor_date": "2023-07-20",
+            "phrase_match": false,
+            "explicit_date_mismatch": false,
+            "correct": true,
+            "model": "qwen2.5:7b",
+            "base_url": "http://127.0.0.1:11434",
+            "mode": "oracle_context",
+            "answer_scoring": "token_f1_plus_temporal_phrase_rules"
+          },
+          "evidence_sufficiency": {
+            "status": "sufficient",
+            "evidence_sufficient": true,
+            "confidence": "high",
+            "reason": "The evidence clearly states that Caroline joined a new activist group on the Tuesday before 20 July 2023, which is July 18, 2023.",
+            "adjudication": "semantic_judge",
+            "adjudication_anchor": null,
+            "model": null
+          },
+          "answer_failure_type": null
+        }
+      },
+      "gold_evidence_count": 1,
+      "gold_evidence": [
+        {
+          "evidence_id": "locomo_refined_public:conv-26#q0031:e0",
+          "text": "Hey Mel! A lot's happened since we last chatted - I just joined a new LGBTQ activist group last Tues. I'm meeting so many cool people who are as passionate as I am about rights and community support. I'm giving my voice and making a real difference, plus it's fulfilling in so many ways. It's just great, you know?",
+          "source": "D10",
+          "turn_id": "D10:turn_2",
+          "timestamp": "8:56 pm on 20 July, 2023",
+          "metadata": {
+            "role": "user",
+            "granularity": "turn"
+          }
+        }
+      ]
+    }
+  ]
+}

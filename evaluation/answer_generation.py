@@ -35,6 +35,47 @@ def _normalize(text: str) -> str:
     return " ".join(str(text or "").strip().lower().split())
 
 
+_NUMBER_WORDS = {
+    "zero": "0", "one": "1", "two": "2", "three": "3", "four": "4",
+    "five": "5", "six": "6", "seven": "7", "eight": "8", "nine": "9",
+    "ten": "10", "eleven": "11", "twelve": "12",
+    "once": "1", "twice": "2", "thrice": "3",
+}
+
+
+def _normalize_number_words(text: str) -> str:
+    """Map spelled-out numerals to digits so ``Twice`` matches ``2``.
+
+    Trailing/leading punctuation is stripped per token (SQuAD-style) so that
+    ``ago.`` and ``ago`` are the same token. Pure lexical normalization; no
+    semantic judgment is involved.
+    """
+    tokens = str(text or "").split()
+    cleaned = [t.strip(".,;:!?\"'()[]{}") for t in tokens]
+    return " ".join(_NUMBER_WORDS.get(t, t) for t in cleaned if t)
+
+
+_POLAR_TOKENS = {"yes", "no", "yeah", "nope"}
+
+
+def _polar_answer_matches(prediction: str, reference: str) -> bool:
+    """Accept a bare yes/no answer for a polar question whose reference
+    elaborates the justification (e.g. ``Yes, since she collects ...``).
+
+    The elaboration is reasoning support, not part of the answer itself.
+    """
+    pred = prediction.strip().strip(".,;:!?")
+    if pred not in _POLAR_TOKENS:
+        return False
+    # The reference may hedge the stance ("Likely no; ..."), so look for the
+    # first polar token among the first few words of the reference.
+    ref_tokens = [t.strip(".,;:!?") for t in reference.strip().split()[:3]]
+    ref_stance = next((t for t in ref_tokens if t in _POLAR_TOKENS), None)
+    if ref_stance is None:
+        return False
+    return (pred in {"yes", "yeah"}) == (ref_stance in {"yes", "yeah"})
+
+
 def _extract_dates(text: str) -> list[date]:
     """Extract all explicit calendar dates from benchmark answers."""
     text = str(text or "")
@@ -133,6 +174,35 @@ def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None
     return None
 
 
+_BENCHMARK_TIMESTAMP_PATTERN = re.compile(
+    r"\b(?:\d{1,2}:\d{2}|\d{1,2})\s*[ap]m\s+on\s+(\d{1,2})\s+"
+    r"(January|February|March|April|May|June|July|August|September|October|November|December),?\s+(\d{4})\b",
+    flags=re.IGNORECASE,
+)
+
+
+def _parse_benchmark_timestamp(raw: Any) -> date | None:
+    """Parse a benchmark conversation timestamp such as ``1:56 pm on 8 May, 2023``.
+
+    These strings come from the benchmark's own session/message metadata (LoCoMo
+    ``session_date_time``), not from engine-generated ingestion timestamps.
+    """
+    raw = str(raw or "").strip()
+    if not raw:
+        return None
+    anchor = _extract_date(raw)
+    if anchor:
+        return anchor
+    match = _BENCHMARK_TIMESTAMP_PATTERN.search(raw)
+    if match:
+        try:
+            month = datetime.strptime(match.group(2)[:3], "%b").month
+            return date(int(match.group(3)), month, int(match.group(1)))
+        except ValueError:
+            return None
+    return None
+
+
 def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
     """Find a benchmark/event date from context without inventing one."""
     for item in context:
@@ -141,12 +211,7 @@ def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
             if anchor:
                 return anchor
             raw = str(item.get(key) or "").strip()
-            match = re.search(
-                r"\b(?:\d{1,2}:\d{2}|\d{1,2})\s*[ap]m\s+on\s+(\d{1,2})\s+"
-                r"(January|February|March|April|May|June|July|August|September|October|November|December),?\s+(\d{4})\b",
-                raw,
-                flags=re.IGNORECASE,
-            )
+            match = _BENCHMARK_TIMESTAMP_PATTERN.search(raw)
             if match:
                 try:
                     month = datetime.strptime(match.group(2)[:3], "%b").month
@@ -172,7 +237,10 @@ def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -
     if pred_date and ref_relative:
         return pred_date == ref_relative
     if ref_date and pred_relative:
-        return pred_relative == ref_date
+        # The reference may carry an explicit anchor date in addition to the
+        # answer date (e.g. "The friday before 15 July 2023 / July 14, 2023").
+        # Compare against every explicit date, not only the first one.
+        return any(pred_relative == d for d in ref_dates)
     if pred_relative and any(pred_relative == d for d in ref_dates):
         return True
     if pred_period and len(ref_dates) >= 2:
@@ -278,22 +346,43 @@ def score_answer(
     reference: str,
     *,
     context: list[dict[str, Any]] | None = None,
+    evidence_timestamps: list[str] | None = None,
 ) -> dict[str, Any]:
     pred = _normalize(prediction)
     ref = _normalize(reference)
-    em = exact_match(pred, ref)
-    f1 = token_f1(pred, ref)
+    pred_norm = _normalize_number_words(pred)
+    ref_norm = _normalize_number_words(ref)
+    em = exact_match(pred_norm, ref_norm)
+    f1 = token_f1(pred_norm, ref_norm)
     anchor_date = _context_anchor_date(context or [])
+    anchor_source = "context" if anchor_date else None
+    if anchor_date is None:
+        # Fallback: the benchmark's own conversation timestamp for the gold
+        # evidence (LoCoMo session date_time). This is the same clock the
+        # benchmark annotators used to derive absolute-date reference answers,
+        # and it is deliberately NOT the engine-generated ingestion timestamp.
+        for ts in evidence_timestamps or []:
+            anchor_date = _parse_benchmark_timestamp(ts)
+            if anchor_date:
+                anchor_source = "evidence_timestamp"
+                break
     pred_date = _extract_date(pred)
     ref_date = _extract_date(ref)
     temporal_equivalent = _temporal_equivalent(pred, ref, anchor_date)
     phrase_match = _phrase_match(pred, ref)
+    polar_match = _polar_answer_matches(pred, ref)
 
     explicit_date_mismatch = bool(pred_date and ref_date and pred_date != ref_date)
     if explicit_date_mismatch:
         correct = False
     else:
-        correct = bool(em == 1.0 or f1 >= F1_THRESHOLD or temporal_equivalent or phrase_match)
+        correct = bool(
+            em == 1.0
+            or f1 >= F1_THRESHOLD
+            or temporal_equivalent
+            or phrase_match
+            or polar_match
+        )
 
     return {
         "exact_match": em,
@@ -301,12 +390,25 @@ def score_answer(
         "threshold": F1_THRESHOLD,
         "temporal_equivalent": temporal_equivalent,
         "temporal_anchor_date": anchor_date.isoformat() if anchor_date else None,
+        "temporal_anchor_source": anchor_source,
         "phrase_match": phrase_match,
+        "polar_match": polar_match,
         "explicit_date_mismatch": explicit_date_mismatch,
         "correct": correct,
     }
 
 
-def generate_and_score(question: str, reference: str, context: list[dict[str, Any]]) -> dict[str, Any]:
+def generate_and_score(
+    question: str,
+    reference: str,
+    context: list[dict[str, Any]],
+    *,
+    evidence_timestamps: list[str] | None = None,
+) -> dict[str, Any]:
     answer = generate_answer(question, context)
-    return {"answer": answer, **score_answer(answer, reference, context=context), "model": MODEL, "base_url": BASE_URL}
+    return {
+        "answer": answer,
+        **score_answer(answer, reference, context=context, evidence_timestamps=evidence_timestamps),
+        "model": MODEL,
+        "base_url": BASE_URL,
+    }

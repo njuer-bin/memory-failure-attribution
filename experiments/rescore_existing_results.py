@@ -37,6 +37,7 @@ def _score_with_persisted_anchor(
     prediction: str,
     reference: str,
     previous_answer: dict[str, Any],
+    gold_evidence: list[dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Re-score while preserving the old context-derived anchor when available.
 
@@ -45,28 +46,49 @@ def _score_with_persisted_anchor(
     preserves the old scorer's context anchor for ordinary relative-date cases,
     while the current scorer can additionally resolve explicit anchors contained
     in the benchmark reference itself (e.g. ``before 20 July 2023``).
+
+    When no persisted anchor exists, fall back to the benchmark conversation
+    timestamps carried by the gold evidence records (LoCoMo session date_time).
+    This is the same clock the benchmark annotators used to derive absolute-date
+    references; engine-generated ingestion timestamps are never used as anchors.
     """
     anchor = previous_answer.get("temporal_anchor_date")
     context: list[dict[str, Any]] = []
     if anchor:
         context = [{"timestamp": str(anchor)}]
-    return score_answer(prediction, reference, context=context)
+    evidence_timestamps = [
+        str(ge.get("timestamp"))
+        for ge in (gold_evidence or [])
+        if ge.get("timestamp")
+    ]
+    return score_answer(
+        prediction,
+        reference,
+        context=context,
+        evidence_timestamps=evidence_timestamps,
+    )
 
 
-def _rescore_mode(mode_data: dict[str, Any], reference: str) -> None:
+def _rescore_mode(
+    mode_data: dict[str, Any],
+    reference: str,
+    gold_evidence: list[dict[str, Any]] | None = None,
+) -> None:
     previous = copy.deepcopy(mode_data.get("answer") or {})
     prediction = previous.get("answer")
     if prediction is None:
         return
 
-    scored = _score_with_persisted_anchor(str(prediction), reference, previous)
+    scored = _score_with_persisted_anchor(str(prediction), reference, previous, gold_evidence)
     for key in (
         "exact_match",
         "token_f1",
         "threshold",
         "temporal_equivalent",
         "temporal_anchor_date",
+        "temporal_anchor_source",
         "phrase_match",
+        "polar_match",
         "explicit_date_mismatch",
         "correct",
     ):
@@ -97,11 +119,12 @@ def rescore(
     for row in rows:
         updated = copy.deepcopy(row)
         reference = str(updated.get("gold_answer") or "")
+        gold_evidence = updated.get("gold_evidence") or []
         modes = updated.get("modes") or {}
         for mode in ("real_memory", "oracle_memory", "oracle_context"):
             mode_data = modes.get(mode)
             if isinstance(mode_data, dict):
-                _rescore_mode(mode_data, reference)
+                _rescore_mode(mode_data, reference, gold_evidence)
         _recompute_failure_types(updated)
         rescored.append(updated)
 

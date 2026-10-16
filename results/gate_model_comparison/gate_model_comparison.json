@@ -1,0 +1,569 @@
+{
+  "input": "G:\\PythonProject\\memory-failure-attribution\\results\\oracle_experiments\\comparison.jsonl",
+  "models": [
+    "qwen2.5:7b",
+    "gemma3:12b"
+  ],
+  "case_selection": "manually_audited_false_e0",
+  "case_count": 18,
+  "results": [
+    {
+      "question_id": "conv-26#q0000",
+      "question": "When did Caroline go to the LGBTQ support group?",
+      "reference_answer": "7 May 2023",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states that the event occurred 'yesterday' and the timestamp is '8 May, 2023', which confirms the date given in the reference answer as the day before.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states she went to the group 'yesterday' relative to May 8, 2023, making the date May 7, 2023.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0002",
+      "question": "What fields would Caroline be likely to pursue in her education?",
+      "reference_answer": "Counseling or mental health",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly states that Caroline is keen on counseling or working in mental health, which aligns with the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly states Caroline's interest in counseling or mental health.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0003",
+      "question": "What did Caroline research?",
+      "reference_answer": "Adoption agencies",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly states that Caroline was researching adoption agencies, which matches the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly states Caroline is researching adoption agencies.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0006",
+      "question": "When is Melanie planning on going camping?",
+      "reference_answer": "June 2023",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states that Melanie is planning to go camping 'next month', which aligns with the reference answer of June 2023.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states they are planning to go camping 'next month,' and the message was sent in May 2023, making the month of June 2023 the correct answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0007",
+      "question": "What is Caroline's relationship status?",
+      "reference_answer": "Single",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "medium",
+          "reason": "The evidence indicates that the speaker is a single parent, which implies a single relationship status, but it does not explicitly state Caroline's relationship status. There is a slight ambiguity since the evidence refers to a different individual.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly states she is a 'single parent'.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0010",
+      "question": "How long has Caroline had her current group of friends for?",
+      "reference_answer": "4 years",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly states that the speaker has known these friends for 4 years, which matches the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly states Caroline has known her friends for 4 years.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0011",
+      "question": "Where did Caroline move from 4 years ago?",
+      "reference_answer": "Sweden",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly states that the person moved from their home country, which is identified as Sweden in the subsequent message.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states she moved from her home country 4 years ago, and her home country is Sweden.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0013",
+      "question": "What career path has Caroline decided to persue?",
+      "reference_answer": "counseling or mental health for Transgender people",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence clearly indicates that Caroline is interested in working with transgender people in counseling or mental health, which aligns with the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly mentions counseling or mental health work supporting transgender people.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0015",
+      "question": "When is Caroline going to the transgender conference?",
+      "reference_answer": "July 2023",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly states that the event is happening this month, and the timestamp is 3 July 2023, which is within the same month.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states the conference is happening 'this month,' and the timestamp indicates the message was sent on July 3, 2023, making July 2023 the correct month.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0017",
+      "question": "When did Melanie go to the museum?",
+      "reference_answer": "5 July 2023",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states that Melanie took the kids to the museum on the previous day, which is 5 July 2023, not 6 July 2023 as implied in the evidence.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": false,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states 'Yesterday I took the kids to the museum' and the timestamp is 6 July 2023, so yesterday was 5 July 2023.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0029",
+      "question": "In what ways is Caroline participating in the LGBTQ community?",
+      "reference_answer": "Joining activist group, going to pride parades, participating in an art show, mentoring program",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly supports all the activities mentioned in the reference answer: joining an activist group, attending a pride parade, participating in an art show, and being part of a mentoring program.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly mentions joining an activist group, attending a pride parade, having an art show, and participating in a mentorship program, all of which align with the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0036",
+      "question": "Who supports Caroline when she has a negative experience?",
+      "reference_answer": "Her mentors, family, and friends",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly mentions that Caroline's friends, family, and mentors are supportive, which aligns with the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly states that her friends, family, and mentors support her.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0042",
+      "question": "What symbols are important to Caroline?",
+      "reference_answer": "Rainbow flag / eagle symbol",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly states that the rainbow flag is important to the speaker, and the eagle symbolizes freedom and pride for them, which aligns with the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly states the rainbow flag and eagle symbol are important to Caroline.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0044",
+      "question": "When did Melanie make a plate in pottery class?",
+      "reference_answer": "24 August 2023",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states that Melanie made a plate in pottery class yesterday, and the reference answer provides 24 August 2023, which is the day before 25 August 2023, aligning with the 'yesterday' reference.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states she made it 'yesterday' relative to August 25, 2023, making the date August 24, 2023.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0045",
+      "question": "What instruments does Melanie play?",
+      "reference_answer": "clarinet and violin",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly states that Melanie plays clarinet and mentions playing violin, supporting the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly states Melanie plays clarinet and violin.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0046",
+      "question": "What musical artists/bands has Melanie seen?",
+      "reference_answer": "Summer Sounds, Matt Patterson",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence directly mentions Summer Sounds and Matt Patterson, both of which are included in the reference answer.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence explicitly mentions both Summer Sounds and Matt Patterson as artists Melanie has seen.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0047",
+      "question": "When did Melanie go to the park?",
+      "reference_answer": "27 August 2023",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states that Melanie took her kids to the park 'yesterday' relative to the time of the conversation, which was on 28 August 2023. Therefore, Melanie went to the park on 27 August 2023, not 27 August 2023 as stated in the reference answer. The evidence is sufficient to determine the date, but the reference answer is incorrect.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": false,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states Melanie went to the park 'yesterday' relative to August 28, 2023, making the date August 27, 2023.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0048",
+      "question": "When is Caroline's youth center putting on a talent show?",
+      "reference_answer": "September 2023",
+      "models": {
+        "qwen2.5:7b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states that the talent show is happening 'next month' after 28 August 2023, which aligns with the reference answer of September 2023.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "qwen2.5:7b",
+          "error": null
+        },
+        "gemma3:12b": {
+          "status": "sufficient",
+          "evidence_sufficient": true,
+          "confidence": "high",
+          "reason": "The evidence states the talent show is next month, and the message was sent on August 28, 2023, making 'next month' September 2023.",
+          "adjudication": "semantic_judge",
+          "adjudication_anchor": null,
+          "correct": true,
+          "judge_correct": null,
+          "model": "gemma3:12b",
+          "error": null
+        }
+      }
+    }
+  ]
+}

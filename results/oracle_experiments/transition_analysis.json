@@ -1,0 +1,402 @@
+{
+  "input": "results/oracle_experiments/comparison.jsonl",
+  "rows": 50,
+  "question_level": {
+    "all_rows": {
+      "eligible_rows": 49,
+      "gate_sufficient_only": false,
+      "stage": {
+        "formation": {
+          "passed": 5,
+          "total": 49,
+          "rate": 0.10204081632653061
+        },
+        "storage": {
+          "passed": 48,
+          "total": 49,
+          "rate": 0.9795918367346939
+        },
+        "evolution": {
+          "passed": 5,
+          "total": 49,
+          "rate": 0.10204081632653061
+        },
+        "retrieval": {
+          "passed": 23,
+          "total": 49,
+          "rate": 0.46938775510204084
+        },
+        "rerank": {
+          "passed": 22,
+          "total": 49,
+          "rate": 0.4489795918367347
+        },
+        "context": {
+          "passed": 13,
+          "total": 49,
+          "rate": 0.2653061224489796
+        }
+      },
+      "transitions": {
+        "formation_to_storage": {
+          "previous_stage": "formation",
+          "current_stage": "storage",
+          "eligible_after_previous": 5,
+          "survived_current": 5,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "storage_to_evolution": {
+          "previous_stage": "storage",
+          "current_stage": "evolution",
+          "eligible_after_previous": 48,
+          "survived_current": 5,
+          "conditional_survival": 0.10416666666666667,
+          "conditional_failure": 0.8958333333333334
+        },
+        "evolution_to_retrieval": {
+          "previous_stage": "evolution",
+          "current_stage": "retrieval",
+          "eligible_after_previous": 5,
+          "survived_current": 3,
+          "conditional_survival": 0.6,
+          "conditional_failure": 0.4
+        },
+        "retrieval_to_rerank": {
+          "previous_stage": "retrieval",
+          "current_stage": "rerank",
+          "eligible_after_previous": 23,
+          "survived_current": 22,
+          "conditional_survival": 0.9565217391304348,
+          "conditional_failure": 0.04347826086956519
+        },
+        "rerank_to_context": {
+          "previous_stage": "rerank",
+          "current_stage": "context",
+          "eligible_after_previous": 22,
+          "survived_current": 13,
+          "conditional_survival": 0.5909090909090909,
+          "conditional_failure": 0.40909090909090906
+        }
+      },
+      "cumulative_transitions": {
+        "storage_given_upstream": {
+          "upstream_through": "formation",
+          "current_stage": "storage",
+          "eligible_after_upstream": 5,
+          "survived_current": 5,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "evolution_given_upstream": {
+          "upstream_through": "storage",
+          "current_stage": "evolution",
+          "eligible_after_upstream": 5,
+          "survived_current": 5,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "retrieval_given_upstream": {
+          "upstream_through": "evolution",
+          "current_stage": "retrieval",
+          "eligible_after_upstream": 5,
+          "survived_current": 3,
+          "conditional_survival": 0.6,
+          "conditional_failure": 0.4
+        },
+        "rerank_given_upstream": {
+          "upstream_through": "retrieval",
+          "current_stage": "rerank",
+          "eligible_after_upstream": 3,
+          "survived_current": 3,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "context_given_upstream": {
+          "upstream_through": "rerank",
+          "current_stage": "context",
+          "eligible_after_upstream": 3,
+          "survived_current": 2,
+          "conditional_survival": 0.6666666666666666,
+          "conditional_failure": 0.33333333333333337
+        }
+      }
+    },
+    "gate_sufficient_only": {
+      "eligible_rows": 46,
+      "gate_sufficient_only": true,
+      "stage": {
+        "formation": {
+          "passed": 5,
+          "total": 46,
+          "rate": 0.10869565217391304
+        },
+        "storage": {
+          "passed": 46,
+          "total": 46,
+          "rate": 1.0
+        },
+        "evolution": {
+          "passed": 5,
+          "total": 46,
+          "rate": 0.10869565217391304
+        },
+        "retrieval": {
+          "passed": 23,
+          "total": 46,
+          "rate": 0.5
+        },
+        "rerank": {
+          "passed": 22,
+          "total": 46,
+          "rate": 0.4782608695652174
+        },
+        "context": {
+          "passed": 13,
+          "total": 46,
+          "rate": 0.2826086956521739
+        }
+      },
+      "transitions": {
+        "formation_to_storage": {
+          "previous_stage": "formation",
+          "current_stage": "storage",
+          "eligible_after_previous": 5,
+          "survived_current": 5,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "storage_to_evolution": {
+          "previous_stage": "storage",
+          "current_stage": "evolution",
+          "eligible_after_previous": 46,
+          "survived_current": 5,
+          "conditional_survival": 0.10869565217391304,
+          "conditional_failure": 0.8913043478260869
+        },
+        "evolution_to_retrieval": {
+          "previous_stage": "evolution",
+          "current_stage": "retrieval",
+          "eligible_after_previous": 5,
+          "survived_current": 3,
+          "conditional_survival": 0.6,
+          "conditional_failure": 0.4
+        },
+        "retrieval_to_rerank": {
+          "previous_stage": "retrieval",
+          "current_stage": "rerank",
+          "eligible_after_previous": 23,
+          "survived_current": 22,
+          "conditional_survival": 0.9565217391304348,
+          "conditional_failure": 0.04347826086956519
+        },
+        "rerank_to_context": {
+          "previous_stage": "rerank",
+          "current_stage": "context",
+          "eligible_after_previous": 22,
+          "survived_current": 13,
+          "conditional_survival": 0.5909090909090909,
+          "conditional_failure": 0.40909090909090906
+        }
+      },
+      "cumulative_transitions": {
+        "storage_given_upstream": {
+          "upstream_through": "formation",
+          "current_stage": "storage",
+          "eligible_after_upstream": 5,
+          "survived_current": 5,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "evolution_given_upstream": {
+          "upstream_through": "storage",
+          "current_stage": "evolution",
+          "eligible_after_upstream": 5,
+          "survived_current": 5,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "retrieval_given_upstream": {
+          "upstream_through": "evolution",
+          "current_stage": "retrieval",
+          "eligible_after_upstream": 5,
+          "survived_current": 3,
+          "conditional_survival": 0.6,
+          "conditional_failure": 0.4
+        },
+        "rerank_given_upstream": {
+          "upstream_through": "retrieval",
+          "current_stage": "rerank",
+          "eligible_after_upstream": 3,
+          "survived_current": 3,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "context_given_upstream": {
+          "upstream_through": "rerank",
+          "current_stage": "context",
+          "eligible_after_upstream": 3,
+          "survived_current": 2,
+          "conditional_survival": 0.6666666666666666,
+          "conditional_failure": 0.33333333333333337
+        }
+      }
+    }
+  },
+  "evidence_level": {
+    "all_rows": {
+      "eligible_evidence": 68,
+      "transitions": {
+        "formation_to_storage": {
+          "eligible_after_previous": 11,
+          "survived_current": 11,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "storage_to_evolution": {
+          "eligible_after_previous": 67,
+          "survived_current": 11,
+          "conditional_survival": 0.16417910447761194,
+          "conditional_failure": 0.835820895522388
+        },
+        "evolution_to_retrieval": {
+          "eligible_after_previous": 11,
+          "survived_current": 6,
+          "conditional_survival": 0.5454545454545454,
+          "conditional_failure": 0.4545454545454546
+        },
+        "retrieval_to_rerank": {
+          "eligible_after_previous": 30,
+          "survived_current": 27,
+          "conditional_survival": 0.9,
+          "conditional_failure": 0.09999999999999998
+        },
+        "rerank_to_context": {
+          "eligible_after_previous": 27,
+          "survived_current": 14,
+          "conditional_survival": 0.5185185185185185,
+          "conditional_failure": 0.4814814814814815
+        }
+      },
+      "cumulative_transitions": {
+        "storage_given_upstream": {
+          "upstream_through": "formation",
+          "current_stage": "storage",
+          "eligible_after_upstream": 11,
+          "survived_current": 11,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "evolution_given_upstream": {
+          "upstream_through": "storage",
+          "current_stage": "evolution",
+          "eligible_after_upstream": 11,
+          "survived_current": 11,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "retrieval_given_upstream": {
+          "upstream_through": "evolution",
+          "current_stage": "retrieval",
+          "eligible_after_upstream": 11,
+          "survived_current": 6,
+          "conditional_survival": 0.5454545454545454,
+          "conditional_failure": 0.4545454545454546
+        },
+        "rerank_given_upstream": {
+          "upstream_through": "retrieval",
+          "current_stage": "rerank",
+          "eligible_after_upstream": 6,
+          "survived_current": 5,
+          "conditional_survival": 0.8333333333333334,
+          "conditional_failure": 0.16666666666666663
+        },
+        "context_given_upstream": {
+          "upstream_through": "rerank",
+          "current_stage": "context",
+          "eligible_after_upstream": 5,
+          "survived_current": 3,
+          "conditional_survival": 0.6,
+          "conditional_failure": 0.4
+        }
+      }
+    },
+    "gate_sufficient_only": {
+      "eligible_evidence": 65,
+      "transitions": {
+        "formation_to_storage": {
+          "eligible_after_previous": 11,
+          "survived_current": 11,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "storage_to_evolution": {
+          "eligible_after_previous": 65,
+          "survived_current": 11,
+          "conditional_survival": 0.16923076923076924,
+          "conditional_failure": 0.8307692307692307
+        },
+        "evolution_to_retrieval": {
+          "eligible_after_previous": 11,
+          "survived_current": 6,
+          "conditional_survival": 0.5454545454545454,
+          "conditional_failure": 0.4545454545454546
+        },
+        "retrieval_to_rerank": {
+          "eligible_after_previous": 30,
+          "survived_current": 27,
+          "conditional_survival": 0.9,
+          "conditional_failure": 0.09999999999999998
+        },
+        "rerank_to_context": {
+          "eligible_after_previous": 27,
+          "survived_current": 14,
+          "conditional_survival": 0.5185185185185185,
+          "conditional_failure": 0.4814814814814815
+        }
+      },
+      "cumulative_transitions": {
+        "storage_given_upstream": {
+          "upstream_through": "formation",
+          "current_stage": "storage",
+          "eligible_after_upstream": 11,
+          "survived_current": 11,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "evolution_given_upstream": {
+          "upstream_through": "storage",
+          "current_stage": "evolution",
+          "eligible_after_upstream": 11,
+          "survived_current": 11,
+          "conditional_survival": 1.0,
+          "conditional_failure": 0.0
+        },
+        "retrieval_given_upstream": {
+          "upstream_through": "evolution",
+          "current_stage": "retrieval",
+          "eligible_after_upstream": 11,
+          "survived_current": 6,
+          "conditional_survival": 0.5454545454545454,
+          "conditional_failure": 0.4545454545454546
+        },
+        "rerank_given_upstream": {
+          "upstream_through": "retrieval",
+          "current_stage": "rerank",
+          "eligible_after_upstream": 6,
+          "survived_current": 5,
+          "conditional_survival": 0.8333333333333334,
+          "conditional_failure": 0.16666666666666663
+        },
+        "context_given_upstream": {
+          "upstream_through": "rerank",
+          "current_stage": "context",
+          "eligible_after_upstream": 5,
+          "survived_current": 3,
+          "conditional_survival": 0.6,
+          "conditional_failure": 0.4
+        }
+      }
+    }
+  }
+}
