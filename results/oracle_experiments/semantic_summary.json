@@ -1,0 +1,46 @@
+{
+  "input": "results/oracle_experiments/comparison.jsonl",
+  "output": "results/oracle_experiments/comparison_semantic.jsonl",
+  "records": 10,
+  "judge_models": [],
+  "f6_candidates": [],
+  "e0_cases": [
+    {
+      "question_id": "58ef2f1c",
+      "question": "When did I volunteer at the local animal shelter's fundraising dinner?",
+      "candidate": "February",
+      "reason": "The evidence does not mention volunteering at the local animal shelter's fundraising dinner, and the candidate answer does not match the event described in the evidence.",
+      "gold_evidence": [
+        {
+          "id": "58ef2f1c:answer_59547700:turn_8",
+          "content": "I'm really looking forward to the silent auction and raffles at \"Strut Your Mutt\". I've had a great experience with similar events in the past, like the \"Love is in the Air\" fundraising dinner I volunteered at back on Valentine's Day. The energy and excitement of bidding on amazing prizes while supporting a good cause is just fantastic!"
+        }
+      ]
+    }
+  ],
+  "evaluation_uncertain_cases": [],
+  "modes": {
+    "real_memory": {
+      "scored": 10,
+      "correct": 9,
+      "incorrect": 1,
+      "errors": 0
+    },
+    "oracle_memory": {
+      "scored": 10,
+      "correct": 10,
+      "incorrect": 0,
+      "errors": 0
+    },
+    "oracle_context": {
+      "scored": 10,
+      "correct": 9,
+      "incorrect": 1,
+      "errors": 0
+    }
+  },
+  "real_memory_semantic_failure_distribution": {
+    "E0_EVIDENCE_INSUFFICIENT": 1
+  },
+  "note": "Failure attribution is conservative. F6 is only assigned when the semantic evaluator considers the evidence sufficient, confidence is not low, and all Gold Evidence reaches final context. E0 captures evidence/question mismatch or insufficient evidence. A narrow lexical anchor adjudicator repairs obvious semantic-judge false negatives only after evidence sufficiency is established."
+}
