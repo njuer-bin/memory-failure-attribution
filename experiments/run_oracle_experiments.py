@@ -36,11 +36,13 @@ def _sessions(record: dict[str, Any]) -> list[dict[str, Any]]:
         if isinstance(session, dict):
             sid = str(session.get("session_id") or session.get("id") or f"session_{i}")
             messages = session.get("messages") or session.get("turns") or []
+            session_date = session.get("date") or session.get("timestamp") or session.get("date_time")
         else:
             sid, messages = f"session_{i}", session
+            session_date = None
         if isinstance(messages, dict):
             messages = [messages]
-        result.append({"session_id": sid, "messages": list(messages or [])})
+        result.append({"session_id": sid, "date": session_date, "messages": list(messages or [])})
     return result
 
 
@@ -141,6 +143,10 @@ def _real_engine(record: dict[str, Any], idx: int) -> tuple[MemoryEngine, str]:
     for session in sessions:
         messages = []
         for raw in session["messages"]:
+            # LoCoMo often stores the event date on the session rather than on each message.
+            if isinstance(raw, dict) and not (raw.get("timestamp") or raw.get("session_date_time") or raw.get("date")):
+                raw = dict(raw)
+                raw["timestamp"] = session.get("date")
             role, text, ts = _msg(raw)
             if text:
                 messages.append(AddMessage(role=role, content=text, timestamp=ts))
