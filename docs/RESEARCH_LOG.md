@@ -595,3 +595,182 @@ Do not modify the memory extractor yet. First perform the planned LoCoMo n=50 fo
 
 Only after this diagnostic gate is stable should extractor improvements be evaluated as an intervention.
 
+## 2026-10-17 — LoCoMo n=10 rerun after stable turn-provenance fix
+
+### Run configuration
+
+- Dataset: `locomo_refined_public`
+- Command: `G:\\aconda\\python.exe -u -m experiments.run_oracle_experiments --dataset locomo_refined_public --limit 10`
+- Samples: 10; completed records: 10; runtime errors: 0
+- Local code revision tested: `89c085a` (`Fix stable LoCoMo session turn provenance`); this revision was present locally when the run was executed.
+
+### Lifecycle evidence recall
+
+| Stage | Real Memory | Oracle Memory | Oracle Context |
+|---|---:|---:|---:|
+| Formation | 1.00 | 1.00 | 0.00* |
+| Storage | 1.00 | 1.00 | 0.00* |
+| Evolution | 1.00 | 1.00 | 0.00* |
+| Retrieval | 0.75 | 1.00 | 0.00* |
+| Rerank | 0.55 | 1.00 | 0.00* |
+| Context | 0.30 | 1.00 | 1.00* |
+
+\* Oracle Context is a direct-context control, so upstream lifecycle stage recalls are not applicable; the report serializes them as zero. Its Context recall is 1.00.
+
+Real Memory first-loss distribution: none=3, retrieval=3, rerank=2, context=2. Oracle Memory: none=10. Oracle Context: not_applicable=10.
+
+### Answer results
+
+| Mode | Accuracy | Exact Match | Token F1 |
+|---|---:|---:|---:|
+| Real Memory | 0.00 | 0.00 | 0.0000 |
+| Oracle Memory | 0.50 | 0.10 | 0.2222 |
+| Oracle Context | 0.50 | 0.10 | 0.2222 |
+
+The evidence-sufficiency gate classified 8/10 samples as `E0_EVIDENCE_INSUFFICIENCY` and 2/10 as sufficient. First answer-failure labels were E0=8 and F6_REASONING=2. The run completed without model errors.
+
+### Interpretation and limitations
+
+This is a small n=10 diagnostic run, not a population-level benchmark result. The stable session-level source prefix and engine turn indexing now pass the focused provenance regression tests (12 tests passed across the three targeted test modules), but this run alone does not establish that every Gold Evidence mapping is correct.
+
+The observed Real Memory evidence recall falls from 1.00 through Formation/Storage/Evolution to 0.75 at Retrieval, 0.55 at Rerank, and 0.30 at Context. This points to downstream retrieval, reranking, and context selection as measurable loss boundaries in this sample. However, the answer-level gate labels eight questions E0 because Gold Evidence is judged insufficient for the reference answer; those cases must not be interpreted as memory-lifecycle failures or used to support F1–F6 attribution without case-level adjudication.
+
+The two F6 cases (`conv-26#q0005` and `conv-26#q0009`) are the most useful initial reasoning-control cases because the current protocol reports sufficient evidence and complete Gold Evidence delivery to context. Inspect their questions, Gold Evidence, final context, generated answers, references, and scoring details before making any reasoning claim. Also inspect an E0 case such as `conv-26#q0000` to verify that the evidence-sufficiency gate is correct.
+
+### Next actions
+
+1. Audit the per-question artifacts for `conv-26#q0000`, `conv-26#q0005`, and `conv-26#q0009`.
+2. Manually adjudicate a sample of E0 cases against the exact question and reference answer; record whether each is a genuine evidence/question mismatch or an evaluator false negative.
+3. Keep this n=10 result as a diagnostic/negative result. Do not claim generalization or tune the extractor from this run alone.
+4. After the gate and provenance checks are stable, run the broader evaluation and compare per-stage recall and answer metrics using the same protocol.
+
+### 2026-10-17 — Case audit: E0 gate contradiction in conv-26#q0000
+
+Inspected the full `comparison.jsonl` record for `conv-26#q0000` (question: “When did Caroline go to the LGBTQ support group?”). Gold Evidence is the turn text: “I went to a LGBTQ support group yesterday and it was so powerful.” The same evidence is found by Real Memory at Formation, Storage, Evolution, Retrieval, Rerank, and final Context; the provenance points to `D1:turn_2`. Real Memory and both oracle controls answer “Yesterday.”; the oracle answer scorer marks both oracle answers correct (with temporal equivalence anchored to 2023-05-08), yet the evidence-sufficiency judge labels the evidence insufficient and claims it says nothing about the event/date. That rationale directly contradicts the evidence text. This case is therefore a strong candidate for an E0-gate false negative / evaluator inconsistency, not a demonstrated memory-formation or retrieval failure. Reconcile the timestamp/date anchor carefully before converting “yesterday” into a calendar date.
+
+A partial audit of `conv-26#q0005` (“When did Melanie run a charity race?”) shows the event text “I ran a charity race for mental health last Saturday...” is present in final Context and the model answers “Last Saturday.” The current record labels it F6, but the answer is a plausible direct extraction of the context. The pasted record also references “The Saturday before 25 May 2023” / May 20, 2023 in the sufficiency rationale, so the exact reference answer, remaining scoring fields, and temporal normalization must be inspected before accepting F6. Treat this as an unresolved potential scoring/temporal-normalization issue, not a confirmed reasoning failure.
+
+#### Updated interpretation and next steps
+
+- The n=10 aggregate's eight E0 labels cannot be taken at face value until sampled cases are manually audited; at least `conv-26#q0000` shows an explicit evidence-vs-judge contradiction.
+- Keep evidence-sufficiency adjudication separate from lifecycle stage recall. A case can have complete retrieval/context evidence and still be misclassified by the answerability gate.
+- For temporal questions, audit question, exact reference answer, source turn timestamp/date anchor, model output, temporal-equivalence rule, and gate rationale together. Do not infer a reasoning failure solely from token F1 or a failed temporal rule.
+- The `conv-26#q0005` classification remains provisional until its full record and reference answer are checked; `conv-26#q0009` also remains unaudited in this pass.
+- This is case-level diagnostic evidence only; do not generalize from n=10 or change the memory extractor based on these cases alone.
+
+### 2026-10-17 — Follow-up audit: F6 labels confounded by temporal scoring
+
+Inspected the targeted-field output for `conv-26#q0005` and `conv-26#q0009`.
+
+- **q0005** asks “When did Melanie run a charity race?” Gold evidence at `D2:turn_0`, timestamped 1:14 pm on 25 May 2023, says “I ran a charity race for mental health last Saturday”. Real Memory, Oracle Memory, and Oracle Context all answer “Last Saturday.” The current scorer reports token F1 0.0 and `temporal_equivalent=false` for all modes; Oracle Memory/Context use anchor date `2023-05-25`. The sufficiency judge's rationale says the reference is supported by “The Saturday before 25 May 2023”, equivalent to May 20, 2023. This strongly suggests the scorer fails to align a correct relative-time phrase with the reference's normalized date (or otherwise mishandles this reference), so F6 is not currently a trustworthy reasoning attribution.
+- **q0009** asks “When did Caroline meet up with her friends, family, and mentors?” Gold evidence at `D3:turn_10`, timestamped 7:55 pm on 9 June 2023, says “Here's a pic from when we met up last week”. All three modes answer “Last week.”; all have token F1 0.0 and `temporal_equivalent=false`, despite Oracle Memory/Context containing the gold evidence. The evidence-sufficiency judge calls the evidence sufficient. This is a second concrete warning that temporal answer evaluation can mark a directly supported relative phrase wrong.
+- **q0000** remains a separate E0-gate contradiction: its evidence explicitly says “I went to a LGBTQ support group yesterday”, while the sufficiency judge claims the evidence says nothing about the event/date; Oracle scoring treats “Yesterday.” as temporally equivalent/correct.
+
+#### Updated conclusion
+
+The observed F6 cases cannot yet be interpreted as confirmed reasoning failures. For q0005 and q0009, answer strings match the relative-time expressions in the evidence, but the temporal-equivalence rule fails and token F1 is zero. Because the oracle controls are also marked wrong, these results point to a potential evaluation/scoring confound rather than a failure unique to the real memory pipeline. The n=10 answer accuracy and F6 counts should be treated as provisional until this is resolved.
+
+#### Next actions
+
+1. Inspect the dataset's exact reference answers for q0005 and q0009 and the implementation of `token_f1_plus_temporal_phrase_rules`; identify why relative phrases are not recognized against the references.
+2. Add unit tests for `yesterday`, `last Saturday` (anchor 2023-05-25 -> 2023-05-20), and `last week` (anchor 2023-06-09), including the benchmark's actual reference-answer format. Be explicit about locale and week-boundary conventions.
+3. Keep answer correctness, evidence sufficiency, and lifecycle stage recall as separate measurements. Do not relabel F6 or report corrected aggregate accuracy until scoring behavior is validated against reference answers.
+4. Review the other n=10 cases, especially all E0 labels, with the same evidence-vs-judge consistency check. These observations are case-level diagnostics, not population-level proof.
+
+## 2026-10-17 — LoCoMo q0005/q0009: temporal scoring confound in apparent F6
+
+### Source inspection
+
+Inspected the committed implementation on `fix/formation-diagnostics-evidence-based`:
+
+- `experiments/run_oracle_experiments.py`: `_answer_failure_type` assigns F6 when the evidence-sufficiency gate says sufficient, the answer is marked incorrect, and Gold Evidence is found at every lifecycle stage.
+- `evaluation/answer_generation.py`: deterministic correctness depends on exact match, token F1 >= threshold, `_temporal_equivalent`, or a contained phrase match.
+- `datasets/adapters.py`: LoCoMo message timestamps can be strings; `_msg` in the runner only forwards timestamps that are integers. Thus the Real Memory ingestion path can lose the original date anchor, while normalized Gold Evidence preserves the timestamp string.
+
+### Manually inspected examples from the n=10 `locomo_refined_public` run
+
+**conv-26#q0005 — “When did Melanie run a charity race?”**
+
+Gold Evidence says Melanie “ran a charity race ... last Saturday”; its timestamp metadata is 1:14 pm on 25 May 2023. The model answered “Last Saturday.” in Real Memory, Oracle Memory, and Oracle Context. All three were marked incorrect by the lexical/temporal scorer. The evidence-sufficiency judge itself states that the Saturday before 25 May 2023 is 20 May 2023 and marks the evidence sufficient.
+
+**conv-26#q0009 — “When did Caroline meet up with her friends, family, and mentors?”**
+
+Gold Evidence says “Here's a pic from when we met up last week!”; its timestamp metadata is 7:55 pm on 9 June 2023. The model answered “Last week.” in all three modes. All three were marked incorrect even though the same Gold Evidence was directly supplied in Oracle Context and the sufficiency gate marked it sufficient.
+
+### Interpretation and code-level concern
+
+These two examples are **not reliable evidence of F6 reasoning failures yet**. They expose a likely temporal answer-scoring/normalization problem: natural-language relative times in the evidence and prediction are treated as wrong when compared with the benchmark reference, despite the sufficiency judge independently accepting the evidence as temporally supportive.
+
+There is also a concrete anchor-path inconsistency to investigate. `_context_anchor_date` only extracts dates from context metadata strings; the LoCoMo ingestion helper `_msg` forwards a timestamp only when its type is `int`. When the source timestamp is a human-readable string, the real-memory context may instead carry an ingestion-time integer, which is not parsed as a date. Oracle controls preserve the normalized timestamp string, so the three modes can receive different temporal-anchor information.
+
+The exact reference-answer strings were not included in the pasted per-question excerpt, so this log does **not** claim a confirmed single root cause (for example, ordinal-date parsing) for the Oracle score. The raw reference strings must be inspected before changing parser behavior.
+
+### Required follow-up
+
+1. Print the exact `answer` reference field and all context timestamp values for q0005/q0009 from `comparison.jsonl`.
+2. Add unit tests for `last Saturday` relative to 2023-05-25 and `last week` relative to 2023-06-09, including benchmark reference formats actually observed in the dataset.
+3. Preserve source/session dates through LoCoMo ingestion instead of silently dropping string timestamps; keep event time distinct from ingestion time.
+4. Re-run the existing 10 records after scorer/anchor fixes and compare answer correctness and attribution labels across Real Memory, Oracle Memory, and Oracle Context.
+5. Until these checks pass, report these two cases as **temporal-scoring / anchor-path audit cases**, not confirmed F6 failures.
+
+### Scope limitation
+
+This is a two-example debugging observation from a 10-record pilot, not a benchmark-level performance claim. The n=10 aggregate should be re-computed after the evaluation protocol is corrected.
+
+## 2026-10-17 — Implement timestamp preservation and temporal scorer regression coverage
+
+### Code changes committed
+
+- `experiments/run_oracle_experiments.py` (`d204fcf`): added `_timestamp_ms` to normalize integer epoch seconds, epoch milliseconds, ISO datetimes, and LoCoMo human-readable timestamps such as `1:56 pm on 8 May, 2023`. `_msg` now checks message timestamp, session date-time, and date rather than discarding all non-integer timestamp strings. Parsed naive benchmark dates are treated as UTC to avoid machine-local timezone drift.
+- `evaluation/answer_generation.py` (`a128cbd`, `a566d82`): `_context_anchor_date` now understands MemoryEngine Unix timestamps as well as human-readable timestamps; numeric epoch conversion is explicitly UTC. Explicit date parsing now accepts ordinal day suffixes (e.g. `May 20th, 2023`).
+- `tests/test_answer_generation.py` (`2c46c99`): added regression tests for “Last Saturday” relative to 2023-05-25, “Last week” relative to 2023-06-09, ordinal date references, and epoch-millisecond context anchors.
+- `tests/test_oracle_timestamp_normalization.py` (`90f4542`): added tests for LoCoMo-style timestamp normalization, ISO datetime and epoch seconds, and conservative handling of unrecognized strings.
+
+### Why this is needed
+
+The previous ingestion helper only passed through integer timestamps. LoCoMo session/message timestamps are often readable strings, so the real-memory path could silently replace benchmark event time with the engine's current ingestion time. The scorer, meanwhile, only extracted dates from readable strings and did not recognize epoch-millisecond timestamps emitted by the engine. These mismatched timestamp representations made relative-time scoring vulnerable to losing the benchmark date anchor.
+
+### Validation status and next action
+
+The regression tests have been added to the repository, but they have **not yet been executed in the user's local Windows environment** from this GitHub-only workflow. Do not describe the fix as test-passing until the user runs:
+
+```powershell
+G:\aconda\python.exe -m pytest -q tests\test_answer_generation.py tests\test_oracle_timestamp_normalization.py
+```
+
+Then rerun the n=10 pilot and inspect q0005/q0009 exact reference answers and their new `temporal_anchor_date`, `temporal_equivalent`, `correct`, and `answer_failure_type` fields. If they remain wrong in Oracle Context, inspect the exact reference string and relative-week convention before expanding the parser further.
+
+### Research interpretation
+
+This is a targeted correctness fix for timestamp normalization and known date formats, not evidence that all temporal scoring issues are solved. The n=10 aggregate and F6 counts remain provisional until the tests and rerun confirm behavior.
+
+### Follow-up source-path audit: session-level dates were also being dropped
+
+A second inspection found a more specific loss point: `datasets.adapters._locomo_sessions` attaches a session date to the normalized session, but the experiment runner's `_sessions()` previously retained only `session_id` and `messages`. When a LoCoMo message did not have its own timestamp, the runner therefore discarded the session date before `_msg()` could normalize it.
+
+- `experiments/run_oracle_experiments.py` (`8db4df6`): `_sessions()` now retains session-level date/timestamp metadata, and ingestion uses it as the message timestamp only when the message has no timestamp of its own.
+- `tests/test_oracle_timestamp_normalization.py` (`ce36d52`): added coverage that normalized session dates are retained.
+
+This strengthens the timestamp-path diagnosis: the bug was not only “string timestamps are rejected”; session-level dates could be lost before timestamp normalization even ran. The actual timestamp is now propagated from the session to messages and normalized to Unix milliseconds, while explicit message timestamps take precedence.
+
+Validation is still pending in the local Windows environment. Run:
+
+```powershell
+G:\aconda\python.exe -m pytest -q tests\test_answer_generation.py tests\test_oracle_timestamp_normalization.py
+```
+
+Then rerun the n=10 experiment and inspect the exact reference answers and score fields for q0005/q0009. Do not update aggregate claims until those outputs are checked.
+
+
+
+## 2026-10-17 — Local regression tests pass after timestamp fixes
+
+The user synchronized the timestamp-normalization changes and ran the targeted Windows test command:
+
+```powershell
+G:\\aconda\\python.exe -m pytest -q tests\\test_answer_generation.py tests\\test_oracle_timestamp_normalization.py
+```
+
+Observed result: **16 passed in 0.79s**.
+
+This validates the targeted unit-test cases for temporal answer scoring, epoch timestamp anchors, timestamp normalization, and session-level date propagation. It does **not** yet establish that the real LoCoMo n=10 rerun has corrected q0005/q0009 or changed the aggregate answer metrics. The next validation gate is to back up the existing `results/oracle_experiments`, rerun `locomo_refined_public --limit 10`, and inspect the exact reference answer, temporal anchor, `temporal_equivalent`, `correct`, and `answer_failure_type` fields for q0005 and q0009. Treat aggregate accuracy and F6 counts as provisional until that end-to-end check is complete.

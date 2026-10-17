@@ -7,7 +7,7 @@ import re
 import urllib.error
 import urllib.request
 from calendar import monthrange
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
 from evaluation.answer_metrics import exact_match, token_f1
@@ -21,8 +21,8 @@ F1_THRESHOLD = float(os.getenv("ANSWER_F1_THRESHOLD", "0.5"))
 
 
 _DATE_PATTERNS = (
-    re.compile(r"\b(?P<day>\d{1,2})\s+(?P<month>January|February|March|April|May|June|July|August|September|October|November|December),?\s+(?P<year>\d{4})\b", re.I),
-    re.compile(r"\b(?P<month>January|February|March|April|May|June|July|August|September|October|November|December)\s+(?P<day>\d{1,2}),?\s+(?P<year>\d{4})\b", re.I),
+    re.compile(r"\b(?P<day>\d{1,2})(?:st|nd|rd|th)?\s+(?P<month>January|February|March|April|May|June|July|August|September|October|November|December),?\s+(?P<year>\d{4})\b", re.I),
+    re.compile(r"\b(?P<month>January|February|March|April|May|June|July|August|September|October|November|December)\s+(?P<day>\d{1,2})(?:st|nd|rd|th)?,?\s+(?P<year>\d{4})\b", re.I),
     re.compile(r"\b(?P<year>\d{4})[-/]\s*(?P<month>\d{1,2})[-/]\s*(?P<day>\d{1,2})\b"),
 )
 _MONTH_YEAR_PATTERN = re.compile(
@@ -46,7 +46,8 @@ def _extract_date(text: str) -> date | None:
             month = groups["month"]
             if not month.isdigit():
                 month = datetime.strptime(month[:3], "%b").month
-            return date(int(groups["year"]), int(month), int(groups["day"]))
+            day = re.sub(r"(st|nd|rd|th)$", "", groups["day"], flags=re.I)
+            return date(int(groups["year"]), int(month), int(day))
         except (TypeError, ValueError):
             continue
     return None
@@ -121,10 +122,24 @@ def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None
 
 
 def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
-    """Find a benchmark/event date from context without inventing one."""
+    """Find a benchmark/event date from context without inventing one.
+
+    MemoryEngine stores timestamps as Unix milliseconds. Benchmark adapters may
+    instead provide human-readable timestamp strings, so accept both forms.
+    """
     for item in context:
         for key in ("timestamp", "event_timestamp", "date_time", "datetime"):
-            anchor = _extract_date(str(item.get(key) or ""))
+            value = item.get(key)
+            if isinstance(value, bool) or value is None:
+                continue
+            if isinstance(value, (int, float)):
+                # The memory engine uses milliseconds; also tolerate epoch seconds.
+                seconds = float(value) / 1000 if abs(float(value)) >= 100_000_000_000 else float(value)
+                try:
+                    return datetime.fromtimestamp(seconds, tz=timezone.utc).date()
+                except (OverflowError, OSError, ValueError):
+                    continue
+            anchor = _extract_date(str(value))
             if anchor:
                 return anchor
     return None

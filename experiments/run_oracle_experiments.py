@@ -6,6 +6,7 @@ import json
 import time
 import traceback
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -17,6 +18,7 @@ from memory_engine.engine import MemoryEngine
 from memory_engine.models import AddMessage, AddRequest, SearchRequest
 from tracing.dataset_trace import record_to_trace
 from tracing.engine_trace import artifacts_from_store, retrieval_artifacts, stage_match
+from tracing.lifecycle import match_evidence
 from tracing.failure_attribution import attribute_failure
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,20 +36,61 @@ def _sessions(record: dict[str, Any]) -> list[dict[str, Any]]:
         if isinstance(session, dict):
             sid = str(session.get("session_id") or session.get("id") or f"session_{i}")
             messages = session.get("messages") or session.get("turns") or []
+            session_date = session.get("date") or session.get("timestamp") or session.get("date_time")
         else:
             sid, messages = f"session_{i}", session
+            session_date = None
         if isinstance(messages, dict):
             messages = [messages]
-        result.append({"session_id": sid, "messages": list(messages or [])})
+        result.append({"session_id": sid, "date": session_date, "messages": list(messages or [])})
     return result
+
+
+def _timestamp_ms(value: Any) -> int | None:
+    """Normalize benchmark timestamps to the engine's Unix-millisecond format."""
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        # Engine timestamps are milliseconds; tolerate epoch seconds in external data.
+        return value * 1000 if 0 < value < 100_000_000_000 else value
+    if not isinstance(value, str) or not value.strip():
+        return None
+
+    raw = value.strip()
+    formats = (
+        "%I:%M %p on %d %B, %Y",
+        "%I:%M %p on %d %b, %Y",
+        "%I:%M %p on %B %d, %Y",
+        "%I:%M %p on %b %d, %Y",
+        "%d %B, %Y",
+        "%d %b, %Y",
+        "%B %d, %Y",
+        "%b %d, %Y",
+        "%Y-%m-%d",
+    )
+    parsed = None
+    for fmt in formats:
+        try:
+            parsed = datetime.strptime(raw, fmt)
+            break
+        except ValueError:
+            continue
+    if parsed is None:
+        try:
+            parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        except ValueError:
+            return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return int(parsed.timestamp() * 1000)
 
 
 def _msg(m: Any) -> tuple[str, str, int | None]:
     if isinstance(m, dict):
         role = str(m.get("role") or m.get("speaker") or "user")
         text = str(m.get("content") or m.get("text") or m.get("message") or "")
-        ts = m.get("timestamp")
-        return role, text, ts if isinstance(ts, int) else None
+        ts = _timestamp_ms(m.get("timestamp") or m.get("session_date_time") or m.get("date"))
+        return role, text, ts
     return "user", str(m), None
 
 
@@ -100,6 +143,10 @@ def _real_engine(record: dict[str, Any], idx: int) -> tuple[MemoryEngine, str]:
     for session in sessions:
         messages = []
         for raw in session["messages"]:
+            # LoCoMo often stores the event date on the session rather than on each message.
+            if isinstance(raw, dict) and not (raw.get("timestamp") or raw.get("session_date_time") or raw.get("date")):
+                raw = dict(raw)
+                raw["timestamp"] = session.get("date")
             role, text, ts = _msg(raw)
             if text:
                 messages.append(AddMessage(role=role, content=text, timestamp=ts))
@@ -115,18 +162,49 @@ def _real_engine(record: dict[str, Any], idx: int) -> tuple[MemoryEngine, str]:
     return engine, user_id
 
 
+def _content_match(evidence: dict[str, Any], artifacts: list[dict[str, Any]]) -> dict[str, Any]:
+    """Match evidence by content only, ignoring provenance for diagnostic classification."""
+    content_only = dict(evidence)
+    for key in ("source_id", "source", "turn_id", "source_turn_id", "source_raw_id", "raw_id"):
+        content_only.pop(key, None)
+    result = match_evidence([content_only], artifacts)
+    evidence_id = str(content_only.get("evidence_id") or "")
+    return {
+        "matched": evidence_id in result["found"],
+        "match_type": result.get("match_types", {}).get(evidence_id),
+        "match_score": result.get("match_scores", {}).get(evidence_id, 0.0),
+        "artifact": result.get("matches", {}).get(evidence_id),
+    }
+
+
 def _formation_diagnostics(gold: list[dict[str, Any]], stored: dict[str, list[dict[str, Any]]]) -> list[dict[str, Any]]:
+    """Diagnose target-evidence formation using turn provenance and content.
+
+    A memory elsewhere in the session is not sufficient evidence of a
+    representation mismatch: its content must match the gold evidence.
+    """
     semantic = stored["facts"] + stored["relations"] + stored["events"] + stored["rules"] + stored["profiles"]
     raw = stored["raw"]
     diagnostics = []
     for evidence in gold:
         source_id = str(evidence.get("source_id") or evidence.get("source") or "")
         turn_id = str(evidence.get("turn_id") or evidence.get("turn") or "")
-        raw_matches = [
-            item for item in raw
-            if (turn_id and str(item.get("source_turn_id") or item.get("turn_id") or "") == turn_id)
-            or (source_id and str(item.get("source_id") or item.get("session_id") or "") == source_id)
-        ]
+
+        # If the benchmark supplies a turn id, require that exact turn.
+        # Never fall back to another message from the same session.
+        if turn_id:
+            raw_matches = [
+                item for item in raw
+                if str(item.get("source_turn_id") or item.get("turn_id") or "") == turn_id
+            ]
+        elif source_id:
+            raw_matches = [
+                item for item in raw
+                if str(item.get("source_id") or item.get("session_id") or "") == source_id
+            ]
+        else:
+            raw_matches = []
+
         turn_semantic = [
             item for item in semantic
             if turn_id and str(item.get("source_turn_id") or item.get("turn_id") or "") == turn_id
@@ -135,14 +213,22 @@ def _formation_diagnostics(gold: list[dict[str, Any]], stored: dict[str, list[di
             item for item in semantic
             if source_id and str(item.get("source_session_id") or item.get("source_id") or item.get("session_id") or "") == source_id
         ]
+
+        turn_content_match = _content_match(evidence, turn_semantic)
+        session_content_match = _content_match(evidence, session_semantic)
+
         if not raw_matches:
             classification = "F1d_UNKNOWN"
-        elif turn_semantic:
+        elif turn_content_match["matched"]:
             classification = "FORMATION_OK"
-        elif session_semantic:
+        elif session_content_match["matched"]:
+            # The target content exists in this session, but not at its source turn.
             classification = "F1c_REPRESENTATION_MISMATCH"
         else:
+            # Unrelated semantic memories in the same session do not prove a
+            # representation mismatch; treat this as a candidate extractor miss.
             classification = "F1a_EXTRACTOR_MISS"
+
         diagnostics.append({
             "gold_evidence_id": evidence.get("evidence_id"),
             "source_session_id": source_id or None,
@@ -153,6 +239,18 @@ def _formation_diagnostics(gold: list[dict[str, Any]], stored: dict[str, list[di
             "semantic_memory_count_same_session": len(session_semantic),
             "semantic_memory_ids_same_turn": [str(x.get("id")) for x in turn_semantic if x.get("id")],
             "semantic_memory_types_same_turn": [str(x.get("memory_type") or "") for x in turn_semantic],
+            "semantic_memory_match_same_turn": {
+                "matched": turn_content_match["matched"],
+                "match_type": turn_content_match["match_type"],
+                "match_score": turn_content_match["match_score"],
+                "memory_id": (turn_content_match["artifact"] or {}).get("id"),
+            },
+            "semantic_memory_match_same_session": {
+                "matched": session_content_match["matched"],
+                "match_type": session_content_match["match_type"],
+                "match_score": session_content_match["match_score"],
+                "memory_id": (session_content_match["artifact"] or {}).get("id"),
+            },
             "semantic_memory_candidates_same_session": [
                 {
                     "id": str(x.get("id")) if x.get("id") else None,
@@ -165,7 +263,6 @@ def _formation_diagnostics(gold: list[dict[str, Any]], stored: dict[str, list[di
             "classification": classification,
         })
     return diagnostics
-
 
 def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEngine, user_id: str, real: list[dict[str, Any]], search_trace: dict[str, Any]) -> None:
     stored = artifacts_from_store(engine, user_id)
