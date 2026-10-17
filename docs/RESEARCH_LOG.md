@@ -595,3 +595,52 @@ Do not modify the memory extractor yet. First perform the planned LoCoMo n=50 fo
 
 Only after this diagnostic gate is stable should extractor improvements be evaluated as an intervention.
 
+## 2026-10-17 — LoCoMo n=10 rerun after stable turn-provenance fix
+
+### Run configuration
+
+- Dataset: `locomo_refined_public`
+- Command: `G:\\aconda\\python.exe -u -m experiments.run_oracle_experiments --dataset locomo_refined_public --limit 10`
+- Samples: 10; completed records: 10; runtime errors: 0
+- Local code revision tested: `89c085a` (`Fix stable LoCoMo session turn provenance`); this revision was present locally when the run was executed.
+
+### Lifecycle evidence recall
+
+| Stage | Real Memory | Oracle Memory | Oracle Context |
+|---|---:|---:|---:|
+| Formation | 1.00 | 1.00 | 0.00* |
+| Storage | 1.00 | 1.00 | 0.00* |
+| Evolution | 1.00 | 1.00 | 0.00* |
+| Retrieval | 0.75 | 1.00 | 0.00* |
+| Rerank | 0.55 | 1.00 | 0.00* |
+| Context | 0.30 | 1.00 | 1.00* |
+
+\* Oracle Context is a direct-context control, so upstream lifecycle stage recalls are not applicable; the report serializes them as zero. Its Context recall is 1.00.
+
+Real Memory first-loss distribution: none=3, retrieval=3, rerank=2, context=2. Oracle Memory: none=10. Oracle Context: not_applicable=10.
+
+### Answer results
+
+| Mode | Accuracy | Exact Match | Token F1 |
+|---|---:|---:|---:|
+| Real Memory | 0.00 | 0.00 | 0.0000 |
+| Oracle Memory | 0.50 | 0.10 | 0.2222 |
+| Oracle Context | 0.50 | 0.10 | 0.2222 |
+
+The evidence-sufficiency gate classified 8/10 samples as `E0_EVIDENCE_INSUFFICIENCY` and 2/10 as sufficient. First answer-failure labels were E0=8 and F6_REASONING=2. The run completed without model errors.
+
+### Interpretation and limitations
+
+This is a small n=10 diagnostic run, not a population-level benchmark result. The stable session-level source prefix and engine turn indexing now pass the focused provenance regression tests (12 tests passed across the three targeted test modules), but this run alone does not establish that every Gold Evidence mapping is correct.
+
+The observed Real Memory evidence recall falls from 1.00 through Formation/Storage/Evolution to 0.75 at Retrieval, 0.55 at Rerank, and 0.30 at Context. This points to downstream retrieval, reranking, and context selection as measurable loss boundaries in this sample. However, the answer-level gate labels eight questions E0 because Gold Evidence is judged insufficient for the reference answer; those cases must not be interpreted as memory-lifecycle failures or used to support F1–F6 attribution without case-level adjudication.
+
+The two F6 cases (`conv-26#q0005` and `conv-26#q0009`) are the most useful initial reasoning-control cases because the current protocol reports sufficient evidence and complete Gold Evidence delivery to context. Inspect their questions, Gold Evidence, final context, generated answers, references, and scoring details before making any reasoning claim. Also inspect an E0 case such as `conv-26#q0000` to verify that the evidence-sufficiency gate is correct.
+
+### Next actions
+
+1. Audit the per-question artifacts for `conv-26#q0000`, `conv-26#q0005`, and `conv-26#q0009`.
+2. Manually adjudicate a sample of E0 cases against the exact question and reference answer; record whether each is a genuine evidence/question mismatch or an evaluator false negative.
+3. Keep this n=10 result as a diagnostic/negative result. Do not claim generalization or tune the extractor from this run alone.
+4. After the gate and provenance checks are stable, run the broader evaluation and compare per-stage recall and answer metrics using the same protocol.
+
