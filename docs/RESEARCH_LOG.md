@@ -644,3 +644,16 @@ The two F6 cases (`conv-26#q0005` and `conv-26#q0009`) are the most useful initi
 3. Keep this n=10 result as a diagnostic/negative result. Do not claim generalization or tune the extractor from this run alone.
 4. After the gate and provenance checks are stable, run the broader evaluation and compare per-stage recall and answer metrics using the same protocol.
 
+### 2026-10-17 — Case audit: E0 gate contradiction in conv-26#q0000
+
+Inspected the full `comparison.jsonl` record for `conv-26#q0000` (question: “When did Caroline go to the LGBTQ support group?”). Gold Evidence is the turn text: “I went to a LGBTQ support group yesterday and it was so powerful.” The same evidence is found by Real Memory at Formation, Storage, Evolution, Retrieval, Rerank, and final Context; the provenance points to `D1:turn_2`. Real Memory and both oracle controls answer “Yesterday.”; the oracle answer scorer marks both oracle answers correct (with temporal equivalence anchored to 2023-05-08), yet the evidence-sufficiency judge labels the evidence insufficient and claims it says nothing about the event/date. That rationale directly contradicts the evidence text. This case is therefore a strong candidate for an E0-gate false negative / evaluator inconsistency, not a demonstrated memory-formation or retrieval failure. Reconcile the timestamp/date anchor carefully before converting “yesterday” into a calendar date.
+
+A partial audit of `conv-26#q0005` (“When did Melanie run a charity race?”) shows the event text “I ran a charity race for mental health last Saturday...” is present in final Context and the model answers “Last Saturday.” The current record labels it F6, but the answer is a plausible direct extraction of the context. The pasted record also references “The Saturday before 25 May 2023” / May 20, 2023 in the sufficiency rationale, so the exact reference answer, remaining scoring fields, and temporal normalization must be inspected before accepting F6. Treat this as an unresolved potential scoring/temporal-normalization issue, not a confirmed reasoning failure.
+
+#### Updated interpretation and next steps
+
+- The n=10 aggregate's eight E0 labels cannot be taken at face value until sampled cases are manually audited; at least `conv-26#q0000` shows an explicit evidence-vs-judge contradiction.
+- Keep evidence-sufficiency adjudication separate from lifecycle stage recall. A case can have complete retrieval/context evidence and still be misclassified by the answerability gate.
+- For temporal questions, audit question, exact reference answer, source turn timestamp/date anchor, model output, temporal-equivalence rule, and gate rationale together. Do not infer a reasoning failure solely from token F1 or a failed temporal rule.
+- The `conv-26#q0005` classification remains provisional until its full record and reference answer are checked; `conv-26#q0009` also remains unaudited in this pass.
+- This is case-level diagnostic evidence only; do not generalize from n=10 or change the memory extractor based on these cases alone.
