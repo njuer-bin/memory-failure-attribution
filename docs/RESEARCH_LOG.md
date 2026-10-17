@@ -657,3 +657,22 @@ A partial audit of `conv-26#q0005` (“When did Melanie run a charity race?”) 
 - For temporal questions, audit question, exact reference answer, source turn timestamp/date anchor, model output, temporal-equivalence rule, and gate rationale together. Do not infer a reasoning failure solely from token F1 or a failed temporal rule.
 - The `conv-26#q0005` classification remains provisional until its full record and reference answer are checked; `conv-26#q0009` also remains unaudited in this pass.
 - This is case-level diagnostic evidence only; do not generalize from n=10 or change the memory extractor based on these cases alone.
+
+### 2026-10-17 — Follow-up audit: F6 labels confounded by temporal scoring
+
+Inspected the targeted-field output for `conv-26#q0005` and `conv-26#q0009`.
+
+- **q0005** asks “When did Melanie run a charity race?” Gold evidence at `D2:turn_0`, timestamped 1:14 pm on 25 May 2023, says “I ran a charity race for mental health last Saturday”. Real Memory, Oracle Memory, and Oracle Context all answer “Last Saturday.” The current scorer reports token F1 0.0 and `temporal_equivalent=false` for all modes; Oracle Memory/Context use anchor date `2023-05-25`. The sufficiency judge's rationale says the reference is supported by “The Saturday before 25 May 2023”, equivalent to May 20, 2023. This strongly suggests the scorer fails to align a correct relative-time phrase with the reference's normalized date (or otherwise mishandles this reference), so F6 is not currently a trustworthy reasoning attribution.
+- **q0009** asks “When did Caroline meet up with her friends, family, and mentors?” Gold evidence at `D3:turn_10`, timestamped 7:55 pm on 9 June 2023, says “Here's a pic from when we met up last week”. All three modes answer “Last week.”; all have token F1 0.0 and `temporal_equivalent=false`, despite Oracle Memory/Context containing the gold evidence. The evidence-sufficiency judge calls the evidence sufficient. This is a second concrete warning that temporal answer evaluation can mark a directly supported relative phrase wrong.
+- **q0000** remains a separate E0-gate contradiction: its evidence explicitly says “I went to a LGBTQ support group yesterday”, while the sufficiency judge claims the evidence says nothing about the event/date; Oracle scoring treats “Yesterday.” as temporally equivalent/correct.
+
+#### Updated conclusion
+
+The observed F6 cases cannot yet be interpreted as confirmed reasoning failures. For q0005 and q0009, answer strings match the relative-time expressions in the evidence, but the temporal-equivalence rule fails and token F1 is zero. Because the oracle controls are also marked wrong, these results point to a potential evaluation/scoring confound rather than a failure unique to the real memory pipeline. The n=10 answer accuracy and F6 counts should be treated as provisional until this is resolved.
+
+#### Next actions
+
+1. Inspect the dataset's exact reference answers for q0005 and q0009 and the implementation of `token_f1_plus_temporal_phrase_rules`; identify why relative phrases are not recognized against the references.
+2. Add unit tests for `yesterday`, `last Saturday` (anchor 2023-05-25 -> 2023-05-20), and `last week` (anchor 2023-06-09), including the benchmark's actual reference-answer format. Be explicit about locale and week-boundary conventions.
+3. Keep answer correctness, evidence sufficiency, and lifecycle stage recall as separate measurements. Do not relabel F6 or report corrected aggregate accuracy until scoring behavior is validated against reference answers.
+4. Review the other n=10 cases, especially all E0 labels, with the same evidence-vs-judge consistency check. These observations are case-level diagnostics, not population-level proof.
