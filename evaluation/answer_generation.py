@@ -7,7 +7,7 @@ import re
 import urllib.error
 import urllib.request
 from calendar import monthrange
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
 from evaluation.answer_metrics import exact_match, token_f1
@@ -136,7 +136,7 @@ def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
                 # The memory engine uses milliseconds; also tolerate epoch seconds.
                 seconds = float(value) / 1000 if abs(float(value)) >= 100_000_000_000 else float(value)
                 try:
-                    return datetime.fromtimestamp(seconds).date()
+                    return datetime.fromtimestamp(seconds, tz=timezone.utc).date()
                 except (OverflowError, OSError, ValueError):
                     continue
             anchor = _extract_date(str(value))
