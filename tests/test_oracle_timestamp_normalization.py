@@ -26,3 +26,17 @@ def test_timestamp_normalizer_accepts_iso_datetime_and_epoch_seconds():
 
 def test_unrecognized_timestamp_is_not_fabricated():
     assert _timestamp_ms("not a date") is None
+
+
+def test_session_level_date_is_preserved_for_message_timestamp_fallback():
+    from experiments.run_oracle_experiments import _sessions
+
+    sessions = _sessions({
+        "conversation": [{
+            "session_id": "D2",
+            "date": "1:14 pm on 25 May, 2023",
+            "messages": [{"speaker": "Melanie", "text": "I ran a charity race last Saturday."}],
+        }]
+    })
+
+    assert sessions[0]["date"] == "1:14 pm on 25 May, 2023"
