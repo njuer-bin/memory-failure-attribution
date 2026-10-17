@@ -717,3 +717,30 @@ The exact reference-answer strings were not included in the pasted per-question 
 
 This is a two-example debugging observation from a 10-record pilot, not a benchmark-level performance claim. The n=10 aggregate should be re-computed after the evaluation protocol is corrected.
 
+## 2026-10-17 — Implement timestamp preservation and temporal scorer regression coverage
+
+### Code changes committed
+
+- `experiments/run_oracle_experiments.py` (`d204fcf`): added `_timestamp_ms` to normalize integer epoch seconds, epoch milliseconds, ISO datetimes, and LoCoMo human-readable timestamps such as `1:56 pm on 8 May, 2023`. `_msg` now checks message timestamp, session date-time, and date rather than discarding all non-integer timestamp strings. Parsed naive benchmark dates are treated as UTC to avoid machine-local timezone drift.
+- `evaluation/answer_generation.py` (`a128cbd`, `a566d82`): `_context_anchor_date` now understands MemoryEngine Unix timestamps as well as human-readable timestamps; numeric epoch conversion is explicitly UTC. Explicit date parsing now accepts ordinal day suffixes (e.g. `May 20th, 2023`).
+- `tests/test_answer_generation.py` (`2c46c99`): added regression tests for “Last Saturday” relative to 2023-05-25, “Last week” relative to 2023-06-09, ordinal date references, and epoch-millisecond context anchors.
+- `tests/test_oracle_timestamp_normalization.py` (`90f4542`): added tests for LoCoMo-style timestamp normalization, ISO datetime and epoch seconds, and conservative handling of unrecognized strings.
+
+### Why this is needed
+
+The previous ingestion helper only passed through integer timestamps. LoCoMo session/message timestamps are often readable strings, so the real-memory path could silently replace benchmark event time with the engine's current ingestion time. The scorer, meanwhile, only extracted dates from readable strings and did not recognize epoch-millisecond timestamps emitted by the engine. These mismatched timestamp representations made relative-time scoring vulnerable to losing the benchmark date anchor.
+
+### Validation status and next action
+
+The regression tests have been added to the repository, but they have **not yet been executed in the user's local Windows environment** from this GitHub-only workflow. Do not describe the fix as test-passing until the user runs:
+
+```powershell
+G:\aconda\python.exe -m pytest -q tests\test_answer_generation.py tests\test_oracle_timestamp_normalization.py
+```
+
+Then rerun the n=10 pilot and inspect q0005/q0009 exact reference answers and their new `temporal_anchor_date`, `temporal_equivalent`, `correct`, and `answer_failure_type` fields. If they remain wrong in Oracle Context, inspect the exact reference string and relative-week convention before expanding the parser further.
+
+### Research interpretation
+
+This is a targeted correctness fix for timestamp normalization and known date formats, not evidence that all temporal scoring issues are solved. The n=10 aggregate and F6 counts remain provisional until the tests and rerun confirm behavior.
+
