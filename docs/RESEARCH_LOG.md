@@ -744,3 +744,20 @@ Then rerun the n=10 pilot and inspect q0005/q0009 exact reference answers and th
 
 This is a targeted correctness fix for timestamp normalization and known date formats, not evidence that all temporal scoring issues are solved. The n=10 aggregate and F6 counts remain provisional until the tests and rerun confirm behavior.
 
+### Follow-up source-path audit: session-level dates were also being dropped
+
+A second inspection found a more specific loss point: `datasets.adapters._locomo_sessions` attaches a session date to the normalized session, but the experiment runner's `_sessions()` previously retained only `session_id` and `messages`. When a LoCoMo message did not have its own timestamp, the runner therefore discarded the session date before `_msg()` could normalize it.
+
+- `experiments/run_oracle_experiments.py` (`8db4df6`): `_sessions()` now retains session-level date/timestamp metadata, and ingestion uses it as the message timestamp only when the message has no timestamp of its own.
+- `tests/test_oracle_timestamp_normalization.py` (`ce36d52`): added coverage that normalized session dates are retained.
+
+This strengthens the timestamp-path diagnosis: the bug was not only “string timestamps are rejected”; session-level dates could be lost before timestamp normalization even ran. The actual timestamp is now propagated from the session to messages and normalized to Unix milliseconds, while explicit message timestamps take precedence.
+
+Validation is still pending in the local Windows environment. Run:
+
+```powershell
+G:\aconda\python.exe -m pytest -q tests\test_answer_generation.py tests\test_oracle_timestamp_normalization.py
+```
+
+Then rerun the n=10 experiment and inspect the exact reference answers and score fields for q0005/q0009. Do not update aggregate claims until those outputs are checked.
+
