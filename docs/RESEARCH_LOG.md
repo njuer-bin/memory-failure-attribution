@@ -761,3 +761,16 @@ G:\aconda\python.exe -m pytest -q tests\test_answer_generation.py tests\test_ora
 
 Then rerun the n=10 experiment and inspect the exact reference answers and score fields for q0005/q0009. Do not update aggregate claims until those outputs are checked.
 
+
+
+## 2026-10-17 — Local regression tests pass after timestamp fixes
+
+The user synchronized the timestamp-normalization changes and ran the targeted Windows test command:
+
+```powershell
+G:\\aconda\\python.exe -m pytest -q tests\\test_answer_generation.py tests\\test_oracle_timestamp_normalization.py
+```
+
+Observed result: **16 passed in 0.79s**.
+
+This validates the targeted unit-test cases for temporal answer scoring, epoch timestamp anchors, timestamp normalization, and session-level date propagation. It does **not** yet establish that the real LoCoMo n=10 rerun has corrected q0005/q0009 or changed the aggregate answer metrics. The next validation gate is to back up the existing `results/oracle_experiments`, rerun `locomo_refined_public --limit 10`, and inspect the exact reference answer, temporal anchor, `temporal_equivalent`, `correct`, and `answer_failure_type` fields for q0005 and q0009. Treat aggregate accuracy and F6 counts as provisional until that end-to-end check is complete.
