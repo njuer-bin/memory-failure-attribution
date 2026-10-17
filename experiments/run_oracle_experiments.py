@@ -6,6 +6,7 @@ import json
 import time
 import traceback
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -43,12 +44,51 @@ def _sessions(record: dict[str, Any]) -> list[dict[str, Any]]:
     return result
 
 
+def _timestamp_ms(value: Any) -> int | None:
+    """Normalize benchmark timestamps to the engine's Unix-millisecond format."""
+    if isinstance(value, bool):
+        return None
+    if isinstance(value, int):
+        # Engine timestamps are milliseconds; tolerate epoch seconds in external data.
+        return value * 1000 if 0 < value < 100_000_000_000 else value
+    if not isinstance(value, str) or not value.strip():
+        return None
+
+    raw = value.strip()
+    formats = (
+        "%I:%M %p on %d %B, %Y",
+        "%I:%M %p on %d %b, %Y",
+        "%I:%M %p on %B %d, %Y",
+        "%I:%M %p on %b %d, %Y",
+        "%d %B, %Y",
+        "%d %b, %Y",
+        "%B %d, %Y",
+        "%b %d, %Y",
+        "%Y-%m-%d",
+    )
+    parsed = None
+    for fmt in formats:
+        try:
+            parsed = datetime.strptime(raw, fmt)
+            break
+        except ValueError:
+            continue
+    if parsed is None:
+        try:
+            parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        except ValueError:
+            return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return int(parsed.timestamp() * 1000)
+
+
 def _msg(m: Any) -> tuple[str, str, int | None]:
     if isinstance(m, dict):
         role = str(m.get("role") or m.get("speaker") or "user")
         text = str(m.get("content") or m.get("text") or m.get("message") or "")
-        ts = m.get("timestamp")
-        return role, text, ts if isinstance(ts, int) else None
+        ts = _timestamp_ms(m.get("timestamp") or m.get("session_date_time") or m.get("date"))
+        return role, text, ts
     return "user", str(m), None
 
 
