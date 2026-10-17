@@ -111,6 +111,24 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
         messages = session.get("messages") or session.get("turns") or []
         if isinstance(messages, dict):
             messages = [messages]
+        # Keep one stable source prefix for every ingested turn in this session.
+        # LoCoMo dia_ids may vary per message (D1:1, D1:2, ...) or be plain
+        # ids (D1, D3, ...); derive the session prefix from the first non-empty
+        # message's dia_id, and fall back to the container session id when absent.
+        nonempty_messages = [
+            message for message in (messages if isinstance(messages, list) else [])
+            if _message_text(message).strip()
+        ]
+        first_dia_id = next(
+            (
+                str(message.get("dia_id") or "").strip()
+                for message in nonempty_messages
+                if isinstance(message, dict) and str(message.get("dia_id") or "").strip()
+            ),
+            "",
+        )
+        session_source_id = _dia_session_id(first_dia_id) or container_source_id
+
         engine_turn_idx = 0
         for msg_idx, message in enumerate(messages if isinstance(messages, list) else []):
             text = _message_text(message).strip()
@@ -124,9 +142,9 @@ def _locomo_turns(conversation: Any) -> list[dict[str, Any]]:
                     or message.get("id")
                     or f"turn_{msg_idx}"
                 )
-                # The message-level dia_id is the strongest provenance source.
-                message_source_id = _dia_session_id(benchmark_turn_id)
-                source_id = message_source_id or container_source_id
+                # Keep source_id stable within a session. benchmark_turn_id
+                # preserves the message-level dia_id for exact evidence resolution.
+                source_id = session_source_id
                 role = str(message.get("role") or message.get("speaker") or "")
                 timestamp = message.get("timestamp") or message.get("session_date_time") or session_timestamp
             else:
