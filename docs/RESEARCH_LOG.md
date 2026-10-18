@@ -849,3 +849,27 @@ G:\\aconda\\python.exe -u -m experiments.run_oracle_experiments --dataset locomo
 ```
 
 Inspect q0005 and q0009 in the newly generated `comparison.jsonl` for `temporal_anchor_date`, `temporal_equivalent`, `correct`, and `answer_failure_type`. Confirm whether their temporal answers now score as correct, then recompute aggregate metrics and attribution counts. Keep end-to-end conclusions provisional until those outputs are inspected.
+
+## 2026-10-18 — Evidence-sufficiency gate schema mismatch found and fixed
+
+### Root cause from source inspection
+
+The normalized benchmark adapter and trace layer represent Gold Evidence with a `text` field (`EvidenceItem.text` in `tracing/dataset_trace.py`). However, `evaluation/answer_semantic_eval.py` read only `item["content"]` in all three places used to render evidence for the LLM judge, find lexical anchors, and detect relative-time support.
+
+The runner calls `evaluate_answer(..., gold)` with `gold = [e.__dict__ for e in trace.gold_evidence]`, so the judge received empty evidence text even though `comparison.jsonl` visibly contained non-empty Gold Evidence. This directly explains the contradictory “evidence is missing” rationales, including the q0003 record, and can systematically inflate E0 labels. It also disabled deterministic lexical/temporal safeguards for the normalized `text`-schema evidence.
+
+### Fix and regression coverage
+
+- `evaluation/answer_semantic_eval.py`: accept `content` or `text` consistently in evidence rendering, lexical-anchor matching, and relative-temporal matching.
+- `tests/test_answer_semantic_eval.py`: add regression tests for normalized `text` evidence, lexical support, relative-time support, end-to-end deterministic evaluation without a live judge, and backward compatibility with `content` evidence.
+
+### Interpretation and validation gate
+
+This is a concrete schema-integration bug, not merely an LLM judge-quality issue. It is likely to explain multiple false E0 classifications in the n=10 LoCoMo run. The committed tests have not yet been run in the user's local environment; after syncing the branch, run:
+
+```powershell
+G:\aconda\python.exe -m pytest -q tests\test_answer_semantic_eval.py tests\test_answer_generation.py tests\test_oracle_timestamp_normalization.py
+```
+
+Then rerun `locomo_refined_public --limit 10` and compare all eight former E0 cases. Do not reuse the old E0 distribution or make population-level claims until the end-to-end rerun is inspected. q0004 (identity) and q0007 (relationship status) still require semantic judgment rather than being automatically promoted based only on the current snippets.
+
