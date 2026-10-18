@@ -102,10 +102,6 @@ def _meaningful_exact_anchor(candidate: str, evidence: list[dict[str, Any]]) -> 
 
 def _deterministic_support(candidate: str, evidence: list[dict[str, Any]]) -> tuple[str, str] | None:
     """Return (kind, detail) only for strong evidence-coverage cases."""
-    anchor = _meaningful_exact_anchor(candidate, evidence)
-    if anchor:
-        return "deterministic_lexical", anchor
-
     for item in evidence:
         content = str(item.get("content") or item.get("text") or "")
         if not _RELATIVE_TEMPORAL.search(content):
@@ -116,6 +112,10 @@ def _deterministic_support(candidate: str, evidence: list[dict[str, Any]]) -> tu
             scored = score_answer(phrase, candidate, context=context)
             if scored.get("temporal_equivalent"):
                 return "deterministic_temporal", phrase
+
+    anchor = _meaningful_exact_anchor(candidate, evidence)
+    if anchor:
+        return "deterministic_lexical", anchor
     return None
 
 

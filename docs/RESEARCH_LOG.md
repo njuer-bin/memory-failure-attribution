@@ -873,3 +873,51 @@ G:\aconda\python.exe -m pytest -q tests\test_answer_semantic_eval.py tests\test_
 
 Then rerun `locomo_refined_public --limit 10` and compare all eight former E0 cases. Do not reuse the old E0 distribution or make population-level claims until the end-to-end rerun is inspected. q0004 (identity) and q0007 (relationship status) still require semantic judgment rather than being automatically promoted based only on the current snippets.
 
+
+## 2026-10-18 — End-to-end validation of the sufficiency-gate fixes (LoCoMo n=10 rerun)
+
+### Local validation
+
+Command:
+
+```powershell
+G:\aconda\python.exe -m pytest -q tests\test_answer_semantic_eval.py tests\test_answer_generation.py tests\test_oracle_timestamp_normalization.py
+```
+
+First run: 22 passed, 1 failed. The failure was `test_deterministic_support_reads_text_field`: for evidence "We're thinking about going camping next month." and candidate "Next month.", `_deterministic_support` returned `deterministic_lexical` instead of `deterministic_temporal` because the lexical-anchor check ran before the relative-temporal check and "next month" matched as a surface n-gram.
+
+Fix (uncommitted at write time): in `evaluation/answer_semantic_eval.py`, `_deterministic_support` now tries the deterministic temporal path first and only falls back to the lexical anchor. Non-temporal candidates do not satisfy `temporal_equivalent`, so the lexical branch is unchanged for them. All 23 tests then pass.
+
+### Rerun
+
+```powershell
+G:\aconda\python.exe -u -m experiments.run_oracle_experiments --dataset locomo_refined_public --limit 10
+```
+
+10/10 completed, 0 model errors. Aggregate:
+
+| Mode | correct/10 | accuracy | EM | token F1 |
+|---|---:|---:|---:|---:|
+| Real Memory | 3 | 0.30 | 0.10 | 0.10 |
+| Oracle Memory | 8 | 0.80 | 0.10 | 0.222 |
+| Oracle Context | 8 | 0.80 | 0.10 | 0.222 |
+
+Real Memory stage recall: formation 1.0, storage 1.0, evolution 1.0, retrieval 0.75, rerank 0.55, context 0.3. First-loss distribution: none 3, retrieval 3, rerank 2, context 2.
+
+### Former E0 comparison
+
+The former 8-case E0 cluster collapsed to a single E0 (conv-26#q0001). Per-question:
+
+- q0001 — E0 stands: Gold Evidence ("You'd be a great counselor!...") genuinely does not answer "When did Melanie paint a sunrise?". Same verdict under Oracle Context. This is the one legitimate E0 in the sample.
+- q0004 (identity) — now evidence-sufficient, real-memory first failure F4_RETRIEVAL; Oracle Context answer still wrong (RC_REASONING_CONTROL_FAILURE). No automatic promotion; it stayed an F-label only because the gate passed and the answer scored incorrect.
+- q0007 (relationship status) — now evidence-sufficient and scored correct; no failure label.
+- q0005 — "Last Saturday." now scores `temporal_equivalent: true` under the fixed scorer; no failure label in any mode.
+- q0009 — "Last week." likewise scores `temporal_equivalent: true`; no failure label in any mode.
+
+First answer-failure distribution: F6_REASONING 1 (q0000), E0 1 (q0001), F4_RETRIEVAL 3, F5_CONTEXT 2.
+
+### Interpretation and next gate
+
+Both targeted scorer fixes are validated end-to-end: the `text`-schema sufficiency bug is gone (E0 8→1, and the survivor is a genuine mismatch), and relative-period answers (q0005 "Last Saturday", q0009 "Last week") now score correctly instead of being marked F6/EVAL.
+
+The n=10 protocol is now consistent. Next gate per the standing plan: freeze this protocol, scale to n=50 LongMemEval samples, then inspect before larger runs and LoCoMo cross-benchmark validation. Conclusions remain sample-level (n=10), not population-level.
