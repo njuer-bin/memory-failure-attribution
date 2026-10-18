@@ -35,22 +35,35 @@ def _normalize(text: str) -> str:
     return " ".join(str(text or "").strip().lower().split())
 
 
-def _extract_date(text: str) -> date | None:
+def _date_from_match(match: re.Match[str]) -> date | None:
+    try:
+        groups = match.groupdict()
+        month = groups["month"]
+        if not month.isdigit():
+            month = datetime.strptime(month[:3], "%b").month
+        day = re.sub(r"(st|nd|rd|th)$", "", groups["day"], flags=re.I)
+        return date(int(groups["year"]), int(month), int(day))
+    except (TypeError, ValueError):
+        return None
+
+
+def _extract_dates(text: str) -> list[date]:
+    """Extract every explicit date in source order, not only the first one."""
     text = str(text or "")
+    matches: list[tuple[int, date]] = []
     for pattern in _DATE_PATTERNS:
-        match = pattern.search(text)
-        if not match:
-            continue
-        try:
-            groups = match.groupdict()
-            month = groups["month"]
-            if not month.isdigit():
-                month = datetime.strptime(month[:3], "%b").month
-            day = re.sub(r"(st|nd|rd|th)$", "", groups["day"], flags=re.I)
-            return date(int(groups["year"]), int(month), int(day))
-        except (TypeError, ValueError):
-            continue
-    return None
+        for match in pattern.finditer(text):
+            parsed = _date_from_match(match)
+            if parsed is not None:
+                matches.append((match.start(), parsed))
+    ordered = [parsed for _, parsed in sorted(matches, key=lambda item: item[0])]
+    # Different patterns can match the same date; preserve order while deduplicating.
+    return list(dict.fromkeys(ordered))
+
+
+def _extract_date(text: str) -> date | None:
+    dates = _extract_dates(text)
+    return dates[0] if dates else None
 
 
 def _extract_month_period(text: str) -> tuple[date, date] | None:
@@ -155,6 +168,23 @@ def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -
     ref_period = _temporal_period(reference, anchor)
     pred_month = _extract_month_period(prediction)
     ref_month = _extract_month_period(reference)
+    reference_dates = _extract_dates(reference)
+
+    # Benchmark references sometimes contain both a verbal date description and
+    # a normalized date (e.g. "the Saturday before 25 May 2023 / May 20, 2023").
+    if pred_relative and pred_relative in reference_dates:
+        return True
+
+    # Some references encode a relative period as an explicit interval, e.g.
+    # "the week before 9 June 2023 / From May 29, 2023 to June 4, 2023".
+    # Compare that interval with the resolved prediction period rather than the
+    # first date in the reference (which may be the anchor date).
+    lower_reference = _normalize(reference)
+    if pred_period and "from " in lower_reference and " to " in lower_reference:
+        range_text = reference[lower_reference.find("from "):]
+        range_dates = _extract_dates(range_text)
+        if len(range_dates) >= 2 and pred_period == (range_dates[0], range_dates[1]):
+            return True
 
     if pred_date and ref_relative:
         return pred_date == ref_relative
