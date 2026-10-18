@@ -805,3 +805,23 @@ If those tests pass, rerun the n=10 experiment and inspect q0005/q0009 in `compa
 ### Research caution
 
 A false-negative temporal scorer can incorrectly turn supported answers into `F6_REASONING` labels. Do not interpret these F6 counts as model-reasoning failures until the scorer is validated against multi-date and interval-form benchmark references.
+
+## 2026-10-18 — Fix missed single-day relative-period comparison
+
+### Test result and diagnosis
+
+The user ran the new targeted tests and reported **1 failed, 17 passed**. The failing test was `test_last_saturday_matches_normalized_date_in_multi_date_reference`. Inspection of `evaluation/answer_generation.py` identified a gap in the previous patch: `Last Saturday` is resolved by `_temporal_period()` as a one-day period, but the new multi-date check only compared `_relative_date()` results (today/yesterday/tomorrow) against the reference dates. Therefore, the normalized date `May 20, 2023` was extracted correctly but never compared to the resolved weekday.
+
+### Fix committed
+
+- Commit `0297242`: compare a resolved one-day relative period (such as `Last Saturday`) against every explicit date extracted from the reference. This preserves the separate interval comparison for answers such as `Last week`.
+
+### Validation status
+
+The code change is committed, but it has **not yet been run in the user's local environment**. Sync the branch and rerun:
+
+```powershell
+G:\\aconda\\python.exe -m pytest -q tests\\test_answer_generation.py tests\\test_oracle_timestamp_normalization.py
+```
+
+Only after all tests pass should the n=10 Oracle experiment be rerun. Check q0005 and q0009 in `comparison.jsonl` for `temporal_equivalent`, `correct`, and `answer_failure_type`; do not claim the end-to-end scoring issue is fixed based on the unit test alone.
