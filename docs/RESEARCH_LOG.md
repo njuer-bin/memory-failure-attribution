@@ -774,3 +774,34 @@ G:\\aconda\\python.exe -m pytest -q tests\\test_answer_generation.py tests\\test
 Observed result: **16 passed in 0.79s**.
 
 This validates the targeted unit-test cases for temporal answer scoring, epoch timestamp anchors, timestamp normalization, and session-level date propagation. It does **not** yet establish that the real LoCoMo n=10 rerun has corrected q0005/q0009 or changed the aggregate answer metrics. The next validation gate is to back up the existing `results/oracle_experiments`, rerun `locomo_refined_public --limit 10`, and inspect the exact reference answer, temporal anchor, `temporal_equivalent`, `correct`, and `answer_failure_type` fields for q0005 and q0009. Treat aggregate accuracy and F6 counts as provisional until that end-to-end check is complete.
+
+
+## 2026-10-18 — End-to-end rerun isolates multi-date reference scoring bug
+
+The user reran the LoCoMo n=10 experiment after the timestamp changes. The uploaded `comparison.jsonl` excerpt shows the timestamp anchor is now correct, but q0005 and q0009 still score as temporally incorrect:
+
+- **q0005**: prediction `Last Saturday.`; anchor `2023-05-25`; reference `The saturday before 25 May 2023 / May 20, 2023`; `temporal_equivalent=false`, `correct=false`, `answer_failure_type=F6_REASONING`.
+- **q0009**: prediction `Last week.`; anchor `2023-06-09`; reference `The week before 9 June 2023 / From May 29, 2023 to June 4, 2023`; `temporal_equivalent=false`, `correct=false`, `answer_failure_type=F6_REASONING`. The same answer is also marked incorrect in Oracle Memory and Oracle Context, even though evidence sufficiency is `sufficient`.
+
+### Diagnosis
+
+This is a scorer limitation exposed by the real rerun, not evidence that the timestamp-anchor fix failed. The scorer previously extracted only the first explicit date from a reference. For q0005 that first date is the anchor date (25 May), while the normalized answer date (20 May) occurs later. For q0009 the first date is 9 June, while the reference's explicit week interval is May 29–June 4. The old comparison logic did not inspect all reference dates or parse the explicit interval.
+
+### Follow-up code and tests committed
+
+- `evaluation/answer_generation.py` commit `5572e72`: added ordered extraction of all explicit dates; relative single-day predictions can match a normalized date anywhere in the reference; relative periods can match an explicit `From DATE to DATE` interval.
+- `tests/test_answer_generation.py` commit `727e592`: added regressions using the exact q0005 and q0009 reference strings and epoch-millisecond anchors.
+
+### Validation status
+
+These newest changes are **not yet tested locally**. After syncing the latest branch, run:
+
+```powershell
+G:\aconda\python.exe -m pytest -q tests\test_answer_generation.py tests\test_oracle_timestamp_normalization.py
+```
+
+If those tests pass, rerun the n=10 experiment and inspect q0005/q0009 in `comparison.jsonl`. The expected result for these two scorer cases is `temporal_equivalent=true` and `correct=true`; verify actual output before claiming the end-to-end issue is resolved. Recompute aggregate metrics and failure attribution only after the rerun completes cleanly.
+
+### Research caution
+
+A false-negative temporal scorer can incorrectly turn supported answers into `F6_REASONING` labels. Do not interpret these F6 counts as model-reasoning failures until the scorer is validated against multi-date and interval-form benchmark references.
