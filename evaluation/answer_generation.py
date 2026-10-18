@@ -175,6 +175,12 @@ def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -
     if pred_relative and pred_relative in reference_dates:
         return True
 
+    # Relative weekday answers are resolved by _temporal_period (as a one-day
+    # interval), not _relative_date. Compare that resolved day against every
+    # explicit date in the reference, including normalized dates after a slash.
+    if pred_period and pred_period[0] == pred_period[1] and pred_period[0] in reference_dates:
+        return True
+
     # Some references encode a relative period as an explicit interval, e.g.
     # "the week before 9 June 2023 / From May 29, 2023 to June 4, 2023".
     # Compare that interval with the resolved prediction period rather than the
