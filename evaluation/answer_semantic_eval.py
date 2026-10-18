@@ -33,7 +33,7 @@ _RELATIVE_TEMPORAL = re.compile(
 def _evidence_text(evidence: list[dict[str, Any]]) -> str:
     rows: list[str] = []
     for i, item in enumerate(evidence):
-        content = str(item.get("content") or "").strip()
+        content = str(item.get("content") or item.get("text") or "").strip()
         if not content:
             continue
         metadata: list[str] = []
@@ -87,7 +87,7 @@ def _meaningful_exact_anchor(candidate: str, evidence: list[dict[str, Any]]) -> 
     if len(candidate_tokens) < MIN_ANCHOR_TOKENS:
         return None
     for item in evidence:
-        evidence_tokens = _tokens(str(item.get("content") or ""))
+        evidence_tokens = _tokens(str(item.get("content") or item.get("text") or ""))
         if len(evidence_tokens) < MIN_ANCHOR_TOKENS:
             continue
         max_len = min(len(candidate_tokens), 12)
@@ -107,7 +107,7 @@ def _deterministic_support(candidate: str, evidence: list[dict[str, Any]]) -> tu
         return "deterministic_lexical", anchor
 
     for item in evidence:
-        content = str(item.get("content") or "")
+        content = str(item.get("content") or item.get("text") or "")
         if not _RELATIVE_TEMPORAL.search(content):
             continue
         context = [{"timestamp": item.get("timestamp")}]
