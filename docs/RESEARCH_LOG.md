@@ -825,3 +825,27 @@ G:\\aconda\\python.exe -m pytest -q tests\\test_answer_generation.py tests\\test
 ```
 
 Only after all tests pass should the n=10 Oracle experiment be rerun. Check q0005 and q0009 in `comparison.jsonl` for `temporal_equivalent`, `correct`, and `answer_failure_type`; do not claim the end-to-end scoring issue is fixed based on the unit test alone.
+
+## 2026-10-18 — Relative-date scorer regression tests pass
+
+### Local validation reported by the user
+
+Command:
+
+```powershell
+G:\\aconda\\python.exe -m pytest -q tests\\test_answer_generation.py tests\\test_oracle_timestamp_normalization.py
+```
+
+Observed result: **18 passed in 0.45s**. This includes the formerly failing multi-date `Last Saturday` case and the explicit date-range `Last week` case.
+
+### Interpretation and next gate
+
+The targeted unit tests now pass after commit `0297242`. This validates the covered scorer and timestamp-normalization cases, but does not yet establish that the full n=10 experiment's answer scores and failure labels have changed as expected.
+
+Next, rerun:
+
+```powershell
+G:\\aconda\\python.exe -u -m experiments.run_oracle_experiments --dataset locomo_refined_public --limit 10
+```
+
+Inspect q0005 and q0009 in the newly generated `comparison.jsonl` for `temporal_anchor_date`, `temporal_equivalent`, `correct`, and `answer_failure_type`. Confirm whether their temporal answers now score as correct, then recompute aggregate metrics and attribution counts. Keep end-to-end conclusions provisional until those outputs are inspected.
