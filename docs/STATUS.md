@@ -112,15 +112,48 @@ profile is retrieval-heavy (F4 = 4 rows across modes; gate insufficient = 17), u
 LongMemEval's formation-heavy profile. This is the cross-benchmark contrast the
 roadmap's P0 gate asked for; n=50 only, no significance claim yet.
 
-## Next action — scale and novelty (roadmap P1)
+## Next action — resume LoCoMo n=200 (paused 2026-10-19, completed=1/200)
 
-LoCoMo n=50 is done; the generalization gate is met (non-degenerate profile and a
-different stage signature from LongMemEval). Next per `docs/PUBLICATION_ROADMAP.md`:
+The run was stopped deliberately. Resume from the exact breakpoint with:
 
-1. Novelty check on the lifecycle-attribution framing (`aris-novelty-check`).
-2. n=200 per benchmark on the same API backend (memory issue solved: answer/judge are
-   remote; only bge-m3 stays local).
-3. Confirm venue deadlines before committing to a submission target.
+```bash
+ANSWER_API_STYLE=anthropic \
+ANSWER_BASE_URL=https://opencode.ai/zen/go \
+ANSWER_API_KEY=<set in shell, never commit> \
+ANSWER_MODEL=deepseek-v4.1-flash \
+LLM_API_MAX_TOKENS=4096 \
+G:/aconda/python.exe -u -m experiments.run_oracle_experiments \
+  --dataset locomo_refined_public --limit 200 --resume \
+  --out-dir results/oracle_experiments_locomo_n200 \
+  >> results/locomo_n200_api.log 2>&1
+```
+
+Then analyze with `PYTHONIOENCODING=utf-8 python -m experiments.analyze_oracle_results
+--input results/oracle_experiments_locomo_n200/comparison.jsonl` (the analyzer prints
+non-ASCII to stdout and crashes under the GBK console without that env var).
+
+## Open todos (in order)
+
+1. LoCoMo n=200 (resume command above), then compare its stage profile with
+   LongMemEval n=200. This is the cross-benchmark claim C2 at scale.
+2. Confirm CIKM / COLING / ECIR / NLPCC deadlines (their sites were unreachable from
+   this host; do a fresh web lookup before choosing a target).
+3. Roadmap P2 intervention (now a publication prerequisite per the novelty check):
+   repair at the attributed stage and show the failure rate moves.
+4. Optional: remote embedding support so runs need no local Ollama
+   (`memory_engine/vector.py` is the only remaining local model call).
+5. Judge-validity reporting for the n=200 runs: rerun
+   `experiments/judge_reliability.py` on `longmemeval_n200` with a second model.
+
+## Environment notes
+
+- Answer/judge via `evaluation/llm_api.py`: `ANSWER_API_STYLE=anthropic`,
+  opencode zen gateway, model `deepseek-v4.1-flash`. `x-opencode-session` header
+  required; `Authorization: Bearer` causes HTTP 403. Thinking-only responses are
+  retried (`LLM_API_RETRIES`, default 3); `max_tokens` must stay ≥4096 for
+  reasoning models.
+- `results/` is gitignored; each run's `run_metadata` records commit, dataset
+  sha256, model and dirty flag, so runs are reconstructable.
 
 Default is local Ollama. To run against a remote gateway instead (answer and/or
 judge), use the switchable backend in `evaluation/llm_api.py`:
