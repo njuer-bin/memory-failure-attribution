@@ -921,3 +921,251 @@ First answer-failure distribution: F6_REASONING 1 (q0000), E0 1 (q0001), F4_RETR
 Both targeted scorer fixes are validated end-to-end: the `text`-schema sufficiency bug is gone (E0 8→1, and the survivor is a genuine mismatch), and relative-period answers (q0005 "Last Saturday", q0009 "Last week") now score correctly instead of being marked F6/EVAL.
 
 The n=10 protocol is now consistent. Next gate per the standing plan: freeze this protocol, scale to n=50 LongMemEval samples, then inspect before larger runs and LoCoMo cross-benchmark validation. Conclusions remain sample-level (n=10), not population-level.
+
+## 2026-10-18 — LongMemEval n=50 first scaled run (provisional, with open anomalies)
+
+### Run
+
+```powershell
+G:\aconda\python.exe -u -m experiments.run_oracle_experiments --dataset longmemeval_oracle --limit 50
+G:\aconda\python.exe -u -m experiments.semantic_calibration
+```
+
+50/50 completed, 0 model errors.
+
+### Evidence lifecycle
+
+Real Memory and Oracle Memory both show stage recall 1.0 at every stage; first-loss distribution is `none` for all 50 samples. Unlike LoCoMo, this LongMemEval oracle configuration produces **zero memory-side evidence loss**, so every answer failure must be attributed downstream (F6/E0), and the F1-F4 stages are uninformative in this setting.
+
+### Answer scoring, lexical layer
+
+| Mode | correct/50 | EM | token F1 |
+|---|---:|---:|---:|
+| Real Memory | 21 | 0.10 | 0.364 |
+| Oracle Memory | 18 | 0.16 | 0.361 |
+| Oracle Context | 18 | 0.16 | 0.364 |
+
+Lexical first-failure distribution: F6 26, E0 3.
+
+### Answer scoring, semantic layer (calibrated)
+
+| Mode | semantically correct/50 |
+|---|---:|
+| Real Memory | 40 |
+| Oracle Memory | 36 |
+| Oracle Context | 35 |
+
+Real Memory semantic failure distribution: **F6 candidates 8, E0 2**, evaluation-uncertain 0. Of the lexical layer's 26 F6 labels, 18 were repaired by semantic evaluation — the spot-checked case `gpt4_2655b836` ("GPS system glitch on 3/22, which required replacement" vs reference "GPS system not functioning correctly", token F1 0.129 < 0.5) confirms these are threshold artifacts, not reasoning failures.
+
+### Open anomalies — do not quote these numbers as findings yet
+
+1. **Real Memory > Oracle Context inversion (40 vs 35)** persists at n=50. Hypothesis to test: the oracle paths supply only the (sometimes context-poor) Gold Evidence, while Real Memory's context retains additional relevant turns that help the answer model. Needs a controlled comparison of the actual final contexts.
+2. **Judge-vs-benchmark disagreement inside F6 candidates**: e.g. `0bb5a684` — benchmark reference says 3 days, but Gold Evidence states the workshop was January 10th and the meeting January 17th (7 days). The judge ruled the reference wrong. If the evidence genuinely fails to establish the reference answer, such cases are E0, not F6. Each of the 8 F6 candidates needs per-case adjudication before the F6 count is publishable.
+3. **E0 accounting gap**: the lexical layer flagged 3 E0, the semantic layer 2. Reconcile which case flipped and why.
+
+### Status
+
+The scaled pipeline runs end-to-end without errors and the conservative gate behaves as designed. However, the F6/E0 distribution above is **provisional**: the 8 F6 candidates are candidates only, and the three anomalies above must be resolved (per-case F6 adjudication, inversion analysis, E0 reconciliation) before any population-level claim. Next actions: (a) adjudicate the 8 F6 candidates individually; (b) diff Real Memory vs Oracle Context final contexts; (c) reconcile E0 counts.
+
+## 2026-10-18 — Per-case adjudication of the 8 LongMemEval F6 candidates
+
+Method: each candidate was compared against the benchmark reference answer and the Gold Evidence dates directly (deterministic day arithmetic), independent of the judge verdict. Full record: `results/oracle_experiments/f6_adjudication_n50.json`.
+
+### Result: 6 confirmed F6, 2 judge false negatives
+
+Confirmed F6 (evidence supports the reference; candidate answer wrong):
+
+| qid | evidence dates | correct | candidate |
+|---|---|---:|---:|
+| 0bb5a684 | workshop Jan 10 → meeting Jan 17 | 7 | 3 |
+| 08f4fc43 | mass Jan 2 → Ash Wednesday Feb 1 | 30 | 20 |
+| 2a1811e2 | Holi Feb 26 → mass Mar 19 | 21 | 31 |
+| dcfa8644 | shoes Jan 10 → laces broke Jan 24 | 14 | 6 |
+| a3045048 | gift Apr 15 → birthday Apr 22 | 7 | 15 |
+| gpt4_4cd9eba1 | accepted Mar 20 → orientation Mar 27 | 1 wk | 3 wks |
+
+Judge false negatives (candidate equals reference; NOT F6):
+
+- `bbf86515` — candidate "4" = reference "4 days"; the judge's own reason says "the difference is 4 days" but the verdict was incorrect (reason/verdict contradiction).
+- `c8090214` — candidate "7 days" = reference "7 days"; the judge computed 7 days then overrode it with a confused objection that it "should be 0 days".
+
+### Interpretation
+
+1. The provisional F6 count of 8 revises to **6/50 (12%)**.
+2. All 6 confirmed F6 are temporal-reasoning day-arithmetic questions — with a perfect-recall memory pipeline, the only observed reasoning failure mode in this sample is date arithmetic by qwen2.5:7b.
+3. The semantic judge (same qwen2.5:7b) exhibits its own failure modes: date-arithmetic error (`08f4fc43`: computed 20 instead of 30), reason/verdict contradiction (`bbf86515`), reference misquotation (`a3045048`), and a garbled-but-correct-enough verdict (`gpt4_4cd9eba1`). In this run the judge's *false negatives* were repairable (candidate = reference is deterministically checkable), but a judge that cannot do day arithmetic cannot reliably adjudicate day-arithmetic F6 candidates in general. This strengthens the case for deterministic temporal scoring as the primary attribution instrument and the LLM judge as a fallback.
+
+## 2026-10-18 — Anomaly resolution: RM>OC inversion is a judge artifact; E0 counts reconciled
+
+### Anomaly 1: Real Memory > Oracle Context inversion — resolved as judge artifact
+
+Deterministic rescore of all 150 stored answers (reference-match + temporal rules, no judge):
+
+| Mode | deterministic correct/50 | + possible lexical false negatives |
+|---|---:|---:|
+| Real Memory | 20 | ~3 |
+| Oracle Memory | 19 | ~1 |
+| Oracle Context | 21 | ~1 |
+
+The inversion disappears: OC (21) >= RM (20), within noise at n=50. The semantic layer's RM 40/50 was inflated by the judge accepting refusals ("The evidence does not provide...") and wrong answers (RM "3" vs ref 14; RM "0" vs ref 4) as correct, while rejecting exact matches from OC (d01c6aa8: OC "27" == ref "27" judged incorrect). All 5 RM-correct/OC-incorrect discordant pairs are temporal-reasoning cases. Structural note: `run_oracle_experiments.py` feeds the identical `oracle` context to both oracle_memory and oracle_context scoring (lines 414-415), so those two modes are currently duplicates by construction — they should be differentiated or merged.
+
+### Anomaly 2/3: E0 reconciliation — 1 genuine E0; 3 gate/judge false positives reclassified to F6
+
+- `b9cfe692` — **genuine E0** (only one): evidence gives per-book durations but cannot establish the combined 5.5-week figure. Both layers agree.
+- `2c63a862` — gate false positive. Evidence: started with Rachel 2/15, house found 3/1 → 14 days = reference. Evidence is sufficient; the gate judge failed the date arithmetic. RM refusal → F6.
+- `e4e14d04` — gate false positive. Evidence: joined 3 weeks ago, meetup last week → 2-week membership = reference. RM answered "Three weeks" (no subtraction) → F6.
+- `6613b389` — semantic-E0 false positive. Evidence: engagement May 15, anniversary July 22 → ~2 months = reference. Gate was right; RM "5 months" → F6.
+
+### Corrected n=50 attribution (real_memory)
+
+- F6: 6 (from candidate adjudication) + 3 (reclassified) = **9/50**
+- E0: **1/50**
+- Judge-flagged incorrect was 10; deterministic incorrect is ~30 with ~3 lexical false negatives — the qwen2.5:7b judge both over-accepts wrong answers and over-rejects correct ones. Judge-based counts at this model scale are unreliable in both directions; deterministic evidence tracing and reference matching remain the trustworthy instruments.
+
+### Standing conclusion for the paper (provisional, n=50 LongMemEval oracle config)
+
+With a perfect-recall memory pipeline (all gold evidence reaches final context), essentially all answer failures concentrate in F6 reasoning — and specifically in temporal day-arithmetic — plus a small genuine E0 tail. The methodological contribution stands: lexical thresholding overestimates F6 ~3x, and an LLM judge of the same scale as the answer model cannot reliably adjudicate temporal F6 candidates.
+
+## 2026-10-18 — CORRIGENDUM: earlier n=50 F6/E0/inversion conclusions are withdrawn
+
+The entries above (F6 candidate adjudication, "anomaly resolution", the "standing
+conclusion for the paper") were produced before the instrumentation repairs from the
+same-day audit were implemented. They must not be cited as findings.
+
+What was wrong in the instrument (now fixed, see the audit items):
+
+- **Attribution used lexical correctness.** F6 was driven by a token/EM scorer and a
+  broad lexical override, so both F6 candidates and E0 counts depended on a scorer the
+  audit had already shown to be unreliable (C1, C5). Attribution now consumes the
+  semantic verdict; a lexically "correct" score cannot suppress a semantically incorrect
+  answer, and a missing/-low-confidence verdict becomes EVAL instead of F6.
+- **Evidence matching counted provenance as availability.** A memory from the gold turn
+  with unrelated content was counted as found, inflating recall to 1.00 at every stage
+  (C3). Matching now requires provenance agreement *and* content agreement, reports
+  `provenance_only` as missing, and separates `unverified_provenance`.
+- **Evolution recall was a copy of formation** (C4). It is now excluded from first-loss
+  attribution and reported as unmeasured rather than as a numeric recall.
+- **Oracle Memory and Oracle Context shared one code path** (C6). Oracle Memory now
+  writes Gold Evidence directly into a fresh store and still exercises retrieval/rerank/
+  context; Oracle Context bypasses memory entirely. The Oracle Memory ingestion also
+  dropped the session-granularity Gold Evidence through a `source` vs `source_id` key
+  mismatch; this is fixed.
+
+Consequently:
+
+1. The corrected F6 = 9/50 and E0 = 1/50 figures are **withdrawn**. They were derived
+   from a limited candidate subset plus manual adjudications, on top of a judge that
+   produced both false positives and false negatives, and approximately 30 deterministic
+   errors that were never fully attributed.
+2. The "Real Memory > Oracle Context inversion is resolved" claim is **withdrawn**. The
+   inversion analysis established serious judge artifacts, not a final comparative
+   ranking; the deterministic rescore (RM 20 / OM 19 / OC 21) does not reconcile with the
+   original 21/18/18 totals because it used different timestamp contexts.
+3. The claim that F6 concentrates in day arithmetic may still hold, but it is currently
+   unverified: the earlier F6 set was selected with the broken override and judged by the
+   same model family as the answer model.
+
+All stored artifacts from that period are preserved under
+`results/archive/n50_lexical_2026-10-18/` as a negative result. The n=50 numbers will be
+regenerated from scratch with the repaired instrumentation before any paper claim.
+
+## 2026-10-18 — Regenerated n=50 LongMemEval (clean run under the frozen protocol)
+
+Run: `results/oracle_experiments_n50_final/`, `resumed_records: 0`, `errors: 0`,
+commit `ff4f411` (dirty tree), dataset `longmemeval_oracle` sha256_16 `5a6a52e1a98f85eb`.
+
+**Why a fresh run was required.** The intermediate run `results/oracle_experiments_n50_repaired/`
+carried `resumed_records: 38`: 38 of its 50 rows were inherited by `--resume` from output
+written before the audit fixes. Its traces and gate verdicts are therefore mixed-protocol
+and an offline rescore cannot repair them. The earlier `__rescored` diff is retained only
+as an instrument comparison, not as a result.
+
+**Lifecycle (deterministic instrument; identical to the intermediate run to 4 dp).**
+
+- Real Memory: formation 0.503, storage 1.00, retrieval 1.00, rerank 0.993, context 0.880;
+  first-loss {formation 36, context 1, none 13}.
+- Oracle Memory: retrieval 1.00, rerank 1.00, context 0.982; first-loss {none 48, context 2}.
+- Oracle Context: context 1.00.
+
+**Answer failure attribution (semantic verdict consumed by the unified module).**
+
+| mode | none | F1 | F5 | F6 | E0 | RC | EVAL |
+|---|---|---|---|---|---|---|---|
+| real_memory | 30 | 12 | 1 | 5 | 2 | — | 0 |
+| oracle_memory | 32 | 0 | 1 | 14 | 2 | — | 1 |
+| oracle_context | 32 | 0 | 1 | 0 | 2 | 15 | 1 |
+
+Gate: sufficient 46, insufficient 3, error 1. Semantic accuracy: RM 21/41 (0.512),
+OM 24/41 (0.585), OC 24/41 (0.585). Paired McNemar exact across conditions is
+non-significant (RM vs OM p=0.6875, RM vs OC p=1.0000, OM vs OC p=1.0000); paired
+bootstrap CIs all straddle 0. The previously reported "Real > Oracle inversion" does not
+reproduce.
+
+**Reading (provisional, n=50).** With perfect recall the residual failures concentrate in
+F6 reasoning (14/50 = 28%); with real memory the dominant failure source is F1 formation
+(12/50), with F6 suppressed to 5/50 because those questions never reach reasoning with full
+evidence. No condition separation is statistically supported at this sample size.
+
+**Judge reliability remains the binding constraint.** `gpt4_2487a7cb` is reproduced as a
+confident judge false positive in all three modes: the reference order is webinar (two
+months ago) before workshop (last Saturday), yet the judge states "last Saturday ... earlier
+than ... two months ago" and marks the wrong answer correct at high confidence. A false
+positive of this kind suppresses F6, so 14/50 is not an upper bound and the F6 count is not
+yet usable as a paper claim. Cross-model re-judgment (`gemma3:12b`, via
+`experiments/judge_reliability.py`) is the next required step; it was deferred because host
+memory was at 97% (0.4 GB free) with `qwen2.5:7b` resident.
+
+---
+
+## 2026-10-19 — Judge reliability measured; deterministic ordering refutation added
+
+**Self-consistency (qwen2.5:7b).** `judge_reliability.py` over the canonical n=50 run
+(`judge_reliability_self.json`): 123 answer verdicts + 50 gate re-checks, zero flips,
+kappa 1.0. The judge is deterministic at temperature 0; same-model re-judgment is
+uninformative.
+
+**Cross-model (gemma3:12b).** `judge_reliability_gemma3.json`: `correct_verdict`
+agreement 0.927 / kappa 0.849 with 9 flips (all in gemma3's favor: False→True —
+gemma3 is the looser judge). `raw_judge` agreement 0.710 / kappa −0.028: the two
+models' raw verdicts are near-independent. Both models reproduce the
+`gpt4_2487a7cb` ordering false positive. **An LLM judge alone cannot support a
+paper-grade F6 count.**
+
+**False-positive audit.** 45 stored rows have `semantic_correct=True` while the
+answer differs lexically from the gold. 33 are two-option ordering questions
+("Which ... first, A or B?"); triaging them (`manual_triage_ordering.json`) shows
+30 are provable false positives — the candidate names the option that is NOT the
+gold, and the evidence resolves the order. The remaining rows were left to the
+judge (conservative).
+
+**Instrument fix.** `evaluation/answer_semantic_eval.py` gains
+`_ordering_refutes_judge`: a post-judge false-override layer for exactly this
+question shape. Flip requires (1) a two-option ordering tail in the question,
+(2) the candidate naming exactly one option, (3) resolvable dates on both
+options' supporting sentences with the pick strictly later — otherwise the judge
+stands. Added explicit month-day date parsing (year from the turn timestamp) and
+word-number "N units ago" phrase resolution. Hooked into `evaluate_answer`
+(adjudication `ordering_refutation`) and into offline rescoring via
+`experiments/rescore_answers.py --apply-ordering-refutation`. 18 tests added;
+123 passed.
+
+**Effect on the canonical n=50 numbers.** Five stored verdicts flip
+(`gpt4_2487a7cb` ×3, `gpt4_1a1dc16d` ×2); attribution after the
+rescore (`results/oracle_experiments_n50_orderrefuted/`):
+
+| mode | none | F1 | F5 | F6 | E0 | RC | EVAL |
+|---|---|---|---|---|---|---|---|
+| real_memory | 28 | 14 | 1 | 5 | 2 | — | 0 |
+| oracle_memory | 30 | 0 | 1 | 16 | 2 | — | 1 |
+| oracle_context | 31 | 0 | 1 | 0 | 2 | 16 | 1 |
+
+Semantic accuracy: RM 19/41, OM 23/42, OC 25/43. Paired McNemar unchanged in
+conclusion: non-significant everywhere (p = 0.7266, 0.4531, 1.0000); CIs straddle 0.
+F6 rises (14→16 OM; 12→14 F1 RM) — the earlier F6 counts were lower bounds with a
+measurable judge-induced floor.
+
+**Limitations recorded.** (1) 21 of the 33 ordering false-positive rows are not yet
+refuted because binding an option to a date requires the date and the option in the
+same sentence; cross-sentence binding ("for my sister" separated from "necklace") is
+left to the judge rather than risking overreach. (2) Self-consistency proves nothing
+about correctness — the cross-model disagreement is the pin.
