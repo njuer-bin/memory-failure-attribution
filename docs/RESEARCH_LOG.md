@@ -1177,3 +1177,34 @@ about correctness — the cross-model disagreement is the pin.
 Target: a CCF-B venue on long-term-memory / LLM-agent QA (candidates: CIKM,
 COLING, ECIR, NLPCC). Publication-route doc lives in `docs/PUBLICATION_ROADMAP.md`
 (single planning source; STATUS.md remains the resume point for daily work).
+
+---
+
+## 2026-10-19 — LoCoMo n=50 cross-benchmark run (DeepSeek-v4.1-flash via gateway)
+
+Backend: `ANSWER_API_STYLE=anthropic`, opencode zen gateway, `deepseek-v4.1-flash`
+for both answer and judge. Embedding stayed local (bge-m3). Run interrupted once by
+host memory and resumed (`resumed_records: 33`, same protocol, same model); `errors: 0`;
+4/147 judge calls still failed after the empty-response retry and are recorded as
+`semantic_error`, not silently repaired.
+
+**Gate:** sufficient 32 / insufficient 17 / error 1. Semantic accuracy RM 28/49
+(0.571), OM 37/49 (0.755), OC 37/47 (0.787).
+
+| mode | none | F1 | F4 | F5 | F6 | E0 | RC | EVAL |
+|---|---|---|---|---|---|---|---|---|
+| real_memory | 28 | 5 | 3 | 1 | 2 | 10 | — | 1 |
+| oracle_memory | 37 | 0 | 1 | 0 | 5 | 6 | — | 1 |
+| oracle_context | 38 | 0 | 0 | 0 | 0 | 6 | 4 | 2 |
+
+**Cross-benchmark contrast.** Stage recall differs structurally: LongMemEval's
+bottleneck is formation (0.503) with retrieval perfect; LoCoMo is recall-limited at
+retrieval (RM 0.560; OM 0.810) and context (RM 0.360; OM 0.805), and 17/50 questions
+fail the evidence-sufficiency gate. If this holds at n=200, the paper's claim becomes
+benchmark-conditional rather than universal: "the first-loss stage is a property of
+the memory system × workload pair, not of memory agents in general." That is a
+stronger and more defensible story than a single-stage headline.
+
+**Instrument notes.** Three gateway defects fixed this session: text-block extraction
+across thinking blocks, `max_tokens` 1024→4096, and retrying thinking-only responses.
+Same-question before/after retry: 3/12 → 0/15 judge errors.

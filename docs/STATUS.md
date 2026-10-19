@@ -19,6 +19,10 @@ This is the single resume point. History and reasoning live in
 | `results/oracle_experiments_n50_final/` | **yes — canonical n=50 run** (`resumed_records: 0`, `errors: 0`) |
 | `.../judge_reliability_self.json` | yes — same-judge self-consistency (kappa 1.0, 0 flips) |
 | `.../judge_reliability_gemma3.json` | yes — cross-model estimate (raw_judge agreement 0.71, kappa ≈ 0.03) |
+| `results/oracle_experiments_locomo_n50_v3/` | **yes — LoCoMo n=50**, qwen→deepseek-v4.1-flash via gateway; `resumed_records: 33` (interrupted by host memory, resumed under the same protocol), `errors: 0`, semantic errors 4/147 judge calls |
+| `results/oracle_experiments_locomo_n5_v2/` | smoke test, 0 semantic errors after the retry fix |
+| `results/oracle_experiments_locomo_n50/` | **no — negative**: max_tokens truncation, 58 empty judge responses |
+| `results/oracle_experiments_locomo_n50_v2/` | **no — interrupted run** (memory), superseded by v3 |
 | `results/oracle_experiments_n50_orderrefuted/` | instrument-refinement rescore (stored verdicts + `--apply-ordering-refutation`; NOT a fresh run) |
 | `results/analysis_n50_final.txt` | analysis output for the canonical run |
 | `results/oracle_experiments_n50_repaired/` | **no — negative result.** `resumed_records: 38`; 38/50 rows inherited by `--resume` from pre-fix output |
@@ -77,7 +81,32 @@ with the judge. Known limitation: rows whose option binding crosses sentence
 boundaries (e.g. "necklace for my sister" with "for my sister" in another
 sentence) remain judge-decided.
 
-## Next action — LoCoMo cross-benchmark run
+## LoCoMo n=50 (DeepSeek-v4.1-flash via opencode gateway, `results/oracle_experiments_locomo_n50_v3/`)
+
+Gate: sufficient 32 / insufficient 17 / error 1. Semantic accuracy RM 28/49 (0.571),
+OM 37/49 (0.755), OC 37/47 (0.787).
+
+| mode | none | F1 | F4 | F5 | F6 | E0 | RC | EVAL |
+|---|---|---|---|---|---|---|---|---|
+| real_memory | 28 | 5 | 3 | 1 | 2 | 10 | — | 1 |
+| oracle_memory | 37 | 0 | 1 | 0 | 5 | 6 | — | 1 |
+| oracle_context | 38 | 0 | 0 | 0 | 0 | 6 | 4 | 2 |
+
+Retrieval recall differs sharply from LongMemEval: RM retrieval 0.560, rerank 0.515,
+context 0.360; OM retrieval/rerank/context 0.810/0.810/0.805. The LoCoMo failure
+profile is retrieval-heavy (F4 = 4 rows across modes; gate insufficient = 17), unlike
+LongMemEval's formation-heavy profile. This is the cross-benchmark contrast the
+roadmap's P0 gate asked for; n=50 only, no significance claim yet.
+
+## Next action — scale and novelty (roadmap P1)
+
+LoCoMo n=50 is done; the generalization gate is met (non-degenerate profile and a
+different stage signature from LongMemEval). Next per `docs/PUBLICATION_ROADMAP.md`:
+
+1. Novelty check on the lifecycle-attribution framing (`aris-novelty-check`).
+2. n=200 per benchmark on the same API backend (memory issue solved: answer/judge are
+   remote; only bge-m3 stays local).
+3. Confirm venue deadlines before committing to a submission target.
 
 Default is local Ollama. To run against a remote gateway instead (answer and/or
 judge), use the switchable backend in `evaluation/llm_api.py`:
