@@ -29,6 +29,9 @@ from typing import Any
 _transport = urllib.request.urlopen
 # Gateways such as opencode zen require a per-client session id for routing.
 _SESSION_ID = str(uuid.uuid4())
+# Reasoning-capable models spend part of the budget on a thinking block before
+# emitting the answer; 1024 truncates them to an empty text block in practice.
+_MAX_TOKENS = int(os.getenv("LLM_API_MAX_TOKENS", "4096"))
 
 
 def _env_style(prefix: str) -> str:
@@ -84,7 +87,7 @@ def completion(
             url = base_url.rstrip("/") + "/messages"
         payload = {
             "model": model,
-            "max_tokens": 1024,
+            "max_tokens": _MAX_TOKENS,
             "temperature": 0,
             "messages": [{"role": "user", "content": prompt}],
         }
