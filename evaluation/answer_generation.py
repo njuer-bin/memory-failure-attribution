@@ -14,6 +14,7 @@ from evaluation.answer_metrics import exact_match, token_f1
 
 
 BASE_URL = os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
+ANSWER_API_STYLE = os.getenv("ANSWER_API_STYLE", "ollama").strip().lower()
 MODEL = os.getenv("ANSWER_MODEL", "qwen2.5:7b")
 TEMPERATURE = float(os.getenv("ANSWER_TEMPERATURE", "0"))
 TIMEOUT = float(os.getenv("ANSWER_TIMEOUT_SECONDS", "180"))
@@ -238,28 +239,17 @@ def _prompt(question: str, context: list[dict[str, Any]]) -> str:
 
 
 def generate_answer(question: str, context: list[dict[str, Any]]) -> str:
-    payload = {
-        "model": MODEL,
-        "prompt": _prompt(question, context),
-        "stream": False,
-        "options": {"temperature": TEMPERATURE},
-    }
-    request = urllib.request.Request(
-        f"{BASE_URL}/api/generate",
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
-        method="POST",
+    from evaluation.llm_api import completion
+    answer = completion(
+        _prompt(question, context),
+        MODEL,
+        base_url=BASE_URL,
+        api_key=os.getenv("ANSWER_API_KEY", ""),
+        style=ANSWER_API_STYLE,
+        timeout=TIMEOUT,
+        origin_hint="answer model",
+        transport=urllib.request.urlopen,
     )
-    try:
-        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except urllib.error.URLError as exc:
-        raise RuntimeError(
-            f"answer model unavailable at {BASE_URL} (model={MODEL}): {exc}"
-        ) from exc
-    answer = str(body.get("response") or "").strip()
-    if not answer:
-        raise RuntimeError("answer model returned an empty response")
     return answer
 
 

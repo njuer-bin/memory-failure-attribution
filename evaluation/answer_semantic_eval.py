@@ -23,8 +23,13 @@ from evaluation.answer_generation import (
 )
 from evaluation.numeric_answer import numeric_verdict
 
-BASE_URL = os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
+BASE_URL = os.getenv("SEMANTIC_JUDGE_BASE_URL", os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434")).rstrip("/")
+_JUDGE_BASE_URL = BASE_URL
 MODEL = os.getenv("SEMANTIC_JUDGE_MODEL", os.getenv("ANSWER_MODEL", "qwen2.5:7b"))
+_JUDGE_API_STYLE = os.getenv(
+    "SEMANTIC_JUDGE_API_STYLE", os.getenv("ANSWER_API_STYLE", "ollama")
+).strip().lower()
+_JUDGE_API_KEY = os.getenv("SEMANTIC_JUDGE_API_KEY", os.getenv("ANSWER_API_KEY", ""))
 TEMPERATURE = float(os.getenv("SEMANTIC_JUDGE_TEMPERATURE", "0"))
 TIMEOUT = float(os.getenv("SEMANTIC_JUDGE_TIMEOUT_SECONDS", "180"))
 MIN_ANCHOR_TOKENS = int(os.getenv("SEMANTIC_MIN_ANCHOR_TOKENS", "2"))
@@ -501,32 +506,27 @@ def evaluate_answer(
             "base_url": BASE_URL,
         }
 
-    payload = {
-        "model": MODEL,
-        "prompt": _prompt(question, candidate, evidence, candidate_is_reference=candidate_is_reference),
-        "stream": False,
-        "format": "json",
-        "options": {"temperature": TEMPERATURE},
-    }
-    request = urllib.request.Request(
-        f"{BASE_URL}/api/generate",
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
-        method="POST",
+    from evaluation.llm_api import completion
+    raw = completion(
+        _prompt(question, candidate, evidence, candidate_is_reference=candidate_is_reference),
+        MODEL,
+        base_url=_JUDGE_BASE_URL,
+        api_key=_JUDGE_API_KEY,
+        style=_JUDGE_API_STYLE,
+        timeout=TIMEOUT,
+        json_mode=True,
+        origin_hint="semantic judge",
+        transport=urllib.request.urlopen,
     )
     try:
-        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except urllib.error.URLError as exc:
-        raise RuntimeError(f"semantic judge unavailable at {BASE_URL} (model={MODEL}): {exc}") from exc
-
-    raw = str(body.get("response") or "").strip()
-    if not raw:
-        raise RuntimeError("semantic judge returned an empty response")
-    try:
         verdict = json.loads(raw)
-    except json.JSONDecodeError as exc:
-        raise RuntimeError(f"semantic judge returned invalid JSON: {raw!r}") from exc
+    except json.JSONDecodeError:
+        # Non-Ollama backends cannot enforce JSON mode; models often fence it.
+        fenced = re.sub(r"^\s*```(?:json)?\s*|\s*```\s*$", "", raw, flags=re.I)
+        try:
+            verdict = json.loads(fenced)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"semantic judge returned invalid JSON: {raw!r}") from exc
     if not isinstance(verdict.get("correct"), bool):
         raise RuntimeError(f"semantic judge missing boolean 'correct': {raw!r}")
     if not isinstance(verdict.get("evidence_sufficient"), bool):
@@ -539,12 +539,14 @@ def evaluate_answer(
         confidence = "medium"
     reason = str(verdict.get("reason") or "").strip()
 
-    refutation = None
-    if judge_correct and evidence_sufficient:
-        refutation = _ordering_refutes_judge(question, candidate, evidence)
+    # The ordering check is deterministic, so it runs whether the judge said
+    # correct or incorrect: a judge false positive is overturned, and a judge
+    # false negative is NOT repaired back into a false positive by the lexical
+    # anchor override below (2026-10-19: a better judge exposed that path).
+    refutation = _ordering_refutes_judge(question, candidate, evidence)
     if refutation:
+        # Evidence is sufficient — it resolves the order; the answer is wrong.
         judge_correct = False
-        evidence_sufficient = False
 
     if evidence_sufficient and _reason_indicates_insufficient_evidence(reason):
         evidence_sufficient = False
@@ -560,6 +562,7 @@ def evaluate_answer(
     elif (
         evidence_sufficient
         and not judge_correct
+        and not refutation
         and confidence != "low"
         and _repair_is_eligible(candidate, question)
     ):

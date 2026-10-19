@@ -73,7 +73,7 @@ def _apply_ordering_refutation(
     return {
         "semantic_correct": False,
         "semantic_judge_correct": False,
-        "semantic_evidence_sufficient": False,
+        "semantic_evidence_sufficient": answer.get("semantic_evidence_sufficient"),
         "semantic_confidence": answer.get("semantic_confidence"),
         "semantic_reason": answer.get("semantic_reason"),
         "semantic_adjudication": "ordering_refutation",

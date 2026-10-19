@@ -79,6 +79,21 @@ sentence) remain judge-decided.
 
 ## Next action — LoCoMo cross-benchmark run
 
+Default is local Ollama. To run against a remote gateway instead (answer and/or
+judge), use the switchable backend in `evaluation/llm_api.py`:
+
+```bash
+# any Anthropic-Messages-compatible gateway (e.g. opencode zen)
+ANSWER_API_STYLE=anthropic ANSWER_BASE_URL=https://... ANSWER_API_KEY=...
+# or any OpenAI-compatible provider
+ANSWER_API_STYLE=openai   ANSWER_BASE_URL=https://... ANSWER_API_KEY=...
+# judge can be routed separately:
+SEMANTIC_JUDGE_API_STYLE / SEMANTIC_JUDGE_BASE_URL / SEMANTIC_JUDGE_MODEL / SEMANTIC_JUDGE_API_KEY
+```
+
+Never commit the key; export it in the shell. With a remote backend the host
+keeps only the embedding model (bge-m3, ~0.7 GB) resident.
+
 ```bash
 G:/aconda/python.exe -m experiments.run_oracle_experiments \
   --dataset locomo_refined_public --limit 50 \
