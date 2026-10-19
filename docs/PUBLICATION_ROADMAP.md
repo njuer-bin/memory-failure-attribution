@@ -30,19 +30,23 @@ under the frozen protocol, plus the instrument-refinement rescore
 
 ### P0 — this week: generalization + novelty + venue deadline
 
-- [ ] End-to-end LoCoMo n=50:
-  `G:/aconda/python.exe -u -m experiments.run_oracle_experiments --dataset locomo_refined_public --limit 50 --out-dir results/oracle_experiments_locomo_n50`
-- [ ] Read per-question failures; check the 8 former E0 cases did not silently
-  change population (research-log discipline: rerun before claims).
-- [ ] `aris-novelty-check` + `aris-prior-art-search` on the framing
-  "lifecycle-stage failure attribution for LLM memory agents".
+- [x] End-to-end LoCoMo n=50 (`results/oracle_experiments_locomo_n50_v3/`,
+  50 records, 0 errors, retrieval-heavy profile).
+- [x] `aris-novelty-check` (2026-10-19): **PROCEED WITH CAUTION, 6/10** —
+  closest prior A-TMA (2607.01935), Diagnosing Retrieval vs Utilization
+  (2603.02473), Causal Failure Attribution in Agentic RAG (2608.20627),
+  Relevance Is Not Sufficiency (2610.09348). See
+  `docs/research/2026-10-19-novelty-check.md`.
 - [ ] Confirm submission deadlines for CIKM / COLING / ECIR / NLPCC this year
   (web search; do not plan from memory) and pick the target + backup.
 - [ ] Commit the LoCoMo run + updated STATUS.md; push.
 
-**Gate to enter P1:** LoCoMo produces a non-degenerate attribution
-distribution (no single bucket > 80%) AND novelty search finds ≤ 1 direct
-prior. If novelty fails, fork the narrative (see "Kill-switch narratives").
+**Gate to enter P1:** met — LoCoMo profile is non-degenerate and distinct from
+LongMemEval; ≤1 direct prior (none contains the per-question oracle ladder).
+
+**Novelty-driven change:** the intervention (P2) is now a publication
+prerequisite, and the draft must explicitly distinguish our per-question
+attribution from coarse factor dominance (2603.02473).
 
 ### P1 — weeks 2–3: statistical power
 
