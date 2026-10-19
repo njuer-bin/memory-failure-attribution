@@ -1169,3 +1169,11 @@ refuted because binding an option to a date requires the date and the option in 
 same sentence; cross-sentence binding ("for my sister" separated from "necklace") is
 left to the judge rather than risking overreach. (2) Self-consistency proves nothing
 about correctness — the cross-model disagreement is the pin.
+
+---
+
+## 2026-10-19 — CCF-B publication route planned
+
+Target: a CCF-B venue on long-term-memory / LLM-agent QA (candidates: CIKM,
+COLING, ECIR, NLPCC). Publication-route doc lives in `docs/PUBLICATION_ROADMAP.md`
+(single planning source; STATUS.md remains the resume point for daily work).
