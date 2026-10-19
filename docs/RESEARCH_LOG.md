@@ -1208,3 +1208,46 @@ stronger and more defensible story than a single-stage headline.
 **Instrument notes.** Three gateway defects fixed this session: text-block extraction
 across thinking blocks, `max_tokens` 1024→4096, and retrying thinking-only responses.
 Same-question before/after retry: 3/12 → 0/15 judge errors.
+
+---
+
+## 2026-10-19 — LongMemEval n=200: the oracle ladder now separates
+
+Backend: deepseek-v4.1-flash (answer + judge) via the opencode gateway; embedding
+local (bge-m3). Run dir `results/oracle_experiments_longmemeval_n200/`:
+200 records, `errors: 0`, `resumed_records: 0`, 17 answer-level semantic errors
+(recorded, not repaired).
+
+**Gate:** sufficient 153 / insufficient 41 / error 6. Semantic accuracy:
+RM 85/163 (0.521), OM 96/139 (0.691), OC 110/134 (0.821).
+
+**Paired statistics (McNemar exact + paired bootstrap):**
+
+| contrast | n01 | n10 | p | diff | 95% CI |
+|---|---|---|---|---|---|
+| RM vs OM | 20 | 5 | 0.0041 | −0.117 | [−0.195, −0.047] |
+| RM vs OC | 29 | 5 | <0.0001 | −0.205 | [−0.299, −0.111] |
+| OM vs OC | 15 | 5 | 0.0414 | −0.083 | [−0.158, −0.017] |
+
+All three CIs exclude zero. This is the statistical result the n=50 run could not
+produce; the "no separation" conclusion of 2026-10-18 was a power artifact, not a
+negative finding.
+
+**Attribution (n=200):**
+
+| mode | none | F1 | F4 | F5 | F6 | E0 | RC | EVAL |
+|---|---|---|---|---|---|---|---|---|
+| real_memory | 116 | 61 | 1 | 1 | 3 | 10 | — | 8 |
+| oracle_memory | 151 | 0 | 0 | 20 | 10 | 11 | — | 8 |
+| oracle_context | 174 | 0 | 0 | 0 | 0 | 13 | 10 | 3 |
+
+Lifecycle recall: RM formation 0.427, retrieval 1.00, rerank 0.990, context 0.896;
+OM retrieval 1.00, context 0.951; OC context 1.00. RM first-loss: formation 155,
+context 4, rerank 2, none 39.
+
+**Reading.** Formation is the dominant first-loss stage under real memory
+(77.5% of questions), and the OM→OC gap (p=0.041) shows a measurable
+context/reasoning cost even with perfect retrieval. F6 is small (OM 10/200 = 5%),
+so the earlier F6-centered narrative is weaker than the formation narrative at
+scale. The LoCoMo n=200 run will test whether the retrieval-heavy profile
+persists.
