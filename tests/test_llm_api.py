@@ -89,3 +89,20 @@ def test_unknown_style_raises():
         assert "unsupported" in str(exc)
     else:
         raise AssertionError("expected RuntimeError")
+
+
+def test_empty_response_is_retried_then_succeeds():
+    calls = {"n": 0}
+
+    def transport(request, timeout=None):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return _Response({"content": [{"type": "thinking", "thinking": "x"}]})
+        return _Response({"content": [{"type": "text", "text": "ok"}]})
+
+    text = llm_api.completion(
+        "hello", "m", base_url="https://example.test", api_key="k",
+        style="anthropic", transport=transport,
+    )
+    assert text == "ok"
+    assert calls["n"] == 2

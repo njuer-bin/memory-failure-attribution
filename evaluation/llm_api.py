@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import json
 import os
+import time
 import urllib.error
 import urllib.request
 import uuid
@@ -117,44 +118,56 @@ def completion(
     else:
         raise RuntimeError(f"unsupported {origin_hint} API style: {style!r}")
 
-    request = urllib.request.Request(
-        url,
-        data=json.dumps(payload).encode("utf-8"),
-        headers=headers,
-        method="POST",
-    )
-    try:
-        with transport(request, timeout=timeout) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except urllib.error.URLError as exc:
-        raise RuntimeError(
-            f"{service} unavailable at {base_url} (model={model}): {exc}"
-        ) from exc
-
-    node: Any = body
-    if style == "anthropic":
-        blocks = body.get("content")
-        if not isinstance(blocks, list):
-            raise RuntimeError(
-                f"{service} returned an unparseable body for {origin_hint}: "
-                f"{json.dumps(body)[:400]}"
-            )
-        # Reasoning-capable models emit a thinking block before the answer.
-        node = next(
-            (b.get("text") for b in blocks
-             if isinstance(b, dict) and b.get("type") == "text"),
-            "",
+    # Gateways occasionally return a thinking-only response with no text block.
+    # The call is stateless and temperature-0, so retrying is safe.
+    attempts = max(1, int(os.getenv("LLM_API_RETRIES", "3")))
+    last_body: Any = None
+    for attempt in range(attempts):
+        request = urllib.request.Request(
+            url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers=headers,
+            method="POST",
         )
-    else:
         try:
-            for key in choice_path:
-                node = node[key]
-        except (KeyError, IndexError, TypeError):
+            with transport(request, timeout=timeout) as response:
+                body = json.loads(response.read().decode("utf-8"))
+        except urllib.error.URLError as exc:
             raise RuntimeError(
-                f"{service} returned an unparseable body for {origin_hint}: "
-                f"{json.dumps(body)[:400]}"
-            ) from None
-    text = str(node or "").strip()
-    if not text:
-        raise RuntimeError(f"{service} returned an empty response for {origin_hint}")
-    return text
+                f"{service} unavailable at {base_url} (model={model}): {exc}"
+            ) from exc
+
+        node: Any = body
+        if style == "anthropic":
+            blocks = body.get("content")
+            if not isinstance(blocks, list):
+                raise RuntimeError(
+                    f"{service} returned an unparseable body for {origin_hint}: "
+                    f"{json.dumps(body)[:400]}"
+                )
+            # Reasoning-capable models emit a thinking block before the answer.
+            node = next(
+                (b.get("text") for b in blocks
+                 if isinstance(b, dict) and b.get("type") == "text"),
+                "",
+            )
+        else:
+            try:
+                for key in choice_path:
+                    node = node[key]
+            except (KeyError, IndexError, TypeError):
+                raise RuntimeError(
+                    f"{service} returned an unparseable body for {origin_hint}: "
+                    f"{json.dumps(body)[:400]}"
+                ) from None
+        text = str(node or "").strip()
+        if text:
+            return text
+        last_body = body
+        if attempt + 1 < attempts:
+            time.sleep(1.5 * (attempt + 1))
+
+    raise RuntimeError(
+        f"{service} returned an empty response for {origin_hint} after "
+        f"{attempts} attempts; last body: {json.dumps(last_body)[:300]}"
+    )
