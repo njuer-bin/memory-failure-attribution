@@ -81,6 +81,20 @@ with the judge. Known limitation: rows whose option binding crosses sentence
 boundaries (e.g. "necklace for my sister" with "for my sister" in another
 sentence) remain judge-decided.
 
+## LongMemEval n=200 (DeepSeek-v4.1-flash, `results/oracle_experiments_longmemeval_n200/`)
+
+200 records, errors 0, resumed 0. Gate sufficient 153 / insufficient 41 / error 6.
+Semantic accuracy RM 0.521, OM 0.691, OC 0.821. **All pairwise contrasts
+significant** (McNemar p = 0.0041 / <0.0001 / 0.0414; bootstrap CIs exclude 0).
+
+| mode | none | F1 | F4 | F5 | F6 | E0 | RC | EVAL |
+|---|---|---|---|---|---|---|---|---|
+| real_memory | 116 | 61 | 1 | 1 | 3 | 10 | — | 8 |
+| oracle_memory | 151 | 0 | 0 | 20 | 10 | 11 | — | 8 |
+| oracle_context | 174 | 0 | 0 | 0 | 0 | 13 | 10 | 3 |
+
+First-loss: RM formation 155, context 4, rerank 2, none 39; OM context 29, none 171.
+
 ## LoCoMo n=50 (DeepSeek-v4.1-flash via opencode gateway, `results/oracle_experiments_locomo_n50_v3/`)
 
 Gate: sufficient 32 / insufficient 17 / error 1. Semantic accuracy RM 28/49 (0.571),
