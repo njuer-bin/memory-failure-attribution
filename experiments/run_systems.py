@@ -43,6 +43,25 @@ def _load_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _cap_context(items: list[dict[str, Any]], budget: int) -> list[dict[str, Any]]:
+    """Give every system the same context character budget.
+
+    Without this, session-sized summary items receive far more text than
+    turn-sized verbatim items at the same top-k.
+    """
+    kept: list[dict[str, Any]] = []
+    used = 0
+    for item in items:
+        size = len(str(item.get("content") or ""))
+        if kept and used + size > budget:
+            break
+        kept.append(item)
+        used += size
+        if used >= budget:
+            break
+    return kept
+
+
 def _summary(rows: list[dict[str, Any]], systems: tuple[str, ...]) -> dict[str, Any]:
     output: dict[str, Any] = {"systems": {}}
     for name in systems:
@@ -91,7 +110,8 @@ def _summary(rows: list[dict[str, Any]], systems: tuple[str, ...]) -> dict[str, 
     return output
 
 
-def run(dataset: str, systems: tuple[str, ...], limit: int | None, out: Path, resume: bool) -> dict[str, Any]:
+def run(dataset: str, systems: tuple[str, ...], limit: int | None, out: Path,
+        resume: bool, context_chars: int = 6000) -> dict[str, Any]:
     out.mkdir(parents=True, exist_ok=True)
     jsonl = out / "comparison.jsonl"
     rows = _load_jsonl(jsonl) if resume else []
@@ -123,6 +143,7 @@ def run(dataset: str, systems: tuple[str, ...], limit: int | None, out: Path, re
                 system = SYSTEMS[name]()
                 system.ingest(record)
                 search = system.search(str(record.get("question") or ""))
+                search["context"] = _cap_context(search["context"], context_chars)
                 stages = stage_dict(system.stages(gold, search), gold, mode=name)
                 context = search["context"]
                 answer = runner._score_mode_answer(str(record.get("question") or ""), reference, context)
@@ -171,12 +192,14 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--context-chars", type=int, default=6000)
     args = parser.parse_args()
     systems = tuple(s.strip() for s in args.systems.split(",") if s.strip())
     unknown = [s for s in systems if s not in SYSTEMS]
     if unknown:
         raise SystemExit(f"unknown systems {unknown}; choose from {sorted(SYSTEMS)}")
-    run(args.dataset, systems, args.limit, Path(args.out_dir), args.resume)
+    run(args.dataset, systems, args.limit, Path(args.out_dir), args.resume,
+        args.context_chars)
 
 
 if __name__ == "__main__":

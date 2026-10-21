@@ -96,3 +96,10 @@ def test_semantic_system_runs_inside_the_same_runner():
     assert stages["formation"]["found"] == ["e0"]
     assert stages["evolution"]["details"]["measured"] is False
     assert search["context"]
+
+
+def test_context_budget_is_applied_uniformly():
+    items = [{"content": "x" * 100}, {"content": "y" * 100}, {"content": "z" * 100}]
+    assert len(run_systems._cap_context(items, 250)) == 2
+    assert len(run_systems._cap_context(items, 1000)) == 3
+    assert run_systems._cap_context([], 100) == []

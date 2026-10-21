@@ -412,29 +412,40 @@ sessions (8–10 unrelated sessions per scenario) is needed before claiming
 stage-distribution differences. Do not over-read the F6 concentration as a
 finding about reasoning.
 
-### LongMemEval n=50 — first real-data fingerprints (2026-10-21)
+### LongMemEval n=50 — same-run fingerprints (2026-10-21)
 
-`results/systems_longmemeval_n50/` (verbatim + summary, `errors: 0`) compared
-against the same 50 questions from the semantic n=200 run:
+`results/systems_longmemeval_n50_all/`: all three systems in one batch,
+50 questions, `errors: 0`; table in
+`results/analysis_systems_longmemeval_n50_all.json`.
 
-| system | attributed acc | judged sem acc | failures | formation / retrieval / context recall |
-|---|---|---|---|---|
-| semantic engine (separate run) | 0.74 | 0.71 | F1 12, F6 1 | 0.50 / 1.00 / 0.88 |
-| verbatim RAG | 0.84 | 0.81 | F4 4, F6 1, E0 1, EVAL 2 | 1.00 / 0.98 / 0.82 |
-| summary memory | 0.96 | 0.97 | F6 1, EVAL 1 | 1.00 / 1.00 / 1.00 |
+| system | attributed acc | failures | formation / retrieval / context recall |
+|---|---|---|---|
+| semantic engine | 0.66 | F1 14, F6 2, E0 1 | 0.50 / 1.00 / 0.88 |
+| verbatim RAG | 0.86 | F4 6, F6 1 | 1.00 / 0.98 / 0.82 |
+| summary memory | 1.00 | none | 1.00 / 1.00 / 1.00 |
 
-The profiles separate sharply: the semantic engine is formation-dominated, the
-verbatim baseline is retrieval/context-dominated, and summary memory is close
-to ceiling on this subset because 2–6 sessions all fit in its top-10 context.
+Paired McNemar: semantic vs verbatim p=0.0063 (n01/n10=11/1), semantic vs
+summary p=1.5e-05, verbatim vs summary p=0.0156.
+
+**Benchmark-validity finding (blocking).** `longmemeval_oracle` contains only
+the answer sessions: mean 1.9 sessions per record, and all 500 records have
+`len(haystack_sessions) == len(answer_session_ids)`. Retrieval is therefore
+trivial, summary memory sees the entire store, and its 1.00 is near-oracle by
+construction. These fingerprints measure formation and context selection, not
+retrieval. **Do not use this variant for cross-system retrieval claims.** The
+full haystack exists only as `longmemeval_s_sample10.json` (10 records, ~50
+sessions each, 1 answer session); a real-haystack run is required, and LoCoMo
+is the available large real-haystack benchmark.
 
 **Comparison confound found and fixed:** the canonical n=50 run scores 0.60 on
-these same questions, the n=200 run scores 0.74 — a 14-point cross-run gap.
-System fingerprints must therefore be produced in **one run**, not stitched
-from earlier artifacts. `SemanticSystem` was added to the cross-system runner;
-the same-run n=50 batch is running as `results/systems_longmemeval_n50_all/`.
-Also note the context-budget confound: summary memory sees essentially the
-whole store, so a token-matched context budget is required before any
-"summary is better" reading.
+these same questions, the first-50 of the n=200 run scores 0.74, and the
+same-run semantic system scores 0.66 — cross-run gaps of up to 14 points.
+Fingerprints must be produced in one run; `SemanticSystem` was added for that
+reason.
+
+**Context-budget confound:** summary items are session-sized, so top-10 gives
+it far more text than top-10 turns/facts. A token-matched context budget is
+required before any "summary is better" reading.
 
 
 
