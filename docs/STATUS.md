@@ -412,6 +412,30 @@ sessions (8–10 unrelated sessions per scenario) is needed before claiming
 stage-distribution differences. Do not over-read the F6 concentration as a
 finding about reasoning.
 
+### LongMemEval n=50 — first real-data fingerprints (2026-10-21)
+
+`results/systems_longmemeval_n50/` (verbatim + summary, `errors: 0`) compared
+against the same 50 questions from the semantic n=200 run:
+
+| system | attributed acc | judged sem acc | failures | formation / retrieval / context recall |
+|---|---|---|---|---|
+| semantic engine (separate run) | 0.74 | 0.71 | F1 12, F6 1 | 0.50 / 1.00 / 0.88 |
+| verbatim RAG | 0.84 | 0.81 | F4 4, F6 1, E0 1, EVAL 2 | 1.00 / 0.98 / 0.82 |
+| summary memory | 0.96 | 0.97 | F6 1, EVAL 1 | 1.00 / 1.00 / 1.00 |
+
+The profiles separate sharply: the semantic engine is formation-dominated, the
+verbatim baseline is retrieval/context-dominated, and summary memory is close
+to ceiling on this subset because 2–6 sessions all fit in its top-10 context.
+
+**Comparison confound found and fixed:** the canonical n=50 run scores 0.60 on
+these same questions, the n=200 run scores 0.74 — a 14-point cross-run gap.
+System fingerprints must therefore be produced in **one run**, not stitched
+from earlier artifacts. `SemanticSystem` was added to the cross-system runner;
+the same-run n=50 batch is running as `results/systems_longmemeval_n50_all/`.
+Also note the context-budget confound: summary memory sees essentially the
+whole store, so a token-matched context budget is required before any
+"summary is better" reading.
+
 
 
 ## Human annotation package (2026-10-21)

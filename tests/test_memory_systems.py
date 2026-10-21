@@ -83,3 +83,16 @@ def test_summary_reports_fingerprint_fields():
     assert system["gate_distribution"] == {"sufficient": 1}
     assert system["stage_recall"].get("evolution") is None
     assert "evolution" in system["unmeasured_stages"]
+
+
+def test_semantic_system_runs_inside_the_same_runner():
+    system = ms.SemanticSystem()
+    system.ingest(_record())
+    search = system.search("Where does the user live?")
+    stages = ms.stage_dict(
+        system.stages(_record()["gold_evidence"], search),
+        _record()["gold_evidence"], mode="semantic",
+    )
+    assert stages["formation"]["found"] == ["e0"]
+    assert stages["evolution"]["details"]["measured"] is False
+    assert search["context"]

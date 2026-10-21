@@ -191,3 +191,79 @@ def stage_dict(
 
 
 SYSTEMS = {"verbatim": VerbatimSystem, "summary": SummarySystem}
+
+
+class SemanticSystem:
+    """The project engine, wrapped so it can run inside the cross-system runner.
+
+    Running it here (rather than reusing an older oracle run) is required for a
+    fair fingerprint: separate runs of the same questions differ by more than
+    the system effects at n=50.
+    """
+
+    name = "semantic"
+
+    def __init__(self) -> None:
+        from pathlib import Path
+
+        from memory_engine.engine import MemoryEngine
+        import uuid
+
+        self.root = Path(__file__).resolve().parents[1]
+        data_dir = self.root / "data"
+        data_dir.mkdir(parents=True, exist_ok=True)
+        self.user_id = f"sys_{uuid.uuid4().hex}"
+        self.engine = MemoryEngine(str(data_dir / f"system_{uuid.uuid4().hex}.db"))
+
+    def ingest(self, record: dict[str, Any]) -> None:
+        from memory_engine.models import AddMessage, AddRequest
+        from experiments.run_oracle_experiments import _timestamp_ms
+
+        for session in _sessions(record):
+            messages = []
+            for message in session["messages"]:
+                content = _text(message)
+                if not content:
+                    continue
+                messages.append(AddMessage(
+                    role=_role(message), content=content,
+                    timestamp=_timestamp_ms(session.get("date")),
+                ))
+            if messages:
+                self.engine.add(AddRequest(
+                    request_id=f"{self.user_id}:{session['session_id']}",
+                    messages=messages, user_id=self.user_id,
+                    session_id=session["session_id"],
+                ))
+
+    def search(self, question: str) -> dict[str, Any]:
+        from memory_engine.models import SearchRequest
+        from tracing.engine_trace import retrieval_artifacts
+
+        results = self.engine.search(SearchRequest(
+            query=question, user_id=self.user_id, top_k=10, multi_hop=True,
+        ))
+        trace = self.engine.last_search_trace or {}
+        return {
+            "retrieval": trace.get("retrieval_candidates") or retrieval_artifacts(results),
+            "rerank": trace.get("reranked") or retrieval_artifacts(results),
+            "context": trace.get("context") or retrieval_artifacts(results),
+        }
+
+    def stages(self, gold: list[dict[str, Any]], search: dict[str, Any]) -> dict[str, Any]:
+        from tracing.engine_trace import artifacts_from_store, active_fact_artifacts
+
+        stored = artifacts_from_store(self.engine, self.user_id)
+        formation = (stored["facts"] + stored["relations"] + stored["events"]
+                     + stored["rules"] + stored["profiles"])
+        return {
+            "formation": formation,
+            "storage": stored["raw"] + formation,
+            "evolution": active_fact_artifacts(self.engine, self.user_id),
+            "retrieval": search["retrieval"],
+            "rerank": search["rerank"],
+            "context": search["context"],
+        }
+
+
+SYSTEMS["semantic"] = SemanticSystem
