@@ -322,6 +322,29 @@ question). The LoCoMo intervention numbers stay descriptive.
 
 
 
+## Cross-model re-judge of LoCoMo discordants (2026-10-21)
+
+`experiments/rejudge_discordants.py` replays the evaluator (same deterministic
+floors) with `kimi-k3` over every discordant pair; output in
+`results/rejudge_discordants_locomo_n200.json`.
+
+| arm | pairs re-judged | pairs changed | old net (p) | new net (p) |
+|---|---|---|---|---|
+| first_loss | 11 | 4 | +5 (0.2266) | +8 (0.0078) |
+| path | 10 | 2 | +4 (0.3438) | +4 (0.2891) |
+| agnostic | 19 | 4 | +13 (0.0044) | +16 (3.1e-05) |
+
+**Reading.** Both judges agree that `path` is null, and both see `agnostic` as
+positive. But `first_loss` crosses significance only under the second judge,
+because that judge removes every one of its losses (n10 3→0). The same data can
+therefore support opposite claims about the targeted arms, which is the
+measurement failure the reviewer predicted. Combined with the placebo floor
+(9 discordants, +3 net), **no LoCoMo targeted-arm claim is reportable until
+human adjudication**. The script is ready to rerun on LongMemEval once its
+placebo finishes.
+
+
+
 ## Ablation plan (2026-10-21)
 
 Independent review (`kimi-k3`; the skill's Codex backend is unavailable on this
@@ -400,9 +423,12 @@ Three findings that shape the paper:
 
 ## Next action — finish the CCF-B chain in order
 
-1. **A1 placebo: done for LoCoMo; gate failed for targeted arms.** Do not run
-   A2–A6 until the measurement fix is in place. Run the LongMemEval placebo for
-   symmetry before deciding on that benchmark.
+1. **A1 placebo + cross-model re-judge.** LoCoMo placebo failed the gate
+   (9 discordants, +3 net); `kimi-k3` re-judge changes 4 pairs per arm and makes
+   `first_loss` cross significance, so no targeted-arm claim is reportable.
+   LongMemEval placebo is running; re-judge it with `rejudge_discordants.py`
+   when it completes. Then build the human annotation package — that is the
+   only fix for the judge dependence.
 2. **Full F3 probe** (40 scenarios) and per-family table (update/stale/history)
    — running.
 3. **Two additional memory baselines** (verbatim-window RAG, summary memory;
