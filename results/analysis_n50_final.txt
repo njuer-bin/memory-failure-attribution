@@ -1,0 +1,527 @@
+Loaded 50 successful rows from results/oracle_experiments_n50_final/comparison.jsonl
+
+=== SAMPLE-LEVEL ANSWER INSPECTION ===
+
+[1] gpt4_2655b836
+Q: What was the first issue I had with my new car after its first service?
+Gold: GPS system not functioning correctly
+real_memory: correct=False EM=0.0 F1=0.12903225806451613 answer='The first issue you had with your new car after its first service was a GPS system glitch on 3/22, which required replacement by the dealership.'
+oracle_memory: correct=False EM=0.0 F1=0.16000000000000003 answer="You had an issue with your car's GPS system on March 22nd, which was fixed by replacing the entire system."
+oracle_context: correct=False EM=0.0 F1=0.13333333333333333 answer='The first issue with the new car after its first service was an issue with the GPS system on 3/22, which had to be replaced.'
+failure: None
+stage recall: {'formation': 0.3333333333333333, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.3333333333333333, 'evolution': None}
+
+[2] gpt4_2487a7cb
+Q: Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?
+Gold: 'Data Analysis using Python' webinar
+real_memory: correct=False EM=0.0 F1=0.0 answer="The 'Effective Time Management' workshop."
+oracle_memory: correct=False EM=0.0 F1=0.0 answer="The 'Effective Time Management' workshop."
+oracle_context: correct=False EM=0.0 F1=0.0 answer="The 'Effective Time Management' workshop."
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[3] gpt4_76048e76
+Q: Which vehicle did I take care of first in February, the bike or the car?
+Gold: bike
+real_memory: correct=True EM=1.0 F1=1.0 answer='bike'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='The bike.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='The bike.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[4] gpt4_2312f94c
+Q: Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?
+Gold: Samsung Galaxy S22
+real_memory: correct=False EM=0.0 F1=0.0 answer='Dell XPS 13'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Dell XPS 13'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Dell XPS 13'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[5] 0bb5a684
+Q: How many days before the team meeting I was preparing for did I attend the workshop on 'Effective Communication in the Workplace'?
+Gold: 7 days. 8 days (including the last day) is also acceptable.
+real_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='3 days'
+oracle_memory: correct=False EM=0.0 F1=0.3076923076923077 answer='7 days'
+oracle_context: correct=False EM=0.0 F1=0.3076923076923077 answer='7 days'
+failure: F5_CONTEXT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[6] 08f4fc43
+Q: How many days had passed between the Sunday mass at St. Mary's Church and the Ash Wednesday service at the cathedral?
+Gold: 30 days. 31 days (including the last day) is also acceptable.
+real_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='20 days'
+oracle_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='20 days'
+oracle_context: correct=False EM=0.0 F1=0.15384615384615385 answer='9 days'
+failure: F1_FORMATION
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[7] 2c63a862
+Q: How many days did it take for me to find a house I loved after starting to work with Rachel?
+Gold: 14 days. 15 days (including the last day) is also acceptable.
+real_memory: correct=False EM=0.0 F1=0.14814814814814814 answer='The evidence does not provide information on how many days it took to find a house.'
+oracle_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='4 days'
+oracle_context: correct=False EM=0.0 F1=0.15384615384615385 answer='5 days'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[8] gpt4_385a5000
+Q: Which seeds were started first, the tomatoes or the marigolds?
+Gold: Tomatoes
+real_memory: correct=False EM=0.0 F1=0.4 answer='Tomatoes were started first.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='The marigolds were started first.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='The marigolds were started first.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[9] 2a1811e2
+Q: How many days had passed between the Hindu festival of Holi and the Sunday mass at St. Mary's Church?
+Gold: 21 days. 22 days (including the last day) is also acceptable.
+real_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='31 days'
+oracle_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='24 days'
+oracle_context: correct=False EM=0.0 F1=0.15384615384615385 answer='24 days'
+failure: F1_FORMATION
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[10] bbf86515
+Q: How many days before the 'Rack Fest' did I participate in the 'Turbocharged Tuesdays' event?
+Gold: 4 days.
+real_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='4'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='4 days'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='4 days'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[11] gpt4_5dcc0aab
+Q: Which pair of shoes did I clean last month?
+Gold: white Adidas sneakers
+real_memory: correct=True EM=1.0 F1=1.0 answer='White Adidas sneakers'
+oracle_memory: correct=False EM=0.0 F1=0.004024144869215291 answer="Both the Merrell Moab 2 Mid Waterproof and the Keen Targhee II Mid WP are well-suited for maintaining breathability and moisture management, which are crucial for keeping your feet dry and comfortable during your hikes. Here¡¯s a more detailed comparison to help you make an informed decision:\n\n### Breathability and Moisture Management\n\n1. **Merrell Moab 2 Mid Waterproof:**\n   - **Breathable Mesh Lining:** The boot features a breathable mesh lining that allows air to circulate, keeping your feet cool and dry.\n   - **M Select DRY Membrane:** This membrane is designed to keep water out while allowing moisture to escape, ensuring your feet stay dry inside the boot.\n   - **Breathable Tongue and Collar:** The tongue and collar are made from breathable materials to further enhance airflow and moisture management.\n\n2. **Keen Targhee II Mid WP:**\n   - **Breathable Mesh Lining:** Similar to the Merrell, the Keen Targhee II has a breathable mesh lining to promote airflow.\n   - **Keen.DRY Membrane:** This membrane provides a similar level of moisture management, keeping water out while allowing moisture to escape.\n   - **Breathable Tongue and Collar:** The tongue and collar are also made from breathable materials to enhance airflow and moisture management.\n\n### Additional Features\n\n1. **Gusseted Tongue:**\n   - Both boots feature a gusseted tongue, which helps to prevent water and debris from entering the boot, further enhancing moisture management.\n\n2. **Thermal Insulation:**\n   - **Merrell Moab 2 Mid Waterproof:** Features a thermal insulation system that helps to retain warmth in cold weather.\n   - **Keen Targhee II Mid WP:** Has a Keen.Warm insulation system, which provides warmth without compromising breathability.\n\n### Comparison to Converse Sneakers\n\n- **Converse Sneakers:** These are not designed for wet or humid conditions and can become waterlogged and heavy when exposed to moisture. They lack the waterproof and breathable features that hiking boots provide.\n\n### Tips for Maintaining Breathability and Moisture Management\n\n- **Regular Cleaning and Conditioning:** Clean and condition your boots regularly to maintain their breathability and moisture management capabilities.\n- **Avoid Harsh Chemicals:** Use mild soaps and avoid harsh chemicals that can damage the membrane or compromise the boot's breathability.\n- **Store Properly:** Store your boots in a well-ventilated area to allow them to dry completely between uses.\n\n### Final Thoughts\n\nBoth boots are designed to provide excellent breathability and moisture management, making them suitable for your needs. The Merrell Moab 2 Mid Waterproof offers a slightly more substantial thermal insulation system, which might be beneficial if you expect to hike in colder temperatures. The Keen Targhee II Mid WP, on the other hand, has a more relaxed fit, which can accommodate thicker socks or extra layers for added warmth.\n\nUltimately, the choice between the two depends on your specific needs and preferences. If you prioritize warmth and cold weather performance, the Merrell Moab 2 Mid Waterproof might be the better choice. If you prefer a more relaxed fit and don't need as much insulation, the Keen Targhee II Mid WP could be the way to go."
+oracle_context: correct=False EM=0.0 F1=0.0 answer="Great! Here's a more detailed and structured approach to cleaning and maintaining your hiking boots to ensure they last longer and perform well:\n\n### Cleaning Your Hiking Boots\n\n1. **Remove Loose Dirt and Debris**\n   - Use a soft-bristled brush or a cloth to gently remove any loose dirt, leaves, twigs, or other debris from the boots. Pay special attention to areas that are prone to collecting dirt, such as the soles and the laces.\n\n2. **Use a Mild Soap and Water**\n   - Mix a small amount of mild soap, such as Nikwax Tech Wash or Dr. Bronner's soap, with warm water. Dip a soft-bristled brush or a clean cloth into the solution and gently scrub the boots, paying attention to any particularly dirty areas. Be gentle to avoid damaging the materials.\n\n3. **Rinse Thoroughly**\n   - Use clean water to rinse the boots, ensuring that all soap residue is removed. This is crucial to prevent soap buildup, which can lead to stiffness and reduced water resistance.\n\n4. **Dry the Boots**\n   - Gently blot the boots with a clean towel to remove excess water. Avoid rubbing or scrubbing, as this can damage the materials. Allow the boots to air dry away from direct sunlight and heat sources. This may take several hours or overnight.\n\n### Conditioning and Waterproofing\n\n1. **Condition the Leather**\n   - If your boots have leather components, use a leather conditioner or leather oil to keep the leather supple and protected. Apply the conditioner evenly and let it soak in before wiping off any excess. Follow the product's instructions for application.\n\n2. **Apply a Waterproofing Treatment**\n   - Use a waterproofing treatment, such as Nikwax Waterproofing Wax or Sno-Seal, to maintain the boots' water resistance. Apply the treatment according to the manufacturer's instructions, typically by brushing or spraying it onto the boots. Allow it to dry completely before wearing.\n\n### Regular Maintenance\n\n1. **Inspect Regularly**\n   - Regularly inspect your boots for signs of wear, such as cracks, tears, or loose threads. Address any issues promptly to prevent further damage.\n\n2. **Reapply Waterproofing Treatment**\n   - Reapply a waterproofing treatment every 2-3 months, or as recommended by the manufacturer, to maintain the boots' water resistance. This is especially important if you frequently hike in wet conditions.\n\n3. **Store Properly**\n   - Store your boots in a cool, dry place, away from direct sunlight. Use a boot tree or stuff the boots with paper towels to maintain their shape. This helps prevent the boots from becoming misshapen during storage.\n\n### Additional Tips\n\n1. **Avoid Harsh Chemicals**\n   - Do not use harsh chemicals, abrasive cleaners, or high-pressure washes, as these can damage the boots' materials.\n\n2. **Dry Away from Heat Sources**\n   - Do not dry your boots near a heat source, such as a radiator or dryer, as this can cause the materials to degrade.\n\n3. **Use a Boot Cleaning Kit**\n   - Consider using a boot cleaning kit, which usually includes a gentle cleaner, a waterproofing treatment, and a conditioner. These kits are designed to provide a comprehensive cleaning and maintenance routine.\n\nBy following these steps, you'll be able to keep your hiking boots clean, dry, and well-maintained, ensuring they remain comfortable and perform well on your outdoor adventures. If you have any specific questions or need further assistance, feel free to ask!"
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[12] gpt4_0b2f1d21
+Q: Which event happened first, the purchase of the coffee maker or the malfunction of the stand mixer?
+Gold: The malfunction of the stand mixer
+real_memory: correct=False EM=0.0 F1=0.42857142857142855 answer='The purchase of the coffee maker happened first.'
+oracle_memory: correct=False EM=0.0 F1=0.42857142857142855 answer='The purchase of the coffee maker happened first.'
+oracle_context: correct=False EM=0.0 F1=0.42857142857142855 answer='The purchase of the coffee maker happened first.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[13] f0853d11
+Q: How many days had passed between the 'Walk for Hunger' event and the 'Coastal Cleanup' event?
+Gold: 14 days. 8 days (including the last day) is also acceptable.
+real_memory: correct=False EM=0.0 F1=0.0 answer='3'
+oracle_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='16 days'
+oracle_context: correct=False EM=0.0 F1=0.15384615384615385 answer='26 days'
+failure: F6_REASONING_CANDIDATE
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[14] gpt4_6ed717ea
+Q: Which item did I purchase first, the dog bed for Max or the training pads for Luna?
+Gold: Training pads for Luna
+real_memory: correct=True EM=0.0 F1=0.75 answer='Training pads for Luna.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='The training pads for Luna were purchased first.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='The training pads for Luna were purchased first.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[15] gpt4_70e84552
+Q: Which task did I complete first, fixing the fence or trimming the goats' hooves?
+Gold: Fixing the fence
+real_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Fixing the fence.'
+oracle_memory: correct=False EM=0.0 F1=0.28571428571428575 answer="Trimming the goats' hooves."
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer="trimming the goats' hooves"
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[16] a3838d2b
+Q: How many charity events did I participate in before the 'Run for the Cure' event?
+Gold: 4
+real_memory: correct=False EM=0.0 F1=0.0 answer='0'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='2'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Three'
+failure: F1_FORMATION
+stage recall: {'formation': 0.6666666666666666, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.6666666666666666, 'context': 0.3333333333333333, 'evolution': None}
+
+[17] gpt4_93159ced
+Q: How long have I been working before I started my current job at NovaTech?
+Gold: 4 years and 9 months
+real_memory: correct=True EM=0.0 F1=0.8000000000000002 answer='4 years and 3 months'
+oracle_memory: correct=True EM=0.0 F1=0.5714285714285715 answer='9 years'
+oracle_context: correct=True EM=0.0 F1=0.5714285714285715 answer='9 years'
+failure: None
+stage recall: {'formation': 0.6666666666666666, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.6666666666666666, 'evolution': None}
+
+[18] gpt4_2d58bcd6
+Q: Which book did I finish reading first, 'The Hate U Give' or 'The Nightingale'?
+Gold: 'The Hate U Give'
+real_memory: correct=False EM=0.0 F1=0.0 answer='You finished reading "The Nightingale" first.'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='"The Hate U Give"'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='"The Hate U Give"'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[19] gpt4_65aabe59
+Q: Which device did I set up first, the smart thermostat or the mesh network system?
+Gold: Smart thermostat
+real_memory: correct=True EM=0.0 F1=0.4444444444444445 answer='You set up the smart thermostat first.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='smart thermostat'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='smart thermostat'
+failure: None
+stage recall: {'formation': 0.3333333333333333, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[20] 982b5123
+Q: How many months ago did I book the Airbnb in San Francisco?
+Gold: Five months ago
+real_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='Two months ago.'
+oracle_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='Two months ago.'
+oracle_context: correct=False EM=0.0 F1=0.3333333333333333 answer='Three months ago.'
+failure: F6_REASONING_CANDIDATE
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[21] b9cfe692
+Q: How long did I take to finish 'The Seven Husbands of Evelyn Hugo' and 'The Nightingale' combined?
+Gold: 5.5 weeks
+real_memory: correct=False EM=0.0 F1=0.0 answer='Five weeks.'
+oracle_memory: correct=False EM=0.0 F1=0.09523809523809525 answer='You took 2.5 weeks to finish "The Seven Husbands of Evelyn Hugo" and 3 weeks to finish "The Nightingale".'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='5.5 weeks'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[22] gpt4_4edbafa2
+Q: What was the date on which I attended the first BBQ event in June?
+Gold: June 3rd
+real_memory: correct=True EM=0.0 F1=0.8 answer='3rd of June'
+oracle_memory: correct=True EM=0.0 F1=0.8 answer='3rd of June'
+oracle_context: correct=True EM=0.0 F1=0.8 answer='3rd of June'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[23] c8090214
+Q: How many days before I bought the iPhone 13 Pro did I attend the Holiday Market?
+Gold: 7 days. 8 days (including the last day) is also acceptable.
+real_memory: correct=False EM=0.0 F1=0.0 answer='One week.'
+oracle_memory: correct=False EM=0.0 F1=0.3076923076923077 answer='7 days'
+oracle_context: correct=False EM=0.0 F1=0.3076923076923077 answer='7 days'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[24] gpt4_483dd43c
+Q: Which show did I start watching first, 'The Crown' or 'Game of Thrones'?
+Gold: 'Game of Thrones'
+real_memory: correct=True EM=0.0 F1=0.42857142857142855 answer="Based on the evidence, you started watching 'Game of Thrones' first."
+oracle_memory: correct=False EM=0.0 F1=0.0 answer="'The Crown'"
+oracle_context: correct=False EM=0.0 F1=0.0 answer="'The Crown'"
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[25] e4e14d04
+Q: How long had I been a member of 'Book Lovers Unite' when I attended the meetup?
+Gold: Two weeks
+real_memory: correct=False EM=0.0 F1=0.0 answer='Three weeks.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Three weeks.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Three weeks.'
+failure: F6_REASONING_CANDIDATE
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[26] c9f37c46
+Q: How long had I been watching stand-up comedy specials regularly when I attended the open mic night at the local comedy club?
+Gold: 2 months
+real_memory: correct=True EM=0.0 F1=0.5 answer='3 months'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='3 months'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='3 months'
+failure: F1_FORMATION
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[27] gpt4_2c50253f
+Q: What time do I wake up on Tuesdays and Thursdays?
+Gold: 6:45 AM
+real_memory: correct=True EM=0.0 F1=0.5 answer='7:00 AM'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='7:00 AM'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='7:00 AM'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[28] dcfa8644
+Q: How many days had passed since I bought my Adidas running shoes when I realized one of the shoelaces on my old Converse sneakers had broken?
+Gold: 14 days. 15 days (including the last day) is also acceptable.
+real_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='6 days'
+oracle_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='9 days'
+oracle_context: correct=False EM=0.0 F1=0.15384615384615385 answer='24 days'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[29] gpt4_b4a80587
+Q: Which event happened first, the road trip to the coast or the arrival of the new prime lens?
+Gold: The arrival of the new prime lens
+real_memory: correct=True EM=0.0 F1=0.8750000000000001 answer='The arrival of the new prime lens happened first.'
+oracle_memory: correct=False EM=0.0 F1=0.16666666666666666 answer='road trip to the coast'
+oracle_context: correct=False EM=0.0 F1=0.26666666666666666 answer='the road trip to the coast happened first.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[30] gpt4_9a159967
+Q: Which airline did I fly with the most in March and April?
+Gold: United Airlines
+real_memory: correct=True EM=1.0 F1=1.0 answer='United Airlines'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='United Airlines'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='United Airlines'
+failure: None
+stage recall: {'formation': 0.3333333333333333, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.6666666666666666, 'evolution': None}
+
+[31] cc6d1ec1
+Q: How long had I been bird watching when I attended the bird watching workshop?
+Gold: Two months
+real_memory: correct=False EM=0.0 F1=0.0 answer='Three months.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Three months.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Three months.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[32] gpt4_8c8961ae
+Q: Which trip did I take first, the one to Europe with family or the solo trip to Thailand?
+Gold: The solo trip to Thailand
+real_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='The trip to Thailand was taken first.'
+oracle_memory: correct=False EM=0.0 F1=0.4615384615384615 answer='The trip to Europe with family came first.'
+oracle_context: correct=False EM=0.0 F1=0.4615384615384615 answer='The trip to Europe with family came first.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[33] gpt4_d9af6064
+Q: Which device did I set up first, the smart thermostat or the new router?
+Gold: new router
+real_memory: correct=True EM=1.0 F1=1.0 answer='new router'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='new router'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='new router'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[34] gpt4_7de946e7
+Q: Which health issue did I deal with first, the persistent cough or the skin tag removal?
+Gold: Persistent cough
+real_memory: correct=True EM=0.0 F1=0.5714285714285715 answer='The persistent cough occurred first.'
+oracle_memory: correct=True EM=0.0 F1=0.4 answer='The persistent cough.'
+oracle_context: correct=True EM=0.0 F1=0.4 answer='The persistent cough.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[35] d01c6aa8
+Q: How old was I when I moved to the United States?
+Gold: 27
+real_memory: correct=False EM=0.0 F1=0.0 answer='Information not provided in the evidence.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='27'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='27'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[36] 993da5e2
+Q: How long had I been using the new area rug when I rearranged my living room furniture?
+Gold: One week. Answers ranging from 7 days to 10 days are also acceptable.
+real_memory: correct=False EM=0.0 F1=0.0 answer='Three weeks'
+oracle_memory: correct=False EM=0.0 F1=0.13333333333333336 answer='One month'
+oracle_context: correct=False EM=0.0 F1=0.13333333333333336 answer='One month.'
+failure: F6_REASONING_CANDIDATE
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[37] a3045048
+Q: How many days before my best friend's birthday party did I order her gift?
+Gold: 7 days. 8 days (including the last day) is also acceptable.
+real_memory: correct=False EM=0.0 F1=0.0 answer='15'
+oracle_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='17 days'
+oracle_context: correct=False EM=0.0 F1=0.15384615384615385 answer='17 days'
+failure: F6_REASONING_CANDIDATE
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[38] gpt4_d31cdae3
+Q: Which trip did the narrator take first, the solo trip to Europe or the family road trip across the American Southwest?
+Gold: The family road trip across the American Southwest
+real_memory: correct=True EM=0.0 F1=0.875 answer='The family road trip across the American Southwest.'
+oracle_memory: correct=True EM=0.0 F1=0.888888888888889 answer='The family road trip across the American Southwest happened first.'
+oracle_context: correct=False EM=0.0 F1=0.26666666666666666 answer='The solo trip to Europe came first.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[39] gpt4_cd90e484
+Q: How long did I use my new binoculars before I saw the American goldfinches returning to the area?
+Gold: Two weeks
+real_memory: correct=False EM=0.0 F1=0.0 answer='Three weeks.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Three weeks.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Three weeks.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[40] gpt4_88806d6e
+Q: Who did I meet first, Mark and Sarah or Tom?
+Gold: Tom
+real_memory: correct=False EM=0.0 F1=0.0 answer='You met Mark and Sarah first.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Tom'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Mark and Sarah.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[41] gpt4_4cd9eba1
+Q: How many weeks have I been accepted into the exchange program when I started attending the pre-departure orientation sessions?
+Gold: one week
+real_memory: correct=False EM=0.0 F1=0.0 answer='3 weeks'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='5 weeks'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='5 weeks'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[42] gpt4_93f6379c
+Q: Which group did I join first, 'Page Turners' or 'Marketing Professionals'?
+Gold: Page Turners
+real_memory: correct=True EM=0.0 F1=0.0 answer="'Page Turners'"
+oracle_memory: correct=False EM=0.0 F1=0.0 answer="You joined 'Marketing Professionals' first."
+oracle_context: correct=True EM=0.0 F1=0.0 answer="You joined 'Page Turners' last week, and 'Marketing Professionals' yesterday."
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[43] b29f3365
+Q: How long had I been taking guitar lessons when I bought the new guitar amp?
+Gold: Four weeks
+real_memory: correct=False EM=0.0 F1=0.0 answer='Six weeks.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Eight weeks.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Eight weeks.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[44] gpt4_2f56ae70
+Q: Which streaming service did I start using most recently?
+Gold: Disney+
+real_memory: correct=False EM=0.0 F1=0.0 answer='Amazon Prime Video'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Apple TV+'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Apple TV+'
+failure: F1_FORMATION
+stage recall: {'formation': 0.6666666666666666, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[45] 6613b389
+Q: How many months before my anniversary did Rachel get engaged?
+Gold: 2
+real_memory: correct=False EM=0.0 F1=0.0 answer='5 months'
+oracle_memory: correct=False EM=0.0 F1=0.1111111111111111 answer='Rachel got engaged on May 15th, which is about 2 months before her anniversary on July 22nd.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='4'
+failure: F1_FORMATION
+stage recall: {'formation': 0.6666666666666666, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[46] gpt4_78cf46a3
+Q: Which event happened first, the narrator losing their phone charger or the narrator receiving their new phone case?
+Gold: Receiving the new phone case
+real_memory: correct=True EM=0.0 F1=0.7142857142857143 answer='The narrator receiving their new phone case happened first.'
+oracle_memory: correct=False EM=0.0 F1=0.3076923076923077 answer='The narrator losing their phone charger happened first.'
+oracle_context: correct=True EM=0.0 F1=0.7142857142857143 answer='The narrator receiving their new phone case happened first.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[47] gpt4_0a05b494
+Q: Who did I meet first, the woman selling jam at the farmer's market or the tourist from Australia?
+Gold: the woman selling jam at the farmer's market
+real_memory: correct=True EM=0.0 F1=0.8421052631578948 answer="You met the woman selling jam at the farmer's market first."
+oracle_memory: correct=True EM=0.0 F1=0.875 answer="The woman selling jam at the farmer's market."
+oracle_context: correct=True EM=1.0 F1=1.0 answer="the woman selling jam at the farmer's market"
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[48] gpt4_1a1dc16d
+Q: Which event happened first, the meeting with Rachel or the pride parade?
+Gold: The meeting with Rachel
+real_memory: correct=False EM=0.0 F1=0.16666666666666666 answer='The pride parade happened first on May 1st.'
+oracle_memory: correct=False EM=0.0 F1=0.22222222222222224 answer='the pride parade happened first.'
+oracle_context: correct=True EM=0.0 F1=0.8 answer='the meeting with Rachel happened first.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[49] gpt4_2f584639
+Q: Which gift did I buy first, the necklace for my sister or the photo album for my mom?
+Gold: the photo album for my mom
+real_memory: correct=False EM=0.0 F1=0.28571428571428575 answer='You bought the necklace for your sister first.'
+oracle_memory: correct=False EM=0.0 F1=0.28571428571428575 answer='You bought the necklace for your sister first.'
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer='You bought the necklace for your sister first.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[50] gpt4_213fd887
+Q: Which event did I participate in first, the volleyball league or the charity 5K run to raise money for a local children's hospital?
+Gold: volleyball league
+real_memory: correct=False EM=0.0 F1=0.0 answer='The charity 5K run was your first event.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='the charity 5K run'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='charity 5K run'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+=== SEMANTIC F6 CANDIDATES (real_memory) ===
+
+f0853d11: How many days had passed between the 'Walk for Hunger' event and the 'Coastal Cleanup' event?
+Gold evidence:
+ - I'm planning a beach trip to Santa Monica soon and I was wondering if you could recommend some eco-friendly sunscreen brands. By the way, I recently volunteered at the Coastal Cleanup event on March 7th and it was amazing to see the impact we made on keeping our beaches clean.
+ - I'm looking to find some new charity events to participate in, particularly ones that involve walking or running. I just did the "Walk for Hunger" 5K walk on February 21st and had a great time, so I'm looking for something similar. Do you have any recommendations?
+real_memory: '3'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: '14 days. 8 days (including the last day) is also acceptable.'."
+oracle_memory: '16 days'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: '14 days. 8 days (including the last day) is also acceptable.'."
+oracle_context: '26 days'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: '14 days. 8 days (including the last day) is also acceptable.'."
+
+982b5123: How many months ago did I book the Airbnb in San Francisco?
+Gold evidence:
+ - I'm planning a trip to San Francisco for next month and I was wondering if you could recommend some good restaurants in the Haight-Ashbury neighborhood. By the way, I've been to SF before, exactly two months ago, for my best friend's wedding - it was a 5-day trip and I had an amazing time.
+ - I'm planning a trip to San Francisco and was wondering if you could recommend some good neighborhoods to stay in. By the way, I've had a great experience with Airbnb in the past, like when I stayed in Haight-Ashbury for my best friend's wedding and had to book three months in advance.
+real_memory: 'Two months ago.'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'Five months ago'."
+oracle_memory: 'Two months ago.'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'Five months ago'."
+oracle_context: 'Three months ago.'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'Five months ago'."
+
+e4e14d04: How long had I been a member of 'Book Lovers Unite' when I attended the meetup?
+Gold evidence:
+ - I'm looking for some book recommendations. I just finished reading the latest bestseller by John Grisham and loved it. Speaking of which, I attended a meetup organized by Book Lovers Unite last week where we discussed the book, and it was so much fun debating the plot twists and characters with fellow book lovers. Do you have any suggestions for my next read?
+ - I'm looking for some book recommendations. I recently joined a Facebook group called "Book Lovers Unite" three weeks ago and I've been loving the discussions and recommendations from the members. Can you suggest some popular books in the thriller genre?
+real_memory: 'Three weeks.'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'Two weeks'."
+oracle_memory: 'Three weeks.'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'Two weeks'."
+oracle_context: 'Three weeks.'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'Two weeks'."
+
+993da5e2: How long had I been using the new area rug when I rearranged my living room furniture?
+Gold evidence:
+ - I'm thinking of getting some new decorative items for my living room, like vases or sculptures. Since I recently rearranged the furniture three weeks ago, I want to make sure whatever I get complements the new layout. Can you give me some suggestions?
+ - I'm looking for some advice on plant care. I've recently started collecting indoor plants and I'm not sure how often to water them. I have a fern, snake plant, and spider plant in my living room, and I've been watering them every Sunday morning. Is that enough? By the way, I recently got a new area rug for my living room a month ago, and it's really brought the whole room together.
+real_memory: 'Three weeks'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'One week. Answers ranging from 7 days to 10 days are also acceptable.'."
+oracle_memory: 'One month'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'One week. Answers ranging from 7 days to 10 days are also acceptable.'."
+oracle_context: 'One month.'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: 'One week. Answers ranging from 7 days to 10 days are also acceptable.'."
+
+a3045048: How many days before my best friend's birthday party did I order her gift?
+Gold evidence:
+ - I'm looking for some ideas for gifts for my brother's birthday in June. I've been thinking of getting him a new watch, but I'm not sure what brand or style to go for. Can you give me some suggestions? By the way, I just got a great deal on a personalized photo album from Shutterfly last month, I ordered it on the 15th of April for my best friend's birthday and it turned out amazing!
+ - I'm particularly interested in the Fossil Grant Chronograph Watch, can you tell me more about it? Also, I had a great time celebrating my best friend's 30th birthday party recently, it was on the 22nd of April, she loved the personalized photo album I got her.
+real_memory: '15'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: '7 days. 8 days (including the last day) is also acceptable.'."
+oracle_memory: '17 days'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: '7 days. 8 days (including the last day) is also acceptable.'."
+oracle_context: '17 days'; semantic=False, confidence=high, judge="Deterministic numeric comparison against the benchmark's own acceptable range: '7 days. 8 days (including the last day) is also acceptable.'."
+
+=== ORACLE INVERSIONS (unified labels) ===
+REAL_OK_ORACLE_FAIL: gpt4_2655b836 | real=None oracle=E0_EVIDENCE_INSUFFICIENT | real_ans='The first issue you had with your new car after its first service was a GPS system glitch on 3/22, which required replacement by the dealership.' | oc_ans='The first issue with the new car after its first service was an issue with the GPS system on 3/22, which had to be replaced.'
+REAL_FAIL_ORACLE_OK: 0bb5a684 | real=F5_CONTEXT oracle=None | real_ans='3 days' | oc_ans='7 days'
+REAL_OK_ORACLE_FAIL: gpt4_5dcc0aab | real=None oracle=EVAL_SEMANTIC_UNCERTAIN | real_ans='White Adidas sneakers' | oc_ans="Great! Here's a more detailed and structured approach to cleaning and maintaining your hiking boots to ensure they last longer and perform well:\n\n### Cleaning Your Hiking Boots\n\n1. **Remove Loose Dirt and Debris**\n   - Use a soft-bristled brush or a cloth to gently remove any loose dirt, leaves, twigs, or other debris from the boots. Pay special attention to areas that are prone to collecting dirt, such as the soles and the laces.\n\n2. **Use a Mild Soap and Water**\n   - Mix a small amount of mild soap, such as Nikwax Tech Wash or Dr. Bronner's soap, with warm water. Dip a soft-bristled brush or a clean cloth into the solution and gently scrub the boots, paying attention to any particularly dirty areas. Be gentle to avoid damaging the materials.\n\n3. **Rinse Thoroughly**\n   - Use clean water to rinse the boots, ensuring that all soap residue is removed. This is crucial to prevent soap buildup, which can lead to stiffness and reduced water resistance.\n\n4. **Dry the Boots**\n   - Gently blot the boots with a clean towel to remove excess water. Avoid rubbing or scrubbing, as this can damage the materials. Allow the boots to air dry away from direct sunlight and heat sources. This may take several hours or overnight.\n\n### Conditioning and Waterproofing\n\n1. **Condition the Leather**\n   - If your boots have leather components, use a leather conditioner or leather oil to keep the leather supple and protected. Apply the conditioner evenly and let it soak in before wiping off any excess. Follow the product's instructions for application.\n\n2. **Apply a Waterproofing Treatment**\n   - Use a waterproofing treatment, such as Nikwax Waterproofing Wax or Sno-Seal, to maintain the boots' water resistance. Apply the treatment according to the manufacturer's instructions, typically by brushing or spraying it onto the boots. Allow it to dry completely before wearing.\n\n### Regular Maintenance\n\n1. **Inspect Regularly**\n   - Regularly inspect your boots for signs of wear, such as cracks, tears, or loose threads. Address any issues promptly to prevent further damage.\n\n2. **Reapply Waterproofing Treatment**\n   - Reapply a waterproofing treatment every 2-3 months, or as recommended by the manufacturer, to maintain the boots' water resistance. This is especially important if you frequently hike in wet conditions.\n\n3. **Store Properly**\n   - Store your boots in a cool, dry place, away from direct sunlight. Use a boot tree or stuff the boots with paper towels to maintain their shape. This helps prevent the boots from becoming misshapen during storage.\n\n### Additional Tips\n\n1. **Avoid Harsh Chemicals**\n   - Do not use harsh chemicals, abrasive cleaners, or high-pressure washes, as these can damage the boots' materials.\n\n2. **Dry Away from Heat Sources**\n   - Do not dry your boots near a heat source, such as a radiator or dryer, as this can cause the materials to degrade.\n\n3. **Use a Boot Cleaning Kit**\n   - Consider using a boot cleaning kit, which usually includes a gentle cleaner, a waterproofing treatment, and a conditioner. These kits are designed to provide a comprehensive cleaning and maintenance routine.\n\nBy following these steps, you'll be able to keep your hiking boots clean, dry, and well-maintained, ensuring they remain comfortable and perform well on your outdoor adventures. If you have any specific questions or need further assistance, feel free to ask!"
+REAL_FAIL_ORACLE_OK: b9cfe692 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Five weeks.' | oc_ans='5.5 weeks'
+REAL_FAIL_ORACLE_OK: d01c6aa8 | real=F1_FORMATION oracle=None | real_ans='Information not provided in the evidence.' | oc_ans='27'
+REAL_FAIL_ORACLE_OK: gpt4_2f56ae70 | real=F1_FORMATION oracle=None | real_ans='Amazon Prime Video' | oc_ans='Apple TV+'
+
+=== PAIRED SEMANTIC VERDICT STATISTICS (McNemar exact, paired bootstrap) ===
+real_memory vs oracle_memory: n01=4 n10=2 p=0.6875 diff=-0.053 CI=[-0.184, 0.079]
+real_memory vs oracle_context: n01=2 n10=1 p=1.0000 diff=-0.027 CI=[-0.108, 0.054]
+oracle_memory vs oracle_context: n01=1 n10=1 p=1.0000 diff=0.000 CI=[-0.077, 0.077]
+
+=== TOKEN-F1 THRESHOLD SWEEP (POST-HOC) ===
+threshold	real_memory	oracle_memory	oracle_context
+0.30	0.440	0.420	0.420
+0.35	0.420	0.340	0.360
+0.40	0.420	0.340	0.360
+0.45	0.340	0.300	0.320
+0.50	0.340	0.280	0.300
+0.55	0.300	0.200	0.220
+0.60	0.280	0.180	0.200
+0.65	0.280	0.180	0.200
+0.70	0.220	0.160	0.180
+0.75	0.200	0.160	0.160
+0.80	0.180	0.160	0.160
+
+Bootstrap 95% CI at threshold=0.50:
+real_memory: accuracy=0.340 CI=[0.220, 0.480]
+oracle_memory: accuracy=0.280 CI=[0.160, 0.400]
+oracle_context: accuracy=0.300 CI=[0.180, 0.420]

@@ -1,0 +1,21 @@
+{
+  "run": "longmemeval_oracle n=50, semantic calibration",
+  "method": "manual per-case adjudication: candidate vs benchmark reference vs Gold Evidence dates",
+  "confirmed_f6": {
+    "0bb5a684": "evidence: workshop Jan 10, meeting Jan 17 -> 7d; ref 7d; candidate '3' wrong",
+    "08f4fc43": "evidence: mass Jan 2, Ash Wednesday Feb 1 -> 30d; ref 30d; candidate '20' wrong. NOTE: judge itself computed 20d (date-arithmetic failure)",
+    "2a1811e2": "evidence: Holi Feb 26, mass Mar 19 -> 21d; ref 21d; candidate '31' wrong",
+    "dcfa8644": "evidence: shoes Jan 10, laces broke Jan 24 -> 14d; ref 14d; candidate '6' wrong",
+    "a3045048": "evidence: gift ordered Apr 15, birthday Apr 22 -> 7d; ref 7d; candidate '15' wrong. NOTE: judge reason misquoted reference as 15d",
+    "gpt4_4cd9eba1": "evidence: accepted Mar 20, orientation Mar 27 -> 1wk; ref 'one week'; candidate '3 weeks' wrong"
+  },
+  "judge_false_negatives": {
+    "bbf86515": "candidate '4' == ref '4'; judge reason even states 'the difference is 4 days' but verdict incorrect (verdict/reason contradiction)",
+    "c8090214": "candidate '7 days' == ref '7 days'; judge computed 7d then overrode with confused objection ('should be 0 days')"
+  },
+  "counts": {
+    "confirmed_f6": 6,
+    "judge_false_negative": 2
+  },
+  "caveats": "All 6 confirmed F6 are temporal-reasoning day-arithmetic questions answered by qwen2.5:7b. The judge (also qwen2.5:7b) shows its own date-arithmetic and verdict-consistency failures, so judge-based counts remain lower-confidence than deterministic evidence tracing."
+}

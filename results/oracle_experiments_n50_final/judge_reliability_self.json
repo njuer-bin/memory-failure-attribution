@@ -1,0 +1,40 @@
+{
+  "input": "results/oracle_experiments_n50_final/comparison.jsonl",
+  "records": 50,
+  "judge_errors": 0,
+  "gate_judge_errors": 0,
+  "lexically_skipped_judgments": 25,
+  "unjudged_answers": 2,
+  "judge_models": [
+    "qwen2.5:7b"
+  ],
+  "prompt_roles": {
+    "answer_judge": "model_generated_answer",
+    "gate_judge": "benchmark_reference"
+  },
+  "correct_verdict": {
+    "n": 123,
+    "agreement": 1.0,
+    "kappa": 1.0,
+    "n_stored_true": 69,
+    "n_rerun_true": 69
+  },
+  "raw_judge": {
+    "n": 69,
+    "agreement": 1.0,
+    "kappa": 1.0,
+    "n_stored_true": 50,
+    "n_rerun_true": 50
+  },
+  "evidence_sufficiency": {
+    "n": 49,
+    "agreement": 1.0,
+    "kappa": 1.0,
+    "n_stored_true": 46,
+    "n_rerun_true": 46
+  },
+  "n_flips": 0,
+  "n_gate_flips": 0,
+  "flips": [],
+  "gate_flips": []
+}

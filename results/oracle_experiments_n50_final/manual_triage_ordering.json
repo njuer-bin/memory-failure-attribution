@@ -1,0 +1,266 @@
+[
+  {
+    "qid": "gpt4_2487a7cb",
+    "mode": "real_memory",
+    "adj": "judge",
+    "answer": "The 'Effective Time Management' workshop.",
+    "gold": "'Data Analysis using Python' webinar",
+    "question": "Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?"
+  },
+  {
+    "qid": "gpt4_2487a7cb",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "The 'Effective Time Management' workshop.",
+    "gold": "'Data Analysis using Python' webinar",
+    "question": "Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?"
+  },
+  {
+    "qid": "gpt4_2487a7cb",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "The 'Effective Time Management' workshop.",
+    "gold": "'Data Analysis using Python' webinar",
+    "question": "Which event did I attend first, the 'Effective Time Management' workshop or the 'Data Analysis using Python' webinar?"
+  },
+  {
+    "qid": "gpt4_76048e76",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "The bike.",
+    "gold": "bike",
+    "question": "Which vehicle did I take care of first in February, the bike or the car?"
+  },
+  {
+    "qid": "gpt4_76048e76",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "The bike.",
+    "gold": "bike",
+    "question": "Which vehicle did I take care of first in February, the bike or the car?"
+  },
+  {
+    "qid": "gpt4_2312f94c",
+    "mode": "real_memory",
+    "adj": "deterministic_lexical",
+    "answer": "Dell XPS 13",
+    "gold": "Samsung Galaxy S22",
+    "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?"
+  },
+  {
+    "qid": "gpt4_2312f94c",
+    "mode": "oracle_memory",
+    "adj": "deterministic_lexical",
+    "answer": "Dell XPS 13",
+    "gold": "Samsung Galaxy S22",
+    "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?"
+  },
+  {
+    "qid": "gpt4_2312f94c",
+    "mode": "oracle_context",
+    "adj": "deterministic_lexical",
+    "answer": "Dell XPS 13",
+    "gold": "Samsung Galaxy S22",
+    "question": "Which device did I got first, the Samsung Galaxy S22 or the Dell XPS 13?"
+  },
+  {
+    "qid": "gpt4_385a5000",
+    "mode": "real_memory",
+    "adj": "judge",
+    "answer": "Tomatoes were started first.",
+    "gold": "Tomatoes",
+    "question": "Which seeds were started first, the tomatoes or the marigolds?"
+  },
+  {
+    "qid": "gpt4_385a5000",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "The marigolds were started first.",
+    "gold": "Tomatoes",
+    "question": "Which seeds were started first, the tomatoes or the marigolds?"
+  },
+  {
+    "qid": "gpt4_385a5000",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "The marigolds were started first.",
+    "gold": "Tomatoes",
+    "question": "Which seeds were started first, the tomatoes or the marigolds?"
+  },
+  {
+    "qid": "gpt4_0b2f1d21",
+    "mode": "real_memory",
+    "adj": "judge",
+    "answer": "The purchase of the coffee maker happened first.",
+    "gold": "The malfunction of the stand mixer",
+    "question": "Which event happened first, the purchase of the coffee maker or the malfunction of the stand mixer?"
+  },
+  {
+    "qid": "gpt4_0b2f1d21",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "The purchase of the coffee maker happened first.",
+    "gold": "The malfunction of the stand mixer",
+    "question": "Which event happened first, the purchase of the coffee maker or the malfunction of the stand mixer?"
+  },
+  {
+    "qid": "gpt4_0b2f1d21",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "The purchase of the coffee maker happened first.",
+    "gold": "The malfunction of the stand mixer",
+    "question": "Which event happened first, the purchase of the coffee maker or the malfunction of the stand mixer?"
+  },
+  {
+    "qid": "gpt4_70e84552",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "trimming the goats' hooves",
+    "gold": "Fixing the fence",
+    "question": "Which task did I complete first, fixing the fence or trimming the goats' hooves?"
+  },
+  {
+    "qid": "gpt4_2d58bcd6",
+    "mode": "real_memory",
+    "adj": "judge",
+    "answer": "You finished reading \"The Nightingale\" first.",
+    "gold": "'The Hate U Give'",
+    "question": "Which book did I finish reading first, 'The Hate U Give' or 'The Nightingale'?"
+  },
+  {
+    "qid": "gpt4_483dd43c",
+    "mode": "oracle_memory",
+    "adj": "deterministic_lexical",
+    "answer": "'The Crown'",
+    "gold": "'Game of Thrones'",
+    "question": "Which show did I start watching first, 'The Crown' or 'Game of Thrones'?"
+  },
+  {
+    "qid": "gpt4_483dd43c",
+    "mode": "oracle_context",
+    "adj": "deterministic_lexical",
+    "answer": "'The Crown'",
+    "gold": "'Game of Thrones'",
+    "question": "Which show did I start watching first, 'The Crown' or 'Game of Thrones'?"
+  },
+  {
+    "qid": "gpt4_b4a80587",
+    "mode": "oracle_memory",
+    "adj": "deterministic_lexical",
+    "answer": "road trip to the coast",
+    "gold": "The arrival of the new prime lens",
+    "question": "Which event happened first, the road trip to the coast or the arrival of the new prime lens?"
+  },
+  {
+    "qid": "gpt4_b4a80587",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "the road trip to the coast happened first.",
+    "gold": "The arrival of the new prime lens",
+    "question": "Which event happened first, the road trip to the coast or the arrival of the new prime lens?"
+  },
+  {
+    "qid": "gpt4_8c8961ae",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "The trip to Europe with family came first.",
+    "gold": "The solo trip to Thailand",
+    "question": "Which trip did I take first, the one to Europe with family or the solo trip to Thailand?"
+  },
+  {
+    "qid": "gpt4_8c8961ae",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "The trip to Europe with family came first.",
+    "gold": "The solo trip to Thailand",
+    "question": "Which trip did I take first, the one to Europe with family or the solo trip to Thailand?"
+  },
+  {
+    "qid": "gpt4_d31cdae3",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "The solo trip to Europe came first.",
+    "gold": "The family road trip across the American Southwest",
+    "question": "Which trip did the narrator take first, the solo trip to Europe or the family road trip across the American Southwest?"
+  },
+  {
+    "qid": "gpt4_93f6379c",
+    "mode": "oracle_memory",
+    "adj": "lexical_anchor_override",
+    "answer": "You joined 'Marketing Professionals' first.",
+    "gold": "Page Turners",
+    "question": "Which group did I join first, 'Page Turners' or 'Marketing Professionals'?"
+  },
+  {
+    "qid": "gpt4_78cf46a3",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "The narrator losing their phone charger happened first.",
+    "gold": "Receiving the new phone case",
+    "question": "Which event happened first, the narrator losing their phone charger or the narrator receiving their new phone case?"
+  },
+  {
+    "qid": "gpt4_1a1dc16d",
+    "mode": "real_memory",
+    "adj": "judge",
+    "answer": "The pride parade happened first on May 1st.",
+    "gold": "The meeting with Rachel",
+    "question": "Which event happened first, the meeting with Rachel or the pride parade?"
+  },
+  {
+    "qid": "gpt4_1a1dc16d",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "the pride parade happened first.",
+    "gold": "The meeting with Rachel",
+    "question": "Which event happened first, the meeting with Rachel or the pride parade?"
+  },
+  {
+    "qid": "gpt4_2f584639",
+    "mode": "real_memory",
+    "adj": "judge",
+    "answer": "You bought the necklace for your sister first.",
+    "gold": "the photo album for my mom",
+    "question": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?"
+  },
+  {
+    "qid": "gpt4_2f584639",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "You bought the necklace for your sister first.",
+    "gold": "the photo album for my mom",
+    "question": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?"
+  },
+  {
+    "qid": "gpt4_2f584639",
+    "mode": "oracle_context",
+    "adj": "judge",
+    "answer": "You bought the necklace for your sister first.",
+    "gold": "the photo album for my mom",
+    "question": "Which gift did I buy first, the necklace for my sister or the photo album for my mom?"
+  },
+  {
+    "qid": "gpt4_213fd887",
+    "mode": "real_memory",
+    "adj": "lexical_anchor_override",
+    "answer": "The charity 5K run was your first event.",
+    "gold": "volleyball league",
+    "question": "Which event did I participate in first, the volleyball league or the charity 5K run to raise money for a local children's hospital?"
+  },
+  {
+    "qid": "gpt4_213fd887",
+    "mode": "oracle_memory",
+    "adj": "judge",
+    "answer": "the charity 5K run",
+    "gold": "volleyball league",
+    "question": "Which event did I participate in first, the volleyball league or the charity 5K run to raise money for a local children's hospital?"
+  },
+  {
+    "qid": "gpt4_213fd887",
+    "mode": "oracle_context",
+    "adj": "deterministic_lexical",
+    "answer": "charity 5K run",
+    "gold": "volleyball league",
+    "question": "Which event did I participate in first, the volleyball league or the charity 5K run to raise money for a local children's hospital?"
+  }
+]

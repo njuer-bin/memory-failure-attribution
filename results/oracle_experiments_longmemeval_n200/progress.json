@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "dataset": "longmemeval_oracle",
+  "limit": 200,
+  "completed": 200,
+  "errors": 0,
+  "elapsed_seconds": 10269.044238199946
+}

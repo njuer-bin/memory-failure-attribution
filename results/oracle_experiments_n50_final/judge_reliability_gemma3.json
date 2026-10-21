@@ -1,0 +1,147 @@
+{
+  "input": "results/oracle_experiments_n50_final/comparison.jsonl",
+  "records": 50,
+  "judge_errors": 0,
+  "gate_judge_errors": 0,
+  "lexically_skipped_judgments": 25,
+  "unjudged_answers": 2,
+  "judge_models": [
+    "gemma3:12b"
+  ],
+  "prompt_roles": {
+    "answer_judge": "model_generated_answer",
+    "gate_judge": "benchmark_reference"
+  },
+  "correct_verdict": {
+    "n": 123,
+    "agreement": 0.926829268292683,
+    "kappa": 0.8493262556145367,
+    "n_stored_true": 69,
+    "n_rerun_true": 76
+  },
+  "raw_judge": {
+    "n": 69,
+    "agreement": 0.7101449275362319,
+    "kappa": -0.028315946348733155,
+    "n_stored_true": 50,
+    "n_rerun_true": 68
+  },
+  "evidence_sufficiency": {
+    "n": 49,
+    "agreement": 0.9387755102040817,
+    "kappa": 0.0,
+    "n_stored_true": 46,
+    "n_rerun_true": 49
+  },
+  "n_flips": 9,
+  "n_gate_flips": 3,
+  "flips": [
+    {
+      "question_id": "gpt4_2655b836",
+      "mode": "oracle_memory",
+      "stored_correct": false,
+      "rerun_correct": true,
+      "stored_reason": "The gold evidence does not mention any issues with the GPS system after the first service. The issue described occurred on March 22nd, which is after the first service on March 15th, and is not directly related to the first issue after the service.",
+      "rerun_reason": "The candidate answer accurately summarizes the information from evidence [2] regarding a GPS system issue and its resolution, which directly answers the question about the first issue after the first service.",
+      "adjudication": "judge"
+    },
+    {
+      "question_id": "gpt4_2655b836",
+      "mode": "oracle_context",
+      "stored_correct": false,
+      "rerun_correct": true,
+      "stored_reason": "The gold evidence does not mention any issues with the GPS system after the first service. It only discusses an issue with the GPS system on 3/22, which is not directly related to the first service issue.",
+      "rerun_reason": "The candidate answer accurately summarizes the information from the evidence regarding the GPS issue and the date it occurred. The evidence explicitly states the issue occurred on 3/22 and required a system replacement.",
+      "adjudication": "judge"
+    },
+    {
+      "question_id": "2c63a862",
+      "mode": "real_memory",
+      "stored_correct": false,
+      "rerun_correct": true,
+      "stored_reason": "The evidence provides the start date of working with Rachel (2/15) and the date the house was found (3/1), allowing the calculation of the number of days, but the candidate answer does not provide this information.",
+      "rerun_reason": "The evidence does not contain the answer to the question.",
+      "adjudication": "judge"
+    },
+    {
+      "question_id": "gpt4_70e84552",
+      "mode": "oracle_memory",
+      "stored_correct": false,
+      "rerun_correct": true,
+      "stored_reason": "The evidence clearly states that the task of trimming the goats' hooves was completed two weeks ago, while fixing the fence was done three weeks ago.",
+      "rerun_reason": "The evidence states the fence was fixed three weeks ago and the hooves were trimmed two weeks ago, indicating the hooves were trimmed first.",
+      "adjudication": "judge"
+    },
+    {
+      "question_id": "b9cfe692",
+      "mode": "oracle_memory",
+      "stored_correct": true,
+      "rerun_correct": false,
+      "stored_reason": "The evidence directly states the time taken to finish 'The Seven Husbands of Evelyn Hugo' (2.5 weeks) and 'The Nightingale' (3 weeks).",
+      "rerun_reason": "The candidate answer states that the user took 2.5 weeks to finish 'The Seven Husbands of Evelyn Hugo' and 3 weeks to finish 'The Nightingale'. However, the evidence states that the user took 2.5 weeks to finish 'The Seven Husbands of Evelyn Hugo' and that they recently finished 'The Nightingale', but does not state how long it took to finish. Therefore, the candidate answer is partially correct but contains an assumption.",
+      "adjudication": "judge"
+    },
+    {
+      "question_id": "d01c6aa8",
+      "mode": "real_memory",
+      "stored_correct": false,
+      "rerun_correct": true,
+      "stored_reason": "The evidence provides the current age of the individual but does not specify the age when they moved to the United States.",
+      "rerun_reason": "The evidence states the speaker is 32 and has lived in the US for 5 years, allowing calculation of age at move.",
+      "adjudication": "judge"
+    },
+    {
+      "question_id": "gpt4_2f56ae70",
+      "mode": "real_memory",
+      "stored_correct": false,
+      "rerun_correct": true,
+      "stored_reason": "The evidence does not indicate that Amazon Prime Video was used most recently. The user mentioned using Apple TV+ more recently, and the candidate answer does not align with the information provided.",
+      "rerun_reason": "The evidence states the user has been using Amazon Prime for the past 6 months, and mentions Apple TV+ for a few months, indicating Amazon Prime is the most recent.",
+      "adjudication": "judge"
+    },
+    {
+      "question_id": "6613b389",
+      "mode": "real_memory",
+      "stored_correct": false,
+      "rerun_correct": true,
+      "stored_reason": "The evidence does not provide enough information to determine the exact number of months before Rachel's anniversary that she got engaged. The evidence mentions Rachel's engagement but does not specify the date of her engagement relative to her anniversary.",
+      "rerun_reason": "The question asks how many months before the anniversary Rachel got engaged. Evidence [1] states Rachel got engaged last month, and the anniversary is July 22nd. Last month would be June, so the engagement was 1 month before the anniversary. The candidate answer of 5 months is incorrect.",
+      "adjudication": "judge"
+    },
+    {
+      "question_id": "6613b389",
+      "mode": "oracle_context",
+      "stored_correct": false,
+      "rerun_correct": true,
+      "stored_reason": "The evidence does not provide enough information to determine the exact number of months between Rachel's engagement and the questioner's anniversary. While it mentions Rachel's engagement in May, it does not give a specific date for the anniversary.",
+      "rerun_reason": "The question asks how many months before the anniversary Rachel got engaged. Evidence [1] states Rachel got engaged last month, and the anniversary is July 22nd. Last month would be June, which is 1 month before July 22nd. Therefore, the answer is 1, not 4.",
+      "adjudication": "judge"
+    }
+  ],
+  "gate_flips": [
+    {
+      "question_id": "gpt4_2655b836",
+      "stored_status": "insufficient",
+      "stored_evidence_sufficient": false,
+      "rerun_evidence_sufficient": true,
+      "stored_reason": "The evidence does not mention any issues with the GPS system after the first service. The issue with the GPS system was mentioned, but it occurred after the first service, not immediately after.",
+      "rerun_reason": "The candidate answer 'GPS system not functioning correctly' is directly supported by evidence [2], which states 'I recently had an issue with my car's GPS system...and I had to take it back to the dealership to get it fixed.'"
+    },
+    {
+      "question_id": "2c63a862",
+      "stored_status": "insufficient",
+      "stored_evidence_sufficient": false,
+      "rerun_evidence_sufficient": true,
+      "stored_reason": "The evidence does not provide a clear timeline of when the user started working with Rachel or when they found a house they loved. The dates mentioned are not directly related to the duration of the house search.",
+      "rerun_reason": "Rachel was contacted on 2/15 and a house was seen on 3/1, which is 14 days later."
+    },
+    {
+      "question_id": "b9cfe692",
+      "stored_status": "insufficient",
+      "stored_evidence_sufficient": false,
+      "rerun_evidence_sufficient": true,
+      "stored_reason": "The evidence does not provide the specific time taken to finish both books combined. It only mentions the time taken to finish each book separately.",
+      "rerun_reason": "The evidence states the user finished 'The Seven Husbands of Evelyn Hugo' in two and a half weeks and 'The Nightingale' in three weeks. Combining these times (2.5 + 3 = 5.5) results in the candidate answer of 5.5 weeks."
+    }
+  ]
+}

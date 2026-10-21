@@ -1,0 +1,50 @@
+{
+  "input": "results/oracle_experiments_n50_repaired/comparison.jsonl",
+  "records": 50,
+  "judge_errors": 0,
+  "gate_judge_errors": 0,
+  "lexically_skipped_judgments": 52,
+  "unjudged_answers": 3,
+  "judge_models": [
+    "qwen2.5:7b"
+  ],
+  "prompt_roles": {
+    "answer_judge": "model_generated_answer",
+    "gate_judge": "benchmark_reference"
+  },
+  "correct_verdict": {
+    "n": 95,
+    "agreement": 0.9894736842105263,
+    "kappa": 0.9777569655818309,
+    "n_stored_true": 59,
+    "n_rerun_true": 58
+  },
+  "raw_judge": {
+    "n": 95,
+    "agreement": 0.9894736842105263,
+    "kappa": 0.9784824462061155,
+    "n_stored_true": 54,
+    "n_rerun_true": 55
+  },
+  "evidence_sufficiency": {
+    "n": 48,
+    "agreement": 1.0,
+    "kappa": 1.0,
+    "n_stored_true": 45,
+    "n_rerun_true": 45
+  },
+  "n_flips": 1,
+  "n_gate_flips": 0,
+  "flips": [
+    {
+      "question_id": "gpt4_2655b836",
+      "mode": "real_memory",
+      "stored_correct": true,
+      "rerun_correct": false,
+      "stored_reason": "The evidence does not explicitly state that the GPS system glitch occurred after the first service. The timestamp for the GPS issue (3/22) is after the first service (3/15), but it does not confirm that the issue was the first one after the service.",
+      "rerun_reason": "The gold evidence does not mention any issues with the GPS system or any other issues with the car after the first service. The evidence describes a different event and does not provide the requested information.",
+      "adjudication": "judge"
+    }
+  ],
+  "gate_flips": []
+}

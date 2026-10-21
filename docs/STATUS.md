@@ -1,7 +1,7 @@
 # Status — where to resume
 
-Last updated: 2026-10-21 (P2 intervention LoCoMo n=200 completed 200/200,
-errors 0; same-sample analysis written; ablation/audit gate still pending).
+Last updated: 2026-10-21 (P2 LoCoMo n=200 complete; ablation plan written by an
+independent reviewer; Phase-0 audit done; next gate is the A1 placebo run).
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
@@ -266,31 +266,70 @@ with any intervention number.
 zero-loss 6-flip threshold. Do not quote these as paper-grade until
 `aris-ablation-planner` + `aris-experiment-audit` have run.
 
-## Next action — run the P2 ablation/audit gate
+## P2 Phase-0 audit (2026-10-21, no new API calls)
 
-Both intervention runs are complete and analysed. Before any number enters the
-draft, run the roadmap's P2 gates in order:
+`experiments/audit_interventions.py` → `results/audit_interventions_*_n200.json`.
+It answers the reviewer's cheap questions before any new arm:
 
-1. `aris-ablation-planner` over the two completed intervention artifacts
-   (LongMemEval and LoCoMo) — decide which controlled ablations the claim
-   needs (e.g. write-through alone, wide retrieval alone, self-check alone, to
-   decompose the `agnostic` bundle).
-2. `aris-experiment-audit` on the same artifacts, including the fresh-baseline
-   drift finding above.
-3. Only then update `docs/PROTOCOL.md` and any paper text.
+| readout | LongMemEval | LoCoMo |
+|---|---|---|
+| ITT gain first_loss / path / agnostic (pts of 200) | +6.0 / +4.5 / +10.5 | +2.0 / +1.5 / +7.0 |
+| losses that land on stale labels | 0 / 0 / 0 (no losses) | 4/4, 4/4, 3/3 |
+| deterministic-floor share of discordants | 5/12, 3/9, 11/21 | 3/13, 2/11, 6/20 |
+| Holm-adjusted primary-family p | 0.0156 / 0.0156 / 4.6e-05 | 0.453 / 0.453 / 0.0133 |
+| mean length delta, gained minus lost answers (chars) | −0.5 / −3.7 / −2.1 (no losses) | −0.5 vs +2.3 / +12.7 vs +2.3 / +14.9 vs +4.7 |
 
-The two skills' outputs are the gate; do not pre-empt their conclusions in the
-draft.
+- **Every LoCoMo arm loss sits on a stale-label question** — the fresh baseline
+  already answered it correctly. Repair harm on LoCoMo is measurement
+  staleness, not a harmful repair.
+- LongMemEval's three primary tests survive Holm. LoCoMo only `agnostic`
+  survives; the targeted arms remain non-significant.
+- Roughly 30–50% of flips are decided by deterministic floors, not the judge —
+  a flip-provenance readout must accompany any F6 discussion.
+- LoCoMo `agnostic`/`path` gains are longer answers than their losses
+  (+12.7 / +14.9 chars): a judge length-bias confound to test with a sham arm.
+- EVAL rows are never routed (`first_loss_target` returns None), so they are
+  an unexposed group, not a usable negative control.
+- ITT is much smaller than the subset headline: +10.5 pts on LongMemEval and
+  +7.0 on LoCoMo for `agnostic`, from +50 / +29.5 on the common subsets.
+
+## Ablation plan (2026-10-21)
+
+Independent review (`kimi-k3`; the skill's Codex backend is unavailable on this
+host) is saved in `docs/research/2026-10-21-ablation-review-kimi-k3.md`, with a
+normalised, feasibility-checked plan in
+`docs/research/2026-10-21-ablation-plan.md`.
+
+Reviewer's verdict: C2 (path beats first_loss) is dead — `path_target` reads
+gold and still ties. The two questions that decide the paper are (a) whether
+`agnostic` is just self-check (A3), and (b) whether targeted repair beats
+arbitrary repair (A5/A6). Measurement (judge validity, multiplicity, stale
+labels) binds before any new arm.
+
+## Next action — placebo gate (A1), then decomposition
+
+1. Free Phase-0 analyses: **done** (above).
+2. A1 placebo: a second identical fresh baseline on LoCoMo (and LongMemEval if
+   budget allows). It bounds the nondeterminism/regression-to-the-mean floor.
+   **Gate:** if placebo discordants are the same order as the arm effects,
+   stop and fix measurement before A2–A6.
+3. Then A2/A3/A4 (decompose `agnostic`), then A5/A6 (targeting thesis).
+4. Human/frontier re-judge of all discordant pairs in the primary contrasts
+   remains non-negotiable before any paper number.
 
 ## Open todos (in order)
 
-1. Run `aris-ablation-planner` + `aris-experiment-audit` over both completed
-   intervention artifacts before quoting any number (see Next action).
+1. Run the A1 placebo gate, then A2–A6 (see Next action). The ablation plan is
+   frozen in `docs/research/2026-10-21-ablation-plan.md`; do not add arms
+   after seeing results without recording the change as exploratory.
 2. Judge-validity reporting for the n=200 runs: rerun
    `experiments/judge_reliability.py` on `longmemeval_n200` and
-   `locomo_n200` with a second model. Note the fresh-baseline drift in the
-   intervention is a related, already-quantified symptom; the reliability run
-   should use a genuinely different model, not the same gateway model.
+   `locomo_n200` with a second model. **Unblocked 2026-10-21:** the gateway's
+   alternative models speak OpenAI-compatible only, and `evaluation/llm_api.py`
+   now sends the required session header and user agent; pass
+   `SEMANTIC_JUDGE_API_STYLE=openai` and a `/v1`-suffixed base URL. Prefer
+   `kimi-k3` or `qwen3.8-max` over `deepseek-v4-pro` (same family as the
+   answerer).
 3. Confirm CIKM / COLING / ECIR / NLPCC deadlines. **Blocked 2026-10-20:** all
    web tools (WebSearch, WebFetch, MCP research) failed from this host; retry
    when network access exists.

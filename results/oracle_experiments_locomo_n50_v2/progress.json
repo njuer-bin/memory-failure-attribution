@@ -1,0 +1,8 @@
+{
+  "status": "running",
+  "dataset": "locomo_refined_public",
+  "limit": 50,
+  "completed": 8,
+  "errors": 0,
+  "elapsed_seconds": 708.8647209000192
+}

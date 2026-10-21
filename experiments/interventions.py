@@ -12,6 +12,8 @@ answer improve? Three routing arms are supported:
   formation miss is recovered by verbatim storage downstream.
 - ``agnostic``: apply every repair to every attributable failure, the
   stage-agnostic baseline.
+- ``placebo``: regenerate the baseline answer without any repair. This bounds
+  the provider/judge nondeterminism floor that every arm contrast sits on.
 
 Repairs are deterministic except the reasoning repair, which is one extra
 temperature-0 answer-model call (draft verification).
@@ -85,6 +87,9 @@ def arm_target(row: dict[str, Any], arm: str, mode: str = "real_memory") -> str 
     answer = mode_data.get("answer") or {}
     if answer.get("semantic_correct") is not False:
         return None
+    if arm == "placebo":
+        # Same population as first_loss, but the "repair" is a no-op.
+        return "placebo" if first_loss_target(mode_data) else None
     if arm == "first_loss":
         return first_loss_target(mode_data)
     if arm == "path":

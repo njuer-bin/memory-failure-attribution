@@ -34,6 +34,7 @@ from tracing.engine_trace import retrieval_artifacts
 
 ROOT = Path(__file__).resolve().parents[1]
 ALL_ARMS = ("first_loss", "path", "agnostic")
+KNOWN_ARMS = ALL_ARMS + ("placebo",)
 
 
 def log(message: str) -> None:
@@ -144,6 +145,10 @@ def run_record(
         seen_contexts["all"] = _search(engine, user_id, question, top_k=20, type_cap=8)
 
     def answer_for(stage: str) -> dict[str, Any]:
+        if stage == "placebo":
+            # Noise floor: a second unmodified answer under the same protocol.
+            answer = _answer(question, reference, base_context, self_check=False)
+            return _semantic(question, answer, gold, reference, gate)
         context = base_context if stage == "reasoning" else seen_contexts[stage]
         self_check = stage in {"reasoning", "all"}
         answer = _answer(question, reference, context, self_check=self_check)
@@ -159,6 +164,10 @@ def run_record(
     for arm, stage in targets.items():
         if stage is None:
             answers[arm] = None
+            continue
+        if stage == "placebo":
+            # Never cached: the point is a second independent draw.
+            answers[arm] = answer_for("placebo")
             continue
         if stage not in cache:
             cache[stage] = answer_for(stage)
@@ -297,8 +306,8 @@ def main() -> None:
     args = parser.parse_args()
     arms = tuple(a.strip() for a in args.arms.split(",") if a.strip())
     for arm in arms:
-        if arm not in ALL_ARMS:
-            raise SystemExit(f"unknown arm {arm!r}; choose from {ALL_ARMS}")
+        if arm not in KNOWN_ARMS:
+            raise SystemExit(f"unknown arm {arm!r}; choose from {KNOWN_ARMS}")
     run(
         Path(args.baseline), args.dataset, Path(args.out_dir),
         arms, args.limit, args.resume,

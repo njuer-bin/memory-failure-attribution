@@ -1,0 +1,228 @@
+{
+  "input": "results/oracle_experiments/comparison.jsonl",
+  "output": "results/oracle_experiments/comparison_semantic.jsonl",
+  "records": 50,
+  "judge_models": [],
+  "f6_candidates": [
+    {
+      "question_id": "0bb5a684",
+      "question": "How many days before the team meeting I was preparing for did I attend the workshop on 'Effective Communication in the Workplace'?",
+      "candidate": "3",
+      "judge_correct": false,
+      "evidence_sufficient": true,
+      "confidence": "medium",
+      "reason": "The evidence does not explicitly state the number of days between the workshop and the team meeting. However, it can be inferred that the workshop was attended on January 10th and the team meeting is on January 17th, which is 7 days apart. The reference answer of 3 days is incorrect.",
+      "gold_evidence": [
+        {
+          "id": "0bb5a684:answer_e936197f_1:turn_0",
+          "content": "I'm preparing for an upcoming meeting with my team and I want to make sure I'm effectively communicating our project updates. I recently attended a workshop on \"Effective Communication in the Workplace\" on January 10th, which was really helpful in improving my active listening and conflict resolution skills. Can you provide some tips on structuring my presentation to keep my team engaged?"
+        },
+        {
+          "id": "0bb5a684:answer_e936197f_2:turn_0",
+          "content": "I'm preparing for an upcoming team meeting and want to make sure I'm well-prepared to communicate effectively. I remember making a note to myself to practice those skills in my upcoming team meeting on January 17th, and I'm looking for some tips on active listening and conflict resolution. Can you provide some resources or advice on those topics?"
+        }
+      ]
+    },
+    {
+      "question_id": "08f4fc43",
+      "question": "How many days had passed between the Sunday mass at St. Mary's Church and the Ash Wednesday service at the cathedral?",
+      "candidate": "20 days",
+      "judge_correct": false,
+      "evidence_sufficient": true,
+      "confidence": "medium",
+      "reason": "The evidence provides the dates for both events, but the exact number of days between them is not directly stated. Calculating the difference based on the given dates (January 2nd and February 1st) results in approximately 20 days, but there is a slight margin of error due to the exact timing not being specified.",
+      "gold_evidence": [
+        {
+          "id": "08f4fc43:answer_6ea1541e_2:turn_0",
+          "content": "I'm planning to volunteer at a local soup kitchen this weekend and I was wondering if you could give me some tips on how to make a positive impact during my time there. By the way, I just came from the Ash Wednesday service at the cathedral on February 1st, and it really made me reflect on the importance of giving back to the community."
+        },
+        {
+          "id": "08f4fc43:answer_6ea1541e_1:turn_0",
+          "content": "I'm thinking of volunteering at a local charity event soon. Do you have any information on organizations that focus on serving the homeless? By the way, I recently attended the Sunday mass at St. Mary's Church on January 2nd, and the sermon on forgiveness really resonated with me."
+        }
+      ]
+    },
+    {
+      "question_id": "2a1811e2",
+      "question": "How many days had passed between the Hindu festival of Holi and the Sunday mass at St. Mary's Church?",
+      "candidate": "31 days",
+      "judge_correct": false,
+      "evidence_sufficient": true,
+      "confidence": "medium",
+      "reason": "The evidence provides the dates for both events, but there is ambiguity in the exact dates and the calculation of the days between them.",
+      "gold_evidence": [
+        {
+          "id": "2a1811e2:answer_1cc3cd0c_2:turn_0",
+          "content": "I'm planning to volunteer at a local community event next weekend and I was wondering if you could suggest some ideas for fundraising activities that have been successful in the past. By the way, I just got back from Sunday mass at St. Mary's Church on March 19th, where Father John's sermon really inspired me to give back to the community."
+        },
+        {
+          "id": "2a1811e2:answer_1cc3cd0c_1:turn_0",
+          "content": "I'm looking for some information on Hindu festivals. I just attended the Holi celebration at my local temple on February 26th and had a blast throwing colors and learning about its significance. Can you tell me more about the origins of Holi and its cultural importance in India?"
+        }
+      ]
+    },
+    {
+      "question_id": "bbf86515",
+      "question": "How many days before the 'Rack Fest' did I participate in the 'Turbocharged Tuesdays' event?",
+      "candidate": "4",
+      "judge_correct": false,
+      "evidence_sufficient": true,
+      "confidence": "high",
+      "reason": "The evidence clearly states the dates of both events, and the difference is 4 days.",
+      "gold_evidence": [
+        {
+          "id": "bbf86515:answer_b3763b6b_1:turn_0",
+          "content": "I'm looking for some recommendations on performance air filters for my 2018 Ford Mustang GT. I recently modified my exhaust system and I'm looking to squeeze out some more power. By the way, I just participated in the \"Turbocharged Tuesdays\" auto racking event at the local racing track on June 14th, where I managed to achieve a personal best time of 12.8 seconds in the quarter-mile drag race."
+        },
+        {
+          "id": "bbf86515:answer_b3763b6b_2:turn_0",
+          "content": "I'm looking for some recommendations on car wax products. I've been using SpeedShine's detailing kit and it's been working great, but I'm curious to know what other options are out there. By the way, just got back from the \"Rack Fest\" in nearby city on June 18th, and it was an amazing event!"
+        }
+      ]
+    },
+    {
+      "question_id": "c8090214",
+      "question": "How many days before I bought the iPhone 13 Pro did I attend the Holiday Market?",
+      "candidate": "7 days",
+      "judge_correct": false,
+      "evidence_sufficient": true,
+      "confidence": "high",
+      "reason": "The evidence states that the person attended the Holiday Market a week before Black Friday, and they bought the iPhone 13 Pro on Black Friday. Therefore, the time difference is 7 days, but the reference answer incorrectly states 7 days before buying the iPhone 13 Pro, which should be 0 days.",
+      "gold_evidence": [
+        {
+          "id": "c8090214:answer_70dc7d08_1:turn_0",
+          "content": "I'm looking for some gift ideas for my sister's birthday, which is coming up soon. I'd like to get her something nice, but I'm on a budget. Do you have any suggestions? By the way, I attended the annual Holiday Market at the local mall a week before Black Friday, and I saw some unique handmade jewelry there, but I'm not sure if that's her style."
+        },
+        {
+          "id": "c8090214:answer_70dc7d08_2:turn_0",
+          "content": "I'm looking to upgrade my phone case and screen protector. Can you show me some options for iPhone 13 Pro cases and screen protectors? By the way, I got my iPhone 13 Pro at a discounted price of $800 from Best Buy on Black Friday, which was a great deal considering the regular price was $1,000."
+        }
+      ]
+    },
+    {
+      "question_id": "dcfa8644",
+      "question": "How many days had passed since I bought my Adidas running shoes when I realized one of the shoelaces on my old Converse sneakers had broken?",
+      "candidate": "6 days",
+      "judge_correct": false,
+      "evidence_sufficient": true,
+      "confidence": "high",
+      "reason": "The evidence states that the shoelace broke on January 24th, and the Adidas shoes were bought on January 10th, which is exactly 14 days later, not 6 days.",
+      "gold_evidence": [
+        {
+          "id": "dcfa8644:answer_5e3eeb12_1:turn_0",
+          "content": "I'm thinking of organizing my shoe collection and I was wondering if you could help me with some shoe care tips, specifically on how to clean my sneakers and boots. By the way, I recently got a new pair of Adidas running shoes on January 10th, and I want to make sure I take good care of them."
+        },
+        {
+          "id": "dcfa8644:answer_5e3eeb12_2:turn_0",
+          "content": "I'm looking for some shoe cleaning tips. I've got a pair of sneakers that I wore to play basketball on February 1st and they got pretty dirty. By the way, speaking of shoes, I realized that one of the shoelaces on my old Converse sneakers had broken on January 24th, so I had to replace it."
+        }
+      ]
+    },
+    {
+      "question_id": "a3045048",
+      "question": "How many days before my best friend's birthday party did I order her gift?",
+      "candidate": "15",
+      "judge_correct": false,
+      "evidence_sufficient": true,
+      "confidence": "medium",
+      "reason": "The evidence states that the gift was ordered on the 15th of April and the best friend's birthday was on the 22nd of April, which means the gift was ordered 7 days before the birthday. The reference answer of 15 days is incorrect.",
+      "gold_evidence": [
+        {
+          "id": "a3045048:answer_016f6bd4_1:turn_0",
+          "content": "I'm looking for some ideas for gifts for my brother's birthday in June. I've been thinking of getting him a new watch, but I'm not sure what brand or style to go for. Can you give me some suggestions? By the way, I just got a great deal on a personalized photo album from Shutterfly last month, I ordered it on the 15th of April for my best friend's birthday and it turned out amazing!"
+        },
+        {
+          "id": "a3045048:answer_016f6bd4_2:turn_4",
+          "content": "I'm particularly interested in the Fossil Grant Chronograph Watch, can you tell me more about it? Also, I had a great time celebrating my best friend's 30th birthday party recently, it was on the 22nd of April, she loved the personalized photo album I got her."
+        }
+      ]
+    },
+    {
+      "question_id": "gpt4_4cd9eba1",
+      "question": "How many weeks have I been accepted into the exchange program when I started attending the pre-departure orientation sessions?",
+      "candidate": "3 weeks",
+      "judge_correct": false,
+      "evidence_sufficient": true,
+      "confidence": "medium",
+      "reason": "The evidence states that the person started attending pre-departure orientation sessions on 3/27, which is 3 weeks after they were accepted on 3/20. However, the reference answer states 3 weeks, which is correct based on the evidence, but the question asks for the number of weeks since acceptance, which is actually 1 week, not 3 weeks.",
+      "gold_evidence": [
+        {
+          "id": "gpt4_4cd9eba1:answer_5fcca8bc_2:turn_0",
+          "content": "I'm heading to the US soon for a semester abroad and I need help with packing. Can you give me some general tips on what to bring and what to leave behind? By the way, I've been attending pre-departure orientation sessions at my home university every Friday since 3/27, which has been really helpful in preparing me for the journey."
+        },
+        {
+          "id": "gpt4_4cd9eba1:answer_5fcca8bc_1:turn_0",
+          "content": "I'm preparing for my semester abroad at the University of California, Berkeley, and I was wondering if you could help me with some tips on what to expect during my first few weeks on campus. By the way, I submitted my application to the exchange program on February 10th and got accepted on March 20th, so I'm really excited to finally be going!"
+        }
+      ]
+    }
+  ],
+  "e0_cases": [
+    {
+      "question_id": "b9cfe692",
+      "question": "How long did I take to finish 'The Seven Husbands of Evelyn Hugo' and 'The Nightingale' combined?",
+      "candidate": "Five weeks.",
+      "reason": "The evidence does not provide the total time taken to finish both books combined. It only mentions the time taken to finish each book separately.",
+      "gold_evidence": [
+        {
+          "id": "b9cfe692:answer_5e3bb940_1",
+          "content": "I'm looking for some new audiobook recommendations. I've been getting into audiobooks lately and have managed to finish three in the last six weeks, which is great for me.\nThat's fantastic! Congratulations on getting into audiobooks and finishing three in six weeks! I'd be happy to help you with some new recommendations. Can you please tell me a bit more about what you've enjoyed so far? For example:\n\n1. What genres have you been listening to (e.g., fiction, non-fiction, mystery, sci-fi, fantasy, romance, etc.)?\n2. Are there any specific authors or narrators you've enjoyed?\n3. Do you prefer books with complex, thought-provoking themes or light, easy listens?\n4. Are you interested in standalone books or series?\n5. Is there a particular tone you're in the mood for (e.g., humorous, suspenseful, emotional, adventurous)?\n\nFeel free to share as much or as little as you'd like, and I'll do my best to suggest some great audiobook recommendations tailored to your tastes!\nI've been listening to fiction, mostly contemporary and historical fiction. I really enjoyed the emotional depth of \"The Nightingale\" and the engaging storytelling of \"The Seven Husbands of Evelyn Hugo\". I'm open to trying out different genres, but I think I'd prefer books with complex themes.\nGreat choices! It sounds like you enjoy books that explore the human condition, relationships, and complex themes. Here are some audiobook recommendations that might resonate with you:\n\n1. **The Power** by Naomi Alderman (Science Fiction/Feminist): A thought-provoking novel that explores a world where women suddenly develop the ability to release electrical jolts from their fingertips, allowing them to dominate and control society. Narrated by Adjoa Andoh.\n2. **The Song of Achilles** by Madeline Miller (Historical Fiction/Mythology): A beautifully written novel that reimagines the Trojan War from the perspective of Achilles' lover, Patroclus. It's a stunning exploration of love, war, and mortality. Narrated by Frazer Douglas.\n3. **The Immortal Life of Henrietta Lacks** by Rebecca Skloot (Non-Fiction/Science): A fascinating true story about the life of Henrietta Lacks, a poor black tobacco farmer whose cancer cells were taken without her knowledge and led to numerous scientific breakthroughs. Narrated by Cassandra Campbell and Bahni Turpin.\n4. **The Brief Wondrous Life of Oscar Wao** by Junot Díaz (Literary Fiction/Magical Realism): A sweeping novel about love, family, identity, and the immigrant experience. It's a complex, emotional, and captivating story. Narrated by Jonathan Davis and Staci Snell.\n5. **The Age of Miracles** by Karen Thompson Walker (Literary Fiction/Dystopian): A haunting novel that explores a world where the rotation of the Earth suddenly slows, and the consequences this has on human relationships and society. Narrated by Julia Whelan.\n6. **The Poppy War** by R.F. Kuang (Fantasy/Historical Fiction): A fantasy epic set in a world inspired by Chinese history and mythology. It's a story about war, power, and the cost of ambition. Narrated by Emily Woo Zeller.\n7. **The Heart's Invisible Furies** by John Boyne (Literary Fiction/Historical Fiction): A sprawling novel that follows the life of Cyril Avery, born out of wedlock in 1940s Ireland, and his journey to find identity, love, and acceptance. Narrated by Stephen Hogan.\n8. **The Leavers** by Lisa Ko (Literary Fiction/Contemporary): A powerful novel about a Chinese-American boy whose mother disappears, and his struggles to find his place in the world. Narrated by Emily Woo Zeller.\n\nThese books all have complex themes, engaging storytelling, and great narrators. I hope you find something that piques your interest!\n\nDo any of these appeal to you, or would you like more recommendations?\nI like the sound of \"The Song of Achilles\" and \"The Brief Wondrous Life of Oscar Wao\". Can you tell me a bit more about the narrators, Frazer Douglas and Jonathan Davis?\nBoth \"The Song of Achilles\" and \"The Brief Wondrous Life of Oscar Wao\" are amazing books with incredible narrators.\n\n**Frazer Douglas (The Song of Achilles)**\n\nFrazer Douglas is a British actor and audiobook narrator known for his smooth, rich, and expressive voice. He has a strong background in theater, film, and television, which translates well to his audiobook narration. Douglas brings a sense of intimacy and emotional depth to his readings, making him an excellent fit for Madeline Miller's lyrical prose in \"The Song of Achilles\".\n\nDouglas's narration is:\n\n* Clear and easy to follow, with good pacing and tone\n* Emotionally resonant, conveying the characters' feelings and relationships\n* Well-suited to the novel's poetic and descriptive language\n* Accents and character voices are well-done, adding to the story's authenticity\n\n**Jonathan Davis (The Brief Wondrous Life of Oscar Wao)**\n\nJonathan Davis is an American audiobook narrator and actor with a wide range of experience in theater, film, and television. He's known for his versatility, energy, and ability to bring complex characters to life. Davis's narration of \"The Brief Wondrous Life of Oscar Wao\" is highly praised, and he won an Audie Award for his performance.\n\nDavis's narration is:\n\n* Engaging and dynamic, with a strong sense of rhythm and flow\n* Well-suited to the novel's blend of slang, Spanglish, and sci-fi/fantasy elements\n* Excellent character differentiation, with distinct voices for each character\n* Able to convey the novel's humor, pathos, and emotional depth\n\nBoth narrators are highly acclaimed and have received numerous awards and nominations for their work. I think you'll find their performances enhance your listening experience and bring the stories to life in a compelling way.\n\nDo you have a preference for one over the other, or would you like to try out samples of both to see which one resonates with you more?\nI'm glad to hear that both narrators are well-suited for their respective books. I think I'll try out samples of both to see which one I like better. Can you also tell me how long the audiobooks are? I'd like to get an idea of the time commitment involved.\nListening to samples is a great way to get a feel for the narration style and tone.\n\n**Audiobook Lengths:**\n\n* **The Song of Achilles** by Madeline Miller: 11 hours and 22 minutes (unabridged)\n* **The Brief Wondrous Life of Oscar Wao** by Junot Díaz: 14 hours and 13 minutes (unabridged)\n\nSo, both audiobooks are substantial, but not overly long. You can expect to invest around 11-14 hours of listening time for each book.\n\nTo give you a better idea, here are some rough estimates of how long it might take to finish each audiobook, assuming you listen to them at a moderate pace (e.g., 1-2 hours per day):\n\n* **The Song of Achilles**: 5-7 days\n* **The Brief Wondrous Life of Oscar Wao**: 7-10 days\n\nKeep in mind that these are just rough estimates, and your listening pace may vary depending on your schedule and preferences.\n\n**Sampling Tips:**\n\nWhen listening to the samples, pay attention to:\n\n* The narrator's voice, tone, and pace\n* How they convey the characters' emotions and personalities\n* The overall atmosphere and mood they create\n* How easy it is to follow the story and understand the characters\n\nYou can usually find samples on audiobook platforms like Audible, Libro.fm, or your local library's digital collection. Just search for the book title, and look for the \"Sample\" or \"Preview\" button.\n\nLet me know if you have any other questions or need further assistance!\nI'm looking forward to trying out the samples. By the way, I've been using my daily commute to listen to audiobooks, and it's been really effective. I've managed to finish three audiobooks in the last six weeks, which is a great pace for me.\nThat's fantastic! Using your daily commute to listen to audiobooks is a great way to make the most of your time. It's amazing that you've managed to finish three audiobooks in six weeks - that's a great pace!\n\nCommutes can be a great opportunity to fit in some reading, and audiobooks make it easy to multitask while still enjoying a good story. Many people find that listening to audiobooks during their commute helps them relax, reduces stress, and makes the journey more enjoyable.\n\nIt's also wonderful that you've found a rhythm that works for you. Consistency is key when it comes to developing a reading habit, and you're doing great!\n\nWhat do you think it is about audiobooks that's helped you stay engaged and motivated to keep listening? Is it the convenience, the immersive experience, or something else entirely?\nI think it's a combination of factors. One thing is that audiobooks make it easy to multitask, so I can listen while I'm on the train or walking to work, which makes the time pass more quickly. I also find that the narrators can really bring the story to life, which helps me stay engaged. Plus, it's just convenient to have a book with me at all times, without having to physically carry it around.\nYou've hit the nail on the head! Those are all great reasons why audiobooks can be so appealing.\n\nMultitasking is a big advantage of audiobooks. You can make the most of your commute time, exercising, or doing chores while still enjoying a good story. It's amazing how much more productive you can be while still indulging in a hobby you love.\n\nNarrators can indeed bring a story to life, adding depth and emotion to the characters and plot. A good narrator can make all the difference in how engaging and immersive the story is. It's like having a personal storyteller, isn't it?\n\nAnd convenience is a huge factor, too. With audiobooks, you don't have to worry about carrying a physical book, finding a bookmark, or dealing with awkward page-turning. You can just press play and go!\n\nIt's also worth noting that audiobooks can be a great way to experience books in a new way, even if you've already read them in print. The narration can add a fresh perspective or highlight aspects of the story you might have missed the first time around.\n\nDo you find that you're more likely to try out new genres or authors because of the convenience of audiobooks? Or are you sticking to what you know and love?"
+        },
+        {
+          "id": "b9cfe692:answer_5e3bb940_3:turn_0",
+          "content": "I'm looking for some book recommendations. I recently finished \"The Nightingale\" by Kristin Hannah, which took me three weeks to finish - it was a really emotional and heavy read, but I loved it. Can you suggest some historical fiction books that have a similar tone and style?"
+        },
+        {
+          "id": "b9cfe692:answer_5e3bb940_2:turn_0",
+          "content": "I'm looking for some new audiobook recommendations. I've been enjoying listening to them during my daily commute and I just finished \"The Seven Husbands of Evelyn Hugo\", which took me two and a half weeks to finish. Do you have any suggestions for something similar?"
+        }
+      ]
+    },
+    {
+      "question_id": "6613b389",
+      "question": "How many months before my anniversary did Rachel get engaged?",
+      "candidate": "5 months",
+      "reason": "The evidence does not provide information about Rachel's engagement date relative to the question's anniversary date.",
+      "gold_evidence": [
+        {
+          "id": "6613b389:answer_aaf71ce2_2:turn_0",
+          "content": "I'm looking for some gift ideas for my sister-in-law's sister, who got married last December. I finally got around to buying a kitchen appliance from their registry, but I want to add a more personal touch to the gift. Do you have any suggestions? By the way, speaking of weddings and engagements, my close friend Rachel got engaged last month on May 15th, and we're already planning her bachelorette party!"
+        },
+        {
+          "id": "6613b389:answer_aaf71ce2_1",
+          "content": "I'm planning a weekend getaway to the beach in August for my friend's bachelorette party. Can you recommend some fun activities we can do together, like water sports or group games? By the way, I just got back from my cousin's wedding on June 10th, and it was amazing!\nCongratulations on surviving your cousin's wedding and now planning an epic bachelorette party! I'd be happy to help you plan some fun activities for your beach getaway in August.\n\nHere are some water sports and group games that are perfect for a bachelorette party:\n\n**Water Sports:**\n\n1. **Surfing or Boogie Boarding**: Rent boards and take a group lesson together. It's a great way to get some exercise and have a blast in the ocean.\n2. **Paddleboarding or Kayaking**: Explore the coastline from a different perspective and enjoy some relaxing exercise.\n3. **Snorkeling or Scuba Diving**: If the beach you're visiting has a coral reef or interesting marine life, consider booking a guided snorkeling or scuba diving trip.\n4. **Jet Skiing or Parasailing**: For an adrenaline rush, rent jet skis or go parasailing for a bird's-eye view of the beach.\n\n**Group Games:**\n\n1. **Beach Volleyball or Games**: Set up a net and play a game of volleyball, or try other beach games like cornhole, ladder toss, or giant Jenga.\n2. **Scavenger Hunt**: Create a list of items to find or challenges to complete around the beach, and see who can finish first.\n3. **Group Fitness Class**: Book a beach yoga or fitness class, or create your own workout routine and do it together as a group.\n4. **Beach Olympics**: Set up a series of beach-themed challenges, like a sandcastle building competition, a sprint to the water and back, or a game of \"beach flag\" (like capture the flag, but with a beach twist).\n\n**Other Ideas:**\n\n1. **Sunset Cruise**: Book a group cruise to watch the sunset over the water.\n2. **Wine and Cheese Tasting**: Visit a local vineyard or winery for a wine and cheese tasting experience.\n3. **Spa Day**: Treat the bride-to-be to a relaxing spa day with massages, facials, and other pampering treatments.\n4. **Group Dinner**: Book a private room at a beachside restaurant and enjoy a delicious meal together.\n\nRemember to plan activities that the bride-to-be will enjoy, and make sure to include some downtime for relaxation and socializing. Have a fantastic bachelorette party!\nThe outdoor ceremony at my cousin's wedding was so beautiful, it was held at a vineyard. We should consider a wine and cheese tasting for the bachelorette party, it would be a lot of fun. Can you recommend some popular beach towns in August that are close to vineyards or wineries?\nWhat a great idea! A wine and cheese tasting is a fantastic activity for a bachelorette party, and combining it with a beach vacation sounds like a perfect blend of relaxation and fun!\n\nHere are some popular beach towns in August that are close to vineyards or wineries:\n\n1. **Santa Barbara, California**: Santa Barbara is known for its beautiful beaches, wine country, and stunning scenery. There are over 200 wineries and vineyards in the area, including the famous Santa Ynez Valley. You can visit wineries like Fess Parker Winery, Sanford Winery, or Bridlewood Estate Winery.\n2. **San Luis Obispo, California**: SLO (as locals call it) is a charming beach town with a thriving wine scene. You can visit wineries like Edna Valley Vineyard, Tolosa Winery, or Baileyana Winery. The nearby Paso Robles wine region is also worth exploring.\n3. **Cape May, New Jersey**: Located at the southern tip of New Jersey, Cape May is a beautiful beach town with a rich history and a growing wine industry. You can visit wineries like Cape May Winery, Hawk Haven Vineyard, or Natali Vineyards.\n4. **Rehoboth Beach, Delaware**: Rehoboth Beach is a popular beach destination with a vibrant downtown area and a nearby wine country. You can visit wineries like Nassau Valley Vineyards, Salted Vines Vineyard & Winery, or Fenwick Wine Cellars.\n5. **Charleston, South Carolina**: Charleston is a charming city with a rich history, beautiful beaches, and a thriving food and wine scene. You can visit wineries like Deep South Vineyard & Winery, Irvin-House Vineyards, or Charleston Winery.\n6. **Greenport, New York**: Located on the North Fork of Long Island, Greenport is a picturesque beach town with a strong wine industry. You can visit wineries like Bedell Cellars, Corey Creek Vineyards, or Lenz Winery.\n\nThese are just a few examples, but there are many other beach towns with nearby wineries and vineyards. Be sure to research and book your wine tastings and tours in advance, especially during peak season in August.\n\nRemember to plan activities that fit the bride-to-be's interests and preferences, and make sure to include some downtime for relaxation and socializing. Have a fantastic bachelorette party!\nI love these recommendations! I'm thinking of Santa Barbara, California. How easy is it to get around the area without a car?\nSanta Barbara is a fantastic choice! While having a car can be convenient, it's not necessary to get around Santa Barbara and the surrounding area. Here are some alternatives:\n\n1. **Santa Barbara Trolley**: The Santa Barbara Trolley is a fun and affordable way to get around the city. It runs on a loop route, stopping at popular attractions, beaches, and wineries. You can hop on and off at any of the 15 stops.\n2. **Public Transportation**: The Santa Barbara Metropolitan Transit District (SBMTD) operates buses that connect the city to nearby areas, including the Santa Ynez Valley wine country. You can use the SBMTD website or mobile app to plan your route.\n3. **Ride-hailing Services**: Uber and Lyft are widely available in Santa Barbara, making it easy to get around without a car.\n4. **Wine Country Shuttle**: If you plan to visit wineries in the Santa Ynez Valley, consider booking a wine country shuttle service. These services will take you to multiple wineries and provide a safe, guided tour.\n5. **Bike Rentals**: Santa Barbara has a bike-friendly infrastructure, and renting bikes can be a great way to explore the city and surrounding areas. Many bike rental shops offer wine country tours or self-guided routes.\n6. **Walking and Hiking**: Santa Barbara is a walkable city, and many attractions, beaches, and restaurants are within walking distance. You can also explore the nearby Santa Ynez Mountains on foot via hiking trails.\n\nSome popular wine country destinations are a bit farther away, so you may want to plan ahead or book a guided tour that includes transportation. However, many wineries and vineyards are located close to Santa Barbara, making it easy to get around without a car.\n\nTo make the most of your trip, consider staying in a central location, like downtown Santa Barbara or the waterfront area, which will give you easy access to public transportation, bike rentals, and ride-hailing services.\n\nHave a fantastic time in Santa Barbara, and cheers to a wonderful bachelorette party!\nI'm thinking of booking a wine and cheese tasting at a vineyard in the Santa Ynez Valley. Can you recommend a few vineyards that offer private tours and tastings for a group of around 10 people?\nThe Santa Ynez Valley is a wonderful wine country destination! I'd be happy to recommend some vineyards that offer private tours and tastings for a group of around 10 people. Here are a few options to consider:\n\n1. **Fess Parker Winery**: Fess Parker Winery is a iconic winery in the Santa Ynez Valley, known for its beautiful views and exceptional wines. They offer private tours and tastings for groups of up to 12 people, which can be customized to fit your group's interests.\n2. **Sanford Winery**: Sanford Winery is a pioneering winery in the Sta. Rita Hills appellation, known for its Pinot Noir and Chardonnay. They offer private tours and tastings for groups of up to 10 people, which include a guided tour of the vineyard and winery, followed by a wine and cheese pairing.\n3. **Bridlewood Estate Winery**: Bridlewood Estate Winery is a beautiful winery with stunning views of the Santa Ynez Valley. They offer private tours and tastings for groups of up to 12 people, which can be customized to include a wine and cheese pairing, vineyard tour, or even a private luncheon.\n4. **Roblar Winery**: Roblar Winery is a family-owned winery in the Santa Ynez Valley, known for its boutique wines and beautiful tasting room. They offer private tours and tastings for groups of up to 10 people, which include a guided tour of the vineyard and winery, followed by a wine and cheese pairing.\n5. **Buttonwood Farm Winery**: Buttonwood Farm Winery is a small, family-owned winery in the Santa Ynez Valley, known for its sustainable farming practices and delicious wines. They offer private tours and tastings for groups of up to 10 people, which include a guided tour of the vineyard and winery, followed by a wine and cheese pairing.\n\nBe sure to book your private tour and tasting in advance, as these vineyards can get busy, especially during peak season. You can visit their websites or contact them directly to inquire about availability and customize your experience.\n\nRemember to also plan for transportation to and from the vineyard, as well as any additional activities or meals you'd like to include in your itinerary.\n\nHave a fantastic wine and cheese tasting experience in the Santa Ynez Valley!\nI'll make sure to book a private tour and tasting at one of these vineyards in advance. Since we're planning a wine and cheese tasting, I thought it would be fitting to share with the group that I just attended my cousin's wedding at a vineyard on June 10th, and it was an amazing experience. It really made me appreciate the beauty of vineyards and the wine-making process.\nWhat a wonderful connection! Sharing your personal experience with the group will definitely add a special touch to your wine and cheese tasting event. It's great that you have a personal connection to vineyards and wine-making, and it will likely make the experience even more enjoyable for everyone.\n\nBy sharing your story, you'll be able to relate the wine and cheese tasting to your cousin's wedding, and it might even inspire some fun conversations and memories among the group. It's a great way to break the ice and create a sense of camaraderie, especially since you're celebrating a special occasion like a bachelorette party.\n\nWhen you share your story, be sure to highlight the aspects of the vineyard and wine-making process that resonated with you. This might include the beautiful scenery, the passion and dedication of the winemakers, or the sense of community and celebration that comes with sharing a glass of wine with loved ones.\n\nBy doing so, you'll help create a memorable and meaningful experience for the group, and it will likely make the wine and cheese tasting even more enjoyable and special for everyone involved.\n\nCheers to a fantastic wine and cheese tasting, and to creating many more wonderful memories with your friends!\nNow that we have the vineyard tour and tasting planned, I was thinking of booking a private room at a nearby restaurant for dinner. Can you recommend some restaurants in the Santa Ynez Valley that can accommodate a group of 10 people and offer a wine-friendly menu?\nWhat a great idea! Booking a private room at a nearby restaurant is a fantastic way to continue the celebration and enjoy a delicious meal together. I'd be happy to recommend some restaurants in the Santa Ynez Valley that can accommodate a group of 10 people and offer a wine-friendly menu. Here are a few options to consider:\n\n1. **The Los Olivos Cafe**: Located in the charming town of Los Olivos, this cafe serves up delicious California cuisine with a focus on local ingredients and wine pairing. They have a private room that can accommodate up to 12 people and offer a customized menu for groups.\n2. **The Ballard Inn & Restaurant**: This historic inn and restaurant in Ballard offers a private dining room that can seat up to 12 people. Their menu features farm-to-table cuisine with a focus on local wines and ingredients.\n3. **Root 246**: Located in Solvang, Root 246 offers a private dining room that can accommodate up to 12 people. Their menu features contemporary American cuisine with a focus on seasonal ingredients and creative wine pairings.\n4. **The Gathering Table**: This farm-to-table restaurant in Santa Ynez offers a private dining room that can seat up to 12 people. Their menu features locally sourced ingredients and creative wine pairings.\n5. **Mad & Vin**: Located in Solvang, Mad & Vin offers a private dining room that can accommodate up to 12 people. Their menu features modern American cuisine with a focus on wine pairing and seasonal ingredients.\n\nAll of these restaurants are highly rated and well-loved in the Santa Ynez Valley. Be sure to book your private room and menu in advance, as they can fill up quickly, especially during peak season.\n\nWhen booking, be sure to ask about their wine list and wine pairing options. Many of these restaurants have extensive wine lists featuring local Santa Ynez Valley wines, which would be a great way to continue the wine theme from your vineyard tour and tasting.\n\nEnjoy your dinner celebration!"
+        },
+        {
+          "id": "6613b389:answer_aaf71ce2_3:turn_0",
+          "content": "I'm looking for some romantic getaway ideas for my partner and me. Our anniversary is coming up on July 22nd and I want to make it special."
+        }
+      ]
+    }
+  ],
+  "evaluation_uncertain_cases": [],
+  "modes": {
+    "real_memory": {
+      "scored": 50,
+      "correct": 40,
+      "incorrect": 10,
+      "errors": 0
+    },
+    "oracle_memory": {
+      "scored": 50,
+      "correct": 36,
+      "incorrect": 14,
+      "errors": 0
+    },
+    "oracle_context": {
+      "scored": 50,
+      "correct": 35,
+      "incorrect": 15,
+      "errors": 0
+    }
+  },
+  "real_memory_semantic_failure_distribution": {
+    "F6_REASONING_CANDIDATE": 8,
+    "E0_EVIDENCE_INSUFFICIENT": 2
+  },
+  "note": "Failure attribution is conservative. F6 is only assigned when the semantic evaluator considers the evidence sufficient, confidence is not low, and all Gold Evidence reaches final context. E0 captures evidence/question mismatch or insufficient evidence. A narrow lexical anchor adjudicator repairs obvious semantic-judge false negatives only after evidence sufficiency is established."
+}

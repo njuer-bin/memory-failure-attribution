@@ -58,7 +58,16 @@ def test_correct_and_unattributable_rows_are_not_targets():
     assert interventions.arm_target(correct, "agnostic") is None
     e0 = _row(failure="E0_EVIDENCE_INSUFFICIENT")
     assert interventions.arm_target(e0, "first_loss") is None
-    assert interventions.arm_target(e0, "agnostic") is None
+
+
+def test_placebo_targets_the_same_population_without_a_repair():
+    row = _row()
+    assert interventions.arm_target(row, "placebo") == "placebo"
+    assert interventions.arm_target(_row(correct=True), "placebo") is None
+    assert interventions.arm_target(
+        _row(failure="E0_EVIDENCE_INSUFFICIENT"), "placebo") is None
+    assert interventions.arm_target(
+        _row(failure="E0_EVIDENCE_INSUFFICIENT"), "agnostic") is None
 
 
 def test_agnostic_arm_targets_every_attributable_failure():

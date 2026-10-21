@@ -1,0 +1,1953 @@
+Loaded 200 successful rows from results/oracle_experiments_locomo_n200/comparison.jsonl
+
+=== SAMPLE-LEVEL ANSWER INSPECTION ===
+
+[1] conv-26#q0000
+Q: When did Caroline go to the LGBTQ support group?
+Gold: 7 May 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[2] conv-26#q0001
+Q: When did Melanie paint a sunrise?
+Gold: 2022
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[3] conv-26#q0002
+Q: What fields would Caroline be likely to pursue in her education?
+Gold: Counseling or mental health
+real_memory: correct=False EM=0.0 F1=0.28571428571428575 answer='Counseling and advocacy.'
+oracle_memory: correct=True EM=0.0 F1=0.75 answer='Counseling or mental health.'
+oracle_context: correct=True EM=0.0 F1=0.75 answer='Counseling or mental health.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[4] conv-26#q0003
+Q: What did Caroline research?
+Gold: Adoption agencies
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='Adoption agencies.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[5] conv-26#q0004
+Q: What is Caroline's identity?
+Gold: Transgender woman
+real_memory: correct=False EM=0.0 F1=0.0 answer='She is a painter.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Unknown'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[6] conv-26#q0005
+Q: When did Melanie run a charity race?
+Gold: The saturday before 25 May 2023 / May 20, 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='Last Saturday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last Saturday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last Saturday.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[7] conv-26#q0006
+Q: When is Melanie planning on going camping?
+Gold: June 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Next month.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Next month.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[8] conv-26#q0007
+Q: What is Caroline's relationship status?
+Gold: Single
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='Single'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[9] conv-26#q0008
+Q: When did Caroline give a speech at a school?
+Gold: The week before 9 June 2023 / From May 29, 2023 to June 4, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last week.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[10] conv-26#q0009
+Q: When did Caroline meet up with her friends, family, and mentors?
+Gold: The week before 9 June 2023 / From May 29, 2023 to June 4, 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='Last week.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last week.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[11] conv-26#q0010
+Q: How long has Caroline had her current group of friends for?
+Gold: 4 years
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='4 years.'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='4 years.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[12] conv-26#q0011
+Q: Where did Caroline move from 4 years ago?
+Gold: Sweden
+real_memory: correct=False EM=0.0 F1=0.0 answer='Her home country.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Sweden'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='Sweden'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.5, 'context': 0.5, 'evolution': None}
+
+[13] conv-26#q0012
+Q: How long ago was Caroline's 18th birthday?
+Gold: 10 years ago
+real_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='Ten years ago.'
+oracle_context: correct=False EM=0.0 F1=0.3333333333333333 answer='Ten years ago.'
+failure: F5_CONTEXT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[14] conv-26#q0013
+Q: What career path has Caroline decided to persue?
+Gold: counseling or mental health for Transgender people
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.39999999999999997 answer='Counseling or mental health, working with trans people.'
+oracle_context: correct=False EM=0.0 F1=0.39999999999999997 answer='Counseling or mental health, working with trans people.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[15] conv-26#q0014
+Q: When did Melanie sign up for a pottery class?
+Gold: 2 July 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[16] conv-26#q0015
+Q: When is Caroline going to the transgender conference?
+Gold: July 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='This month.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='This month.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='This month.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[17] conv-26#q0016
+Q: Where has Melanie camped?
+Gold: beach, mountains, forest
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown'
+oracle_context: correct=False EM=0.0 F1=0.30769230769230765 answer='At the beach, in the mountains, and in the forest.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.3333333333333333, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[18] conv-26#q0017
+Q: When did Melanie go to the museum?
+Gold: 5 July 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[19] conv-26#q0018
+Q: When did Caroline have a picnic?
+Gold: The week before 6 July 2023 / From June 26, 2023 to July 2, 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='Last week.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last week.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[20] conv-26#q0019
+Q: Would Caroline likely have Dr. Seuss books on her bookshelf?
+Gold: Yes, since she collects classic children's books
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not enough information.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Yes.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not enough information.'
+failure: F5_CONTEXT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[21] conv-26#q0020
+Q: When did Caroline go to the LGBTQ conference?
+Gold: 10 July 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Two days ago.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Two days ago.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Two days ago.'
+failure: F6_REASONING_CANDIDATE
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[22] conv-26#q0021
+Q: Would Caroline pursue writing as a career option?
+Gold: LIkely no; though she likes reading, she wants to be a counselor
+real_memory: correct=False EM=0.0 F1=0.0 answer='No.'
+oracle_memory: correct=False EM=0.0 F1=0.13333333333333333 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='No.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[23] conv-26#q0022
+Q: When did Caroline go to the adoption meeting?
+Gold: The friday before 15 July 2023 / July 14, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Last Friday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last Friday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last Friday.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[24] conv-26#q0023
+Q: When did Melanie go to the pottery workshop?
+Gold: The Friday before 15 July 2023 / July 14, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last Friday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last Friday.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[25] conv-26#q0024
+Q: Would Melanie be considered a member of the LGBTQ community?
+Gold: Likely no, she does not refer to herself as part of it / There is no evidence to suggest that Melanie is a member of the LGBTQ community.
+real_memory: correct=False EM=0.0 F1=0.0 answer='No.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[26] conv-26#q0025
+Q: When did Melanie go camping in June?
+Gold: The week before 27 June 2023 / last week / From June 19, 2023 to June 25, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.09999999999999999 answer='Last week.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[27] conv-26#q0026
+Q: When did Melanie go camping in July?
+Gold: two weekends before 17 July 2023 / From July 8, 2023 to July 9, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_context: correct=False EM=0.0 F1=0.2222222222222222 answer='Two weekends ago.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[28] conv-26#q0027
+Q: When did Caroline join a mentorship program?
+Gold: The weekend before 17 July 2023 / From July 15, 2023 to July 16, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Last weekend.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last weekend.'
+oracle_context: correct=False EM=0.0 F1=0.11764705882352941 answer='Last weekend'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[29] conv-26#q0028
+Q: What did Melanie paint recently?
+Gold: sunset
+real_memory: correct=False EM=0.0 F1=0.0 answer='A horse painting.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Unknown'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 0.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[30] conv-26#q0029
+Q: In what ways is Caroline participating in the LGBTQ community?
+Gold: Joining activist group, going to pride parades, participating in an art show, mentoring program
+real_memory: correct=False EM=0.0 F1=0.06451612903225808 answer='She has a show/platform, attends parades, spreads awareness, gets others involved, and has transitioned/joined the transgender community.'
+oracle_memory: correct=False EM=0.0 F1=0.30303030303030304 answer='She joined an LGBTQ activist group, joined a mentorship program for LGBTQ youth, and attended an LGBTQ+ pride parade.'
+oracle_context: correct=False EM=0.0 F1=0.3684210526315789 answer='She joined an LGBTQ activist group, attended a pride parade, is holding an LGBTQ art show, and joined a mentorship program for LGBTQ youth.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.25, 'context': 0.0, 'evolution': None}
+
+[31] conv-26#q0030
+Q: How many times has Melanie gone to the beach in 2023?
+Gold: 2
+real_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.5, 'context': 0.0, 'evolution': None}
+
+[32] conv-26#q0031
+Q: When did Caroline join a new activist group?
+Gold: The Tuesday before 20 July 2023 / July 18, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Last Tues.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last Tuesday.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last Tues.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[33] conv-26#q0032
+Q: Would Melanie be more interested in going to a national park or a theme park?
+Gold: National park
+real_memory: correct=True EM=1.0 F1=1.0 answer='National park'
+oracle_memory: correct=True EM=0.0 F1=0.4 answer='A national park.'
+oracle_context: correct=True EM=0.0 F1=0.4 answer='A national park.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[34] conv-26#q0033
+Q: When is Melanie's daughter's birthday?
+Gold: 13 August / 13 August 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last night.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[35] conv-26#q0034
+Q: When did Caroline attend a pride parade in August?
+Gold: The Friday before 14 August 2023 / August 11, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last Friday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last Friday.'
+failure: F6_REASONING_CANDIDATE
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[36] conv-26#q0035
+Q: Would Melanie be considered an ally to the transgender community?
+Gold: Yes, she is supportive
+real_memory: correct=False EM=0.0 F1=0.0 answer='Yes.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Yes.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[37] conv-26#q0036
+Q: Who supports Caroline when she has a negative experience?
+Gold: Her mentors, family, and friends
+real_memory: correct=False EM=0.0 F1=0.0 answer='Mel.'
+oracle_memory: correct=True EM=0.0 F1=0.6 answer='Her friends, family, and mentors.'
+oracle_context: correct=True EM=0.0 F1=0.6 answer='Her friends, family, and mentors.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.5, 'context': 0.5, 'evolution': None}
+
+[38] conv-26#q0037
+Q: When did Caroline and Melanie go to a pride fesetival together?
+Gold: 2022
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last year.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last year.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[39] conv-26#q0038
+Q: What are Melanie's pets' names?
+Gold: Oliver, Luna, Bailey
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Luna and Oliver'
+oracle_context: correct=False EM=0.0 F1=0.3333333333333333 answer='Bailey and Oliver'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[40] conv-26#q0039
+Q: When did Caroline apply to adoption agencies?
+Gold: The week of 23 August 2023 / From August 21, 2023 to August 27, 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='This week.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='This week.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='This week.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[41] conv-26#q0040
+Q: When did Caroline draw a self-portrait?
+Gold: The week before 23 August 2023 / From August 14, 2023 to August 20, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Last week.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last week.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[42] conv-26#q0041
+Q: What subject have Caroline and Melanie both painted?
+Gold: Sunsets
+real_memory: correct=False EM=0.0 F1=0.0 answer='Flowers'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Nature-inspired paintings.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[43] conv-26#q0042
+Q: What symbols are important to Caroline?
+Gold: Rainbow flag / eagle symbol
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='The rainbow flag mural and the eagle.'
+oracle_context: correct=False EM=0.0 F1=0.4000000000000001 answer='Rainbow flag mural and eagle.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[44] conv-26#q0043
+Q: When did Caroline encounter people on a hike and have a negative experience?
+Gold: The week before 25 August 2023 / From August 14, 2023 to August 20, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Recently.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last week.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[45] conv-26#q0044
+Q: When did Melanie make a plate in pottery class?
+Gold: 24 August 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[46] conv-26#q0045
+Q: What instruments does Melanie play?
+Gold: clarinet and violin
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Clarinet.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Clarinet and violin.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[47] conv-26#q0046
+Q: What musical artists/bands has Melanie seen?
+Gold: Summer Sounds, Matt Patterson
+real_memory: correct=False EM=0.0 F1=0.0 answer='No musical artists/bands are mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Matt Patterson'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Matt Patterson'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[48] conv-26#q0047
+Q: When did Melanie go to the park?
+Gold: 27 August 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[49] conv-26#q0048
+Q: When is Caroline's youth center putting on a talent show?
+Gold: September 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Next month.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Next month.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[50] conv-26#q0049
+Q: Would Melanie likely enjoy the song "The Four Seasons" by Vivaldi?
+Gold: Yes; it's classical music
+real_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Yes.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[51] conv-26#q0050
+Q: What are some changes Caroline has faced during her transition journey?
+Gold: Changes to her body / Changes to her body, losing unsupportive friends
+real_memory: correct=False EM=0.0 F1=0.125 answer='Effects on her relationships.'
+oracle_memory: correct=False EM=0.0 F1=0.22857142857142854 answer='Her body has changed, and some friends couldn’t handle it; her relationships now feel more genuine with those who accept and love her.'
+oracle_context: correct=False EM=0.0 F1=0.1111111111111111 answer='Changing relationships and her changing body.'
+failure: None
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[52] conv-26#q0051
+Q: What does Melanie do with her family on hikes?
+Gold: Roast marshmallows, tell stories
+real_memory: correct=False EM=0.0 F1=0.0 answer='She spends quality, tranquil time with her family.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[53] conv-26#q0052
+Q: When did Caroline go biking with friends?
+Gold: The weekend before 13 September 2023 / From September 9, 2023 to September 10, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Last weekend.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last weekend.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last weekend.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[54] conv-26#q0053
+Q: How long has Melanie been practicing art?
+Gold: Since 2016 / Seven years
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not enough information.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown'
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer='Seven years.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[55] conv-26#q0054
+Q: What transgender-specific events has Caroline attended?
+Gold: Transgender Poetry reading, conference / Poetry reading, conference / Transgender Poetry reading and counseling workshop
+real_memory: correct=False EM=0.0 F1=0.0 answer='None.'
+oracle_memory: correct=False EM=0.0 F1=0.2105263157894737 answer='A transgender poetry reading.'
+oracle_context: correct=False EM=0.0 F1=0.2105263157894737 answer='A transgender poetry reading.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[56] conv-26#q0055
+Q: What book did Melanie read from Caroline's suggestion?
+Gold: "Becoming Nicole"
+real_memory: correct=False EM=0.0 F1=0.0 answer='No book mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Becoming Nicole by Amy Ellis Nutt'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='"Becoming Nicole" by Amy Ellis Nutt'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[57] conv-26#q0056
+Q: When did Melanie's friend adopt a child?
+Gold: 2022
+real_memory: correct=False EM=0.0 F1=0.0 answer='They haven’t adopted a child yet.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last year.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last year.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.5, 'context': 0.5, 'evolution': None}
+
+[58] conv-26#q0057
+Q: When did Melanie get hurt?
+Gold: September 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last month.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last month.'
+failure: F5_CONTEXT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[59] conv-26#q0058
+Q: When did Melanie's family go on a roadtrip?
+Gold: The weekend before 20 October 2023 / From October 14, 2023 to October 15, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='This past weekend.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='This past weekend.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[60] conv-26#q0059
+Q: How many children does Melanie have?
+Gold: 3
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[61] conv-26#q0060
+Q: When did Melanie go on a hike after the roadtrip?
+Gold: 19 October 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[62] conv-26#q0061
+Q: Would Melanie go on another roadtrip soon?
+Gold: Likely no; since this one went badly
+real_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not enough information.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Unclear.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[63] conv-26#q0062
+Q: What items has Melanie bought?
+Gold: Figurines, shoes
+real_memory: correct=False EM=0.0 F1=0.0 answer='Figurines.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Figurines'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Figurines'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.5, 'context': 0.5, 'evolution': None}
+
+[64] conv-26#q0063
+Q: When did Caroline pass the adoption interview?
+Gold: The Friday before 22 October 2023 / October 20, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Last Friday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Last Friday.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[65] conv-26#q0064
+Q: When did Melanie buy the figurines?
+Gold: 21 October 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: F5_CONTEXT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[66] conv-26#q0065
+Q: Would Caroline want to move back to her home country soon?
+Gold: No; she's in the process of adopting children. / No. / No evidence of relocation intentions
+real_memory: correct=False EM=0.0 F1=0.2 answer='The evidence doesn’t say.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.5, 'context': 0.0, 'evolution': None}
+
+[67] conv-26#q0066
+Q: What did the charity race raise awareness for?
+Gold: mental health
+real_memory: correct=True EM=0.0 F1=0.5 answer='Mental health.'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='Mental health.'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='Mental health'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[68] conv-26#q0067
+Q: What did Melanie realize after the charity race?
+Gold: self-care is important
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.5714285714285715 answer='Self-care is really important.'
+oracle_context: correct=True EM=0.0 F1=0.5714285714285715 answer='Self-care is really important.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[69] conv-26#q0068
+Q: How does Melanie prioritize self-care?
+Gold: by carving out some me-time each day for activities like running, reading, or playing the violin
+real_memory: correct=False EM=0.0 F1=0.0 answer='She prioritizes self-care, even though it’s not always easy.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=True EM=0.0 F1=0.5925925925925926 answer='By carving out me-time each day—running, reading, or playing her violin.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[70] conv-26#q0069
+Q: What are Caroline's plans for the summer?
+Gold: researching adoption agencies
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Researching adoption agencies.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Researching adoption agencies.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[71] conv-26#q0070
+Q: What type of individuals does the adoption agency Caroline is considering support?
+Gold: LGBTQ+ individuals
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='LGBTQ+ folks.'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='LGBTQ+ folks'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[72] conv-26#q0071
+Q: Why did Caroline choose the adoption agency?
+Gold: because of their inclusivity and support for LGBTQ+ individuals
+real_memory: correct=False EM=0.0 F1=0.11764705882352941 answer='To become a mom and have a family.'
+oracle_memory: correct=False EM=0.0 F1=0.25 answer='Because they help LGBTQ+ folks with adoption.'
+oracle_context: correct=False EM=0.0 F1=0.43478260869565216 answer='They help LGBTQ+ folks with adoption, and their inclusivity and support spoke to her.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[73] conv-26#q0072
+Q: What is Caroline excited about in the adoption process?
+Gold: creating a family for kids who need one
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.75 answer='Making a family for kids who need one.'
+oracle_context: correct=True EM=0.0 F1=0.75 answer='Making a family for kids who need one.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[74] conv-26#q0073
+Q: What does Melanie think about Caroline's decision to adopt?
+Gold: she thinks Caroline is doing something amazing and will be an awesome mom
+real_memory: correct=False EM=0.0 F1=0.23529411764705882 answer='She thinks it’s awesome.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=True EM=0.0 F1=0.6153846153846154 answer='She thinks it’s amazing, lovely, and that Caroline will be an awesome mom.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[75] conv-26#q0074
+Q: How long have Mel and her husband been married?
+Gold: Mel and her husband have been married for 5 years.
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=False EM=0.0 F1=0.16666666666666669 answer='5 years'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[76] conv-26#q0075
+Q: What does Caroline's necklace symbolize?
+Gold: love, faith, and strength
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.75 answer='Love, faith, and strength.'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='Love, faith and strength.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[77] conv-26#q0076
+Q: What country is Caroline's grandma from?
+Gold: Sweden
+real_memory: correct=True EM=1.0 F1=1.0 answer='Sweden'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Sweden'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='Sweden'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[78] conv-26#q0077
+Q: What was grandma's gift to Caroline?
+Gold: necklace
+real_memory: correct=False EM=0.0 F1=0.0 answer='A necklace.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='A necklace.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='A necklace.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[79] conv-26#q0078
+Q: What is Melanie's hand-painted bowl a reminder of?
+Gold: art and self-expression
+real_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Art and self-expression.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Art and self-expression.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Art and self-expression.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[80] conv-26#q0079
+Q: What did Melanie and her family do while camping?
+Gold: explored nature, roasted marshmallows, and went on a hike
+real_memory: correct=False EM=0.0 F1=0.0 answer='They spent quality, tranquil time with family.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Explored nature, roasted marshmallows around the campfire, and went on a hike.'
+oracle_context: correct=True EM=0.0 F1=0.6363636363636364 answer='They explored nature, roasted marshmallows around the campfire, and went on a hike.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[81] conv-26#q0080
+Q: What kind of counseling and mental health services is Caroline interested in pursuing?
+Gold: working with trans people, helping them accept themselves and supporting their mental health
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=False EM=0.0 F1=0.380952380952381 answer='Counseling and mental health services for trans people.'
+oracle_context: correct=True EM=0.0 F1=0.9230769230769231 answer='Working with trans people, helping them accept themselves and supporting their mental health.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[82] conv-26#q0081
+Q: What workshop did Caroline attend recently?
+Gold: LGBTQ+ counseling workshop
+real_memory: correct=False EM=0.0 F1=0.28571428571428575 answer='No workshop is mentioned.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='LGBTQ+ counseling workshop'
+oracle_context: correct=True EM=0.0 F1=0.5714285714285715 answer='An LGBTQ+ counseling workshop.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[83] conv-26#q0082
+Q: What was discussed in the LGBTQ+ counseling workshop?
+Gold: therapeutic methods and how to best work with trans people
+real_memory: correct=True EM=0.0 F1=0.8571428571428572 answer='Different therapeutic methods and how to best work with trans people.'
+oracle_memory: correct=True EM=0.0 F1=0.8571428571428572 answer='Different therapeutic methods and how to best work with trans people.'
+oracle_context: correct=True EM=0.0 F1=0.8571428571428572 answer='Different therapeutic methods and how to best work with trans people.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[84] conv-26#q0083
+Q: What motivated Caroline to pursue counseling?
+Gold: her own journey and the support she received, and how counseling improved her life
+real_memory: correct=False EM=0.0 F1=0.22222222222222224 answer='Talking to the community and wanting to use her story to help others.'
+oracle_memory: correct=True EM=0.0 F1=0.7741935483870968 answer='Her own journey, the support she received, and seeing how counseling and support groups improved her life.'
+oracle_context: correct=True EM=0.0 F1=0.8125000000000001 answer='Her own journey and the support she received, and seeing how counseling and support groups improved her life.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[85] conv-26#q0084
+Q: What kind of place does Caroline want to create for people?
+Gold: a safe and inviting place for people to grow
+real_memory: correct=False EM=0.0 F1=0.25 answer='A loving home for children in need.'
+oracle_memory: correct=True EM=0.0 F1=0.5333333333333333 answer='A safe, inviting place to grow.'
+oracle_context: correct=True EM=0.0 F1=0.7058823529411765 answer='A safe, inviting place for people to grow.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[86] conv-26#q0085
+Q: Did Melanie make the black and white bowl in the photo?
+Gold: Yes
+real_memory: correct=False EM=0.0 F1=0.0 answer='Yes.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Yes.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Yes.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[87] conv-26#q0086
+Q: What kind of books does Caroline have in her library?
+Gold: kids' books - classics, stories from different cultures, educational books
+real_memory: correct=False EM=0.0 F1=0.0 answer='No information.'
+oracle_memory: correct=True EM=0.0 F1=0.7 answer="Kids' books: classics, stories from different cultures, and educational books."
+oracle_context: correct=True EM=0.0 F1=0.7 answer="Kids' books: classics, stories from different cultures, and educational books."
+failure: F5_CONTEXT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[88] conv-26#q0087
+Q: What was Melanie's favorite book from her childhood?
+Gold: "Charlotte's Web"
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer="Charlotte's Web"
+oracle_context: correct=False EM=0.0 F1=0.0 answer="Charlotte's Web"
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[89] conv-26#q0088
+Q: What book did Caroline recommend to Melanie?
+Gold: "Becoming Nicole"
+real_memory: correct=False EM=0.0 F1=0.0 answer='The book is not named.'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='"Becoming Nicole" by Amy Ellis Nutt'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='"Becoming Nicole" by Amy Ellis Nutt'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[90] conv-26#q0089
+Q: What did Caroline take away from the book "Becoming Nicole"?
+Gold: Lessons on self-acceptance and finding support
+real_memory: correct=False EM=0.0 F1=0.0 answer='No information.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.19047619047619044 answer='Self-acceptance and how to find support, and that tough times don’t last—hope and love exist.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[91] conv-26#q0090
+Q: What are the new shoes that Melanie got used for?
+Gold: Running
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Walking or running?'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Walking or running.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[92] conv-26#q0091
+Q: What is Melanie's reason for getting into running?
+Gold: To de-stress and clear her mind
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[93] conv-26#q0092
+Q: What does Melanie say running has been great for?
+Gold: Her mental health
+real_memory: correct=False EM=0.0 F1=0.4 answer='Her headspace.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Her mental health.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Her mental health.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[94] conv-26#q0093
+Q: What did Mel and her kids make during the pottery workshop?
+Gold: pots
+real_memory: correct=False EM=0.0 F1=0.0 answer='A bowl.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Pots.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Their own pots.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[95] conv-26#q0094
+Q: What creative project do Mel and her kids do together besides pottery?
+Gold: painting
+real_memory: correct=False EM=0.0 F1=0.0 answer='Painting.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[96] conv-26#q0095
+Q: What did Caroline see at the council meeting for adoption?
+Gold: many people wanting to create loving homes for children in need
+real_memory: correct=True EM=0.0 F1=0.8181818181818182 answer='Many people wanted to create loving homes for children in need.'
+oracle_memory: correct=True EM=0.0 F1=0.9090909090909091 answer='Many people wanting to create loving homes for children in need.'
+oracle_context: correct=True EM=0.0 F1=0.9090909090909091 answer='Many people wanting to create loving homes for children in need.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[97] conv-26#q0096
+Q: What do sunflowers represent according to Caroline?
+Gold: warmth and happiness
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Warmth and happiness.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Warmth and happiness.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[98] conv-26#q0097
+Q: Why are flowers important to Melanie?
+Gold: Flowers represent growth, beauty, reminds her to appreciate the small moments, and were a part of her wedding decor
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.3448275862068966 answer='They bring joy and remind her of her wedding day.'
+oracle_context: correct=True EM=0.0 F1=0.5714285714285714 answer='They bring joy, represent growth, beauty, appreciating small moments, and remind her of her wedding day.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[99] conv-26#q0098
+Q: What inspired Caroline's painting for the art show?
+Gold: visiting an LGBTQ center and wanting to capture unity and strength
+real_memory: correct=False EM=0.0 F1=0.17391304347826086 answer='Finding comfort and love in being yourself and the journey of acceptance.'
+oracle_memory: correct=False EM=0.0 F1=0.39999999999999997 answer='Visiting an LGBTQ center.'
+oracle_context: correct=False EM=0.0 F1=0.3529411764705882 answer='Her visit to an LGBTQ center.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[100] conv-26#q0099
+Q: How often does Melanie go to the beach with her kids?
+Gold: once or twice a year
+real_memory: correct=True EM=0.0 F1=0.8000000000000002 answer='Once or twice a year.'
+oracle_memory: correct=True EM=0.0 F1=0.8000000000000002 answer='Once or twice a year.'
+oracle_context: correct=True EM=0.0 F1=0.8000000000000002 answer='Once or twice a year.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[101] conv-26#q0100
+Q: What did Melanie and her family see during their camping trip last year?
+Gold: Perseid meteor shower
+real_memory: correct=True EM=0.0 F1=0.5714285714285715 answer='The Perseid meteor shower.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Perseid meteor shower'
+oracle_context: correct=True EM=0.0 F1=0.5714285714285715 answer='The Perseid meteor shower.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[102] conv-26#q0101
+Q: How did Melanie feel while watching the meteor shower?
+Gold: in awe of the universe
+real_memory: correct=False EM=0.0 F1=0.16666666666666666 answer='Amazing and at one with the universe.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Tiny and in awe of the universe.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Tiny and in awe of the universe.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[103] conv-26#q0102
+Q: Whose birthday did Melanie celebrate recently?
+Gold: Melanie's daughter
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Her daughter’s.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Her daughter’s.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[104] conv-26#q0103
+Q: Who performed at the concert at Melanie's daughter's birthday?
+Gold: Matt Patterson
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Matt Patterson'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='Matt Patterson'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[105] conv-26#q0104
+Q: Why did Melanie choose to use colors and patterns in her pottery project?
+Gold: She wanted to catch the eye and make people smile.
+real_memory: correct=False EM=0.0 F1=0.14285714285714288 answer='For self-expression and peace.'
+oracle_memory: correct=True EM=0.0 F1=0.5217391304347826 answer='To catch the eye, make people smile, and express her feelings and creativity.'
+oracle_context: correct=True EM=0.0 F1=0.5217391304347826 answer='To catch the eye, make people smile, and express her feelings and creativity.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[106] conv-26#q0105
+Q: What pet does Caroline have?
+Gold: guinea pig
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=True EM=0.0 F1=0.4 answer='A guinea pig.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[107] conv-26#q0106
+Q: What pets does Melanie have?
+Gold: Two cats and a dog
+real_memory: correct=False EM=0.0 F1=0.0 answer='No information.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=False EM=0.0 F1=0.4000000000000001 answer='Cats named Bailey and Oliver.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[108] conv-26#q0107
+Q: Where did Oliver hide his bone once?
+Gold: In Melanie's slipper
+real_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='In my slipper.'
+oracle_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='In my slipper.'
+oracle_context: correct=False EM=0.0 F1=0.3333333333333333 answer='In my slipper.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[109] conv-26#q0108
+Q: What activity did Caroline used to do with her dad?
+Gold: Horseback riding
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='Horseback riding.'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='Horseback riding.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[110] conv-26#q0109
+Q: What did Caroline make for a local church?
+Gold: a stained glass window
+real_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='A painting.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=True EM=0.0 F1=0.75 answer='A stained glass window.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[111] conv-26#q0110
+Q: What did Caroline find in her neighborhood during her walk?
+Gold: a rainbow sidewalk
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='A rainbow sidewalk.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='A rainbow sidewalk.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[112] conv-26#q0111
+Q: Which song motivates Caroline to be courageous?
+Gold: Brave by Sara Bareilles
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=0.0 F1=0.75 answer='"Brave" by Sara Bareilles'
+oracle_context: correct=True EM=0.0 F1=0.75 answer='"Brave" by Sara Bareilles'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[113] conv-26#q0112
+Q: Which  classical musicians does Melanie enjoy listening to?
+Gold: Bach and Mozart
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Bach and Mozart.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Bach and Mozart.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[114] conv-26#q0113
+Q: Who is Melanie a fan of in terms of modern music?
+Gold: Ed Sheeran
+real_memory: correct=True EM=1.0 F1=1.0 answer='Ed Sheeran'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Ed Sheeran'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='Ed Sheeran'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[115] conv-26#q0114
+Q: How long has Melanie been creating art?
+Gold: 7 years / Seven years
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Since she was 17 or so.'
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer='Seven years.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[116] conv-26#q0115
+Q: What advice does Caroline give for getting started with adoption?
+Gold: Do research, find an adoption agency or lawyer, gather necessary documents, and prepare emotionally.
+real_memory: correct=False EM=0.0 F1=0.23076923076923075 answer='Contact a mentor for adoption advice and attend an adoption advice/assistance group.'
+oracle_memory: correct=True EM=0.0 F1=0.9285714285714286 answer='Do your research, find an adoption agency or lawyer, gather documents, and prepare emotionally.'
+oracle_context: correct=True EM=0.0 F1=0.5833333333333334 answer='Do your research and find an adoption agency or lawyer.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[117] conv-26#q0116
+Q: What setback did Melanie face in October 2023?
+Gold: She got hurt and had to take a break from pottery. / She faced an accident
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=0.0 F1=0.8148148148148148 answer='She got hurt and had to take a break from pottery.'
+oracle_context: correct=True EM=0.0 F1=0.8148148148148148 answer='She got hurt and had to take a break from pottery.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[118] conv-26#q0117
+Q: What does Melanie do to keep herself busy during her pottery break?
+Gold: Read a book and paint.
+real_memory: correct=False EM=0.0 F1=0.3636363636363636 answer='Reading the recommended book and painting.'
+oracle_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='Reading the book Caroline recommended and painting.'
+oracle_context: correct=False EM=0.0 F1=0.3636363636363636 answer='Reading the recommended book and painting.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[119] conv-26#q0118
+Q: What was the poetry reading that Caroline attended about?
+Gold: It was a transgender poetry reading where transgender people shared their stories.
+real_memory: correct=True EM=0.0 F1=0.75 answer='A transgender poetry reading where transgender people shared their stories through poetry.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[120] conv-26#q0119
+Q: What does Caroline's drawing symbolize for her?
+Gold: Freedom and being true to herself.
+real_memory: correct=False EM=0.0 F1=0.25 answer='Who she really is and getting in touch with herself.'
+oracle_memory: correct=True EM=0.0 F1=0.6 answer='Freedom and being real.'
+oracle_context: correct=True EM=0.0 F1=0.5882352941176471 answer='Freedom and being real—staying true to herself and embracing her womanhood.'
+failure: F4_RETRIEVAL
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[121] conv-26#q0120
+Q: How do Melanie and Caroline describe their journey through life together?
+Gold: An ongoing adventure of learning and growing.
+real_memory: correct=False EM=0.0 F1=0.09090909090909091 answer='They describe it as motivating and helping each other and making a real impact together.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='An ongoing adventure of learning and growing.'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='An ongoing adventure of learning and growing.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[122] conv-26#q0121
+Q: What happened to Melanie's son on their road trip?
+Gold: He got into an accident
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=True EM=0.0 F1=0.8000000000000002 answer='He got into an accident.'
+oracle_context: correct=True EM=0.0 F1=0.8000000000000002 answer='He got into an accident.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[123] conv-26#q0122
+Q: How did Melanie's kids handle the accident?
+Gold: They were scared but reassured by their family. / They were scared but reassured that their brother would be OK.
+real_memory: correct=False EM=0.0 F1=0.07407407407407408 answer='They enjoyed the Grand Canyon a lot.'
+oracle_memory: correct=False EM=0.0 F1=0.07407407407407408 answer='They enjoyed the Grand Canyon a lot.'
+oracle_context: correct=False EM=0.0 F1=0.4324324324324324 answer='They were scared, but Melanie reassured them and explained their brother would be OK; they’re tough kids.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.25, 'storage': 1.0, 'retrieval': 0.75, 'rerank': 0.75, 'context': 0.5, 'evolution': None}
+
+[124] conv-26#q0123
+Q: How did Melanie feel about her family after the accident?
+Gold: They are important and mean the world to her
+real_memory: correct=True EM=0.0 F1=0.5714285714285715 answer='They mean the world to her, and she’s thankful to have them.'
+oracle_memory: correct=False EM=0.0 F1=0.4545454545454546 answer='They meant the world to her, and she was thankful to have them.'
+oracle_context: correct=False EM=0.0 F1=0.39999999999999997 answer='She needed them, they meant the world to her, and she was thankful to have them.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[125] conv-26#q0124
+Q: How did Melanie's children handle the accident?
+Gold: They were scared but resilient
+real_memory: correct=False EM=0.0 F1=0.16666666666666666 answer='They enjoyed the Grand Canyon a lot.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=True EM=0.0 F1=0.5333333333333333 answer='They were scared but were reassured and are tough kids.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[126] conv-26#q0125
+Q: How did Melanie feel after the accident?
+Gold: Grateful and thankful for her family / She realized she needs her family
+real_memory: correct=False EM=0.0 F1=0.48000000000000004 answer='She felt she needed her family and was thankful to have them.'
+oracle_memory: correct=True EM=0.0 F1=0.5185185185185186 answer='She felt thankful to have her family and realized how much she needed them.'
+oracle_context: correct=True EM=0.0 F1=0.5185185185185186 answer='She felt thankful to have her family and realized how much she needed them.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[127] conv-26#q0126
+Q: What do Melanie's family give her?
+Gold: Strength and motivation
+real_memory: correct=False EM=0.0 F1=0.0 answer='Love.'
+oracle_memory: correct=False EM=0.0 F1=0.28571428571428575 answer='Strength to keep going.'
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer='Strength to keep going.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[128] conv-26#q0127
+Q: How did Melanie feel about her family supporting her?
+Gold: She appreciated them a lot
+real_memory: correct=False EM=0.0 F1=0.1111111111111111 answer='She was very thankful to have them; they meant the world to her.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=True EM=0.0 F1=0.5333333333333333 answer='She appreciated them a lot; they were a real support.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[129] conv-26#q0128
+Q: What books has Melanie read?
+Gold: "Nothing is Impossible", "Charlotte's Web"
+real_memory: correct=False EM=0.0 F1=0.0 answer='No books are mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer="Charlotte's Web"
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[130] conv-26#q0129
+Q: When did Melanie read the book "nothing is impossible"?
+Gold: 2022
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last year.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[131] conv-26#q0130
+Q: What kind of art does Caroline make?
+Gold: abstract art
+real_memory: correct=False EM=0.0 F1=0.0 answer='Painting and drawing flowers.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Paintings about inclusivity, diversity, and LGBTQ+ acceptance.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Paintings about identity, inclusivity, diversity, and LGBTQ+ acceptance.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[132] conv-26#q0131
+Q: What kind of pot did Mel and her kids make with clay?
+Gold: a cup with a dog face on it
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[133] conv-26#q0132
+Q: What did Mel and her kids paint in their latest project in July 2023?
+Gold: a sunset with a palm tree
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Nature-inspired paintings.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Nature-inspired paintings.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[134] conv-26#q0133
+Q: What precautionary sign did Melanie see at the café?
+Gold: A sign stating that someone is not being able to leave
+real_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.15384615384615385 answer='Not specified.'
+oracle_context: correct=False EM=0.0 F1=0.15384615384615385 answer='Not specified.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[135] conv-26#q0134
+Q: What painting did Melanie show to Caroline on October 13, 2023?
+Gold: A painting inspired by sunsets with a pink sky.
+real_memory: correct=False EM=0.0 F1=0.0 answer='Embracing Identity'
+oracle_memory: correct=True EM=0.0 F1=0.5714285714285714 answer='A painting inspired by sunsets.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[136] conv-26#q0135
+Q: What kind of painting did Caroline share with Melanie on October 13, 2023?
+Gold: An abstract painting with blue streaks on a wall.
+real_memory: correct=False EM=0.0 F1=0.16666666666666666 answer='A horse painting.'
+oracle_memory: correct=False EM=0.0 F1=0.3636363636363636 answer='Abstract painting'
+oracle_context: correct=False EM=0.0 F1=0.3333333333333333 answer='An abstract painting.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[137] conv-26#q0136
+Q: What did the posters at the poetry reading say?
+Gold: "Trans Lives Matter"
+real_memory: correct=False EM=0.0 F1=0.0 answer='They were amazing and full of pride and strength.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='No posters are mentioned.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[138] conv-26#q0137
+Q: What did Melanie do after the road trip to relax?
+Gold: Went on a nature walk or hike
+real_memory: correct=False EM=0.0 F1=0.0 answer='She painted animals.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='It is not specified.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='It is not specified.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[139] conv-30#q0000
+Q: When Jon has lost his job as a banker?
+Gold: 19 January, 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[140] conv-30#q0001
+Q: When Gina has lost her job at Door Dash?
+Gold: January, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='This month.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='This month.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='This month.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[141] conv-30#q0002
+Q: How do Jon and Gina both like to destress?
+Gold: by dancing
+real_memory: correct=False EM=0.0 F1=0.0 answer='Dance it out.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Dancing.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Dancing'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[142] conv-30#q0003
+Q: What do Jon and Gina both have in common?
+Gold: They lost their jobs and decided to start their own businesses. / They lost their jobs, decided to start their own businesses, and share a strong passion for dance. / They lost their jobs, decided to start their own businesses, and are pursuing entrepreneurial ventures driven by their shared passion for dance.
+real_memory: correct=False EM=0.0 F1=0.10714285714285714 answer='They both own businesses.'
+oracle_memory: correct=False EM=0.0 F1=0.10526315789473685 answer='They both lost their jobs.'
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer='They both lost their jobs and are starting their own businesses.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.25, 'rerank': 0.25, 'context': 0.25, 'evolution': None}
+
+[143] conv-30#q0004
+Q: Why did Jon decide to start his dance studio?
+Gold: He lost his job and decided to start his own business to share his passion.
+real_memory: correct=False EM=0.0 F1=0.3571428571428571 answer='Losing his job gave him the push to finally start his dream business.'
+oracle_memory: correct=False EM=0.0 F1=0.22222222222222224 answer='Because he’s passionate about dancing and wants to share it with others.'
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer='Because he is passionate about dancing and wants to share it with others.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.5, 'context': 0.0, 'evolution': None}
+
+[144] conv-30#q0005
+Q: What Jon thinks the ideal dance studio should look like?
+Gold: By the water, with natural light and Marley flooring
+real_memory: correct=False EM=0.0 F1=0.3333333333333333 answer='By the water.'
+oracle_memory: correct=False EM=0.0 F1=0.33333333333333337 answer='Great natural light and Marley flooring—grippy, easy to move on, tough, and easy to clean.'
+oracle_context: correct=True EM=0.0 F1=0.8421052631578948 answer='By the water, with great natural light and Marley flooring.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.6666666666666666, 'rerank': 0.6666666666666666, 'context': 0.6666666666666666, 'evolution': None}
+
+[145] conv-30#q0006
+Q: When is Jon's group performing at a festival?
+Gold: February, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Next month.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Next month.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[146] conv-30#q0007
+Q: When did Gina launch an ad campaign for her store?
+Gold: 29 January, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Just recently.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Just recently.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Recently.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[147] conv-30#q0008
+Q: When was Jon in Paris?
+Gold: 28 January 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[148] conv-30#q0009
+Q: Which city have both Jean and John visited?
+Gold: Rome
+real_memory: correct=False EM=0.0 F1=0.0 answer='No city.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='Rome'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[149] conv-30#q0010
+Q: When did Gina get her tattoo?
+Gold: A few years ago
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=0.0 F1=0.75 answer='A few years ago.'
+oracle_context: correct=True EM=0.0 F1=0.75 answer='A few years ago.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[150] conv-30#q0011
+Q: When did Jon start to go to the gym?
+Gold: March, 2023 / the week before 16 March, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last week.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[151] conv-30#q0012
+Q: When did Gina open her online clothing store?
+Gold: 16 March, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not so long ago.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[152] conv-30#q0013
+Q: When did Jon host a dance competition?
+Gold: May, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Next month.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Next month.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Next month.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[153] conv-30#q0014
+Q: When did Jon go to a fair to get more exposure for his dance studio?
+Gold: 24 April, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Yesterday'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[154] conv-30#q0015
+Q: Do Jon and Gina start businesses out of what they love?
+Gold: Yes
+real_memory: correct=False EM=0.0 F1=0.0 answer='Yes.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Yes.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Yes.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[155] conv-30#q0016
+Q: When did Gina interview for a design internship?
+Gold: 10 May, 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[156] conv-30#q0017
+Q: When did Gina get accepted for the design internship?
+Gold: 27 May, 2023 / May, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='It is not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[157] conv-30#q0018
+Q: Which events has Jon participated in to promote his business venture?
+Gold: fair, networking events
+real_memory: correct=True EM=0.0 F1=0.5 answer='Networking events and a fair.'
+oracle_memory: correct=False EM=0.0 F1=0.25 answer='A fair and networking events.'
+oracle_context: correct=False EM=0.0 F1=0.25 answer='A fair and networking events.'
+failure: None
+stage recall: {'formation': 0.3333333333333333, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.3333333333333333, 'evolution': None}
+
+[158] conv-30#q0019
+Q: What does Jon's dance studio offer?
+Gold: one-on-one metoring and training to dancers, workshops and classes to local schools and centers
+real_memory: correct=False EM=0.0 F1=0.0 answer='Dance classes.'
+oracle_memory: correct=False EM=0.0 F1=0.2727272727272727 answer='Dance classes, workshops, and one-on-one mentoring and training.'
+oracle_context: correct=True EM=0.0 F1=0.5454545454545454 answer='Dance classes, workshops, one-on-one mentoring and training, classes and workshops to local schools and centers, and a dance competition.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.5, 'context': 0.0, 'evolution': None}
+
+[159] conv-30#q0020
+Q: When did Jon receive mentorship to promote his venture?
+Gold: 15 June, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[160] conv-30#q0021
+Q: Did Jon and Gina both participate in dance competitions?
+Gold: Yes
+real_memory: correct=False EM=0.0 F1=0.0 answer='No.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Yes.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Yes.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.6, 'rerank': 0.6, 'context': 0.2, 'evolution': None}
+
+[161] conv-30#q0022
+Q: When was Jon in Rome?
+Gold: June 2023 / the week before 19 June, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last week.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[162] conv-30#q0023
+Q: Which cities has Jon visited?
+Gold: Paris, Rome
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Cannot be determined from the evidence.'
+oracle_context: correct=False EM=0.0 F1=0.4 answer='Paris and Rome'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.5, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[163] conv-30#q0024
+Q: When Jon is planning to open his dance studio?
+Gold: 20 June, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='No specific time; he’s still searching for a place.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Tomorrow.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Tomorrow.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[164] conv-30#q0025
+Q: How long did it take for Jon to open his studio?
+Gold: five months
+real_memory: correct=False EM=0.0 F1=0.0 answer='He hasn’t opened it yet.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not mentioned.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Two days.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[165] conv-30#q0026
+Q: When did Gina design a limited collection of hoodies?
+Gold: June 2023 / the week before 21 June, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Last week.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last week.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[166] conv-30#q0027
+Q: When did Jon visit networking events for his store?
+Gold: 20 June, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='It is not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Yesterday.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[167] conv-30#q0028
+Q: When did Gina start being recognized by fashion editors?
+Gold: July 2023 / the week before 9 July, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last week.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last week.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[168] conv-30#q0029
+Q: When did Jon start learning marketing and analytics tools?
+Gold: 9 July, 2023 / July, 2023
+real_memory: correct=True EM=0.0 F1=0.0 answer='Today.'
+oracle_memory: correct=True EM=0.0 F1=0.0 answer='Today.'
+oracle_context: correct=True EM=0.0 F1=0.0 answer='Today.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[169] conv-30#q0030
+Q: When did Jon and Gina decide to collaborate to create dance content?
+Gold: 21 July 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='It is not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[170] conv-30#q0031
+Q: When did Gina mention Shia Labeouf?
+Gold: 23 July, 2023
+real_memory: correct=False EM=0.0 F1=0.0 answer='In the first message.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[171] conv-30#q0032
+Q: When did Gina go to a dance class with a group of friends?
+Gold: July 2023 / the Friday before 23 July, 2023 / the middle of July
+real_memory: correct=False EM=0.0 F1=0.0 answer='Last Friday.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Last Friday.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Last Friday.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[172] conv-30#q0033
+Q: What is Gina's favorite style of dance?
+Gold: Contemporary
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='Contemporary dance.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='Contemporary dance.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[173] conv-30#q0034
+Q: What is Jon's favorite style of dance?
+Gold: Contemporary
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Contemporary.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Contemporary.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[174] conv-30#q0035
+Q: What was Gina's favorite dancing memory?
+Gold: Winning first place at a regionals dance competition
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.5263157894736842 answer='Winning first place at regionals with her team at age fifteen.'
+oracle_context: correct=True EM=0.0 F1=0.5263157894736842 answer='Winning first place at regionals with her team at age fifteen.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[175] conv-30#q0036
+Q: What kind of dance piece did Gina's team perform to win first place?
+Gold: "Finding Freedom"
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Contemporary piece'
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer='Contemporary piece called "Finding Freedom."'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[176] conv-30#q0037
+Q: What does Gina say about the dancers in the photo?
+Gold: They look graceful
+real_memory: correct=False EM=0.0 F1=0.0 answer='That photo looks awesome, brings back lots of memories; dance is still your happy place.'
+oracle_memory: correct=False EM=0.0 F1=0.08333333333333333 answer='She rehearsed with a small group of dancers after work, and they do all kinds of dances, from contemporary to hip-hop.'
+oracle_context: correct=False EM=0.0 F1=0.08333333333333333 answer='She rehearsed with a small group of dancers after work, and they do all kinds of dances, from contemporary to hip-hop.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.5, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[177] conv-30#q0038
+Q: What is Jon's attitude towards being part of the dance festival?
+Gold: Glad
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=False EM=0.0 F1=0.2222222222222222 answer='Awesome and glad to be part of it.'
+oracle_context: correct=False EM=0.0 F1=0.2222222222222222 answer='Awesome and glad to be part of it.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[178] conv-30#q0039
+Q: What kind of flooring is Jon looking for in his dance studio?
+Gold: Marley flooring
+real_memory: correct=False EM=0.0 F1=0.0 answer='The evidence does not say.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Marley flooring'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='Marley flooring'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[179] conv-30#q0040
+Q: What did Gina find for her clothing store on 1 February, 2023?
+Gold: The perfect spot for her store
+real_memory: correct=False EM=0.0 F1=0.15384615384615383 answer='She started her own online clothing store.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='A wholesaler who said yes.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='A wholesaler that said yes.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[180] conv-30#q0041
+Q: What did Gina want her customers to feel in her store?
+Gold: cozy and comfortable / cozy and inviting / cozy / cozy, inviting and comfortable
+real_memory: correct=False EM=0.0 F1=0.09090909090909091 answer="Like they're in a cool oasis and cozy."
+oracle_memory: correct=False EM=0.0 F1=0.09090909090909091 answer="Like they're in a cool oasis and cozy."
+oracle_context: correct=False EM=0.0 F1=0.17391304347826086 answer='Cozy and like they were in a cool oasis.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[181] conv-30#q0042
+Q: What did Jon say about Gina's progress with her store?
+Gold: hard work's paying off
+real_memory: correct=False EM=0.0 F1=0.0 answer='He said she’s awesome with her store and asked how it’s going.'
+oracle_memory: correct=False EM=0.0 F1=0.4 answer='Her hard work was paying off.'
+oracle_context: correct=True EM=0.0 F1=0.5454545454545454 answer="Way to go, hard work's paying off!"
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[182] conv-30#q0043
+Q: What made Gina choose the furniture and decor for her store?
+Gold: personal style and customer comfort
+real_memory: correct=False EM=0.0 F1=0.0 answer='It is not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.19047619047619047 answer='She wanted the place to look like her own style and make her customers feel cozy.'
+oracle_context: correct=False EM=0.0 F1=0.19047619047619047 answer='She wanted the store to look like her own style and make her customers feel cozy.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[183] conv-30#q0044
+Q: What did Jon say about creating a special experience for customers?
+Gold: It's the key to making them feel welcome and coming back
+real_memory: correct=True EM=0.0 F1=0.6428571428571428 answer='Creating a special experience for customers is the key to making them feel welcome and coming back.'
+oracle_memory: correct=True EM=0.0 F1=0.6956521739130435 answer='It is the key to making customers feel welcome and coming back.'
+oracle_context: correct=True EM=0.0 F1=0.6428571428571428 answer='Creating a special experience for customers is the key to making them feel welcome and coming back.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[184] conv-30#q0045
+Q: What did Gina say about creating an experience for her customers?
+Gold: making them want to come back
+real_memory: correct=False EM=0.0 F1=0.3157894736842105 answer='She said she’s creating an experience that’ll make customers want to come back.'
+oracle_memory: correct=False EM=0.0 F1=0.3 answer='She wanted to create an experience that would make customers want to come back.'
+oracle_context: correct=False EM=0.0 F1=0.3157894736842105 answer='She said she’s creating an experience that’ll make customers want to come back.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[185] conv-30#q0046
+Q: How is Gina's store doing?
+Gold: The store is doing great.
+real_memory: correct=True EM=0.0 F1=0.5714285714285715 answer='Doing great.'
+oracle_memory: correct=False EM=0.0 F1=0.33333333333333337 answer='Great.'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='It’s doing great.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[186] conv-30#q0047
+Q: What does Gina's tattoo symbolize?
+Gold: Freedom and expressing herself through dance / Freedom - dancing without worrying what people think, follow her my passions and express myself.
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=False EM=0.0 F1=0.28571428571428575 answer='Freedom—dancing without worrying what people think.'
+oracle_context: correct=False EM=0.0 F1=0.28571428571428575 answer='Freedom—dancing without worrying what people think.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[187] conv-30#q0048
+Q: Why did Jon shut down his bank account?
+Gold: for his business
+real_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='For his business.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='For his business.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='For his business.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[188] conv-30#q0049
+Q: Why did Gina combine her clothing business with dance?
+Gold: she is passionate about dance and fashion / To show her creativity, share her love with others, and add dance-inspired items to her store.
+real_memory: correct=False EM=0.0 F1=0.07692307692307693 answer='She didn’t.'
+oracle_memory: correct=True EM=0.0 F1=0.823529411764706 answer='She is passionate about dance and fashion, so combining them lets her show her creativity, share her love with others, and add dance-inspired items to her store.'
+oracle_context: correct=False EM=0.0 F1=0.375 answer='Because she is passionate about dance and fashion.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.5, 'evolution': None}
+
+[189] conv-30#q0050
+Q: What does Jon's dance make him?
+Gold: happy
+real_memory: correct=False EM=0.0 F1=0.0 answer='the perfect mentor & guide'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Happy'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Happy.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[190] conv-30#q0051
+Q: What did Gina receive from a dance contest?
+Gold: a trophy
+real_memory: correct=True EM=0.0 F1=0.5 answer='A trophy.'
+oracle_memory: correct=True EM=0.0 F1=0.5 answer='A trophy.'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='A trophy.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[191] conv-30#q0052
+Q: How does Gina stay confident in her business?
+Gold: By reminding herself of her successes and progress, having a support system, and focusing on why she started
+real_memory: correct=True EM=0.0 F1=0.8292682926829269 answer='By reminding herself of her successes and progress, having a good support system, focusing on why she started, and having faith in herself.'
+oracle_memory: correct=True EM=0.0 F1=0.75 answer='By reminding herself of her successes and progress, and having a good support system.'
+oracle_context: correct=True EM=0.0 F1=0.75 answer='By reminding herself of her successes and progress, and having a good support system.'
+failure: None
+stage recall: {'formation': 1.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[192] conv-30#q0053
+Q: What kind of professional experience did Gina get accepted for on May 23, 2023?
+Gold: fashion internship
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not specified.'
+oracle_memory: correct=True EM=1.0 F1=1.0 answer='Fashion internship'
+oracle_context: correct=True EM=0.0 F1=0.4 answer='A fashion internship.'
+failure: EVAL_SEMANTIC_UNCERTAIN
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[193] conv-30#q0054
+Q: Where is Gina's fashion internship?
+Gold: fashion department of an international company
+real_memory: correct=False EM=0.0 F1=0.0 answer='Unknown.'
+oracle_memory: correct=True EM=0.0 F1=0.7142857142857143 answer='In the fashion department of an international company.'
+oracle_context: correct=True EM=0.0 F1=0.5 answer='At an international company’s fashion department.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[194] conv-30#q0055
+Q: What book is Jon currently reading?
+Gold: The Lean Startup
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.3333333333333333 answer='"The Lean Startup"'
+oracle_context: correct=True EM=1.0 F1=1.0 answer='The Lean Startup'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[195] conv-30#q0056
+Q: What is Jon offering to the dancers at his dance studio?
+Gold: One-on-one mentoring and training
+real_memory: correct=False EM=0.0 F1=0.0 answer='A place where people can express themselves through dance.'
+oracle_memory: correct=True EM=0.0 F1=0.75 answer='One-on-one mentoring and training.'
+oracle_context: correct=True EM=0.0 F1=0.75 answer='One-on-one mentoring and training.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+[196] conv-30#q0057
+Q: How does Jon use the clipboard with a notepad attached to it?
+Gold: To set goals, track achievements, and find areas for improvement
+real_memory: correct=False EM=0.0 F1=0.0 answer='Not stated.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='To stay organized and motivated, set goals, track achievements, and find areas to improve.'
+oracle_context: correct=False EM=0.0 F1=0.4444444444444445 answer='To stay organized and motivated: it sets goals, tracks achievements, and helps him find areas to improve.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[197] conv-30#q0058
+Q: What does Jon tell Gina he won't do?
+Gold: quit
+real_memory: correct=False EM=0.0 F1=0.0 answer='Nothing.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Give up.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Give up.'
+failure: F1_FORMATION
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 0.0, 'rerank': 0.0, 'context': 0.0, 'evolution': None}
+
+[198] conv-30#q0059
+Q: What did Jon take a trip to Rome for?
+Gold: To clear his mind
+real_memory: correct=True EM=0.0 F1=0.75 answer='To clear his mind.'
+oracle_memory: correct=True EM=0.0 F1=0.75 answer='To clear his mind.'
+oracle_context: correct=True EM=0.0 F1=0.75 answer='To clear his mind.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[199] conv-30#q0060
+Q: What is Jon working on opening?
+Gold: a dance studio
+real_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='A dance studio.'
+oracle_memory: correct=True EM=0.0 F1=0.6666666666666666 answer='A dance studio.'
+oracle_context: correct=True EM=0.0 F1=0.6666666666666666 answer='A dance studio.'
+failure: None
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 1.0, 'evolution': None}
+
+[200] conv-30#q0061
+Q: How does Gina describe the studio that Jon has opened?
+Gold: amazing
+real_memory: correct=False EM=0.0 F1=0.0 answer='She doesn’t; Jon is still searching for a dance studio location.'
+oracle_memory: correct=False EM=0.0 F1=0.0 answer='Amazing.'
+oracle_context: correct=False EM=0.0 F1=0.0 answer='Amazing.'
+failure: E0_EVIDENCE_INSUFFICIENT
+stage recall: {'formation': 0.0, 'storage': 1.0, 'retrieval': 1.0, 'rerank': 1.0, 'context': 0.0, 'evolution': None}
+
+=== SEMANTIC F6 CANDIDATES (real_memory) ===
+
+conv-26#q0020: When did Caroline go to the LGBTQ conference?
+Gold evidence:
+ - Hey Mel, great to chat with you again! So much has happened since we last spoke - I went to an LGBTQ conference two days ago and it was really special. I got the chance to meet and connect with people who've gone through similar journeys. It was such a welcoming environment and I felt totally accepted. I'm really thankful for this amazing community - it's shown me how important it is to fight for trans rights and spread awareness.
+real_memory: 'Two days ago.'; semantic=False, confidence=medium, judge="The evidence says 'I went...' but does not identify the speaker as Caroline, so it cannot establish when Caroline went."
+oracle_memory: 'Two days ago.'; semantic=True, confidence=high, judge='The evidence states the LGBTQ conference was attended two days ago, and the candidate gives the same relative time.'
+oracle_context: 'Two days ago.'; semantic=True, confidence=high, judge='The evidence states the LGBTQ conference happened two days ago, matching the candidate answer.'
+
+conv-26#q0034: When did Caroline attend a pride parade in August?
+Gold evidence:
+ - Wow, Mel, glad you had a blast at the concert. A lot's happened since we talked. I went to a pride parade last Friday and it was awesome - so much energy and love everywhere. Really made me proud and reminded me how important it is to keep standing up for equality.
+real_memory: 'Not stated.'; semantic=False, confidence=high, judge="The evidence states the speaker attended a pride parade last Friday, and the timestamp 14 August 2023 resolves that to Friday, 11 August 2023. Thus the candidate answer 'Not stated' is incorrect."
+oracle_memory: 'Last Friday.'; semantic=True, confidence=high, judge='Deterministic evidence-coverage check: deterministic_temporal=last Friday.'
+oracle_context: 'Last Friday.'; semantic=True, confidence=high, judge='Deterministic evidence-coverage check: deterministic_temporal=last Friday.'
+
+=== ORACLE INVERSIONS (unified labels) ===
+REAL_FAIL_ORACLE_OK: conv-26#q0002 | real=F1_FORMATION oracle=None | real_ans='Counseling and advocacy.' | oc_ans='Counseling or mental health.'
+REAL_FAIL_ORACLE_OK: conv-26#q0003 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not stated.' | oc_ans='Adoption agencies.'
+REAL_FAIL_ORACLE_OK: conv-26#q0004 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='She is a painter.' | oc_ans='Unknown'
+REAL_FAIL_ORACLE_OK: conv-26#q0006 | real=F1_FORMATION oracle=None | real_ans='Not mentioned.' | oc_ans='Next month.'
+REAL_FAIL_ORACLE_OK: conv-26#q0007 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Unknown.' | oc_ans='Single'
+REAL_FAIL_ORACLE_OK: conv-26#q0010 | real=F4_RETRIEVAL oracle=None | real_ans='Not mentioned.' | oc_ans='4 years.'
+REAL_FAIL_ORACLE_OK: conv-26#q0011 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Her home country.' | oc_ans='Sweden'
+REAL_FAIL_ORACLE_OK: conv-26#q0012 | real=F5_CONTEXT oracle=None | real_ans='Cannot be determined.' | oc_ans='Ten years ago.'
+REAL_FAIL_ORACLE_OK: conv-26#q0013 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Not stated.' | oc_ans='Counseling or mental health, working with trans people.'
+REAL_FAIL_ORACLE_OK: conv-26#q0014 | real=F1_FORMATION oracle=None | real_ans='Yesterday.' | oc_ans='Yesterday.'
+REAL_FAIL_ORACLE_OK: conv-26#q0016 | real=F1_FORMATION oracle=None | real_ans='Unknown.' | oc_ans='At the beach, in the mountains, and in the forest.'
+REAL_OK_ORACLE_FAIL: conv-26#q0017 | real=None oracle=RC_REASONING_CONTROL_FAILURE | real_ans='Yesterday.' | oc_ans='Yesterday.'
+REAL_FAIL_ORACLE_OK: conv-26#q0020 | real=F6_REASONING_CANDIDATE oracle=None | real_ans='Two days ago.' | oc_ans='Two days ago.'
+REAL_FAIL_ORACLE_OK: conv-26#q0024 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='No.' | oc_ans='Cannot be determined.'
+REAL_FAIL_ORACLE_OK: conv-26#q0026 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not mentioned.' | oc_ans='Two weekends ago.'
+REAL_FAIL_ORACLE_OK: conv-26#q0028 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='A horse painting.' | oc_ans='Unknown'
+REAL_FAIL_ORACLE_OK: conv-26#q0029 | real=F4_RETRIEVAL oracle=None | real_ans='She has a show/platform, attends parades, spreads awareness, gets others involved, and has transitioned/joined the transgender community.' | oc_ans='She joined an LGBTQ activist group, attended a pride parade, is holding an LGBTQ art show, and joined a mentorship program for LGBTQ youth.'
+REAL_FAIL_ORACLE_OK: conv-26#q0034 | real=F6_REASONING_CANDIDATE oracle=None | real_ans='Not stated.' | oc_ans='Last Friday.'
+REAL_OK_ORACLE_FAIL: conv-26#q0035 | real=None oracle=EVAL_SEMANTIC_UNCERTAIN | real_ans='Yes.' | oc_ans='Yes.'
+REAL_FAIL_ORACLE_OK: conv-26#q0036 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Mel.' | oc_ans='Her friends, family, and mentors.'
+REAL_FAIL_ORACLE_OK: conv-26#q0037 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Not stated.' | oc_ans='Last year.'
+REAL_FAIL_ORACLE_OK: conv-26#q0041 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Flowers' | oc_ans='Nature-inspired paintings.'
+REAL_FAIL_ORACLE_OK: conv-26#q0042 | real=F1_FORMATION oracle=None | real_ans='Not stated.' | oc_ans='Rainbow flag mural and eagle.'
+REAL_FAIL_ORACLE_OK: conv-26#q0043 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Recently.' | oc_ans='Last week.'
+REAL_FAIL_ORACLE_OK: conv-26#q0046 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='No musical artists/bands are mentioned.' | oc_ans='Matt Patterson'
+REAL_FAIL_ORACLE_OK: conv-26#q0048 | real=F1_FORMATION oracle=None | real_ans='Not specified.' | oc_ans='Next month.'
+REAL_FAIL_ORACLE_OK: conv-26#q0049 | real=F4_RETRIEVAL oracle=None | real_ans='Cannot be determined.' | oc_ans='Yes.'
+REAL_FAIL_ORACLE_OK: conv-26#q0051 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='She spends quality, tranquil time with her family.' | oc_ans='Unknown.'
+REAL_FAIL_ORACLE_OK: conv-26#q0053 | real=F4_RETRIEVAL oracle=None | real_ans='Not enough information.' | oc_ans='Seven years.'
+REAL_FAIL_ORACLE_OK: conv-26#q0054 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='None.' | oc_ans='A transgender poetry reading.'
+REAL_FAIL_ORACLE_OK: conv-26#q0055 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='No book mentioned.' | oc_ans='"Becoming Nicole" by Amy Ellis Nutt'
+REAL_FAIL_ORACLE_OK: conv-26#q0056 | real=F1_FORMATION oracle=None | real_ans='They haven’t adopted a child yet.' | oc_ans='Last year.'
+REAL_FAIL_ORACLE_OK: conv-26#q0057 | real=F5_CONTEXT oracle=None | real_ans='Not stated.' | oc_ans='Last month.'
+REAL_FAIL_ORACLE_OK: conv-26#q0058 | real=F1_FORMATION oracle=None | real_ans='Not stated.' | oc_ans='This past weekend.'
+REAL_FAIL_ORACLE_OK: conv-26#q0060 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Yesterday.' | oc_ans='Yesterday.'
+REAL_FAIL_ORACLE_OK: conv-26#q0063 | real=F1_FORMATION oracle=None | real_ans='Not stated.' | oc_ans='Last Friday.'
+REAL_FAIL_ORACLE_OK: conv-26#q0068 | real=F1_FORMATION oracle=None | real_ans='She prioritizes self-care, even though it’s not always easy.' | oc_ans='By carving out me-time each day—running, reading, or playing her violin.'
+REAL_FAIL_ORACLE_OK: conv-26#q0069 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not stated.' | oc_ans='Researching adoption agencies.'
+REAL_FAIL_ORACLE_OK: conv-26#q0070 | real=F1_FORMATION oracle=None | real_ans='Not specified.' | oc_ans='LGBTQ+ folks'
+REAL_FAIL_ORACLE_OK: conv-26#q0071 | real=F1_FORMATION oracle=None | real_ans='To become a mom and have a family.' | oc_ans='They help LGBTQ+ folks with adoption, and their inclusivity and support spoke to her.'
+REAL_FAIL_ORACLE_OK: conv-26#q0072 | real=F1_FORMATION oracle=None | real_ans='Not stated.' | oc_ans='Making a family for kids who need one.'
+REAL_FAIL_ORACLE_OK: conv-26#q0074 | real=F1_FORMATION oracle=None | real_ans='Not mentioned.' | oc_ans='5 years'
+REAL_FAIL_ORACLE_OK: conv-26#q0075 | real=F4_RETRIEVAL oracle=None | real_ans='Not stated.' | oc_ans='Love, faith and strength.'
+REAL_FAIL_ORACLE_OK: conv-26#q0078 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Art and self-expression.' | oc_ans='Art and self-expression.'
+REAL_FAIL_ORACLE_OK: conv-26#q0079 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='They spent quality, tranquil time with family.' | oc_ans='They explored nature, roasted marshmallows around the campfire, and went on a hike.'
+REAL_FAIL_ORACLE_OK: conv-26#q0080 | real=F4_RETRIEVAL oracle=None | real_ans='Not specified.' | oc_ans='Working with trans people, helping them accept themselves and supporting their mental health.'
+REAL_FAIL_ORACLE_OK: conv-26#q0081 | real=F4_RETRIEVAL oracle=None | real_ans='No workshop is mentioned.' | oc_ans='An LGBTQ+ counseling workshop.'
+REAL_FAIL_ORACLE_OK: conv-26#q0083 | real=F4_RETRIEVAL oracle=None | real_ans='Talking to the community and wanting to use her story to help others.' | oc_ans='Her own journey and the support she received, and seeing how counseling and support groups improved her life.'
+REAL_FAIL_ORACLE_OK: conv-26#q0086 | real=F5_CONTEXT oracle=None | real_ans='No information.' | oc_ans="Kids' books: classics, stories from different cultures, and educational books."
+REAL_FAIL_ORACLE_OK: conv-26#q0087 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not stated.' | oc_ans="Charlotte's Web"
+REAL_FAIL_ORACLE_OK: conv-26#q0089 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='No information.' | oc_ans='Self-acceptance and how to find support, and that tough times don’t last—hope and love exist.'
+REAL_OK_ORACLE_FAIL: conv-26#q0090 | real=None oracle=E0_EVIDENCE_INSUFFICIENT | real_ans='Not stated.' | oc_ans='Walking or running.'
+REAL_FAIL_ORACLE_OK: conv-26#q0093 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='A bowl.' | oc_ans='Their own pots.'
+REAL_FAIL_ORACLE_OK: conv-26#q0094 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Painting.' | oc_ans='Not stated.'
+REAL_FAIL_ORACLE_OK: conv-26#q0096 | real=F1_FORMATION oracle=None | real_ans='Not mentioned.' | oc_ans='Warmth and happiness.'
+REAL_FAIL_ORACLE_OK: conv-26#q0097 | real=F1_FORMATION oracle=None | real_ans='Not mentioned.' | oc_ans='They bring joy, represent growth, beauty, appreciating small moments, and remind her of her wedding day.'
+REAL_FAIL_ORACLE_OK: conv-26#q0098 | real=F4_RETRIEVAL oracle=None | real_ans='Finding comfort and love in being yourself and the journey of acceptance.' | oc_ans='Her visit to an LGBTQ center.'
+REAL_FAIL_ORACLE_OK: conv-26#q0101 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Amazing and at one with the universe.' | oc_ans='Tiny and in awe of the universe.'
+REAL_FAIL_ORACLE_OK: conv-26#q0102 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not mentioned.' | oc_ans='Her daughter’s.'
+REAL_FAIL_ORACLE_OK: conv-26#q0103 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not stated.' | oc_ans='Matt Patterson'
+REAL_FAIL_ORACLE_OK: conv-26#q0104 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='For self-expression and peace.' | oc_ans='To catch the eye, make people smile, and express her feelings and creativity.'
+REAL_FAIL_ORACLE_OK: conv-26#q0105 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Unknown.' | oc_ans='A guinea pig.'
+REAL_OK_ORACLE_FAIL: conv-26#q0106 | real=None oracle=E0_EVIDENCE_INSUFFICIENT | real_ans='No information.' | oc_ans='Cats named Bailey and Oliver.'
+REAL_FAIL_ORACLE_OK: conv-26#q0108 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not stated.' | oc_ans='Horseback riding.'
+REAL_FAIL_ORACLE_OK: conv-26#q0110 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not mentioned.' | oc_ans='A rainbow sidewalk.'
+REAL_FAIL_ORACLE_OK: conv-26#q0111 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Not specified.' | oc_ans='"Brave" by Sara Bareilles'
+REAL_FAIL_ORACLE_OK: conv-26#q0112 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Unknown.' | oc_ans='Bach and Mozart.'
+REAL_FAIL_ORACLE_OK: conv-26#q0114 | real=F1_FORMATION oracle=None | real_ans='Not stated.' | oc_ans='Seven years.'
+REAL_FAIL_ORACLE_OK: conv-26#q0116 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Not specified.' | oc_ans='She got hurt and had to take a break from pottery.'
+REAL_FAIL_ORACLE_OK: conv-26#q0119 | real=F4_RETRIEVAL oracle=None | real_ans='Who she really is and getting in touch with herself.' | oc_ans='Freedom and being real—staying true to herself and embracing her womanhood.'
+REAL_FAIL_ORACLE_OK: conv-26#q0120 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='They describe it as motivating and helping each other and making a real impact together.' | oc_ans='An ongoing adventure of learning and growing.'
+REAL_FAIL_ORACLE_OK: conv-26#q0121 | real=F1_FORMATION oracle=None | real_ans='Not mentioned.' | oc_ans='He got into an accident.'
+REAL_FAIL_ORACLE_OK: conv-26#q0122 | real=F1_FORMATION oracle=None | real_ans='They enjoyed the Grand Canyon a lot.' | oc_ans='They were scared, but Melanie reassured them and explained their brother would be OK; they’re tough kids.'
+REAL_FAIL_ORACLE_OK: conv-26#q0124 | real=F1_FORMATION oracle=None | real_ans='They enjoyed the Grand Canyon a lot.' | oc_ans='They were scared but were reassured and are tough kids.'
+REAL_FAIL_ORACLE_OK: conv-26#q0126 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Love.' | oc_ans='Strength to keep going.'
+REAL_OK_ORACLE_FAIL: conv-26#q0129 | real=None oracle=E0_EVIDENCE_INSUFFICIENT | real_ans='Not mentioned.' | oc_ans='Last year.'
+REAL_FAIL_ORACLE_OK: conv-26#q0130 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Painting and drawing flowers.' | oc_ans='Paintings about identity, inclusivity, diversity, and LGBTQ+ acceptance.'
+REAL_FAIL_ORACLE_OK: conv-26#q0132 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Not mentioned.' | oc_ans='Nature-inspired paintings.'
+REAL_FAIL_ORACLE_OK: conv-26#q0136 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='They were amazing and full of pride and strength.' | oc_ans='No posters are mentioned.'
+REAL_FAIL_ORACLE_OK: conv-26#q0137 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='She painted animals.' | oc_ans='It is not specified.'
+REAL_FAIL_ORACLE_OK: conv-30#q0000 | real=F1_FORMATION oracle=None | real_ans='Yesterday.' | oc_ans='Yesterday.'
+REAL_FAIL_ORACLE_OK: conv-30#q0004 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Losing his job gave him the push to finally start his dream business.' | oc_ans='Because he is passionate about dancing and wants to share it with others.'
+REAL_FAIL_ORACLE_OK: conv-30#q0006 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not mentioned.' | oc_ans='Next month.'
+REAL_FAIL_ORACLE_OK: conv-30#q0008 | real=F1_FORMATION oracle=None | real_ans='Unknown.' | oc_ans='Yesterday.'
+REAL_FAIL_ORACLE_OK: conv-30#q0009 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='No city.' | oc_ans='Rome'
+REAL_FAIL_ORACLE_OK: conv-30#q0010 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Not specified.' | oc_ans='A few years ago.'
+REAL_FAIL_ORACLE_OK: conv-30#q0011 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Cannot be determined.' | oc_ans='Last week.'
+REAL_OK_ORACLE_FAIL: conv-30#q0020 | real=None oracle=RC_REASONING_CONTROL_FAILURE | real_ans='Cannot be determined.' | oc_ans='Yesterday.'
+REAL_FAIL_ORACLE_OK: conv-30#q0021 | real=F1_FORMATION oracle=None | real_ans='No.' | oc_ans='Yes.'
+REAL_FAIL_ORACLE_OK: conv-30#q0022 | real=F1_FORMATION oracle=None | real_ans='Not mentioned.' | oc_ans='Last week.'
+REAL_FAIL_ORACLE_OK: conv-30#q0023 | real=F1_FORMATION oracle=None | real_ans='Not stated.' | oc_ans='Paris and Rome'
+REAL_FAIL_ORACLE_OK: conv-30#q0028 | real=F1_FORMATION oracle=None | real_ans='Not stated.' | oc_ans='Last week.'
+REAL_FAIL_ORACLE_OK: conv-30#q0031 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='In the first message.' | oc_ans='Unknown.'
+REAL_FAIL_ORACLE_OK: conv-30#q0036 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='Not specified.' | oc_ans='Contemporary piece called "Finding Freedom."'
+REAL_FAIL_ORACLE_OK: conv-30#q0037 | real=EVAL_SEMANTIC_UNCERTAIN oracle=None | real_ans='That photo looks awesome, brings back lots of memories; dance is still your happy place.' | oc_ans='She rehearsed with a small group of dancers after work, and they do all kinds of dances, from contemporary to hip-hop.'
+REAL_FAIL_ORACLE_OK: conv-30#q0038 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not specified.' | oc_ans='Awesome and glad to be part of it.'
+REAL_FAIL_ORACLE_OK: conv-30#q0039 | real=F1_FORMATION oracle=None | real_ans='The evidence does not say.' | oc_ans='Marley flooring'
+REAL_FAIL_ORACLE_OK: conv-30#q0043 | real=F1_FORMATION oracle=None | real_ans='It is not stated.' | oc_ans='She wanted the store to look like her own style and make her customers feel cozy.'
+REAL_OK_ORACLE_FAIL: conv-30#q0046 | real=None oracle=RC_REASONING_CONTROL_FAILURE | real_ans='Doing great.' | oc_ans='It’s doing great.'
+REAL_FAIL_ORACLE_OK: conv-30#q0047 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not stated.' | oc_ans='Freedom—dancing without worrying what people think.'
+REAL_FAIL_ORACLE_OK: conv-30#q0049 | real=F1_FORMATION oracle=None | real_ans='She didn’t.' | oc_ans='Because she is passionate about dance and fashion.'
+REAL_FAIL_ORACLE_OK: conv-30#q0050 | real=F1_FORMATION oracle=None | real_ans='the perfect mentor & guide' | oc_ans='Happy.'
+REAL_FAIL_ORACLE_OK: conv-30#q0054 | real=F1_FORMATION oracle=None | real_ans='Unknown.' | oc_ans='At an international company’s fashion department.'
+REAL_FAIL_ORACLE_OK: conv-30#q0055 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='Not stated.' | oc_ans='The Lean Startup'
+REAL_FAIL_ORACLE_OK: conv-30#q0056 | real=F1_FORMATION oracle=None | real_ans='A place where people can express themselves through dance.' | oc_ans='One-on-one mentoring and training.'
+REAL_FAIL_ORACLE_OK: conv-30#q0057 | real=F1_FORMATION oracle=None | real_ans='Not stated.' | oc_ans='To stay organized and motivated: it sets goals, tracks achievements, and helps him find areas to improve.'
+REAL_FAIL_ORACLE_OK: conv-30#q0058 | real=F1_FORMATION oracle=None | real_ans='Nothing.' | oc_ans='Give up.'
+REAL_FAIL_ORACLE_OK: conv-30#q0061 | real=E0_EVIDENCE_INSUFFICIENT oracle=None | real_ans='She doesn’t; Jon is still searching for a dance studio location.' | oc_ans='Amazing.'
+
+=== PAIRED SEMANTIC VERDICT STATISTICS (McNemar exact, paired bootstrap) ===
+real_memory vs oracle_memory: n01=73 n10=6 p=0.0000 diff=-0.432 CI=[-0.523, -0.348]
+real_memory vs oracle_context: n01=78 n10=7 p=0.0000 diff=-0.452 CI=[-0.541, -0.357]
+oracle_memory vs oracle_context: n01=14 n10=10 p=0.5413 diff=-0.025 CI=[-0.081, 0.037]
+
+=== TOKEN-F1 THRESHOLD SWEEP (POST-HOC) ===
+threshold	real_memory	oracle_memory	oracle_context
+0.30	0.135	0.365	0.450
+0.35	0.115	0.315	0.420
+0.40	0.105	0.295	0.390
+0.45	0.100	0.285	0.345
+0.50	0.095	0.280	0.345
+0.55	0.080	0.230	0.260
+0.60	0.065	0.220	0.225
+0.65	0.060	0.210	0.205
+0.70	0.045	0.140	0.140
+0.75	0.045	0.130	0.130
+0.80	0.035	0.085	0.090
+
+Bootstrap 95% CI at threshold=0.50:
+real_memory: accuracy=0.095 CI=[0.055, 0.140]
+oracle_memory: accuracy=0.280 CI=[0.220, 0.345]
+oracle_context: accuracy=0.345 CI=[0.280, 0.410]
