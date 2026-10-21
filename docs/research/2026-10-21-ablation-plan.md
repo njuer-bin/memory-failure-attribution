@@ -1,5 +1,11 @@
 # P2 ablation plan (2026-10-21)
 
+> **Quarantine note.** The review behind this plan was produced with
+> `kimi-k3` before the project's model restriction was communicated. The
+> project allows only `DeepSeek-v4.1-flash`; switching models requires explicit
+> user approval. Treat this document as an exploratory external opinion, not an
+> approved protocol, and do not cite it as a project result.
+
 Source: independent reviewer `kimi-k3` (opencode zen gateway, temperature 0,
 streaming; raw output in
 `docs/research/2026-10-21-ablation-review-kimi-k3.md`). The skill's default

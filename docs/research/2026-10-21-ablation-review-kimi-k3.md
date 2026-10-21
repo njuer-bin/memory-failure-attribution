@@ -1,3 +1,7 @@
+> **QUARANTINED — unauthorized model.** Generated with `kimi-k3` before the
+> user restricted the project to `DeepSeek-v4.1-flash`. Exploratory only; do
+> not cite or fold into any paper claim without explicit approval.
+
 ## 0. Blunt framing
 
 Three questions decide whether this paper survives review, and none are answered yet:

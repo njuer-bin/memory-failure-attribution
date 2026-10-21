@@ -325,11 +325,19 @@ measurement first. The LoCoMo intervention numbers stay descriptive.
 
 
 
-## Cross-model re-judge of LoCoMo discordants (2026-10-21)
+## Cross-model re-judge of discordants — **UNAUTHORIZED MODEL, do not cite** (2026-10-21)
+
+> **Policy violation, quarantined.** These runs used `kimi-k3` without the
+> user's approval. The project is restricted to `DeepSeek-v4.1-flash`; any
+> second model requires explicit consent. The numbers below are kept only as
+> an exploratory artifact. **Do not use them in any claim, table or draft**,
+> and do not cite judge robustness/instability as a finding unless the user
+> approves a second-model protocol. The approved route for this question is
+> the human annotation package.
 
 `experiments/rejudge_discordants.py` replays the evaluator (same deterministic
-floors) with `kimi-k3` over every discordant pair; output in
-`results/rejudge_discordants_locomo_n200.json`.
+floors) with `kimi-k3` over every discordant pair; outputs in
+`results/rejudge_discordants_{locomo,longmemeval}_n200.json`.
 
 | arm | pairs re-judged | pairs changed | old net (p) | new net (p) |
 |---|---|---|---|---|
@@ -337,23 +345,20 @@ floors) with `kimi-k3` over every discordant pair; output in
 | path | 10 | 2 | +4 (0.3438) | +4 (0.2891) |
 | agnostic | 19 | 4 | +13 (0.0044) | +16 (3.1e-05) |
 
-LongMemEval (`results/rejudge_discordants_longmemeval_n200.json`): 32
-discordant pairs, only 4 change (first_loss 0, path 2, agnostic 2). All three
-contrasts stay significant (first_loss +7 p=0.0156, path +6 p=0.0313,
-agnostic +15 p=6.1e-05).
+LongMemEval file: 32 discordant pairs, 4 changed (exploratory, unauthorized
+model).
 
-**Reading.** LongMemEval's conclusions are robust to the judge; LoCoMo's are
-not. Both judges agree that `path` is null there, and that `agnostic` is
-positive, but `first_loss` crosses significance only under the second judge
-because that judge removes every one of its losses (n10 3→0). Combined with the
-placebo floors (LM 2 discordants, LoCoMo 9), the picture is consistent:
-LongMemEval supports a targeted-arm effect, LoCoMo does not. No LoCoMo
-targeted-arm claim is reportable until human adjudication.
+**What may be said without the second model:** the automatic judge is an
+instrument, not an oracle. The LoCoMo placebo already shows 9 discordant pairs
+from a no-op arm, which is the same order as the targeted-arm discordants; that
+statement uses only DeepSeek-produced data (stored verdicts + a second
+DeepSeek-judged baseline). Any claim that attribution is or is not
+judge-robust must wait for human adjudication (or explicit approval of a
+second-model protocol).
 
 
 
 ## Multi-system baseline — scaffolding + smoke (2026-10-21)
-
 `experiments/memory_systems.py` and `experiments/run_systems.py` add two
 comparable systems that go through the same questions, judge, gate and
 attribution:
@@ -371,6 +376,41 @@ a system-dependent fingerprint, but n=5 is descriptive only.
 
 The full 40-scenario cross-system run is the next artifact; then the same
 runner on n=50 subsets of both benchmarks.
+
+### Full cross-system probe, n=40 (DeepSeek only)
+
+`results/systems_evolution_probe_n40/`, 40 records, `errors: 0`; table in
+`results/analysis_systems_evolution_probe_n40.txt`.
+
+Accuracy by family (attributed correctness):
+
+| system | residence (10) | workplace (8) | like (8) | stale (6) | history (8, all E0) |
+|---|---|---|---|---|---|
+| semantic engine | 8 | 6 | 0 | 5 | 8 |
+| verbatim RAG | 0 | 0 | 0 | 6 | 8 |
+| summary memory | 10 | 1 | 2 | 6 | 7 |
+
+Failure labels are F6 in essentially every failing row; formation, retrieval
+and context recall are 1.00 for all systems on this probe.
+
+**What this establishes**
+
+- Systems with the same task can fail completely differently: verbatim loses
+  every residence/workplace update (0/10, 0/8), semantic handles them (8/10,
+  6/8) but loses every `like` update, summary handles residence perfectly
+  (10/10) yet fails workplace (1/8). That is a real system-dependent
+  fingerprint, not a single “updates are hard” effect.
+- All three systems fail `update:like` almost completely, so some cases are
+  system-independent; the paper must separate shared hard cases from
+  system-specific ones.
+- History remains unusable (E0 8/8 for every system) until the gate is fixed.
+
+**Probe limitation:** the controlled conversations are short, so retrieval and
+context never drop evidence; every failure lands in the final answer. The
+fingerprint is therefore degenerate (all F6). A v2 probe with distractor
+sessions (8–10 unrelated sessions per scenario) is needed before claiming
+stage-distribution differences. Do not over-read the F6 concentration as a
+finding about reasoning.
 
 
 
@@ -391,7 +431,8 @@ documented above.
 
 ## Ablation plan (2026-10-21)
 
-Independent review (`kimi-k3`; the skill's Codex backend is unavailable on this
+Independent review (`kimi-k3`; **used without approval — exploratory only**;
+the skill's Codex backend is unavailable on this
 host) is saved in `docs/research/2026-10-21-ablation-review-kimi-k3.md`, with a
 normalised, feasibility-checked plan in
 `docs/research/2026-10-21-ablation-plan.md`.
@@ -467,12 +508,10 @@ Three findings that shape the paper:
 
 ## Next action — finish the CCF-B chain in order
 
-1. **A1 placebo + cross-model re-judge.** LoCoMo placebo failed the gate
-   (9 discordants, +3 net); `kimi-k3` re-judge changes 4 pairs per arm and makes
-   `first_loss` cross significance, so no targeted-arm claim is reportable.
-   LongMemEval placebo is running; re-judge it with `rejudge_discordants.py`
-   when it completes. Then build the human annotation package — that is the
-   only fix for the judge dependence.
+1. **Human annotation first.** The LoCoMo placebo (DeepSeek-only) already shows
+   the no-op noise floor; the annotation package must adjudicate discordants
+   before any targeted-arm claim. Do **not** run a second model for re-judging
+   without explicit user approval; if approved, record the approved scope.
 2. **Full F3 probe** (40 scenarios) and per-family table (update/stale/history)
    — running.
 3. **Two additional memory baselines** (verbatim-window RAG, summary memory;

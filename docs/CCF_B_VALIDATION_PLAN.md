@@ -10,6 +10,11 @@ memory debugging tool" and becomes a falsifiable study:
 
 The study is time-boxed by the kill line at the end of this document.
 
+> **Model policy.** All answer, judge, reviewer and re-judge calls must use
+> `DeepSeek-v4.1-flash`. Switching to any other model requires explicit user
+> approval first. The earlier external review and re-judge artifacts were
+> produced with `kimi-k3` without approval and are quarantined as exploratory.
+
 ## Terminology freeze
 
 - `first-loss` may only be written as **first observable evidence-loss
@@ -28,7 +33,7 @@ The study is time-boxed by the kill line at the end of this document.
 | 1 | Freeze protocol and terminology | **do now** — PROTOCOL/STATUS wording; code labels unchanged |
 | 2 | F3 Evolution probe: 30–50 update/conflict/stale scenarios | **done (n=40)** — evolution measured; F3-by-active-facts = 0; failures are stale-value leakage via profiles; history gate is an evaluator confound |
 | 3 | Rerun LongMemEval and LoCoMo (50 → 100–200) after freeze, with bootstrap CIs | n=200 runs exist; rerun a 50-question consistency pass after the freeze |
-| 4 | ≥3 memory systems / baselines, per-system Failure Fingerprint | **gap** — only the current engine |
+| 4 | ≥3 memory systems / baselines, per-system Failure Fingerprint | **scaffolding done** — semantic engine + verbatim RAG + summary memory; first n=40 probe shows system-dependent accuracy (semantic 8/10 residence, verbatim 0/10, summary 10/10); probe needs distractor sessions to exercise F4/F5 |
 | 5 | Oracle ladder as the core analysis | done at n=50/200; must be reframed as the main result |
 | 6 | Human labels for 100–200 samples (evidence sufficiency + answer correctness), evaluator P/R/F1; fix LoCoMo `yesterday/last Saturday/last week` semantics | **gap** — protocol + annotation package to build; needs annotators |
 | 7 | F6 honesty | already the case (very few F6; 5 stored FPs refuted) |
