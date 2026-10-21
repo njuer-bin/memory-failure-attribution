@@ -337,14 +337,40 @@ floors) with `kimi-k3` over every discordant pair; output in
 | path | 10 | 2 | +4 (0.3438) | +4 (0.2891) |
 | agnostic | 19 | 4 | +13 (0.0044) | +16 (3.1e-05) |
 
-**Reading.** Both judges agree that `path` is null, and both see `agnostic` as
-positive. But `first_loss` crosses significance only under the second judge,
-because that judge removes every one of its losses (n10 3→0). The same data can
-therefore support opposite claims about the targeted arms, which is the
-measurement failure the reviewer predicted. Combined with the placebo floor
-(9 discordants, +3 net), **no LoCoMo targeted-arm claim is reportable until
-human adjudication**. The script is ready to rerun on LongMemEval once its
-placebo finishes.
+LongMemEval (`results/rejudge_discordants_longmemeval_n200.json`): 32
+discordant pairs, only 4 change (first_loss 0, path 2, agnostic 2). All three
+contrasts stay significant (first_loss +7 p=0.0156, path +6 p=0.0313,
+agnostic +15 p=6.1e-05).
+
+**Reading.** LongMemEval's conclusions are robust to the judge; LoCoMo's are
+not. Both judges agree that `path` is null there, and that `agnostic` is
+positive, but `first_loss` crosses significance only under the second judge
+because that judge removes every one of its losses (n10 3→0). Combined with the
+placebo floors (LM 2 discordants, LoCoMo 9), the picture is consistent:
+LongMemEval supports a targeted-arm effect, LoCoMo does not. No LoCoMo
+targeted-arm claim is reportable until human adjudication.
+
+
+
+## Multi-system baseline — scaffolding + smoke (2026-10-21)
+
+`experiments/memory_systems.py` and `experiments/run_systems.py` add two
+comparable systems that go through the same questions, judge, gate and
+attribution:
+
+- `verbatim` — raw turns only, cosine retrieval (windowed RAG);
+- `summary` — one LLM summary per session (lossy, no provenance).
+
+Smoke on 5 evolution-probe update scenarios
+(`results/systems_evolution_probe_smoke/`): verbatim answers 0/5 semantically
+correct, all five attributed to F6, because its context contains both the old
+and the new turn and the model hedges. Summary answers 4/5 lexically correct
+(1 judged, correct, 0 failures): compressing the session drops the stale value,
+so the same task that breaks verbatim is easy for summary. This is the shape of
+a system-dependent fingerprint, but n=5 is descriptive only.
+
+The full 40-scenario cross-system run is the next artifact; then the same
+runner on n=50 subsets of both benchmarks.
 
 
 
