@@ -443,9 +443,32 @@ same-run semantic system scores 0.66 — cross-run gaps of up to 14 points.
 Fingerprints must be produced in one run; `SemanticSystem` was added for that
 reason.
 
-**Context-budget confound:** summary items are session-sized, so top-10 gives
-it far more text than top-10 turns/facts. A token-matched context budget is
-required before any "summary is better" reading.
+### LoCoMo real-haystack pilot, n=20 (2026-10-21)
+
+`results/systems_locomo_n50_all/` (first 20 questions × 3 systems, equal
+6000-char context budget, `errors: 0`; table in
+`results/analysis_systems_locomo_pilot20.json`).
+
+| system | acc | gate | failures | formation / retrieval / rerank / context recall |
+|---|---|---|---|---|
+| semantic | 0.55 | 7 insuff / 13 suff | E0 4, F1 4, F4 1 | 0.57 / 0.53 / 0.53 / 0.38 |
+| summary | 0.50 | 6 / 14 | E0 4, F4 2, F5 2, F6 2 | 1.00 / 1.00 / 0.86 / 0.42 |
+| verbatim | 0.35 | 7 / 13 | E0 6, F4 6, F6 1 | 1.00 / 0.33 / 0.20 / 0.20 |
+
+Paired McNemar: semantic vs summary 0.55 vs 0.50, p=1.0000; semantic vs
+verbatim p=0.289; verbatim vs summary p=0.453.
+
+**This is the first direct evidence for the CCF-B claim.** Semantic and summary
+have statistically indistinguishable accuracy but fail in different places:
+the semantic engine loses evidence at formation and retrieval, summary memory
+represents every turn in a session summary (formation 1.00) but loses at
+retrieval/rerank/context, and verbatim is retrieval/context-bound. E0 also
+varies across systems (4/4/6) even though the gate is question-level — another
+sign of evaluator nondeterminism, since the same question is being re-judged.
+
+Caveats: n=20, no significance for the stage-distribution differences, and
+paired accuracy is not significant for any pair. This is a pilot, not a claim.
+The run is being extended to n=50.
 
 
 
