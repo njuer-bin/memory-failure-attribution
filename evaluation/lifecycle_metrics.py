@@ -5,12 +5,13 @@ from collections import Counter
 from typing import Any, Iterable
 
 
-# Audit C4: no evolution operation is applied by the tracing layer, so an
-# evolution recall computed by copying formation is a structural artifact.
-# It is kept in the output shape as ``None`` and excluded from first-loss.
+# Per-trace ``details.measured`` decides whether a stage participates. Runs
+# before the controlled evolution probe set ``measured: false`` on evolution,
+# preserving their first-loss results; traces from the probe set it true, so
+# F3 can fire there.
 MEASURED_STAGES = ("formation", "storage", "retrieval", "rerank", "context")
 UNMEASURED_STAGES = ("evolution",)
-STAGES = MEASURED_STAGES + UNMEASURED_STAGES
+STAGES = ("formation", "storage", "evolution", "retrieval", "rerank", "context")
 
 
 def _set(value: Any) -> set[str]:
@@ -18,9 +19,11 @@ def _set(value: Any) -> set[str]:
 
 
 def _is_measured(trace: dict[str, Any], stage: str) -> bool:
-    if stage in UNMEASURED_STAGES:
-        return False
-    details = (trace.get(stage) or {}).get("details") or {}
+    entry = trace.get(stage)
+    if not isinstance(entry, dict):
+        # Legacy traces predate evolution measurement and carry no entry.
+        return stage != "evolution"
+    details = entry.get("details") or {}
     return details.get("measured", True) is not False
 
 
@@ -36,7 +39,9 @@ def first_loss_stage(trace: dict[str, Any]) -> str | None:
     gold = {str(x.get("evidence_id")) for x in trace.get("gold_evidence", []) if x.get("evidence_id")}
     if not gold:
         return None
-    for stage in MEASURED_STAGES:
+    for stage in STAGES:
+        if not _is_measured(trace, stage):
+            continue
         if not gold.issubset(_set((trace.get(stage) or {}).get("found"))):
             return stage
     return None
@@ -50,9 +55,13 @@ def summarize_traces(traces: Iterable[dict[str, Any]]) -> dict[str, Any]:
         measured = [v for v in values if v is not None]
         recalls[stage] = sum(measured) / len(measured) if measured else None
     losses = Counter(first_loss_stage(t) or "none" for t in rows)
+    unmeasured = [
+        stage for stage in STAGES
+        if not any(_is_measured(t, stage) for t in rows)
+    ] if rows else list(UNMEASURED_STAGES)
     return {
         "count": len(rows),
         "stage_recall": recalls,
-        "unmeasured_stages": list(UNMEASURED_STAGES),
+        "unmeasured_stages": unmeasured,
         "first_loss_distribution": dict(losses),
     }

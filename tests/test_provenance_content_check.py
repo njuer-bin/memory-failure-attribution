@@ -66,18 +66,32 @@ def test_artifact_without_provenance_is_matched_but_flagged():
     assert result["unverified_provenance"] == ["e0"]
 
 
-def test_evolution_stage_is_not_in_attribution_chain():
+def test_evolution_is_in_the_attribution_chain_but_only_when_measured():
     from evaluation import attribution
-    assert all(stage != "evolution" for stage, _ in attribution.STAGE_FAILURES)
+    assert ("evolution", attribution.F3_EVOLUTION) in attribution.STAGE_FAILURES
+
+    unmeasured = {
+        "formation": {"found": ["e0"]},
+        "storage": {"found": ["e0"]},
+        "evolution": {"found": [], "details": {"measured": False}},
+        "retrieval": {"found": []},
+        "rerank": {"found": []},
+        "context": {"found": []},
+    }
+    assert attribution.first_missing_stage(unmeasured, {"e0"}) == attribution.F4_RETRIEVAL
+
+    measured = dict(unmeasured)
+    measured["evolution"] = {"found": [], "details": {"measured": True}}
+    assert attribution.first_missing_stage(measured, {"e0"}) == attribution.F3_EVOLUTION
 
 
-def test_evolution_recall_is_reported_as_unmeasured():
+def test_evolution_recall_is_unmeasured_without_the_flag():
     from evaluation.lifecycle_metrics import stage_recall, first_loss_stage
     trace = {
         "gold_evidence": [{"evidence_id": "e0"}],
         "formation": {"found": ["e0"]},
         "storage": {"found": ["e0"]},
-        "evolution": {"found": []},
+        "evolution": {"found": [], "details": {"measured": False}},
         "retrieval": {"found": ["e0"]},
         "rerank": {"found": ["e0"]},
         "context": {"found": ["e0"]},

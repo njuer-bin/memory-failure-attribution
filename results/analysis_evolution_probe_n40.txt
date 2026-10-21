@@ -1,0 +1,15 @@
+Evolution probe n=40 - per-family failure table (real memory)
+
+family                n   sem first-loss                             evo recall stale ctx gate
+history               8 8/8   {'none': 8}                                  1.00       1.0 {'insufficient': 8}
+stale                 6 5/6   {'none': 5, 'F6_REASONING_CANDIDATE': 1}       1.00       4.0 {'sufficient': 6}
+update:like           8 0/8   {'F6_REASONING_CANDIDATE': 8}                1.00       1.0 {'sufficient': 8}
+update:residence     10 0/2   {'F6_REASONING_CANDIDATE': 2, 'none': 8}       1.00       1.0 {'sufficient': 10}
+update:workplace      8 0/2   {'none': 6, 'F6_REASONING_CANDIDATE': 2}       1.00       1.0 {'sufficient': 8}
+
+Notes:
+- 'sem' counts only semantically judged rows; lexically correct rows skip the judge.
+- evolution recall is 1.00 in every family: the active atomic-fact set always contains the gold update.
+- failures are F6 candidates produced by stale values leaking through the profile channel into context.
+- history questions are all gate-insufficient (E0): the gate rejects gold that plainly states the answer,
+  so their correct answers carry no diagnostic signal. This is an evaluator confound to audit.

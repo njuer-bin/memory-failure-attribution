@@ -19,10 +19,22 @@ results produced under this protocol.
 
 ## Lifecycle attribution
 
+**Terminology freeze (2026-10-21).** The protocol reports the **first observable
+evidence-loss boundary**, not a causal root cause. "First-loss" is shorthand
+for that boundary only: it says where the required evidence first stops being
+observable along the traced pipeline, not which internal mechanism
+counterfactually caused the wrong answer.
+
 First-loss is computed over measured stages only, in order:
-formation → storage → retrieval → rerank → context.
-Evolution is **not measured** (no evolution operation is applied by the tracing layer)
-and is never a first-loss stage.
+formation → storage → evolution → retrieval → rerank → context.
+
+Evolution is measured only for datasets whose adapter sets
+`metadata.measure_evolution` (currently the controlled `evolution_probe`). For
+those traces, the evolution stage observes the **active atomic-fact set**, and
+the trace records whether the gold fact survives in history, how many facts
+were superseded, and how many are in conflict. Legacy traces (LongMemEval,
+LoCoMo, n=50/n=200) carry `measured: false`; the stage is skipped and F3 cannot
+fire for them, so their canonical numbers are unchanged.
 
 ## Evidence matching (recall)
 

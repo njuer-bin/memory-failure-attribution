@@ -54,6 +54,24 @@ def artifacts_from_store(engine: Any, user_id: str) -> dict[str, list[dict[str, 
     }
 
 
+def active_fact_artifacts(engine: Any, user_id: str, include_history: bool = False) -> list[dict[str, Any]]:
+    """Atomic facts for the evolution stage.
+
+    Evolution is measured over the *active* fact set: a gold turn that was
+    formed and stored but is no longer active has been superseded or lost to a
+    conflict. ``include_history=True`` additionally exposes superseded rows so
+    callers can report whether history was preserved.
+    """
+    output = []
+    for row in engine.store.active_facts(user_id, include_history=include_history):
+        item = _artifact(row)
+        item["memory_type"] = "fact"
+        item["source_id"] = item.get("source_session_id") or item.get("session_id")
+        item["source_turn_id"] = item.get("source_turn_id")
+        output.append(item)
+    return output
+
+
 def stage_match(gold: Iterable[dict[str, Any]], artifacts: Iterable[Any]) -> dict[str, Any]:
     result = match_evidence(gold, [_artifact(x) for x in artifacts])
     result["matches"] = {

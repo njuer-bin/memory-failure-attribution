@@ -1,0 +1,147 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-21T03:20:24.624359+00:00",
+    "dataset": {
+      "dataset_id": "evolution_probe",
+      "source": "datasets/evolution_probe/probe.jsonl",
+      "sha256_16": "1ed98ba29b238671"
+    },
+    "limit": 5,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "embedding": {
+      "backend": "hash:384",
+      "dim": 384,
+      "configured_model": "qwen3-embedding:4b",
+      "ollama_enabled": true
+    },
+    "python": "3.13.9",
+    "git": {
+      "commit": "42f233cc9867b61dca8b7363097459db2722f62a",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "dataset": "evolution_probe",
+  "limit": 5,
+  "records": 5,
+  "errors": 0,
+  "real_memory": {
+    "count": 5,
+    "stage_recall": {
+      "formation": 1.0,
+      "storage": 1.0,
+      "evolution": 1.0,
+      "retrieval": 1.0,
+      "rerank": 1.0,
+      "context": 1.0
+    },
+    "unmeasured_stages": [],
+    "first_loss_distribution": {
+      "none": 5
+    }
+  },
+  "oracle_memory": {
+    "count": 5,
+    "stage_recall": {
+      "formation": null,
+      "storage": null,
+      "evolution": null,
+      "retrieval": 1.0,
+      "rerank": 1.0,
+      "context": 1.0
+    },
+    "unmeasured_stages": [
+      "formation",
+      "storage",
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "none": 5
+    }
+  },
+  "oracle_context": {
+    "count": 5,
+    "stage_recall": {
+      "formation": null,
+      "storage": null,
+      "retrieval": null,
+      "rerank": null,
+      "context": 1.0,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "not_applicable": 5
+    }
+  },
+  "evidence_sufficiency": {
+    "status_distribution": {
+      "sufficient": 5
+    },
+    "gate": "E0 before F1-F6; uncertain/error cases are EVAL"
+  },
+  "answer_scoring": {
+    "method": "local_ollama_token_f1_plus_temporal_phrase_rules",
+    "real_memory": {
+      "count": 5,
+      "scored": 5,
+      "correct": 4,
+      "accuracy": 0.8,
+      "exact_match": 0.4,
+      "token_f1": 0.6799999999999999,
+      "semantic_evaluated": 3,
+      "semantic_correct": 0,
+      "semantic_accuracy": 0.0,
+      "semantic_adjudications": {
+        "judge": 3
+      },
+      "model_errors": 0,
+      "semantic_errors": 0
+    },
+    "oracle_memory": {
+      "count": 5,
+      "scored": 5,
+      "correct": 1,
+      "accuracy": 0.2,
+      "exact_match": 0.2,
+      "token_f1": 0.2,
+      "semantic_evaluated": 4,
+      "semantic_correct": 4,
+      "semantic_accuracy": 1.0,
+      "semantic_adjudications": {
+        "judge": 4
+      },
+      "model_errors": 0,
+      "semantic_errors": 0
+    },
+    "oracle_context": {
+      "count": 5,
+      "scored": 5,
+      "correct": 2,
+      "accuracy": 0.4,
+      "exact_match": 0.4,
+      "token_f1": 0.4,
+      "semantic_evaluated": 3,
+      "semantic_correct": 3,
+      "semantic_accuracy": 1.0,
+      "semantic_adjudications": {
+        "judge": 3
+      },
+      "model_errors": 0,
+      "semantic_errors": 0
+    },
+    "answer_failure_distribution": {
+      "real_memory": {
+        "F6_REASONING_CANDIDATE": 3
+      },
+      "oracle_memory": {},
+      "oracle_context": {}
+    }
+  },
+  "note": "Evidence lifecycle and answer scoring are reported separately. Before F1-F6 attribution, Gold Evidence is checked for question-answer sufficiency using the benchmark reference answer rather than the model prediction. Insufficient evidence is E0; uncertain or judge-error cases are EVAL. F6 is assigned only when the gate is sufficient, all gold evidence reaches final context, the semantic judge marks the answer incorrect with medium/high confidence. Evolution recall is not measured (audit C4). Oracle Context remains a reasoning control and its own wrong answer is RC_REASONING_CONTROL_FAILURE.",
+  "resumed_records": 0
+}

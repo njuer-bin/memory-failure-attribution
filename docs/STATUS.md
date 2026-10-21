@@ -1,7 +1,8 @@
 # Status — where to resume
 
-Last updated: 2026-10-21 (P2 LoCoMo n=200 complete; ablation plan written by an
-independent reviewer; Phase-0 audit done; next gate is the A1 placebo run).
+Last updated: 2026-10-21 (CCF-B validation plan frozen; F3 evolution is now
+measured on a controlled 40-scenario probe; A1 placebo running). See
+`docs/CCF_B_VALIDATION_PLAN.md` for the study chain and kill line.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
@@ -293,6 +294,34 @@ It answers the reviewer's cheap questions before any new arm:
 - ITT is much smaller than the subset headline: +10.5 pts on LongMemEval and
   +7.0 on LoCoMo for `agnostic`, from +50 / +29.5 on the common subsets.
 
+## A1 placebo gate — LoCoMo result (2026-10-21)
+
+`results/interventions_locomo_n200_placebo/`: 200 questions, 48 targeted
+placebo rows, `errors: 0`. The placebo re-asks the same question with no
+repair, so any "gain" is pure test–retest noise.
+
+| arm (LoCoMo common subset) | net flips | discordant pairs |
+|---|---|---|
+| first_loss | +5 (7→12 /44) | 12 |
+| path | +4 (7→11 /44) | 11 |
+| agnostic | +13 (7→20 /44) | 20 |
+| **placebo** | **+3 (6→9 /48)** | **9** |
+
+Placebo exact McNemar p = 0.5078, CI [−0.188, 0.062].
+
+**Gate verdict: FAILED for the targeted arms.** The no-op arm produces 9
+discordant pairs and a +3 net shift on its own population. That is the same
+order as first_loss (12) and path (11), so neither LoCoMo targeted-arm effect
+can be separated from retest noise. `agnostic` remains larger (20 discordants,
++13 net, p=0.0044) but must be reported against this floor and is still
+confounded by the self-check second attempt.
+
+Per the pre-registered rule: **do not launch A2–A6 as-is.** Fix measurement
+first (frontier/human re-judge of discordants; repeated-draw noise estimate per
+question). The LoCoMo intervention numbers stay descriptive.
+
+
+
 ## Ablation plan (2026-10-21)
 
 Independent review (`kimi-k3`; the skill's Codex backend is unavailable on this
@@ -306,16 +335,81 @@ gold and still ties. The two questions that decide the paper are (a) whether
 arbitrary repair (A5/A6). Measurement (judge validity, multiplicity, stale
 labels) binds before any new arm.
 
-## Next action — placebo gate (A1), then decomposition
+## F3 Evolution — measured on a controlled probe (2026-10-21)
 
-1. Free Phase-0 analyses: **done** (above).
-2. A1 placebo: a second identical fresh baseline on LoCoMo (and LongMemEval if
-   budget allows). It bounds the nondeterminism/regression-to-the-mean floor.
-   **Gate:** if placebo discordants are the same order as the arm effects,
-   stop and fix measurement before A2–A6.
-3. Then A2/A3/A4 (decompose `agnostic`), then A5/A6 (targeting thesis).
-4. Human/frontier re-judge of all discordant pairs in the primary contrasts
-   remains non-negotiable before any paper number.
+The largest protocol gap is closed at the infrastructure level:
+
+- `experiments/build_evolution_probe.py` generates 40 dated scenarios:
+  26 same-predicate updates (residence 10, workplace 8, like 8), 6 stale
+  like→dislike state changes, 8 history questions that ask for the superseded
+  value. `datasets/evolution_probe/probe.jsonl` is the committed output.
+- The adapter (`normalize_evolution_probe`) sets `metadata.measure_evolution`
+  and turn-level gold evidence; the loader and manifest expose the dataset as
+  `evolution_probe`.
+- The tracer now measures evolution as the **active atomic-fact set**, and
+  records `history_found`, `superseded_count`, `conflict_count` and
+  `active_profile_count`. `evaluation/attribution.py` includes
+  `("evolution", F3_EVOLUTION)` and skips it unless the trace says
+  `details.measured` is true, so every legacy run keeps its frozen numbers.
+- Smoke (5 update scenarios, `results/evolution_probe_smoke/`): evolution
+  recall 1.0, `unmeasured_stages: []`, superseded 1 per scenario, first-loss
+  `none` for all five. The machinery works.
+- **Smoke finding (mechanism, not a bug):** three of five answers were hedges
+  such as "Lyon or Paris." The atomic fact for the new value is active and the
+  old fact is superseded, but the parallel `profile` artifacts keep both values,
+  so the final context contains a contradiction and the model hedges. This is
+  attributed to F6 by the frozen first-loss protocol (all gold evidence reaches
+  context), while the causal story is stale-value leakage through a second
+  artifact channel. `trace.context.details.stale_old_value_items` now records
+  the leak so the paper can decompose "reasoning failures" accordingly.
+
+The full run and per-family table are below; the multi-system comparison is
+still pending.
+
+### Full 40-scenario run (2026-10-21)
+
+`results/evolution_probe_n40/`, 40 records, `errors: 0`; table in
+`results/analysis_evolution_probe_n40.txt`.
+
+| family | n | sem-correct (judged) | first-loss | evolution recall | stale values in context |
+|---|---|---|---|---|---|
+| update:residence | 10 | 0/2 | 8 none, 2 F6 | 1.00 | 1.0 |
+| update:workplace | 8 | 0/2 | 6 none, 2 F6 | 1.00 | 1.0 |
+| update:like | 8 | 0/8 | 8 F6 | 1.00 | 1.0 |
+| stale | 6 | 5/6 | 5 none, 1 F6 | 1.00 | 4.0 |
+| history | 8 | 8/8 | 8 none | 1.00 | 1.0 |
+
+Three findings that shape the paper:
+
+1. **F3-by-active-facts is zero.** The active atomic-fact set contains the gold
+   update in all 40 scenarios; governance supersedes correctly. Evolution does
+   not lose the new fact.
+2. **The failure is stale-value leakage through the profile channel.** Every
+   scenario has at least one old-value item in the final context (mean 4.0 for
+   stale), so the model hedges or answers the old value. `update:like` fails
+   8/8 despite a correct fact set. The frozen protocol labels these F6 because
+   all gold evidence reaches context; the causal story is evolution/state, not
+   reasoning. This is the strongest candidate headline so far and it is
+   cross-checkable across systems.
+3. **An evaluator confound surfaced.** All 8 history questions are gate
+   `insufficient` even though the gold turn plainly states the requested prior
+   city. Their correct answers therefore carry no attribution signal. This is
+   exactly the "gold evidence is not ground truth" problem; it must be fixed
+   before any E0 rate is reported.
+
+
+## Next action — finish the CCF-B chain in order
+
+1. **A1 placebo: done for LoCoMo; gate failed for targeted arms.** Do not run
+   A2–A6 until the measurement fix is in place. Run the LongMemEval placebo for
+   symmetry before deciding on that benchmark.
+2. **Full F3 probe** (40 scenarios) and per-family table (update/stale/history)
+   — running.
+3. **Two additional memory baselines** (verbatim-window RAG, summary memory;
+   third-party OSS if installable), then Failure Fingerprints.
+4. **Human annotation package** (100–200 samples) to validate the evaluator.
+5. Freeze `docs/PROTOCOL.md` wording (first observable evidence-loss boundary)
+   — done; apply the same wording to any draft text.
 
 ## Open todos (in order)
 

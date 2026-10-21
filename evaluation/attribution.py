@@ -33,20 +33,29 @@ E0_EVIDENCE_INSUFFICIENT = "E0_EVIDENCE_INSUFFICIENT"
 EVAL_SEMANTIC_UNCERTAIN = "EVAL_SEMANTIC_UNCERTAIN"
 RC_REASONING_CONTROL_FAILURE = "RC_REASONING_CONTROL_FAILURE"
 
-# Audit C4: the tracing layer applies no evolution operations, so an
-# evolution stage here would be unmeasurable and F3 could never fire. F3 is
-# re-enabled when a controlled evolution scenario is implemented.
 STAGE_FAILURES: tuple[tuple[str, str], ...] = (
     ("formation", F1_FORMATION),
     ("storage", F2_STORAGE),
+    ("evolution", F3_EVOLUTION),
     ("retrieval", F4_RETRIEVAL),
     ("rerank", F4_RETRIEVAL),
     ("context", F5_CONTEXT),
 )
 
 
+def _stage_measured(stages: dict[str, Any], stage: str) -> bool:
+    entry = stages.get(stage)
+    if not isinstance(entry, dict):
+        # Legacy traces predate evolution measurement and carry no entry.
+        return stage != "evolution"
+    details = entry.get("details") or {}
+    return details.get("measured", True) is not False
+
+
 def first_missing_stage(stages: dict[str, Any], gold_ids: set[str]) -> str | None:
     for stage, label in STAGE_FAILURES:
+        if not _stage_measured(stages, stage):
+            continue
         found = {str(x) for x in (stages.get(stage) or {}).get("found", [])}
         if not gold_ids.issubset(found):
             return label

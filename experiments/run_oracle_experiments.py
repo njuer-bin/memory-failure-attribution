@@ -18,7 +18,7 @@ from evaluation.lifecycle_metrics import MEASURED_STAGES, stage_recall, summariz
 from memory_engine.engine import MemoryEngine
 from memory_engine.models import AddMessage, AddRequest, SearchRequest
 from tracing.dataset_trace import record_to_trace
-from tracing.engine_trace import artifacts_from_store, retrieval_artifacts, stage_match
+from tracing.engine_trace import active_fact_artifacts, artifacts_from_store, retrieval_artifacts, stage_match
 from tracing.lifecycle import match_evidence
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -266,11 +266,10 @@ def _formation_diagnostics(gold: list[dict[str, Any]], stored: dict[str, list[di
         })
     return diagnostics
 
-def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEngine, user_id: str, real: list[dict[str, Any]], search_trace: dict[str, Any]) -> None:
+def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEngine, user_id: str, real: list[dict[str, Any]], search_trace: dict[str, Any], record: dict[str, Any]) -> None:
     stored = artifacts_from_store(engine, user_id)
     formation = stored["facts"] + stored["relations"] + stored["events"] + stored["rules"] + stored["profiles"]
     storage = stored["raw"] + formation
-    evolution = formation
     trace.formation = type(trace.formation)(**_stage(gold, formation, "real_memory"))
     trace.formation.details["diagnostics"] = _formation_diagnostics(gold, stored)
     trace.formation.details["semantic_memory_counts"] = {
@@ -282,17 +281,50 @@ def _real_trace_stages(trace: Any, gold: list[dict[str, Any]], engine: MemoryEng
         },
     }
     trace.storage = type(trace.storage)(**_stage(gold, storage, "real_memory"))
-    # Audit C4: no evolution operations are applied by the tracing layer, so
-    # the evolution stage is a copy of formation and F3 cannot fire. It is
-    # kept for structure only and explicitly marked unmeasured.
-    trace.evolution = type(trace.evolution)(**_stage(gold, evolution, "real_memory"))
-    trace.evolution.details["measured"] = False
+    metadata = record.get("metadata") or {}
+    if metadata.get("measure_evolution"):
+        requires_history = bool(metadata.get("requires_history"))
+        active = active_fact_artifacts(engine, user_id, include_history=requires_history)
+        history = active_fact_artifacts(engine, user_id, include_history=True)
+        trace.evolution = type(trace.evolution)(**_stage(gold, active, "real_memory_active_facts"))
+        trace.evolution.details["measured"] = True
+        trace.evolution.details["requires_history"] = requires_history
+        trace.evolution.details["active_fact_count"] = len(active)
+        trace.evolution.details["history_fact_count"] = len(history)
+        trace.evolution.details["history_found"] = _stage(
+            gold, history, "real_memory_fact_history"
+        )["found"]
+        trace.evolution.details["superseded_count"] = sum(
+            1 for fact in history if str(fact.get("status") or "") == "superseded"
+        )
+        trace.evolution.details["conflict_count"] = sum(
+            1 for fact in history if str(fact.get("conflict_status") or "") == "conflict"
+        )
+        trace.evolution.details["active_profile_count"] = len(stored["profiles"])
+    else:
+        # Audit C4: evolution is unmeasured outside the controlled probe, so
+        # the stage is a copy of formation and F3 cannot fire.
+        trace.evolution = type(trace.evolution)(**_stage(gold, formation, "real_memory"))
+        trace.evolution.details["measured"] = False
     retrieval = search_trace.get("retrieval_candidates") or real
     rerank = search_trace.get("reranked") or real
     context = search_trace.get("context") or real
     trace.retrieval = type(trace.retrieval)(**_stage(gold, retrieval, "real_memory_retrieval_candidates"))
     trace.rerank = type(trace.rerank)(**_stage(gold, rerank, "real_memory_reranked"))
     trace.context = type(trace.context)(**_stage(gold, context, "real_memory_context"))
+    old_value = str(metadata.get("old_value") or "").strip().lower()
+    if old_value:
+        # Stale-value leakage: the gold evidence is in context, but the
+        # superseded value survives through another artifact channel (e.g.
+        # profiles). The answer model then sees a contradiction.
+        stale_items = [
+            item for item in context
+            if old_value in str(item.get("content") or "").lower()
+        ]
+        trace.context.details["stale_old_value_items"] = len(stale_items)
+        trace.context.details["stale_old_value_types"] = sorted({
+            str(item.get("memory_type") or "unknown") for item in stale_items
+        })
 
 
 def _oracle_memory_engine(gold: list[dict[str, Any]], record: dict[str, Any], idx: int, question: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
@@ -482,7 +514,7 @@ def run_record(record: dict[str, Any], idx: int) -> dict[str, Any]:
     real = retrieval_artifacts(results)
     log(f"    [real] retrieval done in {time.perf_counter() - t0:.2f}s; artifacts={len(real)}")
 
-    _real_trace_stages(trace, gold, engine, user_id, real, engine.last_search_trace)
+    _real_trace_stages(trace, gold, engine, user_id, real, engine.last_search_trace, record)
     search_trace = engine.last_search_trace
     real_context = search_trace.get("context") or real
     real_answer = _score_mode_answer(record["question"], record.get("answer", ""), real_context)
@@ -644,7 +676,9 @@ def _build_summary(dataset: str, limit: int, rows: list[dict[str, Any]], errors:
             "Insufficient evidence is E0; uncertain or judge-error cases are EVAL. "
             "F6 is assigned only when the gate is sufficient, all gold evidence reaches final context, "
             "the semantic judge marks the answer incorrect with medium/high confidence. "
-            "Evolution recall is not measured (audit C4). Oracle Context remains "
+            "Evolution recall is measured only for the controlled evolution probe "
+            "(active-fact state plus a history check); legacy runs mark it unmeasured, "
+            "so F3 cannot fire for them. Oracle Context remains "
             "a reasoning control and its own wrong answer is RC_REASONING_CONTROL_FAILURE."
         ),
     }
