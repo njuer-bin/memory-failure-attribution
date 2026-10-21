@@ -1,0 +1,97 @@
+{
+  "questions": 200,
+  "common_questions": 44,
+  "stale_label_questions": 9,
+  "per_arm": {
+    "first_loss": {
+      "paired_rows": 49,
+      "net_flips": 4,
+      "itt_accuracy_gain": 0.02,
+      "stale_label_questions_targeted": 9,
+      "gains_on_stale_labels": 0,
+      "losses_on_stale_labels": 4,
+      "gain_losses_with_fresh_correct_baseline": 4,
+      "flip_provenance": {
+        "judge": 9,
+        "deterministic_numeric_range": 1,
+        "deterministic_temporal": 2
+      },
+      "deterministic_flips": 3,
+      "answer_length_delta": {
+        "gained": -0.5,
+        "lost": 2.25,
+        "unchanged": 1.7027027027027026
+      },
+      "eval_negative_control": {
+        "rows": 0,
+        "gains": 0,
+        "losses": 0
+      }
+    },
+    "path": {
+      "paired_rows": 49,
+      "net_flips": 3,
+      "itt_accuracy_gain": 0.015,
+      "stale_label_questions_targeted": 9,
+      "gains_on_stale_labels": 0,
+      "losses_on_stale_labels": 4,
+      "gain_losses_with_fresh_correct_baseline": 4,
+      "flip_provenance": {
+        "deterministic_numeric_range": 1,
+        "judge": 9,
+        "deterministic_temporal": 1
+      },
+      "deterministic_flips": 2,
+      "answer_length_delta": {
+        "gained": 12.714285714285714,
+        "lost": 2.25,
+        "unchanged": 5.368421052631579
+      },
+      "eval_negative_control": {
+        "rows": 0,
+        "gains": 0,
+        "losses": 0
+      }
+    },
+    "agnostic": {
+      "paired_rows": 46,
+      "net_flips": 14,
+      "itt_accuracy_gain": 0.07,
+      "stale_label_questions_targeted": 7,
+      "gains_on_stale_labels": 0,
+      "losses_on_stale_labels": 3,
+      "gain_losses_with_fresh_correct_baseline": 3,
+      "flip_provenance": {
+        "deterministic_temporal": 3,
+        "deterministic_numeric_range": 2,
+        "judge": 14,
+        "lexical_anchor_override": 1
+      },
+      "deterministic_flips": 6,
+      "answer_length_delta": {
+        "gained": 14.882352941176471,
+        "lost": 4.666666666666667,
+        "unchanged": 5.269230769230769
+      },
+      "eval_negative_control": {
+        "rows": 0,
+        "gains": 0,
+        "losses": 0
+      }
+    }
+  },
+  "primary_family_common_subset": {
+    "first_loss": {
+      "p_raw": 0.2265625,
+      "p_holm": 0.453125
+    },
+    "path": {
+      "p_raw": 0.34375,
+      "p_holm": 0.453125
+    },
+    "agnostic": {
+      "p_raw": 0.004425048828125,
+      "p_holm": 0.013275146484375
+    }
+  }
+}

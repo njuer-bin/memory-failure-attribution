@@ -22,6 +22,9 @@ Conversation → Formation → Storage → Evolution → Retrieval → Reranking
 - **F1 Formation** — evidence exists in the conversation but is not extracted into usable memory.
 - **F2 Storage** — extracted memory is not persisted or becomes inaccessible.
 - **F3 Evolution** — updates, stale facts, or conflicts are handled incorrectly.
+  **Not currently measured:** the tracing layer applies no evolution operations,
+  so F3 cannot fire and evolution recall is a structural artifact (audit C4).
+  F3 returns once a controlled evolution scenario is implemented.
 - **F4 Retrieval** — required evidence exists in memory but is not retrieved or reranked into the usable set.
 - **F5 Context** — required evidence is lost before the final answer context.
 - **F6 Reasoning** — required evidence reaches the final context and a semantically incorrect answer is still produced.
@@ -46,8 +49,12 @@ F6 is treated as a **candidate attribution** only when evidence is sufficient, a
 The core diagnosis compares three controlled conditions:
 
 1. **Real Memory:** real conversation → real memory → retrieval → context → answer model.
-2. **Oracle Memory:** Gold Evidence bypasses the memory formation/storage/evolution uncertainty and is supplied to the downstream memory-side path.
-3. **Oracle Context:** Gold Evidence is supplied directly to the final answer context.
+2. **Oracle Memory:** Gold Evidence is written directly into a fresh memory store as raw
+   turns, then retrieved through the real search/rerank/context pipeline. Formation and
+   storage are controlled (directly written, so not measured); this condition isolates
+   retrieval, reranking, and context assembly.
+3. **Oracle Context:** Gold Evidence is supplied directly to the final answer context,
+   bypassing memory, retrieval, and reranking entirely.
 
 The oracle conditions are controls, not competing production systems. Their purpose is to isolate memory-induced evidence loss from downstream answer failures.
 
@@ -88,18 +95,42 @@ The attribution rule is conservative:
        ├── no  → F1–F5
        └── yes
              ↓
-       Semantically incorrect + non-low confidence
+       Semantically incorrect + medium/high confidence
              → F6_REASONING_CANDIDATE
 
-If the evaluator itself is unavailable or uncertain, the result is recorded as
-EVAL_SEMANTIC_UNCERTAIN rather than being forced into F6.
+If the evaluator itself is unavailable, returns no verdict, or is uncertain
+(low confidence), the result is recorded as EVAL_SEMANTIC_UNCERTAIN rather
+than being forced into F6.
 
-The semantic evaluator also contains a narrow lexical-anchor adjudication rule:
-when the judge says evidence is sufficient but incorrectly rejects a candidate that
-contains a meaningful exact phrase from the evidence, the result can be repaired.
+The semantic evaluator has two deterministic layers, both narrowed after the
+2026-10-18 audit:
+
+1. **Pre-judge deterministic support (narrow):** only when the candidate is
+   fully covered by one evidence item AND shares an entity-level token
+   overlap with the question. Relative-temporal equivalence is applied only
+   when the question is temporal.
+2. **Post-judge lexical-anchor repair (narrow):** when the judge says evidence
+   is sufficient but incorrectly rejects a candidate, repair is allowed only
+   for question-related candidates, or for temporal answers to temporal
+   questions. Model refusals ("the evidence does not provide ...") are never
+   repaired, because a refusal can still quote an evidence phrase such as
+   "a house".
 This is deliberately disabled for evidence-insufficient cases, so merely mentioning
 an entity such as "Serenity Yoga" does not prove that the evidence answers "Where do
-I take yoga classes?"
+I take yoga classes?" — and an evidence-supported candidate for an unrelated
+question is sent to the judge rather than short-circuited to correct.
+
+Attribution consumes the semantic verdict, not lexical token overlap: a lexically
+"correct" score cannot suppress a semantically incorrect answer, and a missing or low
+-confidence verdict is recorded as `EVAL_SEMANTIC_UNCERTAIN` rather than being forced
+into F6.
+
+Evidence matching (audit C3) treats provenance as a constraint rather than as proof of
+availability. A record from the gold turn whose content does not represent the required
+evidence is reported as `provenance_only` and counts as missing; identical text found in
+a conflicting turn cannot satisfy the gold turn. Artifacts without provenance are matched
+by content and flagged in `unverified_provenance`, so their share of recall is measurable
+rather than hidden.
 
 This distinction is important because answer correctness is upstream of F6 attribution:
 

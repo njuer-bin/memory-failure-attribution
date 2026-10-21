@@ -1,0 +1,109 @@
+{
+  "systems": {
+    "semantic": {
+      "n": 43,
+      "attributed_accuracy": 0.4883720930232558,
+      "accuracy_ci95": {
+        "low": 0.34617209277756,
+        "high": 0.6324793623392592
+      },
+      "semantic_judged": 42,
+      "semantic_accuracy": 0.5,
+      "failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 11,
+        "EVAL_SEMANTIC_UNCERTAIN": 1,
+        "F1_FORMATION": 5,
+        "F4_RETRIEVAL": 3,
+        "F6_REASONING_CANDIDATE": 2,
+        "none": 21
+      },
+      "failure_share": {
+        "E0_EVIDENCE_INSUFFICIENT": 0.2558139534883721,
+        "EVAL_SEMANTIC_UNCERTAIN": 0.023255813953488372,
+        "F1_FORMATION": 0.11627906976744186,
+        "F4_RETRIEVAL": 0.06976744186046512,
+        "F6_REASONING_CANDIDATE": 0.046511627906976744,
+        "none": 0.4883720930232558
+      },
+      "gate_distribution": {
+        "insufficient": 18,
+        "sufficient": 25
+      },
+      "stage_recall": {
+        "formation": 0.5555555555555556,
+        "storage": 0.9761904761904762,
+        "retrieval": 0.5595238095238095,
+        "rerank": 0.5416666666666666,
+        "context": 0.38095238095238093
+      }
+    },
+    "summary": {
+      "n": 43,
+      "attributed_accuracy": 0.46511627906976744,
+      "accuracy_ci95": {
+        "low": 0.3251082626391856,
+        "high": 0.6108461027112723
+      },
+      "semantic_judged": 43,
+      "semantic_accuracy": 0.46511627906976744,
+      "failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 10,
+        "F4_RETRIEVAL": 4,
+        "F5_CONTEXT": 9,
+        "none": 20
+      },
+      "failure_share": {
+        "E0_EVIDENCE_INSUFFICIENT": 0.23255813953488372,
+        "F4_RETRIEVAL": 0.09302325581395349,
+        "F5_CONTEXT": 0.20930232558139536,
+        "none": 0.46511627906976744
+      },
+      "gate_distribution": {
+        "insufficient": 18,
+        "sufficient": 25
+      },
+      "stage_recall": {
+        "formation": 0.9761904761904762,
+        "storage": 0.9761904761904762,
+        "retrieval": 0.9761904761904762,
+        "rerank": 0.7658730158730158,
+        "context": 0.2757936507936508
+      }
+    },
+    "verbatim": {
+      "n": 43,
+      "attributed_accuracy": 0.46511627906976744,
+      "accuracy_ci95": {
+        "low": 0.3251082626391856,
+        "high": 0.6108461027112723
+      },
+      "semantic_judged": 41,
+      "semantic_accuracy": 0.4878048780487805,
+      "failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 10,
+        "EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F4_RETRIEVAL": 9,
+        "F6_REASONING_CANDIDATE": 2,
+        "none": 20
+      },
+      "failure_share": {
+        "E0_EVIDENCE_INSUFFICIENT": 0.23255813953488372,
+        "EVAL_SEMANTIC_UNCERTAIN": 0.046511627906976744,
+        "F4_RETRIEVAL": 0.20930232558139536,
+        "F6_REASONING_CANDIDATE": 0.046511627906976744,
+        "none": 0.46511627906976744
+      },
+      "gate_distribution": {
+        "insufficient": 18,
+        "sufficient": 25
+      },
+      "stage_recall": {
+        "formation": 0.9761904761904762,
+        "storage": 0.9761904761904762,
+        "retrieval": 0.2619047619047619,
+        "rerank": 0.20238095238095238,
+        "context": 0.20238095238095238
+      }
+    }
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-19T04:08:23.791791+00:00",
+    "dataset": {
+      "dataset_id": "locomo_refined_public",
+      "error": "PermissionError: [Errno 13] Permission denied: 'G:\\\\PythonProject\\\\memory-failure-attribution\\\\locomo_refined_dataset\\\\public'"
+    },
+    "limit": 50,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "python": "3.13.9",
+    "git": {
+      "commit": "6f2e7e11b33f54cc1d68fab7812bf9841d5bf2b2",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": false
+    }
+  },
+  "dataset": "locomo_refined_public",
+  "limit": 50,
+  "records": 50,
+  "errors": 0,
+  "real_memory": {
+    "count": 50,
+    "stage_recall": {
+      "formation": 0.5266666666666666,
+      "storage": 0.98,
+      "retrieval": 0.56,
+      "rerank": 0.515,
+      "context": 0.36,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "none": 12,
+      "formation": 27,
+      "retrieval": 9,
+      "context": 2
+    }
+  },
+  "oracle_memory": {
+    "count": 50,
+    "stage_recall": {
+      "formation": null,
+      "storage": null,
+      "retrieval": 0.81,
+      "rerank": 0.81,
+      "context": 0.805,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "none": 37,
+      "retrieval": 11,
+      "formation": 1,
+      "context": 1
+    }
+  },
+  "oracle_context": {
+    "count": 50,
+    "stage_recall": {
+      "formation": null,
+      "storage": null,
+      "retrieval": null,
+      "rerank": null,
+      "context": 0.98,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "not_applicable": 50
+    }
+  },
+  "evidence_sufficiency": {
+    "status_distribution": {
+      "sufficient": 23,
+      "insufficient": 10,
+      "error": 17
+    },
+    "gate": "E0 before F1-F6; uncertain/error cases are EVAL"
+  },
+  "answer_scoring": {
+    "method": "local_ollama_token_f1_plus_temporal_phrase_rules",
+    "real_memory": {
+      "count": 50,
+      "scored": 47,
+      "correct": 8,
+      "accuracy": 0.1702127659574468,
+      "exact_match": 0.0,
+      "token_f1": 0.022745694022289768,
+      "semantic_evaluated": 25,
+      "semantic_correct": 14,
+      "semantic_accuracy": 0.56,
+      "semantic_adjudications": {
+        "judge": 18,
+        "deterministic_temporal": 7
+      },
+      "model_errors": 3,
+      "semantic_errors": 25
+    },
+    "oracle_memory": {
+      "count": 50,
+      "scored": 48,
+      "correct": 27,
+      "accuracy": 0.5625,
+      "exact_match": 0.0,
+      "token_f1": 0.10870949074074075,
+      "semantic_evaluated": 30,
+      "semantic_correct": 25,
+      "semantic_accuracy": 0.8333333333333334,
+      "semantic_adjudications": {
+        "judge": 14,
+        "deterministic_temporal": 13,
+        "deterministic_numeric_range": 3
+      },
+      "model_errors": 2,
+      "semantic_errors": 20
+    },
+    "oracle_context": {
+      "count": 50,
+      "scored": 49,
+      "correct": 29,
+      "accuracy": 0.5918367346938775,
+      "exact_match": 0.02040816326530612,
+      "token_f1": 0.14543088490456912,
+      "semantic_evaluated": 30,
+      "semantic_correct": 24,
+      "semantic_accuracy": 0.8,
+      "semantic_adjudications": {
+        "judge": 15,
+        "deterministic_temporal": 13,
+        "deterministic_numeric_range": 2
+      },
+      "model_errors": 1,
+      "semantic_errors": 19
+    },
+    "answer_failure_distribution": {
+      "real_memory": {
+        "EVAL_SEMANTIC_UNCERTAIN": 28,
+        "E0_EVIDENCE_INSUFFICIENT": 5,
+        "F1_FORMATION": 2
+      },
+      "oracle_memory": {
+        "E0_EVIDENCE_INSUFFICIENT": 1,
+        "EVAL_SEMANTIC_UNCERTAIN": 16
+      },
+      "oracle_context": {
+        "RC_REASONING_CONTROL_FAILURE": 2,
+        "EVAL_SEMANTIC_UNCERTAIN": 16
+      }
+    }
+  },
+  "note": "Evidence lifecycle and answer scoring are reported separately. Before F1-F6 attribution, Gold Evidence is checked for question-answer sufficiency using the benchmark reference answer rather than the model prediction. Insufficient evidence is E0; uncertain or judge-error cases are EVAL. F6 is assigned only when the gate is sufficient, all gold evidence reaches final context, the semantic judge marks the answer incorrect with medium/high confidence. Evolution recall is not measured (audit C4). Oracle Context remains a reasoning control and its own wrong answer is RC_REASONING_CONTROL_FAILURE.",
+  "resumed_records": 0
+}

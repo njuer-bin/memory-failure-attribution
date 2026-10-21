@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+*.egg-info/
+# Raw per-question run dumps are large and carry benchmark text; keep them
+# local. Summaries, analyses and intervention rows are tracked.
+results/**/comparison*.jsonl
+results/**/*.db
+results/**/*.log
+.env
+.env.local

@@ -163,6 +163,9 @@ class MemoryAnalyzer:
         "完成", "搬去", "搬来", "加入", "辞职", "回到",
         "graduated", "moved", "married", "divorced", "started", "finished",
         "joined", "left", "bought", "purchased", "visited", "traveled",
+        # Common conversational event verbs missing from the initial English set.
+        "went", "attended", "painted", "paint", "ran", "race",
+        "participated", "participate", "took part",
     )
 
     CORRECTION_MARKERS = ("不是", "改成", "改为", "其实是", "更正为", "纠正一下")

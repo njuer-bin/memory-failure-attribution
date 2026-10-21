@@ -1,0 +1,59 @@
+{
+  "arms": [
+    "placebo"
+  ],
+  "questions_in_file": 200,
+  "common_questions": 60,
+  "per_arm": {
+    "placebo": {
+      "targeted_rows": 60,
+      "targeted": {
+        "pairs": 60,
+        "baseline_correct": 4,
+        "compared_correct": 4,
+        "baseline_accuracy": 0.06666666666666667,
+        "compared_accuracy": 0.06666666666666667,
+        "mcnemar": {
+          "n01": 1,
+          "n10": 1,
+          "n_discordant": 2,
+          "statistic": 1,
+          "p_value": 1.0,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": 0.0,
+          "ci_low": -0.05,
+          "ci_high": 0.05,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 60
+        }
+      },
+      "common_subset": {
+        "pairs": 60,
+        "baseline_correct": 4,
+        "compared_correct": 4,
+        "baseline_accuracy": 0.06666666666666667,
+        "compared_accuracy": 0.06666666666666667,
+        "mcnemar": {
+          "n01": 1,
+          "n10": 1,
+          "n_discordant": 2,
+          "statistic": 1,
+          "p_value": 1.0,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": 0.0,
+          "ci_low": -0.05,
+          "ci_high": 0.05,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 60
+        }
+      }
+    }
+  },
+  "pairwise_common_subset": {}
+}

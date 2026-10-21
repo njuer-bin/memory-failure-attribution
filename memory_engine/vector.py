@@ -21,6 +21,11 @@ class EmbeddingProvider:
         self.url = os.getenv("OLLAMA_URL", "http://127.0.0.1:11434/api/embeddings")
         self.dim = dim
         self.use_ollama = os.getenv("USE_OLLAMA_EMBEDDING", "1") == "1"
+        # The Ollama path falls back silently when the model is missing; record
+        # which backend actually served each call so a run cannot claim an
+        # embedding model it never used.
+        self.last_backend: str | None = None
+        self.stats = {"ollama": 0, "hash": 0}
 
     def embed(self, text: str) -> list[float]:
         if self.use_ollama:
@@ -33,10 +38,24 @@ class EmbeddingProvider:
                 r.raise_for_status()
                 vec = r.json().get("embedding")
                 if vec:
+                    self.last_backend = f"ollama:{self.model}"
+                    self.stats["ollama"] += 1
                     return self._normalize([float(x) for x in vec])
             except Exception:
                 pass
+        self.last_backend = f"hash:{self.dim}"
+        self.stats["hash"] += 1
         return self._hash_embed(text)
+
+    def probe(self) -> dict[str, object]:
+        """One call that reports which backend a run would actually use."""
+        vector = self.embed("embedding probe")
+        return {
+            "backend": self.last_backend,
+            "dim": len(vector),
+            "configured_model": self.model,
+            "ollama_enabled": self.use_ollama,
+        }
 
     def _hash_embed(self, text: str):
         v = [0.0] * self.dim

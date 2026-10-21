@@ -1,0 +1,21 @@
+Cross-system Failure Fingerprint - evolution probe n=40 (DeepSeek-v4.1-flash only)
+
+system/family            n  acc  | formation retrieval context | failures | E0
+semantic /history           8  8  | 1.00 1.00 1.00         | {'none': 8}                                    | 8
+semantic /stale             6  5  | 1.00 1.00 1.00         | {'none': 5, 'F6_REASONING_CANDIDATE': 1}       | 0
+semantic /update:like       8  0  | 1.00 1.00 1.00         | {'F6_REASONING_CANDIDATE': 8}                  | 0
+semantic /update:residence 10  8  | 1.00 1.00 1.00         | {'F6_REASONING_CANDIDATE': 2, 'none': 8}       | 0
+semantic /update:workplace  8  6  | 1.00 1.00 1.00         | {'none': 6, 'F6_REASONING_CANDIDATE': 2}       | 0
+
+verbatim /history           8  8  | 1.00 1.00 1.00         | {'none': 8}                                    | 8
+verbatim /stale             6  6  | 1.00 1.00 1.00         | {'none': 6}                                    | 0
+verbatim /update:like       8  0  | 1.00 1.00 1.00         | {'F6_REASONING_CANDIDATE': 8}                  | 0
+verbatim /update:residence 10  0  | 1.00 1.00 1.00         | {'F6_REASONING_CANDIDATE': 10}                 | 0
+verbatim /update:workplace  8  0  | 1.00 1.00 1.00         | {'F6_REASONING_CANDIDATE': 8}                  | 0
+
+summary  /history           8  7  | 1.00 1.00 1.00         | {'none': 7, 'EVAL_SEMANTIC_UNCERTAIN': 1}      | 8
+summary  /stale             6  6  | 1.00 1.00 1.00         | {'none': 6}                                    | 0
+summary  /update:like       8  2  | 1.00 1.00 1.00         | {'F6_REASONING_CANDIDATE': 6, 'none': 2}       | 0
+summary  /update:residence 10 10  | 1.00 1.00 1.00         | {'none': 10}                                   | 0
+summary  /update:workplace  8  1  | 1.00 1.00 1.00         | {'F6_REASONING_CANDIDATE': 7, 'none': 1}       | 0
+

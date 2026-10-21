@@ -1,0 +1,82 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-21T04:38:34.372591+00:00",
+    "dataset": {
+      "dataset_id": "longmemeval_oracle",
+      "source": "longmemeval_oracle.json",
+      "sha256_16": "5a6a52e1a98f85eb"
+    },
+    "limit": 200,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "embedding": {
+      "backend": "hash:384",
+      "dim": 384,
+      "configured_model": "qwen3-embedding:4b",
+      "ollama_enabled": true
+    },
+    "python": "3.13.9",
+    "git": {
+      "commit": "edf658017cebd91d0f3695030bd5d0b04dac7515",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "baseline": "results\\oracle_experiments_longmemeval_n200\\comparison.jsonl",
+  "arms": [
+    "placebo"
+  ],
+  "errors": 0,
+  "results": {
+    "arms": {
+      "placebo": {
+        "scored_rows": 66,
+        "targeted_rows": 66,
+        "paired_rows": 60,
+        "baseline_correct": 4,
+        "repaired_correct": 4,
+        "accuracy_gain": 0.0,
+        "mcnemar": {
+          "n01": 1,
+          "n10": 1,
+          "n_discordant": 2,
+          "statistic": 1,
+          "p_value": 1.0,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap": {
+          "diff": 0.0,
+          "ci_low": -0.05,
+          "ci_high": 0.05,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 60
+        }
+      }
+    },
+    "target_breakdown": {
+      "placebo:placebo": {
+        "rows": 60,
+        "baseline_correct": 4,
+        "repaired_correct": 4,
+        "mcnemar": {
+          "n01": 1,
+          "n10": 1,
+          "n_discordant": 2,
+          "statistic": 1,
+          "p_value": 1.0,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap": {
+          "diff": 0.0,
+          "ci_low": -0.05,
+          "ci_high": 0.05,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 60
+        }
+      }
+    }
+  }
+}

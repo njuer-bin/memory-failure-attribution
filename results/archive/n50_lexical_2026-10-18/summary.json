@@ -1,0 +1,90 @@
+{
+  "dataset": "longmemeval_oracle",
+  "limit": 50,
+  "records": 50,
+  "errors": 0,
+  "real_memory": {
+    "count": 50,
+    "stage_recall": {
+      "formation": 1.0,
+      "storage": 1.0,
+      "evolution": 1.0,
+      "retrieval": 1.0,
+      "rerank": 1.0,
+      "context": 1.0
+    },
+    "first_loss_distribution": {
+      "none": 50
+    }
+  },
+  "oracle_memory": {
+    "count": 50,
+    "stage_recall": {
+      "formation": 1.0,
+      "storage": 1.0,
+      "evolution": 1.0,
+      "retrieval": 1.0,
+      "rerank": 1.0,
+      "context": 1.0
+    },
+    "first_loss_distribution": {
+      "none": 50
+    }
+  },
+  "oracle_context": {
+    "count": 50,
+    "stage_recall": {
+      "formation": 0.0,
+      "storage": 0.0,
+      "evolution": 0.0,
+      "retrieval": 0.0,
+      "rerank": 0.0,
+      "context": 1.0
+    },
+    "first_loss_distribution": {
+      "not_applicable": 50
+    }
+  },
+  "evidence_sufficiency": {
+    "status_distribution": {
+      "sufficient": 47,
+      "insufficient": 3
+    },
+    "gate": "E0 before F1-F6; uncertain/error cases are EVAL"
+  },
+  "answer_scoring": {
+    "method": "local_ollama_token_f1_plus_temporal_phrase_rules",
+    "real_memory": {
+      "count": 50,
+      "scored": 50,
+      "correct": 21,
+      "accuracy": 0.42,
+      "exact_match": 0.1,
+      "token_f1": 0.36396080496250277,
+      "model_errors": 0
+    },
+    "oracle_memory": {
+      "count": 50,
+      "scored": 50,
+      "correct": 18,
+      "accuracy": 0.36,
+      "exact_match": 0.16,
+      "token_f1": 0.360987012987013,
+      "model_errors": 0
+    },
+    "oracle_context": {
+      "count": 50,
+      "scored": 50,
+      "correct": 18,
+      "accuracy": 0.36,
+      "exact_match": 0.16,
+      "token_f1": 0.36406393606393606,
+      "model_errors": 0
+    },
+    "first_answer_failure_distribution": {
+      "F6_REASONING": 26,
+      "E0_EVIDENCE_INSUFFICIENCY": 3
+    }
+  },
+  "note": "Evidence lifecycle and answer scoring are reported separately. Before F1-F6 attribution, Gold Evidence is checked for question-answer sufficiency using the benchmark reference answer rather than the Real Memory prediction. Insufficient evidence is E0; uncertain or judge-error cases are EVAL. F6 is assigned only when the gate is sufficient, all gold evidence reaches final context, and the benchmark answer scorer still marks the answer incorrect. Oracle Context remains a reasoning control and its own wrong answer is RC_REASONING_CONTROL_FAILURE."
+}

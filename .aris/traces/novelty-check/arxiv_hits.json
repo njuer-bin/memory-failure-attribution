@@ -1,0 +1,200 @@
+[
+ {
+  "q": "all:\"memory failure\" AND all:\"LLM agent\"",
+  "title": "Many Steps into One: Reasoning Contraction and the Limits of Safe Memory Reuse for LLM Agents",
+  "published": "2026-10-13",
+  "id": "http://arxiv.org/abs/2610.17544v1"
+ },
+ {
+  "q": "all:\"memory failure\" AND all:\"LLM agent\"",
+  "title": "A-TMA: Decoupling State-Aware Memory Failures in Long-Term Agent Memory",
+  "published": "2026-07-02",
+  "id": "http://arxiv.org/abs/2607.01935v2"
+ },
+ {
+  "q": "all:\"memory failure\" AND all:\"LLM agent\"",
+  "title": "Can LLMs Beat Classical Hyperparameter Optimization Algorithms? A Study on autoresearch",
+  "published": "2026-03-25",
+  "id": "http://arxiv.org/abs/2603.24647v5"
+ },
+ {
+  "q": "all:\"memory pipeline\" AND all:\"diagnostic\"",
+  "title": "Your Agents Are Aging Too: Agent Lifespan Engineering for Deployed Systems",
+  "published": "2026-05-25",
+  "id": "http://arxiv.org/abs/2605.26302v1"
+ },
+ {
+  "q": "all:\"memory pipeline\" AND all:\"diagnostic\"",
+  "title": "Diagnosing Retrieval vs. Utilization Bottlenecks in LLM Agent Memory",
+  "published": "2026-03-02",
+  "id": "http://arxiv.org/abs/2603.02473v2"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "From Memory Hits to Answerable Evidence: Query-Conditioned Memory Compilation for Long-Term Agent Memory",
+  "published": "2026-10-16",
+  "id": "http://arxiv.org/abs/2610.23313v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "Compression Does Not End at Selection: Post-Selection Positional Geometry for Sparse KV Caches",
+  "published": "2026-10-15",
+  "id": "http://arxiv.org/abs/2610.21126v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "MemCode: Discrete Semantic Representations for Long-Term Agent Memory",
+  "published": "2026-10-14",
+  "id": "http://arxiv.org/abs/2610.19472v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "Test-Time Memory Construction",
+  "published": "2026-10-09",
+  "id": "http://arxiv.org/abs/2610.13348v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "NativeScope: Relation-Localized Retrieval over Native Topology with a Correct Anchor",
+  "published": "2026-10-08",
+  "id": "http://arxiv.org/abs/2610.12243v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "From Retrieval to Reconstruction: Constructing Evolvable Cognitive Memory for Long-Term Dialogue",
+  "published": "2026-10-08",
+  "id": "http://arxiv.org/abs/2610.11314v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "Stale, Misattributed, or Late: Where Personal Memory Fails Before Generation",
+  "published": "2026-10-07",
+  "id": "http://arxiv.org/abs/2610.10265v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "Relevance Is Not Sufficiency: What Actually Closes the Evidence Gap in Long-Term Memory QA",
+  "published": "2026-10-07",
+  "id": "http://arxiv.org/abs/2610.09348v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "Capability-Driven Self-Evolution of Agent Memory",
+  "published": "2026-10-05",
+  "id": "http://arxiv.org/abs/2610.06361v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "MemStrata: 95% and 90.91% Source-Aware Accuracy on LongMemEval-500 and LoCoMo-1540 with a Local Qwen 3.8 27B Q4_K_M Reader",
+  "published": "2026-10-04",
+  "id": "http://arxiv.org/abs/2610.05343v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "TPBench: A Turning-Point Benchmark for Dialogue Compression",
+  "published": "2026-10-02",
+  "id": "http://arxiv.org/abs/2610.02736v1"
+ },
+ {
+  "q": "all:\"LongMemEval\"",
+  "title": "APDMem: Agent-Controlled Progressive Disclosure for Query-Adaptive Long-Term Memory",
+  "published": "2026-10-01",
+  "id": "http://arxiv.org/abs/2610.02472v1"
+ },
+ {
+  "q": "all:\"memory agent\" AND all:\"attribution\"",
+  "title": "When Should Agents Check External State? Budgeting Observations for Stored Intentions",
+  "published": "2026-09-29",
+  "id": "http://arxiv.org/abs/2609.37125v3"
+ },
+ {
+  "q": "all:\"memory agent\" AND all:\"attribution\"",
+  "title": "What to Remember, What to Reveal: Privacy-Aware Memory for Conversational Agents",
+  "published": "2026-08-17",
+  "id": "http://arxiv.org/abs/2608.16551v1"
+ },
+ {
+  "q": "all:\"memory agent\" AND all:\"attribution\"",
+  "title": "Seeing and Reflecting: Multimodal Memory-Enhanced Agent Collaboration for Recommendation",
+  "published": "2026-07-08",
+  "id": "http://arxiv.org/abs/2607.07108v1"
+ },
+ {
+  "q": "all:\"memory agent\" AND all:\"attribution\"",
+  "title": "OPD-Evolver: Cultivating Holistic Agent Evolver via On-Policy Distillation",
+  "published": "2026-06-16",
+  "id": "http://arxiv.org/abs/2606.17628v1"
+ },
+ {
+  "q": "all:\"memory agent\" AND all:\"attribution\"",
+  "title": "SaliMory: Orchestrating Cognitive Memory for Conversational Agents",
+  "published": "2026-06-02",
+  "id": "http://arxiv.org/abs/2606.04120v2"
+ },
+ {
+  "q": "all:\"memory agent\" AND all:\"attribution\"",
+  "title": "FOCAL: Filtered On-device Continuous Activity Logging for Efficient Personal Desktop Summarization",
+  "published": "2026-04-21",
+  "id": "http://arxiv.org/abs/2604.19541v2"
+ },
+ {
+  "q": "all:\"memory agent\" AND all:\"attribution\"",
+  "title": "Agent-Based Models in Social Physics",
+  "published": "2018-06-12",
+  "id": "http://arxiv.org/abs/1806.04359v1"
+ },
+ {
+  "q": "all:\"retrieval augmented\" AND all:\"failure attribution\"",
+  "title": "Agentic AutoRAG: RAG Pipeline Optimization through Reasoning-Driven Agents",
+  "published": "2026-10-06",
+  "id": "http://arxiv.org/abs/2610.08452v1"
+ },
+ {
+  "q": "all:\"retrieval augmented\" AND all:\"failure attribution\"",
+  "title": "Why RAGs Hallucinate: Penalty-Aware Evaluation of Retrieval-Augmented Generation Systems with Knowledge-Gap Canaries",
+  "published": "2026-08-26",
+  "id": "http://arxiv.org/abs/2608.26385v1"
+ },
+ {
+  "q": "all:\"retrieval augmented\" AND all:\"failure attribution\"",
+  "title": "When Failures Propagate: Causal Failure Attribution in Agentic Retrieval-Augmented Generation",
+  "published": "2026-08-20",
+  "id": "http://arxiv.org/abs/2608.20627v1"
+ },
+ {
+  "q": "all:\"retrieval augmented\" AND all:\"failure attribution\"",
+  "title": "ESGLens: An LLM-Based RAG Framework for Interactive ESG Report Analysis and Score Prediction",
+  "published": "2026-03-29",
+  "id": "http://arxiv.org/abs/2604.19779v1"
+ },
+ {
+  "q": "all:\"retrieval augmented\" AND all:\"failure attribution\"",
+  "title": "RoboHarness: A Memory-Augmented Policy Harness for Vision-Language-Action Model Robustness via In-Context Adaptation",
+  "published": "2026-03-25",
+  "id": "http://arxiv.org/abs/2603.24060v3"
+ },
+ {
+  "q": "all:\"retrieval augmented\" AND all:\"failure attribution\"",
+  "title": "Bridging Temporal and Textual Modalities: A Multimodal Framework for Automated Cloud Failure Root Cause Analysis",
+  "published": "2026-01-08",
+  "id": "http://arxiv.org/abs/2601.04709v1"
+ },
+ {
+  "q": "all:\"memory system\" AND all:\"ablation\" AND all:\"long conversation\"",
+  "title": "MINDSET: Energy-based Schema Evolution for Long Conversational Agent Memory",
+  "published": "2026-10-06",
+  "id": "http://arxiv.org/abs/2610.08586v1"
+ },
+ {
+  "q": "all:\"memory system\" AND all:\"ablation\" AND all:\"long conversation\"",
+  "title": "Fidelity Before Structure: Verbatim Chunks Beat Lossy Artifact Extraction in Long-Conversation LLM Memory",
+  "published": "2025-12-23",
+  "id": "http://arxiv.org/abs/2601.00821v4"
+ },
+ {
+  "q": "all:\"memory system\" AND all:\"ablation\" AND all:\"long conversation\"",
+  "title": "HEMA : A Hippocampus-Inspired Extended Memory Architecture for Long-Context AI Conversations",
+  "published": "2025-04-23",
+  "id": "http://arxiv.org/abs/2504.16754v1"
+ }
+]

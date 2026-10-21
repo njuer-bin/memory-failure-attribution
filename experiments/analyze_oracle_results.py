@@ -2,10 +2,10 @@
 
 This is a post-hoc diagnostic step. It:
 - prints every sample's question/reference/predictions;
-- isolates F6 candidates;
-- checks Real-vs-Oracle inversions;
-- sweeps token-F1 thresholds using already generated predictions;
-- reports bootstrap confidence intervals for accuracy at each threshold.
+- isolates semantic F6 candidates;
+- checks Real-vs-Oracle inversions under the unified attribution labels;
+- sweeps token-F1 thresholds as a lexical sensitivity analysis (not attribution);
+- reports paired statistics (McNemar exact, paired bootstrap) for the semantic verdict.
 
 No model calls are made.
 """
@@ -13,10 +13,14 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 import random
 from pathlib import Path
 from typing import Any
+
+from evaluation.lifecycle_metrics import MEASURED_STAGES
+from evaluation.paired_stats import compare_modes
+
+MODES = ("real_memory", "oracle_memory", "oracle_context")
 
 
 def load_rows(path: Path) -> list[dict[str, Any]]:
@@ -64,20 +68,26 @@ def bootstrap_ci(
     return lo, hi
 
 
-def stage_recall(row: dict[str, Any], mode: str) -> dict[str, float]:
+def stage_recall(row: dict[str, Any], mode: str) -> dict[str, float | None]:
     gold = {
         str(x["evidence_id"])
         for x in row.get("gold_evidence", [])
         if x.get("evidence_id")
     }
-    result = {}
-    for stage in ("formation", "storage", "evolution", "retrieval", "rerank", "context"):
+    result: dict[str, float | None] = {}
+    for stage in MEASURED_STAGES:
         found = {
             str(x)
             for x in (row["modes"][mode].get(stage) or {}).get("found", [])
         }
         result[stage] = len(gold & found) / len(gold) if gold else 1.0
+    result["evolution"] = None
     return result
+
+
+def _failure_type(row: dict[str, Any], mode: str) -> str | None:
+    data = row["modes"].get(mode, {})
+    return data.get("semantic_answer_failure_type") or data.get("answer_failure_type")
 
 
 def print_sample_table(rows: list[dict[str, Any]]) -> None:
@@ -95,16 +105,13 @@ def print_sample_table(rows: list[dict[str, Any]]) -> None:
                 f"answer={a.get('answer')!r}"
             )
         real = row["modes"]["real_memory"]
-        print("failure:", real.get("answer_failure_type"))
+        print("failure:", _failure_type(row, "real_memory"))
         print("stage recall:", stage_recall(row, "real_memory"))
 
 
 def print_f6(rows: list[dict[str, Any]]) -> None:
-    print("\n=== F6 CANDIDATES ===")
-    candidates = [
-        r for r in rows
-        if r["modes"]["real_memory"].get("answer_failure_type") == "F6_REASONING"
-    ]
+    print("\n=== SEMANTIC F6 CANDIDATES (real_memory) ===")
+    candidates = [r for r in rows if _failure_type(r, "real_memory") == "F6_REASONING_CANDIDATE"]
     if not candidates:
         print("None")
         return
@@ -113,30 +120,50 @@ def print_f6(rows: list[dict[str, Any]]) -> None:
         print("Gold evidence:")
         for e in row.get("gold_evidence", []):
             print(" -", e.get("text", ""))
-        for mode in ("real_memory", "oracle_memory", "oracle_context"):
+        for mode in MODES:
             a = answer(row, mode)
             print(
                 f"{mode}: {a.get('answer')!r}; "
-                f"EM={a.get('exact_match')}, F1={a.get('token_f1')}, "
-                f"correct={a.get('correct')}"
+                f"semantic={a.get('semantic_correct')}, "
+                f"confidence={a.get('semantic_confidence')}, "
+                f"judge={a.get('semantic_reason')!r}"
             )
 
 
 def print_inversions(rows: list[dict[str, Any]]) -> None:
-    print("\n=== ORACLE INVERSIONS ===")
+    """Inversions are defined on the unified failure labels, not lexical scoring."""
+    print("\n=== ORACLE INVERSIONS (unified labels) ===")
+    found = False
     for row in rows:
-        real = answer(row, "real_memory")
-        oracle = answer(row, "oracle_context")
-        if real.get("correct") is True and oracle.get("correct") is False:
-            kind = "REAL_CORRECT_ORACLE_WRONG"
-        elif real.get("correct") is False and oracle.get("correct") is True:
-            kind = "REAL_WRONG_ORACLE_CORRECT"
+        real = _failure_type(row, "real_memory")
+        oracle = _failure_type(row, "oracle_context")
+        if real is None and oracle is not None:
+            kind = "REAL_OK_ORACLE_FAIL"
+        elif real is not None and oracle is None:
+            kind = "REAL_FAIL_ORACLE_OK"
         else:
             continue
+        found = True
         print(
-            f"{kind}: {row.get('question_id')} | "
-            f"Q={row.get('question')!r} | "
-            f"real={real.get('answer')!r} | oracle={oracle.get('answer')!r}"
+            f"{kind}: {row.get('question_id')} | real={real} oracle={oracle} | "
+            f"real_ans={answer(row, 'real_memory').get('answer')!r} | "
+            f"oc_ans={answer(row, 'oracle_context').get('answer')!r}"
+        )
+    if not found:
+        print("None")
+
+
+def print_paired_statistics(rows: list[dict[str, Any]]) -> None:
+    print("\n=== PAIRED SEMANTIC VERDICT STATISTICS (McNemar exact, paired bootstrap) ===")
+    pairs = (("real_memory", "oracle_memory"), ("real_memory", "oracle_context"), ("oracle_memory", "oracle_context"))
+    for mode_a, mode_b in pairs:
+        result = compare_modes(rows, mode_a, mode_b, verdict_key="semantic_correct")
+        table = result["table"]
+        boot = result["bootstrap"]
+        print(
+            f"{mode_a} vs {mode_b}: n01={table['n01']} n10={table['n10']} "
+            f"p={result['mcnemar']['p_value']:.4f} "
+            f"diff={boot['diff']:.3f} CI=[{boot['ci_low']:.3f}, {boot['ci_high']:.3f}]"
         )
 
 
@@ -181,7 +208,8 @@ def main() -> None:
     print_sample_table(rows)
     print_f6(rows)
     print_inversions(rows)
-    print_threshold_sweep(rows, ("real_memory", "oracle_memory", "oracle_context"))
+    print_paired_statistics(rows)
+    print_threshold_sweep(rows, MODES)
 
 
 if __name__ == "__main__":

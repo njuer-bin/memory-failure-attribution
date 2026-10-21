@@ -1,0 +1,88 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-21T05:11:19.052132+00:00",
+    "dataset": {
+      "dataset_id": "evolution_probe",
+      "source": "datasets/evolution_probe/probe.jsonl",
+      "sha256_16": "1ed98ba29b238671"
+    },
+    "limit": 40,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "embedding": {
+      "backend": "hash:384",
+      "dim": 384,
+      "configured_model": "qwen3-embedding:4b",
+      "ollama_enabled": true
+    },
+    "python": "3.13.9",
+    "git": {
+      "commit": "bc111ed7d7759864e82ddd778c3133e635a3d936",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "systems": [
+    "verbatim",
+    "summary"
+  ],
+  "errors": 0,
+  "results": {
+    "systems": {
+      "verbatim": {
+        "count": 40,
+        "stage_recall": {
+          "formation": 1.0,
+          "storage": 1.0,
+          "retrieval": 1.0,
+          "rerank": 1.0,
+          "context": 1.0
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 40
+        },
+        "semantic_accuracy": 0.3333333333333333,
+        "semantic_judged": 39,
+        "answer_failure_distribution": {
+          "none": 14,
+          "F6_REASONING_CANDIDATE": 26
+        },
+        "gate_distribution": {
+          "sufficient": 32,
+          "insufficient": 8
+        }
+      },
+      "summary": {
+        "count": 40,
+        "stage_recall": {
+          "formation": 1.0,
+          "storage": 1.0,
+          "retrieval": 1.0,
+          "rerank": 1.0,
+          "context": 1.0
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 40
+        },
+        "semantic_accuracy": 0.5806451612903226,
+        "semantic_judged": 31,
+        "answer_failure_distribution": {
+          "none": 26,
+          "EVAL_SEMANTIC_UNCERTAIN": 1,
+          "F6_REASONING_CANDIDATE": 13
+        },
+        "gate_distribution": {
+          "sufficient": 32,
+          "insufficient": 8
+        }
+      }
+    }
+  }
+}

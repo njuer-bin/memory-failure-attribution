@@ -1,0 +1,873 @@
+{
+  "discordant_pairs": 32,
+  "arms": {
+    "first_loss": {
+      "pairs": 7,
+      "pairs_changed": 0,
+      "old_net_flips": 7,
+      "new_net_flips": 7,
+      "old_mcnemar": {
+        "n01": 7,
+        "n10": 0,
+        "n_discordant": 7,
+        "statistic": 0,
+        "p_value": 0.015625,
+        "method": "exact_binomial_two_sided"
+      },
+      "new_mcnemar": {
+        "n01": 7,
+        "n10": 0,
+        "n_discordant": 7,
+        "statistic": 0,
+        "p_value": 0.015625,
+        "method": "exact_binomial_two_sided"
+      }
+    },
+    "path": {
+      "pairs": 8,
+      "pairs_changed": 2,
+      "old_net_flips": 8,
+      "new_net_flips": 6,
+      "old_mcnemar": {
+        "n01": 8,
+        "n10": 0,
+        "n_discordant": 8,
+        "statistic": 0,
+        "p_value": 0.0078125,
+        "method": "exact_binomial_two_sided"
+      },
+      "new_mcnemar": {
+        "n01": 6,
+        "n10": 0,
+        "n_discordant": 6,
+        "statistic": 0,
+        "p_value": 0.03125,
+        "method": "exact_binomial_two_sided"
+      }
+    },
+    "agnostic": {
+      "pairs": 17,
+      "pairs_changed": 2,
+      "old_net_flips": 17,
+      "new_net_flips": 15,
+      "old_mcnemar": {
+        "n01": 17,
+        "n10": 0,
+        "n_discordant": 17,
+        "statistic": 0,
+        "p_value": 1.52587890625e-05,
+        "method": "exact_binomial_two_sided"
+      },
+      "new_mcnemar": {
+        "n01": 15,
+        "n10": 0,
+        "n_discordant": 15,
+        "statistic": 0,
+        "p_value": 6.103515625e-05,
+        "method": "exact_binomial_two_sided"
+      }
+    }
+  },
+  "pairs": [
+    {
+      "question_id": "2c63a862",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "2ce6a0f2",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "2ce6a0f2",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        true,
+        true
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "2ce6a0f2",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "5a7937c8",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "6cb6f249",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "b3c15d39",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "b3c15d39",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "b5ef892d",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "b5ef892d",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "b5ef892d",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "eeda8a6d",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "f0853d11",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_194be4b3",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_1a1dc16d",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "ordering_refutation",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_1a1dc16d",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "ordering_refutation",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_213fd887",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_213fd887",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        true,
+        true
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_385a5000",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_385a5000",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_5438fa52",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_59c863d7",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_59c863d7",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_78cf46a3",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_78cf46a3",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_78cf46a3",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_88806d6e",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        false
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_88806d6e",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        false
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_d12ceb0e",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_d12ceb0e",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_d12ceb0e",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "gpt4_e05b82a6",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    }
+  ]
+}

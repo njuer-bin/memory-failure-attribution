@@ -1,0 +1,223 @@
+{
+  "arms": [
+    "first_loss",
+    "path",
+    "agnostic"
+  ],
+  "questions_in_file": 200,
+  "common_questions": 44,
+  "per_arm": {
+    "first_loss": {
+      "targeted_rows": 49,
+      "targeted": {
+        "pairs": 49,
+        "baseline_correct": 9,
+        "compared_correct": 13,
+        "baseline_accuracy": 0.1836734693877551,
+        "compared_accuracy": 0.2653061224489796,
+        "mcnemar": {
+          "n01": 8,
+          "n10": 4,
+          "n_discordant": 12,
+          "statistic": 4,
+          "p_value": 0.3876953125,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.08163265306122448,
+          "ci_low": -0.22448979591836735,
+          "ci_high": 0.04081632653061224,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 49
+        }
+      },
+      "common_subset": {
+        "pairs": 44,
+        "baseline_correct": 7,
+        "compared_correct": 12,
+        "baseline_accuracy": 0.1590909090909091,
+        "compared_accuracy": 0.2727272727272727,
+        "mcnemar": {
+          "n01": 8,
+          "n10": 3,
+          "n_discordant": 11,
+          "statistic": 3,
+          "p_value": 0.2265625,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.11363636363636363,
+          "ci_low": -0.25,
+          "ci_high": 0.022727272727272728,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 44
+        }
+      }
+    },
+    "path": {
+      "targeted_rows": 49,
+      "targeted": {
+        "pairs": 49,
+        "baseline_correct": 9,
+        "compared_correct": 12,
+        "baseline_accuracy": 0.1836734693877551,
+        "compared_accuracy": 0.24489795918367346,
+        "mcnemar": {
+          "n01": 7,
+          "n10": 4,
+          "n_discordant": 11,
+          "statistic": 4,
+          "p_value": 0.548828125,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.061224489795918366,
+          "ci_low": -0.20408163265306123,
+          "ci_high": 0.061224489795918366,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 49
+        }
+      },
+      "common_subset": {
+        "pairs": 44,
+        "baseline_correct": 7,
+        "compared_correct": 11,
+        "baseline_accuracy": 0.1590909090909091,
+        "compared_accuracy": 0.25,
+        "mcnemar": {
+          "n01": 7,
+          "n10": 3,
+          "n_discordant": 10,
+          "statistic": 3,
+          "p_value": 0.34375,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.09090909090909091,
+          "ci_low": -0.22727272727272727,
+          "ci_high": 0.045454545454545456,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 44
+        }
+      }
+    },
+    "agnostic": {
+      "targeted_rows": 46,
+      "targeted": {
+        "pairs": 46,
+        "baseline_correct": 7,
+        "compared_correct": 21,
+        "baseline_accuracy": 0.15217391304347827,
+        "compared_accuracy": 0.45652173913043476,
+        "mcnemar": {
+          "n01": 17,
+          "n10": 3,
+          "n_discordant": 20,
+          "statistic": 3,
+          "p_value": 0.0025768280029296875,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.30434782608695654,
+          "ci_low": -0.4782608695652174,
+          "ci_high": -0.13043478260869565,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 46
+        }
+      },
+      "common_subset": {
+        "pairs": 44,
+        "baseline_correct": 7,
+        "compared_correct": 20,
+        "baseline_accuracy": 0.1590909090909091,
+        "compared_accuracy": 0.45454545454545453,
+        "mcnemar": {
+          "n01": 16,
+          "n10": 3,
+          "n_discordant": 19,
+          "statistic": 3,
+          "p_value": 0.004425048828125,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.29545454545454547,
+          "ci_low": -0.4772727272727273,
+          "ci_high": -0.13636363636363635,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 44
+        }
+      }
+    }
+  },
+  "pairwise_common_subset": {
+    "first_loss_vs_path": {
+      "pairs": 44,
+      "accuracy_a": 0.2727272727272727,
+      "accuracy_b": 0.25,
+      "mcnemar": {
+        "n01": 2,
+        "n10": 3,
+        "n_discordant": 5,
+        "statistic": 2,
+        "p_value": 1.0,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap_a_minus_b": {
+        "diff": 0.022727272727272728,
+        "ci_low": -0.06818181818181818,
+        "ci_high": 0.11363636363636363,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 44
+      }
+    },
+    "first_loss_vs_agnostic": {
+      "pairs": 44,
+      "accuracy_a": 0.2727272727272727,
+      "accuracy_b": 0.45454545454545453,
+      "mcnemar": {
+        "n01": 11,
+        "n10": 3,
+        "n_discordant": 14,
+        "statistic": 3,
+        "p_value": 0.057373046875,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap_a_minus_b": {
+        "diff": -0.18181818181818182,
+        "ci_low": -0.3409090909090909,
+        "ci_high": -0.022727272727272728,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 44
+      }
+    },
+    "path_vs_agnostic": {
+      "pairs": 44,
+      "accuracy_a": 0.25,
+      "accuracy_b": 0.45454545454545453,
+      "mcnemar": {
+        "n01": 11,
+        "n10": 2,
+        "n_discordant": 13,
+        "statistic": 2,
+        "p_value": 0.0224609375,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap_a_minus_b": {
+        "diff": -0.20454545454545456,
+        "ci_low": -0.36363636363636365,
+        "ci_high": -0.045454545454545456,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 44
+      }
+    }
+  }
+}

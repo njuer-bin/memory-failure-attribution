@@ -1,0 +1,93 @@
+{
+  "systems": {
+    "semantic": {
+      "n": 20,
+      "attributed_accuracy": 0.55,
+      "semantic_judged": 20,
+      "semantic_accuracy": 0.55,
+      "failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 4,
+        "F1_FORMATION": 4,
+        "F4_RETRIEVAL": 1,
+        "none": 11
+      },
+      "failure_share": {
+        "E0_EVIDENCE_INSUFFICIENT": 0.2,
+        "F1_FORMATION": 0.2,
+        "F4_RETRIEVAL": 0.05,
+        "none": 0.55
+      },
+      "gate_distribution": {
+        "insufficient": 7,
+        "sufficient": 13
+      },
+      "stage_recall": {
+        "formation": 0.5666666666666667,
+        "storage": 1.0,
+        "retrieval": 0.525,
+        "rerank": 0.525,
+        "context": 0.375
+      }
+    },
+    "summary": {
+      "n": 20,
+      "attributed_accuracy": 0.5,
+      "semantic_judged": 20,
+      "semantic_accuracy": 0.5,
+      "failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 4,
+        "F4_RETRIEVAL": 2,
+        "F5_CONTEXT": 2,
+        "F6_REASONING_CANDIDATE": 2,
+        "none": 10
+      },
+      "failure_share": {
+        "E0_EVIDENCE_INSUFFICIENT": 0.2,
+        "F4_RETRIEVAL": 0.1,
+        "F5_CONTEXT": 0.1,
+        "F6_REASONING_CANDIDATE": 0.1,
+        "none": 0.5
+      },
+      "gate_distribution": {
+        "insufficient": 6,
+        "sufficient": 14
+      },
+      "stage_recall": {
+        "formation": 1.0,
+        "storage": 1.0,
+        "retrieval": 1.0,
+        "rerank": 0.8583333333333334,
+        "context": 0.4166666666666667
+      }
+    },
+    "verbatim": {
+      "n": 20,
+      "attributed_accuracy": 0.35,
+      "semantic_judged": 20,
+      "semantic_accuracy": 0.35,
+      "failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 6,
+        "F4_RETRIEVAL": 6,
+        "F6_REASONING_CANDIDATE": 1,
+        "none": 7
+      },
+      "failure_share": {
+        "E0_EVIDENCE_INSUFFICIENT": 0.3,
+        "F4_RETRIEVAL": 0.3,
+        "F6_REASONING_CANDIDATE": 0.05,
+        "none": 0.35
+      },
+      "gate_distribution": {
+        "insufficient": 7,
+        "sufficient": 13
+      },
+      "stage_recall": {
+        "formation": 1.0,
+        "storage": 1.0,
+        "retrieval": 0.325,
+        "rerank": 0.2,
+        "context": 0.2
+      }
+    }
+  }
+}

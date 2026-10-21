@@ -19,7 +19,6 @@ from datasets.loader import iter_normalized
 from memory_engine.engine import MemoryEngine
 from memory_engine.models import AddMessage, AddRequest, SearchRequest
 from tracing.dataset_trace import record_to_trace
-from tracing.failure_attribution import attribute_failure
 from tracing.engine_trace import artifacts_from_store, retrieval_artifacts, stage_match
 
 
@@ -53,19 +52,6 @@ def _sessions(record: dict[str, Any]) -> list[dict[str, Any]]:
     return result
 
 
-def _stage_observed(gold: list[dict[str, Any]], artifacts: list[dict[str, Any]]) -> dict[str, Any]:
-    gold_ids = {str(x.get("evidence_id")): str(x.get("source_id") or "") for x in gold}
-    found = []
-    for gid, source in gold_ids.items():
-        if source and any(str(a.get("source_id") or "") == source for a in artifacts):
-            found.append(gid)
-    return {
-        "found": sorted(found),
-        "missing": sorted(set(gold_ids) - set(found)),
-        "observed_count": len(artifacts),
-    }
-
-
 def run_record(engine: MemoryEngine, record: dict[str, Any], user_id: str) -> dict[str, Any]:
     trace = record_to_trace(record)
     gold = [x.__dict__ for x in trace.gold_evidence]
@@ -96,8 +82,10 @@ def run_record(engine: MemoryEngine, record: dict[str, Any], user_id: str) -> di
                                         details={"matches": m["matches"], "observed_count": m["observed_count"]})
     evolved = artifacts["facts"] + artifacts["relations"] + artifacts["events"] + artifacts["rules"] + artifacts["profiles"]
     m = stage_match(gold, evolved)
+    # Audit C4: no evolution operation is applied, so evolution is a copy of
+    # the extracted memories and is reported as unmeasured.
     trace.evolution = type(trace.evolution)(found=m["found"], missing=m["missing"],
-                                            details={"matches": m["matches"], "observed_count": m["observed_count"]})
+                                            details={"matches": m["matches"], "observed_count": m["observed_count"], "measured": False})
 
     results = engine.search(SearchRequest(query=record["question"], user_id=user_id, top_k=10, multi_hop=True))
     m = stage_match(gold, retrieval_artifacts(results))
@@ -106,7 +94,13 @@ def run_record(engine: MemoryEngine, record: dict[str, Any], user_id: str) -> di
     trace.rerank = trace.retrieval
     trace.context = trace.retrieval
     trace.answer = {"correct": None, "answer": None, "mode": "search-only-diagnostic"}
-    trace.failure_type = attribute_failure(trace.to_dict())
+    from evaluation import attribution as _attr
+    gate = _attr.evidence_sufficiency_gate(record["question"], record.get("answer", ""), gold)
+    trace.evidence_sufficiency = gate
+    trace.failure_type = (
+        _attr.E0_EVIDENCE_INSUFFICIENT if gate.get("status") == "insufficient"
+        else _attr.EVAL_SEMANTIC_UNCERTAIN
+    )
     return trace.to_dict()
 
 def run(dataset: str, limit: int) -> list[dict[str, Any]]:
