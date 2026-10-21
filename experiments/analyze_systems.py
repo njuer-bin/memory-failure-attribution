@@ -51,6 +51,17 @@ def _stage_recall(mode: dict[str, Any], gold: list[dict[str, Any]], stage: str) 
     return len(ids & found) / len(ids)
 
 
+def _wilson(correct: int, n: int, z: float = 1.96) -> dict[str, float] | None:
+    """95% Wilson interval for a binomial proportion (accuracy)."""
+    if n <= 0:
+        return None
+    p = correct / n
+    denominator = 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / denominator
+    margin = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / denominator
+    return {"low": max(0.0, centre - margin), "high": min(1.0, centre + margin)}
+
+
 def summarize(rows: dict[str, dict[str, Any]], mode: str) -> dict[str, Any]:
     usable = [row for row in rows.values() if mode in (row.get("modes") or {})]
     n = len(usable)
@@ -67,9 +78,11 @@ def summarize(rows: dict[str, dict[str, Any]], mode: str) -> dict[str, Any]:
         measured = [v for v in values if v is not None]
         recalls[stage] = sum(measured) / len(measured) if measured else None
     judged = [a for a in answers if a.get("semantic_correct") is not None]
+    correct = sum(1 for a in answers if _correct(a))
     return {
         "n": n,
-        "attributed_accuracy": sum(1 for a in answers if _correct(a)) / n,
+        "attributed_accuracy": correct / n,
+        "accuracy_ci95": _wilson(correct, n),
         "semantic_judged": len(judged),
         "semantic_accuracy": (
             sum(1 for a in judged if a.get("semantic_correct")) / len(judged)

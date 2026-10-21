@@ -139,6 +139,10 @@ def run(dataset: str, systems: tuple[str, ...], limit: int | None, out: Path,
         }
         print(f"[{idx + 1}] {qid}", flush=True)
         try:
+            # The gate depends only on question + gold + reference, so it must
+            # be computed once and shared: recomputing it per system made E0
+            # vary across systems because of judge nondeterminism.
+            gate = runner._evidence_sufficiency(str(record.get("question") or ""), reference, gold)
             for name in systems:
                 system = SYSTEMS[name]()
                 system.ingest(record)
@@ -148,7 +152,6 @@ def run(dataset: str, systems: tuple[str, ...], limit: int | None, out: Path,
                 context = search["context"]
                 answer = runner._score_mode_answer(str(record.get("question") or ""), reference, context)
                 answer = runner._semantic_eval(str(record.get("question") or ""), answer, gold, reference)
-                gate = runner._evidence_sufficiency(str(record.get("question") or ""), reference, gold)
                 failure = attribute_failure(answer, gate, stages, gold, mode=name)
                 row["modes"][name] = {
                     **stages,

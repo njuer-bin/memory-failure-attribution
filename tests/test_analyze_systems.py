@@ -60,3 +60,10 @@ def test_analyze_matches_semantic_questions_by_id():
     assert result["systems"]["verbatim"]["n"] == 1
     assert result["systems"]["semantic"]["n"] == 1
     assert result["systems"]["semantic"]["attributed_accuracy"] == 0.0
+
+
+def test_wilson_interval_is_bounded_and_contains_the_estimate():
+    interval = analyze._wilson(7, 10)
+    assert interval is not None
+    assert 0.0 <= interval["low"] < 0.7 < interval["high"] <= 1.0
+    assert analyze._wilson(0, 0) is None

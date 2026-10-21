@@ -468,7 +468,11 @@ sign of evaluator nondeterminism, since the same question is being re-judged.
 
 Caveats: n=20, no significance for the stage-distribution differences, and
 paired accuracy is not significant for any pair. This is a pilot, not a claim.
-The run is being extended to n=50.
+The E0 counts (4/4/6) came from recomputing the question-level gate once per
+system; the judge's nondeterminism then made E0 look system-dependent. The
+runner now computes the gate **once per question** and shares it. The pilot is
+archived at `results/archive/systems_locomo_pilot20_oldgate/`; the final n=50
+run (`results/systems_locomo_n50_fixedgate/`) uses the shared gate.
 
 
 
