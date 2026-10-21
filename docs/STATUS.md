@@ -1,20 +1,53 @@
 # Status — where to resume
 
-Last updated: 2026-10-21 (CCF-B validation plan frozen; F3 evolution is now
-measured on a controlled 40-scenario probe; A1 placebo running). See
+Last updated: 2026-10-21, end of session (LoCoMo n=43/50 paused at the user's
+request; headline system-fingerprint result recorded). See
 `docs/CCF_B_VALIDATION_PLAN.md` for the study chain and kill line.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
 
-## Repo state
+## Resume here (2026-10-21 pause point)
 
-- Branch: `fix/formation-diagnostics-evidence-based`
-- The 2026-10-18 audit repairs, the 2026-10-19 ordering-refutation layer, the
-  2026-10-20 P2 intervention layer, and the 2026-10-21 same-sample analysis
-  script are on this branch. All of it is uncommitted; run artifacts live under
-  gitignored `results/`.
-- `python -m pytest tests/` → 142 passed (verified 2026-10-21).
+**Model policy:** every answer/judge/reviewer call must use
+`DeepSeek-v4.1-flash`. Do not switch models without explicit user approval.
+The `kimi-k3` artifacts are quarantined and must not enter any claim.
+
+**Paused run.** `results/systems_locomo_n50_fixedgate/` holds 43/50 complete
+rows × 3 systems, `errors: 0`; `progress.json` still says `running` because the
+process was stopped by hand, not by an exception. Resume with:
+
+```bash
+set -a; . ./.env.local; set +a
+G:/aconda/python.exe -u -m experiments.run_systems \
+  --dataset locomo_refined_public --systems semantic,verbatim,summary \
+  --limit 50 --out-dir results/systems_locomo_n50_fixedgate \
+  --context-chars 6000 --resume \
+  >> results/systems_locomo_n50_fixedgate.log 2>&1
+```
+
+Then re-run the analysis:
+
+```bash
+G:/aconda/python.exe -m experiments.analyze_systems \
+  --systems results/systems_locomo_n50_fixedgate/comparison.jsonl \
+  --out results/analysis_systems_locomo_n43_fixedgate.json
+```
+
+**Headline result already in hand** (n=43, same batch, shared gate, equal
+6000-char context budget, DeepSeek only): accuracy semantic 0.488 / summary
+0.465 / verbatim 0.465, all pairwise McNemar p=1.0000, but failures split
+F1+retrieval for semantic, F5 context for summary, F4 retrieval for verbatim.
+This is the first direct evidence for the CCF-B claim; n=43 and descriptive
+stage distributions, so not paper-grade yet.
+
+**Repo state**
+
+- Branch `fix/formation-diagnostics-evidence-based`, latest commit `8e6442d`,
+  worktree clean and pushed to origin.
+- `python -m pytest tests/` → 168 passed (verified 2026-10-21).
+- Lightweight result artifacts are tracked; raw `results/**/comparison*.jsonl`,
+  logs and `.env.local` stay local by policy.
 
 ## Result artifacts
 
@@ -598,31 +631,35 @@ Three findings that shape the paper:
 
 ## Next action — finish the CCF-B chain in order
 
-1. **Human annotation first.** The LoCoMo placebo (DeepSeek-only) already shows
-   the no-op noise floor; the annotation package must adjudicate discordants
-   before any targeted-arm claim. Do **not** run a second model for re-judging
-   without explicit user approval; if approved, record the approved scope.
-2. **Full F3 probe** (40 scenarios) and per-family table (update/stale/history)
-   — running.
-3. **Two additional memory baselines** (verbatim-window RAG, summary memory;
-   third-party OSS if installable), then Failure Fingerprints.
-4. **Human annotation package** (100–200 samples) to validate the evaluator.
-5. Freeze `docs/PROTOCOL.md` wording (first observable evidence-loss boundary)
-   — done; apply the same wording to any draft text.
+1. **Finish the paused LoCoMo fingerprint** (43→50) with the resume command in
+   "Resume here", then re-run `analyze_systems` and add a formal test for
+   stage-distribution differences (paired bootstrap or Stuart–Maxwell).
+2. **Human annotation first for any intervention claim.** The LoCoMo placebo
+   (DeepSeek-only) shows the no-op noise floor; the 200-row package in
+   `results/annotation_package/` needs two annotators. Do **not** run a second
+   model for re-judging without explicit user approval; if approved, record the
+   approved scope.
+3. **F3 probe v2 with distractor sessions** (8–10 unrelated sessions per
+   scenario). The current probe leaves every failure at F6 because retrieval
+   never has to work; v2 is needed before any stage-distribution claim on
+   evolution scenarios.
+4. **Full-haystack LongMemEval**: only `longmemeval_s_sample10.json` (10 records,
+   ~50 sessions each) exists locally. Run the same 3-system batch on it; the
+   `longmemeval_oracle` variant is evidence-only and cannot support retrieval
+   claims.
+5. **Scale the fingerprint**: LoCoMo n=100–200 if budget allows; report paired
+   accuracy CIs and per-stage shares with CIs.
+6. `A2–A6` ablations remain **blocked** until the measurement fix; the plan is
+   frozen in `docs/research/2026-10-21-ablation-plan.md` (quarantined source —
+   use as exploratory only).
 
 ## Open todos (in order)
 
-1. Run the A1 placebo gate, then A2–A6 (see Next action). The ablation plan is
-   frozen in `docs/research/2026-10-21-ablation-plan.md`; do not add arms
-   after seeing results without recording the change as exploratory.
-2. Judge-validity reporting for the n=200 runs: rerun
-   `experiments/judge_reliability.py` on `longmemeval_n200` and
-   `locomo_n200` with a second model. **Unblocked 2026-10-21:** the gateway's
-   alternative models speak OpenAI-compatible only, and `evaluation/llm_api.py`
-   now sends the required session header and user agent; pass
-   `SEMANTIC_JUDGE_API_STYLE=openai` and a `/v1`-suffixed base URL. Prefer
-   `kimi-k3` or `qwen3.8-max` over `deepseek-v4-pro` (same family as the
-   answerer).
+1. Finish the paused run and the stage-distribution test (Next action 1).
+2. Judge-validity reporting for the n=200 runs. **Requires explicit user
+   approval for any second model.** The approved alternative is the human
+   annotation package; `experiments/judge_reliability.py` remains available if
+   the user approves a model.
 3. Confirm CIKM / COLING / ECIR / NLPCC deadlines. **Blocked 2026-10-20:** all
    web tools (WebSearch, WebFetch, MCP research) failed from this host; retry
    when network access exists.
