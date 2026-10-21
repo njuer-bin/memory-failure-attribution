@@ -443,9 +443,37 @@ same-run semantic system scores 0.66 — cross-run gaps of up to 14 points.
 Fingerprints must be produced in one run; `SemanticSystem` was added for that
 reason.
 
-### LoCoMo real-haystack pilot, n=20 (2026-10-21)
+### LoCoMo n=43, shared gate — **headline fingerprint result** (2026-10-21)
 
-`results/systems_locomo_n50_all/` (first 20 questions × 3 systems, equal
+Paused at 43/50 on user request; `results/systems_locomo_n50_fixedgate/`,
+`errors: 0`, 43 complete rows, resumable. Analysis in
+`results/analysis_systems_locomo_n43_fixedgate.json`.
+
+| system | acc (95% CI) | failures | formation / retrieval / rerank / context recall |
+|---|---|---|---|
+| semantic | 0.488 [0.346, 0.632] | E0 11, F1 5, F4 3, F6 2, EVAL 1 | 0.56 / 0.56 / 0.54 / 0.38 |
+| summary | 0.465 [0.325, 0.611] | E0 10, F4 4, **F5 9** | 0.98 / 0.98 / 0.77 / 0.28 |
+| verbatim | 0.465 [0.325, 0.611] | E0 10, **F4 9**, F6 2, EVAL 2 | 0.98 / 0.26 / 0.20 / 0.20 |
+
+All three pairwise accuracy contrasts are exactly null (McNemar p=1.0000, 19,
+15 and 16 discordant pairs). The failure stages are not:
+
+- semantic engine loses evidence at **formation and retrieval** (formation
+  recall 0.56);
+- summary memory represents the evidence (formation/retrieval 0.98) and loses
+  it in **context assembly** (F5 9, context recall 0.28);
+- verbatim RAG loses it at **retrieval** (F4 9, retrieval recall 0.26).
+
+This is the direct evidence for the CCF-B claim: **identical end accuracy,
+different internal failure fingerprints.** It uses one batch, one judge
+(DeepSeek-v4.1-flash), one gate per question, and an equal 6000-char context
+budget. Caveats: n=43 (paused), E0 ~25% and concentrated in awkward
+question/gold pairings, and stage-distribution differences are descriptive
+(no formal test yet).
+
+### LoCoMo real-haystack pilot, n=20 (archived; old per-system gate)
+
+`results/archive/systems_locomo_pilot20_oldgate/` (first 20 questions × 3 systems, equal
 6000-char context budget, `errors: 0`; table in
 `results/analysis_systems_locomo_pilot20.json`).
 

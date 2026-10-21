@@ -33,7 +33,7 @@ The study is time-boxed by the kill line at the end of this document.
 | 1 | Freeze protocol and terminology | **do now** — PROTOCOL/STATUS wording; code labels unchanged |
 | 2 | F3 Evolution probe: 30–50 update/conflict/stale scenarios | **done (n=40)** — evolution measured; F3-by-active-facts = 0; failures are stale-value leakage via profiles; history gate is an evaluator confound |
 | 3 | Rerun LongMemEval and LoCoMo (50 → 100–200) after freeze, with bootstrap CIs | n=200 runs exist; rerun a 50-question consistency pass after the freeze |
-| 4 | ≥3 memory systems / baselines, per-system Failure Fingerprint | **in progress** — semantic + verbatim + summary run in one batch with an equal 6000-char context budget; LongMemEval *oracle* is evidence-only (no retrieval), so fingerprints there are formation/context only; LoCoMo n=20 real-haystack pilot running |
+| 4 | ≥3 memory systems / baselines, per-system Failure Fingerprint | **headline result** — LoCoMo n=43, same batch/judge/gate/budget: accuracy 0.488 / 0.465 / 0.465 (all pairwise p=1.0) but failures split F1+retrieval (semantic), F5 context (summary), F4 retrieval (verbatim) |
 | 5 | Oracle ladder as the core analysis | done at n=50/200; must be reframed as the main result |
 | 6 | Human labels for 100–200 samples (evidence sufficiency + answer correctness), evaluator P/R/F1; fix LoCoMo `yesterday/last Saturday/last week` semantics | **gap** — protocol + annotation package to build; needs annotators |
 | 7 | F6 honesty | already the case (very few F6; 5 stored FPs refuted) |
