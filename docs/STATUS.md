@@ -309,16 +309,19 @@ repair, so any "gain" is pure test–retest noise.
 
 Placebo exact McNemar p = 0.5078, CI [−0.188, 0.062].
 
-**Gate verdict: FAILED for the targeted arms.** The no-op arm produces 9
-discordant pairs and a +3 net shift on its own population. That is the same
-order as first_loss (12) and path (11), so neither LoCoMo targeted-arm effect
-can be separated from retest noise. `agnostic` remains larger (20 discordants,
-+13 net, p=0.0044) but must be reported against this floor and is still
-confounded by the self-check second attempt.
+LongMemEval placebo (`results/interventions_longmemeval_n200_placebo/`,
+60 paired, errors 0): baseline 4 → second draw 4, n01=1 / n10=1, net 0,
+p=1.0, CI [−0.05, 0.05]. **Two discordant pairs.**
 
-Per the pre-registered rule: **do not launch A2–A6 as-is.** Fix measurement
-first (frontier/human re-judge of discordants; repeated-draw noise estimate per
-question). The LoCoMo intervention numbers stay descriptive.
+**Gate verdict: cross-benchmark contrast.** On LongMemEval the no-op floor is
+2 discordants while the arms move 9–21 net flips — the intervention effects
+exceed test–retest noise. On LoCoMo the no-op floor is 9 discordants, the same
+order as first_loss (12) and path (11), so neither targeted-arm effect is
+separable from noise. `agnostic` (+13, 20 discordants) remains above the floor
+but is still confounded by the self-check second attempt.
+
+Per the pre-registered rule: on LoCoMo, **do not launch A2–A6 as-is**; fix
+measurement first. The LoCoMo intervention numbers stay descriptive.
 
 
 
@@ -344,6 +347,21 @@ human adjudication**. The script is ready to rerun on LongMemEval once its
 placebo finishes.
 
 
+
+## Human annotation package (2026-10-21)
+
+`experiments/build_annotation_package.py` produced
+`results/annotation_package/` (gitignored raw CSV is reproducible; the
+generator is tracked): 200 blinded rows, 100 per benchmark, stratified over
+stored verdict × gate status × failure type. `annotations.csv` contains only
+question, reference answer, gold evidence and model answer; `key.csv` holds the
+stored verdicts and must not be shown to annotators. `README.md` fixes the
+instructions, including the LoCoMo temporal expressions.
+
+`experiments/score_annotations.py` computes inter-annotator kappa and evaluator
+precision/recall/F1 against the adjudicated labels. The package is ready; it
+needs two human annotators. This is the only fix for the judge dependence
+documented above.
 
 ## Ablation plan (2026-10-21)
 
