@@ -77,7 +77,12 @@ the venue choice changes (COLING resource track or NLPCC fits that better).
   quoted in the draft.
 
 **Gate to enter P3:** intervention shows ≥ 5-point accuracy gain on the
-repaired stage's failure set with CI excluding 0.
+repaired stage's failure set with CI excluding 0. **Power caveat (2026-10-20):**
+exact McNemar needs 6 net flips for p<0.05 with zero losses, i.e. 15.8 points on
+the 38-row reasoning subset and 9.1 points on the 66-row attributable set. If
+the effect is smaller, the honest gate is "≥5 points on the full paired n=200
+set (3 points) with the targeted subset reported descriptively"; decide the
+wording before the run, not after.
 
 ### P3 — weeks 5–6: manuscript
 

@@ -238,6 +238,28 @@ def _prompt(question: str, context: list[dict[str, Any]]) -> str:
     )
 
 
+def _check_prompt(question: str, context: list[dict[str, Any]], draft: str) -> str:
+    evidence = chr(10).join(
+        "[{}] {}".format(i + 1, str(item.get("content") or "").strip())
+        for i, item in enumerate(context)
+        if str(item.get("content") or "").strip()
+    )
+    return (
+        "Verify a draft answer against the evidence below. Use only the evidence. "
+        "If the draft is fully supported, repeat it unchanged. If it is unsupported "
+        "or contradicted, replace it with the shortest correct answer. "
+        "Do not explain. Output only the final answer."
+        + chr(10) + chr(10)
+        + "Question: " + question
+        + chr(10) + chr(10)
+        + "Evidence:" + chr(10) + evidence
+        + chr(10) + chr(10)
+        + "Draft answer: " + draft
+        + chr(10) + chr(10)
+        + "Final answer:"
+    )
+
+
 def generate_answer(question: str, context: list[dict[str, Any]]) -> str:
     from evaluation.llm_api import completion
     answer = completion(
@@ -251,6 +273,27 @@ def generate_answer(question: str, context: list[dict[str, Any]]) -> str:
         transport=urllib.request.urlopen,
     )
     return answer
+
+
+def generate_self_checked_answer(question: str, context: list[dict[str, Any]]) -> str:
+    """Answer-time verification repair for the reasoning stage.
+
+    The draft is produced by the unchanged baseline prompt; the second call
+    only sees the question, the same evidence, and the draft. Both calls are
+    temperature-0, so the repair adds no sampling variance.
+    """
+    from evaluation.llm_api import completion
+    draft = generate_answer(question, context)
+    return completion(
+        _check_prompt(question, context, draft),
+        MODEL,
+        base_url=BASE_URL,
+        api_key=os.getenv("ANSWER_API_KEY", ""),
+        style=ANSWER_API_STYLE,
+        timeout=TIMEOUT,
+        origin_hint="answer model self-check",
+        transport=urllib.request.urlopen,
+    )
 
 
 def score_answer(

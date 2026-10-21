@@ -75,7 +75,14 @@ def completion(
         if json_mode:
             payload["response_format"] = {"type": "json_object"}
         url = f"{base_url}/chat/completions"
-        headers = {"Content-Type": "application/json"}
+        headers = {
+            "Content-Type": "application/json",
+            # Gateways such as opencode zen reject requests without this
+            # session header (HTTP 403) even when Bearer auth is valid, and
+            # Cloudflare fronts reject the default Python-urllib user agent.
+            "x-opencode-session": os.getenv("LLM_API_SESSION_ID", _SESSION_ID),
+            "User-Agent": "llm-api/1.0",
+        }
         if api_key:
             headers["Authorization"] = f"Bearer {api_key}"
         choice_path = ("choices", 0, "message", "content")

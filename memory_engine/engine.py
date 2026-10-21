@@ -245,7 +245,8 @@ class MemoryEngine:
 
         t0 = time.perf_counter()
         reranked = list(ranked)
-        ranked = self.evidence.build(ranked, request.top_k)
+        type_cap = getattr(request, "evidence_type_cap", None) or 3
+        ranked = self.evidence.build(ranked, request.top_k, type_cap=type_cap)
         context_items = list(ranked)
         evidence_ms = (time.perf_counter() - t0) * 1000
 

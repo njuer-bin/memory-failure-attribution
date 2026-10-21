@@ -1251,3 +1251,100 @@ context/reasoning cost even with perfect retrieval. F6 is small (OM 10/200 = 5%)
 so the earlier F6-centered narrative is weaker than the formation narrative at
 scale. The LoCoMo n=200 run will test whether the retrieval-heavy profile
 persists.
+
+## 2026-10-20 — First-loss is not the repair target (P2 intervention)
+
+**Offline reanalysis of the n=200 real-memory answer failures.** Of the 61 rows
+labelled `F1_FORMATION`, only 35 have formation as the *last* missing stage: in
+those rows every later stage — including the final context — already contains
+all gold evidence, and the answer is still wrong. The other 26 divide into 21
+where context assembly drops the item and 5 where reranking drops it. In other
+words, the first-loss label is a statement about the semantic layer, not about
+what blocks the answer: raw verbatim storage recovers the evidence downstream.
+
+Routing the 66 attributable real-memory failures by the evidence path gives:
+reasoning 38 (35 F1 + 3 F6), context 22 (21 F1 + 1 F5), retrieval 6
+(5 F1 + 1 F4). Repairing formation therefore cannot move the majority of the
+answers the protocol attributes to formation. This is an instrument-validity
+finding for claim C2 and must be reported, not papered over.
+
+**Implementation (no numbers yet).** `experiments/interventions.py` +
+`experiments/run_interventions.py` compare three routing arms on the same
+question set under one answer model, judge, gate and deterministic floors:
+
+- `first_loss`: repair the stored attribution label
+  (F1→formation write-through, F4→wider candidate pool, F5→wider context,
+  F6→answer self-check).
+- `path`: repair the stage that actually blocks the answer; if context is
+  complete, route to reasoning.
+- `agnostic`: apply formation write-through + context widening + self-check to
+  every attributable failure.
+
+Repairs are deterministic except the reasoning self-check (one extra
+temperature-0 answer call). The formation repair writes a provenance-carrying
+verbatim event for every turn the extractor left unrepresented; it never reads
+gold. The context repair raises `top_k` 10→20 and EvidenceBuilder's per-type cap
+3→8. Results are paired per question with exact McNemar and a paired bootstrap.
+
+**Blocked on execution:** `ANSWER_API_KEY` is not set in this shell and the host
+has 0.8 GB RAM free, so neither the gateway nor a local qwen2.5:7b run is
+currently possible. Tests: 139 passed.
+
+**Power note before running the intervention.** Exact McNemar depends only on
+the discordant pairs: with zero losses, the smallest outcome reaching p<0.05 is
+6 net gains (p = 0.031). On the LongMemEval n=200 routing that is 15.8 points on
+the 38-row reasoning subset, 9.1 points on the 66-row attributable set, and 3.0
+points on all 200 questions. The roadmap gate "≥5 points with CI excluding 0" is
+therefore not reachable on the reasoning subset by a 5-point effect; either the
+repair must also flip non-target rows, or the claim should be stated on the full
+paired set with the subset reported descriptively. Pre-register this before the
+run so the gate is not reinterpreted after seeing the numbers.
+
+## 2026-10-20 — Embedding backend audit: all recent runs used the hash fallback
+
+While resuming LoCoMo n=200 the embedding path was checked instead of assumed.
+`memory_engine/vector.py` defaults to `qwen3-embedding:4b`, which is not
+installed; the exception is swallowed and the deterministic 384-dim hash
+embedder serves every call. Stored vectors confirm it: databases from
+2026-10-08 to 2026-10-10 11:41 are 2560-dim (qwen3-embedding:4b), and every
+database from 2026-10-10 13:51 onward — including the canonical n=50 run, the
+LongMemEval n=200 run and the first LoCoMo rows — is 384-dim.
+
+Consequences: (1) the earlier description of runs as "embedding stayed local
+(bge-m3)" is incorrect and is corrected in STATUS/PROTOCOL; (2) the canonical
+results are internally consistent because every condition used the same
+fallback; (3) switching to bge-m3 now would break comparability, so the study
+stays on `hash:384` and the paper must disclose it. `run_metadata` now stores a
+probe of the actual backend and the runner logs a warning on fallback. The
+LoCoMo run was stopped and restarted from row 4 with no rows discarded.
+
+## 2026-10-20 — LoCoMo n=200: retrieval-limited, and the oracle ladder's top rung vanishes
+
+Backend: deepseek-v4.1-flash (answer + judge) via the opencode gateway; embedding
+`hash:384` (see the backend audit above). Run dir
+`results/oracle_experiments_locomo_n200/`: 200 records, `errors: 0`,
+`resumed_records: 178` across four memory-pressure interruptions. Analysis:
+`results/analysis_locomo_n200.txt`.
+
+**Gate:** sufficient 106 / insufficient 86 / error 8. LoCoMo's refined-public
+gold/question pairing is much weaker than LongMemEval's: 43% E0 versus 20.5%.
+Semantic accuracy RM 70/173 (0.405), OM 144/173 (0.832), OC 150/176 (0.852).
+
+| contrast | n01 | n10 | p | diff | 95% CI |
+|---|---|---|---|---|---|
+| RM vs OM | 73 | 6 | <0.0001 | −0.432 | [−0.523, −0.348] |
+| RM vs OC | 78 | 7 | <0.0001 | −0.452 | [−0.541, −0.357] |
+| OM vs OC | 14 | 10 | 0.5413 | −0.025 | [−0.081, 0.037] |
+
+Stage recall: RM formation 0.335, storage 0.995, retrieval 0.669, rerank 0.543,
+context 0.322; OM retrieval/rerank/context 0.872/0.872/0.867.
+
+**Reading.** The RM→OM jump is 1.9× larger than on LongMemEval and the OM→OC
+contrast is no longer significant: once gold evidence is written directly into
+memory, LoCoMo's remaining loss is retrieval and context assembly, not reasoning.
+LongMemEval keeps a small but significant OM→OC gap (p=0.041), so the *top* rung
+of the oracle ladder is workload-dependent as well. C2 now has n=200 evidence on
+both benchmarks: formation-dominated on LongMemEval, retrieval/context-limited on
+LoCoMo. The 43% E0 rate bounds every cross-benchmark accuracy comparison and must
+be reported; the per-question attribution subset, not the raw accuracy, is the
+right unit for the stage claim.

@@ -5,3 +5,5 @@ data/
 results/oracle_experiments/*.db
 *.egg-info/
 results/
+.env
+.env.local

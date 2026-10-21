@@ -601,6 +601,7 @@ def _run_metadata(dataset: str, limit: int) -> dict[str, Any]:
     import sys
     from evaluation.answer_generation import MODEL as ANSWER_MODEL
     from evaluation.answer_semantic_eval import MODEL as JUDGE_MODEL, TEMPERATURE as JUDGE_TEMPERATURE
+    from memory_engine.vector import EmbeddingProvider
     return {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "dataset": _dataset_digest(dataset),
@@ -608,6 +609,7 @@ def _run_metadata(dataset: str, limit: int) -> dict[str, Any]:
         "answer_model": ANSWER_MODEL,
         "judge_model": JUDGE_MODEL,
         "judge_temperature": JUDGE_TEMPERATURE,
+        "embedding": EmbeddingProvider().probe(),
         "python": sys.version.split()[0],
         "git": _git_revision(),
     }
@@ -690,6 +692,18 @@ def run(
     log("=" * 72)
     log(f"Oracle experiment started: dataset={dataset}, limit={limit}")
     log(f"Output: {out}")
+    from memory_engine.vector import EmbeddingProvider
+    embedding_info = EmbeddingProvider().probe()
+    log(
+        f"Embedding backend: {embedding_info['backend']} "
+        f"(dim {embedding_info['dim']}, configured {embedding_info['configured_model']})"
+    )
+    if str(embedding_info["backend"]).startswith("hash:"):
+        log(
+            "WARNING: the configured Ollama embedding model is unavailable; "
+            "this run uses the deterministic hash fallback. Record this in any "
+            "comparison against runs produced with a different backend."
+        )
     if resume:
         log(f"Resume: {len(rows)} rows already present, {len(done)} question_ids skipped")
     log("=" * 72)

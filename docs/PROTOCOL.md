@@ -90,6 +90,41 @@ high confidence when the evidence resolves the dates; a raw-judge cross-model
 kappa of ≈ 0.03 shows that no LLM judge can be the sole instrument for F6.
 The refutation floor is deterministic; it does not consult the judge.
 
+## Intervention (P2)
+
+The intervention experiment asks whether the diagnosis names a useful repair
+target. It reuses the baseline run's stored trace for routing but regenerates
+every answer under the same model, judge, gate and deterministic floors.
+
+Routing arms (per question, never per dataset):
+
+- `first_loss` — repair the stored answer-failure label: F1 → formation
+  write-through, F4 → wider candidate pool, F5 → wider context, F6 →
+  answer-time self-check.
+- `path` — repair the stage that blocks the answer's evidence path. If the
+  final context already contains every gold item, the arm routes to reasoning
+  even when an earlier stage (typically semantic formation) missed it; if the
+  context is missing evidence, route to context assembly, or to retrieval when
+  reranking also dropped it.
+- `agnostic` — apply formation write-through, context widening and self-check
+  to every attributable failure (the stage-agnostic baseline).
+
+Repairs:
+
+- **Formation write-through** writes a provenance-carrying verbatim event for
+  each raw turn whose content is not represented by any semantic artifact from
+  the same turn (tracer similarity threshold 0.55). It does not read gold.
+- **Retrieval repair** raises the candidate budget (`top_k` 10 → 20) with the
+  context type cap unchanged.
+- **Context repair** raises `top_k` 10 → 20 and the EvidenceBuilder per-type cap
+  3 → 8.
+- **Reasoning repair** keeps the evidence fixed and adds one temperature-0
+  verification call that may replace the draft answer.
+
+Reporting: each arm is compared with the freshly generated no-repair baseline
+on its targeted subset using exact McNemar and a paired bootstrap CI; the
+target-stage breakdown is reported alongside.
+
 ## Statistics
 
 - Paired design: every condition answers the same questions. Differences use exact
@@ -99,7 +134,10 @@ The refutation floor is deterministic; it does not consult the judge.
   and reported as agreement and Cohen's kappa; a different judge model should be used for
   a cross-model estimate.
 - Every summary carries `run_metadata`: dataset sha256, limit, answer/judge model and
-  temperature, python version, git commit/branch and dirty flag.
+  temperature, the probed embedding backend and dimension, python version, git
+  commit/branch and dirty flag. Comparisons are only valid within one embedding
+  backend; the 2026-10-10-onward runs use the deterministic hash fallback
+  (`hash:384`), verified from the stored vectors on 2026-10-20.
 
 ## Reproducibility checklist
 

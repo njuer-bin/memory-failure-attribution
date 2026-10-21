@@ -32,6 +32,11 @@ def _semantic_similarity(a: str, b: str) -> float:
     return len(ta & tb) / max(1, min(len(ta), len(tb)))
 
 
+def text_similarity(a: str, b: str) -> float:
+    """Public alias used by interventions that need the tracer's match metric."""
+    return _semantic_similarity(a, b)
+
+
 def _provenance_relation(evidence: dict[str, Any], artifact: Any) -> str:
     """Classify provenance as ``match``, ``conflict``, or ``unknown``.
 
