@@ -1,0 +1,32 @@
+[
+ {
+  "sample_id": "locomo-006",
+  "question": "How long did it take for Jon to open his studio?",
+  "reference": "five months",
+  "evidence": "[1] Hey Gina! Good to see you too. Lost my job as a banker yesterday, so I'm gonna take a shot at starting my own business.\n[2] Yeah! Let's make some awesome memories tomorrow at the grand opening!"
+ },
+ {
+  "sample_id": "locomo-021",
+  "question": "What precautionary sign did Melanie see at the café?",
+  "reference": "A sign stating that someone is not being able to leave",
+  "evidence": "[1] Caroline, it's got to be tough dealing with those changes. Glad you've found people who uplift and accept you! Here's to a good time at the café last weekend - they even had thoughtful signs like this! It brings me so much happiness."
+ },
+ {
+  "sample_id": "locomo-038",
+  "question": "What pets does Melanie have?",
+  "reference": "Two cats and a dog",
+  "evidence": "[1] Yeah, it's normal to be both excited and nervous with a big decision. And thanks for asking, they're good- we got another cat named Bailey too. Here's a pic of Oliver. Can you show me one of Oscar?"
+ },
+ {
+  "sample_id": "locomo-051",
+  "question": "What books has Melanie read?",
+  "reference": "\"Nothing is Impossible\", \"Charlotte's Web\"",
+  "evidence": "[1] Caroline, so glad you got the support! Your experience really brought you to where you need to be. You're gonna make a huge difference! This book I read last year reminds me to always pursue my dreams, just like you are doing!🌟\n[2] I loved reading \"Charlotte's Web\" as a kid. It was so cool seeing how friendship and compassion can make a difference."
+ },
+ {
+  "sample_id": "longmemeval-052",
+  "question": "Who became a parent first, Rachel or Alex?",
+  "reference": "Alex",
+  "evidence": "[1] I'm excited to hear that you're planning an Art Studio Party for Olivia! I think the kids will have a blast exploring their creativity at the different art stations. By the way, my sister-in-law, Rachel, is doing great with the twins, Jackson and Julia. They're growing up so fast!\n[2] I'm considering adopting a baby boy from foster care and I'm wondering if you can provide me with some information on the process and requirements for adoption in my state. By the way, my cousin Alex just adopted a baby girl from China in January, so I've seen firsthand how life-changing it can be."
+ }
+]
