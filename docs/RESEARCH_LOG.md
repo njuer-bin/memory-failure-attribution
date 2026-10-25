@@ -1348,3 +1348,53 @@ both benchmarks: formation-dominated on LongMemEval, retrieval/context-limited o
 LoCoMo. The 43% E0 rate bounds every cross-benchmark accuracy comparison and must
 be reported; the per-question attribution subset, not the raw accuracy, is the
 right unit for the stage claim.
+
+## 2026-10-25 — n=50 fingerprint completed, tested, and human-calibrated
+
+This session resumed the paused LoCoMo fingerprint (43→50) and closed the
+measurement loop around it. Commits `07f72b9`, `5802ca1`, `1bd309e`,
+`77dfb7a`, `4f48541`, `c53ac29`.
+
+**1. n=50 fingerprint complete.** `results/systems_locomo_n50_fixedgate/`,
+50×3 rows, `errors: 0`. The first 43 rows reproduce the n=43 numbers exactly
+(0.488/0.465/0.465), so the resume introduced no drift. Attributed accuracy
+semantic 0.480 / summary 0.420 / verbatim 0.400; paired McNemar p≥0.48.
+
+**2. Stage-distribution tests added and significant.**
+`evaluation/stage_distribution_tests.py`: Stuart–Maxwell marginal homogeneity
+with a Jacobi pseudo-inverse (the reduced-block shortcut dies when a category
+carries no off-diagonal mass), per-label paired bootstrap CIs, and a max-abs
+paired permutation test. Hand-verified on a classic 3-category example
+(chi2=2.4915, p=0.2877). All three system pairs differ: SM p=0.0052/0.0201/
+0.0344, Holm-adjusted all survive.
+
+**3. Human annotation exposed two instrument failures.** Two annotators,
+200 rows. Answer correctness kappa 0.92; evidence sufficiency kappa 0.0
+(degenerate — one annotator never said "no" because the instruction invited
+topical matching). Against adjudicated labels the judge has 20/66 (30.3%)
+false positives among stored-correct rows, 13 of them abstention-style
+answers ("Not mentioned", "Cannot be determined") accepted as correct; the
+gate is near-independent of humans (kappa 0.03–0.07, recall 0.564). The
+stored failure labels themselves are sound: 54/60 (90%) stored-incorrect
+rows confirmed wrong.
+
+**4. The fingerprint survives correction and sharpens.** Applying the
+human-validated abstention rule to the stored answers flips 28 rows across
+the three systems; corrected accuracy is 0.260/0.280/0.200 with paired
+accuracy still null (p≥0.45), while the stage-distribution signal gets
+stronger: Stuart–Maxwell p=0.00096/0.00524/0.00568 (Holm 0.0029/0.0105/
+0.0105), per-label CIs excluding 0 for F1 (+0.18 semantic), F5 (+0.20/0.22
+summary) and F4 (−0.30/−0.22/−0.40 verbatim). The paper reports both label
+versions side by side.
+
+**5. Round-2 gate package.** `README_round2.md` replaces the round-1
+instruction with a derivability checklist, ships five worked `no` examples
+from the round-1 disagreement rows, and a gate-only worksheet with the
+model answer removed. Pre-registered bar: kappa ≥ 0.6 on the gate field
+before the gate instrument is considered human-validated.
+
+**Also this session:** F3 probe v2 (`evolution_probe_v2`) with 8 topical
+distractor sessions per scenario; smoke shows semantic 5/5, verbatim 0/5,
+summary 3/5 — the degeneracy is gone, but 15 turns vs top-10 leaves gold
+recall at 1.0, so the full run needs a tighter context budget before any
+stage-distribution claim.

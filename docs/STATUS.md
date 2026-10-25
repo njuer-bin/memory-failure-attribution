@@ -1,17 +1,49 @@
 # Status — where to resume
 
-Last updated: 2026-10-25, evening (human annotation complete and scored;
-judge abstention FPs and gate breakdown are the new blocking facts). See
-`docs/CCF_B_VALIDATION_PLAN.md` for the study chain and kill line.
+Last updated: 2026-10-25, end of session. Commit `c53ac29`, worktree clean,
+pushed to origin. n=50 fingerprint complete and significant (both label
+versions); human annotation adjudicated; round-2 gate package ready and
+waiting on two annotators.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
 
-## Resume here (2026-10-25 evening state)
+## Start here next session (punch list)
+
+1. **Waiting on the user: round-2 gate annotation.** Package is ready:
+   `results/annotation_package/README_round2.md` (derivability checklist,
+   five worked `no` examples), worksheet `round2_gate_only.csv` (200 rows,
+   gate field only, model answer removed). When the user hands back two
+   filled files, run `python -m experiments.score_annotations` (BOM-safe)
+   and check the pre-registered acceptance bar: **kappa ≥ 0.6 on the gate
+   field** (round 1 was 0.0). If it passes, re-score E0 and the n=50
+   fingerprint with the human-corrected gate.
+2. **Ask the user for API budget before any of these:**
+   - F3 probe v2 full 40-scenario run with a tightened `--context-chars`
+     (e.g. 2000) so retrieval actually fails — currently 15 turns vs
+     top-10 keeps gold recall at 1.0 and the fingerprint degenerate at F6;
+   - LoCoMo fingerprint scaled to n=100–200 (n=50 batch took ~1.5 h).
+3. **No-budget work available** (do without asking): write the
+   abstention-corrected E0 table for both n=200 runs from stored outputs
+   (re-labelling only, no API); draft the paper's "instrument honesty"
+   section from `analysis_annotations_adjudicated_n200.json`.
+4. **Deadline check** (needs network): CIKM / COLING / ECIR / NLPCC — all
+   web tools failed from this host on 2026-10-20; retry.
 
 **Model policy:** every answer/judge/reviewer call must use
 `DeepSeek-v4.1-flash`. Do not switch models without explicit user approval.
 The `kimi-k3` artifacts are quarantined and must not enter any claim.
+
+## Session summary — what 2026-10-25 produced
+
+| artifact | commit | one line |
+|---|---|---|
+| n=50 fingerprint complete | `07f72b9` | 43→50 resumed; first-43 rows reproduce n43 exactly |
+| stage-distribution tests | `07f72b9` | Stuart–Maxwell (pseudo-inverse) + paired bootstrap + permutation |
+| F3 probe v2 | `5802ca1` | 8 distractor sessions/scenario; smoke shows semantic 5/5, verbatim 0/5, summary 3/5 |
+| human annotation | `1bd309e` | kappa 0.92 answer / 0.0 gate; judge abstention FPs 13/66; gate recall 0.56 |
+| abstention-corrected n=50 | `77dfb7a` | SM p 0.00096/0.00524/0.00568, Holm ≤0.0105; claim sharpens |
+| round-2 gate package | `4f48541` | derivability checklist + worked examples + kappa≥0.6 bar |
 
 ## Human annotation — complete and adjudicated (2026-10-25)
 
