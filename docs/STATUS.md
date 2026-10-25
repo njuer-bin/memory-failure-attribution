@@ -628,6 +628,29 @@ Three findings that shape the paper:
    before any E0 rate is reported.
 
 
+## F3 probe v2 with distractor sessions — scaffolding + smoke (2026-10-25)
+
+`experiments/build_evolution_probe_v2.py` → `datasets/evolution_probe/probe_v2.jsonl`,
+registered as `evolution_probe_v2`. Same 40 scenarios as v1 (identical
+questions, answers, gold turns), plus 8 topical distractor sessions each
+(dated across the v1 window; word-boundary-checked against every gold/old/new
+token so distractors cannot fake evidence). Commit `5802ca1`, 190 tests pass.
+
+Smoke on 5 update scenarios × 3 systems (`results/systems_evolution_probe_v2_smoke/`,
+DeepSeek only, errors 0): the fingerprint is no longer degenerate.
+
+| system | acc | pattern |
+|---|---|---|
+| semantic | 5/5 | atomic fact `I currently live in Shanghai` ranks first; model answers the new value directly |
+| verbatim | 0/5 | hedging ("Beijing and Shanghai", "Cannot be determined") with both raw turns plus distractors in context |
+| summary | 3/5 | 10 session summaries in context, old+new both present; sometimes answers cleanly, sometimes hedges |
+
+Context composition reproduced locally: verbatim/summary get 10 items (8 are
+distractors), semantic 6 (1 distractor). Gold recall 1.0 everywhere — 15
+turns against top-10 means retrieval is still easy, so v2's stage-distribution
+claim needs the full run with a tighter `--context-chars` budget (or more
+distractors) before retrieval can actually fail. n=5 is descriptive only.
+
 ## Next action — finish the CCF-B chain in order
 
 1. ~~Finish the paused LoCoMo fingerprint (43→50)~~ **done 2026-10-25** —
@@ -638,10 +661,9 @@ Three findings that shape the paper:
    `results/annotation_package/` needs two annotators. Do **not** run a second
    model for re-judging without explicit user approval; if approved, record the
    approved scope.
-3. **F3 probe v2 with distractor sessions** (8–10 unrelated sessions per
-   scenario). The current probe leaves every failure at F6 because retrieval
-   never has to work; v2 is needed before any stage-distribution claim on
-   evolution scenarios.
+3. ~~F3 probe v2 with distractor sessions~~ **scaffolded + smoke 2026-10-25**
+   (`evolution_probe_v2`; full 40-scenario run with a tightened context
+   budget is the remaining step).
 4. **Full-haystack LongMemEval**: only `longmemeval_s_sample10.json` (10 records,
    ~50 sessions each) exists locally. Run the same 3-system batch on it; the
    `longmemeval_oracle` variant is evidence-only and cannot support retrieval
