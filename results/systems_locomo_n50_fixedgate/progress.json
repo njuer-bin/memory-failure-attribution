@@ -1,6 +1,6 @@
 {
-  "status": "running",
-  "completed": 43,
+  "status": "completed",
+  "completed": 50,
   "errors": 0,
-  "elapsed_seconds": 4560.535057800007
+  "elapsed_seconds": 887.5045496999519
 }

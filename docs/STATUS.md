@@ -1,53 +1,73 @@
 # Status — where to resume
 
-Last updated: 2026-10-21, end of session (LoCoMo n=43/50 paused at the user's
-request; headline system-fingerprint result recorded). See
-`docs/CCF_B_VALIDATION_PLAN.md` for the study chain and kill line.
+Last updated: 2026-10-25 (n=50 fingerprint run completed; stage-distribution
+tests added and significant). See `docs/CCF_B_VALIDATION_PLAN.md` for the
+study chain and kill line.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
 
-## Resume here (2026-10-21 pause point)
+## Resume here (2026-10-25 state)
 
 **Model policy:** every answer/judge/reviewer call must use
 `DeepSeek-v4.1-flash`. Do not switch models without explicit user approval.
 The `kimi-k3` artifacts are quarantined and must not enter any claim.
 
-**Paused run.** `results/systems_locomo_n50_fixedgate/` holds 43/50 complete
-rows × 3 systems, `errors: 0`; `progress.json` still says `running` because the
-process was stopped by hand, not by an exception. Resume with:
+**Next queued work** (in order): human annotation of the 200-row package
+(`results/annotation_package/`), F3 probe v2 with distractor sessions,
+full-haystack LongMemEval run, then scale the fingerprint to LoCoMo n=100–200.
 
-```bash
-set -a; . ./.env.local; set +a
-G:/aconda/python.exe -u -m experiments.run_systems \
-  --dataset locomo_refined_public --systems semantic,verbatim,summary \
-  --limit 50 --out-dir results/systems_locomo_n50_fixedgate \
-  --context-chars 6000 --resume \
-  >> results/systems_locomo_n50_fixedgate.log 2>&1
-```
+## LoCoMo n=50 cross-system fingerprint — COMPLETE (2026-10-25)
 
-Then re-run the analysis:
+`results/systems_locomo_n50_fixedgate/`: 50 questions × 3 systems, one batch,
+shared per-question gate, equal 6000-char context budget, DeepSeek-v4.1-flash
+only. `errors: 0`, `progress.json` `status: completed` (resumed 43→50 with
+`--resume`; first-43 rows reproduce the n=43 numbers exactly, so the resume
+introduced no drift). Analysis:
+`results/analysis_systems_locomo_n50_fixedgate.json`.
 
-```bash
-G:/aconda/python.exe -m experiments.analyze_systems \
-  --systems results/systems_locomo_n50_fixedgate/comparison.jsonl \
-  --out results/analysis_systems_locomo_n43_fixedgate.json
-```
+| system | acc (95% CI) | failures | formation / retrieval / rerank / context recall |
+|---|---|---|---|
+| semantic | 0.480 [0.348, 0.615] | E0 11, F1 6, F4 5, F6 2, EVAL 2, none 24 | 0.52 / 0.55 / 0.51 / 0.35 |
+| summary | 0.420 [0.294, 0.558] | E0 12, F4 7, **F5 10**, none 21 | 0.98 / 0.98 / 0.71 / 0.24 |
+| verbatim | 0.400 [0.276, 0.538] | E0 12, **F4 14**, F6 2, EVAL 2, none 20 | 0.98 / 0.22 / 0.17 / 0.17 |
 
-**Headline result already in hand** (n=43, same batch, shared gate, equal
-6000-char context budget, DeepSeek only): accuracy semantic 0.488 / summary
-0.465 / verbatim 0.465, all pairwise McNemar p=1.0000, but failures split
-F1+retrieval for semantic, F5 context for summary, F4 retrieval for verbatim.
-This is the first direct evidence for the CCF-B claim; n=43 and descriptive
-stage distributions, so not paper-grade yet.
+Paired accuracy contrasts remain null at n=50: semantic vs summary
+p=0.6636, semantic vs verbatim p=0.4807, summary vs verbatim p=1.0000.
+
+**Stage-distribution tests are significant for all three pairs** (new module
+`evaluation/stage_distribution_tests.py`, wired into `analyze_systems`):
+Stuart–Maxwell on the paired label table gives p=0.0052 (semantic vs
+summary, chi2=18.4, df=6), p=0.0201 (summary vs verbatim, chi2=13.4), and
+p=0.0344 (semantic vs verbatim, chi2=12.0) — all three survive Holm across
+the three-pair family. The paired permutation test on the max-abs share
+difference agrees (p=0.0173–0.0379; does not itself survive Holm).
+
+Per-label paired bootstrap (percentile CIs, unadjusted — descriptive):
+
+- semantic loses at **formation** (F1 share +0.12 vs summary and verbatim,
+  CI [+0.04, +0.22]);
+- summary loses at **context assembly** (F5 share +0.20 vs verbatim,
+  CI [+0.10, +0.32]; −0.20 vs semantic, CI [−0.32, −0.10]);
+- verbatim loses at **retrieval** (F4 share +0.18 vs semantic,
+  CI [−0.28, −0.08] from semantic's side).
+
+This upgrades the n=43 headline to a tested one: **identical (null-different)
+end accuracy, significantly different internal failure fingerprints**, on
+one batch, one judge, one shared gate, equal context budget. Caveats:
+n=50; E0 22–24% per system concentrated in awkward question/gold pairings;
+per-label CIs unadjusted; the failure-label base rate carries the evaluator
+measurement error documented below (placebo discordants).
 
 **Repo state**
 
-- Branch `fix/formation-diagnostics-evidence-based`, latest commit `8e6442d`,
-  worktree clean and pushed to origin.
-- `python -m pytest tests/` → 168 passed (verified 2026-10-21).
+- Branch `fix/formation-diagnostics-evidence-based`; `python -m pytest
+  tests/` → 183 passed (verified 2026-10-25; +15 for the new module).
 - Lightweight result artifacts are tracked; raw `results/**/comparison*.jsonl`,
   logs and `.env.local` stay local by policy.
+- Note: every LoCoMo run's `run_metadata.dataset` carries a benign
+  PermissionError digest entry (directory-source datasets cannot be
+  file-hashed); LongMemEval runs have a real `sha256_16`. Not new.
 
 ## Result artifacts
 
@@ -476,33 +496,12 @@ same-run semantic system scores 0.66 — cross-run gaps of up to 14 points.
 Fingerprints must be produced in one run; `SemanticSystem` was added for that
 reason.
 
-### LoCoMo n=43, shared gate — **headline fingerprint result** (2026-10-21)
+### LoCoMo n=43, shared gate — superseded by the n=50 result above (2026-10-21)
 
-Paused at 43/50 on user request; `results/systems_locomo_n50_fixedgate/`,
-`errors: 0`, 43 complete rows, resumable. Analysis in
-`results/analysis_systems_locomo_n43_fixedgate.json`.
-
-| system | acc (95% CI) | failures | formation / retrieval / rerank / context recall |
-|---|---|---|---|
-| semantic | 0.488 [0.346, 0.632] | E0 11, F1 5, F4 3, F6 2, EVAL 1 | 0.56 / 0.56 / 0.54 / 0.38 |
-| summary | 0.465 [0.325, 0.611] | E0 10, F4 4, **F5 9** | 0.98 / 0.98 / 0.77 / 0.28 |
-| verbatim | 0.465 [0.325, 0.611] | E0 10, **F4 9**, F6 2, EVAL 2 | 0.98 / 0.26 / 0.20 / 0.20 |
-
-All three pairwise accuracy contrasts are exactly null (McNemar p=1.0000, 19,
-15 and 16 discordant pairs). The failure stages are not:
-
-- semantic engine loses evidence at **formation and retrieval** (formation
-  recall 0.56);
-- summary memory represents the evidence (formation/retrieval 0.98) and loses
-  it in **context assembly** (F5 9, context recall 0.28);
-- verbatim RAG loses it at **retrieval** (F4 9, retrieval recall 0.26).
-
-This is the direct evidence for the CCF-B claim: **identical end accuracy,
-different internal failure fingerprints.** It uses one batch, one judge
-(DeepSeek-v4.1-flash), one gate per question, and an equal 6000-char context
-budget. Caveats: n=43 (paused), E0 ~25% and concentrated in awkward
-question/gold pairings, and stage-distribution differences are descriptive
-(no formal test yet).
+Paused at 43/50 on user request; resumed and completed 2026-10-25 — see
+"LoCoMo n=50 cross-system fingerprint — COMPLETE" at the top. The n=43
+analysis remains in `results/analysis_systems_locomo_n43_fixedgate.json`
+for history.
 
 ### LoCoMo real-haystack pilot, n=20 (archived; old per-system gate)
 
@@ -631,9 +630,9 @@ Three findings that shape the paper:
 
 ## Next action — finish the CCF-B chain in order
 
-1. **Finish the paused LoCoMo fingerprint** (43→50) with the resume command in
-   "Resume here", then re-run `analyze_systems` and add a formal test for
-   stage-distribution differences (paired bootstrap or Stuart–Maxwell).
+1. ~~Finish the paused LoCoMo fingerprint (43→50)~~ **done 2026-10-25** —
+   n=50 complete, stage-distribution tests added and significant (Stuart–Maxwell
+   all three pairs p<0.05, Holm-adjusted).
 2. **Human annotation first for any intervention claim.** The LoCoMo placebo
    (DeepSeek-only) shows the no-op noise floor; the 200-row package in
    `results/annotation_package/` needs two annotators. Do **not** run a second
@@ -655,7 +654,8 @@ Three findings that shape the paper:
 
 ## Open todos (in order)
 
-1. Finish the paused run and the stage-distribution test (Next action 1).
+1. ~~Finish the paused run and the stage-distribution test~~ **done
+   2026-10-25** (see top section).
 2. Judge-validity reporting for the n=200 runs. **Requires explicit user
    approval for any second model.** The approved alternative is the human
    annotation package; `experiments/judge_reliability.py` remains available if

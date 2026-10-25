@@ -18,6 +18,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from evaluation.stage_distribution_tests import stage_distribution_test
+
 STAGES = ("formation", "storage", "retrieval", "rerank", "context")
 
 
@@ -99,6 +101,25 @@ def summarize(rows: dict[str, dict[str, Any]], mode: str) -> dict[str, Any]:
     }
 
 
+def _pair_label_tests(
+    rows: dict[str, dict[str, Any]],
+    mode_a: str,
+    mode_b: str,
+) -> dict[str, Any] | None:
+    """Paired stage-distribution tests for one system pair over shared rows."""
+    la: list[Any] = []
+    lb: list[Any] = []
+    for row in rows.values():
+        ma = row.get("modes") or {}
+        if mode_a not in ma or mode_b not in ma:
+            continue
+        la.append(ma[mode_a].get("answer_failure_type") or "none")
+        lb.append(ma[mode_b].get("answer_failure_type") or "none")
+    if not la:
+        return None
+    return stage_distribution_test(la, lb)
+
+
 def analyze(systems_rows: dict[str, dict[str, Any]],
             semantic_rows: dict[str, dict[str, Any]] | None = None,
             semantic_mode: str = "real_memory",
@@ -110,9 +131,14 @@ def analyze(systems_rows: dict[str, dict[str, Any]],
             for row in systems_rows.values()
             for mode in (row.get("modes") or {})
         })
-    result = {"systems": {}}
+    result = {"systems": {}, "stage_distribution_tests": {}}
     for mode in modes:
         result["systems"][mode] = summarize(systems_rows, mode)
+    for i, mode_a in enumerate(modes):
+        for mode_b in modes[i + 1:]:
+            tests = _pair_label_tests(systems_rows, mode_a, mode_b)
+            if tests is not None:
+                result["stage_distribution_tests"][f"{mode_a}_vs_{mode_b}"] = tests
     if semantic_rows:
         shared = {qid: row for qid, row in semantic_rows.items() if qid in systems_rows}
         result["systems"]["semantic"] = summarize(shared, semantic_mode)
