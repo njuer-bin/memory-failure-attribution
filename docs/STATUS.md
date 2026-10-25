@@ -723,9 +723,15 @@ distractors) before retrieval can actually fail. n=5 is descriptive only.
 0. ~~Abstention-corrected n=50 fingerprint~~ **done 2026-10-25** (commit
    `77dfb7a`): corrected accuracy 0.260/0.280/0.200, accuracy still null,
    stage-distribution signal strengthens (Holm p≤0.0105 on all three pairs).
-1. **Fix the evidence-gate task before further annotation rounds** —
-   annotator2's all-yes pattern shows the instructions or the task need
-   work; consider re-annotating the gate field only, with examples.
+1. **Gate re-annotation round 2 is packaged (2026-10-25, commit `4f48541`)**.
+   `results/annotation_package/README_round2.md` replaces the round-1
+   instruction with a derivability checklist (list the reference's facts,
+   find each in the evidence, any miss = no; unresolvable relative time =
+   uncertain), ships five worked `no` examples taken from the round-1
+   disagreement rows, and a gate-only worksheet (`round2_gate_only.csv`,
+   model answer removed to prevent anchor bias). Pre-registered acceptance
+   bar: two annotators must reach kappa ≥ 0.6 on this field before the
+   gate instrument is considered human-validated.
 2. ~~Finish the paused LoCoMo fingerprint (43→50)~~ **done 2026-10-25** —
    n=50 complete, stage-distribution tests added and significant (Stuart–Maxwell
    all three pairs p<0.05, Holm-adjusted).
