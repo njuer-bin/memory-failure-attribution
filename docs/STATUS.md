@@ -62,13 +62,22 @@ pass by the project lead; labels in `adjudicated.csv`; full report in
 
 **Immediate consequences for existing results**
 
+- **Abstention-corrected n=50 fingerprint (2026-10-25, commit `77dfb7a`)**:
+  applying the human-validated abstention rule to the stored n=50 rows
+  (`results/_corrected_comparison_n50.jsonl`) lowers attributed accuracy to
+  semantic 0.260 / summary 0.280 / verbatim 0.200 (auto: 0.480/0.420/0.400),
+  paired accuracy stays null (p≥0.45), and the stage-distribution signal
+  **strengthens**: Stuart–Maxwell p=0.00096 / 0.00524 / 0.00568 (Holm-adjusted
+  0.0029 / 0.0105 / 0.0105), permutation agrees. Per-label CIs excluding 0:
+  F1 +0.18 (semantic), F5 +0.20/+0.22 (summary), F4 −0.30/−0.22/−0.40
+  (verbatim). **The CCF-B fingerprint claim survives and sharpens under the
+  corrected instrument.** Report both label versions side by side in any
+  draft.
 - The n=50 cross-system fingerprint (Stuart–Maxwell significant on all
   three pairs) is built on automatic labels; the label noise documented
   here is symmetric across systems (same judge, same gate per question),
   so the stage-difference claim has a defensible noise story, but the
-  abstention-FP finding must be quoted with it. Recomputing the n=50
-  fingerprints on abstention-corrected verdicts is the cheap next step
-  (stored answers already exist; only re-labelling is needed, no API).
+  abstention-FP finding must be quoted with it.
 - E0 rates in every STATUS table carry gate measurement error; do not
   quote E0 levels, only relative patterns, until re-gated with human
   labels.
@@ -711,9 +720,9 @@ distractors) before retrieval can actually fail. n=5 is descriptive only.
 
 ## Next action — finish the CCF-B chain in order
 
-0. **Recompute the n=50 fingerprints on abstention-corrected verdicts** (no
-   API needed: stored answers + adjudicated abstention pattern → re-label →
-   re-run `analyze_systems` + stage-distribution tests). Quote both versions.
+0. ~~Abstention-corrected n=50 fingerprint~~ **done 2026-10-25** (commit
+   `77dfb7a`): corrected accuracy 0.260/0.280/0.200, accuracy still null,
+   stage-distribution signal strengthens (Holm p≤0.0105 on all three pairs).
 1. **Fix the evidence-gate task before further annotation rounds** —
    annotator2's all-yes pattern shows the instructions or the task need
    work; consider re-annotating the gate field only, with examples.
