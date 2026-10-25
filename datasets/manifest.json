@@ -8,6 +8,7 @@
     {"id":"longmemeval_oracle","family":"LongMemEval","source":"longmemeval_oracle.json","format":"json","capabilities":["oracle_memory","evidence_diagnostics","multi_hop","temporal"],"status":"ready"},
     {"id":"beam_100k","family":"BEAM","source":"100K-00000-of-00001.parquet","preview":"beam_preview.json","format":"parquet","capabilities":["abstention","contradiction_resolution","event_ordering","information_extraction","multi_hop"],"status":"ready","notes":"Full records are loaded lazily with pyarrow."},
     {"id":"evolution_probe","family":"EvolutionProbe","source":"datasets/evolution_probe/probe.jsonl","format":"jsonl","capabilities":["knowledge_update","stale_fact","history","conflict"],"status":"ready","notes":"Controlled F3 scenarios; gold evidence is turn-level and the tracer measures evolution."},
+    {"id":"evolution_probe_v2","family":"EvolutionProbe","source":"datasets/evolution_probe/probe_v2.jsonl","format":"jsonl","capabilities":["knowledge_update","stale_fact","history","conflict"],"status":"ready","notes":"v1 scenarios plus 8 topical distractor sessions each, so retrieval must discriminate; questions and gold turns identical to v1."},
     {"id":"sample_conversation","family":"local_sample","source":"sample_conversation.json","format":"json","capabilities":["smoke_test","schema_validation"],"status":"ready"}
   ]
 }

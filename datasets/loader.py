@@ -85,7 +85,7 @@ def iter_normalized(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any
     for idx,raw in enumerate(iter_raw(dataset_id,limit=limit)):
         if dataset_id in {"longmemeval_s_sample10","longmemeval_oracle"}:
             yield normalize_longmemeval(raw,dataset=dataset_id,index=idx)
-        elif dataset_id=="evolution_probe":
+        elif dataset_id in {"evolution_probe","evolution_probe_v2"}:
             yield normalize_evolution_probe(raw,dataset=dataset_id,index=idx)
         elif dataset_id=="locomo_refined_public":
             cid = str(raw.get("sample_id") or raw.get("conversation_id") or "")

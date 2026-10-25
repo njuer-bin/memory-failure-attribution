@@ -330,11 +330,11 @@ def normalize_evolution_probe(raw: dict[str, Any], *, dataset: str, index: int) 
                 "granularity": "turn",
             })
     metadata = dict(raw.get("metadata") or {})
+    metadata.setdefault("normalization", "evolution_probe_v1")
     metadata.update({
         "requires_history": bool(raw.get("requires_history")),
         "measure_evolution": True,
         "gold_evidence_granularity": "turn",
-        "normalization": "evolution_probe_v1",
         "raw": raw,
     })
     return {
