@@ -1,21 +1,79 @@
 # Status — where to resume
 
-Last updated: 2026-10-25 (n=50 fingerprint run completed; stage-distribution
-tests added and significant). See `docs/CCF_B_VALIDATION_PLAN.md` for the
-study chain and kill line.
+Last updated: 2026-10-25, evening (human annotation complete and scored;
+judge abstention FPs and gate breakdown are the new blocking facts). See
+`docs/CCF_B_VALIDATION_PLAN.md` for the study chain and kill line.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
 
-## Resume here (2026-10-25 state)
+## Resume here (2026-10-25 evening state)
 
 **Model policy:** every answer/judge/reviewer call must use
 `DeepSeek-v4.1-flash`. Do not switch models without explicit user approval.
 The `kimi-k3` artifacts are quarantined and must not enter any claim.
 
-**Next queued work** (in order): human annotation of the 200-row package
-(`results/annotation_package/`), F3 probe v2 with distractor sessions,
-full-haystack LongMemEval run, then scale the fingerprint to LoCoMo n=100–200.
+## Human annotation — complete and adjudicated (2026-10-25)
+
+Two annotators labelled the full 200-row blind package
+(`results/annotation_package/annotations_annotator{1,2}.csv`). Adjudication
+pass by the project lead; labels in `adjudicated.csv`; full report in
+`results/analysis_annotations_adjudicated_n200.json` (commit `1bd309e`).
+
+**Inter-annotator agreement**
+
+- answer correctness: kappa 0.920 (177 co-decided rows, 7 disagreements —
+  all paraphrase/equivalence cases where annotator2 marked a correct
+  paraphrase wrong; adjudicated yes).
+- evidence sufficiency: kappa 0.0, **degenerate** — annotator2 never said
+  "no" (183 yes / 17 uncertain) while annotator1 said no 37× with
+  substantive notes. All 20 disagreements were a1=no / a2=yes and were
+  adjudicated **no** (each note cites a missing fact or an unresolvable
+  temporal anchor, per README rule 3). The evidence-sufficiency task
+  needs recalibrated instructions before any further round.
+
+**Evaluator vs adjudicated human labels (n=200, DeepSeek judge/gate)**
+
+| target | n | precision | recall | F1 | kappa |
+|---|---|---|---|---|---|
+| answer correctness (all) | 126 | 0.697 | 0.885 | 0.780 | 0.591 |
+| answer correctness (LoCoMo) | 55 | 0.500 | 0.765 | 0.605 | 0.369 |
+| answer correctness (LongMemEval) | 71 | 0.825 | 0.943 | 0.880 | 0.747 |
+| evidence gate (all) | 186 | 0.832 | 0.564 | 0.672 | 0.070 |
+
+**The three facts that change the paper**
+
+1. **Failure labels are mostly sound.** Of 60 stored-incorrect rows with a
+   human verdict, 54 (90.0%) are confirmed wrong. The failure-direction
+   base rate survives human review.
+2. **Judge abstention false positives.** Of 66 sampled stored-correct
+   rows, 20 (30.3%) are human-adjudicated wrong — and 13 of those are
+   abstention-style answers ("Not mentioned", "Cannot be determined")
+   the judge accepted as correct. Semantic accuracy computed by the
+   automatic judge is inflated wherever the model abstains; any
+   accuracy-level comparison between systems must be reported alongside
+   this, or recomputed on abstention-corrected labels.
+3. **The gate is near-independent of humans.** Gate kappa 0.03–0.07,
+   recall 0.564 — it misses 65 truly-insufficient rows and calls 17
+   sufficient rows insufficient. E0 counts (which feed both the n=50
+   fingerprint and every n=200 table) are unreliable in both directions
+   and cannot support paper-grade claims without the human-corrected
+   gate.
+
+**Immediate consequences for existing results**
+
+- The n=50 cross-system fingerprint (Stuart–Maxwell significant on all
+  three pairs) is built on automatic labels; the label noise documented
+  here is symmetric across systems (same judge, same gate per question),
+  so the stage-difference claim has a defensible noise story, but the
+  abstention-FP finding must be quoted with it. Recomputing the n=50
+  fingerprints on abstention-corrected verdicts is the cheap next step
+  (stored answers already exist; only re-labelling is needed, no API).
+- E0 rates in every STATUS table carry gate measurement error; do not
+  quote E0 levels, only relative patterns, until re-gated with human
+  labels.
+- A2–A6 ablations stay blocked; measurement issues are now documented,
+  not hypothetical.
 
 ## LoCoMo n=50 cross-system fingerprint — COMPLETE (2026-10-25)
 
@@ -653,7 +711,13 @@ distractors) before retrieval can actually fail. n=5 is descriptive only.
 
 ## Next action — finish the CCF-B chain in order
 
-1. ~~Finish the paused LoCoMo fingerprint (43→50)~~ **done 2026-10-25** —
+0. **Recompute the n=50 fingerprints on abstention-corrected verdicts** (no
+   API needed: stored answers + adjudicated abstention pattern → re-label →
+   re-run `analyze_systems` + stage-distribution tests). Quote both versions.
+1. **Fix the evidence-gate task before further annotation rounds** —
+   annotator2's all-yes pattern shows the instructions or the task need
+   work; consider re-annotating the gate field only, with examples.
+2. ~~Finish the paused LoCoMo fingerprint (43→50)~~ **done 2026-10-25** —
    n=50 complete, stage-distribution tests added and significant (Stuart–Maxwell
    all three pairs p<0.05, Holm-adjusted).
 2. **Human annotation first for any intervention claim.** The LoCoMo placebo
@@ -676,12 +740,14 @@ distractors) before retrieval can actually fail. n=5 is descriptive only.
 
 ## Open todos (in order)
 
+0. **Abstention-corrected n=50 fingerprint recompute** (no API; see Next
+   action 0).
 1. ~~Finish the paused run and the stage-distribution test~~ **done
    2026-10-25** (see top section).
-2. Judge-validity reporting for the n=200 runs. **Requires explicit user
-   approval for any second model.** The approved alternative is the human
-   annotation package; `experiments/judge_reliability.py` remains available if
-   the user approves a model.
+2. ~~Human annotation package~~ **labelled + adjudicated 2026-10-25** (see
+   top section). Remaining: gate-task re-annotation with fixed instructions;
+   judge-validity reporting for the n=200 runs is now partially answered by
+   the adjudication (a second model still needs explicit user approval).
 3. Confirm CIKM / COLING / ECIR / NLPCC deadlines. **Blocked 2026-10-20:** all
    web tools (WebSearch, WebFetch, MCP research) failed from this host; retry
    when network access exists.
