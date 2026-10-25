@@ -1,0 +1,58 @@
+[
+ {
+  "sample_id": "locomo-049",
+  "question": "Where did Oliver hide his bone once?",
+  "reference": "In Melanie's slipper",
+  "model_answer": "In my slipper.",
+  "a1_notes": "说话人是Melanie，'my slipper'即Melanie's slipper",
+  "a2_notes": ""
+ },
+ {
+  "sample_id": "longmemeval-012",
+  "question": "How much more did I spend on accommodations per night in Hawaii compared to Tokyo?",
+  "reference": "$270",
+  "model_answer": "Over $270 more per night.",
+  "a1_notes": "Maui over $300 vs Tokyo around $30≈over $270",
+  "a2_notes": ""
+ },
+ {
+  "sample_id": "longmemeval-029",
+  "question": "How many weeks have I been accepted into the exchange program when I started attending the pre-departure orientation sessions?",
+  "reference": "one week",
+  "model_answer": "1 week.",
+  "a1_notes": "3/20被录取，3/27开始orientation=1周",
+  "a2_notes": ""
+ },
+ {
+  "sample_id": "longmemeval-033",
+  "question": "How often do I play tennis with my friends at the local park previously? How often do I play now?",
+  "reference": "Previously, you play tennis with your friends at the local park every week (on Sunday). Currently, you play tennis every",
+  "model_answer": "Previously weekly; now every other week.",
+  "a1_notes": "以前每周，现在隔周",
+  "a2_notes": ""
+ },
+ {
+  "sample_id": "longmemeval-073",
+  "question": "How many weeks did it take me to watch all the Marvel Cinematic Universe movies and the main Star Wars films?",
+  "reference": "3.5 weeks",
+  "model_answer": "Three and a half weeks.",
+  "a1_notes": "MCU两周+星战一周半=3.5周",
+  "a2_notes": ""
+ },
+ {
+  "sample_id": "longmemeval-078",
+  "question": "What was the date on which I attended the first BBQ event in June?",
+  "reference": "June 3rd",
+  "model_answer": "The 3rd of June",
+  "a1_notes": "6月3日早于6月17日",
+  "a2_notes": ""
+ },
+ {
+  "sample_id": "longmemeval-093",
+  "question": "Before I purchased the gravel bike, do I have other bikes in addition to my mountain bike and my commuter bike?",
+  "reference": "Yes. (You have a road bike too.)",
+  "model_answer": "Yes, a road bike.",
+  "a1_notes": "",
+  "a2_notes": ""
+ }
+]

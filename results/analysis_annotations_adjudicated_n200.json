@@ -1,0 +1,73 @@
+{
+ "date": "2026-10-25",
+ "package": "results/annotation_package (200 rows: 100 locomo + 100 longmemeval)",
+ "annotators": 2,
+ "inter_annotator": {
+  "answer_correct": {
+   "n": 177,
+   "agreement": 0.96,
+   "kappa": 0.92,
+   "note": "both annotators decided on 177 rows; 7 disagreements, all a1=yes a2=no, adjudicated yes (paraphrase/equivalence cases)"
+  },
+  "evidence_sufficient": {
+   "n": 183,
+   "agreement": 0.891,
+   "kappa": 0.0,
+   "note": "kappa degenerate: a2 never said no (183 yes / 17 uncertain), a1 said no 37 times with substantive notes; all 20 disagreements were a1=no a2=yes, adjudicated no (notes cite missing facts or unresolvable temporal anchors per README rule 3)"
+  }
+ },
+ "evaluator_vs_adjudicated": {
+  "answer_correct_all": {
+   "n": 126,
+   "precision": 0.697,
+   "recall": 0.885,
+   "f1": 0.78,
+   "kappa": 0.591
+  },
+  "answer_correct_locomo": {
+   "n": 55,
+   "precision": 0.5,
+   "recall": 0.765,
+   "f1": 0.605,
+   "kappa": 0.369
+  },
+  "answer_correct_longmemeval": {
+   "n": 71,
+   "precision": 0.825,
+   "recall": 0.943,
+   "f1": 0.88,
+   "kappa": 0.747
+  },
+  "gate_all": {
+   "n": 186,
+   "precision": 0.832,
+   "recall": 0.564,
+   "f1": 0.672,
+   "kappa": 0.07
+  },
+  "gate_locomo": {
+   "precision": 0.622,
+   "recall": 0.5,
+   "kappa": 0.026
+  },
+  "gate_longmemeval": {
+   "precision": 1.0,
+   "recall": 0.602,
+   "kappa": 0.031
+  }
+ },
+ "key_findings": {
+  "stored_failure_labels": "of 60 stored-incorrect rows with a human verdict, humans confirm 54 (90.0%); the failure-label base rate is mostly sound",
+  "judge_abstention_false_positives": "of 66 sampled stored-correct rows, 20 (30.3%) are human-adjudicated wrong; 13 of the 20 are abstention-style answers ('Not mentioned', 'Cannot be determined') the judge accepted as correct — abstention FPs inflate semantic accuracy and would contaminate any F6/accuracy comparison",
+  "gate_sensitivity": "the stored evidence gate misses real insufficiency: of 85 stored-insufficient rows humans confirm only ~20 sufficient-side errors and vice versa; gate recall 0.564 (misses 65 truly-insufficient rows) — E0 counts are unreliable in both directions",
+  "kappa_gate_near_zero": "gate kappa ~0.03-0.07 vs human adjudication: the automatic gate is statistically near-independent of human sufficiency judgements; any E0-based claim needs the human-corrected gate"
+ },
+ "files": {
+  "adjudicated_labels": "results/annotation_package/adjudicated.csv",
+  "disagreements": [
+   "results/analysis_annotation_disagreements.json",
+   "results/analysis_answer_disagreements.json"
+  ],
+  "scorer_output": "results/analysis_annotations_n200.json"
+ }
+}

@@ -30,7 +30,8 @@ NO = {"no", "n", "false", "0"}
 
 
 def _load_csv(path: Path) -> list[dict[str, str]]:
-    with path.open(encoding="utf-8", newline="") as fh:
+    # utf-8-sig strips the BOM Excel writes; plain utf-8 files are unaffected.
+    with path.open(encoding="utf-8-sig", newline="") as fh:
         return list(csv.DictReader(fh))
 
 
