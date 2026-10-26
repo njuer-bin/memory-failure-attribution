@@ -1789,3 +1789,14 @@ Stage A gate (E0-excluded significance + annotation κ ≥ 0.70) is **PASSED**.
 Next per the decision plan: Stage B architecture ablation at n=100 (A1
 semantic raw-write, A2a/A2b wide-context summary, A3 hybrid verbatim), then
 the re-pre-registered Stage C intervention.
+
+### Stage B A3 (verbatim hybrid, n=100): real repair, incomplete stage movement
+
+`results/systems_ablation_n100_a3/` (100/100, errors 0). Hybrid ranking raises
+retrieval recall 0.197→0.402 and accuracy 0.351→0.527 (paired n01=30, n10=13,
+McNemar p=0.014, diff −0.187, 95% CI [−0.319,−0.044]). Failure labels: F4
+37→23, E0 24→19, none 35→54. The within-system Stuart–Maxwell is chi2=8.79,
+df=4, p=0.066 (not significant), and the dominant-stage share moves 14 points —
+below the pre-registered 20-point bar. **A3 does not by itself satisfy gate B.**
+A1 (formation) is the stronger candidate; it is next.
+Artifact: `results/analysis_ablation_a3_n100.json`.

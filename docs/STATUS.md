@@ -100,6 +100,15 @@ The bge-m3 check should precede both.
    summary lossiness, so the design now adds A2a/A2b with a wide context
    budget before the full run. `verbatim_hybrid` is not exercised at n=5
    (the n=100 mechanism check already showed 0.043→0.321 on F4).
+   **A3 n=100 — COMPLETE, partial.** `results/systems_ablation_n100_a3/`
+   (100/100, errors 0). Hybrid ranking raises retrieval recall 0.197→0.402
+   and accuracy 0.351→0.527 (paired n01=30 / n10=13, McNemar p=0.014,
+   diff −0.187, CI [−0.319,−0.044]); F4 share falls 37→23 (−14 points) and
+   E0 24→19. The within-system Stuart–Maxwell is p=0.066 (Holm 0.066), and the
+   dominant-stage change is **14 points, below the pre-registered 20-point
+   bar**. So A3 is a real repair but **does not by itself establish
+   architecture-conditional staging**. A1 (formation) is the stronger
+   candidate next. Artifact: `results/analysis_ablation_a3_n100.json`.
 3. **Do not polish the paper or expand CCF-B claims** until gates A and B
    report pass/fail.
 
