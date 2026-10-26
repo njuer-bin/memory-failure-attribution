@@ -1,0 +1,51 @@
+{
+  "source": {
+    "key": "results/annotation_package/key.csv",
+    "adjudicated": "results/annotation_package/adjudicated.csv"
+  },
+  "overall": {
+    "positive": "insufficient",
+    "tp_both_insufficient": 20,
+    "fp_gate_insufficient_human_sufficient": 65,
+    "fn_gate_sufficient_human_insufficient": 17,
+    "tn_both_sufficient": 84,
+    "n": 186,
+    "missed_truly_insufficient": 17,
+    "falsely_called_insufficient": 65,
+    "precision_if_insufficient_positive": 0.23529411764705882,
+    "recall_if_insufficient_positive": 0.5405405405405406,
+    "precision_if_sufficient_positive": 0.8316831683168316,
+    "recall_if_sufficient_positive": 0.5637583892617449
+  },
+  "by_benchmark": {
+    "locomo": {
+      "positive": "insufficient",
+      "tp_both_insufficient": 19,
+      "fp_gate_insufficient_human_sufficient": 28,
+      "fn_gate_sufficient_human_insufficient": 17,
+      "tn_both_sufficient": 28,
+      "n": 92,
+      "missed_truly_insufficient": 17,
+      "falsely_called_insufficient": 28,
+      "precision_if_insufficient_positive": 0.40425531914893614,
+      "recall_if_insufficient_positive": 0.5277777777777778,
+      "precision_if_sufficient_positive": 0.6222222222222222,
+      "recall_if_sufficient_positive": 0.5
+    },
+    "longmemeval": {
+      "positive": "insufficient",
+      "tp_both_insufficient": 1,
+      "fp_gate_insufficient_human_sufficient": 37,
+      "fn_gate_sufficient_human_insufficient": 0,
+      "tn_both_sufficient": 56,
+      "n": 94,
+      "missed_truly_insufficient": 0,
+      "falsely_called_insufficient": 37,
+      "precision_if_insufficient_positive": 0.02631578947368421,
+      "recall_if_insufficient_positive": 1.0,
+      "precision_if_sufficient_positive": 1.0,
+      "recall_if_sufficient_positive": 0.6021505376344086
+    }
+  },
+  "note": "Both polarities are reported. The earlier prose in analysis_annotations_adjudicated_n200.json swapped the two counts; this file is authoritative."
+}

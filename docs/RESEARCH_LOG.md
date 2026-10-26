@@ -1398,3 +1398,138 @@ distractor sessions per scenario; smoke shows semantic 5/5, verbatim 0/5,
 summary 3/5 — the degeneracy is gone, but 15 turns vs top-10 leaves gold
 recall at 1.0, so the full run needs a tighter context budget before any
 stage-distribution claim.
+
+## 2026-10-26 — Round-2 gate annotation fails; abstention correction generalized to n=200
+
+**1. Round-2 gate annotation cleared nothing.** Two sheets returned; kappa
+0.181 (agreement 0.627, n=177) against the pre-registered bar of 0.6.
+Marginals differ sharply: annotator 1 said yes 99 / no 101 / uncertain 0;
+annotator 2 said yes 155 / no 22 / uncertain 23. The decisive diagnostic is
+that 81 of annotator 1's 101 "no" notes are the same sentence, "Missing fact:
+`<token>` is not stated in the evidence", where the token is lifted from the
+reference answer (75/81) and absent from the evidence (0/81). The tokens
+include "she", "because", "likely", "herself". That is not the derivability
+checklist applied fact by fact; it is a template that treats any unseen token
+as a missing fact. Verdict: the human gate is still not operational; E0 levels
+remain non-citable, and the round-2 instruction rewrite is not the fix. A
+third attempt should change the task shape (per-fact binary rows, or a
+deterministic decomposer validated on the 200 adjudicated rows), not the
+wording.
+
+**2. Abstention correction: from ad-hoc to reproducible and guarded.**
+The committed n=50 correction had no script. `experiments/abstention_correct.py`
+now reproduces it exactly: 28 flips, accuracy 0.260/0.280/0.200, and every
+`answer_failure_type` identical to `results/_corrected_comparison_n50.jsonl`
+(0 diffs across all 150 mode-cells). The flip is label-only and recomputes the
+failure type with the frozen `evaluation.attribution.attribute_failure` path.
+
+**3. The naive rule is only 52% precise; the reference-answer guard fixes it.**
+Human adjudication sampled 25 abstention-style stored-correct rows. Twelve are
+human-correct, and all twelve are LongMemEval `_abs` questions whose reference
+answer is itself an abstention ("The information provided is not enough. ...").
+So "abstention ⇒ wrong" mislabels half the sample. Guarding on the reference
+answer — flip only when the gold answer is concrete — gives 13/13 precision and
+12/12 preservation on the sample (precision and recall 1.0). The guard is now
+in the script and covered by tests.
+
+**4. Corrected n=200 tables (no API, label-only).** Using canonical semantic
+accuracy on judged rows: LoCoMo real 0.405→0.306, oracle_memory 0.832→0.682,
+oracle_context 0.852→0.761; E0 43→56, 15→40, 14→30. LongMemEval: real
+0.521→0.479, oracle_memory 0.691→0.676, oracle_context 0.821→0.799; E0 10→13,
+11→13, 13→15. The LoCoMo oracle ladder survives correction but the oracle rungs
+absorb most of the extra E0 (14/25 and 16/28 new insufficient-evidence rows),
+which is the cleanest statement yet that abstention inflated oracle accuracy.
+Correction changes two paired conclusions: LoCoMo OM→OC goes from p=0.5413 to
+p=0.0146 (last rung becomes significant), while LongMemEval OM→OC goes from
+p=0.0414 to p=0.078 (last rung becomes non-significant). Stage-distribution
+tests remain strong on corrected labels (all pairs p ≤ 0.0052 LoCoMo, ≤ 2.1e-7
+LongMemEval).
+
+**Artifacts:** `results/_corrected_comparison_{locomo,longmemeval}_n200.jsonl`,
+`results/analysis_abstention_corrected_{locomo,longmemeval}_n200.json`,
+`results/analysis_annotations_round2_diagnostic.json`. New code:
+`experiments/abstention_correct.py`, `experiments/diagnose_gate_annotations.py`,
+`tests/test_abstention_correct.py`. 197 tests pass.
+
+### Round 3 — per-fact gate package (same session)
+
+Two gestalt rounds failed for the same reason: the unit of judgement was the
+whole row. Round 3 moves the unit to the atomic fact. `experiments/fact_specs.py`
+decomposes each of the 200 reference answers into 276 facts (mean 1.38), with
+alternative phrasings of the same value grouped as any-of (21 groups). Authoring
+conventions: decompose the answer to the question, not incidental elaboration;
+compound measures stay one fact; LongMemEval `_abs` golds become a positive
+"evidence mentions X" fact plus a negative "evidence does not mention Y" fact.
+
+Why this should fix the kappa failure: presence of a concrete proposition in a
+fixed evidence block is an objective judgement, and the row gate is a transparent
+aggregation (all required facts present; an any-of group needs one alternative).
+The annotator never has to weigh "enough information" as a gestalt.
+
+Design audit: among the 221 fact rows whose question was adjudicated sufficient,
+only 6 have zero content-word overlap with the evidence; all six are either
+negative facts (zero overlap expected) or paraphrase cases the README explicitly
+accepts. One ambiguity was fixed before packaging (`locomo-038` "two cats" →
+"cats", because the evidence names three cats — the missing item that matters is
+the dog).
+
+Artifacts: `round3_fact_presence.csv` (blinded), `round3_key.csv` (stored and
+adjudicated labels for scoring only), `README_round3.md` (five worked examples).
+Builder `experiments/build_fact_package.py`, scorer
+`experiments/score_fact_annotations.py`, 9 tests. Acceptance: fact-level kappa
+≥ 0.6 AND aggregated row-level kappa ≥ 0.6. 206 tests pass.
+
+### Label-only ladder statistics and metric audit (2026-10-26, continued)
+
+Added `experiments/analyze_ladder.py`, a no-call wrapper that combines the
+per-mode summaries and stage-distribution tests already in `analyze_systems`
+with paired McNemar/bootstrap on the same rows. Ran it on both label versions of
+both n=200 runs.
+
+The run exposed a metric error in the earlier corrected table: the canonical
+headline is *semantic accuracy on judged rows* (the definition used by every
+n=200 table in this log), not the fraction of all rows with
+`semantic_correct == True`. The latter counts unjudged rows as wrong and
+understated the corrected accuracies. Canonical corrected numbers: LoCoMo
+0.306 / 0.682 / 0.761 (auto 0.405 / 0.832 / 0.852); LongMemEval 0.479 / 0.676 /
+0.799 (auto 0.521 / 0.691 / 0.821). The E0 counts are unchanged.
+
+Corrected paired contrasts: LoCoMo OM→OC p=0.0146 (auto 0.5413), LongMemEval
+OM→OC p=0.078 (auto 0.0414); real→OM and real→OC remain highly significant on
+both. Stage-distribution tests on corrected labels: all pairs p ≤ 2.1e-4
+(LoCoMo) and ≤ 2.1e-7 (LongMemEval).
+
+Also added `experiments/validate_abstention_rule.py`, which regenerates the
+rule-validation numbers from the adjudicated sample: naive abstention rule
+precision 0.52 / recall 0.42 on the 77 stored-correct rows; guarded rule
+precision 1.00 / recall 0.42. On the 25 abstention-style rows the guard flips
+13/13 human-wrong and preserves 12/12 human-correct. Recall on the full sample
+is bounded at 0.42 because the other 18 human-wrong stored-correct rows are
+non-abstention judge errors outside this rule's scope.
+
+Drafted `docs/paper/instrument_honesty.md` with a number→artifact table. It
+states the two failed gate rounds, the abstention correction and its validated
+precision, the gate's near-independence from humans (kappa 0.07, recall 0.564,
+the `_abs` 14/15 systematic error), and a three-rule reporting protocol. It
+explicitly leaves the round-3 gate unvalidated.
+
+## 2026-10-26 — Corrigendum: gate-vs-human confusion polarity
+
+The 2026-10-25 report (and the STATUS/paper draft derived from it) said the
+evidence gate "misses 65 truly-insufficient rows and calls 17 sufficient rows
+insufficient". That is backwards. The eval artifact's positive class was
+*sufficiency*, so its tp=84 / fp=17 / fn=65 read as: 17 gate-sufficient rows
+that humans called insufficient (the gate MISSED 17), and 65 gate-insufficient
+rows that humans called sufficient (the gate FALSELY FLAGGED 65). With
+insufficiency as the positive class the matrix is tp=20, fp=65, fn=17, tn=84.
+
+Correct statement: the gate **misses 17 truly-insufficient rows (all LoCoMo)**
+and **falsely marks 65 sufficient rows insufficient (28 LoCoMo, 37 LongMemEval,
+the latter dominated by `_abs`)**. Its dominant failure is over-flagging, so E0
+is biased upward, not downward. Sufficiency-positive precision 0.832 / recall
+0.564 remain correct as stated, and kappa 0.03–0.07 is unchanged.
+
+Authoritative, regenerable artifact:
+`results/analysis_gate_confusion_n200.json` via
+`python -m experiments.analyze_gate_confusion`. Corrected in STATUS.md and
+`docs/paper/instrument_honesty.md`; a regression test pins the polarity.

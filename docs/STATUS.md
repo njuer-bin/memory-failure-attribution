@@ -1,38 +1,220 @@
 # Status — where to resume
 
-Last updated: 2026-10-25, end of session. Commit `c53ac29`, worktree clean,
-pushed to origin. n=50 fingerprint complete and significant (both label
-versions); human annotation adjudicated; round-2 gate package ready and
-waiting on two annotators.
+Last updated: 2026-10-26, mid-session. Round-2 gate annotation **failed** the
+pre-registered bar (kappa 0.181 vs ≥ 0.6); the automatic gate remains the only
+gate and E0 levels stay non-paper-grade. The abstention correction was
+generalized into `experiments/abstention_correct.py`, validated to reproduce the
+committed n=50 artifact exactly (28 flips, 0 diffs), refined with a
+reference-answer guard (precision 1.0 on the human sample), and applied to both
+n=200 runs.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
 
 ## Start here next session (punch list)
 
-1. **Waiting on the user: round-2 gate annotation.** Package is ready:
-   `results/annotation_package/README_round2.md` (derivability checklist,
-   five worked `no` examples), worksheet `round2_gate_only.csv` (200 rows,
-   gate field only, model answer removed). When the user hands back two
-   filled files, run `python -m experiments.score_annotations` (BOM-safe)
-   and check the pre-registered acceptance bar: **kappa ≥ 0.6 on the gate
-   field** (round 1 was 0.0). If it passes, re-score E0 and the n=50
-   fingerprint with the human-corrected gate.
-2. **Ask the user for API budget before any of these:**
+1. **Round-2 gate annotation — FAILED, do not use.** Two sheets came back
+   (`results/annotation_package/round2_gate_only_annotated{1,2}.csv`).
+   Inter-annotator kappa **0.181** (agreement 0.627, n=177) against a
+   pre-registered bar of ≥ 0.6. Annotator 1's `no` notes are a mechanical
+   template: 81 of 101 `no` rows read "Missing fact: `<token>` is not stated in
+   the evidence"; 75/81 tokens occur in the reference answer and **0/81** occur
+   in the evidence, including pronouns/function words ("she", "because",
+   "likely"). This is not fact-level annotation and the sheet cannot calibrate
+   the gate. Full diagnostic:
+   `results/analysis_annotations_round2_diagnostic.json`
+   (regenerate with `python -m experiments.diagnose_gate_annotations`).
+2. **Round-3 per-fact package is READY — waiting on two annotators.** Round 3
+   changes the task shape: the reference answer of every row is decomposed once
+   into atomic facts (`experiments/fact_specs.py`, 276 facts over 200 questions,
+   alternatives encoded as any-of groups), and annotators only mark
+   present/absent per fact. Files: `results/annotation_package/
+   round3_fact_presence.csv` (blinded worksheet),
+   `round3_key.csv` (hidden metadata + stored/adjudicated labels), and
+   `README_round3.md` (rules + five worked examples). Rebuild with
+   `python -m experiments.build_fact_package`.
+   **Pre-registered acceptance: fact-level kappa ≥ 0.6 AND aggregated row-level
+   kappa ≥ 0.6.** When two filled sheets arrive, run
+   `python -m experiments.score_fact_annotations --key ...round3_key.csv
+   --labels annotator1=... --labels annotator2=...`. If it passes, the
+   aggregated gate replaces the automatic gate for E0 and the n=50 fingerprint.
+3. **Abstention-corrected n=200 tables are done** (no API). See the 2026-10-26
+   section below. Any accuracy or E0 table quoted for the n=200 runs must state
+   which label version (auto vs abstention-corrected) it uses.
+4. **Ask the user for API budget before any of these:**
    - F3 probe v2 full 40-scenario run with a tightened `--context-chars`
-     (e.g. 2000) so retrieval actually fails — currently 15 turns vs
-     top-10 keeps gold recall at 1.0 and the fingerprint degenerate at F6;
-   - LoCoMo fingerprint scaled to n=100–200 (n=50 batch took ~1.5 h).
-3. **No-budget work available** (do without asking): write the
-   abstention-corrected E0 table for both n=200 runs from stored outputs
-   (re-labelling only, no API); draft the paper's "instrument honesty"
-   section from `analysis_annotations_adjudicated_n200.json`.
-4. **Deadline check** (needs network): CIKM / COLING / ECIR / NLPCC — all
-   web tools failed from this host on 2026-10-20; retry.
+     (e.g. 2000) so retrieval actually fails;
+   - LoCoMo fingerprint scaled to n=100–200 (n=50 took ~1.5 h).
+5. **Instrument-honesty section — DRAFTED** (`docs/paper/instrument_honesty.md`),
+   with a number→artifact table. Remaining: fold it into the full draft once the
+   round-3 gate clears or is formally abandoned; the ladder statistics it cites
+   are in `results/analysis_ladder_{bench}_n200_{auto,corrected}.json`.
+6. **Deadline check** (needs network): CIKM / COLING / ECIR / NLPCC — retry.
 
 **Model policy:** every answer/judge/reviewer call must use
 `DeepSeek-v4.1-flash`. Do not switch models without explicit user approval.
 The `kimi-k3` artifacts are quarantined and must not enter any claim.
+
+## Session 2026-10-26 — round-2 gate fails; abstention correction generalized
+
+### Round-2 gate annotation: failed
+
+| annotator | yes | no | uncertain | notes on `no` |
+|---|---|---|---|---|
+| annotator 1 | 99 | 101 | 0 | 81/101 single template |
+| annotator 2 | 155 | 22 | 23 | free-text |
+
+Pair table over all 200 rows (a1→a2): `F→T` 61, `F→F` 17, `F→UNC` 23,
+`T→T` 94, `T→F` 5. Co-decided kappa **0.181**, agreement 0.627 (n=177).
+Pre-registered bar was kappa ≥ 0.6. **Verdict: the gate is still measured by the
+automatic instrument only; E0 counts remain relative patterns, not levels.**
+
+Why annotator 1 is not usable as fact-level annotation: the quoted "missing
+fact" is usually a token lifted from the reference answer that simply does not
+appear in the evidence. Examples: "Missing fact: **she** is not stated in the
+evidence." / "**because**" / "**likely**" / "**herself**". A real missing fact is
+a proposition (a duration, a species, a date), not a stopword. This sheet was
+produced by a rule, not by the derivability checklist.
+
+### Abstention correction — generalized and guarded
+
+`experiments/abstention_correct.py` (+ `tests/test_abstention_correct.py`)
+implements the label-only correction. Validated by reproducing the committed
+n=50 artifact byte-for-byte in accuracy and failure type (28 flips, 0 diffs).
+
+The naive rule "stored-correct abstention ⇒ wrong" is **only 52% precise** on
+the 25 sampled abstentions: 12 of them are human-correct, because LongMemEval
+`_abs` questions have reference answers that are themselves abstentions ("The
+information provided is not enough. …"). The corrected rule flips an abstention
+only when the reference answer is concrete. On the human sample this gives:
+
+| rule | flips | human-wrong among flips | human-correct preserved |
+|---|---|---|---|
+| abstention ⇒ wrong | 25/25 | 13 (precision 0.52) | 0 of 12 |
+| abstention && concrete reference ⇒ wrong | 13/25 | 13 (precision **1.00**) | 12 of 12 (recall 1.00) |
+
+Applied to both n=200 runs (label-only, no API; artifacts
+`results/_corrected_comparison_{locomo,longmemeval}_n200.jsonl`, summaries
+`results/analysis_abstention_corrected_{locomo,longmemeval}_n200.json`):
+
+| run | mode | semantic acc auto | corrected | E0 auto | E0 corrected | flips |
+|---|---|---|---|---|---|---|
+| LoCoMo | real_memory | 0.405 | **0.306** | 43 | **56** | 59 |
+| LoCoMo | oracle_memory | 0.832 | **0.682** | 15 | **40** | (same) |
+| LoCoMo | oracle_context | 0.852 | **0.761** | 14 | **30** | (same) |
+| LongMemEval | real_memory | 0.521 | **0.479** | 10 | **13** | 12 |
+| LongMemEval | oracle_memory | 0.691 | **0.676** | 11 | **13** | (same) |
+| LongMemEval | oracle_context | 0.821 | **0.799** | 13 | **15** | (same) |
+
+Accuracies here are the canonical *semantic* accuracy on judged rows (the same
+definition as the n=200 tables above), reported by
+`experiments/analyze_ladder.py`. Attributed accuracy (lexical fallback) is also
+in `results/analysis_abstention_corrected_*_n200.json`; do not mix the two.
+
+Reading:
+
+- **LoCoMo oracle ladder survives correction** (0.306 → 0.682 → 0.761), but the
+  oracle modes absorb 25 (OM) and 16 (OC) additional E0 rows. Abstentions were
+  inflating oracle accuracy most; "oracle memory recovers the loss" must be
+  stated on corrected labels. Paired accuracy after correction: RM→OM
+  p=4.3e-12, RM→OC p=2.3e-17, **OM→OC p=0.0146** (auto: p=0.5413) — the last
+  rung becomes significant once abstentions are not counted as correct.
+- **LongMemEval moves less but the ladder is not flat** (0.479 → 0.676 → 0.799).
+  Correction shrinks the real→OM gain (0.212 → 0.197) and the OM→OC gain
+  (0.130 → 0.123); after correction **OM→OC is no longer significant**
+  (p=0.078; auto p=0.0414), while RM→OM (p=1.6e-4) and RM→OC (p=4.2e-7) hold.
+- Stage-distribution tests on the corrected labels are stronger, not weaker:
+  all three mode pairs p ≤ 2.1e-4 (LoCoMo) and p ≤ 2.1e-7 (LongMemEval).
+- Corrected E0 levels: LoCoMo real 28%, OM 20%, OC 15%; LongMemEval real 6.5%,
+  OM 6.5%, OC 7.5%. Do not quote these as levels until the gate itself is
+  human-validated; quote the auto→corrected direction and magnitude.
+
+197 tests pass. New files: `experiments/abstention_correct.py`,
+`experiments/diagnose_gate_annotations.py`, `tests/test_abstention_correct.py`;
+with round 3: `experiments/fact_specs.py`, `experiments/build_fact_package.py`,
+`experiments/score_fact_annotations.py`, `tests/test_score_fact_annotations.py`.
+Full suite: **205 passed**.
+
+### Round-3 per-fact gate package (built 2026-10-26)
+
+Task shape changed after two failed gestalt rounds: decompose each reference
+answer once, have annotators judge one binary fact-presence question per row.
+
+- `experiments/fact_specs.py` — 276 atomic facts over the same 200 questions
+  (mean 1.38/question; 21 any-of groups for alternative phrasings of the same
+  date/value). Decomposition convention: the answer to the question, not
+  incidental elaboration; compound measures stay one fact; LongMemEval `_abs`
+  golds become negative facts ("evidence mentions X" + "evidence does not
+  mention Y").
+- `experiments/build_fact_package.py` — writes the blinded worksheet
+  `round3_fact_presence.csv`, hidden `round3_key.csv` (with `stored_gate` and
+  `adjudicated_gate` for scoring only), and `README_round3.md`.
+- `experiments/score_fact_annotations.py` — fact-level kappa, row aggregation
+  (required facts all present; any-of group needs one alternative), row-level
+  kappa, and consensus gate vs the 200 adjudicated labels with the stored gate
+  as baseline.
+- `tests/test_score_fact_annotations.py` — aggregation semantics + spec
+  integrity (8 tests).
+
+Design audit: on the 221 fact rows belonging to adjudicated-sufficient
+questions, only 6 have zero content-word overlap with the evidence, and all are
+either negative facts (where zero overlap is expected) or paraphrase cases the
+README tells annotators to accept. No systemic phrasing breakage found. One
+ambiguity was fixed (`locomo-038` "two cats" → "cats", because the evidence
+names three cats).
+
+Acceptance remains fact-level kappa ≥ 0.6 **and** row-level kappa ≥ 0.6.
+Scoring policy fixed before the second sheet arrives: a required fact marked
+`uncertain` becomes **insufficient** in the primary row gate (an unresolvable
+relative date means the reference is not derivable from the listed evidence,
+matching the round-1 adjudication rule); the exclude-uncertain variant is
+reported as sensitivity. `score_fact_annotations` emits both.
+
+**In progress:** `round3_fact_presence1.csv` (276/276 rows filled: 214 yes,
+21 no, 41 uncertain, 62 notes) appeared on 2026-10-26 08:47; the blank sheet
+was renamed to `round3_fact_presence.before_fill.csv`. Notes are substantive
+and show no round-2 template pathology; 40 of the 41 uncertain facts are
+relative-date anchor failures, as intended. Do **not** treat a single sheet as
+a result — the pre-registered test needs two. Caveat for later: the fact
+decomposition was authored with access to the 200 adjudicated labels, so
+gate-vs-adjudication agreement on those same rows is not fully independent;
+inter-annotator kappa is the independent test.
+
+
+### Label-only ladder statistics (2026-10-26)
+
+`experiments/analyze_ladder.py` recomputes, from stored rows and with no model
+calls, per-mode accuracy + Wilson CI, failure distribution, stage recall, paired
+McNemar/bootstrap, and Stuart–Maxwell/permutation stage-distribution tests. Run
+on both label versions for both n=200 runs; artifacts
+`results/analysis_ladder_{locomo,longmemeval}_n200_{auto,corrected}.json`.
+
+Metric note (important): the canonical headline in the n=200 tables is
+**semantic accuracy on judged rows**, not "fraction of all rows with
+`semantic_correct=True`". The latter understates accuracy because rows with no
+semantic verdict are not all wrong. `analyze_ladder` reports both
+`semantic_accuracy` and `attributed_accuracy` (lexical fallback) so the two are
+never mixed.
+
+Key corrected-label results:
+
+| benchmark | real → OM → OC (semantic acc) | RM→OM p | RM→OC p | OM→OC p | stage-dist all pairs |
+|---|---|---|---|---|---|
+| LoCoMo | 0.306 → 0.682 → 0.761 | 4.3e-12 | 2.3e-17 | **0.0146** | p ≤ 2.1e-4 |
+| LongMemEval | 0.479 → 0.676 → 0.799 | 1.6e-4 | 4.2e-7 | **0.078 (n.s.)** | p ≤ 2.1e-7 |
+
+The abstention correction therefore moves one paired conclusion per benchmark:
+LoCoMo's last rung becomes significant, LongMemEval's last rung stops being
+significant. Both auto versions are in the same artifacts.
+
+`experiments/validate_abstention_rule.py` regenerates the rule-validation
+numbers (`results/analysis_abstention_rule_validation.json`): naive abstention
+rule precision 0.52 / recall 0.42 on the 77-row stored-correct sample; guarded
+rule precision 1.00 / recall 0.42; on the 25 abstention rows the guard is
+13/13 human-wrong flipped and 12/12 human-correct preserved.
+
+
+
 
 ## Session summary — what 2026-10-25 produced
 
@@ -85,12 +267,16 @@ pass by the project lead; labels in `adjudicated.csv`; full report in
    automatic judge is inflated wherever the model abstains; any
    accuracy-level comparison between systems must be reported alongside
    this, or recomputed on abstention-corrected labels.
-3. **The gate is near-independent of humans.** Gate kappa 0.03–0.07,
-   recall 0.564 — it misses 65 truly-insufficient rows and calls 17
-   sufficient rows insufficient. E0 counts (which feed both the n=50
-   fingerprint and every n=200 table) are unreliable in both directions
-   and cannot support paper-grade claims without the human-corrected
-   gate.
+3. **The gate is near-independent of humans.** Gate kappa 0.03–0.07. With
+   sufficiency as the positive class: precision 0.832, recall 0.564. Read in
+   the direction that matters for E0, the gate **falsely calls 65 sufficient
+   rows insufficient** (28 LoCoMo, 37 LongMemEval — the latter dominated by
+   `_abs` questions) and **misses only 17 truly-insufficient rows** (all
+   LoCoMo). The error is mostly over-flagging, not under-detection. The
+   earlier prose here had these two counts swapped; authoritative artifact:
+   `results/analysis_gate_confusion_n200.json`
+   (`python -m experiments.analyze_gate_confusion`). E0 counts cannot support
+   paper-grade claims without the human-corrected gate.
 
 **Immediate consequences for existing results**
 

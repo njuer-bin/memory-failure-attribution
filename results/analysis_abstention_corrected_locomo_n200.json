@@ -1,0 +1,94 @@
+{
+  "source": "results/oracle_experiments_locomo_n200/comparison.jsonl",
+  "rows": 200,
+  "flips": 59,
+  "rows_with_flips": 34,
+  "accuracy": {
+    "auto": {
+      "oracle_context": {
+        "semantic_accuracy": 0.8522727272727273,
+        "semantic_judged": 176,
+        "attributed_accuracy": 0.86
+      },
+      "oracle_memory": {
+        "semantic_accuracy": 0.8323699421965318,
+        "semantic_judged": 173,
+        "attributed_accuracy": 0.825
+      },
+      "real_memory": {
+        "semantic_accuracy": 0.4046242774566474,
+        "semantic_judged": 173,
+        "attributed_accuracy": 0.39
+      }
+    },
+    "corrected": {
+      "oracle_context": {
+        "semantic_accuracy": 0.7613636363636364,
+        "semantic_judged": 176,
+        "attributed_accuracy": 0.78
+      },
+      "oracle_memory": {
+        "semantic_accuracy": 0.6820809248554913,
+        "semantic_judged": 173,
+        "attributed_accuracy": 0.695
+      },
+      "real_memory": {
+        "semantic_accuracy": 0.3063583815028902,
+        "semantic_judged": 173,
+        "attributed_accuracy": 0.305
+      }
+    }
+  },
+  "failure_distribution": {
+    "auto": {
+      "oracle_context": {
+        "E0_EVIDENCE_INSUFFICIENT": 14,
+        "EVAL_SEMANTIC_UNCERTAIN": 3,
+        "RC_REASONING_CONTROL_FAILURE": 11,
+        "none": 172
+      },
+      "oracle_memory": {
+        "E0_EVIDENCE_INSUFFICIENT": 15,
+        "EVAL_SEMANTIC_UNCERTAIN": 6,
+        "F4_RETRIEVAL": 6,
+        "F5_CONTEXT": 1,
+        "F6_REASONING_CANDIDATE": 7,
+        "none": 165
+      },
+      "real_memory": {
+        "E0_EVIDENCE_INSUFFICIENT": 43,
+        "EVAL_SEMANTIC_UNCERTAIN": 23,
+        "F1_FORMATION": 39,
+        "F4_RETRIEVAL": 10,
+        "F5_CONTEXT": 5,
+        "F6_REASONING_CANDIDATE": 2,
+        "none": 78
+      }
+    },
+    "corrected": {
+      "oracle_context": {
+        "E0_EVIDENCE_INSUFFICIENT": 30,
+        "EVAL_SEMANTIC_UNCERTAIN": 3,
+        "RC_REASONING_CONTROL_FAILURE": 11,
+        "none": 156
+      },
+      "oracle_memory": {
+        "E0_EVIDENCE_INSUFFICIENT": 40,
+        "EVAL_SEMANTIC_UNCERTAIN": 7,
+        "F4_RETRIEVAL": 6,
+        "F5_CONTEXT": 1,
+        "F6_REASONING_CANDIDATE": 7,
+        "none": 139
+      },
+      "real_memory": {
+        "E0_EVIDENCE_INSUFFICIENT": 56,
+        "EVAL_SEMANTIC_UNCERTAIN": 23,
+        "F1_FORMATION": 42,
+        "F4_RETRIEVAL": 11,
+        "F5_CONTEXT": 5,
+        "F6_REASONING_CANDIDATE": 2,
+        "none": 61
+      }
+    }
+  }
+}

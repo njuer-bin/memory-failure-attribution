@@ -6,6 +6,7 @@ data/
 # Raw per-question run dumps are large and carry benchmark text; keep them
 # local. Summaries, analyses and intervention rows are tracked.
 results/**/comparison*.jsonl
+results/_corrected_comparison_*_n200.jsonl
 results/**/*.db
 results/**/*.log
 .env
