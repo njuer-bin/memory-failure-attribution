@@ -28,17 +28,23 @@ mechanical template that lifted tokens from the reference answer (75/81 quoted
 tokens occurred in the reference, 0/81 in the evidence, including function
 words such as "she" and "because").
 
-We therefore do not claim a human-validated gate. Round 3 replaces the gestalt
-judgement with per-fact binary annotation: each reference answer is decomposed
-into atomic propositions and annotators mark, per fact, whether the gold
-evidence states it; the row gate is a transparent aggregation (all required
-facts present; an any-of group needs one alternative). A fact marked
-`uncertain` because a relative date has no usable anchor counts as insufficient
-in the primary gate, since the reference is then not derivable from the listed
-evidence; an exclude-uncertain variant is reported as sensitivity. Its
-acceptance bar is pre-registered at fact-level kappa >= 0.6 and row-level
-kappa >= 0.6. Until it clears, **E0 is reported as a relative pattern, never as
-a level**.
+Round 3 replaces the gestalt judgement with per-fact binary annotation: each
+reference answer is decomposed into atomic propositions and annotators mark, per
+fact, whether the gold evidence states it; the row gate is a transparent
+aggregation (all required facts present; an any-of group needs one alternative).
+A fact marked `uncertain` because a relative date has no usable anchor counts as
+insufficient in the primary gate, since the reference is then not derivable from
+the listed evidence; an exclude-uncertain variant is reported as sensitivity.
+
+The instrument cleared its pre-registered bar: **fact-level kappa 0.835**
+(agreement 0.970, n=234 co-decided) and **row-level kappa 0.889** (n=200;
+0.830 excluding uncertain rows). On the 200 adjudicated rows the consensus gate
+reaches precision 0.837, recall 1.000 and F1 0.911, against the stored gate's
+0.244 / 0.528 / 0.333 on the same rows. Because the decomposition was authored
+with access to the adjudicated labels, we treat inter-annotator agreement as the
+independent validation and the adjudication comparison as corroboration rather
+than proof. E0 on the annotated questions uses this gate; for questions outside
+the annotated sample, E0 remains a relative pattern, never a level.
 
 What survives independently of the gate is the failure-direction base rate: of
 60 stored-incorrect rows with a human verdict, 54 (90.0%) are confirmed wrong.
@@ -100,9 +106,13 @@ counts; `results/analysis_gate_confusion_n200.json` is authoritative.)
 Consequences we adopt:
 
 1. E0 counts are used only to compare conditions, never as error rates. Because
-   the dominant gate error is false insufficiency, E0 is biased upward; the
-   relative comparison stays defensible only because one shared gate is applied
-   to all conditions of the same question.
+   the dominant stored-gate error is false insufficiency, E0 is biased upward
+   wherever the stored gate is used; the relative comparison stays defensible
+   only because one shared gate is applied to all conditions of the same
+   question. On the questions covered by round-3 annotation we replace the
+   stored gate with the consensus gate, which removes 5–9 E0 rows per mode on
+   LongMemEval and 5–10 on LoCoMo; questions outside the annotated sample keep
+   the stored gate and the caveat.
 2. Any claim about "how much of the loss is memory" is stated on the abstention-
    corrected labels and accompanied by the gate caveat.
 3. Stage-distribution claims (F1…F6) are made on the failure labels, which the
@@ -149,3 +159,5 @@ judge:
 | `_abs` gate failure (14/15) | `results/analysis_annotations_eval_vs_adjudicated.json`; `round3_key.csv` |
 | gate confusion with explicit polarity (misses 17, false-insufficient 65) | `results/analysis_gate_confusion_n200.json` |
 | round-3 gate instrument and acceptance bar | `results/annotation_package/README_round3.md` |
+| round-3 kappa (0.835 / 0.889) and consensus gate vs adjudicated | `results/analysis_annotations_round3.json` |
+| re-gated E0 on annotated questions | `results/analysis_regate_{locomo,longmemeval}_n200.json`, `results/analysis_regate_locomo_n50.json` |

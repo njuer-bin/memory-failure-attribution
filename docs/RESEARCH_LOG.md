@@ -1533,3 +1533,39 @@ Authoritative, regenerable artifact:
 `results/analysis_gate_confusion_n200.json` via
 `python -m experiments.analyze_gate_confusion`. Corrected in STATUS.md and
 `docs/paper/instrument_honesty.md`; a regression test pins the polarity.
+
+## 2026-10-26 — Round-3 per-fact gate passes; re-attribution with the human gate
+
+Both round-3 sheets arrived complete (276 rows each). Pre-registered scoring
+(`experiments.score_fact_annotations`):
+
+- fact-level kappa **0.835** (agreement 0.970, n=234 co-decided; 42
+  uncertain/blank)
+- row-level kappa **0.889** with unresolved dates mapped to insufficient
+  (n=200), **0.830** excluding them (n=172)
+- both clear the 0.6 bar → **accepted**.
+
+Consensus gate vs the 200 adjudicated labels: precision 0.837 / recall 1.000 /
+F1 0.911 on 178 consensus rows, against the stored gate's 0.244 / 0.528 / 0.333
+on the same rows. By benchmark the fact gate's F1 is 0.972 on LoCoMo (stored
+0.450) and 0.286 on LongMemEval (stored 0.059); LongMemEval precision is low
+only because the positive class is a single row in 88 — in absolute terms the
+fact gate flags 5 false-insufficient rows vs the stored gate's 32. The
+decomposition was authored with access to the adjudicated labels, so the
+inter-annotator kappa is the independent evidence; the adjudication comparison
+is corroboration.
+
+`experiments.regate_with_human_gate` then re-attributes failures using the
+consensus gate on covered questions and the stored gate elsewhere. Coverage is
+98/100 LoCoMo and 94/100 LongMemEval annotated questions (the remaining 8 are
+row-level annotator disagreements). E0 (already abstention-corrected) moves:
+LoCoMo real 56→51, OM 40→30, OC 30→25; LongMemEval real 13→5, OM 13→8, OC 15→8.
+The removed E0 rows become F1/F4/F6 or RC, with the largest shift on
+LongMemEval `_abs`, as the audit predicted. The n=50 fingerprint has only 20/50
+questions covered, so its re-gated E0 is a sensitivity check (semantic 18→16,
+summary 16→17, verbatim 16→17), not a replacement; the fingerprint's
+stage-distribution claim rests on failure labels and is unaffected.
+
+Artifacts: `results/analysis_annotations_round3.json`,
+`results/analysis_regate_{locomo,longmemeval}_n200.json`,
+`results/analysis_regate_locomo_n50.json`. Tests: 214 pass.

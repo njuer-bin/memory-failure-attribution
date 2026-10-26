@@ -1,12 +1,10 @@
 # Status — where to resume
 
-Last updated: 2026-10-26, mid-session. Round-2 gate annotation **failed** the
-pre-registered bar (kappa 0.181 vs ≥ 0.6); the automatic gate remains the only
-gate and E0 levels stay non-paper-grade. The abstention correction was
-generalized into `experiments/abstention_correct.py`, validated to reproduce the
-committed n=50 artifact exactly (28 flips, 0 diffs), refined with a
-reference-answer guard (precision 1.0 on the human sample), and applied to both
-n=200 runs.
+Last updated: 2026-10-26. **Round-3 per-fact gate passed** its pre-registered
+bar (fact kappa 0.835, row kappa 0.889 vs 0.6). The human gate now replaces the
+automatic gate for the annotated questions; re-gated E0 on the covered subset
+is recorded below. Round 2 failed (kappa 0.181), and the abstention correction
+is generalized, validated, and applied to both n=200 runs.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
@@ -24,20 +22,25 @@ This is the single resume point. History and reasoning live in
    the gate. Full diagnostic:
    `results/analysis_annotations_round2_diagnostic.json`
    (regenerate with `python -m experiments.diagnose_gate_annotations`).
-2. **Round-3 per-fact package is READY — waiting on two annotators.** Round 3
-   changes the task shape: the reference answer of every row is decomposed once
-   into atomic facts (`experiments/fact_specs.py`, 276 facts over 200 questions,
-   alternatives encoded as any-of groups), and annotators only mark
-   present/absent per fact. Files: `results/annotation_package/
-   round3_fact_presence.csv` (blinded worksheet),
-   `round3_key.csv` (hidden metadata + stored/adjudicated labels), and
-   `README_round3.md` (rules + five worked examples). Rebuild with
-   `python -m experiments.build_fact_package`.
-   **Pre-registered acceptance: fact-level kappa ≥ 0.6 AND aggregated row-level
-   kappa ≥ 0.6.** When two filled sheets arrive, run
-   `python -m experiments.score_fact_annotations --key ...round3_key.csv
-   --labels annotator1=... --labels annotator2=...`. If it passes, the
-   aggregated gate replaces the automatic gate for E0 and the n=50 fingerprint.
+2. **Round-3 per-fact gate — PASSED (2026-10-26).** Two completed sheets
+   (`round3_fact_presence{1,2}.csv`); scored by
+   `experiments.score_fact_annotations` →
+   `results/analysis_annotations_round3.json`:
+   - **fact-level kappa 0.835** (agreement 0.970, n=234; 42 uncertain/blank)
+   - **row-level kappa 0.889** primary, 0.830 excluding uncertain (n=200/172)
+   - **acceptance: passed** (bar 0.6 on both).
+   Consensus gate vs the 200 adjudicated labels: precision 0.837 / recall 1.000
+   / F1 0.911 (n=178 consensus rows) versus the stored gate's 0.244 / 0.528 /
+   0.333 on the same rows. LoCoMo is the strong case (F1 0.972 vs 0.450);
+   LongMemEval precision is low only because the base rate is 1/88 there.
+   **Caveat:** the decomposition was authored with access to the adjudicated
+   labels, so gate-vs-adjudication agreement is not fully independent;
+   inter-annotator kappa is the independent evidence and it clears by a wide
+   margin.
+   The aggregates now replace the automatic gate for E0. Re-gated results on
+   covered questions are in `results/analysis_regate_*.json` (see the round-3
+   section below). Full re-gating of the n=200 runs would require annotating the
+   other 100 questions per benchmark.
 3. **Abstention-corrected n=200 tables are done** (no API). See the 2026-10-26
    section below. Any accuracy or E0 table quoted for the n=200 runs must state
    which label version (auto vs abstention-corrected) it uses.
@@ -170,15 +173,59 @@ relative date means the reference is not derivable from the listed evidence,
 matching the round-1 adjudication rule); the exclude-uncertain variant is
 reported as sensitivity. `score_fact_annotations` emits both.
 
-**In progress:** `round3_fact_presence1.csv` (276/276 rows filled: 214 yes,
-21 no, 41 uncertain, 62 notes) appeared on 2026-10-26 08:47; the blank sheet
-was renamed to `round3_fact_presence.before_fill.csv`. Notes are substantive
-and show no round-2 template pathology; 40 of the 41 uncertain facts are
-relative-date anchor failures, as intended. Do **not** treat a single sheet as
-a result — the pre-registered test needs two. Caveat for later: the fact
-decomposition was authored with access to the 200 adjudicated labels, so
-gate-vs-adjudication agreement on those same rows is not fully independent;
-inter-annotator kappa is the independent test.
+**Result (2026-10-26): PASSED.** Both sheets are complete
+(`round3_fact_presence{1,2}.csv`, 276 rows each; annotator 1: 214 yes / 21 no /
+41 uncertain; annotator 2: 209 / 27 / 40; every `no` and `uncertain` carries a
+note). Scoring artifact: `results/analysis_annotations_round3.json`.
+
+| test | value | bar | verdict |
+|---|---|---|---|
+| fact-level kappa (n=234 co-decided) | **0.835** (agreement 0.970) | 0.6 | pass |
+| row-level kappa, uncertain→insufficient (n=200) | **0.889** (agreement 0.960) | 0.6 | pass |
+| row-level kappa, uncertain excluded (n=172) | 0.830 | 0.6 | pass |
+| consensus gate vs adjudicated (n=178) | P 0.837 / R 1.000 / F1 0.911 | — | — |
+| stored gate vs adjudicated, same rows | P 0.244 / R 0.528 / F1 0.333 | — | — |
+
+Per benchmark (consensus vs adjudicated): LoCoMo P 0.946 / R 1.000 / F1 0.972
+(stored 0.400 / 0.514 / 0.450); LongMemEval P 0.167 / R 1.000 / F1 0.286
+(stored 0.030 / 1.000 / 0.059). LongMemEval precision is low only because the
+positive class is 1 row out of 88; in absolute false-insufficient rows the fact
+gate flags 5 versus the stored gate's 32.
+
+**Caveat:** the fact decomposition was authored with access to the adjudicated
+labels, so gate-vs-adjudication agreement on those same rows is not independent.
+Inter-annotator kappa (0.835 fact / 0.889 row) is the independent evidence and
+clears the bar comfortably.
+
+### Re-gating with the human gate (label-only)
+
+`experiments/regate_with_human_gate.py` replaces the stored gate with the
+two-annotator consensus gate on covered questions and recomputes
+`answer_failure_type` with the frozen attribution path. Artifacts
+`results/analysis_regate_{locomo,longmemeval}_n200.json` and
+`results/analysis_regate_locomo_n50.json`.
+
+Coverage: 98/100 LoCoMo and 94/100 LongMemEval annotated questions reach
+consensus (the rest are the 8 row-level disagreements); questions outside the
+package keep the stored gate, so E0 counts below are on a mixed basis and are
+not full-run levels.
+
+| run / mode | E0 corrected-label (stored gate) | E0 human gate | changed rows |
+|---|---|---|---|
+| LoCoMo real | 56 | 51 | 21 |
+| LoCoMo OM | 40 | 30 | 13 |
+| LoCoMo OC | 30 | 25 | 10 |
+| LongMemEval real | 13 | 5 | 12 |
+| LongMemEval OM | 13 | 8 | 9 |
+| LongMemEval OC | 15 | 8 | 10 |
+
+Direction is as predicted: the human gate removes false-insufficiency, most
+strongly on LongMemEval (the `_abs` rows), and converts those rows to
+F1/F4/F6/RC. The n=50 fingerprint has only 20/50 questions covered, so its
+re-gated E0 (semantic 18→16, summary 16→17, verbatim 16→17) is a sensitivity
+check, not a replacement; the fingerprint's headline stage-distribution test is
+built on failure labels and is unaffected.
+
 
 
 ### Label-only ladder statistics (2026-10-26)
