@@ -271,3 +271,71 @@ class SemanticSystem:
 
 
 SYSTEMS["semantic"] = SemanticSystem
+
+
+class SemanticRawWriteSystem(SemanticSystem):
+    """Stage-B ablation A1: semantic engine plus a verbatim memory per turn.
+
+    Removes the formation bottleneck (extractor misses) without changing the
+    downstream pipeline. Uses the existing write-through repair, which never
+    consults gold evidence.
+    """
+
+    name = "semantic_rawwrite"
+
+    def ingest(self, record: dict[str, Any]) -> None:
+        from experiments.interventions import write_through_verbatim
+
+        super().ingest(record)
+        write_through_verbatim(self.engine, self.user_id)
+
+
+class SummaryRawSystem(SummarySystem):
+    """Stage-B ablation A2: raw session text instead of an LLM summary.
+
+    No LLM ingestion; isolates the lossy-summary bottleneck at the context
+    stage.
+    """
+
+    name = "summary_raw"
+
+    def ingest(self, record: dict[str, Any]) -> None:
+        for session in _sessions(record):
+            lines = []
+            for message in session["messages"]:
+                text = _text(message)
+                if text:
+                    lines.append(f"{_role(message)}: {text}")
+            if not lines:
+                continue
+            self._add(
+                content="\n".join(lines),
+                session_id=session["session_id"],
+                turn_id=None,
+                timestamp=session.get("date"),
+                memory_type="raw_session",
+            )
+
+
+class HybridVerbatimSystem(VerbatimSystem):
+    """Stage-B ablation A3: hybrid ranking instead of dense cosine only."""
+
+    name = "verbatim_hybrid"
+
+    def search(self, question: str, *, candidate_k: int = 20,
+               top_k: int = 10) -> dict[str, Any]:
+        from experiments.retrieval_intervention import content_tokens, rank_items
+
+        query_vector = self.embedder.embed(question)
+        ranked = rank_items(self.items, query_vector, content_tokens(question), 0.5)
+        clean = [{k: v for k, v in item.items() if k != "vector"} for item in ranked]
+        return {
+            "retrieval": clean[:candidate_k],
+            "rerank": clean[:top_k],
+            "context": clean[:top_k],
+        }
+
+
+SYSTEMS["semantic_rawwrite"] = SemanticRawWriteSystem
+SYSTEMS["summary_raw"] = SummaryRawSystem
+SYSTEMS["verbatim_hybrid"] = HybridVerbatimSystem

@@ -65,6 +65,21 @@ The bge-m3 check should precede both.
    conditions that change the storage/retrieval bottleneck, pre-registered
    criteria for "stage tracks architecture", expected direction, sample size
    and cost. Do not run until the design is frozen.
+   **Status:** design written
+   (`docs/research/2026-10-26-architecture-ablation-design.md`); the three
+   variants are implemented and registered in `SYSTEMS`:
+   `semantic_rawwrite` (write-through verbatim, removes F1 bottleneck),
+   `summary_raw` (raw session context, no LLM ingestion),
+   `verbatim_hybrid` (hybrid ranking). A 5-question × 6-system smoke is
+   running in `results/systems_ablation_smoke/`; do not read it as a result
+   until the full n=100 conditions are pre-registered and run.
+   **Smoke (n=5, descriptive):** `semantic_rawwrite` works as predicted —
+   formation recall 0.40→1.00, F1 removed, failures move to retrieval.
+   `summary_raw` does **not** move the stage (context recall stays 0.20):
+   the binding constraint is context assembly (top-k + 6000 chars), not
+   summary lossiness, so the design now adds A2a/A2b with a wide context
+   budget before the full run. `verbatim_hybrid` is not exercised at n=5
+   (the n=100 mechanism check already showed 0.043→0.321 on F4).
 3. **Do not polish the paper or expand CCF-B claims** until gates A and B
    report pass/fail.
 

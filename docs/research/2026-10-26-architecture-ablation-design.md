@@ -28,6 +28,49 @@ A1 and A2 remove the bottleneck without changing the downstream pipeline; A3 is
 the already-implemented repair. None requires new LLM ingestion except the
 answer/judge calls; A2's raw-context variant needs no summarization calls.
 
+## Smoke result (5 questions, descriptive only)
+
+`results/systems_ablation_smoke/` (5/5, errors 0). All numbers are n=5.
+
+| system | formation / retrieval / context recall | first-loss | failures |
+|---|---|---|---|
+| semantic | 0.40 / 0.20 / 0.20 | formation 3, retrieval 1 | F1 1, E0 1, F6 1, none 2 |
+| semantic_rawwrite | **1.00** / 0.20 / 0.20 | **formation 0**, retrieval 4 | **F1 0**, E0 1, none 4 |
+| summary | 1.00 / 1.00 / **0.20** | context 4 | none 3, E0 2 |
+| summary_raw | 1.00 / 1.00 / **0.20** | context 4 | none 3, E0 2 |
+| verbatim | 1.00 / 0.20 / 0.20 | retrieval 4 | none 3, E0 2 |
+| verbatim_hybrid | 1.00 / 0.20 / 0.20 | retrieval 4 | none 4, E0 1 |
+
+Readings that must shape the full design:
+
+- **A1 works as predicted.** Removing the extraction bottleneck raises
+  formation recall 0.40→1.00 and eliminates F1; the failure moves downstream
+  to retrieval. This is the clearest evidence that the formation stage is
+  architecture-conditional.
+- **A2 does not move the stage.** Raw sessions and LLM summaries both leave
+  context recall at 0.20 with first-loss context 4. The binding constraint is
+  **context assembly (top-k + 6000-char budget), not summary lossiness**. A2 as
+  written is therefore not a valid test of the summary bottleneck.
+- **A3 is not exercised at n=5.** Hybrid ranking leaves retrieval recall at
+  0.20 on these five questions; the n=100 mechanism check already showed
+  0.043→0.321 on the F4 subset, so this is a sample-size issue, not a
+  contradiction.
+
+### Revised A2 (pre-register before the full run)
+
+Test the summary bottleneck with the context stage held non-binding:
+
+- A2a **summary, wide context**: same summaries, `context_chars=20000`,
+  `top_k=20` (enough to include every retrieved session);
+- A2b **raw sessions, wide context**: same budget, raw session text.
+
+If summaries are the bottleneck, A2a still loses gold at context recall while
+A2b recovers it. If both recover, the bottleneck was truncation, not summary
+lossiness — an equally publishable finding (it narrows the F5 claim).
+
+A3 runs at n=100 with the pre-registered F4 subset; its expected effect is the
+already-measured retrieval-recall gain (0.043→0.321), not a new mechanism.
+
 ## Measurements
 
 Per condition, on the same 100 LoCoMo questions (`locomo_refined_public`,

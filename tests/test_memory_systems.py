@@ -141,3 +141,30 @@ def test_run_records_search_knobs_in_summary(tmp_path, monkeypatch):
                     context_chars=6000, candidate_k=5, top_k=3)
     summary = json.loads((out / "summary.json").read_text(encoding="utf-8"))
     assert summary["search"] == {"candidate_k": 5, "top_k": 3, "context_chars": 6000}
+
+
+def test_ablation_variants_registered():
+    for name in ("semantic_rawwrite", "summary_raw", "verbatim_hybrid"):
+        assert name in ms.SYSTEMS
+
+
+def test_summary_raw_ingest_does_not_call_llm(monkeypatch):
+    calls = []
+    monkeypatch.setattr(ms, "completion", lambda *a, **k: calls.append(1) or "summary")
+    system = ms.SummaryRawSystem()
+    system.ingest(_record())
+    assert calls == []
+    assert system.items
+    assert any("I live in Shanghai." in item["content"] for item in system.items)
+
+
+def test_hybrid_verbatim_search_ranks_lexical_match_first(monkeypatch):
+    system = ms.HybridVerbatimSystem()
+    monkeypatch.setattr(system.embedder, "embed", lambda text: [1.0, 0.0])
+    system.items = [
+        {"id": "a", "content": "completely unrelated", "vector": [0.0, 1.0]},
+        {"id": "b", "content": "Shanghai apartment lease", "vector": [0.0, 1.0]},
+    ]
+    result = system.search("Where is the Shanghai apartment?", candidate_k=2, top_k=2)
+    assert result["retrieval"][0]["id"] == "b"
+    assert len(result["context"]) == 2
