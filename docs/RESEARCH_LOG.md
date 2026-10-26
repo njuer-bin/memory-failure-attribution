@@ -1724,3 +1724,49 @@ a genuine property of raw-turn top-k retrieval — which is precisely the
 architecture-conditional construction confound (P1): the stage is real but tied
 to the storage/retrieval design. The intervention null (P4) is unaffected.
 Artifact: `results/embedding_backend_check_locomo_n100.jsonl` / `.json`.
+
+## 2026-10-26 — Stage B smoke and round-5 pilot calibration
+
+**Stage B smoke (5 questions, descriptive).** Implemented three architecture
+ablations in `SYSTEMS`: `semantic_rawwrite` (write-through verbatim removes the
+formation bottleneck), `summary_raw` (raw session context, no LLM ingestion),
+`verbatim_hybrid` (hybrid ranking). `results/systems_ablation_smoke/`, 5/5,
+errors 0.
+
+- A1 works as predicted: semantic formation recall 0.40→1.00, F1 removed,
+  failures move to retrieval.
+- A2 does **not** move the stage: summary and summary_raw both leave context
+  recall at 0.20. The binding constraint is context assembly (top-k + 6000
+  chars), not summary lossiness. The design adds A2a/A2b wide-context
+  conditions before the full run.
+- A3 is not exercised at n=5; the n=100 mechanism check already showed
+  retrieval recall 0.043→0.321 on the F4 subset.
+
+**Round-5 pilot review 1 (calibration).** A first reviewer filled the 40-row
+v1 stage sheet and wrote detailed notes. Four package defects: `evolution` is
+unmeasured (empty/constant), retrieval/rerank/context previews showed only 5
+items, formation previews were ambiguous, and gold evidence lacked dates. Only
+four label classes were used (`none`, `formation`, `retrieval`, `E0`), so κ on
+the 9-class label would be diluted by empty classes. v2 fixes all four: 8
+classes, full top-20/10 previews, dual formation/storage views with an explicit
+"preview absence = stage missing" rule, and `gold_evidence_dates`. The v1 review
+is calibration, not the κ pilot; two annotators must run v2.
+
+### Round-5 v1 pilot: two reviewers, κ below bar
+
+Both reviewers completed the 40-row v1 sheet. Using a correct multiclass
+Cohen's κ (the project helper is binary-only; passing string labels to it gives
+a spurious 1.0), on the 27 rows where both used a valid 8-class label:
+agreement 0.815, **κ = 0.685**, below the pre-registered 0.70. Review 1 used
+the unmeasured `evolution` label on 13/40 rows (invalid under the protocol).
+Disagreements: formation→retrieval 2, retrieval→E0 2, formation→E0 1.
+
+v1 therefore fails, for the package defects the reviewers identified. v2 fixes
+them (8 classes, full top-20/10 previews, dual formation/storage views with an
+explicit "preview absence = stage missing" rule, gold dates). The formal κ
+pilot needs two annotators on v2; the v1 result is calibration, not a paper
+number. Artifact: `results/analysis_round5_pilot_v1_calibration.json`.
+
+Note for the scorer: implement/report multiclass κ, and report κ separately on
+the 8-class label and on the classes actually used, since empty classes dilute
+the estimate.

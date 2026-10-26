@@ -61,6 +61,17 @@ The bge-m3 check should precede both.
    label version. Write the blind human stage-annotation package for the
    LoCoMo n=100 questions and coordinate ≥2 independent annotators; target
    Cohen's κ ≥ 0.70, report the confusion matrix and uncertain share.
+   **Pilot calibration (v1, two reviewers, 2026-10-26):** both reviewers
+   completed the 40-row v1 sheet. On the 27 rows where both used a valid
+   8-class label, agreement is 0.815 and **multiclass κ = 0.685, below the
+   0.70 bar**; 13/40 review-1 rows used the unmeasured `evolution` label and
+   are invalid. Disagreements: formation→retrieval 2, retrieval→E0 2,
+   formation→E0 1. v1 therefore fails, for exactly the package defects the
+   reviewers named. v2 fixes all four: 8 classes (no evolution), full
+   top-20/10 previews, formation/storage dual views with an explicit
+   "preview absence = stage missing" rule, and `gold_evidence_dates`.
+   Artifact: `results/analysis_round5_pilot_v1_calibration.json`. The formal
+   κ pilot requires two annotators on v2.
 2. **Stage B design (no run yet).** Write the architecture-ablation design:
    conditions that change the storage/retrieval bottleneck, pre-registered
    criteria for "stage tracks architecture", expected direction, sample size

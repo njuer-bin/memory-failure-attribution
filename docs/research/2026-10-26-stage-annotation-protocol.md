@@ -68,6 +68,21 @@ automatic failure label and gate status are hidden.
 `round5_fact_audit.csv` (one row per fact): reuses the round-3 schema, extended
 to all 100 LoCoMo questions.
 
+## Files (v2)
+
+- `results/annotation_package/round5_stage_pilot_v2.csv` — blinded workbook.
+- `results/annotation_package/round5_stage_pilot_v2_key.csv` — hidden key.
+- `results/annotation_package/README_round5.md` — v2 instructions.
+- Scorer: `python -m experiments.score_stage_annotations --key ...v2_key.csv
+  --labels a=... --labels b=... --out results/analysis_round5_pilot_v2.json`.
+  It implements multiclass Cohen's κ (the project helper is binary-only),
+  reports the human-human and human-auto confusion matrices, the uncertain
+  share, and κ on the classes actually used.
+
+v1 calibration result (for the record, not the gate): 27/40 valid co-decided
+rows, agreement 0.815, multiclass κ 0.685; 13/40 review-1 rows used the
+unmeasured `evolution` label. v1 therefore failed and v2 replaced it.
+
 ## Scoring and acceptance
 
 - Task 1: fact-level Cohen's κ (yes/no co-decided), agreement, uncertain share.
@@ -78,6 +93,33 @@ to all 100 LoCoMo questions.
 - Pilot: 20 rows first. If pilot κ < 0.70, revise the task shape (e.g. show
   fewer stages at a time, or split "which stage first loses gold" from
   "does the final context contain gold"), not just the wording; re-pilot.
+
+## v2 revisions (from pilot review 1, 2026-10-26)
+
+A first reviewer completed the 40-row v1 pilot as a **calibration pass** (not
+the κ pilot) and surfaced four structural problems; v2 fixes them:
+
+1. `evolution` was unmeasured and uninformative (empty for verbatim, constant
+   for semantic). It is removed from the label set: **8 classes**
+   (`formation | storage | retrieval | rerank | context | none | E0 | uncertain`).
+2. `retrieval`/`rerank`/`context` previews showed only the first 5 items, so
+   "not in the first 5" was being read as "absent". v2 shows the **full**
+   top-20 retrieval and top-10 rerank/context lists, with the count in the
+   header.
+3. `formation`/`storage` previews (top-5 by gold overlap) were ambiguous. v2
+   shows **two views**: the first 10 in session order and the top 10 by gold
+   overlap, with the total count, and defines the operational rule: if the gold
+   evidence appears in neither view, the stage counts as missing. This is a
+   task definition, not a claim about the full store; the analysis says so.
+4. The CSV lacked dates, so relative-time questions could not be scored. v2
+   adds `gold_evidence_dates` (source id + timestamp per gold item).
+
+Reviewer observations to carry into the analysis: only four classes were used
+in v1 (`none`, `formation`, `retrieval`, `E0`); report κ on the 8-class label
+**and** on the classes actually used, because empty classes dilute κ. For
+verbatim, retrieval/rerank/context are the same ranking at different cutoffs
+(20/10/10); this is a system property, not a package error, and it means
+verbatim cannot produce `rerank`/`context` labels under this design.
 
 ## What this gate decides
 

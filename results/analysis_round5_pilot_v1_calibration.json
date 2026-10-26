@@ -1,0 +1,18 @@
+{
+  "rows": 40,
+  "valid_co_decided": 27,
+  "agreement": 0.8148148148148148,
+  "kappa_multi": 0.6853146853146852,
+  "confusion": {
+    "formation->e0": 1,
+    "formation->formation": 4,
+    "formation->retrieval": 2,
+    "none->none": 4,
+    "retrieval->e0": 2,
+    "retrieval->retrieval": 14
+  },
+  "invalid_review1": {
+    "evolution": 13
+  },
+  "invalid_review2": {}
+}

@@ -29,28 +29,47 @@ from experiments.memory_systems import SYSTEMS, stage_dict
 from experiments.retrieval_intervention import content_tokens
 
 STAGE_ORDER = ("formation", "storage", "evolution", "retrieval", "rerank", "context")
-README = """# Round 5 — blind stage attribution (pilot)
+README = """# Round 5 — blind stage attribution (v2 pilot)
 
-For each row you see one question, its reference answer, the gold evidence, and
-the memory items a system held at six lifecycle stages (previews, truncated).
+For each row you see one question, its reference answer, the gold evidence with
+its session dates, and the memory items a system held at each lifecycle stage.
 Mark the **first stage at which the gold evidence needed for the reference
-answer is no longer present**. Use only this row.
+answer is no longer present**.
 
-- `formation` / `storage` / `evolution` previews are the items most textually
-  related to the gold evidence (not the full store).
-- `retrieval` / `rerank` / `context` previews are the system's own ordered
-  context at that stage.
-- Mark `none` when every stage still contains the needed evidence.
-- Mark `E0` when the gold evidence itself does not establish the reference
-  answer (the question is unanswerable from the benchmark evidence).
-- Mark `uncertain` when the previews are insufficient to decide; add a note.
+## Labels (8 classes; `evolution` is not measured and is excluded)
 
-System identity is hidden (A/B). Do not open the key. Two annotators work
-independently; disagreements are adjudicated blind. Every non-`none` choice
-needs a one-line note naming the absent evidence or the stage where it vanished.
+`formation | storage | retrieval | rerank | context | none | E0 | uncertain`
 
-Pilot acceptance: Cohen's kappa >= 0.70 on the stage label. If the pilot falls
-short, the task shape is revised before the full 100 questions.
+- `none`: every measured stage still contains the needed evidence.
+- `E0`: the gold evidence itself does not establish the reference answer
+  (use the dates shown in `gold_evidence_dates` to resolve relative time).
+- `uncertain`: the previews are insufficient to decide; add a note.
+
+## What the previews mean
+
+- `retrieval`: the system's full top-20 candidates (N shown in the header).
+- `rerank` / `context`: the system's full top-10 (N shown in the header).
+- `formation` / `storage`: two views of the stored items — the first 10 in
+  session order and the top 10 by overlap with the gold evidence, with the
+  total count in the header. **Operational rule: if the gold evidence does not
+  appear in either view, treat the stage as missing.** This is a defined
+  criterion, not a claim that the full store lacks it; say so in the analysis.
+- `evolution` is excluded because it is unmeasured in both systems (empty for
+  verbatim, constant for semantic). Do not use it as a label.
+
+For verbatim rows the retrieval/rerank/context previews are the same ranking at
+different cutoffs (20 / 10 / 10); that is a property of the system, not a
+package error.
+
+## Procedure
+
+Two annotators, independent and blind; system identity is A/B and the key is
+hidden. Use only the row. Do not open the key. Every non-`none` choice needs a
+one-line note naming the absent evidence or the stage where it vanished.
+
+Pilot acceptance: Cohen's kappa >= 0.70 on the 8-class stage label (also report
+kappa on the classes actually used). If the pilot falls short, revise the task
+shape before the full 100 questions.
 """
 
 
@@ -58,20 +77,39 @@ def _load(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-def _preview(items: list[dict[str, Any]], k: int = 5, chars: int = 300) -> str:
+def _preview(items: list[dict[str, Any]], k: int | None = None, chars: int = 300) -> str:
+    shown = items if k is None else items[:k]
     return " || ".join(
         f"[{i + 1}] {str(item.get('content') or '')[:chars]}"
-        for i, item in enumerate(items[:k])
+        for i, item in enumerate(shown)
     )
 
 
-def _rank_by_gold(items: list[dict[str, Any]], gold_text: str, k: int = 5) -> list[dict[str, Any]]:
+def _rank_by_gold(items: list[dict[str, Any]], gold_text: str, k: int = 10) -> list[dict[str, Any]]:
     gold_tokens = content_tokens(gold_text)
     return sorted(
         items,
         key=lambda item: len(gold_tokens & content_tokens(str(item.get("content") or ""))),
         reverse=True,
     )[:k]
+
+
+def _stage_preview(stage: str, raw: list[dict[str, Any]], gold_text: str,
+                   candidate_k: int, top_k: int, chars: int = 200) -> str:
+    if stage == "evolution":
+        return "NOT MEASURED — excluded from the label set"
+    if stage in ("formation", "storage"):
+        ordered = raw[:10]
+        gold_ranked = _rank_by_gold(raw, gold_text, 10)
+        return (
+            f"N={len(raw)}; session-order first {len(ordered)}:\n"
+            + _preview(ordered, chars=chars)
+            + f"\n--- gold-overlap top {len(gold_ranked)}:\n"
+            + _preview(gold_ranked, chars=chars)
+        )
+    limit = candidate_k if stage == "retrieval" else top_k
+    shown = raw[:limit]
+    return f"N={len(raw)}; top {len(shown)}:\n" + _preview(shown, chars=chars)
 
 
 def _auto_first_loss(stages: dict[str, Any], gold: list[dict[str, Any]]) -> str:
@@ -81,7 +119,8 @@ def _auto_first_loss(stages: dict[str, Any], gold: list[dict[str, Any]]) -> str:
     return first_missing_stage(stages, gold_ids) or "none"
 
 
-def build(comparison: Path, limit: int, systems: list[str], out: Path) -> None:
+def build(comparison: Path, limit: int, systems: list[str], out: Path,
+          tag: str = "pilot_v2") -> None:
     baseline = {str(r["question_id"]): r for r in _load(comparison)}
     records = list(iter_normalized("locomo_refined_public", limit=limit))
     workbook: list[dict[str, str]] = []
@@ -94,7 +133,16 @@ def build(comparison: Path, limit: int, systems: list[str], out: Path) -> None:
         reference = str(record.get("answer") or "")
         gold = record.get("gold_evidence") or []
         gold_text = "\n".join(str(g.get("text") or "") for g in gold)
-        gold_block = "\n".join(f"[{i + 1}] {str(g.get('text') or '')}" for i, g in enumerate(gold))
+        gold_block = "\n".join(
+            f"[{i + 1}] ({str(g.get('source_id') or '?')}, "
+            f"{str(g.get('timestamp') or 'no date')}) {str(g.get('text') or '')}"
+            for i, g in enumerate(gold)
+        )
+        gold_dates = "\n".join(
+            f"[{i + 1}] {str(g.get('source_id') or '?')} | "
+            f"{str(g.get('timestamp') or 'no date')}"
+            for i, g in enumerate(gold)
+        )
         for si, name in enumerate(systems):
             system = SYSTEMS[name]()
             system.ingest(record)
@@ -104,11 +152,7 @@ def build(comparison: Path, limit: int, systems: list[str], out: Path) -> None:
             previews = {}
             for stage in STAGE_ORDER:
                 raw = raw_stages.get(stage) or []
-                if stage in ("formation", "storage", "evolution"):
-                    items = _rank_by_gold(raw, gold_text)
-                else:
-                    items = raw
-                previews[stage] = _preview(items)
+                previews[stage] = _stage_preview(stage, raw, gold_text, 20, 10)
             row_id = f"q{qi:03d}-{chr(ord('A') + si)}"
             workbook.append({
                 "row_id": row_id,
@@ -116,6 +160,7 @@ def build(comparison: Path, limit: int, systems: list[str], out: Path) -> None:
                 "question": question,
                 "reference_answer": reference,
                 "gold_evidence": gold_block,
+                "gold_evidence_dates": gold_dates,
                 **{f"{stage}_preview": previews[stage] for stage in STAGE_ORDER},
                 "annotated_first_loss_stage": "",
                 "confidence": "",
@@ -135,11 +180,11 @@ def build(comparison: Path, limit: int, systems: list[str], out: Path) -> None:
             })
         print(f"[{qi}/{len(records)}] {qid}", flush=True)
     out.mkdir(parents=True, exist_ok=True)
-    with (out / "round5_stage_pilot.csv").open("w", encoding="utf-8", newline="") as fh:
+    with (out / f"round5_stage_{tag}.csv").open("w", encoding="utf-8", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=list(workbook[0]))
         writer.writeheader()
         writer.writerows(workbook)
-    with (out / "round5_stage_pilot_key.csv").open("w", encoding="utf-8", newline="") as fh:
+    with (out / f"round5_stage_{tag}_key.csv").open("w", encoding="utf-8", newline="") as fh:
         writer = csv.DictWriter(fh, fieldnames=list(key[0]))
         writer.writeheader()
         writer.writerows(key)
@@ -153,12 +198,13 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--systems", default="semantic,verbatim")
     parser.add_argument("--out", default="results/annotation_package")
+    parser.add_argument("--tag", default="pilot_v2")
     args = parser.parse_args()
     systems = [s.strip() for s in args.systems.split(",") if s.strip()]
     unknown = [s for s in systems if s not in SYSTEMS]
     if unknown:
         raise SystemExit(f"unknown systems {unknown}; choose from {sorted(SYSTEMS)}")
-    build(Path(args.comparison), args.limit, systems, Path(args.out))
+    build(Path(args.comparison), args.limit, systems, Path(args.out), args.tag)
 
 
 if __name__ == "__main__":
