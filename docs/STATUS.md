@@ -1,14 +1,12 @@
 # Status — where to resume
 
-Last updated: 2026-10-26. **Governing plan: `docs/CCF_B_DECISION_PLAN_2026-10-26.md`**
-(freeze → re-analysis + human stage annotation → architecture-confound experiment
-→ re-pre-registered intervention → second benchmark; decision gates A–D).
-Protocol freeze: `docs/PROTOCOL_FREEZE.md` (commit `b8b1f6e`). Changelog:
-`docs/PRE_REGISTRATION_CHANGELOG.md`. Current priority is protocol freeze,
-architecture-ablation design and annotator coordination — **not** paper
-polishing. LoCoMo n=100 is complete (null accuracy, Holm-significant stage
-distributions) and the intervention is null by its pre-registered rule; both
-are inputs to the decision gates, not settled claims.
+Last updated: 2026-10-26, **paused mid-Stage-B**. Stage A gate is **PASSED**
+(E0-excluded stage tests still significant; blind stage annotation κ=0.897).
+Stage B A3 is complete (real accuracy gain; stage movement below the gate bar);
+**A1 is paused at 44/100, errors 0, resumable**. A2 is deferred. The governing
+plan is `docs/CCF_B_DECISION_PLAN_2026-10-26.md`; freeze
+`docs/PROTOCOL_FREEZE.md`; changelog `docs/PRE_REGISTRATION_CHANGELOG.md`.
+Do not polish the paper until gates A/B are settled.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
@@ -54,7 +52,48 @@ The bge-m3 check should precede both.
 
 ## Start here next session (punch list)
 
-**Do these first (per the 2026-10-26 decision plan):**
+## RESUME HERE (paused 2026-10-26)
+
+**State:** Stage B A1 (`semantic` vs `semantic_rawwrite`, n=100) is paused at
+**44/100**, `errors: 0`; 44 complete rows are in
+`results/systems_ablation_n100_a1/comparison.jsonl`; `progress.json` still says
+"running" (stale after the pause). Nothing is corrupt; `--resume` skips
+completed questions.
+
+**Before restarting:** confirm ≥3 GB free memory (it was 1.35 GB at pause, 5.57
+GB after apps were closed). If low, close browsers / cloud-sync / Steam first.
+
+**Resume command:**
+
+```bash
+G:/aconda/python.exe -m experiments.run_systems \
+  --dataset locomo_refined_public --limit 100 \
+  --systems semantic,semantic_rawwrite \
+  --context-chars 6000 --candidate-k 20 --top-k 10 \
+  --out-dir results/systems_ablation_n100_a1 --resume
+```
+
+**After A1 completes (56 records left, ~1.5–2 h):**
+
+1. Analyze with
+   `python -m experiments.analyze_ladder --comparison results/systems_ablation_n100_a1/comparison.jsonl --out results/analysis_ablation_a1_n100.json`.
+2. Apply **gate B**: architecture-conditional if ≥2 of 3 systems move their
+   dominant-stage share ≥20 points with Holm-significant within-system
+   Stuart–Maxwell. Current score: A3 is **partial** (F4 share 37→23, −14
+   points, p=0.066; accuracy +17.6 points, p=0.014); A1 is the decisive one.
+3. Gate B pass → Stage C (re-pre-registered intervention: repeat arms,
+   human-confirmed F4, n=200, power analysis). Gate B fail → narrow the claim
+   / pivot to the analysis paper. Do not start Stage C before this decision.
+4. Parallel annotation: expand round-5 v2 from the 40-row pilot to the full
+   **100 questions × semantic+verbatim** (200 rows) for the human-confirmed
+   labels Stage C needs. Summary traces still require LLM summaries (~1,900
+   calls) and remain deferred.
+5. Git: `5d8282b` (A3 result) is **local, not pushed**; A1's result dir is
+   untracked until it completes. Push only on explicit instruction.
+
+The items below are the completed record that feeds those gates.
+
+## Do these first (per the 2026-10-26 decision plan)
 
 1. **Stage A re-analysis (no API).** Rerun the stage-distribution tests with
    E0 excluded (and report the E0-included version as sensitivity); state the
@@ -109,6 +148,9 @@ The bge-m3 check should precede both.
    bar**. So A3 is a real repair but **does not by itself establish
    architecture-conditional staging**. A1 (formation) is the stronger
    candidate next. Artifact: `results/analysis_ablation_a3_n100.json`.
+   **A1 n=100 — PAUSED at 44/100.** `results/systems_ablation_n100_a1/`
+   (44 complete rows, errors 0; `progress.json` stale "running"). Resume with
+   the command in **RESUME HERE** above; then analyze and apply gate B.
 3. **Do not polish the paper or expand CCF-B claims** until gates A and B
    report pass/fail.
 

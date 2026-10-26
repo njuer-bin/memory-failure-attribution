@@ -1800,3 +1800,16 @@ df=4, p=0.066 (not significant), and the dominant-stage share moves 14 points �
 below the pre-registered 20-point bar. **A3 does not by itself satisfy gate B.**
 A1 (formation) is the stronger candidate; it is next.
 Artifact: `results/analysis_ablation_a3_n100.json`.
+
+## 2026-10-26 — Pause point: Stage B A1 at 44/100
+
+Stage A gate passed (E0-excluded significance; v2 stage-annotation κ=0.897).
+Stage B A3 (verbatim hybrid) completed: retrieval recall 0.197→0.402,
+accuracy 0.351→0.527 (McNemar p=0.014, diff −0.187, CI [−0.319,−0.044]),
+but F4 share only 37→23 (−14 points) and within-system Stuart–Maxwell p=0.066,
+so A3 alone does not meet gate B's ≥20-point/Holm bar.
+
+A1 (semantic vs semantic_rawwrite) was stopped at **44/100**, errors 0, 44
+complete rows on disk. The host had 1.35 GB free at pause; resume only after
+freeing memory. Exact resume command and the post-A1 gate-B procedure are in
+`docs/STATUS.md` → **RESUME HERE**. A2 (summary wide-context) remains deferred.
