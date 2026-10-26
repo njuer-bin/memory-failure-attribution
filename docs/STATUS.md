@@ -1,12 +1,14 @@
 # Status — where to resume
 
-Last updated: 2026-10-26. **LoCoMo n=100 fingerprint complete**: null paired
-accuracy (p=0.73–0.86) with all three failure-distribution pairs significant
-after Holm (≤2.7e-4) — semantic loses at formation, summary at context,
-verbatim at retrieval. Round-3 per-fact gate passed (fact kappa 0.835, row
-kappa 0.889 vs 0.6) and now replaces the automatic gate on annotated
-questions. Round 2 failed (kappa 0.181); abstention correction is generalized,
-validated, and applied to both n=200 runs.
+Last updated: 2026-10-26. **Governing plan: `docs/CCF_B_DECISION_PLAN_2026-10-26.md`**
+(freeze → re-analysis + human stage annotation → architecture-confound experiment
+→ re-pre-registered intervention → second benchmark; decision gates A–D).
+Protocol freeze: `docs/PROTOCOL_FREEZE.md` (commit `b8b1f6e`). Changelog:
+`docs/PRE_REGISTRATION_CHANGELOG.md`. Current priority is protocol freeze,
+architecture-ablation design and annotator coordination — **not** paper
+polishing. LoCoMo n=100 is complete (null accuracy, Holm-significant stage
+distributions) and the intervention is null by its pre-registered rule; both
+are inputs to the decision gates, not settled claims.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
@@ -31,10 +33,15 @@ findings:
 
 Independent confound named by the adjudicator: every run uses the deterministic
 `hash:384` embedding fallback, which itself produces the verbatim retrieval
-bottleneck (recall 0.197). **Cheapest decisive next check:** recompute retrieval
-ranking/recall with the locally available `bge-m3` (no API). If the F4
-fingerprint disappears under a real embedding, it was an artifact; if it
-persists, the attack is answered.
+bottleneck (recall 0.197). **Checked (free, local bge-m3):** the bottleneck
+**persists** under a real embedding. Retrieval recall on the 35 F4 questions is
+0.043 (hash) → **0.100 (bge-m3)** dense, 0.321 → 0.343 with hybrid ranking;
+overall dense is actually lower under bge-m3 (0.205 → 0.115) and non-F4 drops
+0.292 → 0.123. So the hash-artifact attack is **answered** — the retrieval
+bottleneck is a property of raw-turn top-k retrieval, not of the embedding
+backend — but that is exactly why the **construction confound (P1) remains**:
+the stage is architecture-conditional. The checkpointed artifact is
+`results/embedding_backend_check_locomo_n100.jsonl` / `.json`.
 
 What survives and is publishable under the pre-registered fallback
 (COLING/NLPCC): the attribution protocol, the human-audit methodology
@@ -46,6 +53,22 @@ intervention + a second real-haystack benchmark before claiming the phenomenon.
 The bge-m3 check should precede both.
 
 ## Start here next session (punch list)
+
+**Do these first (per the 2026-10-26 decision plan):**
+
+1. **Stage A re-analysis (no API).** Rerun the stage-distribution tests with
+   E0 excluded (and report the E0-included version as sensitivity); state the
+   label version. Write the blind human stage-annotation package for the
+   LoCoMo n=100 questions and coordinate ≥2 independent annotators; target
+   Cohen's κ ≥ 0.70, report the confusion matrix and uncertain share.
+2. **Stage B design (no run yet).** Write the architecture-ablation design:
+   conditions that change the storage/retrieval bottleneck, pre-registered
+   criteria for "stage tracks architecture", expected direction, sample size
+   and cost. Do not run until the design is frozen.
+3. **Do not polish the paper or expand CCF-B claims** until gates A and B
+   report pass/fail.
+
+The items below are the completed record that feeds those gates.
 
 1. **Round-2 gate annotation — FAILED, do not use.** Two sheets came back
    (`results/annotation_package/round2_gate_only_annotated{1,2}.csv`).
@@ -134,6 +157,14 @@ The bge-m3 check should precede both.
      Caveat: this run still uses the automatic gate (E0 counts carry the known
      gate error); the fingerprint claim rests on failure labels, which the human
      audit found 90% sound.
+     **Stage A result (2026-10-26): E0-independent.** Excluding the 42 questions
+     whose shared gate is not `sufficient` (41 insufficient + 1 error; 58 used),
+     all three pairs remain significant: semantic vs summary p=2.0e-5 (Holm
+     6.1e-5), semantic vs verbatim p=7.5e-5 (Holm 7.5e-5), summary vs verbatim
+     p=2.7e-5 (Holm 6.1e-5). Artifact:
+     `results/analysis_stage_excluding_e0_locomo_n100.json`. The headline does
+     not depend on E0; the remaining Stage-A condition is the blind human stage
+     annotation (κ ≥ 0.70).
    - **LongMemEval full-haystack pilot (n=10) — COMPLETE.** 
      `results/systems_longmemeval_s_sample10_fixedgate/` (10/10, errors 0,
      1082 s). Qualitative replication of the LoCoMo fingerprint despite tiny n:

@@ -1698,3 +1698,29 @@ Research-level gaps if the phenomenon paper is to be saved: (a) black-box
 system/ablation, (b) powered intervention beating the retest floor, (c) fully
 human-gated headline + stage-label audit, (d) second real-haystack benchmark at
 n≥50, (e) real embedding backend and second judge.
+
+## 2026-10-26 — bge-m3 check: the retrieval bottleneck is not a hash artifact
+
+The adversarial adjudicator flagged the deterministic `hash:384` embedding
+fallback as a possible independent cause of the verbatim retrieval bottleneck.
+Recomputed retrieval ranking for all 100 LoCoMo questions with the locally
+available `bge-m3` (Ollama, 1024-dim, 420/420 calls served by Ollama, no API
+cost).
+
+| subset | hash dense | hash hybrid | bge-m3 dense | bge-m3 hybrid |
+|---|---|---|---|---|
+| all 100 | 0.205 | 0.407 | 0.115 | 0.365 |
+| F4 (35) | 0.043 | 0.321 | 0.100 | 0.343 |
+| non-F4 (65) | 0.292 | 0.454 | 0.123 | 0.377 |
+
+The bottleneck survives a real embedding: on the F4 questions bge-m3 dense
+recall is 0.100 (vs 0.043 hash), still missing gold for ~90% of them. Overall
+and non-F4 recall are actually *lower* under bge-m3, so the hash fallback was
+not manufacturing the fingerprint. Hybrid ranking remains the effective lever
+and its F4 gain is stable across backends (0.321 vs 0.343).
+
+Conclusion: the "embedding artifact" attack is answered. The retrieval stage is
+a genuine property of raw-turn top-k retrieval — which is precisely the
+architecture-conditional construction confound (P1): the stage is real but tied
+to the storage/retrieval design. The intervention null (P4) is unaffected.
+Artifact: `results/embedding_backend_check_locomo_n100.jsonl` / `.json`.
