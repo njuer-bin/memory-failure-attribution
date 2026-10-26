@@ -1,0 +1,125 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-26T02:31:03.554188+00:00",
+    "dataset": {
+      "dataset_id": "evolution_probe_v2",
+      "source": "datasets/evolution_probe/probe_v2.jsonl",
+      "sha256_16": "8436254b1413538c"
+    },
+    "limit": 40,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "embedding": {
+      "backend": "hash:384",
+      "dim": 384,
+      "configured_model": "qwen3-embedding:4b",
+      "ollama_enabled": true
+    },
+    "python": "3.13.9",
+    "git": {
+      "commit": "425885396793b814ad1ca76e03bfc8fde2ad11a3",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "search": {
+    "candidate_k": 5,
+    "top_k": 5,
+    "context_chars": 6000
+  },
+  "systems": [
+    "semantic",
+    "verbatim",
+    "summary"
+  ],
+  "errors": 0,
+  "results": {
+    "systems": {
+      "semantic": {
+        "count": 40,
+        "stage_recall": {
+          "formation": 1.0,
+          "storage": 1.0,
+          "retrieval": 0.8,
+          "rerank": 0.8,
+          "context": 0.8
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 32,
+          "retrieval": 8
+        },
+        "semantic_accuracy": 0.5666666666666667,
+        "semantic_judged": 30,
+        "answer_failure_distribution": {
+          "none": 27,
+          "F6_REASONING_CANDIDATE": 13
+        },
+        "gate_distribution": {
+          "insufficient": 8,
+          "sufficient": 32
+        }
+      },
+      "verbatim": {
+        "count": 40,
+        "stage_recall": {
+          "formation": 1.0,
+          "storage": 1.0,
+          "retrieval": 0.675,
+          "rerank": 0.675,
+          "context": 0.675
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 27,
+          "retrieval": 13
+        },
+        "semantic_accuracy": 0.35,
+        "semantic_judged": 40,
+        "answer_failure_distribution": {
+          "none": 14,
+          "F4_RETRIEVAL": 5,
+          "F6_REASONING_CANDIDATE": 21
+        },
+        "gate_distribution": {
+          "insufficient": 8,
+          "sufficient": 32
+        }
+      },
+      "summary": {
+        "count": 40,
+        "stage_recall": {
+          "formation": 1.0,
+          "storage": 1.0,
+          "retrieval": 0.925,
+          "rerank": 0.925,
+          "context": 0.925
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 37,
+          "retrieval": 3
+        },
+        "semantic_accuracy": 0.43243243243243246,
+        "semantic_judged": 37,
+        "answer_failure_distribution": {
+          "none": 19,
+          "F4_RETRIEVAL": 2,
+          "E0_EVIDENCE_INSUFFICIENT": 2,
+          "F6_REASONING_CANDIDATE": 17
+        },
+        "gate_distribution": {
+          "insufficient": 8,
+          "sufficient": 32
+        }
+      }
+    }
+  }
+}

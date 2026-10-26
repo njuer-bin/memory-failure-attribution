@@ -48,3 +48,9 @@ def test_paired_pairs_follow_canonical_order():
         "oracle_memory_vs_oracle_context",
     ]
     assert "real_memory_vs_oracle_memory" in result["stage_distribution_tests"]
+
+
+def test_holm_adjustment_is_monotone():
+    from experiments.analyze_ladder import _holm
+    adjusted = _holm({"a": 0.01, "c": 0.03, "b": 0.04})
+    assert adjusted == {"a": 0.03, "c": 0.06, "b": 0.06}

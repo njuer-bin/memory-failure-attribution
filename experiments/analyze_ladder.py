@@ -32,6 +32,19 @@ def _load(path: Path) -> dict[str, dict[str, Any]]:
     return rows
 
 
+def _holm(pvalues: dict[str, float]) -> dict[str, float]:
+    """Holm step-down adjustment over a family of p-values."""
+    items = sorted(pvalues.items(), key=lambda kv: kv[1])
+    m = len(items)
+    adjusted: dict[str, float] = {}
+    previous = 0.0
+    for rank, (name, p) in enumerate(items):
+        value = min(1.0, max(previous, (m - rank) * p))
+        adjusted[name] = value
+        previous = value
+    return adjusted
+
+
 def analyze_ladder(rows: dict[str, dict[str, Any]]) -> dict[str, Any]:
     ordered = [row for row in rows.values()]
     present = {mode for row in ordered for mode in (row.get("modes") or {})}
@@ -48,6 +61,16 @@ def analyze_ladder(rows: dict[str, dict[str, Any]]) -> dict[str, Any]:
                 "bootstrap": pair["bootstrap"],
             }
     result["paired_accuracy"] = paired
+    raw_p = {
+        pair: test["stuart_maxwell"]["p_value"]
+        for pair, test in result["stage_distribution_tests"].items()
+        if test.get("stuart_maxwell", {}).get("p_value") is not None
+    }
+    if raw_p:
+        holm = _holm(raw_p)
+        result["stage_distribution_holm"] = holm
+        for pair, value in holm.items():
+            result["stage_distribution_tests"][pair]["stuart_maxwell_holm"] = value
     result["rows"] = len(ordered)
     return result
 

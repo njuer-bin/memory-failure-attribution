@@ -236,18 +236,22 @@ class SemanticSystem:
                     session_id=session["session_id"],
                 ))
 
-    def search(self, question: str) -> dict[str, Any]:
+    def search(self, question: str, *, candidate_k: int = 20,
+               top_k: int = 10) -> dict[str, Any]:
         from memory_engine.models import SearchRequest
         from tracing.engine_trace import retrieval_artifacts
 
         results = self.engine.search(SearchRequest(
-            query=question, user_id=self.user_id, top_k=10, multi_hop=True,
+            query=question, user_id=self.user_id, top_k=top_k, multi_hop=True,
         ))
         trace = self.engine.last_search_trace or {}
+        retrieval = trace.get("retrieval_candidates") or retrieval_artifacts(results)
+        rerank = trace.get("reranked") or retrieval_artifacts(results)
+        context = trace.get("context") or retrieval_artifacts(results)
         return {
-            "retrieval": trace.get("retrieval_candidates") or retrieval_artifacts(results),
-            "rerank": trace.get("reranked") or retrieval_artifacts(results),
-            "context": trace.get("context") or retrieval_artifacts(results),
+            "retrieval": list(retrieval)[:candidate_k],
+            "rerank": list(rerank)[:top_k],
+            "context": list(context)[:top_k],
         }
 
     def stages(self, gold: list[dict[str, Any]], search: dict[str, Any]) -> dict[str, Any]:

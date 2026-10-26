@@ -1,0 +1,142 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-26T06:22:21.730296+00:00",
+    "dataset": {
+      "dataset_id": "locomo_refined_public",
+      "error": "PermissionError: [Errno 13] Permission denied: 'G:\\\\PythonProject\\\\memory-failure-attribution\\\\locomo_refined_dataset\\\\public'"
+    },
+    "limit": 100,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "embedding": {
+      "backend": "hash:384",
+      "dim": 384,
+      "configured_model": "qwen3-embedding:4b",
+      "ollama_enabled": true
+    },
+    "python": "3.13.9",
+    "git": {
+      "commit": "425885396793b814ad1ca76e03bfc8fde2ad11a3",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "search": {
+    "candidate_k": 20,
+    "top_k": 10,
+    "context_chars": 6000
+  },
+  "systems": [
+    "semantic",
+    "verbatim",
+    "summary"
+  ],
+  "errors": 0,
+  "results": {
+    "systems": {
+      "semantic": {
+        "count": 100,
+        "stage_recall": {
+          "formation": 0.47833333333333333,
+          "storage": 0.99,
+          "retrieval": 0.43,
+          "rerank": 0.41,
+          "context": 0.31
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 17,
+          "formation": 57,
+          "retrieval": 22,
+          "context": 3,
+          "rerank": 1
+        },
+        "semantic_accuracy": 0.4065934065934066,
+        "semantic_judged": 91,
+        "answer_failure_distribution": {
+          "none": 42,
+          "E0_EVIDENCE_INSUFFICIENT": 21,
+          "EVAL_SEMANTIC_UNCERTAIN": 4,
+          "F5_CONTEXT": 1,
+          "F4_RETRIEVAL": 14,
+          "F1_FORMATION": 18
+        },
+        "gate_distribution": {
+          "error": 1,
+          "insufficient": 41,
+          "sufficient": 58
+        }
+      },
+      "verbatim": {
+        "count": 100,
+        "stage_recall": {
+          "formation": 0.99,
+          "storage": 0.99,
+          "retrieval": 0.205,
+          "rerank": 0.17,
+          "context": 0.17
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 16,
+          "retrieval": 80,
+          "rerank": 3,
+          "formation": 1
+        },
+        "semantic_accuracy": 0.42857142857142855,
+        "semantic_judged": 98,
+        "answer_failure_distribution": {
+          "none": 43,
+          "F6_REASONING_CANDIDATE": 1,
+          "E0_EVIDENCE_INSUFFICIENT": 19,
+          "EVAL_SEMANTIC_UNCERTAIN": 2,
+          "F4_RETRIEVAL": 35
+        },
+        "gate_distribution": {
+          "error": 1,
+          "insufficient": 41,
+          "sufficient": 58
+        }
+      },
+      "summary": {
+        "count": 100,
+        "stage_recall": {
+          "formation": 0.99,
+          "storage": 0.99,
+          "retrieval": 0.99,
+          "rerank": 0.7416666666666667,
+          "context": 0.2658333333333333
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 23,
+          "context": 46,
+          "rerank": 30,
+          "formation": 1
+        },
+        "semantic_accuracy": 0.422680412371134,
+        "semantic_judged": 97,
+        "answer_failure_distribution": {
+          "none": 42,
+          "F6_REASONING_CANDIDATE": 1,
+          "E0_EVIDENCE_INSUFFICIENT": 23,
+          "EVAL_SEMANTIC_UNCERTAIN": 3,
+          "F5_CONTEXT": 21,
+          "F4_RETRIEVAL": 10
+        },
+        "gate_distribution": {
+          "error": 1,
+          "insufficient": 41,
+          "sufficient": 58
+        }
+      }
+    }
+  }
+}

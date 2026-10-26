@@ -103,3 +103,41 @@ def test_context_budget_is_applied_uniformly():
     assert len(run_systems._cap_context(items, 250)) == 2
     assert len(run_systems._cap_context(items, 1000)) == 3
     assert run_systems._cap_context([], 100) == []
+
+
+def test_embedding_search_honours_candidate_and_top_k():
+    import types
+
+    class Stub(ms._EmbeddingSystem):
+        def __init__(self):
+            self.embedder = types.SimpleNamespace(embed=lambda text: [1.0, 0.0])
+            self.items = [
+                {"id": f"i{i}", "content": str(i), "vector": [1.0, float(i) / 10]}
+                for i in range(8)
+            ]
+
+    result = Stub().search("q", candidate_k=3, top_k=2)
+    assert len(result["retrieval"]) == 3
+    assert len(result["rerank"]) == 2
+    assert len(result["context"]) == 2
+    assert len(Stub().search("q", candidate_k=50, top_k=50)["retrieval"]) == 8
+
+
+def test_run_records_search_knobs_in_summary(tmp_path, monkeypatch):
+    import json
+
+    monkeypatch.setattr(run_systems, "iter_normalized",
+                        lambda dataset, limit=None: iter([_record()][:1]))
+    monkeypatch.setattr(run_systems.runner, "_evidence_sufficiency",
+                        lambda *a, **k: {"status": "sufficient"})
+    monkeypatch.setattr(run_systems.runner, "_score_mode_answer",
+                        lambda *a, **k: {"answer": "Shanghai", "correct": True})
+    monkeypatch.setattr(run_systems.runner, "_semantic_eval",
+                        lambda *a, **k: {"answer": "Shanghai", "correct": True,
+                                         "semantic_correct": True,
+                                         "semantic_confidence": "high"})
+    out = tmp_path / "run"
+    run_systems.run("dummy", ("verbatim",), 1, out, False,
+                    context_chars=6000, candidate_k=5, top_k=3)
+    summary = json.loads((out / "summary.json").read_text(encoding="utf-8"))
+    assert summary["search"] == {"candidate_k": 5, "top_k": 3, "context_chars": 6000}

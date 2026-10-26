@@ -1,13 +1,49 @@
 # Status — where to resume
 
-Last updated: 2026-10-26. **Round-3 per-fact gate passed** its pre-registered
-bar (fact kappa 0.835, row kappa 0.889 vs 0.6). The human gate now replaces the
-automatic gate for the annotated questions; re-gated E0 on the covered subset
-is recorded below. Round 2 failed (kappa 0.181), and the abstention correction
-is generalized, validated, and applied to both n=200 runs.
+Last updated: 2026-10-26. **LoCoMo n=100 fingerprint complete**: null paired
+accuracy (p=0.73–0.86) with all three failure-distribution pairs significant
+after Holm (≤2.7e-4) — semantic loses at formation, summary at context,
+verbatim at retrieval. Round-3 per-fact gate passed (fact kappa 0.835, row
+kappa 0.889 vs 0.6) and now replaces the automatic gate on annotated
+questions. Round 2 failed (kappa 0.181); abstention correction is generalized,
+validated, and applied to both n=200 runs.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
+
+## Strategic reassessment (2026-10-26, adversarial review)
+
+An attack→adjudication review (`docs/reviews/2026-10-26-direction-kill-argument.md`)
+ruled the **current framing FAIL** for CCF-B: 2 critical points still
+unresolved (construction-confounded fingerprint; intervention missed its
+pre-registered rule), 3 partially answered, 0 answered. Two load-bearing
+findings:
+
+1. **Construction confound.** The three systems were authored with the exact
+   bottlenecks the fingerprint measures (fact extraction → formation, one
+   lossy session summary → context, raw-turn cosine → retrieval). No black-box
+   system or architecture ablation breaks this. Reframe as
+   *architecture-conditional failure localization* or run a Mem0/A-MEM-class
+   system.
+2. **Intervention null.** Repairing the measured retrieval stage moved recall
+   0.043→0.321 but accuracy only +7 net flips (p=0.143, CI [−0.029,+0.441]);
+   a no-op placebo re-ask flipped 9/35. Contribution 4 is not established.
+
+Independent confound named by the adjudicator: every run uses the deterministic
+`hash:384` embedding fallback, which itself produces the verbatim retrieval
+bottleneck (recall 0.197). **Cheapest decisive next check:** recompute retrieval
+ranking/recall with the locally available `bge-m3` (no API). If the F4
+fingerprint disappears under a real embedding, it was an artifact; if it
+persists, the attack is answered.
+
+What survives and is publishable under the pre-registered fallback
+(COLING/NLPCC): the attribution protocol, the human-audit methodology
+(answer kappa 0.92; abstention rule 13/13 and 12/12; judge-abstention FPs
+20/66), and the corrected oracle ladder (LoCoMo 0.306→0.682→0.761, all rungs
+significant; LongMemEval 0.479→0.676→0.799, two of three). Paths: (A) pivot to
+the analysis/resource paper; (B) invest in a black-box system + a powered
+intervention + a second real-haystack benchmark before claiming the phenomenon.
+The bge-m3 check should precede both.
 
 ## Start here next session (punch list)
 
@@ -44,10 +80,90 @@ This is the single resume point. History and reasoning live in
 3. **Abstention-corrected n=200 tables are done** (no API). See the 2026-10-26
    section below. Any accuracy or E0 table quoted for the n=200 runs must state
    which label version (auto vs abstention-corrected) it uses.
-4. **Ask the user for API budget before any of these:**
-   - F3 probe v2 full 40-scenario run with a tightened `--context-chars`
-     (e.g. 2000) so retrieval actually fails;
-   - LoCoMo fingerprint scaled to n=100–200 (n=50 took ~1.5 h).
+4. **API budget APPROVED (2026-10-26); runs in flight.**
+   - **F3 v2 full — COMPLETE, retrieval gate NOT met.**
+     `results/systems_evolution_probe_v2_full_ctx2000/` (40/40, errors 0,
+     1315 s). Semantic accuracy 0.581 / verbatim 0.250 / summary 0.419
+     (judged 31/36/31). Failure labels are dominated by `none` vs
+     `F6_REASONING_CANDIDATE` (13/24/18); F4 is 2 rows and only in verbatim.
+     **Retrieval recall stayed 1.0 for all three systems**; only semantic's
+     context recall fell to 0.80 (first-loss context 8). So this run pressures
+     F5 context, not F4 retrieval — do not make a retrieval-stage claim from it.
+     **Cause:** `--context-chars` truncates the final context; retrieval is
+     `candidate_k=20` in `memory_systems._EmbeddingSystem.search` (rerank/context
+     = top_k=10). To exercise F4 the correct knob is `candidate_k` / `top_k`.
+     **FIXED:** `run_systems` now exposes `--candidate-k/--top-k` (defaults
+     20/10, preserving old behaviour) and records them in `summary["search"]`;
+     `SemanticSystem.search` accepts the same kwargs.
+     **Gold-rank measurement (no API, hash embeddings):** verbatim gold turn
+     ranks: rank 2 in 24/40 scenarios, rank 4–5 in 3, rank 6–7 in 11, rank 13 in
+     2. Session-level proxy (summary system): rank 2–5 in 25/40, rank 6–10 in
+     15/40. So `k=5` pressures retrieval in ~13/40 verbatim and ~15/40 session
+     cases.
+     **F3 v2 full at k=5 — COMPLETE, retrieval gate MET.**
+     `results/systems_evolution_probe_v2_full_k5/` (40/40, errors 0, 1321 s;
+     `candidate_k=5, top_k=5, context_chars=6000`). Retrieval recall now
+     0.800 / **0.675** / 0.925 for semantic / verbatim / summary, so F4 is
+     genuinely exercised. Semantic accuracy 0.567 / verbatim 0.350 / summary
+     0.432 (judged 30/40/37; paired accuracy all n.s., p=0.25–0.45). Failure
+     labels: semantic none 27 + F6 13; verbatim none 14 + **F4 5** + F6 21;
+     summary none 19 + F4 2 + E0 2 + F6 17. First-loss retrieval: semantic 8,
+     verbatim 13, summary 3. Stage-distribution tests: semantic vs verbatim
+     **p=0.00012**, summary vs verbatim **p=0.0074**, semantic vs summary
+     p=0.055. Interpretation: **verbatim loses at retrieval, semantic and
+     summary lose mainly at reasoning**; formation recall is 1.0 for all three
+     (the atomic-fact store always contains gold), so this probe does not
+     reproduce the earlier "semantic formation" smoke claim. Analysis:
+     `results/analysis_ladder_evolution_probe_v2_k5.json`.
+   - **LoCoMo fingerprint n=100 — COMPLETE (2026-10-26).**
+     `results/systems_locomo_n200_fixedgate/` (directory name from the original
+     n=200 plan; `summary.json` records `limit: 100`; 100 rows, `errors: 0`,
+     11,336 s; `candidate_k=20, top_k=10, context_chars=6000`).
+     Semantic accuracy (judged): semantic 0.407 (91) / summary 0.423 (97) /
+     verbatim 0.429 (98); paired McNemar p=0.736 / 0.728 / 0.864, bootstrap CIs
+     all include 0. Failure labels: semantic none 42, E0 21, **F1 18**, F4 14,
+     F5 1; summary none 42, E0 23, **F5 21**, F4 10; verbatim none 43, E0 19,
+     **F4 35**. Stage recall (formation / retrieval / context): 0.473 / 0.424 /
+     0.303 (semantic), 0.990 / 0.990 / 0.258 (summary), 0.990 / **0.197** /
+     0.162 (verbatim). Stuart–Maxwell all three pairs: p=5.0e-5 (summary vs
+     verbatim), 7.4e-5 (semantic vs summary), 2.7e-4 (semantic vs verbatim);
+     Holm-adjusted ≤2.7e-4, all survive. **The n=100 headline is the CCF-B
+     claim: null accuracy differences with significantly different internal
+     fingerprints** (semantic loses at formation, summary at context, verbatim
+     at retrieval). Analysis: `results/analysis_ladder_locomo_n100_fixedgate.json`.
+     Caveat: this run still uses the automatic gate (E0 counts carry the known
+     gate error); the fingerprint claim rests on failure labels, which the human
+     audit found 90% sound.
+   - **LongMemEval full-haystack pilot (n=10) — COMPLETE.** 
+     `results/systems_longmemeval_s_sample10_fixedgate/` (10/10, errors 0,
+     1082 s). Qualitative replication of the LoCoMo fingerprint despite tiny n:
+     semantic formation recall 0.50 (first-loss formation 5); verbatim retrieval
+     recall 0.60 (F4 4, first-loss retrieval 4); summary context recall 0.20
+     (first-loss context 4, F4 4). Accuracy: semantic 0.571 (7 judged) /
+     verbatim 0.556 (9) / summary 0.125 (8). No significance claim at n=10; the
+     result justifies scaling to n=50–100 before writing a cross-benchmark
+     claim.
+   - **Intervention (a) — retrieval repair, COMPLETE, pre-registered test
+     FAILED.** `results/retrieval_intervention_locomo_n100/` (100/100, errors
+     0). Mechanism confirmed: retrieval recall on the 35 F4 questions rises
+     **0.043 → 0.321**. Paired outcome on those questions (n=34 with both
+     verdicts): placebo correct 9, repaired correct 16; table n01=12 (repair
+     gained), n10=5 (repair lost), net **+7**; McNemar p=0.143; bootstrap diff
+     **+0.206, 95% CI [−0.029, +0.441]** — CI includes 0.
+     **Decision rule (≥6 net flips AND CI low > 0): not met.** The placebo
+     re-ask alone turned 9/35 baseline-F4 questions correct, i.e. the
+     answer/judge retest floor is ~26% on this subset; the +7 net sits inside
+     that noise, the same failure mode as the prior P2 arms.
+     Overall: stored baseline accuracy 0.429 vs agnostic 0.563, but the
+     agnostic arm is *worse* on the 65 non-F4 questions (42 → 38 correct), so
+     the repair is not stage-exclusive. Mechanism result is real; accuracy
+     effect is not established at n=35. Options: (i) scale to a larger F4
+     subset (LoCoMo n=200 → ~70 F4), (ii) repeat each arm to reduce retest
+     variance, or (iii) treat contribution 4 as null and move to the
+     analysis-paper kill-switch. Design: `docs/research/
+     2026-10-26-intervention-a-retrieval.md`.
+   - `.env.local` is **not** auto-loaded; export its variables before launch.
+     DeepSeek-v4.1-flash only. Runners checkpoint and accept `--resume`.
 5. **Instrument-honesty section — DRAFTED** (`docs/paper/instrument_honesty.md`),
    with a number→artifact table. Remaining: fold it into the full draft once the
    round-3 gate clears or is formally abandoned; the ladder statistics it cites

@@ -111,7 +111,8 @@ def _summary(rows: list[dict[str, Any]], systems: tuple[str, ...]) -> dict[str, 
 
 
 def run(dataset: str, systems: tuple[str, ...], limit: int | None, out: Path,
-        resume: bool, context_chars: int = 6000) -> dict[str, Any]:
+        resume: bool, context_chars: int = 6000,
+        candidate_k: int = 20, top_k: int = 10) -> dict[str, Any]:
     out.mkdir(parents=True, exist_ok=True)
     jsonl = out / "comparison.jsonl"
     rows = _load_jsonl(jsonl) if resume else []
@@ -146,7 +147,8 @@ def run(dataset: str, systems: tuple[str, ...], limit: int | None, out: Path,
             for name in systems:
                 system = SYSTEMS[name]()
                 system.ingest(record)
-                search = system.search(str(record.get("question") or ""))
+                search = system.search(str(record.get("question") or ""),
+                                       candidate_k=candidate_k, top_k=top_k)
                 search["context"] = _cap_context(search["context"], context_chars)
                 stages = stage_dict(system.stages(gold, search), gold, mode=name)
                 context = search["context"]
@@ -175,6 +177,8 @@ def run(dataset: str, systems: tuple[str, ...], limit: int | None, out: Path,
 
     summary = {
         "run_metadata": runner._run_metadata(dataset, limit or len(rows)),
+        "search": {"candidate_k": candidate_k, "top_k": top_k,
+                   "context_chars": context_chars},
         "systems": list(systems),
         "errors": errors,
         "results": _summary(rows, systems),
@@ -196,13 +200,17 @@ def main() -> None:
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--context-chars", type=int, default=6000)
+    parser.add_argument("--candidate-k", type=int, default=20,
+                        help="retrieval candidate pool size (F4 pressure knob)")
+    parser.add_argument("--top-k", type=int, default=10,
+                        help="rerank/context size (F5 pressure knob)")
     args = parser.parse_args()
     systems = tuple(s.strip() for s in args.systems.split(",") if s.strip())
     unknown = [s for s in systems if s not in SYSTEMS]
     if unknown:
         raise SystemExit(f"unknown systems {unknown}; choose from {sorted(SYSTEMS)}")
     run(args.dataset, systems, args.limit, Path(args.out_dir), args.resume,
-        args.context_chars)
+        args.context_chars, args.candidate_k, args.top_k)
 
 
 if __name__ == "__main__":

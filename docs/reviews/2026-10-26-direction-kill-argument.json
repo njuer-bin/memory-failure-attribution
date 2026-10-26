@@ -1,0 +1,71 @@
+{
+  "audit_skill": "kill-argument",
+  "verdict": "FAIL",
+  "reason_code": "unresolved_critical",
+  "summary": "Current framing (cross-system fingerprint + actionable attribution) fails adversarial review; analysis/resource pivot survives.",
+  "subject": "memory-failure-attribution direction, after the P2 retrieval intervention null",
+  "reviewer_method": "two fresh independent Claude reviewers (attack then adjudication); Codex backend not used per project model policy",
+  "generated_at": "2026-10-26",
+  "details": {
+    "attack_memo": "This direction measures its own construction, and its one causal test fails. The headline — null end accuracy (0.407/0.423/0.429; McNemar p=0.736/0.728/0.864) paired with 'significantly different' failure fingerprints (Stuart–Maxwell, Holm <=2.7e-4) — is in substance a restatement of how the three baselines were built. A fact-extraction engine loses at formation (F1 18); a session summarizer at context (F5 21); a raw-turn retriever at retrieval (F4 35) — because each was authored with exactly that bottleneck. On a single benchmark, over 100 questions, this is a taxonomy of the authors' own pipeline choices, not a phenomenon about memory systems. The lone LongMemEval replication is n=10; the round-3 human gate covers 48/100 headline questions. The test that would turn a taxonomy into a finding is the intervention, and the project's own pre-registration records it as failed: retrieval recall on the 35 F4 questions rises 0.043->0.321, yet accuracy yields +7 net flips on 34 paired questions, McNemar p=0.143, bootstrap 95% CI [-0.029,+0.441]. A no-op placebo re-ask alone flips 9/35 wrong->correct. When repairing the measured stage is statistically indistinguishable from re-asking the question, the attribution carries no demonstrated actionable value. That is diagnostics without utility — and it is the project's own stated kill line.",
+    "decomposed_points": [
+      {
+        "id": "P1",
+        "label": "Construction-confounded fingerprint",
+        "attack_claim": "The fingerprint merely restates how the three baselines were authored, one bottleneck per architecture; no black-box system or ablation breaks the confound.",
+        "verdict": "still_unresolved",
+        "evidence": "Stage mapping matches memory_systems.py architectures exactly (semantic formation recall 0.473/F1 18; summary context 0.258/F5 21; verbatim retrieval 0.197/F4 35). No third-party system or architecture ablation exists in the artifacts.",
+        "severity_if_unresolved": "critical",
+        "recommended_fix": "Run a Mem0/A-MEM-class system and/or an extraction-vs-raw ablation, and reframe as architecture-conditional failure localization."
+      },
+      {
+        "id": "P2",
+        "label": "Single benchmark / weak replication",
+        "attack_claim": "Evidence is one benchmark; the LongMemEval replication is n=10 and cannot support a cross-benchmark phenomenon.",
+        "verdict": "partially_answered",
+        "evidence": "Pilot is full-haystack longmemeval_s_sample10 (verbatim retrieval 0.60), not the degenerate oracle run; but it does not reproduce the null-accuracy premise (summary 0.125 vs ~0.56). Single-benchmark limitation stands.",
+        "severity_if_unresolved": "major",
+        "recommended_fix": "Scale full-haystack LongMemEval to n=50-100 or scope the paper to LoCoMo."
+      },
+      {
+        "id": "P3",
+        "label": "Human gate covers only 48/100",
+        "attack_claim": "The headline attribution rests on the automatic gate (kappa 0.07) for 52/100 questions.",
+        "verdict": "partially_answered",
+        "evidence": "48 covered / 52 uncovered confirmed. Re-gating preserves the pattern (F1 18->20, F5 21, F4 35; E0 21->18/23->18/19->21). Stage tests were not rerun on human-gated labels, and stage labels themselves were not human-audited.",
+        "severity_if_unresolved": "major",
+        "recommended_fix": "Rerun stage-distribution tests E0-excluded or on the 48 human-gated rows; add a blind human audit of stage attribution."
+      },
+      {
+        "id": "P4",
+        "label": "Intervention failed pre-registered rule",
+        "attack_claim": "Repairing the measured retrieval stage failed its own rule: +7 net flips, p=0.143, CI includes 0.",
+        "verdict": "still_unresolved",
+        "evidence": "placebo 9 vs repair 16 on 34 paired questions; net +7; p=0.1435; CI [-0.0294,+0.4412]; decision.success=false. The design's own falsifier (placebo moves >=3/35) triggered at 9/35.",
+        "severity_if_unresolved": "critical",
+        "recommended_fix": "Do not scale blindly: repeat arms, human-verify F4 labels, then test the n=200 (~70 F4) subset under a fresh pre-registration; or demote contribution 4 to null."
+      },
+      {
+        "id": "P5",
+        "label": "Placebo floor kills actionable value",
+        "attack_claim": "A no-op re-ask flips 9/35, so attribution has no demonstrated actionable value and hits the kill line.",
+        "verdict": "partially_answered",
+        "evidence": "Inference is fair, but 'statistically indistinguishable' overstates a failed-to-reject at n=34; the CCF-B kill line does not cleanly trigger, while the roadmap pre-registers the analysis-paper fallback. The 26% retest instability also weakens the F4 label base rate.",
+        "severity_if_unresolved": "major",
+        "recommended_fix": "Execute the pre-registered analysis-paper pivot; treat actionability as dead until a powered repair beats the retest floor."
+      }
+    ],
+    "counts": {
+      "answered_by_current_text": 0,
+      "partially_answered": 3,
+      "still_unresolved": 2
+    },
+    "net_assessment": "Current framing would not survive as the phenomenon+actionability paper. Two critical attacks (construction confound; intervention null) are unrebuted. A separate confound: hash:384 embeddings may manufacture the verbatim retrieval bottleneck. What survives is an instrument/resource paper: attribution protocol, human-audit methodology, and the corrected oracle ladder.",
+    "top_action_items": [
+      "Break the construction confound: run a black-box/third-party memory system and/or architecture ablation; reframe as architecture-conditional.",
+      "Resolve contribution 4 honestly: repeat arms + human-verified F4 labels + n=200, or demote to null and pivot.",
+      "Solidify measurement (E0-excluded stage tests, human stage audit), scale LongMemEval full-haystack, and move off hash:384 (bge-m3 available locally)."
+    ],
+    "independent_confound": "Every run uses the deterministic hash:384 embedding fallback; the verbatim retrieval bottleneck may be an embedding artifact. Decisive free check: recompute retrieval with local bge-m3."
+  }
+}

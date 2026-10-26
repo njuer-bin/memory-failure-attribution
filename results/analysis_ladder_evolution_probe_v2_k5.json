@@ -1,0 +1,337 @@
+{
+  "systems": {
+    "semantic": {
+      "n": 40,
+      "attributed_accuracy": 0.675,
+      "accuracy_ci95": {
+        "low": 0.52017458088898,
+        "high": 0.7991568303733828
+      },
+      "semantic_judged": 30,
+      "semantic_accuracy": 0.5666666666666667,
+      "failure_distribution": {
+        "F6_REASONING_CANDIDATE": 13,
+        "none": 27
+      },
+      "failure_share": {
+        "F6_REASONING_CANDIDATE": 0.325,
+        "none": 0.675
+      },
+      "gate_distribution": {
+        "insufficient": 8,
+        "sufficient": 32
+      },
+      "stage_recall": {
+        "formation": 1.0,
+        "storage": 1.0,
+        "retrieval": 0.8,
+        "rerank": 0.8,
+        "context": 0.8
+      }
+    },
+    "summary": {
+      "n": 40,
+      "attributed_accuracy": 0.475,
+      "accuracy_ci95": {
+        "low": 0.32935229550181694,
+        "high": 0.6250289314607027
+      },
+      "semantic_judged": 37,
+      "semantic_accuracy": 0.43243243243243246,
+      "failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 2,
+        "F4_RETRIEVAL": 2,
+        "F6_REASONING_CANDIDATE": 17,
+        "none": 19
+      },
+      "failure_share": {
+        "E0_EVIDENCE_INSUFFICIENT": 0.05,
+        "F4_RETRIEVAL": 0.05,
+        "F6_REASONING_CANDIDATE": 0.425,
+        "none": 0.475
+      },
+      "gate_distribution": {
+        "insufficient": 8,
+        "sufficient": 32
+      },
+      "stage_recall": {
+        "formation": 1.0,
+        "storage": 1.0,
+        "retrieval": 0.925,
+        "rerank": 0.925,
+        "context": 0.925
+      }
+    },
+    "verbatim": {
+      "n": 40,
+      "attributed_accuracy": 0.35,
+      "accuracy_ci95": {
+        "low": 0.2213433317104915,
+        "high": 0.5049440300646263
+      },
+      "semantic_judged": 40,
+      "semantic_accuracy": 0.35,
+      "failure_distribution": {
+        "F4_RETRIEVAL": 5,
+        "F6_REASONING_CANDIDATE": 21,
+        "none": 14
+      },
+      "failure_share": {
+        "F4_RETRIEVAL": 0.125,
+        "F6_REASONING_CANDIDATE": 0.525,
+        "none": 0.35
+      },
+      "gate_distribution": {
+        "insufficient": 8,
+        "sufficient": 32
+      },
+      "stage_recall": {
+        "formation": 1.0,
+        "storage": 1.0,
+        "retrieval": 0.675,
+        "rerank": 0.675,
+        "context": 0.675
+      }
+    }
+  },
+  "stage_distribution_tests": {
+    "semantic_vs_summary": {
+      "stuart_maxwell": {
+        "chi2": 7.600000000000002,
+        "df": 3,
+        "p_value": 0.055043936378878056,
+        "n": 40,
+        "categories": [
+          "E0_EVIDENCE_INSUFFICIENT",
+          "F4_RETRIEVAL",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "E0_EVIDENCE_INSUFFICIENT": {
+            "share_a": 0.0,
+            "share_b": 0.05,
+            "diff": -0.05,
+            "ci_low": -0.125,
+            "ci_high": 0.0
+          },
+          "F4_RETRIEVAL": {
+            "share_a": 0.0,
+            "share_b": 0.05,
+            "diff": -0.05,
+            "ci_low": -0.125,
+            "ci_high": 0.0
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.325,
+            "share_b": 0.425,
+            "diff": -0.09999999999999998,
+            "ci_low": -0.27499999999999997,
+            "ci_high": 0.07499999999999996
+          },
+          "none": {
+            "share_a": 0.675,
+            "share_b": 0.475,
+            "diff": 0.20000000000000007,
+            "ci_low": 0.04999999999999993,
+            "ci_high": 0.35000000000000003
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 40
+      },
+      "permutation": {
+        "statistic": 0.2,
+        "p_value": 0.0603,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 40
+      }
+    },
+    "semantic_vs_verbatim": {
+      "stuart_maxwell": {
+        "chi2": 17.999999999999996,
+        "df": 2,
+        "p_value": 0.00012340980408667978,
+        "n": 40,
+        "categories": [
+          "F4_RETRIEVAL",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "F4_RETRIEVAL": {
+            "share_a": 0.0,
+            "share_b": 0.125,
+            "diff": -0.125,
+            "ci_low": -0.225,
+            "ci_high": -0.025
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.325,
+            "share_b": 0.525,
+            "diff": -0.2,
+            "ci_low": -0.4,
+            "ci_high": 0.0
+          },
+          "none": {
+            "share_a": 0.675,
+            "share_b": 0.35,
+            "diff": 0.32500000000000007,
+            "ci_low": 0.17500000000000004,
+            "ci_high": 0.475
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 40
+      },
+      "permutation": {
+        "statistic": 0.325,
+        "p_value": 0.0013,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 40
+      }
+    },
+    "summary_vs_verbatim": {
+      "stuart_maxwell": {
+        "chi2": 12.000000000000005,
+        "df": 3,
+        "p_value": 0.0073831605053597486,
+        "n": 40,
+        "categories": [
+          "E0_EVIDENCE_INSUFFICIENT",
+          "F4_RETRIEVAL",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "E0_EVIDENCE_INSUFFICIENT": {
+            "share_a": 0.05,
+            "share_b": 0.0,
+            "diff": 0.05,
+            "ci_low": 0.0,
+            "ci_high": 0.125
+          },
+          "F4_RETRIEVAL": {
+            "share_a": 0.05,
+            "share_b": 0.125,
+            "diff": -0.075,
+            "ci_low": -0.175,
+            "ci_high": 0.0
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.425,
+            "share_b": 0.525,
+            "diff": -0.10000000000000003,
+            "ci_low": -0.25,
+            "ci_high": 0.04999999999999999
+          },
+          "none": {
+            "share_a": 0.475,
+            "share_b": 0.35,
+            "diff": 0.125,
+            "ci_low": -0.024999999999999967,
+            "ci_high": 0.27499999999999997
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 40
+      },
+      "permutation": {
+        "statistic": 0.125,
+        "p_value": 0.2186,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 40
+      }
+    }
+  },
+  "paired_accuracy": {
+    "semantic_vs_summary": {
+      "table": {
+        "n00": 11,
+        "n01": 2,
+        "n10": 5,
+        "n11": 10
+      },
+      "mcnemar": {
+        "n01": 2,
+        "n10": 5,
+        "n_discordant": 7,
+        "statistic": 2,
+        "p_value": 0.453125,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap": {
+        "diff": 0.10714285714285714,
+        "ci_low": -0.07142857142857142,
+        "ci_high": 0.2857142857142857,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 28
+      }
+    },
+    "semantic_vs_verbatim": {
+      "table": {
+        "n00": 13,
+        "n01": 0,
+        "n10": 3,
+        "n11": 14
+      },
+      "mcnemar": {
+        "n01": 0,
+        "n10": 3,
+        "n_discordant": 3,
+        "statistic": 0,
+        "p_value": 0.25,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap": {
+        "diff": 0.1,
+        "ci_low": 0.0,
+        "ci_high": 0.23333333333333334,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 30
+      }
+    },
+    "summary_vs_verbatim": {
+      "table": {
+        "n00": 19,
+        "n01": 2,
+        "n10": 6,
+        "n11": 10
+      },
+      "mcnemar": {
+        "n01": 2,
+        "n10": 6,
+        "n_discordant": 8,
+        "statistic": 2,
+        "p_value": 0.2890625,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap": {
+        "diff": 0.10810810810810811,
+        "ci_low": -0.02702702702702703,
+        "ci_high": 0.2702702702702703,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 37
+      }
+    }
+  },
+  "rows": 40
+}

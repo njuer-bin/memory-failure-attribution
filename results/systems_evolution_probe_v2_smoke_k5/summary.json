@@ -1,0 +1,115 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-26T02:07:29.793488+00:00",
+    "dataset": {
+      "dataset_id": "evolution_probe_v2",
+      "source": "datasets/evolution_probe/probe_v2.jsonl",
+      "sha256_16": "8436254b1413538c"
+    },
+    "limit": 5,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "embedding": {
+      "backend": "hash:384",
+      "dim": 384,
+      "configured_model": "qwen3-embedding:4b",
+      "ollama_enabled": true
+    },
+    "python": "3.13.9",
+    "git": {
+      "commit": "425885396793b814ad1ca76e03bfc8fde2ad11a3",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "search": {
+    "candidate_k": 5,
+    "top_k": 5,
+    "context_chars": 6000
+  },
+  "systems": [
+    "semantic",
+    "verbatim",
+    "summary"
+  ],
+  "errors": 0,
+  "results": {
+    "systems": {
+      "semantic": {
+        "count": 5,
+        "stage_recall": {
+          "formation": 1.0,
+          "storage": 1.0,
+          "retrieval": 1.0,
+          "rerank": 1.0,
+          "context": 1.0
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 5
+        },
+        "semantic_accuracy": 0.6666666666666666,
+        "semantic_judged": 3,
+        "answer_failure_distribution": {
+          "none": 4,
+          "F6_REASONING_CANDIDATE": 1
+        },
+        "gate_distribution": {
+          "sufficient": 5
+        }
+      },
+      "verbatim": {
+        "count": 5,
+        "stage_recall": {
+          "formation": 1.0,
+          "storage": 1.0,
+          "retrieval": 1.0,
+          "rerank": 1.0,
+          "context": 1.0
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 5
+        },
+        "semantic_accuracy": 0.0,
+        "semantic_judged": 5,
+        "answer_failure_distribution": {
+          "F6_REASONING_CANDIDATE": 5
+        },
+        "gate_distribution": {
+          "sufficient": 5
+        }
+      },
+      "summary": {
+        "count": 5,
+        "stage_recall": {
+          "formation": 1.0,
+          "storage": 1.0,
+          "retrieval": 1.0,
+          "rerank": 1.0,
+          "context": 1.0
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 5
+        },
+        "semantic_accuracy": 0.6666666666666666,
+        "semantic_judged": 3,
+        "answer_failure_distribution": {
+          "none": 4,
+          "F6_REASONING_CANDIDATE": 1
+        },
+        "gate_distribution": {
+          "sufficient": 5
+        }
+      }
+    }
+  }
+}

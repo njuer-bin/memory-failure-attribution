@@ -1569,3 +1569,132 @@ stage-distribution claim rests on failure labels and is unaffected.
 Artifacts: `results/analysis_annotations_round3.json`,
 `results/analysis_regate_{locomo,longmemeval}_n200.json`,
 `results/analysis_regate_locomo_n50.json`. Tests: 214 pass.
+
+## 2026-10-26 — LoCoMo fingerprint n=100: null accuracy, significant fingerprints
+
+Completed after a low-memory kill at 29/200 and a resume to 100 (the directory
+keeps the original `systems_locomo_n200_fixedgate` name; `summary.json` records
+`limit: 100`). 100 rows, errors 0, 11,336 s, same settings as n=50 (shared
+gate, 6000 chars, candidate_k=20, top_k=10).
+
+Accuracy (semantic, judged): semantic 0.407 (91) / summary 0.423 (97) /
+verbatim 0.429 (98). Paired McNemar p=0.736 (sem vs sum), 0.728 (sem vs verb),
+0.864 (sum vs verb); bootstrap CIs all include 0. End accuracy is
+indistinguishable.
+
+Failure labels: semantic none 42, E0 21, F1 18, F4 14, F5 1, EVAL 4; summary
+none 42, E0 23, F5 21, F4 10, F6 1, EVAL 3; verbatim none 43, E0 19, F4 35,
+F6 1, EVAL 2. Stage recall (formation / retrieval / context): semantic
+0.473 / 0.424 / 0.303; summary 0.990 / 0.990 / 0.258; verbatim 0.990 / 0.197 /
+0.162.
+
+Stuart–Maxwell on the paired failure-label table: summary vs verbatim
+chi2=27.3, df=5, p=5.0e-5; semantic vs summary chi2=28.6, df=6, p=7.4e-5;
+semantic vs verbatim chi2=25.5, df=6, p=2.7e-4. Holm across the three-pair
+family: all ≤2.7e-4, all survive. `analyze_ladder` now emits
+`stage_distribution_holm`.
+
+This is the n=100 form of the CCF-B headline: **final accuracy is statistically
+indistinguishable, but the internal failure fingerprints differ sharply** —
+semantic loses at formation, summary at context assembly, verbatim at
+retrieval. It reproduces the n=50 pattern with much stronger p-values. Caveat
+unchanged: this run uses the automatic gate; the fingerprint claim rests on
+failure labels (90% human-confirmed), not on E0 levels.
+
+Artifact: `results/analysis_ladder_locomo_n100_fixedgate.json`. Tests: 217.
+
+## 2026-10-26 — Cross-benchmark pilot and intervention (a) mechanism check
+
+**LongMemEval full-haystack pilot (n=10).** `longmemeval_s_sample10` (10
+questions, 44–57 sessions each) run through the same three systems and settings
+as LoCoMo (`results/systems_longmemeval_s_sample10_fixedgate/`, 10/10, errors
+0). The Fingerprint shape replicates qualitatively: semantic formation recall
+0.50 (first-loss formation 5), verbatim retrieval recall 0.60 (F4 4, first-loss
+retrieval 4), summary context recall 0.20 (first-loss context 4, F4 4).
+Semantic accuracy 0.571 (7 judged), verbatim 0.556 (9), summary 0.125 (8). At
+n=10 nothing is testable; the pilot's role is to justify scaling this dataset to
+n=50–100 before claiming cross-benchmark generality.
+
+**Intervention (a): targeted retrieval repair.** Rationale and pre-registration
+in `docs/research/2026-10-26-intervention-a-retrieval.md`. Verbatim is the
+target: 80/100 questions first lose gold at retrieval, 35 answers are attributed
+F4, and verbatim has no LLM ingestion, so three arms cost ~135 answer calls.
+
+No-API mechanism check (hash embeddings, all 100 questions): hybrid ranking
+(`0.5*cosine + 0.5*question-token overlap`, same candidate pool/top-k/context
+budget) raises retrieval recall on the F4 subset from **0.043 to 0.321**; 9 of
+the 35 F4 questions go from gold-miss to gold-hit and none reverse. Non-F4
+questions also improve (0.292 → 0.454), so the repair is a general ranking
+improvement, not a strictly stage-exclusive one — the stage-targeting contrast
+will be reported descriptively, with the primary test being repair vs placebo
+on the 35 F4 questions (≥6 net flips and bootstrap CI excluding 0).
+
+Implementation: `experiments/retrieval_intervention.py`, 5 tests. Run in
+progress: `results/retrieval_intervention_locomo_n100/`.
+
+## 2026-10-26 — Intervention (a) result: mechanism works, accuracy effect does not clear the placebo floor
+
+Three-arm retrieval repair on LoCoMo n=100 (`results/retrieval_intervention_locomo_n100/`,
+100/100, errors 0; design pre-registered in
+`docs/research/2026-10-26-intervention-a-retrieval.md`).
+
+Mechanism: hybrid ranking raises retrieval recall on the 35 baseline-F4 questions
+from 0.043 to 0.321; 9 of them recover gold and none lose it.
+
+Outcome on the F4 subset (34 with both verdicts): placebo correct 9, repaired
+correct 16. Paired table n01=12, n10=5, n00=13, n11=4 → **net +7 flips**;
+McNemar exact p=0.143; paired bootstrap diff **+0.206, 95% CI [−0.029, +0.441]**.
+The pre-registered rule (net ≥6 **and** CI low > 0) is **not met**.
+
+The decisive number is the placebo floor: re-asking the same 35 questions with
+the unchanged dense context turns **9/35** (26%) from stored-wrong to correct.
+That is the provider/judge retest noise, and the +7 net improvement sits inside
+it. This is the same failure mode that killed the earlier P2 directional arms
+(A1 placebo gate), now measured directly on the target subset.
+
+Agnostic arm: overall accuracy 0.563 vs stored baseline 0.429, but it is worse
+on the 65 non-F4 questions (42 → 38 correct). The repair is a general ranking
+improvement rather than a stage-exclusive one; applying it indiscriminately
+helps retrieval-failure questions and hurts others.
+
+Interpretation: the stage diagnosis is correct (the repair fixes the measured
+stage), but at n=35 the accuracy consequence is not statistically separable
+from retest noise. Contribution 4 is therefore **not** satisfied by this run.
+Options: (i) grow the F4 subset (LoCoMo n=200 → ~70 F4) for power; (ii) repeat
+each arm and aggregate to shrink the retest floor; (iii) declare the
+intervention null and invoke the analysis-paper kill-switch. The choice is
+strategic, not technical.
+
+## 2026-10-26 — Adversarial direction review: current framing FAIL, analysis pivot survives
+
+Ran an attack→adjudication review of the direction (not a paper draft) after the
+intervention null. Codex default backend was not used (DeepSeek-only policy);
+two fresh independent reviewers ran the same protocol on the artifacts. Report:
+`docs/reviews/2026-10-26-direction-kill-argument.md` / `.json`.
+
+Verdict for the current framing: **FAIL** — 2 critical still unresolved, 3
+partially answered, 0 answered.
+
+- P1 (critical, unresolved): construction-confounded fingerprint. The three
+  systems were authored with exactly the bottlenecks the fingerprint measures;
+  no black-box/third-party system or architecture ablation exists. Reframe as
+  architecture-conditional, or run Mem0/A-MEM-class.
+- P4 (critical, unresolved): intervention missed its pre-registered rule
+  (+7 net flips, p=0.143, CI [−0.029,+0.441]; placebo floor 9/35).
+- P2/P3/P5 (major, partial): single benchmark (n=10 full-haystack pilot
+  replicates stage direction but not null accuracy); human gate covers 48/100;
+  placebo floor undermines the actionability claim.
+- Independent confound named by the adjudicator: every run uses the hash:384
+  embedding fallback, which may itself create the verbatim retrieval bottleneck
+  (recall 0.197). A free bge-m3 recomputation is the decisive check.
+
+What survives: instrument/resource paper — attribution protocol, human-audit
+methodology (answer kappa 0.92; abstention rule 13/13 and 12/12; judge
+abstention FPs 20/66), corrected oracle ladder (LoCoMo 0.306→0.682→0.761, all
+rungs significant; LongMemEval 0.479→0.676→0.799, two of three). This is the
+roadmap's pre-registered kill-switch target (COLING/NLPCC).
+
+Research-level gaps if the phenomenon paper is to be saved: (a) black-box
+system/ablation, (b) powered intervention beating the retest floor, (c) fully
+human-gated headline + stage-label audit, (d) second real-haystack benchmark at
+n≥50, (e) real embedding backend and second judge.
