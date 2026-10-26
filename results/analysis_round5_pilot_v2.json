@@ -1,0 +1,79 @@
+{
+  "annotators": [
+    "a",
+    "b"
+  ],
+  "rows": 40,
+  "valid_co_decided": 40,
+  "invalid_or_missing": {
+    "a": {},
+    "b": {}
+  },
+  "uncertain_share": {
+    "a": 0.0,
+    "b": 0.0
+  },
+  "human_human": {
+    "n": 40,
+    "agreement": 0.925,
+    "kappa_multi": 0.8971722365038561,
+    "confusion": {
+      "e0->e0": 4,
+      "formation->formation": 8,
+      "formation->retrieval": 2,
+      "none->none": 7,
+      "rerank->rerank": 3,
+      "retrieval->none": 1,
+      "retrieval->retrieval": 15
+    },
+    "excluding_uncertain": {
+      "n": 40,
+      "agreement": 0.925,
+      "kappa_multi": 0.8971722365038561
+    },
+    "classes_used": [
+      "e0",
+      "formation",
+      "none",
+      "rerank",
+      "retrieval"
+    ]
+  },
+  "human_vs_auto": {
+    "a": {
+      "n": 40,
+      "agreement": 0.8,
+      "kappa_multi": 0.7045244690674054,
+      "confusion": {
+        "e0->formation": 1,
+        "e0->retrieval": 3,
+        "formation->formation": 9,
+        "formation->retrieval": 1,
+        "none->none": 7,
+        "rerank->retrieval": 3,
+        "retrieval->retrieval": 16
+      }
+    },
+    "b": {
+      "n": 40,
+      "agreement": 0.725,
+      "kappa_multi": 0.5899347623485555,
+      "confusion": {
+        "e0->formation": 1,
+        "e0->retrieval": 3,
+        "formation->formation": 7,
+        "formation->retrieval": 1,
+        "none->none": 7,
+        "none->retrieval": 1,
+        "rerank->retrieval": 3,
+        "retrieval->formation": 2,
+        "retrieval->retrieval": 15
+      }
+    }
+  },
+  "acceptance": {
+    "bar": 0.7,
+    "kappa": 0.8971722365038561,
+    "passed": true
+  }
+}

@@ -70,8 +70,17 @@ The bge-m3 check should precede both.
    reviewers named. v2 fixes all four: 8 classes (no evolution), full
    top-20/10 previews, formation/storage dual views with an explicit
    "preview absence = stage missing" rule, and `gold_evidence_dates`.
-   Artifact: `results/analysis_round5_pilot_v1_calibration.json`. The formal
-   κ pilot requires two annotators on v2.
+   Artifact: `results/analysis_round5_pilot_v1_calibration.json`.
+   **v2 pilot — PASSED (2026-10-26).** Two annotators on the 40-row v2 sheet:
+   all 40 rows valid, agreement 0.925, **multiclass κ = 0.897** (bar 0.70),
+   uncertain share 0.0. Human-vs-auto: annotator a κ 0.705 (agreement 0.80),
+   b κ 0.590 (0.725); the disagreements concentrate on E0 (humans call 4 E0,
+   the automatic trace assigns formation/retrieval) and rerank (humans see 3
+   rerank losses, the automatic label says retrieval). This means the **human
+   stage instrument is reliable while the automatic first-loss label is not**,
+   exactly the measurement finding the paper needs. Artifact:
+   `results/analysis_round5_pilot_v2.json`. **Stage A gate: PASSED** (E0-excluded
+   significance + annotation κ ≥ 0.70).
 2. **Stage B design (no run yet).** Write the architecture-ablation design:
    conditions that change the storage/retrieval bottleneck, pre-registered
    criteria for "stage tracks architecture", expected direction, sample size

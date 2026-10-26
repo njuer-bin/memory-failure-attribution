@@ -1770,3 +1770,22 @@ number. Artifact: `results/analysis_round5_pilot_v1_calibration.json`.
 Note for the scorer: implement/report multiclass κ, and report κ separately on
 the 8-class label and on the classes actually used, since empty classes dilute
 the estimate.
+
+### Round-5 v2 pilot: κ = 0.897, Stage A annotation gate passes
+
+Two annotators completed the 40-row v2 sheet. All 40 rows used a valid
+8-class label; agreement 0.925, **multiclass κ = 0.897**, uncertain share 0.0
+(bar 0.70). Artifact: `results/analysis_round5_pilot_v2.json`.
+
+Human-vs-automatic stage labels diverge in a structured way:
+annotator a κ 0.705 (agreement 0.80), annotator b κ 0.590 (0.725). The
+disagreements are concentrated on E0 (humans call 4 E0; the automatic trace
+assigns formation/retrieval) and rerank (humans see 3 rerank losses; the
+automatic label says retrieval). This is the measurement result the instrument
+paper needs: **the human stage instrument is reliable, while the automatic
+first-loss label is not**.
+
+Stage A gate (E0-excluded significance + annotation κ ≥ 0.70) is **PASSED**.
+Next per the decision plan: Stage B architecture ablation at n=100 (A1
+semantic raw-write, A2a/A2b wide-context summary, A3 hybrid verbatim), then
+the re-pre-registered Stage C intervention.
