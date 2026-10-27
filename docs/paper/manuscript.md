@@ -326,6 +326,15 @@ The protocol runs each benchmark question under up to three conditions:
 The RM → OM → OC ladder isolates how much accuracy is recovered when
 upstream stages are progressively perfectioned (§5).
 
+![Figure 1](figures/fig1_lifecycle.pdf)
+
+**Figure 1 — Lifecycle stages and the three conditions.** Each question's
+gold evidence is followed through six lifecycle stages; F1–F6 mark the first
+stage at which it becomes unobservable. The lower matrix shows which stages
+each condition measures (solid) or controls (hatched). E0 labels evidence
+insufficiency measured against the reference answer; EVAL marks instrument
+uncertainty. $^{\ast}$Evolution (F3) is measured only on a controlled probe.
+
 ### 3.2 Lifecycle stages and evidence matching
 
 For each question, the benchmark provides gold evidence items with provenance
@@ -575,6 +584,14 @@ benchmark, on both label versions (§3.5).
 bootstrap CIs exclude 0 for every contrast except LongMemEval OM→OC, whose CI
 reaches 0. Judged rows: LoCoMo 173/173/176; LongMemEval 163/139/134.)
 
+![Figure 2](figures/fig2_ladder.pdf)
+
+**Figure 2 — Oracle ladder, auto vs abstention-corrected labels (n = 200).**
+Bars are semantic accuracy on judged rows with Wilson 95% CIs. The abstention
+correction moves the final rung in opposite directions on the two benchmarks:
+LoCoMo OM→OC becomes significant (0.54 → 0.015), LongMemEval stops being
+significant (0.041 → 0.078).
+
 Three observations:
 
 - **The correction moves individual conclusions in both directions.** On
@@ -627,6 +644,13 @@ judged rows).
 | semantic | 0.407 (91) | 0.473 / 0.424 / 0.303 | none 42, E0 21, **F1 18**, F4 14, F5 1, EVAL 4 |
 | summary | 0.423 (97) | 0.990 / 0.990 / 0.258 | none 42, E0 23, **F5 21**, F4 10, F6 1, EVAL 3 |
 | verbatim | 0.429 (98) | 0.990 / **0.197** / 0.162 | none 43, E0 19, **F4 35**, F6 1, EVAL 2 |
+
+![Figure 3](figures/fig3_fingerprint.pdf)
+
+**Figure 3 — Failure-stage distributions, LoCoMo n = 100.** Segment widths
+are shares of 100 questions per system; numerals are counts. End accuracy is
+statistically indistinguishable across systems while the stage distributions
+differ for all three pairs (statistics in the text and caption of Table 3).
 
 End accuracy is statistically indistinguishable across all pairs (exact
 McNemar p = 0.736 / 0.728 / 0.864; paired bootstrap CIs all include 0). The

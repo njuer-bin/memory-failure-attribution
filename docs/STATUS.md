@@ -42,6 +42,7 @@ git (it had been deleted in the working tree) and is absorbed into §4.
 | 8 Reproducibility + Ethical considerations | drafted |
 | Appendix A Claim→artifact map | drafted; script names verified on disk |
 | Appendix B Gate-B criteria verbatim | drafted |
+| Figures (lifecycle pipeline; oracle ladder; failure fingerprints) | **generated 2026-10-27** — `docs/paper/figures/gen_figures.py`, deterministic matplotlib, PDF+PNG; embedded in §3/§5/§6.2 with captions |
 
 **Numbers were re-verified against the artifacts in this session** (n=100
 fingerprint, E0-excluded tests, A1/A3 ablations, both corrected n=200 ladders,
@@ -70,10 +71,10 @@ q ≤ 0.5**; under uniform adversarial relabeling survival at q=0.5 is
 (sensitivity bullets). The method-comparison table is now Table 1; the
 oracle ladder and fingerprint tables are Tables 2 and 3.
 
-**Not done yet:** LaTeX/ACL template conversion, figures, final bibliography
+**Not done yet:** LaTeX/ACL template conversion, final bibliography
 (working BibTeX draft in `docs/paper/related_work_notes_2026-10-27.md` with
-conflicts flagged for verification), venue deadline (now known: next target
-ARR ~2027-01 cycle → ACL 2027, dates unannounced). Related-work prose was
+most entries now verified — see its §5), venue deadline (now known: next
+target ARR ~2027-01 cycle → ACL 2027, dates unannounced). Related-work prose was
 **drafted 2026-10-27** against the three competitor full texts; §1
 contributions were rewritten to drop all priority claims and position the
 paper on instrument calibration, the oracle ladder, and pre-registered
