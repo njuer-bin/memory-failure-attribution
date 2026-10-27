@@ -57,6 +57,28 @@ LaTeX/ACL template conversion (no template on disk, network blocked), figures
 (none generated), references (placeholder anchors only), venue deadline still
 unverified.
 
+**2026-10-27 update (user-supplied web survey):** the deadline and
+related-work blockers now have first-pass data in
+`docs/paper/related_work_notes_2026-10-27.md`. Key facts: (1) **all 2026
+windows are closed** — ARR October 2026 (COLING 2027's cycle) closed
+2026-10-12, NLPCC 2026 closed, "COLING 2026" does not exist as a venue; the
+next real target is the **ARR ~January 2027 cycle → ACL 2027** (dates not yet
+announced; watch aclrollingreview.org/dates). ACL 8-page assumption holds.
+(2) **Direct competitors found — read before writing §2**: MemTrace
+(arXiv 2605.28732, memory evolution graph + root-cause attribution, covers
+Mem0), MemOps (arXiv 2607.12893, lifecycle operations + evidence tracing),
+HaluMem (arXiv 2511.03506, operation-level hallucination localisation across
+extraction/updating/QA with GPT-4o scoring and no judge calibration). The
+"first lifecycle failure attribution" wording is dead; the C1 repositioning
+candidate is "first to trace *necessary evidence* through the full
+retrieval→memory→context→generation→judging pipeline while explicitly
+calibrating the judge" (HaluMem/MemTrace/MemOps all score with uncalibrated
+automatic judges). (3) A merged, conflict-flagged BibTeX draft is in the
+notes file; LoCoMo's anthology ID and LongMemEval's author list conflict
+between the two sources and need a final check against the Anthology pages.
+(4) ARR submission-compliance rules (OpenReview+ORCID profiles, anonymous
+repo, relative result paths, PDF metadata strip) are in the notes.
+
 ## Strategic reassessment (2026-10-26, adversarial review)
 
 An attack→adjudication review (`docs/reviews/2026-10-26-direction-kill-argument.md`)
@@ -367,7 +389,10 @@ The items below are the completed record that feeds those gates.
    with a number→artifact table. Remaining: fold it into the full draft once the
    round-3 gate clears or is formally abandoned; the ladder statistics it cites
    are in `results/analysis_ladder_{bench}_n200_{auto,corrected}.json`.
-6. **Deadline check** (needs network): CIKM / COLING / ECIR / NLPCC — retry.
+6. **Deadline check — resolved as first-pass 2026-10-27** (user-supplied
+   survey; see the 2026-10-27 update in the Paper draft section). Remaining:
+   watch for the ARR ~2027-01 cycle announcement; verify flagged BibTeX
+   entries against Anthology/arXiv pages.
 
 **Model policy:** every answer/judge/reviewer call must use
 `DeepSeek-v4.1-flash`. Do not switch models without explicit user approval.
