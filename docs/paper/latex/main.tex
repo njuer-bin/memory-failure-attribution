@@ -36,37 +36,31 @@ architecture-conditional failure localisation}
 \maketitle
 
 \begin{abstract}
-When a long-term memory agent answers incorrectly, accuracy benchmarks cannot
-say where the failure happened. We present an attribution protocol that traces
-each gold-evidence item through the system's lifecycle---formation, storage,
-evolution, retrieval, context assembly, and answer reasoning (evolution is
-exercised only on a controlled probe)---and localises the \emph{first
-observable evidence-loss boundary} (F1--F6), with an explicit
-evidence-insufficiency label (E0) for questions the gold evidence cannot
-support. Because an attribution claim is only as good as its instruments, we
-audit ours against 200 human-labelled questions: the failure labels are 90\%
-human-confirmed, but the LLM judge systematically accepts abstention-style
-answers (30.3\% of sampled stored-correct rows are human-wrong), and the
-automatic evidence gate is near-independent of human sufficiency judgements
-(Cohen's $\kappa$ 0.03--0.07) until rebuilt as a per-fact annotation task
-($\kappa$ 0.835). We also show that the human \emph{stage} annotation task is
-reliable ($\kappa$ 0.897) while the automatic first-loss label is not
-(human-vs-auto $\kappa$ 0.59--0.71). Applying the corrected instruments, we
-find that (i) the size of the memory-induced loss is benchmark-dependent: the
-corrected real $\to$ oracle-memory $\to$ oracle-context ladder is
-0.306 $\to$ 0.682 $\to$ 0.761 on LoCoMo (all rungs significant) but
-0.479 $\to$ 0.676 $\to$ 0.799 on LongMemEval (last rung not significant); and
-(ii) on LoCoMo $n{=}100$, three memory systems with statistically
-indistinguishable accuracy (0.407/0.423/0.429; paired McNemar
-$p = 0.736/0.728/0.864$) fail at significantly different lifecycle stages
-(Stuart--Maxwell, Holm-adjusted $p \leq 2.8\times10^{-4}$ on all three pairs).
-Two pre-registered architecture ablations move each system's dominant failure
-stage in the predicted direction---but below the pre-registered magnitude
-bar, so we report the localisation as \emph{architecture-conditional},
-retract the stronger universal-fingerprint framing, and show that
-stage-targeted repair does not beat a no-op placebo. We release the protocol,
-the audit methodology, and all analysis artifacts as a resource for studying
-memory-agent failure honestly.
+When a long-term memory agent answers incorrectly, accuracy alone cannot say
+where the failure happened. We present an evidence-centric attribution
+protocol that follows each question's gold evidence through the system's
+lifecycle---formation, storage, retrieval, context assembly, answer
+reasoning---and labels wrong answers with the first observable evidence-loss
+boundary (F1--F5), plus explicit labels for evidence-insufficient (E0) and
+instrument-uncertain (EVAL) cases. Because such claims are only as good as
+their instruments, we audit ours against 200 human-labelled questions:
+failure labels are 90\% human-confirmed, but the judge accepts
+abstention-style answers (30.3\% of sampled stored-correct rows are
+human-wrong), and the automatic sufficiency gate is near-independent of
+humans ($\kappa$ 0.03--0.07) until rebuilt as a per-fact task
+($\kappa$ 0.835). The human stage instrument is reliable ($\kappa$ 0.897);
+the automatic first-loss label is not ($\kappa$ 0.59--0.71) and never emits
+E0 or rerank. With corrected instruments we find (i) the memory-induced loss
+is benchmark-dependent---the corrected real $\to$ oracle-memory $\to$
+oracle-context ladder is 0.306 $\to$ 0.682 $\to$ 0.761 on LoCoMo (all rungs
+significant) but 0.479 $\to$ 0.676 $\to$ 0.799 on LongMemEval (last rung
+not); and (ii) on LoCoMo $n{=}100$, three systems with indistinguishable
+accuracy (0.407/0.423/0.429; McNemar $p = 0.736/0.728/0.864$) fail at
+significantly different stages (Stuart--Maxwell, Holm
+$p \leq 2.8\times10^{-4}$). Two pre-registered ablations move stages in the
+predicted direction but below the pre-registered bar; we therefore report
+architecture-conditional localisation, retract a universal-fingerprint claim,
+and show that stage-targeted repair does not beat a no-op placebo.
 \end{abstract}
 
 \section{Introduction}
@@ -83,96 +77,68 @@ and scientific understanding, require localising the failure.
 
 This paper asks a measurement question: \textbf{can the earliest point at
 which the evidence for an answer becomes unobservable be located reliably,
-and does that location characterise how a memory system fails?} Our answer is
-a qualified yes---with the qualifications being, we argue, the more useful
-contribution.
-
-Attribution itself is not a blank slate. HaluMem \citep{chen2025halumem}
-introduced operation-level hallucination grading; MemOps
-\citep{hao2026memops} benchmarks lifecycle operations on synthetic gold
-traces; and MemTrace \citep{deng2026memtrace} formalises the earliest
-\emph{decisive faulty operation} on an instrumented execution graph, with 160
-human-annotated real failure cases. We therefore make \textbf{no priority
-claim on lifecycle attribution}; \S\ref{sec:related} details the differences.
-What the prior lines do not provide is a \emph{human-calibrated instrument}:
-none reports pre-registered agreement between its judge and human labels, none
-separates genuinely insufficient evidence from pipeline loss with controlled
-oracle conditions, and none tests architecture-conditionality with a
-pre-registered ablation gate. Those gaps are where this paper's claims live.
+and what does that location mean?} Attribution is not a blank
+slate---HaluMem \citep{chen2025halumem} grades operations, MemOps
+\citep{hao2026memops} benchmarks lifecycle operations on synthetic traces, and
+MemTrace \citep{deng2026memtrace} formalises the earliest decisive faulty
+operation on an instrumented graph with 160 annotated failures---so we make
+\textbf{no priority claim} (\S\ref{sec:related}). What the prior lines lack is
+a \emph{human-calibrated instrument}, controlled oracle conditions, and a
+pre-registered architecture test; those gaps are where our claims live.
 
 We make four contributions:
 
 \begin{itemize}
-\item \textbf{C1 --- An evidence-centric attribution protocol (\S\ref{sec:protocol}).}
-A frozen pipeline that follows each benchmark question's gold-evidence items
-through the artifacts a memory system exposes---formation, storage, evolution,
-retrieval, context assembly, answer reasoning---and labels every wrong answer
-with the \textbf{first observable evidence-loss boundary}: F1 formation,
-F2 storage, F3 evolution, F4 retrieval, F5 context, F6 reasoning-candidate,
-E0 evidence-insufficient, or EVAL (instrument uncertainty). The label is an
-observability boundary, not a causal root cause; the protocol is explicit
-about what it does not establish. It requires no source instrumentation, so it
-applies to black-box systems; the trade-off is stage granularity rather than
-operation- or code-level attribution.
+\item \textbf{C1 --- An evidence-centric attribution protocol
+(\S\ref{sec:protocol}).} A frozen pipeline that follows each question's gold
+evidence through the artifacts a system exposes---formation, storage,
+evolution, retrieval, context assembly, answer reasoning---and labels every
+wrong answer with the \textbf{first observable evidence-loss boundary} (F1
+formation, F2 storage, F3 evolution, F4 retrieval, F5 context, F6
+reasoning-candidate, E0 evidence-insufficient, EVAL instrument uncertainty). It
+is an observability boundary, not a causal root cause, and it needs no source
+instrumentation; the trade-off is stage rather than operation-level
+granularity.
 
 \item \textbf{C2 --- A human audit of the instruments (\S\ref{sec:audit}).}
-Two annotators labelled a stratified 200-question sample. The failure labels
-are mostly sound (90\% confirmed), but the audit surfaces three instrument
-defects that any LLM-judged memory study must handle: judge abstention false
-positives (30.3\% of sampled stored-correct rows; a guarded correction rule is
-13/13 precise where a naive rule is 52\%), an evidence-sufficiency gate that
-is near-independent of humans ($\kappa$ 0.03--0.07) until rebuilt as per-fact
-binary annotation (fact $\kappa$ 0.835, row $\kappa$ 0.889, after two failed
-rounds), and a reliable human stage-annotation instrument ($\kappa$ 0.897)
-against which the \emph{automatic} first-loss label is unreliable
-($\kappa$ 0.59--0.71). We are not aware of a prior memory-failure study that
-calibrates its judge and sufficiency gate against human labels under
-pre-registered agreement bars and reports which conclusions the calibration
-changes.
+90\% of failure labels are human-confirmed; judge abstention false positives
+are 30.3\% of sampled stored-correct rows (a guarded correction is 13/13
+precise where a naive rule is 52\%); the automatic sufficiency gate is
+near-independent of humans ($\kappa$ 0.03--0.07) until rebuilt as per-fact
+annotation ($\kappa$ 0.835/0.889 after two failed rounds); and the human stage
+instrument is reliable ($\kappa$ 0.897) while the automatic first-loss label
+is not ($\kappa$ 0.59--0.71). We are not aware of a prior memory-failure study
+performing this calibration and reporting which conclusions it changes.
 
-\item \textbf{C3 --- A corrected oracle ladder (\S\ref{sec:ladder}).}
-Comparing real memory against oracle-memory and oracle-context controls
-quantifies how much of the loss memory causes---but only after abstention
-correction. No operation-level or execution-graph diagnostic from
-\S\ref{sec:related} includes such controls. The corrected ladder is steep and
-fully significant on LoCoMo (0.306 $\to$ 0.682 $\to$ 0.761) and shallower with
-a non-significant final rung on LongMemEval (0.479 $\to$ 0.676 $\to$ 0.799):
-the answer is benchmark-dependent, and corrections move individual rung
-conclusions in both directions.
+\item \textbf{C3 --- A corrected oracle ladder (\S\ref{sec:ladder}).} Real
+memory vs oracle memory vs oracle context quantifies memory's cost---after
+abstention correction. The ladder is 0.306 $\to$ 0.682 $\to$ 0.761 on LoCoMo
+(all rungs significant) and 0.479 $\to$ 0.676 $\to$ 0.799 on LongMemEval (last
+rung not): benchmark-dependent, with corrections moving rung conclusions in
+both directions. No operation-level diagnostic includes such controls.
 
-\item \textbf{C4 --- Architecture-conditional stage localisation
-(\S\ref{sec:localisation}).} On LoCoMo $n{=}100$, three memory systems with
-statistically indistinguishable accuracy fail at significantly different
-lifecycle stages: a fact-extraction system loses evidence at formation, a
-session-summary system at context assembly, a raw-turn RAG system at
-retrieval. Cross-system differences in where failures occur have been
-reported descriptively before (MemTrace, Fig.~4b); our addition is a
-pre-registered within-system ablation with significance testing. Two ablations
-that remove a system's own bottleneck move its dominant failure stage in the
-pre-registered direction (A1: F1 share 0.13 $\to$ 0.00, within-system
-Stuart--Maxwell $p = 0.0031$, accuracy unchanged; A3: F4 share 0.37 $\to$
-0.23, accuracy $+17.6$ points)---but both miss the pre-registered
-$\geq$20-point magnitude bar. The localisation is therefore real but
-conditional on architecture, not a universal invariant of memory agents.
+\item \textbf{C4 --- Architecture-conditional localisation
+(\S\ref{sec:localisation}).} On LoCoMo $n{=}100$, three systems with
+indistinguishable accuracy (McNemar $p = 0.736/0.728/0.864$) fail at
+significantly different stages (Stuart--Maxwell, Holm $p \leq
+2.8\times10^{-4}$). Cross-system differences have been reported descriptively
+(MemTrace, Fig.~4b); our addition is a pre-registered within-system ablation
+(A1: F1 share 0.13 $\to$ 0.00, Stuart--Maxwell $p = 0.0031$, accuracy
+unchanged; A3: F4 share 0.37 $\to$ 0.23) that moves stages in the predicted
+direction but below the pre-registered 20-point bar.
 \end{itemize}
 
-We state three negative results up front, because they delimit what the
-positive claims mean. \textbf{(N1)} The stronger claim we initially
-pursued---a stable, \emph{universal} failure fingerprint of memory agents---is
-\textbf{retracted}: a pre-registered decision gate designed to test exactly
-that claim returned a partial verdict, and the phenomenon is
-architecture-conditional. \textbf{(N2)} Stage localisation is \textbf{not
-shown to be actionable}: a pre-registered intervention that repairs the
-measured retrieval stage moved retrieval recall 0.043 $\to$ 0.321 but produced
-only +7 net answer flips (McNemar $p = 0.143$, bootstrap CI
-$[-0.029, +0.441]$), inside the noise floor set by a no-op placebo (9/35
-flips). \textbf{(N3)} The automatic first-loss label produced by the pipeline
-is \textbf{not reliable as a per-row instrument} (human-vs-auto $\kappa$
-0.59--0.71): it is dependable on formation/retrieval/none (per-class F1
-0.81--1.00) but never emits E0 or rerank, so those two losses cannot be read
-per row; stage-distribution claims are made on failure labels that the audit
-found 90\% sound, at distribution level, and survive label noise drawn from
-the measured confusion (\S\ref{sec:localisation}).
+We state three negative results up front. \textbf{(N1)} The
+\emph{universal}-failure-fingerprint framing is \textbf{retracted}: the
+pre-registered decision gate returned partial, and the phenomenon is
+architecture-conditional. \textbf{(N2)} Localisation is \textbf{not shown to
+be actionable}: repairing the measured retrieval stage moved recall
+0.043 $\to$ 0.321 but produced only +7 net answer flips (McNemar $p = 0.143$,
+CI $[-0.029, +0.441]$), inside the noise floor of a no-op placebo (9/35
+flips). \textbf{(N3)} The automatic first-loss label is \textbf{not a per-row
+instrument} ($\kappa$ 0.59--0.71, and it never emits E0 or rerank); stage
+claims are distributional, on 90\%-confirmed labels, and survive label noise
+drawn from the measured confusion (\S\ref{sec:localisation}).
 
 The paper is organised as a measurement study. \S\ref{sec:related} reviews
 related work and states the positioning; \S\ref{sec:protocol} defines the
@@ -200,14 +166,13 @@ interaction across four competencies; RealMem \citep{bian2026realmem}
 interleaves queries inside the interaction; LoCoMo-Plus
 \citep{li2026locomoplus} probes implicit constraints and cognitive memory.
 
-These benchmarks differ in coverage, not in what a score means: a system is
-judged on the correctness of its final answers. LongMemEval's stage
-vocabulary notwithstanding, none reports, for a wrong answer, where along the
-system's own pipeline the required evidence first stopped being available.
-That is the question this paper measures. An attribution protocol is
-orthogonal to benchmark choice---it consumes whatever gold evidence a
-benchmark provides---which is why we run it on two benchmarks rather than
-proposing a third.
+These benchmarks differ in coverage, not in what a score means: the system is
+judged on final answers. LongMemEval's stage vocabulary notwithstanding, none
+reports, for a wrong answer, where the system's own pipeline first stopped
+exposing the required evidence---the question this paper measures. An
+attribution protocol is orthogonal to benchmark choice and consumes whatever
+gold evidence is provided, which is why we run it on two benchmarks rather
+than proposing a third.
 
 \subsection{Operation-level and lifecycle diagnostics}
 
@@ -216,26 +181,22 @@ relationship to each explicitly because one of them defines our problem.
 
 \textbf{HaluMem} \citep{chen2025halumem} introduced operation-level
 hallucination grading: gold memory points and update pairs are annotated, and
-a memory system is scored separately on extraction, updating, and question
-answering over synthetic user histories. It shows that extraction and update
-errors arise and propagate to QA---a pipeline-level pattern our stage labels
-also expose---but its gold states are benchmark-generated, its scoring is a
-single automatic judge without human calibration (human annotation validates
-dataset quality, not the scoring instrument), and retrieval enters only
-through recall. It measures whether prescribed memory operations are performed
-correctly; it does not localise where evidence became unavailable for an
-observed real failure.
+a system is scored separately on extraction, updating, and QA over synthetic
+histories. It shows that extraction and update errors propagate to QA---a
+pattern our stage labels also expose---but its gold states are
+benchmark-generated, its scoring is a single judge without human calibration
+(annotation validates the dataset, not the instrument), and retrieval enters
+only through recall. It measures whether prescribed operations are performed
+correctly, not where evidence became unavailable for a real failure.
 
 \textbf{MemOps} \citep{hao2026memops} benchmarks whether systems can
 \emph{detect, execute, and respect} lifecycle operations---remember, forget,
-update, reflect, and their compositions---embedded in synthetic conversations
-with gold operation traces and six probe families (detection, target binding,
-state transition, disambiguation, application, state trajectory). Its question
-is ``can the system detect and carry out the right operation, and respect the
-resulting memory state?'', ours is ``for a question the system already
-answered wrongly, which stage of its own pipeline first stopped exposing the
-evidence?'' The authors list stronger human validation and judge-calibration
-studies as future work; we perform that calibration.
+update, reflect, and compositions---embedded in synthetic conversations with
+gold traces and six probe families. Its question is ``can the system carry out
+the right operation and respect the resulting state?'', ours is ``for a
+question already answered wrongly, which stage first stopped exposing the
+evidence?'' The authors list human validation and judge calibration as future
+work; we perform that calibration.
 
 \textbf{MemTrace} \citep{deng2026memtrace} is the closest work and the reason
 this paper makes no priority claim on lifecycle attribution. It formalises the
@@ -290,19 +251,12 @@ observability requirement & instrumented source code & memory-system APIs &
 memory-system APIs & black-box artifacts only \\
 granularity & operation / variable & operation (extraction, updating, QA) &
 operation (5 types) $+$ probes & lifecycle stage on gold evidence \\
-data & real benchmarks $\times$ 4 systems; 160 annotated failures & synthetic;
-$\sim$15k memory points & synthetic; 4{,}012 instances & real benchmarks
-$\times$ 3 systems; 200-row audit $+$ 40-row stage pilot \\
 judge calibration & judge errors recorded (3/230), rate not measured & none
-reported & none (listed as future work) & answer $\kappa$ 0.92; abstention
-rule 13/13$^\dagger$; gate $\kappa$ 0.835$^\dagger$; stage $\kappa$
-0.897$^\dagger$; per-class stage audit$^\dagger$ \\
-attribution vs.\ humans & OIA 14--58\% & n/a (no failure attribution) & n/a &
-per-row stage $\kappa$ 0.59--0.71; per-class F1 0.81--1.00$^\dagger$ \\
+reported & none (future work) & answer $\kappa$ 0.92; abstention 13/13;
+gate $\kappa$ 0.835; stage $\kappa$ 0.897$^\dagger$ \\
+attribution vs.\ humans & OIA 14--58\% & n/a & n/a & stage $\kappa$
+0.59--0.71; per-class F1 0.81--1.00$^\dagger$ \\
 controls & none & none & none & RM/OM/OC oracle ladder$^\dagger$ \\
-applicability & systems that can be instrumented & systems with the three APIs
-& systems with the APIs & any system exposing its store, retrievals, and
-context \\
 \bottomrule
 \end{tabular}
 \caption{Attribution methods compared. Entries are from the cited papers
@@ -314,50 +268,42 @@ exists (see Limitations).}
 \subsection{Memory systems}
 
 We cite the major architectural families as context, not as evaluated
-systems: extraction-and-update stores \citep{chhikara2025mem0}, context-window
-operating systems \citep{packer2023memgpt}, agentic note-organisation
-\citep{xu2025amem}, graph-augmented retrieval \citep{gutierrez2024hipporag},
-earlier self-controlled and session-summary memory
-\citep{wang2024scm,pan2025secom}, and unified memory operating layers
-\citep{li2025memos}. The three systems we evaluate (\S\ref{sec:localisation})
-are controlled implementations that instantiate the extraction, compression,
-and raw-turn-retrieval families. We do not claim they are the strongest
-members of their families; they are chosen so that each carries a known,
-removable bottleneck, which is what the ablation requires.
+systems: extraction-and-update stores \citep{chhikara2025mem0},
+context-window operating systems \citep{packer2023memgpt}, agentic
+note-organisation \citep{xu2025amem}, graph-augmented retrieval
+\citep{gutierrez2024hipporag}, self-controlled and session-summary memory
+\citep{wang2024scm,pan2025secom}, and unified memory layers
+\citep{li2025memos}. Our evaluated systems (\S\ref{sec:localisation}) are
+controlled implementations of the extraction, compression, and
+raw-turn-retrieval families, each chosen for a known, removable bottleneck;
+we do not claim they are the strongest of their families.
 
 \subsection{Reliability of automatic evaluation}
 
-LLM-as-judge studies document systematic biases---position and verbosity bias
-\citep{zheng2023judging,wang2024notfairevaluators}, prompt-sensitivity in
-reference-based scoring \citep{liu2023geval}, and self-preference
-\citep{panickssery2024selfpreference}---and later work systematises bias
-families \citep{ye2025justice,chen2024humansjudge,shi2025judgingjudges}.
-Inter-annotator agreement has a long methodological literature
-\citep{artstein2008kappa}.
-
-Our audit targets a specific failure mode that generic bias studies do not
-isolate: in a memory pipeline, the judge \textbf{rewards abstention}. Of
-sampled rows the judge stored as correct, 30.3\% are human-adjudicated wrong,
-and 13 of 20 are abstention-style answers accepted as correct. Because
-abstention is a first-class capability in LongMemEval
-\citep{wu2025longmemeval}, a naive ``abstention is wrong'' correction is only
-52\% precise; guarding on the reference answer makes it 13/13 precise on the
-sampled subset. The point is not that judges are biased---that is
-established---but that in this task the correction \emph{moves paired
-significance conclusions} (\S\ref{sec:ladder}), which a bias inventory does
-not show.
+LLM-as-judge studies document position and verbosity bias
+\citep{zheng2023judging,wang2024notfairevaluators}, prompt-sensitivity
+\citep{liu2023geval}, self-preference \citep{panickssery2024selfpreference},
+and systematic bias families
+\citep{ye2025justice,chen2024humansjudge,shi2025judgingjudges}; agreement has
+its own methodology \citep{artstein2008kappa}. Our audit isolates a
+task-specific failure mode: in a memory pipeline the judge \textbf{rewards
+abstention}. Of rows stored as correct, 30.3\% are human-wrong, 13/20 being
+abstentions accepted as answers; because abstention is first-class in
+LongMemEval \citep{wu2025longmemeval}, a naive correction is only 52\%
+precise while a reference-guarded rule is 13/13. The point is that here the
+correction \emph{moves paired significance conclusions} (\S\ref{sec:ladder}),
+not that judges are biased.
 
 \subsection{Failure attribution in agent systems}
 
-Attribution methods for agent trajectories localise faulty steps within a
-single task run---via sampling and process signals, LLM inspection of traces,
-or structured graphs \citep{zhang2025whoandwhen,agentracer2025,bonagiri2026causalflow};
-see also the MAS failure taxonomy of \citet{cemri2025whymasfail}. Memory
-failures violate their core assumption: the faulty step may lie many sessions
-before the observed failure, and the trace is not a short ordered log.
-MemTrace extends graph-based attribution to memory with instrumentation; we
-take the protocol route---observable artifacts, gold evidence, no
-instrumentation---and pay for it in granularity. The two routes are
+Agent-trajectory attribution localises faulty steps within a single task
+run---via sampling and process signals, LLM trace inspection, or structured
+graphs \citep{zhang2025whoandwhen,agentracer2025,bonagiri2026causalflow}; see
+also the MAS failure taxonomy \citep{cemri2025whymasfail}. Memory failures
+violate the core assumption: the faulty step may lie sessions earlier, and
+the trace is not a short ordered log. MemTrace extends graph-based
+attribution with instrumentation; we take the protocol route---observable
+artifacts, no instrumentation---and pay in granularity. The routes are
 complementary, and the audit of \S\ref{sec:audit} applies to either.
 
 \section{The attribution protocol}
@@ -384,19 +330,10 @@ answer context. All stages before context are unmeasured.
 \end{itemize}
 
 The RM $\to$ OM $\to$ OC ladder isolates how much accuracy is recovered when
-upstream stages are progressively perfectioned (\S\ref{sec:ladder}).
+upstream stages are progressively perfectioned (\S\ref{sec:ladder});
+Figure~\ref{fig:lifecycle} (Appendix~\ref{app:tables}) summarises the stages
+and conditions.
 
-\begin{figure}[t]
-\centering
-\includegraphics[width=\linewidth]{fig1_lifecycle.pdf}
-\caption{Lifecycle stages and the three conditions. Each question's gold
-evidence is followed through six lifecycle stages; F1--F6 mark the first stage
-at which it becomes unobservable. The lower matrix shows which stages each
-condition measures (solid) or controls (hatched). E0 labels evidence
-insufficiency measured against the reference answer; EVAL marks instrument
-uncertainty. $^{\ast}$Evolution (F3) is measured only on a controlled probe.}
-\label{fig:lifecycle}
-\end{figure}
 
 \subsection{Lifecycle stages and evidence matching}
 
@@ -404,14 +341,9 @@ For each question, the benchmark provides gold evidence items with provenance
 (session/turn identifiers). The tracer measures, at each stage, the recall of
 the gold evidence in that stage's artifacts:
 formation $\to$ storage $\to$ evolution $\to$ retrieval $\to$ rerank $\to$
-context. A gold item is matched by exact normalized text, or by token-overlap
-similarity $\geq 0.55$, among provenance-compatible artifacts. Provenance is a
-constraint, not proof: an artifact whose turn conflicts with the gold
-provenance cannot satisfy the item; a match in an artifact without provenance
-is reported separately rather than hidden. Evolution (F3) is measured only on
-datasets whose adapter exposes an atomic-fact store with supersession
-(currently a controlled evolution probe); on the benchmark runs reported here
-the stage is skipped and F3 cannot fire.
+context. Matching and provenance rules are in Appendix~\ref{app:protocol}.
+Evolution (F3) requires an atomic-fact store with supersession (a controlled
+probe); it cannot fire on the benchmark runs reported here.
 
 \subsection{First observable evidence-loss boundary}
 
@@ -429,56 +361,34 @@ Model answers are judged semantically against the benchmark reference, with
 deterministic floors around the judge: pre-judge lexical support, post-judge
 repair restricted to question-related candidates (never refusals), and a
 false-overturn \emph{ordering-refutation} layer for two-option ordering
-questions whose evidence resolves the dates. Failure attribution then assigns,
-in order:
-
-\begin{enumerate}
-\item semantically correct $\to$ no failure;
-\item no semantic verdict $\to$ \texttt{EVAL\_SEMANTIC\_UNCERTAIN};
-\item evidence gate insufficient $\to$ \texttt{E0\_EVIDENCE\_INSUFFICIENT};
-\item gate not sufficient / low confidence $\to$ \texttt{EVAL};
-\item Oracle-Context mode $\to$ \texttt{RC\_REASONING\_CONTROL\_FAILURE};
-\item no gold evidence ids $\to$ \texttt{E0};
-\item first measured stage missing gold $\to$ F1/F2/F4/F5;
-\item all evidence present in context $\to$ \texttt{F6\_REASONING\_CANDIDATE}.
-\end{enumerate}
-
-The evidence-sufficiency gate (E0) is judged \textbf{against the benchmark
+questions whose evidence resolves the dates. Failure attribution then assigns
+the first applicable label in a fixed order (Appendix~\ref{app:protocol}). The
+evidence-sufficiency gate (E0) is judged \textbf{against the benchmark
 reference answer, never the model prediction}, so it is non-circular. F6 is a
-\emph{candidate}: it means the evidence reached the context and the answer was
-still wrong, which is consistent with a reasoning failure but also with
-evaluation error---the audit of \S\ref{sec:audit} quantifies both.
+\emph{candidate}: the evidence reached the context and the answer was still
+wrong---consistent with a reasoning failure but also with evaluation error,
+which \S\ref{sec:audit} quantifies.
 
 \subsection{Label versions and reporting discipline}
 
-The audit (\S\ref{sec:audit}) shows the raw automatic labels carry measurable
-instrument error. We therefore track three label versions and state, for every
-number, which version it uses:
-
-\begin{itemize}
-\item \textbf{auto} --- the stored automatic judge/gate labels;
-\item \textbf{abstention-corrected} --- auto labels with the human-validated
-abstention rule applied (\S\ref{sec:audit}); used for all accuracy-level
-claims;
-\item \textbf{human-gated} --- abstention-corrected labels with the E0 gate
-replaced by the two-annotator consensus gate on annotated questions
-(\S\ref{sec:audit}); used to re-attribute E0 on covered questions.
-\end{itemize}
-
-Accuracy is reported as \emph{semantic accuracy on judged rows} (rows with a
-judge verdict), never as the fraction of all rows marked correct, which
-understates accuracy. E0 is reported only as a relative pattern across
-conditions, never as an error-rate level, except where the human gate covers
-the question.
+Because raw automatic labels carry measurable instrument error
+(\S\ref{sec:audit}), we track three versions and state which is used for every
+number: \textbf{auto} (stored judge/gate labels); \textbf{abstention-corrected}
+(auto labels with the human-validated abstention rule; used for accuracy
+claims); \textbf{human-gated} (corrected labels with the E0 gate replaced by
+the two-annotator consensus gate on annotated questions; used to re-attribute
+E0). Accuracy is \emph{semantic accuracy on judged rows}, never the fraction
+of all rows marked correct, which understates accuracy. E0 is reported only
+as a relative pattern across conditions, never as an error-rate level, except
+where the human gate covers the question.
 
 \subsection{What the protocol does not establish}
 
-Three boundaries are stated in the protocol itself: (i) labels are
-observability boundaries, not causal mechanisms; (ii) F6 is a candidate class,
-not a measured reasoning failure; (iii) per-row first-loss reads are not
-validated as a per-row instrument (N3)---stage claims are made at the
-distribution level, on labels whose failure direction the audit found 90\%
-sound.
+Three boundaries are stated in the protocol itself: labels are observability
+boundaries, not causal mechanisms; F6 is a candidate class, not a measured
+reasoning failure; and per-row first-loss reads are not a validated instrument
+(N3)---stage claims are distributional, on labels whose failure direction the
+audit found 90\% sound.
 
 \section{Auditing the instruments}
 \label{sec:audit}
@@ -502,49 +412,37 @@ against the automatic first-loss label (\S\ref{sec:audit:stage}).
 \subsection{Answer correctness is measurable; failure labels are mostly sound}
 
 Inter-annotator agreement on answer correctness is high ($\kappa = 0.92$,
-$n = 177$ co-decided; the 7 disagreements were paraphrase/equivalence cases,
-adjudicated correct). Against the adjudicated labels, the automatic judge
-reaches precision 0.697 / recall 0.885 / F1 0.780 overall ($\kappa = 0.591$),
-with a large per-benchmark gap: LoCoMo F1 0.605 ($\kappa$ 0.369) vs
-LongMemEval F1 0.880 ($\kappa$ 0.747).
-
-The base rate that every stage claim rests on survives review: of 60
-stored-incorrect rows with a human verdict, \textbf{54 (90.0\%) are confirmed
-wrong}. The direction of the failure labels does not rest on the gate.
+$n = 177$ co-decided; the 7 disagreements were paraphrase cases, adjudicated
+correct). Against the adjudicated labels the judge reaches precision 0.697 /
+recall 0.885 / F1 0.780 ($\kappa = 0.591$), with a large benchmark gap
+(LoCoMo F1 0.605, $\kappa$ 0.369; LongMemEval 0.880, $\kappa$ 0.747). The base
+rate behind every stage claim survives review: of 60 stored-incorrect rows
+with a human verdict, \textbf{54 (90.0\%) are confirmed wrong}.
 
 \subsection{The judge rewards abstention; a guarded rule corrects it}
 
 Of 66 sampled rows the judge stored as semantically correct, \textbf{20
-(30.3\%) are human-adjudicated wrong}, and 13 of the 20 are abstention-style
-answers (``Not mentioned'', ``Cannot be determined'') that the judge accepted.
-Left uncorrected, semantic accuracy is inflated wherever a model declines to
-answer---and the oracle conditions are inflated most, because they abstain
-least often for the wrong reason.
-
-The correction is label-only and human-validated. A naive rule (``a
-stored-correct abstention is wrong'') is only \textbf{52\% precise} on the 25
-sampled abstentions, because 12 are LongMemEval \texttt{\_abs} questions whose
-reference answer is itself an abstention. Guarding on the reference (flip only
-when the reference is a concrete proposition) identifies \textbf{all 13
-human-wrong abstentions and preserves all 12 human-correct ones} (precision
-and recall 1.00 on the abstention subset). On the full 77-row stored-correct
-sample the rule flips 13 of 31 human-wrong rows (recall 0.42); the remaining
-18 are non-abstention judge errors the rule does not address---we do not claim
-otherwise.
+(30.3\%) are human-wrong}, 13 of them abstention-style answers the judge
+accepted; uncorrected, semantic accuracy is inflated wherever a model declines
+to answer, and the oracle conditions most. A naive ``abstention is wrong''
+rule is only \textbf{52\% precise} on the 25 sampled abstentions (12 are
+LongMemEval \texttt{\_abs} references); a reference-guarded rule flips only
+when the reference is a concrete proposition and identifies \textbf{all 13
+human-wrong abstentions while preserving all 12 human-correct ones} (precision
+and recall 1.00 on the subset). On the 77-row stored-correct sample the rule
+flips 13 of 31 human-wrong rows (recall 0.42); the other 18 are
+non-abstention judge errors it does not address.
 
 \subsection{The evidence gate needed three rounds to become an instrument}
 
 The round-1 sufficiency field was degenerate ($\kappa = 0.0$: one annotator
-never said ``no''; all 20 disagreements adjudicated against the lenient side).
-A round-2 derivability checklist still failed ($\kappa = 0.181$, $n = 177$):
-one annotator's ``missing fact'' notes were a mechanical template lifting
-tokens from the reference answer---75/81 quoted tokens occur in the reference,
-0/81 in the evidence, including function words (``she'', ``because''). Round 3
-changed the task shape: each reference answer is decomposed once into atomic
-propositions (276 facts over 200 questions), and annotators mark one binary
-fact-presence judgement per row; the row gate is a transparent aggregation.
-This instrument cleared its pre-registered bar ($\kappa \geq 0.6$ on both
-levels):
+never said ``no'') and a round-2 derivability checklist still failed
+($\kappa = 0.181$, $n = 177$; the failure mode is documented in
+Appendix~\ref{app:protocol}). Round 3 changed the task shape: each reference
+answer is decomposed once into atomic propositions (276 facts over 200
+questions), and annotators mark one binary fact-presence judgement per row;
+the row gate is a transparent aggregation. This cleared the pre-registered bar
+($\kappa \geq 0.6$ on both levels):
 
 \begin{table}[t]
 \centering
@@ -569,19 +467,15 @@ authored with access to the adjudicated labels, we treat the inter-annotator
 $\kappa$ as the independent validation and the adjudication comparison as
 corroboration.
 
-The stored automatic gate is near-independent of humans ($\kappa$ 0.03--0.07).
-In the direction that matters for E0, it \textbf{falsely marks 65 sufficient
-rows insufficient} (28 LoCoMo, 37 LongMemEval---the latter dominated by
-\texttt{\_abs} questions, whose reference is itself an abstention) and
-\textbf{misses 17 truly-insufficient rows} (all LoCoMo): the error is
-dominated by over-flagging. Consequently, E0 counts from the automatic gate
-are biased upward and are used only for relative comparison across conditions
-of the same question (one shared gate per question); on annotated questions we
-re-attribute with the consensus gate, which removes 5--10 E0 rows per mode
-(human-gated vs corrected labels: LoCoMo real 56 $\to$ 51, OM 40 $\to$ 30, OC
-30 $\to$ 25; LongMemEval real 13 $\to$ 5, OM 13 $\to$ 8, OC 15 $\to$ 8),
-converting them to F1/F4/F6/RC. Questions outside the annotated sample keep
-the stored gate and the caveat.
+The stored gate is near-independent of humans ($\kappa$ 0.03--0.07): it
+\textbf{falsely marks 65 sufficient rows insufficient} (28 LoCoMo, 37
+LongMemEval---mostly \texttt{\_abs}) and \textbf{misses 17 truly-insufficient
+rows} (all LoCoMo), so its E0 counts are biased upward. We therefore use them
+only for relative comparison across conditions of the same question (one
+shared gate per question) and re-attribute with the consensus gate on
+annotated questions (LoCoMo real 56 $\to$ 51, OM 40 $\to$ 30, OC 30 $\to$ 25;
+LongMemEval 13 $\to$ 5, 13 $\to$ 8, 15 $\to$ 8), converting removed rows to
+F1/F4/F6/RC; unannotated questions keep the stored gate and the caveat.
 
 \subsection{The human stage instrument is reliable; the automatic first-loss label is not}
 \label{sec:audit:stage}
@@ -611,7 +505,8 @@ comparable to the per-annotator $\kappa$ above):
 
 \begin{table}[t]
 \centering
-\small
+\footnotesize
+\setlength{\tabcolsep}{3pt}
 \begin{tabular}{@{}lrrrrr@{}}
 \toprule
 class & support & predicted & precision & recall & F1 \\
@@ -663,34 +558,12 @@ measurement error.
 
 The RM $\to$ OM $\to$ OC ladder (\S\ref{sec:protocol}) quantifies how much
 accuracy is recovered when formation/storage (OM) and then everything upstream
-of the answer (OC) are perfectioned. Table~\ref{tab:ladder} reports semantic
-accuracy on judged rows, $n = 200$ per benchmark, on both label versions
-(\S\ref{sec:protocol}).
+of the answer (OC) are perfectioned. Figure~\ref{fig:ladder} and Appendix
+Table~\ref{tab:ladder} report semantic accuracy on judged rows, $n = 200$ per
+benchmark, on both label versions.
 
-\begin{table}[t]
-\centering
-\small
-\setlength{\tabcolsep}{3pt}
-\begin{tabular}{@{}llrrrrrr@{}}
-\toprule
-benchmark & labels & RM & OM & OC & RM$\to$OM & RM$\to$OC & OM$\to$OC \\
-\midrule
-LoCoMo & auto & 0.405 & 0.832 & 0.852 & $<$1e-3 & $<$1e-3 & 0.541 \\
-LoCoMo & corrected & \textbf{0.306} & \textbf{0.682} & \textbf{0.761} &
-4.3e-12 & 2.3e-17 & \textbf{0.0146} \\
-LongMemEval & auto & 0.521 & 0.691 & 0.821 & 0.004 & $<$1e-3 & 0.041 \\
-LongMemEval & corrected & \textbf{0.479} & \textbf{0.676} & \textbf{0.799} &
-1.6e-4 & 4.2e-7 & \textbf{0.078 (n.s.)} \\
-\bottomrule
-\end{tabular}
-\caption{Oracle ladder, auto vs abstention-corrected labels ($n = 200$).
-$p$ values: exact McNemar on discordant pairs. On corrected labels, paired
-bootstrap CIs exclude 0 for every contrast except LongMemEval OM$\to$OC, whose
-CI reaches 0. Judged rows: LoCoMo 173/173/176; LongMemEval 163/139/134.}
-\label{tab:ladder}
-\end{table}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{fig2_ladder.pdf}
 \caption{Oracle ladder, auto vs abstention-corrected labels ($n = 200$). Bars
@@ -699,7 +572,7 @@ correction moves the final rung in opposite directions on the two benchmarks:
 LoCoMo OM$\to$OC becomes significant (0.54 $\to$ 0.015), LongMemEval stops
 being significant (0.041 $\to$ 0.078).}
 \label{fig:ladder}
-\end{figure}
+\end{figure*}
 
 Three observations:
 
@@ -728,73 +601,42 @@ never read as error rates.
 
 \subsection{Three systems with known bottlenecks}
 
-We run three memory systems through the same questions, judge, gate,
-deterministic floors, and 6000-character context budget:
-
-\begin{itemize}
-\item \textbf{semantic} --- an LLM extracts atomic facts per turn
-(provenance-carrying), with governance superseding stale facts; retrieval over
-the fact store. \emph{Designed bottleneck:} formation (extraction can drop or
-distort facts).
-\item \textbf{summary} --- one LLM summary per session, no per-fact provenance.
-\emph{Designed bottleneck:} context (compression loses detail).
-\item \textbf{verbatim} --- raw conversation turns, cosine retrieval (windowed
-RAG). \emph{Designed bottleneck:} retrieval (raw-turn similarity ranks
-poorly).
-\end{itemize}
-
-We name the bottlenecks explicitly because they matter to the interpretation:
-the systems were \emph{authored} with these bottlenecks, so a stage difference
-is evidence about architecture, not about memory agents in general
+We run three systems through the same questions, judge, gate, deterministic
+floors, and 6000-character context budget: \emph{semantic} (LLM-extracted
+atomic facts with provenance and supersession; designed bottleneck:
+formation), \emph{summary} (one LLM summary per session; bottleneck: context),
+and \emph{verbatim} (raw turns, cosine retrieval; bottleneck: retrieval). The
+bottlenecks are named because the systems were authored with them: a stage
+difference is evidence about architecture, not about memory agents in general
 (\S\ref{sec:localisation:gate}).
 
 \subsection{Same accuracy, different failure stage (LoCoMo $n = 100$)}
 
-Table~\ref{tab:fingerprint} reports the one-batch run (100 questions $\times$
-3 systems, shared per-question gate, errors 0; auto labels; accuracy =
-semantic accuracy on judged rows).
+Figure~\ref{fig:fingerprint} and Appendix Table~\ref{tab:fingerprint} report
+the one-batch run (100 questions $\times$ 3 systems, shared per-question gate,
+errors 0; auto labels; accuracy = semantic accuracy on judged rows).
 
-\begin{table*}[t]
-\centering
-\small
-\begin{tabular}{@{}lcp{3.7cm}p{7.0cm}@{}}
-\toprule
-system & acc (judged) & formation / retrieval / context recall & failure distribution \\
-\midrule
-semantic & 0.407 (91) & 0.473 / 0.424 / 0.303 &
-none 42, E0 21, \textbf{F1 18}, F4 14, F5 1, EVAL 4 \\
-summary & 0.423 (97) & 0.990 / 0.990 / 0.258 &
-none 42, E0 23, \textbf{F5 21}, F4 10, F6 1, EVAL 3 \\
-verbatim & 0.429 (98) & 0.990 / \textbf{0.197} / 0.162 &
-none 43, E0 19, \textbf{F4 35}, F6 1, EVAL 2 \\
-\bottomrule
-\end{tabular}
-\caption{Cross-system fingerprint, LoCoMo $n = 100$, auto labels.}
-\label{tab:fingerprint}
-\end{table*}
 
-\begin{figure}[t]
+\begin{figure*}[t]
 \centering
 \includegraphics[width=\linewidth]{fig3_fingerprint.pdf}
 \caption{Failure-stage distributions, LoCoMo $n = 100$. Segment widths are
 shares of 100 questions per system; numerals are counts. End accuracy is
 statistically indistinguishable across systems while the stage distributions
-differ for all three pairs (statistics in the text and Table~\ref{tab:fingerprint}).}
+differ for all three pairs (statistics in the text).}
 \label{fig:fingerprint}
-\end{figure}
+\end{figure*}
 
-End accuracy is statistically indistinguishable across all pairs (exact
-McNemar $p = 0.736 / 0.728 / 0.864$; paired bootstrap CIs all include 0). The
-failure-stage distributions are significantly different for \textbf{all three
-pairs}: Stuart--Maxwell $p = 7.4\times10^{-5}$ (semantic vs summary),
-$2.7\times10^{-4}$ (semantic vs verbatim), $5.0\times10^{-5}$ (summary vs
-verbatim); Holm-adjusted $\leq 2.8\times10^{-4}$ throughout; the paired
-max-abs permutation test agrees ($p = 0.0045 / 0.0007 / <0.0001$). Per-label
-paired bootstrap CIs isolate the pattern: semantic's F1 share is $+0.18$ over
-both others (CI $[0.11, 0.26]$), summary's F5 share $+0.21$ over verbatim (CI
-$[0.13, 0.29]$; $-0.20$ vs semantic, CI $[-0.29, -0.12]$), verbatim's F4
-share $+0.21$ over semantic (CI $[0.12, 0.30]$) and $+0.25$ over summary (CI
-$[0.15, 0.35]$).
+End accuracy is indistinguishable across all pairs (McNemar
+$p = 0.736/0.728/0.864$; bootstrap CIs include 0), but the stage distributions
+differ for \textbf{all three pairs}: Stuart--Maxwell
+$p = 7.4\times10^{-5}$ (semantic vs summary), $2.7\times10^{-4}$ (semantic vs
+verbatim), $5.0\times10^{-5}$ (summary vs verbatim); Holm-adjusted
+$\leq 2.8\times10^{-4}$; the permutation test agrees. Per-label bootstrap CIs
+isolate the pattern: semantic's F1 share $+0.18$ over both others
+$[0.11, 0.26]$; summary's F5 share $+0.21$ over verbatim $[0.13, 0.29]$ and
+$-0.20$ vs semantic $[-0.29,-0.12]$; verbatim's F4 share $+0.21$ over semantic
+$[0.12,0.30]$ and $+0.25$ over summary $[0.15,0.35]$.
 
 \subsection{The distribution result does not depend on E0 or on the automatic gate}
 
@@ -864,18 +706,15 @@ accuracy improves 0.351 $\to$ 0.527 (McNemar $p = 0.014$). The within-system
 Stuart--Maxwell is $p = 0.066$ (permutation $p = 0.0087$). \textbf{14 points,
 below the bar; the distribution test does not clear Holm.}
 
-\textbf{Verdict: partial.} 0 of 2 evaluated conditions pass both criteria, and
-the decision gate returns \emph{partial}. Two protocol facts are recorded with
-the verdict and must travel with it: (i) with A2 deferred, only two of three
+\textbf{Verdict: partial.} 0 of 2 evaluated conditions pass both criteria. Two
+protocol facts travel with the verdict: with A2 deferred, only two of three
 systems were evaluable, so the ``$\geq$2 of 3'' rule \textbf{could not} return
-a pass under the executed design; and (ii) the 20-point bar couples to base
-rate---F1 was 13\% of rows in the A1 batch, so \emph{eliminating} formation
-failure could move that share by at most 13 points. The direction criterion
-was met in both conditions; the magnitude criterion was not. Per the frozen
-decision plan, we therefore \textbf{narrow the claim}: the localisation
-phenomenon is reported as architecture-conditional, and the
-universal-fingerprint framing is retracted (N1). We do not restate the bar
-after the fact.
+a pass as designed; and the bar couples to base rate---F1 was 13\% of rows in
+the A1 batch, so eliminating formation failure moves that share by at most 13
+points. Direction was met in both conditions; magnitude was not. Per the
+frozen plan we \textbf{narrow the claim} to architecture-conditional
+localisation and retract the universal fingerprint (N1); the bar is not
+restated after the fact.
 
 \subsection{Cross-benchmark check: qualitative only}
 
@@ -888,22 +727,18 @@ replication.
 
 \subsection{Stage localisation is not shown to be actionable (N2)}
 
-The pre-registered intervention repaired the measured retrieval stage on the
-35 F4 questions of the $n{=}100$ run (hybrid candidate widening). The
-mechanism worked (retrieval recall 0.043 $\to$ 0.321), but the paired outcome
-did not clear the decision rule ($\geq 6$ net flips \textbf{and} bootstrap CI
-lower bound $> 0$): net \textbf{+7} flips, McNemar $p = 0.143$, bootstrap
-diff $+0.206$, 95\% CI $[-0.029, +0.441]$. A no-op placebo that simply
-re-asks the question flipped 9/35 (${\approx}26\%$) of the same subset---the
-+7 net sits inside that retest noise. A stage-agnostic composite arm reaches
-0.563 overall accuracy (vs 0.429 baseline) but is \emph{worse} on the 65 non-F4
-questions (42 $\to$ 38 correct), so the repair is not stage-exclusive.
-\textbf{Measurement validity and intervention validity must be kept apart}:
-the measurement is valid---the F4 class is real and the repaired mechanism
-moved recall as designed---while the intervention is not shown to be
-effective; the null is evidence about actionability, not about the attribution
-signal. Contribution: a measured stage is not, at this power, an actionable
-repair target; Stage C of the decision plan is not started.
+The pre-registered intervention widened hybrid candidates on the 35 F4
+questions of the $n{=}100$ run. The mechanism worked (recall
+0.043 $\to$ 0.321) but the paired outcome missed the rule ($\geq 6$ net flips
+\textbf{and} CI lower bound $> 0$): \textbf{+7} net flips, McNemar
+$p = 0.143$, bootstrap CI $[-0.029, +0.441]$. A no-op placebo re-ask flipped
+9/35 (${\approx}26\%$) of the same subset---the net sits in retest noise. A
+stage-agnostic composite reaches 0.563 overall (vs 0.429) but is \emph{worse}
+on the 65 non-F4 questions (42 $\to$ 38), so the repair is not
+stage-exclusive. \textbf{Measurement and intervention validity differ here}:
+the F4 class is real and the repair moved recall as designed, but the
+intervention is not shown to improve answers; the null is about actionability,
+not about the attribution signal.
 
 \section{Reproducibility}
 \label{sec:repro}
@@ -922,18 +757,13 @@ pairs; paired bootstrap (5{,}000--10{,}000 repeats, seed 42); Stuart--Maxwell
 three-pair family; max-abs paired permutation (10{,}000 repeats, seed 42).
 Wilson CIs \citep{wilson1927} for accuracy; Cohen's $\kappa$
 \citep{cohen1960} for agreement.
-\item \textbf{Code and tests.} The protocol, tracer, evaluator, systems,
-runners, and all analysis scripts are in the repository; 232 unit tests pass.
-Every analysis number in this paper regenerates from stored rows by label-only
-re-computation (no model calls) via the scripts named in Appendix~\ref{app:map}.
-\item \textbf{Data.} LoCoMo (refined public split) and LongMemEval are public
-benchmarks; the annotation packages (blinded worksheets, keys, adjudicated
-labels) and all \texttt{results/analysis\_*.json} artifacts are released with
-the repository. Raw per-row model outputs are reconstructable from the
-recorded run metadata.
-\item \textbf{Compute.} All runs are CPU-only apart from the answer/judge/gate
-API; the largest batch ($n = 200 \times 3$ conditions) runs on a single
-workstation.
+\item \textbf{Code and data.} All protocol, tracer, evaluator, runner, and
+analysis code is in the repository (232 unit tests pass); every number
+regenerates from stored rows by label-only recomputation via the scripts in
+Appendix~\ref{app:map}. LoCoMo and LongMemEval are public; annotation packages
+and \texttt{results/analysis\_*.json} are released, and raw rows are
+reconstructable from recorded run metadata. All runs are CPU-only apart from
+the answer/judge/gate API.
 \end{itemize}
 
 \section*{Limitations}
@@ -982,7 +812,6 @@ flag the residual risk that our corrected labels still carry the errors
 quantified in \S\ref{sec:audit}, and we release the annotation packages so the
 corrections can themselves be re-audited.
 
-\bibliographystyle{acl_natbib}
 \bibliography{references}
 
 \appendix
@@ -990,17 +819,16 @@ corrections can themselves be re-audited.
 \section{Claim $\to$ artifact map}
 \label{app:map}
 
-Every quantitative claim in this paper regenerates from the stored artifacts
-below (all under \texttt{results/}, label-only recomputation unless noted).
-Raw \texttt{comparison*.jsonl} rows are local by policy; the analysis
-artifacts and the generating scripts are tracked.
+Table~\ref{tab:claimmap} maps every claim to its artifact.
 
-\small
-\begin{longtable}{@{}p{6.0cm}p{5.2cm}p{4.3cm}@{}}
+\begin{table*}[p]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}p{6.4cm}p{6.1cm}p{4.5cm}@{}}
 \toprule
 claim & artifact(s) & script \\
 \midrule
-\endhead
 Protocol semantics, label versions, decision order &
 \texttt{docs/PROTOCOL.md}, \texttt{docs/PROTOCOL\_FREEZE.md} &
 \texttt{evaluation/attribution.py} \\
@@ -1062,8 +890,14 @@ Adversarial review motivating the decision plan &
 Governing decision plan, gates A--D &
 \texttt{docs/CCF\_B\_DECISION\_PLAN\_2026-10-26.md} & --- \\
 \bottomrule
-\end{longtable}
-\normalsize
+\end{tabular}
+\caption{Claim $\to$ artifact map. Every quantitative claim in this paper
+regenerates from the stored artifacts below (all under \texttt{results/},
+label-only recomputation unless noted). Raw \texttt{comparison*.jsonl} rows are
+local by policy; the analysis artifacts and the generating scripts are
+tracked.}
+\label{tab:claimmap}
+\end{table*}
 
 \section{Gate-B decision artifact (verbatim criteria)}
 \label{app:gateb}
@@ -1087,5 +921,87 @@ narrowed to architecture-conditional localisation; universal fingerprint
 retracted; route switched to the analysis/resource paper (this manuscript).
 Recorded in \texttt{results/route\_decision\_2026-10-27.json} and the
 pre-registration changelog entry of 2026-10-27.
+
+
+\section{Protocol details and annotation failure modes}
+\label{app:protocol}
+
+\textbf{Label assignment order.} (1) semantically correct $\to$ no failure;
+(2) no semantic verdict $\to$ \texttt{EVAL\_SEMANTIC\_UNCERTAIN}; (3) evidence
+gate insufficient $\to$ \texttt{E0\_EVIDENCE\_INSUFFICIENT}; (4) gate not
+sufficient or low confidence $\to$ \texttt{EVAL}; (5) Oracle-Context mode
+$\to$ \texttt{RC\_REASONING\_CONTROL\_FAILURE}; (6) no gold evidence ids $\to$
+\texttt{E0}; (7) first measured stage missing gold $\to$ F1/F2/F4/F5; (8) all
+evidence present in context $\to$ \texttt{F6\_REASONING\_CANDIDATE}.
+
+\textbf{Matching and provenance.} A gold item is matched by exact normalized
+text or by token-overlap similarity $\geq 0.55$ among provenance-compatible
+artifacts. Provenance is a constraint, not proof: an artifact whose turn
+conflicts with the gold provenance cannot satisfy the item, and a match in an
+artifact without provenance is reported separately rather than hidden.
+
+\textbf{Round-2 gate pathology.} One annotator's ``missing fact'' notes were a
+mechanical template lifting tokens from the reference answer: 75/81 quoted
+tokens occur in the reference and 0/81 in the evidence, including function
+words (``she'', ``because''). This is why the round-2 task shape could not
+calibrate the gate and round 3 moved to per-fact binary judgements.
+
+
+\section{Supporting tables and protocol figure}
+\label{app:tables}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\linewidth]{fig1_lifecycle.pdf}
+\caption{Lifecycle stages and the three conditions. Each question's gold
+evidence is followed through six lifecycle stages; F1--F6 mark the first stage
+at which it becomes unobservable. The lower matrix shows which stages each
+condition measures (solid) or controls (hatched). E0 labels evidence
+insufficiency measured against the reference answer; EVAL marks instrument
+uncertainty. $^{\ast}$Evolution (F3) is measured only on a controlled probe.}
+\label{fig:lifecycle}
+\end{figure*}
+
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llrrrrrr@{}}
+\toprule
+benchmark & labels & RM & OM & OC & RM$\to$OM & RM$\to$OC & OM$\to$OC \\
+\midrule
+LoCoMo & auto & 0.405 & 0.832 & 0.852 & $<$1e-3 & $<$1e-3 & 0.541 \\
+LoCoMo & corrected & \textbf{0.306} & \textbf{0.682} & \textbf{0.761} &
+4.3e-12 & 2.3e-17 & \textbf{0.0146} \\
+LongMemEval & auto & 0.521 & 0.691 & 0.821 & 0.004 & $<$1e-3 & 0.041 \\
+LongMemEval & corrected & \textbf{0.479} & \textbf{0.676} & \textbf{0.799} &
+1.6e-4 & 4.2e-7 & \textbf{0.078 (n.s.)} \\
+\bottomrule
+\end{tabular}
+\caption{Oracle ladder, auto vs abstention-corrected labels ($n = 200$).
+$p$ values: exact McNemar on discordant pairs. On corrected labels, paired
+bootstrap CIs exclude 0 for every contrast except LongMemEval OM$\to$OC, whose
+CI reaches 0. Judged rows: LoCoMo 173/173/176; LongMemEval 163/139/134.}
+\label{tab:ladder}
+\end{table*}
+
+\begin{table*}[t]
+\centering
+\small
+\begin{tabular}{@{}lcp{3.7cm}p{7.0cm}@{}}
+\toprule
+system & acc (judged) & formation / retrieval / context recall & failure distribution \\
+\midrule
+semantic & 0.407 (91) & 0.473 / 0.424 / 0.303 &
+none 42, E0 21, \textbf{F1 18}, F4 14, F5 1, EVAL 4 \\
+summary & 0.423 (97) & 0.990 / 0.990 / 0.258 &
+none 42, E0 23, \textbf{F5 21}, F4 10, F6 1, EVAL 3 \\
+verbatim & 0.429 (98) & 0.990 / \textbf{0.197} / 0.162 &
+none 43, E0 19, \textbf{F4 35}, F6 1, EVAL 2 \\
+\bottomrule
+\end{tabular}
+\caption{Cross-system fingerprint, LoCoMo $n = 100$, auto labels.}
+\label{tab:fingerprint}
+\end{table*}
 
 \end{document}
