@@ -74,7 +74,7 @@ def _load(name: str) -> dict:
 
 
 def fig1_lifecycle() -> None:
-    fig, ax = plt.subplots(figsize=(6.8, 2.7))
+    fig, ax = plt.subplots(figsize=(6.8, 2.3))
     ax.set_xlim(0, 10.4)
     ax.set_ylim(0, 4.05)
     ax.axis("off")
@@ -173,7 +173,7 @@ def fig2_ladder() -> None:
          "analysis_ladder_longmemeval_n200_corrected.json",
          "OM→OC:  0.041 (auto)  →  0.078 (n.s.)"),
     ]
-    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.7), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(6.8, 2.15), sharey=True)
     x = np.arange(3)
     width = 0.36
     modes = ["real_memory", "oracle_memory", "oracle_context"]
@@ -206,10 +206,6 @@ def fig2_ladder() -> None:
         ax.set_xticklabels(labels, fontsize=8)
         ax.set_title(title)
         ax.set_ylim(0, 1.02)
-        ax.text(0.05, 0.90, note, transform=ax.transAxes, fontsize=7.0,
-                color=INK, ha="left", va="top",
-                bbox=dict(boxstyle="round,pad=0.25", facecolor="white",
-                          edgecolor="#CCCCCC", linewidth=0.6))
     axes[0].set_ylabel("semantic accuracy\n(judged rows)")
     handles, labels_ = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels_, loc="upper center", bbox_to_anchor=(0.5, -0.24),
