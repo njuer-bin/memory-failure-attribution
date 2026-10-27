@@ -1,0 +1,144 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-18T12:25:33.001217+00:00",
+    "dataset": {
+      "dataset_id": "longmemeval_oracle",
+      "source": "longmemeval_oracle.json",
+      "sha256_16": "5a6a52e1a98f85eb"
+    },
+    "limit": 3,
+    "answer_model": "qwen2.5:7b",
+    "judge_model": "qwen2.5:7b",
+    "judge_temperature": 0.0,
+    "python": "3.13.9",
+    "git": {
+      "commit": "ff4f411aba25640e94cb16557beaa8bf0cbfd9ff",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "dataset": "longmemeval_oracle",
+  "limit": 3,
+  "records": 3,
+  "errors": 0,
+  "real_memory": {
+    "count": 3,
+    "stage_recall": {
+      "formation": 0.27777777777777773,
+      "storage": 1.0,
+      "retrieval": 1.0,
+      "rerank": 1.0,
+      "context": 0.7777777777777778,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "formation": 3
+    }
+  },
+  "oracle_memory": {
+    "count": 3,
+    "stage_recall": {
+      "formation": null,
+      "storage": null,
+      "retrieval": 1.0,
+      "rerank": 1.0,
+      "context": 1.0,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "none": 3
+    }
+  },
+  "oracle_context": {
+    "count": 3,
+    "stage_recall": {
+      "formation": null,
+      "storage": null,
+      "retrieval": null,
+      "rerank": null,
+      "context": 1.0,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "not_applicable": 3
+    }
+  },
+  "evidence_sufficiency": {
+    "status_distribution": {
+      "insufficient": 1,
+      "sufficient": 2
+    },
+    "gate": "E0 before F1-F6; uncertain/error cases are EVAL"
+  },
+  "answer_scoring": {
+    "method": "local_ollama_token_f1_plus_temporal_phrase_rules",
+    "real_memory": {
+      "count": 3,
+      "scored": 3,
+      "correct": 1,
+      "accuracy": 0.3333333333333333,
+      "exact_match": 0.3333333333333333,
+      "token_f1": 0.3763440860215053,
+      "semantic_evaluated": 2,
+      "semantic_correct": 2,
+      "semantic_accuracy": 1.0,
+      "semantic_adjudications": {
+        "lexical_anchor_override": 1,
+        "judge": 1
+      },
+      "model_errors": 0,
+      "semantic_errors": 0
+    },
+    "oracle_memory": {
+      "count": 3,
+      "scored": 3,
+      "correct": 0,
+      "accuracy": 0.0,
+      "exact_match": 0.0,
+      "token_f1": 0.053333333333333344,
+      "semantic_evaluated": 3,
+      "semantic_correct": 2,
+      "semantic_accuracy": 0.6666666666666666,
+      "semantic_adjudications": {
+        "judge": 3
+      },
+      "model_errors": 0,
+      "semantic_errors": 0
+    },
+    "oracle_context": {
+      "count": 3,
+      "scored": 3,
+      "correct": 0,
+      "accuracy": 0.0,
+      "exact_match": 0.0,
+      "token_f1": 0.044444444444444446,
+      "semantic_evaluated": 3,
+      "semantic_correct": 2,
+      "semantic_accuracy": 0.6666666666666666,
+      "semantic_adjudications": {
+        "judge": 3
+      },
+      "model_errors": 0,
+      "semantic_errors": 0
+    },
+    "answer_failure_distribution": {
+      "real_memory": {},
+      "oracle_memory": {
+        "E0_EVIDENCE_INSUFFICIENT": 1
+      },
+      "oracle_context": {
+        "E0_EVIDENCE_INSUFFICIENT": 1
+      }
+    }
+  },
+  "note": "Evidence lifecycle and answer scoring are reported separately. Before F1-F6 attribution, Gold Evidence is checked for question-answer sufficiency using the benchmark reference answer rather than the model prediction. Insufficient evidence is E0; uncertain or judge-error cases are EVAL. F6 is assigned only when the gate is sufficient, all gold evidence reaches final context, the semantic judge marks the answer incorrect with medium/high confidence. Evolution recall is not measured (audit C4). Oracle Context remains a reasoning control and its own wrong answer is RC_REASONING_CONTROL_FAILURE."
+}

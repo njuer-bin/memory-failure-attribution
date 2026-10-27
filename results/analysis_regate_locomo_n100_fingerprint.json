@@ -1,0 +1,104 @@
+{
+  "comparison": "results\\systems_locomo_n200_fixedgate\\comparison.jsonl",
+  "questions_covered_by_human_gate": 48,
+  "questions_uncovered": 52,
+  "per_mode": {
+    "semantic": {
+      "old_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 21,
+        "EVAL_SEMANTIC_UNCERTAIN": 4,
+        "F1_FORMATION": 18,
+        "F4_RETRIEVAL": 14,
+        "F5_CONTEXT": 1,
+        "None": 42
+      },
+      "new_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 18,
+        "EVAL_SEMANTIC_UNCERTAIN": 4,
+        "F1_FORMATION": 20,
+        "F4_RETRIEVAL": 14,
+        "F5_CONTEXT": 1,
+        "F6_REASONING_CANDIDATE": 1,
+        "None": 42
+      },
+      "e0_old": 21,
+      "e0_new": 18,
+      "changed": 13,
+      "transitions": {
+        "E0_EVIDENCE_INSUFFICIENT->E0_EVIDENCE_INSUFFICIENT": 13,
+        "E0_EVIDENCE_INSUFFICIENT->F1_FORMATION": 6,
+        "E0_EVIDENCE_INSUFFICIENT->F4_RETRIEVAL": 1,
+        "E0_EVIDENCE_INSUFFICIENT->F6_REASONING_CANDIDATE": 1,
+        "EVAL_SEMANTIC_UNCERTAIN->EVAL_SEMANTIC_UNCERTAIN": 4,
+        "F1_FORMATION->E0_EVIDENCE_INSUFFICIENT": 4,
+        "F1_FORMATION->F1_FORMATION": 14,
+        "F4_RETRIEVAL->E0_EVIDENCE_INSUFFICIENT": 1,
+        "F4_RETRIEVAL->F4_RETRIEVAL": 13,
+        "F5_CONTEXT->F5_CONTEXT": 1,
+        "None->None": 42
+      }
+    },
+    "summary": {
+      "old_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 23,
+        "EVAL_SEMANTIC_UNCERTAIN": 3,
+        "F4_RETRIEVAL": 10,
+        "F5_CONTEXT": 21,
+        "F6_REASONING_CANDIDATE": 1,
+        "None": 42
+      },
+      "new_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 18,
+        "EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F4_RETRIEVAL": 16,
+        "F5_CONTEXT": 21,
+        "F6_REASONING_CANDIDATE": 1,
+        "None": 42
+      },
+      "e0_old": 23,
+      "e0_new": 18,
+      "changed": 18,
+      "transitions": {
+        "E0_EVIDENCE_INSUFFICIENT->E0_EVIDENCE_INSUFFICIENT": 12,
+        "E0_EVIDENCE_INSUFFICIENT->F4_RETRIEVAL": 7,
+        "E0_EVIDENCE_INSUFFICIENT->F5_CONTEXT": 4,
+        "EVAL_SEMANTIC_UNCERTAIN->EVAL_SEMANTIC_UNCERTAIN": 2,
+        "EVAL_SEMANTIC_UNCERTAIN->F5_CONTEXT": 1,
+        "F4_RETRIEVAL->E0_EVIDENCE_INSUFFICIENT": 1,
+        "F4_RETRIEVAL->F4_RETRIEVAL": 9,
+        "F5_CONTEXT->E0_EVIDENCE_INSUFFICIENT": 5,
+        "F5_CONTEXT->F5_CONTEXT": 16,
+        "F6_REASONING_CANDIDATE->F6_REASONING_CANDIDATE": 1,
+        "None->None": 42
+      }
+    },
+    "verbatim": {
+      "old_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 19,
+        "EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F4_RETRIEVAL": 35,
+        "F6_REASONING_CANDIDATE": 1,
+        "None": 43
+      },
+      "new_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 21,
+        "EVAL_SEMANTIC_UNCERTAIN": 1,
+        "F4_RETRIEVAL": 35,
+        "None": 43
+      },
+      "e0_old": 19,
+      "e0_new": 21,
+      "changed": 13,
+      "transitions": {
+        "E0_EVIDENCE_INSUFFICIENT->E0_EVIDENCE_INSUFFICIENT": 14,
+        "E0_EVIDENCE_INSUFFICIENT->F4_RETRIEVAL": 5,
+        "EVAL_SEMANTIC_UNCERTAIN->EVAL_SEMANTIC_UNCERTAIN": 1,
+        "EVAL_SEMANTIC_UNCERTAIN->F4_RETRIEVAL": 1,
+        "F4_RETRIEVAL->E0_EVIDENCE_INSUFFICIENT": 6,
+        "F4_RETRIEVAL->F4_RETRIEVAL": 29,
+        "F6_REASONING_CANDIDATE->E0_EVIDENCE_INSUFFICIENT": 1,
+        "None->None": 43
+      }
+    }
+  }
+}

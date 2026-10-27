@@ -1,0 +1,42 @@
+{
+  "annotators": [
+    "annotator1",
+    "annotator2"
+  ],
+  "fields": {
+    "answer_correct_yes_no_uncertain": {
+      "evaluator_vs_human": {
+        "tp": 0,
+        "fp": 0,
+        "fn": 0,
+        "precision": null,
+        "recall": null,
+        "f1": null,
+        "n": 0
+      },
+      "excluded_uncertain_or_missing": 200
+    },
+    "evidence_sufficient_yes_no_uncertain": {
+      "evaluator_vs_human": {
+        "tp": 58,
+        "fp": 17,
+        "fn": 28,
+        "precision": 0.7733333333333333,
+        "recall": 0.6744186046511628,
+        "f1": 0.7204968944099379,
+        "n": 126
+      },
+      "excluded_uncertain_or_missing": 74
+    }
+  },
+  "inter_annotator_answer_correct_yes_no_uncertain": {
+    "n": 0,
+    "agreement": null,
+    "kappa": null
+  },
+  "inter_annotator_evidence_sufficient_yes_no_uncertain": {
+    "n": 177,
+    "agreement": 0.6271186440677966,
+    "kappa": 0.18124474348191752
+  }
+}

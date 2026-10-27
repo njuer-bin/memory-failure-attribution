@@ -1,0 +1,223 @@
+{
+  "arms": [
+    "first_loss",
+    "path",
+    "agnostic"
+  ],
+  "questions_in_file": 200,
+  "common_questions": 34,
+  "per_arm": {
+    "first_loss": {
+      "targeted_rows": 51,
+      "targeted": {
+        "pairs": 51,
+        "baseline_correct": 1,
+        "compared_correct": 13,
+        "baseline_accuracy": 0.0196078431372549,
+        "compared_accuracy": 0.2549019607843137,
+        "mcnemar": {
+          "n01": 12,
+          "n10": 0,
+          "n_discordant": 12,
+          "statistic": 0,
+          "p_value": 0.00048828125,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.23529411764705882,
+          "ci_low": -0.35294117647058826,
+          "ci_high": -0.11764705882352941,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 51
+        }
+      },
+      "common_subset": {
+        "pairs": 34,
+        "baseline_correct": 1,
+        "compared_correct": 8,
+        "baseline_accuracy": 0.029411764705882353,
+        "compared_accuracy": 0.23529411764705882,
+        "mcnemar": {
+          "n01": 7,
+          "n10": 0,
+          "n_discordant": 7,
+          "statistic": 0,
+          "p_value": 0.015625,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.20588235294117646,
+          "ci_low": -0.35294117647058826,
+          "ci_high": -0.08823529411764706,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 34
+        }
+      }
+    },
+    "path": {
+      "targeted_rows": 47,
+      "targeted": {
+        "pairs": 47,
+        "baseline_correct": 2,
+        "compared_correct": 11,
+        "baseline_accuracy": 0.0425531914893617,
+        "compared_accuracy": 0.23404255319148937,
+        "mcnemar": {
+          "n01": 9,
+          "n10": 0,
+          "n_discordant": 9,
+          "statistic": 0,
+          "p_value": 0.00390625,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.19148936170212766,
+          "ci_low": -0.3191489361702128,
+          "ci_high": -0.0851063829787234,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 47
+        }
+      },
+      "common_subset": {
+        "pairs": 34,
+        "baseline_correct": 1,
+        "compared_correct": 9,
+        "baseline_accuracy": 0.029411764705882353,
+        "compared_accuracy": 0.2647058823529412,
+        "mcnemar": {
+          "n01": 8,
+          "n10": 0,
+          "n_discordant": 8,
+          "statistic": 0,
+          "p_value": 0.0078125,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.23529411764705882,
+          "ci_low": -0.38235294117647056,
+          "ci_high": -0.08823529411764706,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 34
+        }
+      }
+    },
+    "agnostic": {
+      "targeted_rows": 41,
+      "targeted": {
+        "pairs": 41,
+        "baseline_correct": 2,
+        "compared_correct": 23,
+        "baseline_accuracy": 0.04878048780487805,
+        "compared_accuracy": 0.5609756097560976,
+        "mcnemar": {
+          "n01": 21,
+          "n10": 0,
+          "n_discordant": 21,
+          "statistic": 0,
+          "p_value": 9.5367431640625e-07,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.5121951219512195,
+          "ci_low": -0.6585365853658537,
+          "ci_high": -0.36585365853658536,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 41
+        }
+      },
+      "common_subset": {
+        "pairs": 34,
+        "baseline_correct": 1,
+        "compared_correct": 18,
+        "baseline_accuracy": 0.029411764705882353,
+        "compared_accuracy": 0.5294117647058824,
+        "mcnemar": {
+          "n01": 17,
+          "n10": 0,
+          "n_discordant": 17,
+          "statistic": 0,
+          "p_value": 1.52587890625e-05,
+          "method": "exact_binomial_two_sided"
+        },
+        "bootstrap_baseline_minus_compared": {
+          "diff": -0.5,
+          "ci_low": -0.6764705882352942,
+          "ci_high": -0.3235294117647059,
+          "repeats": 5000,
+          "seed": 42,
+          "pairs": 34
+        }
+      }
+    }
+  },
+  "pairwise_common_subset": {
+    "first_loss_vs_path": {
+      "pairs": 34,
+      "accuracy_a": 0.23529411764705882,
+      "accuracy_b": 0.2647058823529412,
+      "mcnemar": {
+        "n01": 4,
+        "n10": 3,
+        "n_discordant": 7,
+        "statistic": 3,
+        "p_value": 1.0,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap_a_minus_b": {
+        "diff": -0.029411764705882353,
+        "ci_low": -0.17647058823529413,
+        "ci_high": 0.11764705882352941,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 34
+      }
+    },
+    "first_loss_vs_agnostic": {
+      "pairs": 34,
+      "accuracy_a": 0.23529411764705882,
+      "accuracy_b": 0.5294117647058824,
+      "mcnemar": {
+        "n01": 10,
+        "n10": 0,
+        "n_discordant": 10,
+        "statistic": 0,
+        "p_value": 0.001953125,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap_a_minus_b": {
+        "diff": -0.29411764705882354,
+        "ci_low": -0.4411764705882353,
+        "ci_high": -0.14705882352941177,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 34
+      }
+    },
+    "path_vs_agnostic": {
+      "pairs": 34,
+      "accuracy_a": 0.2647058823529412,
+      "accuracy_b": 0.5294117647058824,
+      "mcnemar": {
+        "n01": 10,
+        "n10": 1,
+        "n_discordant": 11,
+        "statistic": 1,
+        "p_value": 0.01171875,
+        "method": "exact_binomial_two_sided"
+      },
+      "bootstrap_a_minus_b": {
+        "diff": -0.2647058823529412,
+        "ci_low": -0.4411764705882353,
+        "ci_high": -0.08823529411764706,
+        "repeats": 5000,
+        "seed": 42,
+        "pairs": 34
+      }
+    }
+  }
+}

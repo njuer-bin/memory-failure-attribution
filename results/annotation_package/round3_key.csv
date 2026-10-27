@@ -1,0 +1,277 @@
+sample_id,fact_id,group,question_id,benchmark,fact_text,stored_gate,adjudicated_gate
+longmemeval-001,longmemeval-001-f1,,bbf86515,longmemeval,'Turbocharged Tuesdays' took place 4 days before 'Rack Fest'.,sufficient,True
+longmemeval-002,longmemeval-002-f1,,0e4e4c46,longmemeval,The narrator's highest score in Ticket to Ride is 132 points.,sufficient,True
+longmemeval-003,longmemeval-003-f1,,gpt4_93f6379c,longmemeval,The narrator joined 'Page Turners' before 'Marketing Professionals'.,sufficient,True
+longmemeval-004,longmemeval-004-f1,,982b5123_abs,longmemeval,The evidence mentions booking an Airbnb in San Francisco.,insufficient,True
+longmemeval-004,longmemeval-004-f2,,982b5123_abs,longmemeval,The evidence does not mention booking an Airbnb in Sacramento.,insufficient,True
+longmemeval-005,longmemeval-005-f1,,gpt4_5501fe77,longmemeval,The narrator gained the most followers on TikTok over the past month.,insufficient,True
+longmemeval-006,longmemeval-006-f1,,5c40ec5b,longmemeval,The narrator has met up with Alex from Germany twice.,sufficient,True
+longmemeval-007,longmemeval-007-f1,,6aeb4375_abs,longmemeval,The evidence mentions trying Korean restaurants.,insufficient,True
+longmemeval-007,longmemeval-007-f2,,6aeb4375_abs,longmemeval,The evidence does not mention trying Italian restaurants.,insufficient,True
+longmemeval-008,longmemeval-008-f1,,81507db6,longmemeval,The narrator attended 3 graduation ceremonies in the past three months.,sufficient,True
+longmemeval-009,longmemeval-009-f1,,06db6396,longmemeval,The narrator has completed 5 projects since starting painting classes.,sufficient,True
+longmemeval-010,longmemeval-010-f1,,7e974930,longmemeval,The narrator earned $420 at the Downtown Farmers Market on the most recent visit.,sufficient,True
+longmemeval-011,longmemeval-011-f1,,22d2cb42,longmemeval,The guitar was serviced at a music shop on Main St.,insufficient,True
+longmemeval-012,longmemeval-012-f1,,2318644b,longmemeval,The narrator spent $270 more per night on accommodations in Hawaii than in Tokyo.,insufficient,True
+longmemeval-013,longmemeval-013-f1,,gpt4_2487a7cb,longmemeval,The narrator attended the 'Data Analysis using Python' webinar before the 'Effective Time Management' workshop.,sufficient,True
+longmemeval-014,longmemeval-014-f1,,edced276_abs,longmemeval,The evidence mentions a 10-day trip to Hawaii.,insufficient,True
+longmemeval-014,longmemeval-014-f2,,edced276_abs,longmemeval,The evidence does not mention a trip to Seattle.,insufficient,True
+longmemeval-015,longmemeval-015-f1,,gpt4_9a159967,longmemeval,The narrator flew United Airlines most often in March and April.,sufficient,True
+longmemeval-016,longmemeval-016-f1,,gpt4_78cf46a3,longmemeval,The narrator received the new phone case before losing the phone charger.,sufficient,True
+longmemeval-017,longmemeval-017-f1,,gpt4_b4a80587,longmemeval,The new prime lens arrived before the road trip to the coast.,sufficient,True
+longmemeval-018,longmemeval-018-f1,,gpt4_70e84552_abs,longmemeval,The evidence mentions fixing the fence.,insufficient,True
+longmemeval-018,longmemeval-018-f2,,gpt4_70e84552_abs,longmemeval,The evidence does not mention purchasing cows from Peter.,insufficient,True
+longmemeval-019,longmemeval-019-f1,,031748ae_abs,longmemeval,The evidence mentions starting the role of Senior Software Engineer.,insufficient,True
+longmemeval-019,longmemeval-019-f2,,031748ae_abs,longmemeval,The evidence does not mention the role of Software Engineer Manager.,insufficient,True
+longmemeval-020,longmemeval-020-f1,longmemeval-020:g1,c8090214,longmemeval,The narrator attended the Holiday Market 7 days before buying the iPhone 13 Pro.,sufficient,True
+longmemeval-020,longmemeval-020-f2,longmemeval-020:g1,c8090214,longmemeval,"The narrator attended the Holiday Market 8 days before buying the iPhone 13 Pro, counting the last day.",sufficient,True
+longmemeval-021,longmemeval-021-f1,,6cb6f249,longmemeval,The narrator took social media breaks totaling 17 days.,sufficient,True
+longmemeval-022,longmemeval-022-f1,,eeda8a6d_abs,longmemeval,The evidence does not mention a 30-gallon fish tank.,insufficient,True
+longmemeval-023,longmemeval-023-f1,,4d6b87c8,longmemeval,There are 25 titles on the narrator's to-watch list.,sufficient,True
+longmemeval-024,longmemeval-024-f1,,b6019101,longmemeval,The narrator watched 5 MCU films in the last 3 months.,sufficient,True
+longmemeval-025,longmemeval-025-f1,,gpt4_8c8961ae,longmemeval,The narrator took the solo trip to Thailand before the family trip to Europe.,insufficient,True
+longmemeval-026,longmemeval-026-f1,,80ec1f4f_abs,longmemeval,The evidence indicates the narrator visited 0 museums or galleries in December.,sufficient,True
+longmemeval-027,longmemeval-027-f1,,1a8a66a6,longmemeval,The narrator currently has 2 magazine subscriptions.,sufficient,True
+longmemeval-028,longmemeval-028-f1,,01493427,longmemeval,The narrator has added 25 new postcards since starting to collect again.,sufficient,True
+longmemeval-029,longmemeval-029-f1,,gpt4_4cd9eba1,longmemeval,The narrator had been accepted into the exchange program one week before starting the pre-departure orientation sessions.,sufficient,True
+longmemeval-030,longmemeval-030-f1,,36b9f61e,longmemeval,"The narrator spent $2,500 on luxury items in the past few months.",sufficient,True
+longmemeval-031,longmemeval-031-f1,,bf659f65,longmemeval,The narrator purchased or downloaded 3 music albums or EPs.,insufficient,True
+longmemeval-032,longmemeval-032-f1,,9ea5eabc,longmemeval,The narrator's most recent family trip was to Paris.,insufficient,True
+longmemeval-033,longmemeval-033-f1,,f685340e,longmemeval,"Previously, the narrator played tennis with friends at the local park every week on Sunday.",insufficient,True
+longmemeval-033,longmemeval-033-f2,,f685340e,longmemeval,"Currently, the narrator plays tennis every other week on Sunday.",insufficient,True
+longmemeval-034,longmemeval-034-f1,,gpt4_731e37d7,longmemeval,The narrator spent $720 on workshops in the last four months.,insufficient,True
+longmemeval-035,longmemeval-035-f1,,0ddfec37_abs,longmemeval,The evidence mentions collecting autographed baseballs.,insufficient,True
+longmemeval-035,longmemeval-035-f2,,0ddfec37_abs,longmemeval,The evidence does not mention collecting autographed footballs.,insufficient,True
+longmemeval-036,longmemeval-036-f1,,18bc8abd,longmemeval,The narrator is currently obsessed with Kansas City Masterpiece BBQ sauce.,sufficient,True
+longmemeval-037,longmemeval-037-f1,,gpt4_76048e76,longmemeval,The narrator took care of the bike before the car in February.,sufficient,True
+longmemeval-038,longmemeval-038-f1,,gpt4_372c3eed_abs,longmemeval,The evidence mentions 4 years in high school (2010-2014).,insufficient,True
+longmemeval-038,longmemeval-038-f2,,gpt4_372c3eed_abs,longmemeval,The evidence mentions 2 years at PCC (2014-2016).,insufficient,True
+longmemeval-038,longmemeval-038-f3,,gpt4_372c3eed_abs,longmemeval,The evidence mentions 4 years at UCLA (2016-2020).,insufficient,True
+longmemeval-038,longmemeval-038-f4,,gpt4_372c3eed_abs,longmemeval,The evidence does not state the duration or completion date of the Master's degree.,insufficient,True
+longmemeval-039,longmemeval-039-f1,,ce6d2d27,longmemeval,The narrator takes a cocktail-making class on Friday.,sufficient,True
+longmemeval-040,longmemeval-040-f1,,e66b632c,longmemeval,The narrator's previous personal best charity 5K time was 27 minutes and 45 seconds.,error,True
+longmemeval-041,longmemeval-041-f1,,6aeb4375,longmemeval,The narrator has tried 4 Korean restaurants in the city.,sufficient,True
+longmemeval-042,longmemeval-042-f1,,gpt4_5dcc0aab,longmemeval,The narrator cleaned white Adidas sneakers last month.,sufficient,True
+longmemeval-043,longmemeval-043-f1,,2133c1b5,longmemeval,The narrator has lived in the current Harajuku apartment for 3 months.,insufficient,True
+longmemeval-044,longmemeval-044-f1,,gpt4_2f8be40d,longmemeval,The narrator attended three weddings this year.,insufficient,True
+longmemeval-044,longmemeval-044-f2,,gpt4_2f8be40d,longmemeval,One couple was Rachel and Mike.,insufficient,True
+longmemeval-044,longmemeval-044-f3,,gpt4_2f8be40d,longmemeval,One couple was Emily and Sarah.,insufficient,True
+longmemeval-044,longmemeval-044-f4,,gpt4_2f8be40d,longmemeval,One couple was Jen and Tom.,insufficient,True
+longmemeval-045,longmemeval-045-f1,,gpt4_2f91af09,longmemeval,The narrator has completed 23 pieces of writing since starting to write again three weeks ago.,insufficient,True
+longmemeval-046,longmemeval-046-f1,longmemeval-046:g1,2a1811e2,longmemeval,21 days passed between Holi and the Sunday mass at St. Mary's Church.,sufficient,True
+longmemeval-046,longmemeval-046-f2,longmemeval-046:g1,2a1811e2,longmemeval,22 days (including the last day) passed between Holi and the Sunday mass at St. Mary's Church.,sufficient,True
+longmemeval-047,longmemeval-047-f1,,a9f6b44c,longmemeval,The narrator serviced or planned to service 2 bikes in March.,sufficient,True
+longmemeval-048,longmemeval-048-f1,,gpt4_2ba83207,longmemeval,The narrator spent the most money at Thrive Market in the past month.,error,True
+longmemeval-049,longmemeval-049-f1,,0f05491a,longmemeval,The narrator needs 120 stars to reach the gold level on the Starbucks Rewards app.,error,True
+longmemeval-050,longmemeval-050-f1,,f9e8c073,longmemeval,The narrator attended 5 sessions of the bereavement support group.,insufficient,True
+longmemeval-051,longmemeval-051-f1,,10d9b85a,longmemeval,"The narrator spent 3 days attending workshops, lectures, and conferences in April.",sufficient,True
+longmemeval-052,longmemeval-052-f1,,gpt4_fe651585,longmemeval,Alex became a parent before Rachel.,insufficient,False
+longmemeval-053,longmemeval-053-f1,,c8090214_abs,longmemeval,The evidence mentions getting the iPhone 13 Pro.,insufficient,True
+longmemeval-053,longmemeval-053-f2,,c8090214_abs,longmemeval,The evidence mentions attending the market.,insufficient,True
+longmemeval-053,longmemeval-053-f3,,c8090214_abs,longmemeval,The evidence does not mention buying an iPad.,insufficient,True
+longmemeval-054,longmemeval-054-f1,,6a27ffc2,longmemeval,The narrator has completed 30 videos of Corey Schafer's Python programming series.,sufficient,True
+longmemeval-055,longmemeval-055-f1,,42ec0761,longmemeval,The evidence indicates the narrator has a spare screwdriver for opening the laptop.,sufficient,True
+longmemeval-056,longmemeval-056-f1,,2133c1b5_abs,longmemeval,The evidence mentions living in Harajuku.,insufficient,True
+longmemeval-056,longmemeval-056-f2,,2133c1b5_abs,longmemeval,The evidence does not mention living in Shinjuku.,insufficient,True
+longmemeval-057,longmemeval-057-f1,,46a3abf7,longmemeval,"The narrator currently has 3 tanks, including the one set up for the friend's kid.",insufficient,True
+longmemeval-058,longmemeval-058-f1,,gpt4_2d58bcd6,longmemeval,The narrator finished 'The Hate U Give' before 'The Nightingale'.,sufficient,True
+longmemeval-059,longmemeval-059-f1,,945e3d21,longmemeval,The narrator attends yoga classes three times a week.,insufficient,True
+longmemeval-060,longmemeval-060-f1,,gpt4_d84a3211,longmemeval,The narrator has spent $185 on bike-related expenses since the start of the year.,insufficient,True
+longmemeval-061,longmemeval-061-f1,,d7c942c3,longmemeval,The narrator's mom uses the same grocery list method as the narrator.,sufficient,True
+longmemeval-062,longmemeval-062-f1,,6d550036,longmemeval,The narrator has led or is currently leading 2 projects.,insufficient,True
+longmemeval-063,longmemeval-063-f1,,5831f84d,longmemeval,The narrator watched 15 Crash Course videos in the past few weeks.,sufficient,True
+longmemeval-064,longmemeval-064-f1,,c6853660,longmemeval,The narrator most recently increased the coffee limit from one cup to two cups.,insufficient,True
+longmemeval-065,longmemeval-065-f1,,gpt4_7fce9456,longmemeval,The narrator viewed four properties before making an offer on the Brookside townhouse.,sufficient,True
+longmemeval-066,longmemeval-066-f1,,gpt4_fe651585_abs,longmemeval,The evidence mentions Alex becoming a parent in January.,insufficient,True
+longmemeval-066,longmemeval-066-f2,,gpt4_fe651585_abs,longmemeval,The evidence does not mention Tom becoming a parent.,insufficient,True
+longmemeval-067,longmemeval-067-f1,,a2f3aa27,longmemeval,The narrator currently has 1300 Instagram followers.,insufficient,True
+longmemeval-068,longmemeval-068-f1,longmemeval-068:g1,08f4fc43,longmemeval,30 days passed between the Sunday mass at St. Mary's Church and the Ash Wednesday service at the cathedral.,sufficient,True
+longmemeval-068,longmemeval-068-f2,longmemeval-068:g1,08f4fc43,longmemeval,31 days (including the last day) passed between the Sunday mass and the Ash Wednesday service.,sufficient,True
+longmemeval-069,longmemeval-069-f1,,f685340e_abs,longmemeval,The evidence mentions playing tennis.,insufficient,True
+longmemeval-069,longmemeval-069-f2,,f685340e_abs,longmemeval,The evidence does not mention playing table tennis.,insufficient,True
+longmemeval-070,longmemeval-070-f1,,gpt4_0a05b494,longmemeval,The narrator met the woman selling jam at the farmer's market before the tourist from Australia.,insufficient,True
+longmemeval-071,longmemeval-071-f1,,852ce960,longmemeval,"The narrator was pre-approved for $400,000 on the Wells Fargo mortgage.",error,True
+longmemeval-072,longmemeval-072-f1,,gpt4_93159ced_abs,longmemeval,The evidence indicates the narrator has not started working at Google yet.,error,True
+longmemeval-073,longmemeval-073-f1,,e831120c,longmemeval,It took the narrator 3.5 weeks to watch all MCU movies and the main Star Wars films.,sufficient,True
+longmemeval-074,longmemeval-074-f1,,gpt4_d31cdae3,longmemeval,The narrator took the family road trip across the American Southwest before the solo trip to Europe.,sufficient,True
+longmemeval-075,longmemeval-075-f1,,59524333,longmemeval,The narrator usually goes to the gym at 6:00 pm.,sufficient,True
+longmemeval-076,longmemeval-076-f1,,3ba21379,longmemeval,The narrator is currently working on a Ford F-150 pickup truck.,sufficient,True
+longmemeval-077,longmemeval-077-f1,,89941a93,longmemeval,The narrator currently owns 4 bikes.,sufficient,True
+longmemeval-078,longmemeval-078-f1,,gpt4_4edbafa2,longmemeval,The first BBQ event the narrator attended in June was on June 3rd.,sufficient,True
+longmemeval-079,longmemeval-079-f1,,60472f9c,longmemeval,"The narrator has been working on 2 projects simultaneously, excluding the thesis.",sufficient,True
+longmemeval-080,longmemeval-080-f1,,0977f2af,longmemeval,The narrator got an Instant Pot before the Air Fryer.,insufficient,True
+longmemeval-081,longmemeval-081-f1,,e4e14d04,longmemeval,The narrator had been a member of 'Book Lovers Unite' for two weeks when attending the meetup.,sufficient,True
+longmemeval-082,longmemeval-082-f1,,6a1eabeb,longmemeval,The narrator's personal best charity 5K time was 25 minutes and 50 seconds.,error,True
+longmemeval-083,longmemeval-083-f1,,gpt4_93159ced,longmemeval,The narrator worked for 4 years and 9 months before starting the current job at NovaTech.,sufficient,True
+longmemeval-084,longmemeval-084-f1,,031748ae,longmemeval,"When starting as Senior Software Engineer, the narrator led 4 engineers.",sufficient,True
+longmemeval-084,longmemeval-084-f2,,031748ae,longmemeval,The narrator now leads 5 engineers.,sufficient,True
+longmemeval-085,longmemeval-085-f1,,gpt4_ab202e7f,longmemeval,The narrator replaced or fixed five kitchen items.,insufficient,True
+longmemeval-086,longmemeval-086-f1,,dad224aa,longmemeval,The narrator wakes up at 7:30 am on Saturday mornings.,sufficient,True
+longmemeval-087,longmemeval-087-f1,,d23cf73b,longmemeval,The narrator has learned to cook or tried 4 different cuisines in the past few months.,sufficient,True
+longmemeval-088,longmemeval-088-f1,,88432d0a_abs,longmemeval,The evidence does not mention baking egg tarts.,insufficient,True
+longmemeval-089,longmemeval-089-f1,,3a704032,longmemeval,The narrator acquired 3 plants in the last month.,sufficient,True
+longmemeval-090,longmemeval-090-f1,,0a995998,longmemeval,The narrator needs to pick up or return 3 items of clothing from a store.,sufficient,True
+longmemeval-091,longmemeval-091-f1,,618f13b2,longmemeval,The narrator has worn the new black Converse Chuck Taylor All Star sneakers six times.,sufficient,True
+longmemeval-092,longmemeval-092-f1,,0ddfec37,longmemeval,The narrator added 15 autographed baseballs in the first three months of collecting.,sufficient,True
+longmemeval-093,longmemeval-093-f1,,89941a94,longmemeval,"Before buying the gravel bike, the narrator had a road bike in addition to the mountain bike and the commuter bike.",insufficient,True
+longmemeval-094,longmemeval-094-f1,longmemeval-094:g1,f0853d11,longmemeval,14 days passed between the 'Walk for Hunger' event and the 'Coastal Cleanup' event.,sufficient,True
+longmemeval-094,longmemeval-094-f2,longmemeval-094:g1,f0853d11,longmemeval,8 days (including the last day) passed between the 'Walk for Hunger' and 'Coastal Cleanup' events.,sufficient,True
+longmemeval-095,longmemeval-095-f1,,7024f17c,longmemeval,The total hours of jogging and yoga the narrator did last week was 0.5 hours.,insufficient,True
+longmemeval-096,longmemeval-096-f1,,2698e78f_abs,longmemeval,The evidence mentions seeing Dr. Smith.,insufficient,True
+longmemeval-096,longmemeval-096-f2,,2698e78f_abs,longmemeval,The evidence does not mention seeing Dr. Johnson.,insufficient,True
+longmemeval-097,longmemeval-097-f1,,eace081b,longmemeval,The narrator plans to stay in Oahu for the birthday trip to Hawaii.,sufficient,True
+longmemeval-098,longmemeval-098-f1,,gpt4_e05b82a6,longmemeval,The narrator rode rollercoasters 10 times across events from July to October.,sufficient,True
+longmemeval-099,longmemeval-099-f1,,gpt4_88806d6e,longmemeval,The narrator met Tom before Mark and Sarah.,sufficient,True
+longmemeval-100,longmemeval-100-f1,,1cea1afa,longmemeval,The narrator currently has 600 Instagram followers.,sufficient,True
+locomo-001,locomo-001-f1,,conv-30#q0003,locomo,Jon and Gina both lost their jobs.,error,True
+locomo-001,locomo-001-f2,,conv-30#q0003,locomo,Jon and Gina both decided to start their own businesses.,error,True
+locomo-002,locomo-002-f1,,conv-26#q0055,locomo,Melanie read 'Becoming Nicole' based on Caroline's suggestion.,error,True
+locomo-003,locomo-003-f1,locomo-003:g1,conv-26#q0002,locomo,Caroline is likely to pursue counseling.,sufficient,True
+locomo-003,locomo-003-f2,locomo-003:g1,conv-26#q0002,locomo,Caroline is likely to pursue mental health.,sufficient,True
+locomo-004,locomo-004-f1,locomo-004:g1,conv-26#q0023,locomo,Melanie went to the pottery workshop on the Friday before 15 July 2023.,sufficient,False
+locomo-004,locomo-004-f2,locomo-004:g1,conv-26#q0023,locomo,"Melanie went to the pottery workshop on July 14, 2023.",sufficient,False
+locomo-005,locomo-005-f1,,conv-26#q0029,locomo,Caroline joined an activist group.,sufficient,True
+locomo-005,locomo-005-f2,,conv-26#q0029,locomo,Caroline went to pride parades.,sufficient,True
+locomo-005,locomo-005-f3,,conv-26#q0029,locomo,Caroline participated in an art show.,sufficient,True
+locomo-005,locomo-005-f4,,conv-26#q0029,locomo,Caroline participated in a mentoring program.,sufficient,True
+locomo-006,locomo-006-f1,,conv-30#q0025,locomo,It took Jon five months to open his studio.,insufficient,False
+locomo-007,locomo-007-f1,,conv-26#q0065,locomo,The evidence indicates Caroline does not intend to move back to her home country soon.,insufficient,True
+locomo-008,locomo-008-f1,,conv-26#q0085,locomo,Melanie made the black and white bowl in the photo.,insufficient,True
+locomo-009,locomo-009-f1,locomo-009:g1,conv-30#q0026,locomo,Gina designed the limited hoodie collection in June 2023.,sufficient,False
+locomo-009,locomo-009-f2,locomo-009:g1,conv-30#q0026,locomo,Gina designed the limited hoodie collection in the week before 21 June 2023.,sufficient,False
+locomo-010,locomo-010-f1,,conv-30#q0021,locomo,Both Jon and Gina participated in dance competitions.,sufficient,True
+locomo-011,locomo-011-f1,,conv-26#q0111,locomo,The song 'Brave' by Sara Bareilles motivates Caroline.,insufficient,True
+locomo-012,locomo-012-f1,,conv-30#q0004,locomo,Jon lost his job.,error,True
+locomo-012,locomo-012-f2,,conv-30#q0004,locomo,Jon decided to start his own business to share his passion.,error,True
+locomo-013,locomo-013-f1,locomo-013:g1,conv-26#q0005,locomo,Melanie ran the charity race on the Saturday before 25 May 2023.,sufficient,False
+locomo-013,locomo-013-f2,locomo-013:g1,conv-26#q0005,locomo,"Melanie ran the charity race on May 20, 2023.",sufficient,False
+locomo-014,locomo-014-f1,,conv-30#q0037,locomo,Gina says the dancers in the photo look graceful.,sufficient,True
+locomo-015,locomo-015-f1,,conv-30#q0040,locomo,"On 1 February 2023, Gina found the perfect spot for her clothing store.",insufficient,False
+locomo-016,locomo-016-f1,locomo-016:g1,conv-26#q0039,locomo,Caroline applied to adoption agencies in the week of 23 August 2023.,sufficient,False
+locomo-016,locomo-016-f2,locomo-016:g1,conv-26#q0039,locomo,"Caroline applied to adoption agencies from August 21, 2023 to August 27, 2023.",sufficient,False
+locomo-017,locomo-017-f1,,conv-26#q0062,locomo,Melanie bought figurines.,insufficient,True
+locomo-017,locomo-017-f2,,conv-26#q0062,locomo,Melanie bought shoes.,insufficient,True
+locomo-018,locomo-018-f1,,conv-26#q0032,locomo,Melanie would be more interested in going to a national park than a theme park.,insufficient,True
+locomo-019,locomo-019-f1,,conv-30#q0055,locomo,Jon is currently reading 'The Lean Startup'.,insufficient,True
+locomo-020,locomo-020-f1,,conv-30#q0045,locomo,Gina said creating an experience for customers makes them want to come back.,sufficient,True
+locomo-021,locomo-021-f1,,conv-26#q0133,locomo,Melanie saw a sign at the cafe stating that someone is not able to leave.,insufficient,False
+locomo-022,locomo-022-f1,,conv-26#q0091,locomo,Melanie got into running to de-stress and clear her mind.,insufficient,False
+locomo-023,locomo-023-f1,,conv-30#q0018,locomo,Jon participated in a fair to promote his business.,sufficient,True
+locomo-023,locomo-023-f2,,conv-30#q0018,locomo,Jon participated in networking events to promote his business.,sufficient,True
+locomo-024,locomo-024-f1,,conv-30#q0052,locomo,Gina reminds herself of her successes and progress.,error,True
+locomo-024,locomo-024-f2,,conv-30#q0052,locomo,Gina has a support system.,error,True
+locomo-024,locomo-024-f3,,conv-30#q0052,locomo,Gina focuses on why she started.,error,True
+locomo-025,locomo-025-f1,,conv-30#q0053,locomo,"Gina was accepted for a fashion internship on May 23, 2023.",insufficient,True
+locomo-026,locomo-026-f1,,conv-30#q0019,locomo,Jon's dance studio offers one-on-one mentoring and training to dancers.,error,True
+locomo-026,locomo-026-f2,,conv-30#q0019,locomo,Jon's dance studio offers workshops and classes to local schools and centers.,error,True
+locomo-027,locomo-027-f1,,conv-26#q0036,locomo,Caroline is supported by her mentors.,sufficient,True
+locomo-027,locomo-027-f2,,conv-26#q0036,locomo,Caroline is supported by her family.,sufficient,True
+locomo-027,locomo-027-f3,,conv-26#q0036,locomo,Caroline is supported by her friends.,sufficient,True
+locomo-028,locomo-028-f1,,conv-26#q0089,locomo,Caroline learned a lesson about self-acceptance.,insufficient,True
+locomo-028,locomo-028-f2,,conv-26#q0089,locomo,Caroline learned a lesson about finding support.,insufficient,True
+locomo-029,locomo-029-f1,,conv-26#q0047,locomo,Melanie went to the park on 27 August 2023.,sufficient,False
+locomo-030,locomo-030-f1,,conv-26#q0123,locomo,"After the accident, Melanie feels her family is important and means the world to her.",sufficient,True
+locomo-031,locomo-031-f1,,conv-30#q0016,locomo,Gina interviewed for a design internship on 10 May 2023.,sufficient,False
+locomo-032,locomo-032-f1,,conv-26#q0021,locomo,Caroline likes reading.,insufficient,True
+locomo-032,locomo-032-f2,,conv-26#q0021,locomo,Caroline wants to be a counselor.,insufficient,True
+locomo-033,locomo-033-f1,locomo-033:g1,conv-26#q0031,locomo,Caroline joined the new activist group on the Tuesday before 20 July 2023.,sufficient,False
+locomo-033,locomo-033-f2,locomo-033:g1,conv-26#q0031,locomo,"Caroline joined the new activist group on July 18, 2023.",sufficient,False
+locomo-034,locomo-034-f1,,conv-26#q0088,locomo,Caroline recommended 'Becoming Nicole' to Melanie.,insufficient,True
+locomo-035,locomo-035-f1,,conv-26#q0116,locomo,Melanie got hurt (had an accident).,insufficient,True
+locomo-035,locomo-035-f2,,conv-26#q0116,locomo,Melanie had to take a break from pottery.,insufficient,True
+locomo-036,locomo-036-f1,,conv-26#q0045,locomo,Melanie plays the clarinet.,insufficient,True
+locomo-036,locomo-036-f2,,conv-26#q0045,locomo,Melanie plays the violin.,insufficient,True
+locomo-037,locomo-037-f1,,conv-26#q0037,locomo,Caroline and Melanie went to a pride festival together in 2022.,insufficient,False
+locomo-038,locomo-038-f1,,conv-26#q0106,locomo,Melanie has cats.,insufficient,False
+locomo-038,locomo-038-f2,,conv-26#q0106,locomo,Melanie has a dog.,insufficient,False
+locomo-039,locomo-039-f1,,conv-30#q0047,locomo,Gina's tattoo symbolizes freedom.,insufficient,True
+locomo-039,locomo-039-f2,,conv-30#q0047,locomo,Gina's tattoo symbolizes expressing herself through dance.,insufficient,True
+locomo-040,locomo-040-f1,,conv-26#q0073,locomo,Melanie thinks Caroline is doing something amazing.,insufficient,True
+locomo-040,locomo-040-f2,,conv-26#q0073,locomo,Melanie thinks Caroline will be an awesome mom.,insufficient,True
+locomo-041,locomo-041-f1,,conv-26#q0120,locomo,Melanie and Caroline describe their journey together as an ongoing adventure of learning and growing.,insufficient,True
+locomo-042,locomo-042-f1,,conv-26#q0070,locomo,The adoption agency supports LGBTQ+ individuals.,sufficient,True
+locomo-043,locomo-043-f1,,conv-26#q0093,locomo,Mel and her kids made pots during the pottery workshop.,error,True
+locomo-044,locomo-044-f1,,conv-26#q0135,locomo,"Caroline shared an abstract painting with blue streaks on a wall on October 13, 2023.",insufficient,False
+locomo-045,locomo-045-f1,,conv-30#q0036,locomo,Gina's team performed 'Finding Freedom' and won first place.,insufficient,True
+locomo-046,locomo-046-f1,,conv-30#q0014,locomo,Jon went to a fair on 24 April 2023.,sufficient,False
+locomo-047,locomo-047-f1,,conv-30#q0010,locomo,Gina got her tattoo a few years ago.,error,True
+locomo-048,locomo-048-f1,,conv-30#q0033,locomo,Gina's favorite style of dance is contemporary.,insufficient,True
+locomo-049,locomo-049-f1,,conv-26#q0107,locomo,Oliver once hid his bone in Melanie's slipper.,insufficient,True
+locomo-050,locomo-050-f1,,conv-30#q0035,locomo,Gina's favorite dancing memory is winning first place at a regionals dance competition.,sufficient,True
+locomo-051,locomo-051-f1,,conv-26#q0128,locomo,Melanie read 'Nothing is Impossible'.,insufficient,False
+locomo-051,locomo-051-f2,,conv-26#q0128,locomo,Melanie read 'Charlotte's Web'.,insufficient,False
+locomo-052,locomo-052-f1,,conv-26#q0014,locomo,Melanie signed up for a pottery class on 2 July 2023.,sufficient,False
+locomo-053,locomo-053-f1,,conv-26#q0011,locomo,Caroline moved from Sweden four years ago.,sufficient,True
+locomo-054,locomo-054-f1,locomo-054:g1,conv-30#q0029,locomo,Jon started learning marketing and analytics tools on 9 July 2023.,sufficient,False
+locomo-054,locomo-054-f2,locomo-054:g1,conv-30#q0029,locomo,Jon started learning marketing and analytics tools in July 2023.,sufficient,False
+locomo-055,locomo-055-f1,,conv-26#q0132,locomo,Mel and her kids painted a sunset with a palm tree in July 2023.,insufficient,False
+locomo-056,locomo-056-f1,,conv-26#q0078,locomo,The hand-painted bowl reminds Melanie of art.,insufficient,True
+locomo-056,locomo-056-f2,,conv-26#q0078,locomo,The hand-painted bowl reminds Melanie of self-expression.,insufficient,True
+locomo-057,locomo-057-f1,,conv-26#q0084,locomo,Caroline wants to create a safe and inviting place for people to grow.,sufficient,True
+locomo-058,locomo-058-f1,,conv-30#q0044,locomo,Jon said creating a special experience is the key to making customers feel welcome and come back.,sufficient,True
+locomo-059,locomo-059-f1,,conv-26#q0071,locomo,Caroline chose the adoption agency because of its inclusivity.,sufficient,True
+locomo-059,locomo-059-f2,,conv-26#q0071,locomo,Caroline chose the adoption agency because of its support for LGBTQ+ individuals.,sufficient,True
+locomo-060,locomo-060-f1,locomo-060:g1,conv-26#q0043,locomo,Caroline had the negative experience on a hike in the week before 25 August 2023.,sufficient,False
+locomo-060,locomo-060-f2,locomo-060:g1,conv-26#q0043,locomo,"Caroline had the negative experience on a hike from August 14, 2023 to August 20, 2023.",sufficient,False
+locomo-061,locomo-061-f1,,conv-26#q0114,locomo,Melanie has been creating art for seven years.,sufficient,True
+locomo-062,locomo-062-f1,locomo-062:g1,conv-26#q0013,locomo,Caroline decided to pursue counseling for transgender people.,insufficient,True
+locomo-062,locomo-062-f2,locomo-062:g1,conv-26#q0013,locomo,Caroline decided to pursue mental health for transgender people.,insufficient,True
+locomo-063,locomo-063-f1,,conv-30#q0046,locomo,Gina's store is doing great.,sufficient,True
+locomo-064,locomo-064-f1,locomo-064:g1,conv-26#q0058,locomo,Melanie's family went on the roadtrip the weekend before 20 October 2023.,sufficient,False
+locomo-064,locomo-064-f2,locomo-064:g1,conv-26#q0058,locomo,"Melanie's family went on the roadtrip from October 14, 2023 to October 15, 2023.",sufficient,False
+locomo-065,locomo-065-f1,,conv-26#q0115,locomo,Caroline advises doing research.,sufficient,True
+locomo-065,locomo-065-f2,,conv-26#q0115,locomo,Caroline advises finding an adoption agency or lawyer.,sufficient,True
+locomo-065,locomo-065-f3,,conv-26#q0115,locomo,Caroline advises gathering necessary documents.,sufficient,True
+locomo-065,locomo-065-f4,,conv-26#q0115,locomo,Caroline advises preparing emotionally.,sufficient,True
+locomo-066,locomo-066-f1,,conv-26#q0067,locomo,Melanie realized that self-care is important.,sufficient,True
+locomo-067,locomo-067-f1,,conv-26#q0099,locomo,Melanie goes to the beach with her kids once or twice a year.,sufficient,True
+locomo-068,locomo-068-f1,locomo-068:g1,conv-26#q0018,locomo,Caroline had a picnic in the week before 6 July 2023.,sufficient,False
+locomo-068,locomo-068-f2,locomo-068:g1,conv-26#q0018,locomo,"Caroline had a picnic from June 26, 2023 to July 2, 2023.",sufficient,False
+locomo-069,locomo-069-f1,locomo-069:g1,conv-26#q0053,locomo,Melanie has been practicing art since 2016.,sufficient,True
+locomo-069,locomo-069-f2,locomo-069:g1,conv-26#q0053,locomo,Melanie has been practicing art for seven years.,sufficient,True
+locomo-070,locomo-070-f1,,conv-26#q0051,locomo,Melanie roasts marshmallows with her family on hikes.,insufficient,True
+locomo-070,locomo-070-f2,,conv-26#q0051,locomo,Melanie tells stories with her family on hikes.,insufficient,True
+locomo-071,locomo-071-f1,locomo-071:g1,conv-30#q0041,locomo,Gina wanted customers to feel cozy in her store.,sufficient,True
+locomo-071,locomo-071-f2,locomo-071:g1,conv-30#q0041,locomo,Gina wanted customers to feel comfortable in her store.,sufficient,True
+locomo-071,locomo-071-f3,locomo-071:g1,conv-30#q0041,locomo,Gina wanted customers to feel that the store is inviting.,sufficient,True
+locomo-072,locomo-072-f1,,conv-26#q0105,locomo,Caroline has a guinea pig.,insufficient,True
+locomo-073,locomo-073-f1,locomo-073:g1,conv-30#q0017,locomo,Gina was accepted for the design internship on 27 May 2023.,insufficient,False
+locomo-073,locomo-073-f2,locomo-073:g1,conv-30#q0017,locomo,Gina was accepted for the design internship in May 2023.,insufficient,False
+locomo-074,locomo-074-f1,,conv-26#q0007,locomo,Caroline is single.,insufficient,True
+locomo-075,locomo-075-f1,,conv-30#q0013,locomo,Jon hosted a dance competition in May 2023.,insufficient,False
+locomo-076,locomo-076-f1,,conv-30#q0034,locomo,Jon's favorite style of dance is contemporary.,insufficient,True
+locomo-077,locomo-077-f1,,conv-26#q0076,locomo,Caroline's grandma is from Sweden.,sufficient,True
+locomo-078,locomo-078-f1,,conv-30#q0000,locomo,Jon lost his job as a banker on 19 January 2023.,sufficient,False
+locomo-079,locomo-079-f1,,conv-26#q0134,locomo,"Melanie showed Caroline a painting inspired by sunsets with a pink sky on October 13, 2023.",insufficient,False
+locomo-080,locomo-080-f1,,conv-30#q0001,locomo,Gina lost her job at Door Dash in January 2023.,insufficient,False
+locomo-081,locomo-081-f1,locomo-081:g1,conv-30#q0032,locomo,Gina went to a dance class with friends in July 2023.,insufficient,False
+locomo-081,locomo-081-f2,locomo-081:g1,conv-30#q0032,locomo,Gina went to a dance class with friends on the Friday before 23 July 2023.,insufficient,False
+locomo-081,locomo-081-f3,locomo-081:g1,conv-30#q0032,locomo,Gina went to a dance class with friends in the middle of July.,insufficient,False
+locomo-082,locomo-082-f1,,conv-26#q0113,locomo,Melanie is a fan of Ed Sheeran.,insufficient,True
+locomo-083,locomo-083-f1,,conv-26#q0035,locomo,Melanie supports the transgender community.,error,True
+locomo-084,locomo-084-f1,,conv-26#q0004,locomo,Caroline is a transgender woman.,insufficient,True
+locomo-085,locomo-085-f1,,conv-26#q0097,locomo,Flowers represent growth to Melanie.,sufficient,True
+locomo-085,locomo-085-f2,,conv-26#q0097,locomo,Flowers represent beauty to Melanie.,sufficient,True
+locomo-085,locomo-085-f3,,conv-26#q0097,locomo,Flowers remind Melanie to appreciate the small moments.,sufficient,True
+locomo-085,locomo-085-f4,,conv-26#q0097,locomo,Flowers were part of Melanie's wedding decor.,sufficient,True
+locomo-086,locomo-086-f1,,conv-26#q0131,locomo,Mel and her kids made a cup with a dog face on it.,insufficient,False
+locomo-087,locomo-087-f1,,conv-26#q0060,locomo,Melanie went on a hike on 19 October 2023.,sufficient,False
+locomo-088,locomo-088-f1,,conv-26#q0095,locomo,Caroline saw many people at the council meeting who want to create loving homes for children in need.,sufficient,True
+locomo-089,locomo-089-f1,,conv-26#q0100,locomo,Melanie and her family saw the Perseid meteor shower during their camping trip last year.,sufficient,True
+locomo-090,locomo-090-f1,,conv-26#q0056,locomo,Melanie's friend adopted a child in 2022.,sufficient,False
+locomo-091,locomo-091-f1,,conv-26#q0081,locomo,Caroline attended an LGBTQ+ counseling workshop recently.,sufficient,True
+locomo-092,locomo-092-f1,locomo-092:g1,conv-26#q0063,locomo,Caroline passed the adoption interview on the Friday before 22 October 2023.,sufficient,False
+locomo-092,locomo-092-f2,locomo-092:g1,conv-26#q0063,locomo,"Caroline passed the adoption interview on October 20, 2023.",sufficient,False
+locomo-093,locomo-093-f1,,conv-30#q0006,locomo,Jon's group is performing at a festival in February 2023.,insufficient,False
+locomo-094,locomo-094-f1,,conv-30#q0061,locomo,Gina describes Jon's studio as amazing.,insufficient,True
+locomo-095,locomo-095-f1,,conv-26#q0098,locomo,Caroline was inspired by visiting an LGBTQ center.,sufficient,True
+locomo-095,locomo-095-f2,,conv-26#q0098,locomo,Caroline wanted to capture unity and strength.,sufficient,True
+locomo-096,locomo-096-f1,,conv-26#q0118,locomo,It was a transgender poetry reading.,insufficient,False
+locomo-096,locomo-096-f2,,conv-26#q0118,locomo,Transgender people shared their stories there.,insufficient,False
+locomo-097,locomo-097-f1,,conv-26#q0082,locomo,The workshop discussed therapeutic methods.,sufficient,True
+locomo-097,locomo-097-f2,,conv-26#q0082,locomo,The workshop discussed how to best work with trans people.,sufficient,True
+locomo-098,locomo-098-f1,,conv-26#q0136,locomo,The posters at the poetry reading read 'Trans Lives Matter'.,insufficient,False
+locomo-099,locomo-099-f1,,conv-30#q0015,locomo,Jon and Gina started businesses based on what they love.,insufficient,True
+locomo-100,locomo-100-f1,,conv-26#q0054,locomo,Caroline attended a transgender poetry reading.,insufficient,False
+locomo-100,locomo-100-f2,locomo-100:g1,conv-26#q0054,locomo,Caroline attended a conference.,insufficient,False
+locomo-100,locomo-100-f3,locomo-100:g1,conv-26#q0054,locomo,Caroline attended a counseling workshop.,insufficient,False

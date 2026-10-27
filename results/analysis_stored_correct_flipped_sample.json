@@ -1,0 +1,23 @@
+[
+ {
+  "sample_id": "locomo-021",
+  "question": "What precautionary sign did Melanie see at the café?",
+  "reference": "A sign stating that someone is not being able to leave",
+  "model": "Not mentioned.",
+  "evidence": "[1] Caroline, it's got to be tough dealing with those changes. Glad you've found people who uplift and accept you! Here's to a good time at the café last weekend - they even had thoughtful signs like this! It brings me so much happiness."
+ },
+ {
+  "sample_id": "locomo-048",
+  "question": "What is Gina's favorite style of dance?",
+  "reference": "Contemporary",
+  "model": "Not specified.",
+  "evidence": "[1] Yeah, me too! Contemporary dance is so expressive and graceful - it really speaks to me."
+ },
+ {
+  "sample_id": "locomo-050",
+  "question": "What was Gina's favorite dancing memory?",
+  "reference": "Winning first place at a regionals dance competition",
+  "model": "Not stated.",
+  "evidence": "[1] I used to compete in a few dance competitions and shows - my fav memory was when my team won first place at a regionals at age fifteen. It was an awesome feeling of accomplishment!"
+ }
+]

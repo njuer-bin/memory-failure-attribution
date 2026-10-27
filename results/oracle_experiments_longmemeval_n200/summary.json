@@ -1,0 +1,171 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-19T11:52:56.534217+00:00",
+    "dataset": {
+      "dataset_id": "longmemeval_oracle",
+      "source": "longmemeval_oracle.json",
+      "sha256_16": "5a6a52e1a98f85eb"
+    },
+    "limit": 200,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "python": "3.13.9",
+    "git": {
+      "commit": "84bedce2e5ab1c3eb3b6b4565eb467279a746c25",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "dataset": "longmemeval_oracle",
+  "limit": 200,
+  "records": 200,
+  "errors": 0,
+  "real_memory": {
+    "count": 200,
+    "stage_recall": {
+      "formation": 0.42725,
+      "storage": 1.0,
+      "retrieval": 1.0,
+      "rerank": 0.9897499999999999,
+      "context": 0.8959999999999999,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "formation": 155,
+      "context": 4,
+      "none": 39,
+      "rerank": 2
+    }
+  },
+  "oracle_memory": {
+    "count": 200,
+    "stage_recall": {
+      "formation": null,
+      "storage": null,
+      "retrieval": 1.0,
+      "rerank": 1.0,
+      "context": 0.9505,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "none": 171,
+      "context": 29
+    }
+  },
+  "oracle_context": {
+    "count": 200,
+    "stage_recall": {
+      "formation": null,
+      "storage": null,
+      "retrieval": null,
+      "rerank": null,
+      "context": 1.0,
+      "evolution": null
+    },
+    "unmeasured_stages": [
+      "evolution"
+    ],
+    "first_loss_distribution": {
+      "not_applicable": 200
+    }
+  },
+  "evidence_sufficiency": {
+    "status_distribution": {
+      "sufficient": 153,
+      "insufficient": 41,
+      "error": 6
+    },
+    "gate": "E0 before F1-F6; uncertain/error cases are EVAL"
+  },
+  "answer_scoring": {
+    "method": "local_ollama_token_f1_plus_temporal_phrase_rules",
+    "real_memory": {
+      "count": 200,
+      "scored": 199,
+      "correct": 63,
+      "accuracy": 0.3165829145728643,
+      "exact_match": 0.1407035175879397,
+      "token_f1": 0.2899732625419885,
+      "semantic_evaluated": 163,
+      "semantic_correct": 85,
+      "semantic_accuracy": 0.5214723926380368,
+      "semantic_adjudications": {
+        "judge": 96,
+        "deterministic_numeric_range": 59,
+        "lexical_anchor_override": 1,
+        "deterministic_lexical": 6,
+        "ordering_refutation": 1
+      },
+      "model_errors": 1,
+      "semantic_errors": 6
+    },
+    "oracle_memory": {
+      "count": 200,
+      "scored": 200,
+      "correct": 92,
+      "accuracy": 0.46,
+      "exact_match": 0.235,
+      "token_f1": 0.41355083721214553,
+      "semantic_evaluated": 139,
+      "semantic_correct": 96,
+      "semantic_accuracy": 0.6906474820143885,
+      "semantic_adjudications": {
+        "deterministic_lexical": 7,
+        "judge": 71,
+        "deterministic_numeric_range": 60,
+        "lexical_anchor_override": 1
+      },
+      "model_errors": 0,
+      "semantic_errors": 9
+    },
+    "oracle_context": {
+      "count": 200,
+      "scored": 200,
+      "correct": 110,
+      "accuracy": 0.55,
+      "exact_match": 0.295,
+      "token_f1": 0.4873360292277477,
+      "semantic_evaluated": 134,
+      "semantic_correct": 110,
+      "semantic_accuracy": 0.8208955223880597,
+      "semantic_adjudications": {
+        "judge": 67,
+        "deterministic_numeric_range": 60,
+        "deterministic_lexical": 6,
+        "lexical_anchor_override": 1
+      },
+      "model_errors": 0,
+      "semantic_errors": 2
+    },
+    "answer_failure_distribution": {
+      "real_memory": {
+        "F1_FORMATION": 61,
+        "F6_REASONING_CANDIDATE": 3,
+        "E0_EVIDENCE_INSUFFICIENT": 10,
+        "EVAL_SEMANTIC_UNCERTAIN": 8,
+        "F5_CONTEXT": 1,
+        "F4_RETRIEVAL": 1
+      },
+      "oracle_memory": {
+        "F5_CONTEXT": 20,
+        "E0_EVIDENCE_INSUFFICIENT": 11,
+        "F6_REASONING_CANDIDATE": 10,
+        "EVAL_SEMANTIC_UNCERTAIN": 8
+      },
+      "oracle_context": {
+        "RC_REASONING_CONTROL_FAILURE": 10,
+        "E0_EVIDENCE_INSUFFICIENT": 13,
+        "EVAL_SEMANTIC_UNCERTAIN": 3
+      }
+    }
+  },
+  "note": "Evidence lifecycle and answer scoring are reported separately. Before F1-F6 attribution, Gold Evidence is checked for question-answer sufficiency using the benchmark reference answer rather than the model prediction. Insufficient evidence is E0; uncertain or judge-error cases are EVAL. F6 is assigned only when the gate is sufficient, all gold evidence reaches final context, the semantic judge marks the answer incorrect with medium/high confidence. Evolution recall is not measured (audit C4). Oracle Context remains a reasoning control and its own wrong answer is RC_REASONING_CONTROL_FAILURE.",
+  "resumed_records": 0
+}

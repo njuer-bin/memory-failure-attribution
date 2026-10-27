@@ -1,11 +1,13 @@
+from evaluation import attribution
 from experiments import run_oracle_experiments as runner
 
 
 def test_evidence_gate_uses_benchmark_answer_not_real_prediction(monkeypatch):
     seen = {}
 
-    def fake_judge(question, candidate, evidence):
+    def fake_judge(question, candidate, evidence, **kwargs):
         seen["candidate"] = candidate
+        seen["candidate_is_reference"] = kwargs.get("candidate_is_reference")
         return {
             "correct": True,
             "evidence_sufficient": True,
@@ -14,7 +16,7 @@ def test_evidence_gate_uses_benchmark_answer_not_real_prediction(monkeypatch):
             "adjudication": "judge",
         }
 
-    monkeypatch.setattr(runner, "evaluate_answer", fake_judge)
+    monkeypatch.setattr(attribution, "evaluate_answer", fake_judge)
 
     gold = [{"evidence_id": "e0", "content": "Caroline went yesterday."}]
     result = runner._evidence_sufficiency(
@@ -24,5 +26,6 @@ def test_evidence_gate_uses_benchmark_answer_not_real_prediction(monkeypatch):
     )
 
     assert seen["candidate"] == "7 May 2023"
+    assert seen["candidate_is_reference"] is True
     assert result["status"] == "sufficient"
     assert result["evidence_sufficient"] is True

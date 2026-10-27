@@ -1,0 +1,10 @@
+{
+  "status": "interrupted",
+  "dataset": "longmemeval_oracle",
+  "limit": 50,
+  "completed": 10,
+  "errors": 0,
+  "elapsed_seconds": 96.72976089996519,
+  "interrupted_reason": "background process killed by host for system memory pressure (0.4GB free); not a code failure",
+  "partial_rows_written": 10
+}

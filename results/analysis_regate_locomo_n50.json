@@ -1,0 +1,98 @@
+{
+  "comparison": "results\\_corrected_comparison_n50.jsonl",
+  "questions_covered_by_human_gate": 20,
+  "questions_uncovered": 30,
+  "per_mode": {
+    "semantic": {
+      "old_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 18,
+        "EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F1_FORMATION": 9,
+        "F4_RETRIEVAL": 5,
+        "F5_CONTEXT": 1,
+        "F6_REASONING_CANDIDATE": 2,
+        "None": 13
+      },
+      "new_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 16,
+        "EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F1_FORMATION": 11,
+        "F4_RETRIEVAL": 4,
+        "F5_CONTEXT": 1,
+        "F6_REASONING_CANDIDATE": 3,
+        "None": 13
+      },
+      "e0_old": 18,
+      "e0_new": 16,
+      "changed": 8,
+      "transitions": {
+        "E0_EVIDENCE_INSUFFICIENT->E0_EVIDENCE_INSUFFICIENT": 13,
+        "E0_EVIDENCE_INSUFFICIENT->F1_FORMATION": 4,
+        "E0_EVIDENCE_INSUFFICIENT->F6_REASONING_CANDIDATE": 1,
+        "EVAL_SEMANTIC_UNCERTAIN->EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F1_FORMATION->E0_EVIDENCE_INSUFFICIENT": 2,
+        "F1_FORMATION->F1_FORMATION": 7,
+        "F4_RETRIEVAL->E0_EVIDENCE_INSUFFICIENT": 1,
+        "F4_RETRIEVAL->F4_RETRIEVAL": 4,
+        "F5_CONTEXT->F5_CONTEXT": 1,
+        "F6_REASONING_CANDIDATE->F6_REASONING_CANDIDATE": 2,
+        "None->None": 13
+      }
+    },
+    "summary": {
+      "old_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 16,
+        "F4_RETRIEVAL": 9,
+        "F5_CONTEXT": 11,
+        "None": 14
+      },
+      "new_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 17,
+        "F4_RETRIEVAL": 11,
+        "F5_CONTEXT": 8,
+        "None": 14
+      },
+      "e0_old": 16,
+      "e0_new": 17,
+      "changed": 7,
+      "transitions": {
+        "E0_EVIDENCE_INSUFFICIENT->E0_EVIDENCE_INSUFFICIENT": 13,
+        "E0_EVIDENCE_INSUFFICIENT->F4_RETRIEVAL": 3,
+        "F4_RETRIEVAL->E0_EVIDENCE_INSUFFICIENT": 1,
+        "F4_RETRIEVAL->F4_RETRIEVAL": 8,
+        "F5_CONTEXT->E0_EVIDENCE_INSUFFICIENT": 3,
+        "F5_CONTEXT->F5_CONTEXT": 8,
+        "None->None": 14
+      }
+    },
+    "verbatim": {
+      "old_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 16,
+        "EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F4_RETRIEVAL": 20,
+        "F6_REASONING_CANDIDATE": 2,
+        "None": 10
+      },
+      "new_failure_distribution": {
+        "E0_EVIDENCE_INSUFFICIENT": 17,
+        "EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F4_RETRIEVAL": 20,
+        "F6_REASONING_CANDIDATE": 1,
+        "None": 10
+      },
+      "e0_old": 16,
+      "e0_new": 17,
+      "changed": 11,
+      "transitions": {
+        "E0_EVIDENCE_INSUFFICIENT->E0_EVIDENCE_INSUFFICIENT": 11,
+        "E0_EVIDENCE_INSUFFICIENT->F4_RETRIEVAL": 5,
+        "EVAL_SEMANTIC_UNCERTAIN->EVAL_SEMANTIC_UNCERTAIN": 2,
+        "F4_RETRIEVAL->E0_EVIDENCE_INSUFFICIENT": 5,
+        "F4_RETRIEVAL->F4_RETRIEVAL": 15,
+        "F6_REASONING_CANDIDATE->E0_EVIDENCE_INSUFFICIENT": 1,
+        "F6_REASONING_CANDIDATE->F6_REASONING_CANDIDATE": 1,
+        "None->None": 10
+      }
+    }
+  }
+}

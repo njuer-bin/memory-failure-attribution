@@ -1,0 +1,107 @@
+{
+  "run_metadata": {
+    "timestamp_utc": "2026-10-27T03:22:09.390347+00:00",
+    "dataset": {
+      "dataset_id": "locomo_refined_public",
+      "error": "PermissionError: [Errno 13] Permission denied: 'G:\\\\PythonProject\\\\memory-failure-attribution\\\\locomo_refined_dataset\\\\public'"
+    },
+    "limit": 100,
+    "answer_model": "deepseek-v4.1-flash",
+    "judge_model": "deepseek-v4.1-flash",
+    "judge_temperature": 0.0,
+    "embedding": {
+      "backend": "hash:384",
+      "dim": 384,
+      "configured_model": "qwen3-embedding:4b",
+      "ollama_enabled": true
+    },
+    "python": "3.13.9",
+    "git": {
+      "commit": "41e3c8c1c47369e40b24838e0aa0f3a3dce5b821",
+      "branch": "fix/formation-diagnostics-evidence-based",
+      "dirty": true
+    }
+  },
+  "search": {
+    "candidate_k": 20,
+    "top_k": 10,
+    "context_chars": 6000
+  },
+  "systems": [
+    "semantic",
+    "semantic_rawwrite"
+  ],
+  "errors": 0,
+  "results": {
+    "systems": {
+      "semantic": {
+        "count": 100,
+        "stage_recall": {
+          "formation": 0.47833333333333333,
+          "storage": 0.99,
+          "retrieval": 0.375,
+          "rerank": 0.33,
+          "context": 0.31
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 14,
+          "formation": 57,
+          "retrieval": 25,
+          "rerank": 3,
+          "context": 1
+        },
+        "semantic_accuracy": 0.5,
+        "semantic_judged": 96,
+        "answer_failure_distribution": {
+          "none": 52,
+          "E0_EVIDENCE_INSUFFICIENT": 21,
+          "F4_RETRIEVAL": 12,
+          "F6_REASONING_CANDIDATE": 1,
+          "F1_FORMATION": 13,
+          "F5_CONTEXT": 1
+        },
+        "gate_distribution": {
+          "insufficient": 40,
+          "sufficient": 60
+        }
+      },
+      "semantic_rawwrite": {
+        "count": 100,
+        "stage_recall": {
+          "formation": 0.99,
+          "storage": 0.99,
+          "retrieval": 0.4,
+          "rerank": 0.36,
+          "context": 0.33
+        },
+        "unmeasured_stages": [
+          "evolution"
+        ],
+        "first_loss_distribution": {
+          "none": 27,
+          "retrieval": 62,
+          "rerank": 5,
+          "formation": 1,
+          "context": 5
+        },
+        "semantic_accuracy": 0.43010752688172044,
+        "semantic_judged": 93,
+        "answer_failure_distribution": {
+          "none": 44,
+          "E0_EVIDENCE_INSUFFICIENT": 22,
+          "F4_RETRIEVAL": 24,
+          "F6_REASONING_CANDIDATE": 4,
+          "EVAL_SEMANTIC_UNCERTAIN": 3,
+          "F5_CONTEXT": 3
+        },
+        "gate_distribution": {
+          "insufficient": 40,
+          "sufficient": 60
+        }
+      }
+    }
+  }
+}

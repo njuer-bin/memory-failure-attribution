@@ -1,0 +1,75 @@
+{
+  "annotators": [
+    "a",
+    "b"
+  ],
+  "rows": 40,
+  "valid_co_decided": 27,
+  "invalid_or_missing": {
+    "a": {
+      "evolution": 13
+    },
+    "b": {}
+  },
+  "uncertain_share": {
+    "a": 0.0,
+    "b": 0.0
+  },
+  "human_human": {
+    "n": 27,
+    "agreement": 0.8148148148148148,
+    "kappa_multi": 0.6853146853146852,
+    "confusion": {
+      "formation->e0": 1,
+      "formation->formation": 4,
+      "formation->retrieval": 2,
+      "none->none": 4,
+      "retrieval->e0": 2,
+      "retrieval->retrieval": 14
+    },
+    "excluding_uncertain": {
+      "n": 27,
+      "agreement": 0.8148148148148148,
+      "kappa_multi": 0.6853146853146852
+    },
+    "classes_used": [
+      "e0",
+      "formation",
+      "none",
+      "retrieval"
+    ]
+  },
+  "human_vs_auto": {
+    "a": {
+      "n": 27,
+      "agreement": 0.9629629629629629,
+      "kappa_multi": 0.9323308270676689,
+      "confusion": {
+        "formation->formation": 6,
+        "formation->retrieval": 1,
+        "none->none": 4,
+        "retrieval->retrieval": 16
+      }
+    },
+    "b": {
+      "n": 40,
+      "agreement": 0.775,
+      "kappa_multi": 0.6319018404907976,
+      "confusion": {
+        "e0->formation": 1,
+        "e0->retrieval": 3,
+        "formation->formation": 5,
+        "formation->retrieval": 1,
+        "none->formation": 1,
+        "none->none": 7,
+        "retrieval->formation": 3,
+        "retrieval->retrieval": 19
+      }
+    }
+  },
+  "acceptance": {
+    "bar": 0.7,
+    "kappa": 0.6853146853146852,
+    "passed": false
+  }
+}

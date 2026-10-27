@@ -16,6 +16,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from evaluation import attribution
 from evaluation.answer_semantic_eval import evaluate_answer
 
 
@@ -33,29 +34,19 @@ def load_rows(path: Path) -> list[dict[str, Any]]:
 
 
 def judge_context(row: dict[str, Any]) -> list[dict[str, Any]]:
+    # Full metadata: the judge prompt resolves relative temporal expressions
+    # from timestamps, so dropping them changes E0 verdicts.
     return [
         {
             "id": str(e.get("evidence_id") or ""),
-            "content": str(e.get("text") or ""),
+            "content": str(e.get("text") or e.get("content") or ""),
+            "source_id": e.get("source_id") or e.get("source"),
+            "turn_id": e.get("turn_id") or e.get("turn"),
+            "timestamp": e.get("timestamp"),
         }
         for e in row.get("gold_evidence", [])
-        if e.get("text")
+        if (e.get("text") or e.get("content"))
     ]
-
-
-def first_missing_stage(real: dict[str, Any], gold_ids: set[str]) -> str | None:
-    for stage, label in (
-        ("formation", "F1_FORMATION"),
-        ("storage", "F2_STORAGE"),
-        ("evolution", "F3_EVOLUTION"),
-        ("retrieval", "F4_RETRIEVAL"),
-        ("rerank", "F4_RETRIEVAL"),
-        ("context", "F5_CONTEXT"),
-    ):
-        found = {str(x) for x in (real.get(stage) or {}).get("found", [])}
-        if not gold_ids.issubset(found):
-            return label
-    return None
 
 
 def main() -> None:
@@ -80,14 +71,18 @@ def main() -> None:
         mode: {"scored": 0, "correct": 0, "incorrect": 0, "errors": 0}
         for mode in MODES
     }
-    attribution: dict[str, int] = {}
+    failure_counts: dict[str, int] = {}
+    mode_failure_counts: dict[str, dict[str, int]] = {mode: {} for mode in MODES}
+    judge_models: set[str] = set()
     f6_candidates: list[dict[str, Any]] = []
     e0_cases: list[dict[str, Any]] = []
     eval_uncertain: list[dict[str, Any]] = []
+    missing_reference: list[dict[str, Any]] = []
 
     with output.open("w", encoding="utf-8") as out:
         for i, row in enumerate(rows, 1):
             question = str(row.get("question") or "")
+            reference = str(row.get("gold_answer") or "").strip()
             evidence = judge_context(row)
             new_row = json.loads(json.dumps(row))
             print(f"[{i}/{len(rows)}] {row.get('question_id')}", flush=True)
@@ -95,6 +90,12 @@ def main() -> None:
             for mode in MODES:
                 answer = new_row["modes"][mode].get("answer") or {}
                 candidate = str(answer.get("answer") or "")
+                if not candidate.strip() or answer.get("model_error"):
+                    answer["semantic_correct"] = None
+                    answer["semantic_error"] = answer.get("model_error") or "empty answer"
+                    counts[mode]["errors"] += 1
+                    new_row["modes"][mode]["answer"] = answer
+                    continue
                 try:
                     verdict = evaluate_answer(question, candidate, evidence)
                     answer.update(
@@ -113,6 +114,7 @@ def main() -> None:
                             "semantic_judge_model": verdict["model"],
                         }
                     )
+                    judge_models.add(str(verdict["model"]))
                     counts[mode]["scored"] += 1
                     if verdict["correct"]:
                         counts[mode]["correct"] += 1
@@ -126,34 +128,42 @@ def main() -> None:
 
             real = new_row["modes"]["real_memory"]
             answer = real["answer"]
-            semantic_correct = answer.get("semantic_correct")
-            evidence_sufficient = answer.get("semantic_evidence_sufficient")
-            confidence = answer.get("semantic_confidence")
-
-            if semantic_correct is True:
-                failure = None
-            elif semantic_correct is None:
-                failure = "EVAL_SEMANTIC_UNCERTAIN"
-            elif evidence_sufficient is False:
-                failure = "E0_EVIDENCE_INSUFFICIENT"
-            elif confidence == "low":
-                failure = "EVAL_SEMANTIC_UNCERTAIN"
-            else:
-                gold_ids = {
-                    str(e.get("evidence_id"))
-                    for e in new_row.get("gold_evidence", [])
-                    if e.get("evidence_id")
-                }
-                if not gold_ids:
-                    failure = "E0_EVIDENCE_INSUFFICIENT"
+            gate = real.get("evidence_sufficiency")
+            if not isinstance(gate, dict) or not gate.get("status"):
+                if reference:
+                    # Legacy rows may lack a stored gate; recompute it from the
+                    # benchmark reference answer (non-circular).
+                    gate = attribution.evidence_sufficiency_gate(
+                        question, reference, evidence,
+                    )
                 else:
-                    failure = first_missing_stage(real, gold_ids)
-                    if failure is None:
-                        failure = "F6_REASONING_CANDIDATE"
+                    # Never feed an empty reference to the judge: that would
+                    # fabricate an E0 verdict.
+                    gate = {
+                        "status": "error",
+                        "evidence_sufficient": None,
+                        "confidence": "low",
+                        "reason": "Benchmark reference answer is missing from the stored row.",
+                        "adjudication": "missing_benchmark_reference",
+                    }
+                    missing_reference.append({"question_id": row.get("question_id")})
+                real["evidence_sufficiency"] = gate
 
-            real["semantic_answer_failure_type"] = failure
+            # Attribute every mode with the same benchmark gate; only the
+            # stages and the oracle-control label differ.
+            for mode in MODES:
+                mode_data = new_row["modes"][mode]
+                mode_failure = attribution.attribute_failure(
+                    mode_data.get("answer") or {}, gate, mode_data,
+                    new_row.get("gold_evidence", []), mode=mode,
+                )
+                mode_data["semantic_answer_failure_type"] = mode_failure
+                if mode_failure:
+                    mode_failure_counts[mode][mode_failure] = mode_failure_counts[mode].get(mode_failure, 0) + 1
+
+            failure = real["semantic_answer_failure_type"]
             if failure:
-                attribution[failure] = attribution.get(failure, 0) + 1
+                failure_counts[failure] = failure_counts.get(failure, 0) + 1
 
             if failure == "F6_REASONING_CANDIDATE":
                 f6_candidates.append(
@@ -194,30 +204,26 @@ def main() -> None:
             out.write(json.dumps(new_row, ensure_ascii=False) + "\n")
             out.flush()
 
-    judge_models = {
-        str(row.get("modes", {}).get(mode, {}).get("answer", {}).get("semantic_judge_model"))
-        for row in rows
-        for mode in MODES
-        if row.get("modes", {}).get(mode, {}).get("answer", {}).get("semantic_judge_model")
-    }
-
     summary = {
         "input": args.input,
         "output": args.output,
         "records": len(rows),
         "judge_models": sorted(judge_models),
+        "missing_benchmark_reference": missing_reference,
         "f6_candidates": f6_candidates,
         "e0_cases": e0_cases,
         "evaluation_uncertain_cases": eval_uncertain,
         "modes": counts,
-        "real_memory_semantic_failure_distribution": attribution,
+        "real_memory_semantic_failure_distribution": failure_counts,
+        "mode_semantic_failure_distribution": mode_failure_counts,
         "note": (
             "Failure attribution is conservative. F6 is only assigned when the "
             "semantic evaluator considers the evidence sufficient, confidence is "
             "not low, and all Gold Evidence reaches final context. E0 captures "
-            "evidence/question mismatch or insufficient evidence. A narrow lexical "
+            "evidence/question mismatch or insufficient evidence. A lexical "
             "anchor adjudicator repairs obvious semantic-judge false negatives "
-            "only after evidence sufficiency is established."
+            "only for question-related (or temporal) answers, never for refusals, "
+            "and only after evidence sufficiency is established."
         ),
     }
     summary_path.write_text(

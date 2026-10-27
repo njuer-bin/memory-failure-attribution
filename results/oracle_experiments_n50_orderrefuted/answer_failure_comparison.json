@@ -1,0 +1,60 @@
+{
+  "n_changes": 5,
+  "changes": [
+    {
+      "question_id": "gpt4_2487a7cb",
+      "mode": "real_memory",
+      "old_failure": null,
+      "new_failure": "F1_FORMATION",
+      "old_semantic_correct": true,
+      "new_semantic_correct": false,
+      "new_adjudication": "ordering_refutation",
+      "gold_answer": "'Data Analysis using Python' webinar",
+      "answer": "The 'Effective Time Management' workshop."
+    },
+    {
+      "question_id": "gpt4_2487a7cb",
+      "mode": "oracle_memory",
+      "old_failure": null,
+      "new_failure": "F6_REASONING_CANDIDATE",
+      "old_semantic_correct": true,
+      "new_semantic_correct": false,
+      "new_adjudication": "ordering_refutation",
+      "gold_answer": "'Data Analysis using Python' webinar",
+      "answer": "The 'Effective Time Management' workshop."
+    },
+    {
+      "question_id": "gpt4_2487a7cb",
+      "mode": "oracle_context",
+      "old_failure": null,
+      "new_failure": "RC_REASONING_CONTROL_FAILURE",
+      "old_semantic_correct": true,
+      "new_semantic_correct": false,
+      "new_adjudication": "ordering_refutation",
+      "gold_answer": "'Data Analysis using Python' webinar",
+      "answer": "The 'Effective Time Management' workshop."
+    },
+    {
+      "question_id": "gpt4_1a1dc16d",
+      "mode": "real_memory",
+      "old_failure": null,
+      "new_failure": "F1_FORMATION",
+      "old_semantic_correct": true,
+      "new_semantic_correct": false,
+      "new_adjudication": "ordering_refutation",
+      "gold_answer": "The meeting with Rachel",
+      "answer": "The pride parade happened first on May 1st."
+    },
+    {
+      "question_id": "gpt4_1a1dc16d",
+      "mode": "oracle_memory",
+      "old_failure": null,
+      "new_failure": "F6_REASONING_CANDIDATE",
+      "old_semantic_correct": true,
+      "new_semantic_correct": false,
+      "new_adjudication": "ordering_refutation",
+      "gold_answer": "The meeting with Rachel",
+      "answer": "the pride parade happened first."
+    }
+  ]
+}

@@ -1,0 +1,162 @@
+[
+ {
+  "sample_id": "locomo-004",
+  "gate": "sufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据仅'Last Fri'无锚定日期，无法解析为July 14 2023",
+  "a1_answer": "uncertain",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-006",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据无五个月时长信息；'grand opening tomorrow'与参考'five months'不一致",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-015",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据讲批发商回复可扩张店铺，与参考'the perfect spot'选址不符",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-021",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据无标牌内容描述，ev=no；模型答'Not mentioned'与参考答案（某无法离开的标牌）不符，ans=no",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-022",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据只有问句无答案，ev=no；模型答'Not stated'与参考答案（减压清空思绪）不符，ans=no",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-033",
+  "gate": "sufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据'last Tues'无锚定日期，无法解析为July 18 2023",
+  "a1_answer": "uncertain",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-037",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据'last year at Pride fest'无锚定年份，无法解析为2022",
+  "a1_answer": "uncertain",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-038",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据提及多只猫(Bailey/Oliver/Oscar)但未提狗，与参考'two cats and a dog'不符；模型称无信息也错",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-044",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据仅说abstract painting，未提blue streaks on a wall；模型答horse painting更是无据",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-051",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据仅提及《Charlotte's Web》，未提及《Nothing is Impossible》书名",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-055",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据未描述画的内容（日落/棕榈树）",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-064",
+  "gate": "sufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据仅含'this past weekend'，无锚定日期，无法解析为2023-10-14~15，ans=uncertain",
+  "a1_answer": "uncertain",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-073",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据未提供日期",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-079",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据仅提到受日落启发，未提及'pink sky'",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-086",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据未描述做的是什么（杯子/狗脸）",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-090",
+  "gate": "sufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据仅含'last year'，无锚定日期；模型称尚未收养，与证据矛盾",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-096",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据仅为询问句，未描述诗歌朗诵会内容；模型答案与参考一致",
+  "a1_answer": "yes",
+  "a2_answer": "yes"
+ },
+ {
+  "sample_id": "locomo-098",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据未提及海报或'Trans Lives Matter'",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "locomo-100",
+  "gate": "insufficient",
+  "benchmark": "locomo",
+  "a1_notes": "证据仅提及诗歌朗诵会，未覆盖参考中的conference/counseling workshop",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ },
+ {
+  "sample_id": "longmemeval-052",
+  "gate": "insufficient",
+  "benchmark": "longmemeval",
+  "a1_notes": "证据仅载Alex一月收养，未给Rachel双胞胎出生日期，本行无法判定谁先；参考答案为Alex",
+  "a1_answer": "no",
+  "a2_answer": "no"
+ }
+]

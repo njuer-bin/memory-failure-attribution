@@ -1,0 +1,33 @@
+{
+  "stored_correct_sample": 77,
+  "human_wrong_in_sample": 31,
+  "abstention_style_rows": 25,
+  "naive_rule": {
+    "tp": 13,
+    "fp": 12,
+    "fn": 18,
+    "tn": 34,
+    "precision": 0.52,
+    "recall": 0.41935483870967744
+  },
+  "guarded_rule": {
+    "tp": 13,
+    "fp": 0,
+    "fn": 18,
+    "tn": 46,
+    "precision": 1.0,
+    "recall": 0.41935483870967744
+  },
+  "abstention_subset_2x2": {
+    "tp": 13,
+    "fp": 0,
+    "fn": 0,
+    "tn": 12,
+    "precision": 1.0,
+    "recall": 1.0,
+    "flipped_human_wrong": 13,
+    "flipped_human_correct": 0,
+    "preserved_human_wrong": 0,
+    "preserved_human_correct": 12
+  }
+}

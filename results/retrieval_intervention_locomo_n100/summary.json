@@ -1,0 +1,51 @@
+{
+  "alpha": 0.5,
+  "rows": 100,
+  "f4_subset": 35,
+  "primary_f4": {
+    "placebo_correct": 9,
+    "first_loss_correct": 16,
+    "table": {
+      "n00": 13,
+      "n01": 12,
+      "n10": 5,
+      "n11": 4
+    },
+    "net_flips": 7,
+    "mcnemar": {
+      "n01": 12,
+      "n10": 5,
+      "n_discordant": 17,
+      "statistic": 5,
+      "p_value": 0.143463134765625,
+      "method": "exact_binomial_two_sided"
+    },
+    "bootstrap": {
+      "diff": 0.20588235294117646,
+      "ci_low": -0.029411764705882353,
+      "ci_high": 0.4411764705882353,
+      "repeats": 5000,
+      "seed": 42,
+      "pairs": 34
+    }
+  },
+  "retrieval_recall_f4": {
+    "dense": 0.04285714285714286,
+    "hybrid": 0.32142857142857145
+  },
+  "overall": {
+    "stored_baseline_accuracy": 0.42857142857142855,
+    "agnostic_accuracy": 0.5625
+  },
+  "non_f4_agnostic": {
+    "n": 65,
+    "stored_baseline_correct": 42,
+    "agnostic_correct": 38
+  },
+  "decision": {
+    "success": false,
+    "rule": "net_flips >= 6 and bootstrap CI low > 0 on the F4 subset"
+  },
+  "errors": 0,
+  "comparison": "results\\systems_locomo_n200_fixedgate\\comparison.jsonl"
+}

@@ -7,13 +7,14 @@ import re
 import urllib.error
 import urllib.request
 from calendar import monthrange
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from typing import Any
 
 from evaluation.answer_metrics import exact_match, token_f1
 
 
 BASE_URL = os.getenv("ANSWER_BASE_URL", "http://127.0.0.1:11434").rstrip("/")
+ANSWER_API_STYLE = os.getenv("ANSWER_API_STYLE", "ollama").strip().lower()
 MODEL = os.getenv("ANSWER_MODEL", "qwen2.5:7b")
 TEMPERATURE = float(os.getenv("ANSWER_TEMPERATURE", "0"))
 TIMEOUT = float(os.getenv("ANSWER_TIMEOUT_SECONDS", "180"))
@@ -21,8 +22,8 @@ F1_THRESHOLD = float(os.getenv("ANSWER_F1_THRESHOLD", "0.5"))
 
 
 _DATE_PATTERNS = (
-    re.compile(r"\b(?P<day>\d{1,2})\s+(?P<month>January|February|March|April|May|June|July|August|September|October|November|December),?\s+(?P<year>\d{4})\b", re.I),
-    re.compile(r"\b(?P<month>January|February|March|April|May|June|July|August|September|October|November|December)\s+(?P<day>\d{1,2}),?\s+(?P<year>\d{4})\b", re.I),
+    re.compile(r"\b(?P<day>\d{1,2})(?:st|nd|rd|th)?\s+(?P<month>January|February|March|April|May|June|July|August|September|October|November|December),?\s+(?P<year>\d{4})\b", re.I),
+    re.compile(r"\b(?P<month>January|February|March|April|May|June|July|August|September|October|November|December)\s+(?P<day>\d{1,2})(?:st|nd|rd|th)?,?\s+(?P<year>\d{4})\b", re.I),
     re.compile(r"\b(?P<year>\d{4})[-/]\s*(?P<month>\d{1,2})[-/]\s*(?P<day>\d{1,2})\b"),
 )
 _MONTH_YEAR_PATTERN = re.compile(
@@ -35,21 +36,35 @@ def _normalize(text: str) -> str:
     return " ".join(str(text or "").strip().lower().split())
 
 
-def _extract_date(text: str) -> date | None:
+def _date_from_match(match: re.Match[str]) -> date | None:
+    try:
+        groups = match.groupdict()
+        month = groups["month"]
+        if not month.isdigit():
+            month = datetime.strptime(month[:3], "%b").month
+        day = re.sub(r"(st|nd|rd|th)$", "", groups["day"], flags=re.I)
+        return date(int(groups["year"]), int(month), int(day))
+    except (TypeError, ValueError):
+        return None
+
+
+def _extract_dates(text: str) -> list[date]:
+    """Extract every explicit date in source order, not only the first one."""
     text = str(text or "")
+    matches: list[tuple[int, date]] = []
     for pattern in _DATE_PATTERNS:
-        match = pattern.search(text)
-        if not match:
-            continue
-        try:
-            groups = match.groupdict()
-            month = groups["month"]
-            if not month.isdigit():
-                month = datetime.strptime(month[:3], "%b").month
-            return date(int(groups["year"]), int(month), int(groups["day"]))
-        except (TypeError, ValueError):
-            continue
-    return None
+        for match in pattern.finditer(text):
+            parsed = _date_from_match(match)
+            if parsed is not None:
+                matches.append((match.start(), parsed))
+    ordered = [parsed for _, parsed in sorted(matches, key=lambda item: item[0])]
+    # Different patterns can match the same date; preserve order while deduplicating.
+    return list(dict.fromkeys(ordered))
+
+
+def _extract_date(text: str) -> date | None:
+    dates = _extract_dates(text)
+    return dates[0] if dates else None
 
 
 def _extract_month_period(text: str) -> tuple[date, date] | None:
@@ -121,10 +136,24 @@ def _temporal_period(text: str, anchor: date | None) -> tuple[date, date] | None
 
 
 def _context_anchor_date(context: list[dict[str, Any]]) -> date | None:
-    """Find a benchmark/event date from context without inventing one."""
+    """Find a benchmark/event date from context without inventing one.
+
+    MemoryEngine stores timestamps as Unix milliseconds. Benchmark adapters may
+    instead provide human-readable timestamp strings, so accept both forms.
+    """
     for item in context:
         for key in ("timestamp", "event_timestamp", "date_time", "datetime"):
-            anchor = _extract_date(str(item.get(key) or ""))
+            value = item.get(key)
+            if isinstance(value, bool) or value is None:
+                continue
+            if isinstance(value, (int, float)):
+                # The memory engine uses milliseconds; also tolerate epoch seconds.
+                seconds = float(value) / 1000 if abs(float(value)) >= 100_000_000_000 else float(value)
+                try:
+                    return datetime.fromtimestamp(seconds, tz=timezone.utc).date()
+                except (OverflowError, OSError, ValueError):
+                    continue
+            anchor = _extract_date(str(value))
             if anchor:
                 return anchor
     return None
@@ -140,6 +169,29 @@ def _temporal_equivalent(prediction: str, reference: str, anchor: date | None) -
     ref_period = _temporal_period(reference, anchor)
     pred_month = _extract_month_period(prediction)
     ref_month = _extract_month_period(reference)
+    reference_dates = _extract_dates(reference)
+
+    # Benchmark references sometimes contain both a verbal date description and
+    # a normalized date (e.g. "the Saturday before 25 May 2023 / May 20, 2023").
+    if pred_relative and pred_relative in reference_dates:
+        return True
+
+    # Relative weekday answers are resolved by _temporal_period (as a one-day
+    # interval), not _relative_date. Compare that resolved day against every
+    # explicit date in the reference, including normalized dates after a slash.
+    if pred_period and pred_period[0] == pred_period[1] and pred_period[0] in reference_dates:
+        return True
+
+    # Some references encode a relative period as an explicit interval, e.g.
+    # "the week before 9 June 2023 / From May 29, 2023 to June 4, 2023".
+    # Compare that interval with the resolved prediction period rather than the
+    # first date in the reference (which may be the anchor date).
+    lower_reference = _normalize(reference)
+    if pred_period and "from " in lower_reference and " to " in lower_reference:
+        range_text = reference[lower_reference.find("from "):]
+        range_dates = _extract_dates(range_text)
+        if len(range_dates) >= 2 and pred_period == (range_dates[0], range_dates[1]):
+            return True
 
     if pred_date and ref_relative:
         return pred_date == ref_relative
@@ -186,30 +238,62 @@ def _prompt(question: str, context: list[dict[str, Any]]) -> str:
     )
 
 
-def generate_answer(question: str, context: list[dict[str, Any]]) -> str:
-    payload = {
-        "model": MODEL,
-        "prompt": _prompt(question, context),
-        "stream": False,
-        "options": {"temperature": TEMPERATURE},
-    }
-    request = urllib.request.Request(
-        f"{BASE_URL}/api/generate",
-        data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json"},
-        method="POST",
+def _check_prompt(question: str, context: list[dict[str, Any]], draft: str) -> str:
+    evidence = chr(10).join(
+        "[{}] {}".format(i + 1, str(item.get("content") or "").strip())
+        for i, item in enumerate(context)
+        if str(item.get("content") or "").strip()
     )
-    try:
-        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
-            body = json.loads(response.read().decode("utf-8"))
-    except urllib.error.URLError as exc:
-        raise RuntimeError(
-            f"answer model unavailable at {BASE_URL} (model={MODEL}): {exc}"
-        ) from exc
-    answer = str(body.get("response") or "").strip()
-    if not answer:
-        raise RuntimeError("answer model returned an empty response")
+    return (
+        "Verify a draft answer against the evidence below. Use only the evidence. "
+        "If the draft is fully supported, repeat it unchanged. If it is unsupported "
+        "or contradicted, replace it with the shortest correct answer. "
+        "Do not explain. Output only the final answer."
+        + chr(10) + chr(10)
+        + "Question: " + question
+        + chr(10) + chr(10)
+        + "Evidence:" + chr(10) + evidence
+        + chr(10) + chr(10)
+        + "Draft answer: " + draft
+        + chr(10) + chr(10)
+        + "Final answer:"
+    )
+
+
+def generate_answer(question: str, context: list[dict[str, Any]]) -> str:
+    from evaluation.llm_api import completion
+    answer = completion(
+        _prompt(question, context),
+        MODEL,
+        base_url=BASE_URL,
+        api_key=os.getenv("ANSWER_API_KEY", ""),
+        style=ANSWER_API_STYLE,
+        timeout=TIMEOUT,
+        origin_hint="answer model",
+        transport=urllib.request.urlopen,
+    )
     return answer
+
+
+def generate_self_checked_answer(question: str, context: list[dict[str, Any]]) -> str:
+    """Answer-time verification repair for the reasoning stage.
+
+    The draft is produced by the unchanged baseline prompt; the second call
+    only sees the question, the same evidence, and the draft. Both calls are
+    temperature-0, so the repair adds no sampling variance.
+    """
+    from evaluation.llm_api import completion
+    draft = generate_answer(question, context)
+    return completion(
+        _check_prompt(question, context, draft),
+        MODEL,
+        base_url=BASE_URL,
+        api_key=os.getenv("ANSWER_API_KEY", ""),
+        style=ANSWER_API_STYLE,
+        timeout=TIMEOUT,
+        origin_hint="answer model self-check",
+        transport=urllib.request.urlopen,
+    )
 
 
 def score_answer(

@@ -1,0 +1,503 @@
+{
+  "comparison": "results/systems_locomo_n200_fixedgate/comparison.jsonl",
+  "rows_total": 100,
+  "rows_used": 58,
+  "rows_excluded": 42,
+  "excluded_by_gate": {
+    "sufficient": 58,
+    "insufficient": 41,
+    "error": 1
+  },
+  "modes": [
+    "semantic",
+    "summary",
+    "verbatim"
+  ],
+  "e0_excluded": {
+    "semantic_vs_summary": {
+      "stuart_maxwell": {
+        "chi2": 29.292852116215958,
+        "df": 5,
+        "p_value": 2.0313110547580066e-05,
+        "n": 58,
+        "categories": [
+          "EVAL_SEMANTIC_UNCERTAIN",
+          "F1_FORMATION",
+          "F4_RETRIEVAL",
+          "F5_CONTEXT",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "EVAL_SEMANTIC_UNCERTAIN": {
+            "share_a": 0.05172413793103448,
+            "share_b": 0.017241379310344827,
+            "diff": 0.034482758620689655,
+            "ci_low": -0.034482758620689655,
+            "ci_high": 0.10344827586206896
+          },
+          "F1_FORMATION": {
+            "share_a": 0.3103448275862069,
+            "share_b": 0.0,
+            "diff": 0.3103448275862069,
+            "ci_low": 0.1896551724137931,
+            "ci_high": 0.43103448275862066
+          },
+          "F4_RETRIEVAL": {
+            "share_a": 0.2413793103448276,
+            "share_b": 0.1724137931034483,
+            "diff": 0.06896551724137931,
+            "ci_low": -0.06896551724137931,
+            "ci_high": 0.20689655172413796
+          },
+          "F5_CONTEXT": {
+            "share_a": 0.017241379310344827,
+            "share_b": 0.3620689655172414,
+            "diff": -0.3448275862068966,
+            "ci_low": -0.4827586206896552,
+            "ci_high": -0.22413793103448273
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.0,
+            "share_b": 0.017241379310344827,
+            "diff": -0.017241379310344827,
+            "ci_low": -0.05172413793103448,
+            "ci_high": 0.0
+          },
+          "none": {
+            "share_a": 0.3793103448275862,
+            "share_b": 0.43103448275862066,
+            "diff": -0.051724137931034475,
+            "ci_low": -0.22413793103448282,
+            "ci_high": 0.12068965517241381
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 58
+      },
+      "permutation": {
+        "statistic": 0.3448275862068966,
+        "p_value": 0.0,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 58
+      },
+      "stuart_maxwell_holm": 6.09393316427402e-05
+    },
+    "semantic_vs_verbatim": {
+      "stuart_maxwell": {
+        "chi2": 26.378299120234573,
+        "df": 5,
+        "p_value": 7.535544006845994e-05,
+        "n": 58,
+        "categories": [
+          "EVAL_SEMANTIC_UNCERTAIN",
+          "F1_FORMATION",
+          "F4_RETRIEVAL",
+          "F5_CONTEXT",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "EVAL_SEMANTIC_UNCERTAIN": {
+            "share_a": 0.05172413793103448,
+            "share_b": 0.0,
+            "diff": 0.05172413793103448,
+            "ci_low": 0.0,
+            "ci_high": 0.1206896551724138
+          },
+          "F1_FORMATION": {
+            "share_a": 0.3103448275862069,
+            "share_b": 0.0,
+            "diff": 0.3103448275862069,
+            "ci_low": 0.1896551724137931,
+            "ci_high": 0.43103448275862066
+          },
+          "F4_RETRIEVAL": {
+            "share_a": 0.2413793103448276,
+            "share_b": 0.603448275862069,
+            "diff": -0.3620689655172413,
+            "ci_low": -0.5172413793103448,
+            "ci_high": -0.20689655172413796
+          },
+          "F5_CONTEXT": {
+            "share_a": 0.017241379310344827,
+            "share_b": 0.0,
+            "diff": 0.017241379310344827,
+            "ci_low": 0.0,
+            "ci_high": 0.05172413793103448
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.0,
+            "share_b": 0.017241379310344827,
+            "diff": -0.017241379310344827,
+            "ci_low": -0.05172413793103448,
+            "ci_high": 0.0
+          },
+          "none": {
+            "share_a": 0.3793103448275862,
+            "share_b": 0.3793103448275862,
+            "diff": 0.0,
+            "ci_low": -0.17241379310344826,
+            "ci_high": 0.1724137931034483
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 58
+      },
+      "permutation": {
+        "statistic": 0.3620689655172414,
+        "p_value": 0.0001,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 58
+      },
+      "stuart_maxwell_holm": 7.535544006845994e-05
+    },
+    "summary_vs_verbatim": {
+      "stuart_maxwell": {
+        "chi2": 26.311787072243334,
+        "df": 4,
+        "p_value": 2.737822702928943e-05,
+        "n": 58,
+        "categories": [
+          "EVAL_SEMANTIC_UNCERTAIN",
+          "F4_RETRIEVAL",
+          "F5_CONTEXT",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "EVAL_SEMANTIC_UNCERTAIN": {
+            "share_a": 0.017241379310344827,
+            "share_b": 0.0,
+            "diff": 0.017241379310344827,
+            "ci_low": 0.0,
+            "ci_high": 0.05172413793103448
+          },
+          "F4_RETRIEVAL": {
+            "share_a": 0.1724137931034483,
+            "share_b": 0.603448275862069,
+            "diff": -0.43103448275862066,
+            "ci_low": -0.5862068965517241,
+            "ci_high": -0.27586206896551724
+          },
+          "F5_CONTEXT": {
+            "share_a": 0.3620689655172414,
+            "share_b": 0.0,
+            "diff": 0.3620689655172414,
+            "ci_low": 0.2413793103448276,
+            "ci_high": 0.4827586206896552
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.017241379310344827,
+            "share_b": 0.017241379310344827,
+            "diff": 0.0,
+            "ci_low": -0.05172413793103448,
+            "ci_high": 0.05172413793103448
+          },
+          "none": {
+            "share_a": 0.43103448275862066,
+            "share_b": 0.3793103448275862,
+            "diff": 0.051724137931034475,
+            "ci_low": -0.10344827586206895,
+            "ci_high": 0.20689655172413793
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 58
+      },
+      "permutation": {
+        "statistic": 0.43103448275862066,
+        "p_value": 0.0,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 58
+      },
+      "stuart_maxwell_holm": 6.09393316427402e-05
+    },
+    "_holm": {
+      "semantic_vs_summary": 6.09393316427402e-05,
+      "summary_vs_verbatim": 6.09393316427402e-05,
+      "semantic_vs_verbatim": 7.535544006845994e-05
+    }
+  },
+  "e0_included_sensitivity": {
+    "semantic_vs_summary": {
+      "stuart_maxwell": {
+        "chi2": 28.56260418939109,
+        "df": 6,
+        "p_value": 7.359627791875803e-05,
+        "n": 100,
+        "categories": [
+          "E0_EVIDENCE_INSUFFICIENT",
+          "EVAL_SEMANTIC_UNCERTAIN",
+          "F1_FORMATION",
+          "F4_RETRIEVAL",
+          "F5_CONTEXT",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "E0_EVIDENCE_INSUFFICIENT": {
+            "share_a": 0.21,
+            "share_b": 0.23,
+            "diff": -0.020000000000000018,
+            "ci_low": -0.09000000000000002,
+            "ci_high": 0.05000000000000002
+          },
+          "EVAL_SEMANTIC_UNCERTAIN": {
+            "share_a": 0.04,
+            "share_b": 0.03,
+            "diff": 0.010000000000000002,
+            "ci_low": -0.04,
+            "ci_high": 0.060000000000000005
+          },
+          "F1_FORMATION": {
+            "share_a": 0.18,
+            "share_b": 0.0,
+            "diff": 0.18,
+            "ci_low": 0.11,
+            "ci_high": 0.26
+          },
+          "F4_RETRIEVAL": {
+            "share_a": 0.14,
+            "share_b": 0.1,
+            "diff": 0.04000000000000001,
+            "ci_low": -0.04000000000000001,
+            "ci_high": 0.12000000000000001
+          },
+          "F5_CONTEXT": {
+            "share_a": 0.01,
+            "share_b": 0.21,
+            "diff": -0.19999999999999998,
+            "ci_low": -0.29,
+            "ci_high": -0.12
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.0,
+            "share_b": 0.01,
+            "diff": -0.01,
+            "ci_low": -0.03,
+            "ci_high": 0.0
+          },
+          "none": {
+            "share_a": 0.42,
+            "share_b": 0.42,
+            "diff": 0.0,
+            "ci_low": -0.13,
+            "ci_high": 0.13
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 100
+      },
+      "permutation": {
+        "statistic": 0.2,
+        "p_value": 0.0045,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 100
+      },
+      "stuart_maxwell_holm": 0.00015092962389222912
+    },
+    "semantic_vs_verbatim": {
+      "stuart_maxwell": {
+        "chi2": 25.523269012485805,
+        "df": 6,
+        "p_value": 0.0002730799256363251,
+        "n": 100,
+        "categories": [
+          "E0_EVIDENCE_INSUFFICIENT",
+          "EVAL_SEMANTIC_UNCERTAIN",
+          "F1_FORMATION",
+          "F4_RETRIEVAL",
+          "F5_CONTEXT",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "E0_EVIDENCE_INSUFFICIENT": {
+            "share_a": 0.21,
+            "share_b": 0.19,
+            "diff": 0.01999999999999999,
+            "ci_low": -0.05000000000000002,
+            "ci_high": 0.09000000000000002
+          },
+          "EVAL_SEMANTIC_UNCERTAIN": {
+            "share_a": 0.04,
+            "share_b": 0.02,
+            "diff": 0.02,
+            "ci_low": -0.03,
+            "ci_high": 0.07
+          },
+          "F1_FORMATION": {
+            "share_a": 0.18,
+            "share_b": 0.0,
+            "diff": 0.18,
+            "ci_low": 0.11,
+            "ci_high": 0.26
+          },
+          "F4_RETRIEVAL": {
+            "share_a": 0.14,
+            "share_b": 0.35,
+            "diff": -0.20999999999999996,
+            "ci_low": -0.30000000000000004,
+            "ci_high": -0.12
+          },
+          "F5_CONTEXT": {
+            "share_a": 0.01,
+            "share_b": 0.0,
+            "diff": 0.01,
+            "ci_low": 0.0,
+            "ci_high": 0.03
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.0,
+            "share_b": 0.01,
+            "diff": -0.01,
+            "ci_low": -0.03,
+            "ci_high": 0.0
+          },
+          "none": {
+            "share_a": 0.42,
+            "share_b": 0.43,
+            "diff": -0.010000000000000009,
+            "ci_low": -0.13,
+            "ci_high": 0.10999999999999999
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 100
+      },
+      "permutation": {
+        "statistic": 0.21,
+        "p_value": 0.0007,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 100
+      },
+      "stuart_maxwell_holm": 0.0002730799256363251
+    },
+    "summary_vs_verbatim": {
+      "stuart_maxwell": {
+        "chi2": 27.279944046161923,
+        "df": 5,
+        "p_value": 5.0309874630743037e-05,
+        "n": 100,
+        "categories": [
+          "E0_EVIDENCE_INSUFFICIENT",
+          "EVAL_SEMANTIC_UNCERTAIN",
+          "F4_RETRIEVAL",
+          "F5_CONTEXT",
+          "F6_REASONING_CANDIDATE",
+          "none"
+        ],
+        "method": "stuart_maxwell"
+      },
+      "per_label_bootstrap": {
+        "labels": {
+          "E0_EVIDENCE_INSUFFICIENT": {
+            "share_a": 0.23,
+            "share_b": 0.19,
+            "diff": 0.04000000000000001,
+            "ci_low": -0.03,
+            "ci_high": 0.11000000000000001
+          },
+          "EVAL_SEMANTIC_UNCERTAIN": {
+            "share_a": 0.03,
+            "share_b": 0.02,
+            "diff": 0.009999999999999998,
+            "ci_low": -0.020000000000000004,
+            "ci_high": 0.049999999999999996
+          },
+          "F4_RETRIEVAL": {
+            "share_a": 0.1,
+            "share_b": 0.35,
+            "diff": -0.24999999999999997,
+            "ci_low": -0.35,
+            "ci_high": -0.15000000000000002
+          },
+          "F5_CONTEXT": {
+            "share_a": 0.21,
+            "share_b": 0.0,
+            "diff": 0.21,
+            "ci_low": 0.13,
+            "ci_high": 0.29
+          },
+          "F6_REASONING_CANDIDATE": {
+            "share_a": 0.01,
+            "share_b": 0.01,
+            "diff": 0.0,
+            "ci_low": -0.03,
+            "ci_high": 0.03
+          },
+          "none": {
+            "share_a": 0.42,
+            "share_b": 0.43,
+            "diff": -0.010000000000000009,
+            "ci_low": -0.13,
+            "ci_high": 0.10999999999999999
+          }
+        },
+        "repeats": 10000,
+        "seed": 42,
+        "n": 100
+      },
+      "permutation": {
+        "statistic": 0.25,
+        "p_value": 0.0,
+        "repeats": 10000,
+        "seed": 42,
+        "n": 100
+      },
+      "stuart_maxwell_holm": 0.00015092962389222912
+    },
+    "_holm": {
+      "summary_vs_verbatim": 0.00015092962389222912,
+      "semantic_vs_summary": 0.00015092962389222912,
+      "semantic_vs_verbatim": 0.0002730799256363251
+    }
+  },
+  "label_distribution_used": {
+    "semantic": {
+      "EVAL_SEMANTIC_UNCERTAIN": 3,
+      "F1_FORMATION": 18,
+      "F4_RETRIEVAL": 14,
+      "F5_CONTEXT": 1,
+      "none": 22
+    },
+    "summary": {
+      "EVAL_SEMANTIC_UNCERTAIN": 1,
+      "F4_RETRIEVAL": 10,
+      "F5_CONTEXT": 21,
+      "F6_REASONING_CANDIDATE": 1,
+      "none": 25
+    },
+    "verbatim": {
+      "F4_RETRIEVAL": 35,
+      "F6_REASONING_CANDIDATE": 1,
+      "none": 22
+    }
+  }
+}

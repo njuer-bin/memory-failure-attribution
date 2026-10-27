@@ -1,0 +1,1073 @@
+{
+  "discordant_pairs": 40,
+  "arms": {
+    "first_loss": {
+      "pairs": 11,
+      "pairs_changed": 4,
+      "old_net_flips": 5,
+      "new_net_flips": 8,
+      "old_mcnemar": {
+        "n01": 8,
+        "n10": 3,
+        "n_discordant": 11,
+        "statistic": 3,
+        "p_value": 0.2265625,
+        "method": "exact_binomial_two_sided"
+      },
+      "new_mcnemar": {
+        "n01": 8,
+        "n10": 0,
+        "n_discordant": 8,
+        "statistic": 0,
+        "p_value": 0.0078125,
+        "method": "exact_binomial_two_sided"
+      }
+    },
+    "path": {
+      "pairs": 10,
+      "pairs_changed": 2,
+      "old_net_flips": 4,
+      "new_net_flips": 4,
+      "old_mcnemar": {
+        "n01": 7,
+        "n10": 3,
+        "n_discordant": 10,
+        "statistic": 3,
+        "p_value": 0.34375,
+        "method": "exact_binomial_two_sided"
+      },
+      "new_mcnemar": {
+        "n01": 6,
+        "n10": 2,
+        "n_discordant": 8,
+        "statistic": 2,
+        "p_value": 0.2890625,
+        "method": "exact_binomial_two_sided"
+      }
+    },
+    "agnostic": {
+      "pairs": 19,
+      "pairs_changed": 4,
+      "old_net_flips": 13,
+      "new_net_flips": 16,
+      "old_mcnemar": {
+        "n01": 16,
+        "n10": 3,
+        "n_discordant": 19,
+        "statistic": 3,
+        "p_value": 0.004425048828125,
+        "method": "exact_binomial_two_sided"
+      },
+      "new_mcnemar": {
+        "n01": 16,
+        "n10": 0,
+        "n_discordant": 16,
+        "statistic": 0,
+        "p_value": 3.0517578125e-05,
+        "method": "exact_binomial_two_sided"
+      }
+    }
+  },
+  "pairs": [
+    {
+      "question_id": "conv-26#q0002",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0006",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_temporal",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0012",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0012",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0012",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0014",
+      "arm": "agnostic",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        true,
+        true
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0019",
+      "arm": "first_loss",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        false,
+        false
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0019",
+      "arm": "path",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        true,
+        false
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0020",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        true,
+        true
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0020",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        true,
+        true
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0020",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        true,
+        true
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0029",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "lexical_anchor_override",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0048",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_temporal",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0048",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_temporal",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0058",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0058",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0058",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0064",
+      "arm": "agnostic",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0081",
+      "arm": "first_loss",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        false,
+        false
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0081",
+      "arm": "path",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        false,
+        false
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0081",
+      "arm": "agnostic",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        false,
+        false
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0086",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0096",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0096",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0097",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0097",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0097",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-26#q0098",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_numeric_range",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0021",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0028",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_temporal",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0028",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_temporal",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0028",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "deterministic_temporal",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0042",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0043",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0054",
+      "arm": "first_loss",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": true,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0054",
+      "arm": "path",
+      "old": [
+        true,
+        false
+      ],
+      "new": [
+        true,
+        false
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0056",
+      "arm": "path",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0056",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0058",
+      "arm": "first_loss",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    },
+    {
+      "question_id": "conv-30#q0058",
+      "arm": "agnostic",
+      "old": [
+        false,
+        true
+      ],
+      "new": [
+        false,
+        true
+      ],
+      "changed": false,
+      "rejudged": {
+        "baseline": {
+          "correct": false,
+          "adjudication": "judge",
+          "error": null
+        },
+        "repaired": {
+          "correct": true,
+          "adjudication": "judge",
+          "error": null
+        }
+      }
+    }
+  ]
+}

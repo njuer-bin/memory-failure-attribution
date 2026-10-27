@@ -1,0 +1,27 @@
+{
+  "backend_probe": {
+    "backend": "ollama:bge-m3:latest",
+    "dim": 1024,
+    "configured_model": "bge-m3:latest",
+    "ollama_enabled": true
+  },
+  "rows": 100,
+  "all": {
+    "n": 100,
+    "dense_recall": 0.10606060606060606,
+    "hybrid_recall": 0.35858585858585856
+  },
+  "f4": {
+    "n": 35,
+    "dense_recall": 0.1,
+    "hybrid_recall": 0.34285714285714286
+  },
+  "non_f4": {
+    "n": 65,
+    "dense_recall": 0.109375,
+    "hybrid_recall": 0.3671875
+  },
+  "backends_seen": [
+    "ollama:bge-m3:latest"
+  ]
+}

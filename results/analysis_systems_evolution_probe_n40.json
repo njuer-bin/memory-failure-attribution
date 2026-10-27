@@ -1,0 +1,82 @@
+{
+  "systems": {
+    "summary": {
+      "n": 40,
+      "attributed_accuracy": 0.65,
+      "semantic_judged": 31,
+      "semantic_accuracy": 0.5806451612903226,
+      "failure_distribution": {
+        "EVAL_SEMANTIC_UNCERTAIN": 1,
+        "F6_REASONING_CANDIDATE": 13,
+        "none": 26
+      },
+      "failure_share": {
+        "EVAL_SEMANTIC_UNCERTAIN": 0.025,
+        "F6_REASONING_CANDIDATE": 0.325,
+        "none": 0.65
+      },
+      "gate_distribution": {
+        "insufficient": 8,
+        "sufficient": 32
+      },
+      "stage_recall": {
+        "formation": 1.0,
+        "storage": 1.0,
+        "retrieval": 1.0,
+        "rerank": 1.0,
+        "context": 1.0
+      }
+    },
+    "verbatim": {
+      "n": 40,
+      "attributed_accuracy": 0.35,
+      "semantic_judged": 39,
+      "semantic_accuracy": 0.3333333333333333,
+      "failure_distribution": {
+        "F6_REASONING_CANDIDATE": 26,
+        "none": 14
+      },
+      "failure_share": {
+        "F6_REASONING_CANDIDATE": 0.65,
+        "none": 0.35
+      },
+      "gate_distribution": {
+        "insufficient": 8,
+        "sufficient": 32
+      },
+      "stage_recall": {
+        "formation": 1.0,
+        "storage": 1.0,
+        "retrieval": 1.0,
+        "rerank": 1.0,
+        "context": 1.0
+      }
+    },
+    "semantic": {
+      "n": 40,
+      "attributed_accuracy": 0.675,
+      "semantic_judged": 26,
+      "semantic_accuracy": 0.5,
+      "failure_distribution": {
+        "F6_REASONING_CANDIDATE": 13,
+        "none": 27
+      },
+      "failure_share": {
+        "F6_REASONING_CANDIDATE": 0.325,
+        "none": 0.675
+      },
+      "gate_distribution": {
+        "insufficient": 8,
+        "sufficient": 32
+      },
+      "stage_recall": {
+        "formation": 1.0,
+        "storage": 1.0,
+        "retrieval": 1.0,
+        "rerank": 1.0,
+        "context": 1.0
+      }
+    }
+  },
+  "semantic_questions_matched": 40
+}

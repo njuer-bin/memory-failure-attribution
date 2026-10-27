@@ -1,0 +1,159 @@
+{
+  "n": 177,
+  "agreement": 0.6271186440677966,
+  "kappa": 0.18124474348191752,
+  "marginals_a": {
+    "yes": 99,
+    "no": 101
+  },
+  "marginals_b": {
+    "yes": 155,
+    "no": 22,
+    "uncertain": 23
+  },
+  "pair_table": {
+    "False->UNC": 23,
+    "False->False": 17,
+    "False->True": 61,
+    "True->False": 5,
+    "True->True": 94
+  },
+  "templates_a": {
+    "no_rows": 101,
+    "template_matches": 81,
+    "token_in_reference": 75,
+    "token_in_evidence": 0,
+    "top_tokens": [
+      [
+        "reference detail",
+        6
+      ],
+      [
+        "2023",
+        5
+      ],
+      [
+        "she",
+        4
+      ],
+      [
+        "23",
+        2
+      ],
+      [
+        "woman",
+        2
+      ],
+      [
+        "10",
+        2
+      ],
+      [
+        "25",
+        2
+      ],
+      [
+        "27",
+        2
+      ],
+      [
+        "20",
+        2
+      ],
+      [
+        "2022",
+        2
+      ],
+      [
+        "19",
+        2
+      ],
+      [
+        "receiving",
+        1
+      ],
+      [
+        "arrival",
+        1
+      ],
+      [
+        "7",
+        1
+      ],
+      [
+        "17",
+        1
+      ]
+    ],
+    "examples": [
+      {
+        "sample_id": "longmemeval-016",
+        "token": "receiving",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-017",
+        "token": "arrival",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-020",
+        "token": "7",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-021",
+        "token": "17",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-025",
+        "token": "thailand",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-026",
+        "token": "visitng",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-029",
+        "token": "one",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-030",
+        "token": "2,500",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-034",
+        "token": "720",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      },
+      {
+        "sample_id": "longmemeval-044",
+        "token": "attended",
+        "token_in_reference": true,
+        "token_in_evidence": false
+      }
+    ]
+  },
+  "templates_b": {
+    "no_rows": 22,
+    "template_matches": 0,
+    "token_in_reference": 0,
+    "token_in_evidence": 0,
+    "top_tokens": [],
+    "examples": []
+  }
+}

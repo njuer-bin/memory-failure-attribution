@@ -64,7 +64,10 @@ def iter_raw(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any]]:
     if info["format"]=="json":
         iterator=_iter_json(source)
     elif info["format"]=="jsonl":
-        iterator=_iter_jsonl(ROOT/"locomo_refined_dataset/public/questions.jsonl")
+        source = ROOT/info["source"]
+        if source.is_dir():
+            source = ROOT/"locomo_refined_dataset/public/questions.jsonl"
+        iterator=_iter_jsonl(source)
     elif info["format"]=="parquet":
         iterator=_iter_parquet(source)
     else:
@@ -75,13 +78,15 @@ def iter_raw(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any]]:
         yield row
 
 def iter_normalized(dataset_id:str,*,limit:int|None=None)->Iterator[dict[str,Any]]:
-    from .adapters import normalize_locomo_refined, normalize_longmemeval
+    from .adapters import normalize_locomo_refined, normalize_longmemeval, normalize_evolution_probe
     from .normalize import normalize_record
     info=dataset_info(dataset_id)
     conversations=_locomo_conversations() if dataset_id=="locomo_refined_public" else {}
     for idx,raw in enumerate(iter_raw(dataset_id,limit=limit)):
         if dataset_id in {"longmemeval_s_sample10","longmemeval_oracle"}:
             yield normalize_longmemeval(raw,dataset=dataset_id,index=idx)
+        elif dataset_id in {"evolution_probe","evolution_probe_v2"}:
+            yield normalize_evolution_probe(raw,dataset=dataset_id,index=idx)
         elif dataset_id=="locomo_refined_public":
             cid = str(raw.get("sample_id") or raw.get("conversation_id") or "")
             conversation = conversations.get(cid)

@@ -292,3 +292,62 @@ def normalize_locomo_refined(raw: dict[str, Any], *, index: int, conversation: d
             },
         },
     }
+
+
+def normalize_evolution_probe(raw: dict[str, Any], *, dataset: str, index: int) -> dict[str, Any]:
+    """Normalize one controlled F3 scenario.
+
+    The scenario carries its own sessions and gold turn pointers, so the gold
+    evidence ids use the same ``{session_id}:turn_{index}`` convention the
+    engine assigns during ingestion.
+    """
+    qid = str(raw.get("question_id", index))
+    conversation: list[dict[str, Any]] = []
+    evidence: list[dict[str, Any]] = []
+    gold = {(str(g.get("session_id")), int(g.get("turn_index", -1)))
+            for g in (raw.get("gold_turns") or [])}
+    for session in raw.get("sessions") or []:
+        sid = str(session.get("session_id"))
+        date = session.get("date")
+        messages = [
+            {
+                "role": str(message.get("role") or "user"),
+                "content": str(message.get("content") or ""),
+                "timestamp": date,
+            }
+            for message in (session.get("messages") or [])
+        ]
+        conversation.append({"session_id": sid, "date": date, "messages": messages})
+        for j, message in enumerate(messages):
+            if (sid, j) not in gold:
+                continue
+            evidence.append({
+                "evidence_id": f"{qid}:{sid}:turn_{j}",
+                "source_id": sid,
+                "turn_id": f"{sid}:turn_{j}",
+                "timestamp": date,
+                "text": message["content"],
+                "granularity": "turn",
+            })
+    metadata = dict(raw.get("metadata") or {})
+    metadata.setdefault("normalization", "evolution_probe_v1")
+    metadata.update({
+        "requires_history": bool(raw.get("requires_history")),
+        "measure_evolution": True,
+        "gold_evidence_granularity": "turn",
+        "raw": raw,
+    })
+    return {
+        "dataset": dataset,
+        "family": "EvolutionProbe",
+        "split": None,
+        "example_id": f"{dataset}:{qid}",
+        "conversation_id": qid,
+        "question_id": qid,
+        "question": str(raw.get("question", "")),
+        "answer": raw.get("answer"),
+        "gold_evidence": evidence,
+        "conversation": conversation,
+        "task_type": list(raw.get("task_type") or []),
+        "metadata": metadata,
+    }
