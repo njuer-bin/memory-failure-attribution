@@ -79,6 +79,34 @@ between the two sources and need a final check against the Anthology pages.
 (4) ARR submission-compliance rules (OpenReview+ORCID profiles, anonymous
 repo, relative result paths, PDF metadata strip) are in the notes.
 
+**2026-10-27 competitor close-reading — DONE** (network works via `curl` to
+arxiv.org only; WebFetch/WebSearch remain blocked). Full texts fetched to
+`G:\PythonProject\paper_survey\fetched\*.txt`; distilled to
+`docs/paper/competitor_close_reading_2026-10-27.md`. Verdict, updated:
+(1) **MemTrace (2605.28732v4)** defines the *same problem* (earliest decisive
+faulty operation on an execution graph), builds MemTraceBench from
+LoCoMo+LongMemEval+RealMem over Long-Context/RAG/Mem0/EverMemOS with 160
+human-annotated failure cases, and applies attribution to prompt optimization
+(+7.62 on Mem0/LoCoMo). Its taxonomy even includes Annotation Error (≈ our E0)
+and LLM-as-a-Judge Error. **All "first attribution" wording is dead.**
+(2) **MemOps (2607.12893)** = synthetic lifecycle-operations benchmark
+(remember/forget/update/reflect/trajectory), GPT-4o judge, no human
+calibration (explicitly lists judge calibration as future work — quotable).
+(3) **HaluMem (2511.03506v3)** = synthetic operation-level hallucination
+benchmark (extraction/updating/QA gold standards), GPT-4o scoring, human
+annotation only validates dataset quality, no judge calibration.
+(4) **Surviving differentiation pillars**: instrument honesty (three-round
+pre-registered κ-gate calibration; 30.3% judge-abstention FP; naive-vs-guarded
+abstention rule) — none of the three calibrates its judge; **oracle ladder
+RM/OM/OC with abstention correction** — none of the three separates evidence
+sufficiency from pipeline loss or quantifies memory's cost; **pre-registered
+within-system architecture ablations with honest partial verdicts** —
+MemTrace's cross-system error distributions (Fig 4b) are descriptive only.
+Writing red lines updated in the close-reading file: never claim "first
+attribution", never claim "first to separate annotation from system error";
+claim "first to human-calibrate the attribution instrument and show the
+calibration changes conclusions" + oracle ladder + E0-as-first-class.
+
 ## Strategic reassessment (2026-10-26, adversarial review)
 
 An attack→adjudication review (`docs/reviews/2026-10-26-direction-kill-argument.md`)
