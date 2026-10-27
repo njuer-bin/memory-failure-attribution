@@ -189,15 +189,16 @@ recall. It measures whether prescribed memory operations are performed
 correctly; it does not localise where evidence became unavailable for an
 observed real failure.
 
-**MemOps** (Hao et al., 2026) benchmarks whether systems *execute* lifecycle
-operations — remember, forget, update, reflect, and their compositions — on
-synthetic conversations with gold operation traces and six probe families
-(detection, target binding, state transition, disambiguation, application,
-state trajectory). Its question is "can the system carry out this
-operation?", ours is "for a question the system already answered wrongly,
-which stage of its own pipeline first stopped exposing the evidence?" The
-authors list stronger human validation and judge-calibration studies as
-future work; we perform that calibration.
+**MemOps** (Hao et al., 2026) benchmarks whether systems can *detect,
+execute, and respect* lifecycle operations — remember, forget, update,
+reflect, and their compositions — embedded in synthetic conversations with
+gold operation traces and six probe families (detection, target binding,
+state transition, disambiguation, application, state trajectory). Its
+question is "can the system detect and carry out the right operation, and
+respect the resulting memory state?", ours is "for a question the system
+already answered wrongly, which stage of its own pipeline first stopped
+exposing the evidence?" The authors list stronger human validation and
+judge-calibration studies as future work; we perform that calibration.
 
 **MemTrace** (Deng et al., 2026) is the closest work and the reason this
 paper makes no priority claim on lifecycle attribution. It formalises the

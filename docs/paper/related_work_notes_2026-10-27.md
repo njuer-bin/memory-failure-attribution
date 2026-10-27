@@ -91,19 +91,19 @@
 ```bibtex
 @inproceedings{maharana-etal-2024-locomo,
     title = "Evaluating Very Long-Term Conversational Memory of {LLM} Agents",
-    % ⚠ 两份材料冲突：anthology ID 241 vs 747；作者列表也不同
-    % （Turek+Chowdhury vs Tulyakov+Bansal+Barbieri+Fang——后者疑似张冠李戴）。
-    % 以 aclanthology.org 页面为准核实 ID 与完整作者序。
-    author = "Maharana, Adyasha and Lee, Dong-Ho and Turek, Sergey and Chowdhury, Amrita and others",
+    % VERIFIED 2026-10-27 against aclanthology.org: ID is 2024.acl-long.747
+    % (241 is a different paper); authors/pages/DOI below are from the Anthology page.
+    author = "Maharana, Adyasha and Lee, Dong-Ho and Tulyakov, Sergey and Bansal, Mohit and Barbieri, Francesco and Fang, Yuwei",
     booktitle = "Proceedings of the 62nd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
-    year = "2024", publisher = "Association for Computational Linguistics",
+    pages = "13851--13870", year = "2024", publisher = "Association for Computational Linguistics",
+    doi = "10.18653/v1/2024.acl-long.747",
     url = "https://aclanthology.org/2024.acl-long.747/"
 }
 
 @inproceedings{wu2025longmemeval,
     title = "{L}ong{M}em{E}val: Benchmarking Chat Assistants on Long-Term Interactive Memory",
-    % ⚠ 作者冲突：Zhang, Yunsheng vs Zhang, Yuwei——以 ICLR/OpenReview 页为准。
-    author = "Wu, Di and Wang, Hongwei and Yu, Wenhao and Zhang, Yunsheng and Chang, Kai-Wei and Yu, Dong",
+    % VERIFIED 2026-10-27 against arxiv.org/abs/2410.10813: sixth author is Zhang, Yuwei
+    author = "Wu, Di and Wang, Hongwei and Yu, Wenhao and Zhang, Yuwei and Chang, Kai-Wei and Yu, Dong",
     booktitle = "International Conference on Learning Representations",
     year = "2025", url = "https://arxiv.org/abs/2410.10813"
 }
@@ -132,12 +132,14 @@
 
 @article{deng2026memtrace,
     title = "{M}em{T}race: Tracing and Attributing Errors in Large Language Model Memory Systems",
-    author = "Deng, Xinle and Zhong, Ruobin and Peng, Hujin and Lu, Xiaoben and Wu, Yanzhe and Li, Guang and Xu, Buqiang and Yao, Yunzhi and Fang, Jizhan and Guo, Junjie and Yuan, Yuan and Ma, Ziqing and Yu, Rui and Zhang, Ningyu",
+    % VERIFIED 2026-10-27 against the full text (arXiv 2605.28732v4 author block)
+    author = "Deng, Xinle and Zhong, Ruobin and Peng, Hujin and Lu, Xiaoben and Wu, Yanzhe and Li, Guang and Xu, Buqiang and Yao, Yunzhi and Fang, Jizhan and Cao, Haoliang and Guo, Junjie and Yu, Yuanqiang and Yuan, Yuan and Ma, Ziqing and Hu, Rui and Dong, Baohua and Zhu, Hangcheng and Zhang, Ningyu",
     journal = "arXiv preprint arXiv:2605.28732", year = "2026"
 }
 
 @article{hao2026memops,
     title = "{M}em{O}ps: Benchmarking Lifecycle Memory Operations in Long-Horizon Conversations",
+    % VERIFIED 2026-10-27 against arxiv.org/abs/2607.12893
     author = "Hao, Xixuan and Zhang, Zeyu and Lin, Zehao and Sun, Yihang and Guo, Ziliang and Zhang, Xichong and Liang, Yuxuan and Xiong, Feiyu and Li, Zhiyu",
     journal = "arXiv preprint arXiv:2607.12893", year = "2026"
 }
@@ -230,10 +232,12 @@
 }
 
 @article{du2025rethinking,
-    title = "Rethinking Memory in {AI}: Taxonomy, Operations, Topics, and Future Directions",
+    title = "Rethinking Memory in {LLM} based Agents: Representations, Operations, and Emerging Topics",
+    % VERIFIED 2026-10-27: arXiv 2505.00675; the survey's paraphrase
+    % ("Rethinking memory in AI: Taxonomy, Operations, Topics, and Future
+    % Directions") is not the arXiv title.
     author = "Du, Yiming and Huang, Wenyu and Zheng, Danna and Wang, Zhaowei and Montella, S{\'e}bastien and Lapata, Mirella and Wong, Kam-Fai and Pan, Jeff Z.",
     journal = "arXiv preprint arXiv:2505.00675", year = "2025"
-    % ⚠ arXiv 号待核实（约 2505.00675）
 }
 ```
 
@@ -350,21 +354,34 @@
 
 ---
 
-## 5. 待核实清单（投稿前逐一关闭）
+## 5. 待核实清单（2026-10-27 已用 curl 直连关闭 1–4、6；剩余 5、7–10）
 
-1. LoCoMo anthology ID（241 vs 747）+ 完整作者列表（两份材料冲突，survey-2
-   的作者列表疑似张冠李戴）。
-2. LongMemEval 作者（Zhang Yunsheng vs Yuwei）。
-3. MemTrace / MemOps / HaluMem：arXiv ID、作者列表，**并读全文**（方法、归因
-   算法、标注协议）——这是写 §2 的前置条件。
-4. Du Rethinking Memory arXiv 号（~2505.00675）。
-5. Justice or Prejudice 的 venue（ICLR 2025 vs CALM）。
-6. LoCoMo-Plus、jia-etal-2025 两条 survey-2 独有条目。
-7. Penfield Labs LoCoMo 审计原文（灰色文献，仅作动机脚注）。
-8. LongMemEval 原文 indexing/retrieval/reading 阶段分析的具体小节——§2 转述
-   必须准确。
-9. ARR 2027-01 cycle 日期——每周盯 aclrollingreview.org/dates。
-10. Zhang memory survey 是否已正式刊于 ACM TOIS 2025（是则引正式版）。
+1. ✅ **已核实**：LoCoMo = `2024.acl-long.747`（241 是另一篇论文）；作者为
+   Maharana, Lee, **Tulyakov, Bansal, Barbieri, Fang**（survey-1 的
+   Turek/Chowdhury 是错的，survey-2 正确）；页码 13851–13870。
+2. ✅ **已核实**：LongMemEval 第六作者为 **Zhang, Yuwei**（arXiv 2410.10813）。
+3. ✅ **已读全文**：MemTrace/MemOps/HaluMem 三篇精读见
+   `docs/paper/competitor_close_reading_2026-10-27.md`。MemTrace 作者列表
+   已按全文作者块校正（含 Cao Haoliang、Yu Yuanqiang、Hu Rui、Dong Baohua、
+   Zhu Hangcheng；survey 的 "Yuan Yuan / Rui Yu" 顺序有误）。MemOps 作者
+   列表与 arXiv abs 页一致。
+4. ✅ **已核实**：arXiv 2505.00675 的正式标题是 "Rethinking Memory in LLM
+   based Agents: Representations, Operations, and Emerging Topics"，调研
+   给的标题是转述。
+5. ⚠ 未核：Justice or Prejudice 的 venue（ICLR 2025 vs CALM）。
+6. ✅ **已核实**：LoCoMo-Plus（2026.acl-long.1150）与 jia-etal-2025
+   （2025.findings-acl.1014）两条均在 ACL Anthology 存在。
+7. ⚠ 未核：Penfield Labs LoCoMo 审计原文（灰色文献，仅作动机脚注）。
+8. ⚠ 未核：LongMemEval 原文 indexing/retrieval/reading 阶段分析的具体小节
+   ——§2.1 目前按 "conceptualises a memory system as a three-stage process"
+   转述，与该论文一致，但引用前应读对应小节。
+9. ⚠ 未官宣：ARR 2027-01 cycle 日期——每周盯 aclrollingreview.org/dates。
+10. ⚠ 未核：Zhang memory survey 是否已正式刊于 ACM TOIS 2025（是则引正式版）。
+
+**网络现状**：curl 直连 arxiv.org 与 aclanthology.org 均可用；
+WebFetch/WebSearch 被域名验证层拦截。ACL 模板文件在
+`https://raw.githubusercontent.com/acl-org/acl-style-files/master/acl.sty`
+（HTTP 200，`master` 分支；`main/latex/` 路径 404）。
 
 ## 6. §2 结构建议（两份材料综合）
 
