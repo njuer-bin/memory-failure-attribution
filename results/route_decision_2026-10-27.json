@@ -1,0 +1,68 @@
+{
+  "stage": "route",
+  "decided_utc": "2026-10-27",
+  "decision": "accept gate-B partial; pivot to the analysis/resource paper",
+  "decided_by": "project lead",
+  "venue_target": {
+    "venue": "COLING",
+    "route": "ACL Rolling Review (ARR) — COLING is an ACL-series venue and recent COLING cycles took submissions through ARR; confirm the current cycle's mechanism before committing.",
+    "format_assumption": "ACL-style two-column long paper, ~8 pages of content plus references and appendices.",
+    "deadline": "UNVERIFIED — WebSearch returns an upstream 400 and WebFetch to aclrollingreview.org is blocked by policy from this host. Do not state a date until it is checked from a networked machine."
+  },
+  "basis": {
+    "gate_a": "PASSED — E0-excluded stage-distribution tests remain significant (LoCoMo n=100, all three pairs, Holm <= 6.1e-5) and blind human stage annotation reached multiclass kappa 0.897 (bar 0.70).",
+    "gate_b": "PARTIAL — see results/decision_gate_b.json. A1 moves the stage significantly (Stuart-Maxwell chi2=19.75, df=6, p=0.00307; F1 share 0.13 -> 0.00, F4 share 0.12 -> 0.24) and A3 moves it at p=0.066 (F4 0.37 -> 0.23), but the largest dominant-stage share move is 13 points (A1) and 14 points (A3), both below the pre-registered 20-point bar. 0 of 2 evaluated conditions pass both criteria.",
+    "gate_b_caveats": [
+      "The pre-registered rule requires at least two of three systems. A2 was deferred, so only A1 and A3 were evaluable and at most one could have passed — the gate cannot return a pass under the executed design.",
+      "The 20-point share bar interacts with base rate: F1 occupied only 13% of rows in the A1 run, so removing formation failure entirely can move that share by at most 13 points."
+    ]
+  },
+  "surviving_claims": [
+    {
+      "id": "C1",
+      "claim": "An attribution protocol that localises the first observable evidence-loss boundary (F1 formation, F2 storage, F3 evolution, F4 retrieval, F5 context, F6 reasoning candidate, E0 evidence-insufficient, EVAL) rather than a causal root cause.",
+      "evidence": ["docs/PROTOCOL.md", "evaluation/attribution.py", "results/analysis_ladder_locomo_n100_fixedgate.json"]
+    },
+    {
+      "id": "C2",
+      "claim": "A human audit of the automatic instruments: LLM-judge abstention false positives (20/66 stored-correct rows, 30.3%, are human-wrong, 13 of them abstention-style answers); a naive 'abstention means wrong' correction is only 52% precise while the guarded rule is 13/13 on the sampled abstentions; the evidence gate had to be rebuilt three times before reaching an acceptable instrument (fact-level kappa 0.835, row-level 0.889); the human stage-annotation instrument is reliable (kappa 0.897) while the automatic first-loss label is not (human-vs-auto kappa 0.590-0.705).",
+      "evidence": ["results/analysis_annotations_adjudicated_n200.json", "results/analysis_abstention_rule_validation.json", "results/analysis_annotations_round3.json", "results/analysis_round5_pilot_v2.json", "docs/paper/instrument_honesty.md"]
+    },
+    {
+      "id": "C3",
+      "claim": "An abstention-corrected oracle ladder: on LoCoMo (semantic accuracy) real 0.306 -> oracle memory 0.682 -> oracle context 0.761 with all three rungs significant; on LongMemEval 0.479 -> 0.676 -> 0.799 with the last rung not significant. The size of the memory-induced loss is benchmark-dependent.",
+      "evidence": ["results/analysis_abstention_corrected_locomo_n200.json", "results/analysis_abstention_corrected_longmemeval_n200.json", "results/analysis_ladder_locomo_n200_corrected.json", "results/analysis_ladder_longmemeval_n200_corrected.json"]
+    },
+    {
+      "id": "C4",
+      "claim": "Architecture-conditional stage localisation. On LoCoMo n=100 the three memory systems have statistically indistinguishable end accuracy (0.407/0.423/0.429; paired McNemar p=0.736/0.728/0.864) but significantly different failure-stage distributions (Stuart-Maxwell p=5.0e-5/7.4e-5/2.7e-4, Holm-adjusted all <= 2.7e-4, and significant with E0 excluded). Two architecture ablations move the stage in the pre-registered direction (A1: F1 share 0.13 -> 0.00 with formation recall 0.473 -> 0.990 and F4 0.12 -> 0.24, Stuart-Maxwell p=0.0031; A3: F4 0.37 -> 0.23, p=0.066) while accuracy is unchanged (A1: 0.500 vs 0.430, McNemar p=0.392) or improved (A3: 0.351 vs 0.527, p=0.014). The stage at which a system loses evidence tracks its architectural bottleneck; it is therefore reported as architecture-conditional, not as a universal property of memory agents.",
+      "evidence": ["results/analysis_ladder_locomo_n100_fixedgate.json", "results/analysis_stage_excluding_e0_locomo_n100.json", "results/analysis_ablation_a1_n100.json", "results/analysis_ablation_a3_n100.json", "results/decision_gate_b.json"]
+    }
+  ],
+  "retracted_claims": [
+    {
+      "claim": "'A stable, universal failure fingerprint across memory systems' as a phenomenon claim about memory agents in general.",
+      "reason": "Gate B partial: turning off each system's own bottleneck moves its dominant failure stage by 12-14 points with a significant within-system Stuart-Maxwell (A1) — the fingerprint is a property of the architecture, not a universal invariant.",
+      "status": "retracted; replaced by C4"
+    },
+    {
+      "claim": "That stage localisation is actionable, i.e. that targeting the measured stage improves accuracy beyond retest noise.",
+      "reason": "Intervention (a) missed its pre-registered rule: net +7 flips, McNemar p=0.143, bootstrap CI [-0.029, +0.441], with a no-op placebo flipping 9/35. Contribution 4 is null and Stage C is not started.",
+      "status": "not claimed"
+    }
+  ],
+  "limitations_to_state_in_the_paper": [
+    "The fingerprint headline rests on one benchmark (LoCoMo n=100). The LongMemEval full-haystack evidence is a qualitative n=10 pilot only.",
+    "Every reported run uses the in-process hash:384 embedding fallback. The bge-m3 check shows the retrieval bottleneck persists under a real embedder (F4 dense recall 0.043 -> 0.100), so it is not an embedding artifact, but the backend is fixed and comparisons are within-backend only.",
+    "A single judge model (DeepSeek-v4.1-flash) was used throughout; no second-model protocol was approved.",
+    "Fingerprint labels come from the automatic gate; the failure labels themselves were 90% human-confirmed (54/60). E0 levels are not quoted as levels.",
+    "Stage B evaluated two of the three pre-registered conditions; A2 (summary bottleneck) is deferred."
+  ],
+  "next_steps": [
+    "Write the analysis-paper skeleton around C1-C4 with the retractions stated explicitly.",
+    "Fold docs/paper/instrument_honesty.md into the draft (its number-to-artifact table is already built).",
+    "Decide whether a LongMemEval full-haystack scale-up (n=50) is needed for external validity, or whether the paper states the single-benchmark limitation.",
+    "Do not start Stage C interventions.",
+    "Do not resurrect the universal-fingerprint framing in any abstract or introduction."
+  ]
+}

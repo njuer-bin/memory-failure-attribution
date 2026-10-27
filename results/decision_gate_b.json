@@ -1,0 +1,97 @@
+{
+  "stage": "B",
+  "generated_utc": "2026-10-27T03:23:33.217755+00:00",
+  "preregistered_criteria": {
+    "pass_condition": "The fingerprint is architecture-conditional if, for at least two of the three systems, turning off its bottleneck: (1) changes that system's dominant-stage share by >= 20 percentage points (e.g. semantic F1 share falls by >= 0.20), and (2) the within-system Stuart-Maxwell p < 0.05 survives Holm across the three tests.",
+    "fail_condition": "The fingerprint is architecture-independent if all three knobs leave the dominant-stage share within +-10 points and no within-system test is significant.",
+    "between": "Anything between is reported as partial and the claim is narrowed to the systems/conditions where the stage moved.",
+    "share_bar_points": 20.0,
+    "alpha": 0.05
+  },
+  "preregistration_sources": [
+    "docs/research/2026-10-26-architecture-ablation-design.md",
+    "docs/CCF_B_DECISION_PLAN_2026-10-26.md"
+  ],
+  "conditions": {
+    "A1": {
+      "system": "semantic",
+      "knob": "raw-write verbatim storage (removes the fact-extraction bottleneck)",
+      "analysis": "results/analysis_ablation_a1_n100.json",
+      "pair": "semantic_vs_semantic_rawwrite",
+      "shares": {
+        "F1_FORMATION": {
+          "baseline": 0.13,
+          "knob_on": 0.0,
+          "move_points": 13.0
+        },
+        "F4_RETRIEVAL": {
+          "baseline": 0.12,
+          "knob_on": 0.24,
+          "move_points": 12.0
+        }
+      },
+      "largest_move_points": 13.0,
+      "stuart_maxwell": {
+        "chi2": 19.749,
+        "df": 6,
+        "p": 0.0030694547181872346,
+        "holm": 0.0030694547181872346
+      },
+      "permutation_p": 0.0394,
+      "criterion_1_share_20pts": false,
+      "criterion_2_holm_significant": true,
+      "condition_pass": false,
+      "paired_accuracy": {
+        "baseline": 0.5,
+        "knob_on": 0.43010752688172044,
+        "mcnemar_p": 0.39152830513194203,
+        "bootstrap_diff": 0.06521739130434782,
+        "bootstrap_ci": [
+          -0.05434782608695652,
+          0.18478260869565216
+        ]
+      }
+    },
+    "A3": {
+      "system": "verbatim",
+      "knob": "hybrid ranking (0.5 cosine + 0.5 question-token overlap)",
+      "analysis": "results/analysis_ablation_a3_n100.json",
+      "pair": "verbatim_vs_verbatim_hybrid",
+      "shares": {
+        "F4_RETRIEVAL": {
+          "baseline": 0.37,
+          "knob_on": 0.23,
+          "move_points": 14.0
+        }
+      },
+      "largest_move_points": 14.0,
+      "stuart_maxwell": {
+        "chi2": 8.794,
+        "df": 4,
+        "p": 0.06646152513593867,
+        "holm": 0.06646152513593867
+      },
+      "permutation_p": 0.0087,
+      "criterion_1_share_20pts": false,
+      "criterion_2_holm_significant": false,
+      "condition_pass": false,
+      "paired_accuracy": {
+        "baseline": 0.35051546391752575,
+        "knob_on": 0.5268817204301075,
+        "mcnemar_p": 0.0137181850586785,
+        "bootstrap_diff": -0.18681318681318682,
+        "bootstrap_ci": [
+          -0.31868131868131866,
+          -0.04395604395604396
+        ]
+      }
+    }
+  },
+  "conditions_passed": [],
+  "conditions_evaluated": [
+    "A1",
+    "A3"
+  ],
+  "verdict": "partial",
+  "note": "A2 (summary raw-context) is deferred; the smoke showed its stage does not move because context assembly, not summary lossiness, binds. With two evaluated conditions at most one can pass, so the pre-registered 'at least two of three' rule cannot be satisfied until A2 or A4 runs."
+}

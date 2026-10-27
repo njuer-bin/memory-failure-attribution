@@ -47,3 +47,28 @@ changed, why, and which analyses it invalidates or re-labels.
 - Decision impact: none on stored results; the gate-B rule is unchanged
   (≥2 systems move their dominant-stage share ≥20 points with Holm-significant
   within-system Stuart–Maxwell).
+
+## 2026-10-27 — Gate B verdict and claim re-scope (route decision)
+- Item: the Stage B decision gate and the paper's phenomenon claim.
+- Old: gate B passes only if ≥2 of 3 systems move their dominant-stage share
+  ≥20 points with Holm-significant within-system Stuart–Maxwell; on a pass the
+  project would continue the CCF-B phenomenon paper.
+- New: gate B is **partial** — A1 (semantic vs semantic_rawwrite, n=100) moves
+  the stage significantly (SM χ²=19.75, df=6, p=0.00307; F1 share 0.13→0.00,
+  F4 0.12→0.24; accuracy 0.500 vs 0.430, p=0.392) but the largest share move is
+  13 points; A3 moves 14 points at p=0.066. Neither condition meets the 20-point
+  bar, so 0 of 2 evaluated conditions pass. The claimed phenomenon is **re-scoped
+  from a universal failure fingerprint to architecture-conditional stage
+  localisation**, and the route switches to the analysis/resource paper.
+- Reason: the pre-registered rule is applied as written; the bar is not lowered
+  after seeing the result. Two protocol facts are recorded with the verdict:
+  (i) with A2 deferred, only 2 of the 3 systems were evaluable, so the rule
+  could not return a pass; (ii) the F1 share was 13% of rows, so eliminating
+  formation failure can move that share by at most 13 points.
+- Affected analyses: `results/analysis_ablation_a1_n100.json`,
+  `results/analysis_ablation_a3_n100.json`, `results/decision_gate_b.json`,
+  `results/route_decision_2026-10-27.json`. Claims C1–C3 are unchanged; C4 is
+  new; the universal-fingerprint claim is retracted; the actionable-diagnosis
+  claim was already null.
+- Decision impact: re-scope (claims and paper route). No stored result is
+  invalidated; no criterion is changed.

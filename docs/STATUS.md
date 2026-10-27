@@ -1,15 +1,61 @@
 # Status — where to resume
 
-Last updated: 2026-10-26, **paused mid-Stage-B**. Stage A gate is **PASSED**
-(E0-excluded stage tests still significant; blind stage annotation κ=0.897).
-Stage B A3 is complete (real accuracy gain; stage movement below the gate bar);
-**A1 is paused at 44/100, errors 0, resumable**. A2 is deferred. The governing
-plan is `docs/CCF_B_DECISION_PLAN_2026-10-26.md`; freeze
-`docs/PROTOCOL_FREEZE.md`; changelog `docs/PRE_REGISTRATION_CHANGELOG.md`.
-Do not polish the paper until gates A/B are settled.
+Last updated: 2026-10-27, **Stage B evaluated — verdict PARTIAL, not passed**.
+Stage A gate is **PASSED** (E0-excluded stage tests still significant; blind
+stage annotation κ=0.897). Stage B: A1 (semantic vs semantic_rawwrite, n=100)
+is **COMPLETE** (100/100, errors 0); A3 was already complete. Both conditions
+move the stage in the predicted direction but both fall short of the
+pre-registered ≥20-point share bar, so gate B does **not** pass. A2 is
+deferred, which makes a literal "2 of 3 systems" pass arithmetically
+impossible. The governing plan is `docs/CCF_B_DECISION_PLAN_2026-10-26.md`;
+freeze `docs/PROTOCOL_FREEZE.md`; changelog
+`docs/PRE_REGISTRATION_CHANGELOG.md`. Decision artifact:
+`results/decision_gate_b.json` (regenerate with
+`python -m experiments.emit_decision_gate`).
+Do not polish the paper until the gate-B verdict is turned into a route
+decision. **Route decided 2026-10-27: accept the partial, pivot to the
+analysis/resource paper** — `results/route_decision_2026-10-27.json`, changelog
+entry of the same date. Claims C1–C3 survive, C4 (architecture-conditional
+stage localisation) is the new headline, the universal-fingerprint claim is
+retracted, and the actionable-diagnosis claim stays null.
 
 This is the single resume point. History and reasoning live in
 `docs/RESEARCH_LOG.md`; definitions live in `docs/PROTOCOL.md`.
+
+## Paper draft (2026-10-27)
+
+`docs/paper/manuscript.md` — full draft written in Markdown (this session, from
+the route-decision claim set), target COLING (ARR), ACL long-paper length
+assumed. `docs/paper/instrument_honesty.md` is restored from git (it had been
+deleted in the working tree) and is absorbed into §3.
+
+| section | state |
+|---|---|
+| Abstract | drafted |
+| 1 Introduction + contributions C1–C4 | drafted, negative results N1–N3 named up front |
+| 2 Protocol (stages, label versions, what it does not establish) | drafted |
+| 3 Auditing the instruments (3.1–3.6) | drafted; absorbs `instrument_honesty.md` |
+| 4 Oracle ladder, benchmark-dependent (auto vs corrected, Table 1) | drafted |
+| 5 Stage localisation + ablations + gate B verdict + non-actionable | drafted |
+| 6 Limitations | drafted |
+| 7 Reproducibility + Ethical considerations | drafted |
+| Appendix A Claim→artifact map | drafted; script names verified on disk |
+| Appendix B Gate-B criteria verbatim | drafted |
+
+**Numbers were re-verified against the artifacts in this session** (n=100
+fingerprint, E0-excluded tests, A1/A3 ablations, both corrected n=200 ladders,
+round-3 gate, round-5 v2 stage annotation, abstention-rule validation,
+adjudicated audit, intervention summary, bge-m3 check). Fixes applied during
+the pass: McNemar triplet stated exactly (0.736/0.728/0.864, not "≥ 0.73");
+Holm ceiling stated as ≤ 2.8e-4 (artifact value 2.731e-4, not ≤ 2.7e-4);
+ladder bootstrap-CI parenthetical scoped to corrected labels; the n=10 pilot
+sentence re-phrased to match the stored failure labels; three Appendix-A
+script names corrected to on-disk names.
+
+**Not done yet:** related-work prose (no literature survey in the draft),
+LaTeX/ACL template conversion (no template on disk, network blocked), figures
+(none generated), references (placeholder anchors only), venue deadline still
+unverified.
 
 ## Strategic reassessment (2026-10-26, adversarial review)
 
@@ -52,44 +98,78 @@ The bge-m3 check should precede both.
 
 ## Start here next session (punch list)
 
-## RESUME HERE (paused 2026-10-26)
+## RESUME HERE (2026-10-27)
 
-**State:** Stage B A1 (`semantic` vs `semantic_rawwrite`, n=100) is paused at
-**44/100**, `errors: 0`; 44 complete rows are in
-`results/systems_ablation_n100_a1/comparison.jsonl`; `progress.json` still says
-"running" (stale after the pause). Nothing is corrupt; `--resume` skips
-completed questions.
+**State:** Stage B is complete for the two conditions that were run; gate B
+verdict is **partial** (`results/decision_gate_b.json`). Nothing is paused and
+no run is in flight.
 
-**Before restarting:** confirm ≥3 GB free memory (it was 1.35 GB at pause, 5.57
-GB after apps were closed). If low, close browsers / cloud-sync / Steam first.
+**A1 — COMPLETE (2026-10-27).** `results/systems_ablation_n100_a1/`
+(100 rows, `errors: 0`, resumed 44→100 in 6,374 s; the 44 pre-pause rows were
+reused, so the run is one continuous batch). Systems: `semantic` vs
+`semantic_rawwrite` (write-through verbatim storage removes the fact-extraction
+bottleneck). `candidate_k=20, top_k=10, context_chars=6000`, shared per-question
+gate, DeepSeek-v4.1-flash only. Analysis:
+`results/analysis_ablation_a1_n100.json`.
 
-**Resume command:**
+| system | acc (judged) | formation / retrieval / context recall | failures |
+|---|---|---|---|
+| semantic | 0.500 (96) | 0.473 / 0.369 / 0.303 | none 52, E0 21, **F1 13**, F4 12, F5 1, F6 1 |
+| semantic_rawwrite | 0.430 (93) | **0.990** / 0.394 / 0.323 | none 44, E0 22, **F4 24**, F6 4, F5 3, EVAL 3, F1 **0** |
 
-```bash
-G:/aconda/python.exe -m experiments.run_systems \
-  --dataset locomo_refined_public --limit 100 \
-  --systems semantic,semantic_rawwrite \
-  --context-chars 6000 --candidate-k 20 --top-k 10 \
-  --out-dir results/systems_ablation_n100_a1 --resume
-```
+- **Mechanism exactly as predicted.** Removing the extraction bottleneck lifts
+  formation recall 0.473→0.990, erases F1 (13→0) and doubles retrieval failures
+  (12→24). Per-label paired bootstrap: F1 +0.13 CI [0.07, 0.20] and F4 −0.12
+  CI [−0.22, −0.03], both excluding 0.
+- **Within-system Stuart–Maxwell is now significant**: χ²=19.75, df=6,
+  p=0.00307 (Holm 0.00307); permutation max-abs p=0.0394. This is the first
+  architecture-ablation condition where the stage-distribution test itself
+  clears α.
+- **Accuracy is unchanged**: 0.500 vs 0.430, McNemar n01=14/n10=20, p=0.392,
+  bootstrap diff 0.065 CI [−0.054, 0.185]. Same accuracy, different failure
+  location — the within-system analogue of the paper's headline.
+- **But the pre-registered bar is missed.** The gate requires a ≥20-point move
+  in the dominant-stage share; the largest moves are 13 points (F1) and 12
+  points (F4). So A1 is **partial**, the same classification as A3
+  (14 points, SM p=0.066).
 
-**After A1 completes (56 records left, ~1.5–2 h):**
+**Gate B verdict: PARTIAL — not passed** (`results/decision_gate_b.json`).
+0 of 2 evaluated conditions pass both criteria. Two protocol facts must stay
+attached to this verdict:
+1. The rule is "at least two of three systems". A2 is deferred (smoke showed
+   context assembly, not summary lossiness, binds), so only A1 and A3 were
+   evaluable and at most one could ever pass. **As written the gate cannot
+   return a pass from this design.**
+2. The 20-point bar interacts with base rate: F1 was only 13% of rows in this
+   run, so eliminating formation failure entirely can move the share at most
+   13 points. The direction and significance criteria are met; the magnitude
+   criterion is not. Do not restate the bar after the fact.
 
-1. Analyze with
-   `python -m experiments.analyze_ladder --comparison results/systems_ablation_n100_a1/comparison.jsonl --out results/analysis_ablation_a1_n100.json`.
-2. Apply **gate B**: architecture-conditional if ≥2 of 3 systems move their
-   dominant-stage share ≥20 points with Holm-significant within-system
-   Stuart–Maxwell. Current score: A3 is **partial** (F4 share 37→23, −14
-   points, p=0.066; accuracy +17.6 points, p=0.014); A1 is the decisive one.
-3. Gate B pass → Stage C (re-pre-registered intervention: repeat arms,
-   human-confirmed F4, n=200, power analysis). Gate B fail → narrow the claim
-   / pivot to the analysis paper. Do not start Stage C before this decision.
-4. Parallel annotation: expand round-5 v2 from the 40-row pilot to the full
-   **100 questions × semantic+verbatim** (200 rows) for the human-confirmed
-   labels Stage C needs. Summary traces still require LLM summaries (~1,900
-   calls) and remain deferred.
-5. Git: `5d8282b` (A3 result) is **local, not pushed**; A1's result dir is
-   untracked until it completes. Push only on explicit instruction.
+**Route decided (2026-10-27).** Per the decision plan, gate B partial →
+narrow the claim to the conditions where the stage moved, and the route goes to
+the analysis/resource paper. Recorded in
+`results/route_decision_2026-10-27.json` and the changelog entry of the same
+date. The alternative paths (run A2a/A2b + A4 and re-apply the bar; run a
+Mem0/A-MEM black-box condition as B2) remain open if the paper later needs
+them, but are **not** part of the current plan. Stage C (interventions) is not
+started and contribution 4 stays null.
+
+**Next work item: the analysis-paper draft is written** —
+`docs/paper/manuscript.md` (full draft, numbers re-verified against artifacts;
+see the "Paper draft" section above). **Venue: COLING, via ARR** (decided
+2026-10-27); ACL long-paper format assumed. **Deadline unverified — web access
+is blocked from this host** (WebSearch 400, WebFetch policy-blocked); check
+from a networked machine before committing to a cycle. Remaining gaps:
+related-work survey prose, LaTeX conversion, figures, real bibliography.
+
+**Annotation (parallel, not blocking).** Expanding round-5 v2 from the 40-row
+pilot to 100 questions × semantic+verbatim needs the semantic system re-ingested
+(~1,900 LLM extraction calls); verbatim is free. Not started — needs budget
+approval. Summary traces remain deferred (~1,900 summary calls).
+
+**Git:** `5d8282b` (A3 result) and `41e3c8c` (pause doc) are **local, not
+pushed**; `results/` is gitignored so A1's rows are local-only. Push only on
+explicit instruction.
 
 The items below are the completed record that feeds those gates.
 
@@ -148,9 +228,11 @@ The items below are the completed record that feeds those gates.
    bar**. So A3 is a real repair but **does not by itself establish
    architecture-conditional staging**. A1 (formation) is the stronger
    candidate next. Artifact: `results/analysis_ablation_a3_n100.json`.
-   **A1 n=100 — PAUSED at 44/100.** `results/systems_ablation_n100_a1/`
-   (44 complete rows, errors 0; `progress.json` stale "running"). Resume with
-   the command in **RESUME HERE** above; then analyze and apply gate B.
+   **A1 n=100 — COMPLETE (2026-10-27), partial.** `results/systems_ablation_n100_a1/`
+   (100/100, errors 0). Formation recall 0.473→0.990, F1 13→0, F4 12→24,
+   within-system Stuart–Maxwell p=0.0031; largest share move 13 points,
+   below the pre-registered 20-point bar. Accuracy unchanged (0.500 vs 0.430,
+   p=0.392). See **RESUME HERE** at the top and `results/decision_gate_b.json`.
 3. **Do not polish the paper or expand CCF-B claims** until gates A and B
    report pass/fail.
 
