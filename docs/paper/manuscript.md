@@ -19,8 +19,9 @@ bibliography draft, with conflicts flagged for final verification, is in
 
 When a long-term memory agent answers incorrectly, accuracy benchmarks cannot
 say where the failure happened. We present an attribution protocol that traces
-each gold-evidence item through six lifecycle stages — formation, storage,
-evolution, retrieval, context assembly, and answer reasoning — and localises
+each gold-evidence item through the system's lifecycle — formation, storage,
+evolution, retrieval, context assembly, and answer reasoning (evolution is
+exercised only on a controlled probe) — and localises
 the **first observable evidence-loss boundary** (F1–F6), with an explicit
 evidence-insufficiency label (E0) for questions the gold evidence cannot
 support. Because an attribution claim is only as good as its instruments, we
@@ -700,6 +701,12 @@ not started.
   400 n = 200 questions.
 - **Stage B evaluated two of three conditions** (A2 deferred), and the gate's
   pass rule was arithmetically unreachable under the executed design (§6.4).
+- **No head-to-head comparison with the operation-diagnostic benchmarks.**
+  HaluMem, MemOps, and MemTraceBench each define their own systems and gold
+  annotations; our protocol is applied only to our own three systems, so the
+  comparison in §2 is architectural, not an empirical ranking. A shared
+  evaluation would need a common question set with gold evidence and
+  per-system traces, which none of the four artifacts provides together.
 - **Evolution (F3)** is measured only on a controlled probe, not on the
   benchmark runs; nothing here quantifies evolution-stage loss in the wild.
 
