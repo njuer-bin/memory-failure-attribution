@@ -53,6 +53,23 @@ ladder bootstrap-CI parenthetical scoped to corrected labels; the n=10 pilot
 sentence re-phrased to match the stored failure labels; three Appendix-A
 script names corrected to on-disk names.
 
+**Stage-label audit added 2026-10-27** (`experiments/audit_stage_labels.py` +
+`tests/test_audit_stage_labels.py`, artifact
+`results/analysis_stage_label_audit.json`, 232 tests pass). Three readouts:
+(i) per-class precision/recall/F1 of the automatic stage label against the
+40-row human pilot — formation .875/.875/.875, retrieval .682/1.000/.811,
+none 1.000/1.000/1.000, but **e0 and rerank are never emitted** (recall 0,
+support 4 and 3): the label is a reliable formation/retrieval/none
+classifier and structurally cannot decompose E0/rerank losses; (ii) per-system
+pilot distributions agree with the automatic dominant stages (semantic
+formation, verbatim retrieval); (iii) Monte-Carlo label-noise sensitivity on
+the n=100 fingerprint — with noise drawn from the empirical auto→human
+confusion, all three pairs keep SM p < .05 in **100% of 300 draws at
+q ≤ 0.5**; under uniform adversarial relabeling survival at q=0.5 is
+0.31/0.73/0.88. Integrated into §4.5 (per-class table + reading) and §6.3
+(sensitivity bullets). The method-comparison table is now Table 1; the
+oracle ladder and fingerprint tables are Tables 2 and 3.
+
 **Not done yet:** LaTeX/ACL template conversion, figures, final bibliography
 (working BibTeX draft in `docs/paper/related_work_notes_2026-10-27.md` with
 conflicts flagged for verification), venue deadline (now known: next target

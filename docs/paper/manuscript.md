@@ -138,9 +138,11 @@ intervention that repairs the measured retrieval stage moved retrieval recall
 bootstrap CI [−0.029, +0.441]), inside the noise floor set by a no-op placebo
 (9/35 flips). **(N3)** The automatic first-loss label produced by the
 pipeline is **not reliable as a per-row instrument** (human-vs-auto κ
-0.59–0.71); stage-distribution claims are made on failure labels that the
-audit found 90% sound, at distribution level, not on per-row first-loss
-reads.
+0.59–0.71): it is dependable on formation/retrieval/none (per-class F1
+0.81–1.00) but never emits E0 or rerank, so those two losses cannot be read
+per row; stage-distribution claims are made on failure labels that the
+audit found 90% sound, at distribution level, and survive label noise drawn
+from the measured confusion (§6.3).
 
 The paper is organised as a measurement study. §2 reviews related work and
 states the positioning; §3 defines the protocol; §4 audits the instruments
@@ -235,6 +237,23 @@ labels. We differ along four axes:
    same kind of observation with a pre-registered decision gate and
    within-system ablations, and we report the gate as partial rather than
    renegotiating the bar after seeing the result.
+
+Table 1 summarises the comparison. Entries are read from the papers unless
+marked †, which are measured in this work; there is no head-to-head run,
+because the four artifacts do not share a question set with per-system
+traces and gold evidence (Limitations).
+
+**Table 1 — Attribution methods compared.**
+
+| dimension | MemTrace | HaluMem | MemOps | this work |
+|---|---|---|---|---|
+| observability requirement | instrumented source code | memory-system APIs | memory-system APIs | black-box artifacts only |
+| granularity | operation / variable | operation (extraction, updating, QA) | operation (5 types) + probes | lifecycle stage on gold evidence |
+| data | real benchmarks × 4 systems; 160 annotated failures | synthetic; ~15k memory points | synthetic; 4,012 instances | real benchmarks × 3 systems; 200-row audit + 40-row stage pilot |
+| judge calibration | judge errors recorded (3/230), rate not measured | none reported | none (listed as future work) | answer κ 0.92; abstention rule 13/13 ✓; gate κ 0.835 ✓; stage κ 0.897 ✓; per-class stage audit † |
+| attribution vs humans | OIA 14–58% | n/a (no failure attribution) | n/a | per-row stage κ 0.59–0.71; per-class F1 0.81–1.00 † |
+| controls | none | none | none | RM/OM/OC oracle ladder † |
+| applicability | systems that can be instrumented | systems with the three APIs | systems with the APIs | any system exposing its store, retrievals, and context |
 
 ### 2.3 Memory systems
 
@@ -497,6 +516,30 @@ stage-distribution claims in §6 are therefore made at the distribution level
 on failure labels (90% human-confirmed, §4.2), not on per-row first-loss
 reads.
 
+**Where exactly the automatic label errs.** Per-class quantities on the
+consensus rows (n = 37 where both annotators agree; consensus κ = 0.680,
+agreement 0.784 — a filtered subset, not directly comparable to the
+per-annotator κ above):
+
+| class | support | predicted | precision | recall | F1 |
+|---|---|---|---|---|---|
+| formation | 8 | 8 | 0.875 | 0.875 | 0.875 |
+| retrieval | 15 | 22 | 0.682 | 1.000 | 0.811 |
+| none | 7 | 7 | 1.000 | 1.000 | 1.000 |
+| e0 | 4 | 0 | — | 0.000 | — |
+| rerank | 3 | 0 | — | 0.000 | — |
+
+The instrument is dependable on the classes it emits — formation F1 0.88,
+none 1.00, retrieval 0.81 (recall 1.00, precision 0.68 because it absorbs the
+misplaced E0/rerank rows) — and its errors are structural rather than noisy:
+it **never emits E0 or rerank**. Human E0 losses are absorbed into formation
+(1 row) and retrieval (3 rows); human rerank losses into retrieval (3 rows).
+Read per row, the label is therefore a usable formation/retrieval/none
+classifier and structurally unable to separate E0 from pipeline loss or
+rerank from retrieval; read as a distribution, it carries the signal §6 uses.
+§6.3 tests the conclusion against noise drawn from exactly this confusion
+matrix.
+
 ### 4.6 Reporting rules we adopt and recommend
 
 Three rules, which we follow throughout and suggest for any LLM-judged
@@ -516,10 +559,10 @@ memory-failure study:
 
 The RM → OM → OC ladder (§3.1) quantifies how much accuracy is recovered when
 formation/storage (OM) and then everything upstream of the answer (OC) are
-perfectioned. Table 1 reports semantic accuracy on judged rows, n = 200 per
+perfectioned. Table 2 reports semantic accuracy on judged rows, n = 200 per
 benchmark, on both label versions (§3.5).
 
-**Table 1 — Oracle ladder, auto vs abstention-corrected labels (n = 200).**
+**Table 2 — Oracle ladder, auto vs abstention-corrected labels (n = 200).**
 
 | benchmark | labels | RM | OM | OC | RM→OM p | RM→OC p | OM→OC p |
 |---|---|---|---|---|---|---|---|
@@ -573,11 +616,11 @@ evidence about architecture, not about memory agents in general (§6.4).
 
 ### 6.2 Same accuracy, different failure stage (LoCoMo n = 100)
 
-Table 2 reports the one-batch run (100 questions × 3 systems, shared
+Table 3 reports the one-batch run (100 questions × 3 systems, shared
 per-question gate, errors 0; auto labels; accuracy = semantic accuracy on
 judged rows).
 
-**Table 2 — Cross-system fingerprint, LoCoMo n = 100, auto labels.**
+**Table 3 — Cross-system fingerprint, LoCoMo n = 100, auto labels.**
 
 | system | acc (judged) | formation / retrieval / context recall | failure distribution |
 |---|---|---|---|
@@ -610,6 +653,21 @@ Two sensitivity results, both pre-registered as Stage A of the decision plan:
   0.59–0.71) is why claims are made on distributions of 90%-confirmed failure
   labels, and the E0-excluded variant removes the class where human and
   automatic labels disagree most.
+- **Label-noise sensitivity.** Monte Carlo over the stored n = 100 failure
+  labels (300 draws per cell): each row's label is redrawn with probability q
+  from (A) the empirical auto → human confusion measured on the 40-row pilot,
+  or (B) a uniform swap over the observed classes (adversarial).
+  Under (A), all three pairs keep Stuart–Maxwell p < 0.05 in **100% of draws
+  at every q ∈ {0.1, 0.2, 0.3, 0.5}** — the conclusion survives the
+  misclassification the instrument actually exhibits. Under (B), survival at
+  q = 0.5 falls to 0.31 (semantic vs verbatim), 0.73 (semantic vs summary),
+  0.88 (summary vs verbatim); at q ≤ 0.2 it stays ≥ 0.88 throughout. The
+  headline therefore does not require the automatic label to be correct row
+  by row, but it is not immune to arbitrary relabeling.
+- **Pilot consistency.** On the 40 annotated rows, human and automatic labels
+  agree on each system's dominant stage (semantic: formation; verbatim:
+  retrieval), though the counts differ where the automatic trace folds E0 and
+  rerank losses into formation/retrieval (§4.5).
 
 ### 6.4 Ablations and the pre-registered gate: partial, not passed
 
@@ -674,9 +732,13 @@ clear the decision rule (≥ 6 net flips **and** bootstrap CI lower bound
 flipped 9/35 (≈ 26%) of the same subset — the +7 net sits inside that retest
 noise. A stage-agnostic composite arm reaches 0.563 overall accuracy (vs
 0.429 baseline) but is *worse* on the 65 non-F4 questions (42 → 38 correct),
-so the repair is not stage-exclusive. Contribution: a measured stage is not,
-at this power, an actionable repair target; Stage C of the decision plan is
-not started.
+so the repair is not stage-exclusive. **Measurement validity and intervention
+validity must be kept apart**: the measurement is valid — the F4 class is
+real and the repaired mechanism moved recall as designed — while the
+intervention is not shown to be effective; the null is evidence about
+actionability, not about the attribution signal. Contribution: a measured
+stage is not, at this power, an actionable repair target; Stage C of the
+decision plan is not started.
 
 ## 7 Limitations
 
@@ -780,10 +842,11 @@ generating scripts are tracked.
 | Round-2 gate failure (κ 0.181; template pathology) | `results/analysis_annotations_round2_diagnostic.json` | `experiments/diagnose_gate_annotations.py` |
 | Round-3 fact gate (κ 0.835 / 0.889; P/R/F1 0.837/1.000/0.911) | `results/analysis_annotations_round3.json` | `experiments/score_fact_annotations.py` |
 | Abstention rule: naive 52% vs guarded 13/13 & 12/12 | `results/analysis_abstention_rule_validation.json` | `experiments/validate_abstention_rule.py` |
-| Corrected ladder (Table 1), both label versions | `results/analysis_ladder_{locomo,longmemeval}_n200_{auto,corrected}.json` | `experiments/analyze_ladder.py` |
+| Corrected ladder (Table 2), both label versions | `results/analysis_ladder_{locomo,longmemeval}_n200_{auto,corrected}.json` | `experiments/analyze_ladder.py` |
 | Human-gated E0 re-attribution | `results/analysis_regate_{locomo,longmemeval}_n200.json` | `experiments/regate_with_human_gate.py` |
 | Human stage annotation κ 0.897; human-vs-auto κ 0.705 / 0.590 | `results/analysis_round5_pilot_v2.json` | `experiments/score_stage_annotations.py` |
-| n = 100 fingerprint (Table 2), paired tests, stage-distribution tests | `results/analysis_ladder_locomo_n100_fixedgate.json` | `experiments/analyze_ladder.py` |
+| Per-class stage metrics; label-noise sensitivity (all pairs survive empirical noise at q ≤ 0.5) | `results/analysis_stage_label_audit.json` | `experiments/audit_stage_labels.py` |
+| n = 100 fingerprint (Table 3), paired tests, stage-distribution tests | `results/analysis_ladder_locomo_n100_fixedgate.json` | `experiments/analyze_ladder.py` |
 | E0-excluded stage tests | `results/analysis_stage_excluding_e0_locomo_n100.json` | `experiments/analyze_stage_excluding_e0.py` |
 | A1 ablation (formation recall 0.473 → 0.990; SM p = 0.0031) | `results/analysis_ablation_a1_n100.json` | `experiments/analyze_ladder.py` on `results/systems_ablation_n100_a1/` |
 | A3 ablation (recall 0.197 → 0.402; SM p = 0.066) | `results/analysis_ablation_a3_n100.json` | `experiments/analyze_ladder.py` on `results/systems_ablation_n100_a3/` |
