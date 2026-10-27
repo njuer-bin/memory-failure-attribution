@@ -43,6 +43,7 @@ git (it had been deleted in the working tree) and is absorbed into §4.
 | Appendix A Claim→artifact map | drafted; script names verified on disk |
 | Appendix B Gate-B criteria verbatim | drafted |
 | Figures (lifecycle pipeline; oracle ladder; failure fingerprints) | **generated 2026-10-27** — `docs/paper/figures/gen_figures.py`, deterministic matplotlib, PDF+PNG; embedded in §3/§5/§6.2 with captions |
+| LaTeX source (`docs/paper/latex/`) | **drafted 2026-10-27** — ACL review template (`acl.sty` + `acl_natbib.bst` downloaded from acl-org/acl-style-files), `main.tex` full conversion, `references.bib` (34 entries); static checks pass (citations/refs/envs/braces). Compilation pending: no TeX on this host; a tectonic binary is being fetched to verify the build. |
 
 **Numbers were re-verified against the artifacts in this session** (n=100
 fingerprint, E0-excluded tests, A1/A3 ablations, both corrected n=200 ladders,

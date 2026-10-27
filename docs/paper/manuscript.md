@@ -295,13 +295,13 @@ show.
 Attribution methods for agent trajectories localise faulty steps within a
 single task run — via sampling and process signals, LLM inspection of traces,
 or structured graphs (Zhang et al., 2025a; AgenTracer, 2025; CausalFlow, 2026;
-GraphTracer, 2025; see also the MAS failure taxonomy of Cemri et al., 2025
-and the 2026 trajectory-analysis survey). Memory failures violate their core assumption: the faulty
-step may lie many sessions before the observed failure, and the trace is not
-a short ordered log. MemTrace extends graph-based attribution to memory with
-instrumentation; we take the protocol route — observable artifacts, gold
-evidence, no instrumentation — and pay for it in granularity. The two routes
-are complementary, and the audit of §4 applies to either.
+see also the MAS failure taxonomy of Cemri et al., 2025). Memory failures
+violate their core assumption: the faulty step may lie many sessions before
+the observed failure, and the trace is not a short ordered log. MemTrace
+extends graph-based attribution to memory with instrumentation; we take the
+protocol route — observable artifacts, gold evidence, no instrumentation — and
+pay for it in granularity. The two routes are complementary, and the audit of
+§4 applies to either.
 
 ## 3 The attribution protocol
 
@@ -530,6 +530,9 @@ consensus rows (n = 37 where both annotators agree; consensus κ = 0.680,
 agreement 0.784 — a filtered subset, not directly comparable to the
 per-annotator κ above):
 
+**Table 2 — Per-class performance of the automatic stage label against the
+human consensus (40-row pilot; 37 consensus rows).**
+
 | class | support | predicted | precision | recall | F1 |
 |---|---|---|---|---|---|
 | formation | 8 | 8 | 0.875 | 0.875 | 0.875 |
@@ -568,10 +571,10 @@ memory-failure study:
 
 The RM → OM → OC ladder (§3.1) quantifies how much accuracy is recovered when
 formation/storage (OM) and then everything upstream of the answer (OC) are
-perfectioned. Table 2 reports semantic accuracy on judged rows, n = 200 per
+perfectioned. Table 3 reports semantic accuracy on judged rows, n = 200 per
 benchmark, on both label versions (§3.5).
 
-**Table 2 — Oracle ladder, auto vs abstention-corrected labels (n = 200).**
+**Table 3 — Oracle ladder, auto vs abstention-corrected labels (n = 200).**
 
 | benchmark | labels | RM | OM | OC | RM→OM p | RM→OC p | OM→OC p |
 |---|---|---|---|---|---|---|---|
@@ -633,11 +636,11 @@ evidence about architecture, not about memory agents in general (§6.4).
 
 ### 6.2 Same accuracy, different failure stage (LoCoMo n = 100)
 
-Table 3 reports the one-batch run (100 questions × 3 systems, shared
+Table 4 reports the one-batch run (100 questions × 3 systems, shared
 per-question gate, errors 0; auto labels; accuracy = semantic accuracy on
 judged rows).
 
-**Table 3 — Cross-system fingerprint, LoCoMo n = 100, auto labels.**
+**Table 4 — Cross-system fingerprint, LoCoMo n = 100, auto labels.**
 
 | system | acc (judged) | formation / retrieval / context recall | failure distribution |
 |---|---|---|---|
@@ -650,7 +653,7 @@ judged rows).
 **Figure 3 — Failure-stage distributions, LoCoMo n = 100.** Segment widths
 are shares of 100 questions per system; numerals are counts. End accuracy is
 statistically indistinguishable across systems while the stage distributions
-differ for all three pairs (statistics in the text and caption of Table 3).
+differ for all three pairs (statistics in the text and caption of Table 4).
 
 End accuracy is statistically indistinguishable across all pairs (exact
 McNemar p = 0.736 / 0.728 / 0.864; paired bootstrap CIs all include 0). The
@@ -809,7 +812,7 @@ decision plan is not started.
   the three-pair family; max-abs paired permutation (10,000 repeats, seed
   42). Wilson CIs for accuracy.
 - **Code and tests.** The protocol, tracer, evaluator, systems, runners, and
-  all analysis scripts are in the repository; 227 unit tests pass. Every
+  all analysis scripts are in the repository; 232 unit tests pass. Every
   analysis number in this paper regenerates from stored rows by
   label-only re-computation (no model calls) via the scripts named in
   Appendix A.
@@ -866,11 +869,11 @@ generating scripts are tracked.
 | Round-2 gate failure (κ 0.181; template pathology) | `results/analysis_annotations_round2_diagnostic.json` | `experiments/diagnose_gate_annotations.py` |
 | Round-3 fact gate (κ 0.835 / 0.889; P/R/F1 0.837/1.000/0.911) | `results/analysis_annotations_round3.json` | `experiments/score_fact_annotations.py` |
 | Abstention rule: naive 52% vs guarded 13/13 & 12/12 | `results/analysis_abstention_rule_validation.json` | `experiments/validate_abstention_rule.py` |
-| Corrected ladder (Table 2), both label versions | `results/analysis_ladder_{locomo,longmemeval}_n200_{auto,corrected}.json` | `experiments/analyze_ladder.py` |
+| Corrected ladder (Table 3), both label versions | `results/analysis_ladder_{locomo,longmemeval}_n200_{auto,corrected}.json` | `experiments/analyze_ladder.py` |
 | Human-gated E0 re-attribution | `results/analysis_regate_{locomo,longmemeval}_n200.json` | `experiments/regate_with_human_gate.py` |
 | Human stage annotation κ 0.897; human-vs-auto κ 0.705 / 0.590 | `results/analysis_round5_pilot_v2.json` | `experiments/score_stage_annotations.py` |
 | Per-class stage metrics; label-noise sensitivity (all pairs survive empirical noise at q ≤ 0.5) | `results/analysis_stage_label_audit.json` | `experiments/audit_stage_labels.py` |
-| n = 100 fingerprint (Table 3), paired tests, stage-distribution tests | `results/analysis_ladder_locomo_n100_fixedgate.json` | `experiments/analyze_ladder.py` |
+| n = 100 fingerprint (Table 4), paired tests, stage-distribution tests | `results/analysis_ladder_locomo_n100_fixedgate.json` | `experiments/analyze_ladder.py` |
 | E0-excluded stage tests | `results/analysis_stage_excluding_e0_locomo_n100.json` | `experiments/analyze_stage_excluding_e0.py` |
 | A1 ablation (formation recall 0.473 → 0.990; SM p = 0.0031) | `results/analysis_ablation_a1_n100.json` | `experiments/analyze_ladder.py` on `results/systems_ablation_n100_a1/` |
 | A3 ablation (recall 0.197 → 0.402; SM p = 0.066) | `results/analysis_ablation_a3_n100.json` | `experiments/analyze_ladder.py` on `results/systems_ablation_n100_a3/` |
