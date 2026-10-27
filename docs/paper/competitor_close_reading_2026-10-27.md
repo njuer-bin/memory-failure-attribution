@@ -42,7 +42,7 @@ between the golden answer and the supporting evidence"——与我们 E0/EVAL
   "检索不足 / sufficiency 判断错 / rerank 失败"，MemTrace 能指向具体操作。
 - **他们说 judge "highly reliable"（判出的错误几乎总是对的）**——注意方向
   与我们相反：他们审计的是 judge 的**假阴性**（过严：惩罚冗长/不具体但
-  实质正确的答案），且 judge error 仅 3/170；**我们没有他们那种"judge
+  实质正确的答案），且 judge error 仅 3/230 标注 case；**我们没有他们那种"judge
   判对但人工判错"的假阳性率数字对照**——但我们有（30.3% 弃权假阳性），
   且我们的 judge 是 DeepSeek 而非 Claude Opus 4.5。
 - EverMemOS retrieval 失败部分源于 final reranker 把目标排出 top-10——
@@ -120,7 +120,7 @@ Long ~1M tokens；~15k memory points，3,467 QA）。人工标注仅用于**验�
 | 数据 | 真实基准（LoCoMo/LME/RealMem）真实系统 trace | 全合成 | 全合成 | 真实基准 × 我们实现的三系统 |
 | 人工标注 | 160 case，5 作者标注 | 无 | 只验证数据质量不校准评分 | **三轮校准到 κ≥0.835 的 gate + 人工阶段标注 κ=0.897 + 200 行裁决答案正确性** |
 | judge 审计 | 排除 judge error（3 例）但未系统量化假阳/假阴率 | 无（自己列为 future work） | 无 | **量化：弃权假阳性 30.3%、gate vs 人工 κ≈0.03–0.07、朴素弃权规则 52% vs 守卫版 13/13** |
-| E0/证据充分性 | Annotation Error 类别，但只用于**排除**（170 例中 67 例）不报告 E0 水平 | 无 | 无 | **E0 是一等公民：三 oracle 层级对照（RM/OM/OC）+ 弃权修正改变配对结论** |
+| E0/证据充分性 | Annotation Error 类别，但只用于**排除**（230 例标注中 67 例 annotation error + 3 例 judge error 被排除，保留 160 例）不报告 E0 水平 | 无 | 无 | **E0 是一等公民：三 oracle 层级对照（RM/OM/OC）+ 弃权修正改变配对结论** |
 | oracle 对照 | 无 | 无 | 无 | **RM/OM/OC 三层阶梯 = "记忆造成多少损失"量化** |
 | 架构消融 | 跨系统比较（4 系统） | 跨系统比较 | 跨系统比较 | 同一系统内消融（A1/A3）+ 预注册 gate + 诚实报告 partial |
 | 干预 | prompt 优化闭环 +7.62 | 无 | 无 | 检索修复：机制成立但准确率 null（诚实报告 + placebo 噪声地板） |

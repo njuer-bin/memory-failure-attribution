@@ -25,20 +25,21 @@ This is the single resume point. History and reasoning live in
 ## Paper draft (2026-10-27)
 
 `docs/paper/manuscript.md` — full draft written in Markdown (this session, from
-the route-decision claim set), target COLING (ARR), ACL long-paper length
-assumed. `docs/paper/instrument_honesty.md` is restored from git (it had been
-deleted in the working tree) and is absorbed into §3.
+the route-decision claim set), target COLING 2027 via ARR ~2027-01, ACL
+long-paper length assumed. `docs/paper/instrument_honesty.md` is restored from
+git (it had been deleted in the working tree) and is absorbed into §4.
 
 | section | state |
 |---|---|
 | Abstract | drafted |
-| 1 Introduction + contributions C1–C4 | drafted, negative results N1–N3 named up front |
-| 2 Protocol (stages, label versions, what it does not establish) | drafted |
-| 3 Auditing the instruments (3.1–3.6) | drafted; absorbs `instrument_honesty.md` |
-| 4 Oracle ladder, benchmark-dependent (auto vs corrected, Table 1) | drafted |
-| 5 Stage localisation + ablations + gate B verdict + non-actionable | drafted |
-| 6 Limitations | drafted |
-| 7 Reproducibility + Ethical considerations | drafted |
+| 1 Introduction + contributions C1–C4 | drafted, negative results N1–N3 named up front; positioned against MemTrace/MemOps/HaluMem with no priority claim |
+| 2 Related work (2.1–2.5) | **drafted 2026-10-27** against the three competitor full texts; MemTrace four-axis differentiation |
+| 3 Protocol (stages, label versions, what it does not establish) | drafted; black-box/no-instrumentation statement added |
+| 4 Auditing the instruments (4.1–4.6) | drafted; absorbs `instrument_honesty.md` |
+| 5 Oracle ladder, benchmark-dependent (auto vs corrected, Table 1) | drafted |
+| 6 Stage localisation + ablations + gate B verdict + non-actionable | drafted |
+| 7 Limitations | drafted |
+| 8 Reproducibility + Ethical considerations | drafted |
 | Appendix A Claim→artifact map | drafted; script names verified on disk |
 | Appendix B Gate-B criteria verbatim | drafted |
 
@@ -52,10 +53,14 @@ ladder bootstrap-CI parenthetical scoped to corrected labels; the n=10 pilot
 sentence re-phrased to match the stored failure labels; three Appendix-A
 script names corrected to on-disk names.
 
-**Not done yet:** related-work prose (no literature survey in the draft),
-LaTeX/ACL template conversion (no template on disk, network blocked), figures
-(none generated), references (placeholder anchors only), venue deadline still
-unverified.
+**Not done yet:** LaTeX/ACL template conversion, figures, final bibliography
+(working BibTeX draft in `docs/paper/related_work_notes_2026-10-27.md` with
+conflicts flagged for verification), venue deadline (now known: next target
+ARR ~2027-01 cycle → ACL 2027, dates unannounced). Related-work prose was
+**drafted 2026-10-27** against the three competitor full texts; §1
+contributions were rewritten to drop all priority claims and position the
+paper on instrument calibration, the oracle ladder, and pre-registered
+ablations.
 
 **2026-10-27 update (user-supplied web survey):** the deadline and
 related-work blockers now have first-pass data in
