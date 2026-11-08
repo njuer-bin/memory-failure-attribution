@@ -25,7 +25,6 @@ permissions:
 
 jobs:
   research-cycle:
-    if: github.ref == 'refs/heads/research/memory-filtering-protocol'
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
