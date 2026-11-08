@@ -1,0 +1,73 @@
+name: Claude Research Cycle
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "Research cycle mode"
+        required: true
+        default: "audit"
+        type: choice
+        options:
+          - audit
+          - experiment
+          - review
+  schedule:
+    # 08:00 China/Singapore time (UTC+8). GitHub may delay scheduled jobs.
+    - cron: "0 0 * * *"
+
+concurrency:
+  group: claude-research-cycle
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  research-cycle:
+    if: github.ref == 'refs/heads/research/memory-filtering-protocol'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout research branch
+        uses: actions/checkout@v4
+        with:
+          ref: research/memory-filtering-protocol
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "claude-research-bot"
+          git config user.email "claude-research-bot@users.noreply.github.com"
+
+      - name: Run one bounded research cycle
+        uses: anthropics/claude-code-base-action@beta
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Run exactly one bounded autonomous research cycle in this repository.
+
+            Mode: ${{ github.event.inputs.mode || 'audit' }}
+
+            First obey CLAUDE.md completely. Read all durable research state files,
+            inspect git status and branch, and choose the highest-value unblocked task.
+            Do not overwrite uncommitted work. Stay on research/memory-filtering-protocol.
+
+            In audit mode, prioritize primary-source literature/artifact audits and
+            annotation feasibility. In experiment mode, execute only experiments
+            already registered and within their pre-approved budget; never initiate
+            a new expensive run. In review mode, conduct an adversarial review of
+            novelty, construct validity, causal identification, statistics, and claims.
+
+            Use specialist subagents where relevant, verify findings, update the
+            appropriate state files, validate the diff, and make one small commit
+            only if there are verified changes. Never merge to main, delete raw data,
+            change the core question, or spend money beyond existing approved limits.
+
+            If a required credential, artifact, source, or approval is missing,
+            record the exact blocker and continue only with independent low-risk work.
+            Finish with a concise report of actual work, sources, commit, validation,
+            limitations, and next task. Do not claim unexecuted work.
+          claude_args: |
+            --max-turns 24
+            --allowedTools "Bash(git:*),Read,Edit,Write,Glob,Grep,WebSearch,WebFetch"
