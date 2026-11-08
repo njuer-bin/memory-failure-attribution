@@ -595,3 +595,62 @@ Do not modify the memory extractor yet. First perform the planned LoCoMo n=50 fo
 
 Only after this diagnostic gate is stable should extractor improvements be evaluated as an intervention.
 
+
+
+## 2026-11-08 — New memory-filtering research track: Phase 0 audit
+
+A separate exploratory track was opened on branch research/memory-filtering-protocol. It is intentionally not merged into the existing lifecycle-attribution claims.
+
+### Work completed
+
+1. Added the draft research protocol for evidence-role/necessity-conditioned false-drop analysis.
+2. Audited two closest deletion/filtering papers:
+   - REALM 2026: query-time memory filtering, resolver corruption, false-drop/false-keep interventions.
+   - SPARE-RAG 2026: fixed-pool multi-hop evidence repair and verification-guided sequential deletion.
+3. Expanded the nearest-work audit to TiMem, TSHMem, STALE/CUPMem, MemConflict, Weighted Memory Tree, Capture Is Easy, Forgetting Is Hard, Explicit State Elicitation Is Not Enough, and AgenticLOCI.
+4. Parsed the official LoCoMo public JSON and cross-checked category handling against the official evaluation implementation.
+5. Confirmed 10 conversations and 1,986 QA items. Category 1 is multi-hop (282 items); category 3 is open-domain (96 items). Do not use category 3 as the multi-hop selector.
+6. Checked the official LoCoMo license: CC BY-NC 4.0. Raw dataset and large dialogue excerpts are not copied into this repository.
+7. Prepared a five-question dry-run manifest from five different conversations, plus an annotation codebook, JSON Schema, and local packet-generation script.
+
+### Key research correction
+
+The generic method idea “build a dependency graph, simulate deleting a memory, and retain it if the chain breaks” is not novel as currently phrased: SPARE-RAG already performs verification-guided chain-preserving deletion in multi-hop RAG. TSHMem also already covers temporal query-aware graph retrieval in long-horizon conversational memory. TiMem, STALE, MemConflict, and WMT further cover temporal consolidation, state validity/conflict, memory-level diagnostics, dynamic retention, and poisoning robustness.
+
+The current candidate contribution is therefore narrowed to a causal diagnostic study:
+
+> In long-horizon conversational memory, how does the causal cost of a query-critical false-drop vary with the deleted item's evidence role and necessity, and how are these effects moderated by temporal validity and query intent (current-state, historical-state, or cross-session aggregation)?
+
+This is a candidate research question only. No novelty claim is approved yet.
+
+### Five-question pilot manifest
+
+- conv-26#qa[11] — Caroline's country of origin from two sessions.
+- conv-41#qa[3] — shared volunteering activity across two speakers.
+- conv-42#qa[11] — allergy aggregation; likely dairy/allergy evidence mismatch must be audited.
+- conv-43#qa[1] — compound career goals across two turns.
+- conv-44#qa[12] — outdoor activities aggregated across three sessions.
+
+All five manifest records were checked against the official dataset: category, question, answer, and evidence IDs match. This is a data-integrity check, not a human annotation or evidence-sufficiency verdict.
+
+### Files added/updated
+
+- docs/MEMORY_FILTERING_RESEARCH_PROTOCOL.md
+- docs/RELATED_WORK_MATRIX.md
+- docs/ANNOTATION_GUIDELINES.md
+- docs/PHASE0_LOCOMO_AUDIT.md
+- docs/LOCOMO_PILOT_MANIFEST.json
+- schemas/evidence_annotation.schema.json
+- experiments/prepare_locomo_annotation_packet.py
+
+### Open gates
+
+- REALM OpenReview supplementary archive has not yet been downloaded and audited.
+- SPARE-RAG's full artifact/appendix details have not yet been verified.
+- MemConflict and STALE scripts need deeper inspection before deciding whether to reuse their benchmark instances.
+- Two independent annotators have not yet completed the five-question dry run.
+- No model intervention or statistical test has been run for this new track.
+
+### Next action
+
+Run the local packet generator, complete two independent annotations, adjudicate disagreements, and only then expand the sample. Do not start a confirmatory experiment or implement a new filtering algorithm before the revised novelty gate is passed.
