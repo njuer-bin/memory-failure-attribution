@@ -147,3 +147,146 @@ Ablation-only deletion experiments establish the causal cost of losing an item; 
 - Guo et al. (2026), SPARE-RAG: https://doi.org/10.3390/info17101052
 - Maharana et al. (2024), LoCoMo: https://github.com/snap-research/locomo
 - Official LoCoMo evaluation code: https://github.com/snap-research/locomo/blob/main/task_eval/evaluation.py
+
+
+## Additional nearest work identified in the second-pass audit
+
+The following papers materially narrow the remaining research space. They were found by checking the references in REALM and scanning the archival papers from the same REALM 2026 proceedings.
+
+### 5. TiMem: Temporal-Hierarchical Memory Consolidation
+
+**Citation:** Kai Li et al. 2026. *TiMem: Temporal-Hierarchical Memory Consolidation for Long-Horizon Conversational Agents.* Findings of ACL 2026, pp. 21700–21720. DOI: 10.18653/v1/2026.findings-acl.1091.
+
+- Paper: https://aclanthology.org/2026.findings-acl.1091/
+- Code: https://github.com/TiMEM-AI/timem
+
+TiMem builds a five-level Temporal Memory Tree, consolidates raw observations into increasingly abstract representations, and uses complexity-aware recall. It reports LoCoMo and LongMemEval-S results.
+
+**Overlap:** Long-horizon conversational memory, temporal organization, consolidation, and query-complexity-aware recall are already active research areas. A paper cannot claim that time-aware organization or long-term memory hierarchy is itself novel.
+
+**Difference to test:** The abstract and repository describe consolidation and recall, not a controlled counterfactual false-drop study that isolates the causal cost of deleting evidence items by query-specific derivation role.
+
+### 6. TSHMem: Temporal-Semantic Hierarchical Memory Graph
+
+**Citation:** Feiyang Xu, Wenhao Yu, Li Xiang, Quanyu Dai, and Irwin King. 2026. *TSHMem: A Temporal-Semantic Hierarchical Memory Graph for Long-Term Conversational Agents.* EMNLP 2026, pp. 23747–23766. DOI: 10.18653/2026.emnlp-main.1034.
+
+- Paper: https://aclanthology.org/2026.emnlp-main.1034/
+- PDF: https://aclanthology.org/2026.emnlp-main.1034.pdf
+
+TSHMem constructs a heterogeneous graph over dialogue turns, statements, summaries, and entities. It parses query temporal intent, resolves event-referenced time constraints, activates entities, and injects temporal relevance into graph traversal and hierarchical ranking. It evaluates on LongMemEval S* and LoCoMo.
+
+**Overlap:** It already addresses temporal intent, cross-session dependencies, graph structure, provenance trace-back, and retrieval of compact evidence in long-term conversational memory.
+
+**Difference to test:** It is a retrieval/ranking architecture. The inspected method does not report randomized evidence-deletion interventions or role-by-necessity causal contrasts. Our work cannot claim novelty for temporal graph retrieval or query-aware time-sensitive evidence selection.
+
+### 7. STALE and CUPMem
+
+**Citation:** Hanxiang Chao et al. 2026. *STALE: Can LLM Agents Know When Their Memories Are No Longer Valid?* arXiv:2605.06527.
+
+- Paper: https://arxiv.org/abs/2605.06527
+
+STALE introduces 400 expert-validated implicit-conflict scenarios and 1,200 queries across State Resolution, Premise Resistance, and Implicit Policy Adaptation. It identifies failures where a later observation invalidates an earlier memory without explicit negation, and introduces CUPMem as a state-consolidation baseline.
+
+**Overlap:** Memory validity, state updates, false premises, and propagation of changed states across related memories are already explicitly studied.
+
+**Difference to test:** The stated evaluation concerns state validity and downstream adaptation, not the marginal causal damage of dropping one item from a multi-evidence answer derivation after controlling its role and redundancy.
+
+### 8. MemConflict
+
+**Citation:** Zhen Tao et al. 2026. *MemConflict: Evaluating Long-Term Memory Systems Under Memory Conflicts.* arXiv:2605.20926.
+
+- Paper: https://arxiv.org/abs/2605.20926
+- Official code/data repository: https://github.com/TaoZhen1110/MemConflict
+
+MemConflict evaluates dynamic, static, and conditional conflicts in multi-session histories. It combines answer-level accuracy with memory-level support-evidence hit/rank analysis, and diagnoses missing support versus ineffective use after retrieval. It also varies dialogue length, distractors, implicit query style, and conflict distance.
+
+**Overlap:** This is a close benchmark-level neighbor for long-horizon conversational memory, query-conditioned validity, cross-session conflict, and evidence-level diagnostics. It should be inspected before selecting a naturalistic benchmark or designing temporal/conflict strata.
+
+**Difference to test:** The paper's described protocol evaluates memory systems under naturally constructed conflicts and retrieved/ranked support. It does not, based on the inspected description, isolate randomized counterfactual deletion of one evidence node by Direct/Bridge role and necessity. Confirm against the full paper and scripts before finalizing this distinction.
+
+### 9. Weighted Memory Tree (WMT)
+
+**Citation:** Quang Dao, Purvi Kathalkar, and Kenneth Eaton. 2026. *Weighted Memory Tree: Remembering What Matters for Long-Horizon LLM Agents.* REALM 2026, pp. 524–540. DOI: 10.18653/2026.realm-1.35. Also arXiv:2608.20631.
+
+- ACL page: https://aclanthology.org/2026.realm-1.35/
+- arXiv: https://arxiv.org/abs/2608.20631
+
+WMT organizes task/subtask/action memories in a hierarchy, assigns dynamic retention scores, folds completed trajectories, and uses event-based updates and selection-based decay. The paper includes controlled memory-poisoning experiments and reports reduced persistence/propagation of injected unreliable information.
+
+**Overlap:** Dynamic retention, suppression of low-utility information, long-horizon memory management, and poisoning robustness are already being explored.
+
+**Difference to test:** WMT is focused on agent execution history and task memory rather than query-specific multi-session conversational evidence chains. Its reported poisoning experiments do not, from the abstract alone, answer the role/necessity-conditioned false-drop question. Inspect the paper's exact poison intervention and metrics before claiming a gap.
+
+### 10. Capture Is Easy, Forgetting Is Hard
+
+**Citation:** Deniz Bilgin, Jonas Schewior, and Andreas Wendemuth. 2026. *Capture Is Easy, Forgetting Is Hard: Benchmarking Prospective Memory in Conversational Agents.* REALM 2026, pp. 639–654. DOI: 10.18653/2026.realm-1.43.
+
+- Paper: https://aclanthology.org/2026.realm-1.43/
+
+This work studies prospective memory: a background agent maintains a set of pins that must be retired only when the appropriate authority provides a release signal. It provides a 60-day, ten-user mobility benchmark with 1,802 graded decisions.
+
+**Overlap:** Forgetting and retention errors in conversational agents are evaluated directly, including authority-dependent retirement.
+
+**Difference to test:** Prospective reminder retirement is not the same as query-time deletion of evidence required for a multi-hop answer. It is nevertheless a relevant neighboring evaluation of forgetting behavior.
+
+### 11. Explicit State Elicitation Is Not Enough
+
+**Citation:** Yihang Chen et al. 2026. *Explicit State Elicitation Is Not Enough: A Controlled Audit of Memory-Policy Classification.* REALM 2026, pp. 271–294. DOI: 10.18653/2026.realm-1.19.
+
+- Paper: https://aclanthology.org/2026.realm-1.19/
+
+This paper audits use/ignore/update/query policy classification with matched counterfactual examples, dataset-shortcut diagnostics, and tests of whether intermediate labels genuinely improve policy decisions. It reports that explicit state-output fields alone do not reliably improve policy accuracy.
+
+**Overlap:** Controlled counterfactual testing of memory-use policies and evidence decomposition is adjacent to our intended policy evaluation.
+
+**Difference to test:** It evaluates policy classification, not answer-level consequences of evidence deletion or evidence dependency graphs.
+
+### 12. AgenticLOCI
+
+**Citation:** Jonas Schewior et al. 2026. *AgenticLOCI: A Multi-Agent Memory Framework for Conversational AI with Longitudinal Personalization.* REALM 2026, pp. 618–638. DOI: 10.18653/2026.realm-1.42.
+
+- Paper: https://aclanthology.org/2026.realm-1.42/
+
+AgenticLOCI separates session retrieval from longitudinal personalization and stores versioned deliberation-state snapshots. Its synthetic mobility evaluation measures preservation of stable preferences and warranted updates.
+
+**Overlap:** Versioned state and longitudinal personalization are relevant to provenance and memory evolution.
+
+**Difference to test:** Its main focus is system architecture and personalization, not causal deletion costs for multi-hop evidence.
+
+## Revised overlap map after second-pass audit
+
+| Research component | Closest prior work | Current assessment |
+|---|---|---|
+| Query-time false-drop cost | REALM | Directly covered in memory-conditioned QA |
+| Fixed-pool chain-preserving deletion | SPARE-RAG | Directly covered in multi-hop RAG |
+| Temporal graph retrieval in conversational memory | TSHMem | Directly covered |
+| Temporal-hierarchical consolidation and recall | TiMem | Directly covered |
+| Implicit memory conflict and state update | STALE/CUPMem | Directly covered |
+| Cross-session dynamic/static/conditional memory conflict with white-box retrieval diagnostics | MemConflict | Directly covered |
+| Dynamic memory retention and poison persistence | WMT | Strong adjacent work; exact overlap depends on full poison protocol |
+| Authority-based prospective forgetting | Capture Is Easy, Forgetting Is Hard | Adjacent, different task |
+| Query-specific evidence role × necessity causal effect | No exact match identified in this pass | Candidate gap only; requires targeted search and empirical validation |
+| Query-specific evidence role × necessity × temporal/query intent in multi-session memory | No exact match identified in this pass | Narrowest current candidate; not yet proven novel |
+
+## Updated research question candidate
+
+The candidate should now be phrased as a **causal diagnostic study**, not a generic new filtering architecture:
+
+> In long-horizon conversational memory, how does the causal cost of a query-critical false-drop vary with the deleted item's evidence role and necessity, and how are these effects moderated by temporal validity and query intent (current-state, historical-state, or cross-session aggregation)?
+
+Primary contrast:
+- Within the same question and fixed candidate-memory set, randomly assign deletion to matched evidence items/conditions.
+- Compare necessary Direct and necessary Bridge items only where the design supports a fair comparison.
+- Explicitly model redundant alternatives, graph position, token count, and conversation clusters.
+- Add temporal validity/query intent as pre-specified moderators only if the selected dataset provides enough examples.
+
+This is not a claim that no prior work exists. It is a precise intersection to test against REALM, SPARE-RAG, TSHMem, STALE, MemConflict, and WMT.
+
+## Consequences for the implementation plan
+
+1. Do not implement a generic graph-pruning policy yet.
+2. Inspect MemConflict and STALE construction/evaluation scripts; they may offer more suitable conflict scenarios than LoCoMo alone.
+3. Inspect TSHMem and TiMem adapters/results before choosing a baseline memory representation.
+4. Inspect WMT's poisoning protocol separately; do not conflate poisoning with false-drop.
+5. Keep LoCoMo as a naturalistic evidence-role annotation source, but add a conflict/update benchmark for temporal validity.
+6. Freeze the exact estimand only after the benchmark and prior-art audit is complete.
