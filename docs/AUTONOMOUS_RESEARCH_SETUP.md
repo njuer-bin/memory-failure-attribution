@@ -1,6 +1,6 @@
 # Claude Code Autonomous Research Setup
 
-This repository includes a Claude Code operating charter, specialist subagents, and a scheduled GitHub Actions workflow. The workflow is committed but will not execute successfully until the repository owner configures Anthropic credentials and enables Actions.
+This repository includes a Claude Code operating charter, specialist subagents, and a scheduled GitHub Actions workflow. The workflow entry point is proposed in draft PR #6 because GitHub only schedules workflows that exist on the default branch. Merge that PR manually after review; do not merge it automatically. The workflow will then execute against the research branch, not main.
 
 ## What is included
 
@@ -30,7 +30,7 @@ If repository policy blocks write permissions for GitHub Actions, the run will f
 
 ## 3. Run a first manual smoke test
 
-Open **Actions → Claude Research Cycle → Run workflow**.
+After PR #6 has been reviewed and merged into the default branch, open **Actions → Claude Research Cycle → Run workflow**.
 - Branch: `research/memory-filtering-protocol`
 - Mode: `audit` for the first run.
 - The first run should inspect the state, verify source/artifact access, and update logs. It should not launch model experiments.
