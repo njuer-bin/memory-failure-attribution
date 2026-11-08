@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/njuer-bin/memory-failure-attribution/blob/research/memory-filtering-protocol/schemas/evidence_annotation.schema.json",
+  "title": "Query-specific evidence annotation",
+  "description": "Draft v0.1 schema for independently annotated long-horizon conversational QA evidence.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "dataset",
+    "dataset_revision",
+    "conversation_id",
+    "qa_index",
+    "question",
+    "reference_answer",
+    "category_id",
+    "category_name",
+    "evidence_sufficiency",
+    "answer_slots",
+    "evidence_units",
+    "dependency_edges",
+    "minimal_sufficient_evidence_sets",
+    "annotator_id",
+    "annotation_version"
+  ],
+  "properties": {
+    "dataset": {"type": "string", "const": "locomo10"},
+    "dataset_revision": {"type": "string", "minLength": 1},
+    "conversation_id": {"type": "string", "pattern": "^conv-[0-9]+$"},
+    "qa_index": {"type": "integer", "minimum": 0},
+    "question": {"type": "string", "minLength": 1},
+    "reference_answer": {"type": ["string", "number", "boolean"]},
+    "category_id": {"type": "integer", "enum": [1, 2, 3, 4, 5]},
+    "category_name": {"type": "string", "enum": ["multi_hop", "temporal", "open_domain", "single_hop", "adversarial"]},
+    "evidence_sufficiency": {
+      "type": "string",
+      "enum": ["SUFFICIENT", "PARTIAL", "INSUFFICIENT", "MISALIGNED", "AMBIGUOUS", "UNSCORABLE"]
+    },
+    "answer_slots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["slot_id", "text"],
+        "properties": {
+          "slot_id": {"type": "string", "minLength": 1},
+          "text": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "evidence_units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "unit_id",
+          "source_dia_id",
+          "atomic_fact",
+          "role",
+          "necessity",
+          "supports_slots",
+          "alternative_path_ids",
+          "answerability_after_remove",
+          "rationale",
+          "annotator_confidence"
+        ],
+        "properties": {
+          "unit_id": {"type": "string", "minLength": 1},
+          "source_dia_id": {"type": "string", "pattern": "^D[0-9]+:[0-9]+$"},
+          "atomic_fact": {"type": "string", "minLength": 1},
+          "role": {
+            "type": "string",
+            "enum": ["DIRECT", "BRIDGE", "BACKGROUND", "IRRELEVANT", "MULTI_ROLE", "UNCERTAIN"]
+          },
+          "necessity": {
+            "type": "string",
+            "enum": ["NECESSARY", "REDUNDANT", "OPTIONAL", "DISTRACTOR", "UNCERTAIN"]
+          },
+          "supports_slots": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "alternative_path_ids": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+          "answerability_after_remove": {"type": "string", "enum": ["YES", "NO", "UNCERTAIN"]},
+          "rationale": {"type": "string"},
+          "annotator_confidence": {"type": "integer", "minimum": 1, "maximum": 5}
+        }
+      }
+    },
+    "dependency_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source", "target", "type", "rationale"],
+        "properties": {
+          "source": {"type": "string", "minLength": 1},
+          "target": {"type": "string", "minLength": 1},
+          "type": {
+            "type": "string",
+            "enum": ["SUPPORTS", "REQUIRES", "RESOLVES_ENTITY", "TEMPORAL_ANCHOR", "UPDATES_OR_SUPERSEDES", "CONTRADICTS"]
+          },
+          "rationale": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "minimal_sufficient_evidence_sets": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "minItems": 1,
+        "uniqueItems": true,
+        "items": {"type": "string"}
+      }
+    },
+    "annotator_id": {"type": "string", "minLength": 1},
+    "annotation_version": {"type": "string", "const": "0.1"}
+  }
+}
