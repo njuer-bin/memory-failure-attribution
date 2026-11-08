@@ -544,3 +544,38 @@ Raw user/private conversation data must not be committed. Follow dataset license
 6. Run the pilot only after annotation and intervention checks pass.
 
 **Current decision:** Proceed to Phase 0 and the annotation dry run. Do not begin confirmatory experiments or make novelty claims yet.
+
+
+---
+
+## Phase 0 audit addendum (2026-11-08)
+
+The preliminary related-work and dataset audit has been recorded in:
+
+- docs/RELATED_WORK_MATRIX.md
+- docs/PHASE0_LOCOMO_AUDIT.md
+- docs/ANNOTATION_GUIDELINES.md
+
+### Required correction to the original method plan
+
+SPARE-RAG (Guo et al., Information 2026, 17(10), 1052; DOI 10.3390/info17101052) already implements fixed-pool multi-hop evidence repair and verification-guided sequential deletion, including parent/child evidence-state checks and rollback. Therefore, the proposed generic evidence-dependency-aware pruning algorithm is not a defensible novelty claim at this stage.
+
+The project will first test a narrower empirical question in long-horizon conversational memory: whether query-specific evidence role and temporal/provenance position predict false-drop cost after controlling for necessity, redundancy, alternative paths, and query intent. The method-development phase is conditional on a new novelty review and a positive empirical result.
+
+### LoCoMo category mapping correction
+
+For the official public JSON, category 1 is multi-hop (282 items), category 2 temporal (321), category 3 open-domain (96), category 4 single-hop (841), and category 5 adversarial (446). This mapping was checked against the official evaluation implementation. Do not use category 3 as the multi-hop filter.
+
+### Five-question dry run prepared
+
+Five candidate questions from five different conversations are listed in docs/PHASE0_LOCOMO_AUDIT.md. They are identified by conversation ID, zero-based QA index, and evidence turn IDs. They have not yet been independently annotated; no labels or outcomes are being presumed.
+
+### Updated immediate sequence
+
+1. Complete two independent annotations of the five dry-run questions.
+2. Review disagreements and evidence sufficiency, especially the potential dairy-allergy mismatch.
+3. Expand the candidate pool only after the ontology is stable and using a predeclared selection rule.
+4. Complete the remaining nearest-neighbor audit around temporal memory, provenance, query intent, and memory evolution.
+5. Revisit the research question and novelty claim before implementing a new filtering algorithm.
+
+**Current status:** Phase 0 is partially complete. Dataset schema, category counts, and license have been checked; REALM's actual supplementary archive and SPARE-RAG's full artifact status remain unaudited. The five-question annotation is prepared but not completed.
