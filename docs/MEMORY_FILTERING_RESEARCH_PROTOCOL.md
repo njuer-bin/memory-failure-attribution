@@ -579,3 +579,21 @@ Five candidate questions from five different conversations are listed in docs/PH
 5. Revisit the research question and novelty claim before implementing a new filtering algorithm.
 
 **Current status:** Phase 0 is partially complete. Dataset schema, category counts, and license have been checked; REALM's actual supplementary archive and SPARE-RAG's full artifact status remain unaudited. The five-question annotation is prepared but not completed.
+
+
+### Second-pass related-work update (2026-11-08)
+
+The nearest-neighbor audit has expanded beyond REALM and SPARE-RAG. It now includes TiMem (ACL Findings 2026), TSHMem (EMNLP 2026), STALE/CUPMem, MemConflict, Weighted Memory Tree, Capture Is Easy, Forgetting Is Hard, Explicit State Elicitation Is Not Enough, and AgenticLOCI. The comparisons and sources are in docs/RELATED_WORK_MATRIX.md.
+
+The revised candidate research question is:
+
+> In long-horizon conversational memory, how does the causal cost of a query-critical false-drop vary with the deleted item's evidence role and necessity, and how are these effects moderated by temporal validity and query intent (current-state, historical-state, or cross-session aggregation)?
+
+This is a candidate for further novelty testing, not a confirmed gap. TSHMem already covers query-aware temporal graph retrieval; TiMem covers temporal-hierarchical consolidation and complexity-aware recall; STALE and MemConflict cover memory validity/conflict; WMT covers dynamic retention and includes poisoning experiments; SPARE-RAG covers verification-guided chain-preserving deletion. The remaining possible contribution is the causal interaction study at the intersection of false-drop, evidence role/necessity, and multi-session memory—not a generic new memory graph or pruning algorithm.
+
+A local packet generator and machine-readable annotation schema have been added:
+- experiments/prepare_locomo_annotation_packet.py
+- schemas/evidence_annotation.schema.json
+- docs/LOCOMO_PILOT_MANIFEST.json
+
+**Important:** the five-question packet is prepared but has not been independently annotated. Do not report agreement, role counts, or empirical effects until two annotators complete the dry run.
