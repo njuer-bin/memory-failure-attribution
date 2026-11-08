@@ -88,3 +88,32 @@ Five examples are insufficient for:
 ## 6. Immediate next step
 
 Use docs/ANNOTATION_GUIDELINES.md to independently annotate these five records. Compare role and necessity labels separately, inspect the evidence-sufficiency flag, and revise the codebook before selecting the 30–50-question pilot.
+
+
+## 7. Local annotation packet generation
+
+A helper script is available at experiments/prepare_locomo_annotation_packet.py.
+
+Example (run from repository root):
+
+~~~bash
+python experiments/prepare_locomo_annotation_packet.py ^
+  --dataset path/to/locomo10.json
+~~~
+
+On PowerShell, the command may be written on one line:
+
+~~~powershell
+python experiments/prepare_locomo_annotation_packet.py --dataset .\data\locomo10.json
+~~~
+
+The default output is written to the current user's home directory as locomo_pilot_annotation_packet.jsonl, not into the repository. The packet contains the selected raw dialogue excerpts, so it is subject to LoCoMo's CC BY-NC 4.0 terms. Keep the generated packet local and do not commit it.
+
+The script checks:
+- conversation ID and zero-based QA index;
+- category ID equals 1 (multi-hop);
+- question and reference answer match the pinned manifest;
+- evidence turn IDs match the official QA record;
+- every evidence turn ID resolves to a dialogue turn.
+
+If any check fails, the script stops rather than silently constructing a mismatched annotation packet.
