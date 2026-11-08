@@ -1,8 +1,9 @@
 # Current Research State
 
-**As of:** 2026-11-08  
+**As of:** 2026-11-08 (initial Research Director audit)  
 **Phase:** Phase 0 — novelty, artifact, and annotation feasibility audit  
-**Status:** Exploratory; no causal model experiment has been run.
+**Status:** Exploratory; no causal model experiment has been run.  
+**Audit report:** `docs/CLAUDE_INITIAL_RESEARCH_AUDIT.md`
 
 ## Current question
 
@@ -18,17 +19,23 @@ Does the query-specific evidence role of a dropped memory item predict downstrea
 - Five dry-run questions from five conversations are recorded in `docs/LOCOMO_PILOT_MANIFEST.json`.
 - The five manifest entries were checked against the official dataset for category, question, answer, and evidence IDs (5/5 integrity checks passed).
 - Annotation sheet prepared for two independent annotators.
+- `experiments/prepare_locomo_annotation_packet.py` was executed end-to-end against the official pinned dataset (`snap-research/locomo@cbfbc1db...`, fetched outside the repository): 5/5 records written, all evidence turns resolved. The generated packet stays outside the repository. (2026-11-08 audit)
+- Official dataset facts re-verified from the pinned commit: 10 conversations, 1,986 QA; category 1 = 282, 2 = 321, 3 = 96, 4 = 841, 5 = 446. (2026-11-08 audit)
+- Repository test suite passes: `pytest -q` → 22 passed. (2026-11-08 audit)
+- Initial multi-role research audit completed: `docs/CLAUDE_INITIAL_RESEARCH_AUDIT.md`. (2026-11-08 audit)
 
 ## What is NOT complete
 
 - The five questions have not been human-annotated.
-- The annotation packet generator has not been successfully executed end-to-end in the user's local environment.
 - No inter-annotator agreement has been calculated.
-- No REALM supplementary archive has been downloaded or audited.
-- SPARE-RAG full artifact/reproduction status has not been fully checked.
+- No REALM supplementary archive has been downloaded or audited. The paper's Artifact Availability section (OpenReview submission 52) was read, but the archive itself is still not obtained.
+- SPARE-RAG full artifact/reproduction status has not been fully checked. Bibliographic metadata and abstract were verified via Crossref/OpenAlex; the MDPI full text returned HTTP 403 and code availability is UNKNOWN.
 - MemConflict and STALE/CUPMem scripts/data-generation pipelines have not been fully audited.
 - Weighted Memory Tree poisoning protocol has not been fully inspected.
 - No causal deletion intervention or model experiment has been run.
+- No deletion/intervention code exists (repository-wide grep found none).
+- No annotation-schema validator or annotation-agreement script exists; `requirements.txt` does not list `jsonschema` or `pytest`.
+- The revised RQ names temporal validity and query intent as moderators, but neither field exists in `schemas/evidence_annotation.schema.json` or `docs/ANNOTATION_GUIDELINES.md`.
 - No sample-size/power analysis has been completed.
 - No paper-ready novelty claim is established.
 
@@ -44,16 +51,23 @@ Do not claim novelty for generic dependency-aware pruning or false-drop harm.
 
 ## Next recommended work
 
-1. Obtain and inspect REALM's OpenReview supplementary archive (submission 52): code, generated data, prompts, frozen outputs, grading/audit reports.
-2. Read SPARE-RAG methods, appendices, and any released artifact; map exact experimental overlap.
-3. Audit MemConflict and STALE/CUPMem scripts and benchmark construction.
-4. Read Weighted Memory Tree's poisoning experiment carefully: injection stage, provenance, quarantine/removal, and agent self-detection.
-5. Run the LoCoMo annotation packet generator locally and obtain two independent dry-run annotations.
-6. Revise the annotation codebook based on disagreements before scaling.
+1. Obtain and inspect REALM's OpenReview supplementary archive (submission 52): code, generated data, prompts, frozen outputs, grading/audit reports. If still unreachable, record the exact blocker and downgrade all negative novelty assertions about REALM to TENTATIVE.
+2. Obtain the SPARE-RAG full text/appendices/code (MDPI returned 403); produce a feature-by-feature overlap table.
+3. Build a small synthetic evidence-chain set (20–40 items) and validate that role can be annotated independently of necessity before scaling natural-data annotation.
+4. Before expanding the LoCoMo sample: add `query_intent` and `temporal_validity` fields to the schema and codebook, define compound-evidence-ID splitting, and add a schema validator plus tests.
+5. Propose (L2, needs human approval) narrowing the primary hypothesis to a necessity/redundancy contrast, with role as a secondary/exploratory factor.
+
+## Working-tree blocker (2026-11-08 audit)
+
+The user's local directory `G:\PythonProject\memory-failure-attribution` is on branch `fix/formation-diagnostics-evidence-based` with 76 uncommitted/untracked changes, and does not contain this branch's files. The audit was therefore performed in an isolated clone of `research/memory-filtering-protocol`. No write was made to the `G:` working tree. Landing the audit files there requires the user to commit or stash existing work first.
 
 ## Current human decision needed
 
-None for the low-cost Phase 0 audits. Human approval is required before changing the core research question, starting expensive model runs, changing a frozen confirmatory protocol, deleting data, or merging to main.
+1. **Working tree:** decide how to reconcile the `G:` working tree (different branch, 76 uncommitted changes) so the audit files can land on `research/memory-filtering-protocol`.
+2. **Hypothesis scope:** approve or reject the audit's recommendation to narrow the primary hypothesis to a necessity/redundancy contrast with role as a secondary/exploratory factor. This changes the core hypothesis and therefore requires explicit human approval.
+3. No approval is needed for the remaining low-cost Phase 0 audits (REALM/SPARE-RAG/MemConflict/STALE/WMT artifact inspection).
+
+Human approval is required before changing the core research question, starting expensive model runs, changing a frozen confirmatory protocol, deleting data, or merging to main.
 
 ## Last-run discipline
 

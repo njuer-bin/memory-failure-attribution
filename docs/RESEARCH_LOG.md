@@ -654,3 +654,44 @@ All five manifest records were checked against the official dataset: category, q
 ### Next action
 
 Run the local packet generator, complete two independent annotations, adjudicate disagreements, and only then expand the sample. Do not start a confirmatory experiment or implement a new filtering algorithm before the revised novelty gate is passed.
+
+## 2026-11-08 — Initial Research Director audit (multi-role)
+
+An initial audit of the memory-filtering track was performed on branch `research/memory-filtering-protocol` at commit `0d232ce`. The audit was read-only with respect to research data; it did not modify the hypothesis or run model experiments. It was executed in an isolated clone because the user's local working tree was on a different branch with uncommitted work.
+
+### Work actually completed
+
+1. Read all durable state files, the protocol, related-work matrix, annotation materials, and the specialist subagent definitions.
+2. Verified repository state: clean clone, `pytest -q` → 22 passed; no `gh` CLI; GitHub HTTPS authentication works but nothing was pushed.
+3. Fetched the official LoCoMo data at pinned commit `cbfbc1dba6bc53d00625212a0f22d55ffee7c1fc` into a temporary directory outside the repository. Re-verified 10 conversations / 1,986 QA and category counts 1=282, 2=321, 3=96, 4=841, 5=446.
+4. Executed backlog item B-005 end-to-end: `experiments/prepare_locomo_annotation_packet.py` wrote all 5 pilot records and resolved all evidence turns. Output stayed outside the repository.
+5. Quantified category-1 structure: 276/282 questions have ≥2 evidence IDs; one compound evidence ID exists; per-conversation counts range 11–37.
+6. Inspected the five pilot evidence turns against the raw dialogue. Only `conv-26#qa[11]` has a defensible entity-resolution bridge; the other four are cross-speaker/cross-session aggregation or multi-slot lists. This is consistent with the Phase 0 warning that clean Bridge items may be rare.
+7. Verified bibliographic identity and abstract-level claims from primary sources: REALM (ACL Anthology + PDF), SPARE-RAG (Crossref/OpenAlex), TSHMem, TiMem, WMT, STALE, MemConflict, Capture Is Easy, Explicit State Elicitation, AgenticLOCI.
+8. Confirmed that no deletion/intervention code, annotation-schema validator, or agreement script exists, and that `requirements.txt` lacks `jsonschema` and `pytest`.
+9. Confirmed that the revised RQ's `temporal_validity` and `query_intent` moderators have no corresponding schema fields or annotation steps.
+10. Ran four specialist audits (literature, experiment design, statistics, adversarial review) and reconciled their conclusions against the sources and artifacts inspected directly.
+
+### Key audit conclusions
+
+- The candidate question is not substantively completed by a single prior paper, but the remaining gap is narrow and at high risk.
+- The RQ is not falsifiable as written; protocol H1 is advisory. A paired `Δ_Bridge − Δ_Direct > δ` restatement is required.
+- Role is an item-level, non-randomized attribute. The current design supports a conditional association plus a controlled deletion effect, not causal moderation by role.
+- LoCoMo category 1 is dominated by aggregation rather than dependency chains; the pilot's Bridge prevalence is a construct-level risk.
+- Ten independent conversation clusters cannot support role × necessity interaction inference.
+- Two-track claim bleed is a real presentation risk; the README still describes the lifecycle-attribution n=10 calibration.
+
+### Open blockers
+
+- REALM OpenReview submission 52 archive: not obtained. The paper's Artifact Availability statement was read; the OpenReview API search did not return the note.
+- SPARE-RAG full text/code: MDPI returned HTTP 403; only metadata and abstract were verified.
+- Official LoCoMo data is not checked into the repository; `locomo_refined_dataset` has no recorded source, revision, or license.
+- The user's `G:` working tree is on a different branch with 76 uncommitted changes; no writes were made there.
+
+### Output files
+
+- `docs/CLAUDE_INITIAL_RESEARCH_AUDIT.md` (new audit report)
+- `docs/CURRENT_STATE.md` (updated with verified audit state and the working-tree blocker)
+- `docs/RESEARCH_LOG.md` (this entry)
+
+No experiment was registered and no result was added to the ledger, because no causal model experiment was run.
