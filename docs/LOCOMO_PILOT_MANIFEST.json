@@ -1,6 +1,6 @@
 {
   "dataset": "locomo10",
-  "dataset_revision": "snap-research/locomo:data/locomo10.json@d95b872480b4139ee8210",
+  "dataset_revision": "snap-research/locomo@cbfbc1dba6bc53d00625212a0f22d55ffee7c1fc",
   "dataset_license": "CC BY-NC 4.0",
   "category_id": 1,
   "category_name": "multi_hop",
@@ -13,7 +13,10 @@
       "qa_index": 11,
       "question": "Where did Caroline move from 4 years ago?",
       "reference_answer": "Sweden",
-      "evidence_turn_ids": ["D3:13", "D4:3"],
+      "evidence_turn_ids": [
+        "D3:13",
+        "D4:3"
+      ],
       "audit_flag": "Candidate entity/relation bridge across two sessions."
     },
     {
@@ -22,7 +25,10 @@
       "qa_index": 3,
       "question": "What type of volunteering have John and Maria both done?",
       "reference_answer": "Volunteering at a homeless shelter",
-      "evidence_turn_ids": ["D3:5", "D2:1"],
+      "evidence_turn_ids": [
+        "D3:5",
+        "D2:1"
+      ],
       "audit_flag": "Cross-speaker evidence integration."
     },
     {
@@ -31,7 +37,11 @@
       "qa_index": 11,
       "question": "What is Joanna allergic to?",
       "reference_answer": "Most reptiles,animals with fur,cockroaches, dairy",
-      "evidence_turn_ids": ["D4:4", "D5:11", "D2:23"],
+      "evidence_turn_ids": [
+        "D4:4",
+        "D5:11",
+        "D2:23"
+      ],
       "audit_flag": "Potential mismatch: dairy avoidance/intolerance is not necessarily an allergy."
     },
     {
@@ -40,7 +50,10 @@
       "qa_index": 1,
       "question": "What are John's goals for his career that are not related to his basketball skills?",
       "reference_answer": "get endorsements, build his brand, do charity work",
-      "evidence_turn_ids": ["D6:15", "D11:17"],
+      "evidence_turn_ids": [
+        "D6:15",
+        "D11:17"
+      ],
       "audit_flag": "Compound answer with multiple slots; assess redundancy per slot."
     },
     {
@@ -49,7 +62,11 @@
       "qa_index": 12,
       "question": "What outdoor activities has Andrew done other than hiking in nature?",
       "reference_answer": "rock climbing, fishing, camping",
-      "evidence_turn_ids": ["D8:1", "D17:1", "D14:1"],
+      "evidence_turn_ids": [
+        "D8:1",
+        "D17:1",
+        "D14:1"
+      ],
       "audit_flag": "Multi-item aggregation from three sessions."
     }
   ]
