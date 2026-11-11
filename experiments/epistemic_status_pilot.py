@@ -161,7 +161,7 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             if sample["sample_id"] in completed:
                 continue
             print(f"[{idx}/{len(rows)}] {sample['sample_id']}", flush=True)
-            result: dict[str, Any] = {**sample, "model": args.model}
+            result: dict[str, Any] = {**sample, "writer_model": args.writer_model, "judge_model": args.judge_model or args.writer_model}
             try:
                 raw_judgment = classify(
                     sample["utterance"], sample["proposition"], args.base_url,
