@@ -165,15 +165,16 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
             try:
                 raw_judgment = classify(
                     sample["utterance"], sample["proposition"], args.base_url,
-                    args.model, args.timeout, args.max_retries,
+                    args.judge_model or args.writer_model, args.timeout, args.max_retries,
                 )
+                result["raw_judgment"] = raw_judgment
                 memory = compress(
-                    sample["utterance"], args.base_url, args.model,
+                    sample["utterance"], args.base_url, args.writer_model,
                     args.timeout, args.max_retries,
                 )
                 compressed_judgment = classify(
                     memory, sample["proposition"], args.base_url,
-                    args.model, args.timeout, args.max_retries,
+                    args.judge_model or args.writer_model, args.timeout, args.max_retries,
                 )
                 result.update({
                     "raw_judgment": raw_judgment,
@@ -231,7 +232,8 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
         }
     return {
         "protocol": "epistemic_status_compression_pilot_v1",
-        "model": args.model,
+        "writer_model": args.writer_model,
+            "judge_model": args.judge_model or args.writer_model,
         "base_url": args.base_url,
         "limit_base": args.limit_base,
         "total_inputs": len(rows),
@@ -268,7 +270,8 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", default="qwen2.5:7b")
+    parser.add_argument("--writer-model", default="qwen2.5:7b")
+    parser.add_argument("--judge-model", default=None, help="Independent judge model; defaults to --writer-model")
     parser.add_argument("--base-url", default="http://127.0.0.1:11434")
     parser.add_argument("--limit-base", type=int, default=10)
     parser.add_argument("--timeout", type=int, default=180)
