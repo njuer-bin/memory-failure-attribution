@@ -62,16 +62,16 @@ This is a pipeline sanity check, not a confirmatory benchmark. Do not make signi
 
 ## 7. Model setup
 
-The runner calls a local Ollama-compatible endpoint (default `http://127.0.0.1:11434/api/chat`). Default model: `qwen2.5:7b`. No external API, training, or base-model fine-tuning is required.
+Writer and judge model can be configured independently. Use a separate judge model when it is available locally; otherwise the same-model pilot is only a first-pass diagnostic. The runner calls a local Ollama-compatible endpoint (default `http://127.0.0.1:11434/api/chat`). Default model: `qwen2.5:7b`. No external API, training, or base-model fine-tuning is required.
 
 Recommended first run on the user's local RTX 5060 Laptop:
 ```bash
-python -m experiments.epistemic_status_pilot --model qwen2.5:7b --limit-base 10
+python -m experiments.epistemic_status_pilot --writer-model qwen2.5:7b --judge-model qwen2.5:7b --limit-base 10
 ```
 
 For a smaller smoke test:
 ```bash
-python -m experiments.epistemic_status_pilot --model qwen2.5:7b --limit-base 2 --max-retries 1
+python -m experiments.epistemic_status_pilot --writer-model qwen2.5:7b --judge-model qwen2.5:7b --limit-base 2 --max-retries 1
 ```
 
 ## 8. Validity threats and safeguards
