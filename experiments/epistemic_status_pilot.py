@@ -233,7 +233,7 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
     return {
         "protocol": "epistemic_status_compression_pilot_v1",
         "writer_model": args.writer_model,
-            "judge_model": args.judge_model or args.writer_model,
+        "judge_model": args.judge_model or args.writer_model,
         "base_url": args.base_url,
         "limit_base": args.limit_base,
         "total_inputs": len(rows),
@@ -262,7 +262,7 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
         "negation_flip_denominator": len(negated),
         "per_status": per_status,
         "interpretation_warning": (
-            "Pilot diagnostic only. Writer and judge are the same model in this initial implementation; "
+            "Pilot diagnostic only. Shared writer/judge models can introduce correlated bias; "
             "manual adjudication and a second independent judge/model are required before scientific claims."
         ),
     }
