@@ -3,12 +3,12 @@
 # experiment history in docs/RESEARCH_LOG.md; these files add agent-loop state.
 
 project:
-  title: "Status Drift in Long-Term Conversational Memory"
-  question: "Does recursive compression of conversational memory change the epistemic, intentional, or conditional status of a proposition beyond one-shot compression?"
+  title: "Path-Dependent State Distortion in Recursive Conversational Memory"
+  question: "Do different conversational-memory transformation histories produce different state fidelity under paired proposition-identity and budget controls, and do status-only differences alter downstream agent behavior?"
   status: active
   started: "2026-11-16"
   domain: "long-term conversational memory / epistemic status fidelity"
-  branch: "research/status-drift-v2-pilot"
+  branch: "research/path-dependent-state-distortion-v3"
 
 literature:
   key_papers:
@@ -201,11 +201,11 @@ experiments:
       wall_time_min: null
       change_summary: "Neutral, 30 trajectories, D5 token target 17. Achieved means 18.1/16.7/16.3. Band [14,18], topic-mentioned updated cases: direct 1/7 ABSENT, recursive 5/6, rewrite 6/8. Recursive D5 proposition omission 13.3% fails the 10% gate; directional matched-band evidence only."
       timestamp: "2026-11-16"
-  current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_4.md (revision) + docs/STATUS_DRIFT_PILOT_PROTOCOL.md"
+  current_protocol: "V3 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md; statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "docs/research/2026-11-16-status-drift-v24-full.md; docs/research/2026-11-16-status-drift-v24-human-annotation.md; docs/research/2026-11-16-status-drift-v24-smoke-review.md; docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
+  current_results: "Historical exploratory v2.x evidence only; see existing dated reports. No V3 confirmatory results yet."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
