@@ -21,6 +21,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results" / "status_drift_v2_pilot"
+USAGE_LOG: list[dict[str, Any]] = []
 DEPTHS = (1, 2, 3, 5)
 BUDGETS = {1: 220, 2: 180, 3: 140, 4: 120, 5: 100}
 TOPICS = [
@@ -173,7 +174,8 @@ def select_samples(limit: int, design: str, dimensions: str,
 
 
 def chat(base_url: str, model: str, messages: list[dict[str, str]],
-         timeout: int, retries: int, seed: int | None = None) -> str:
+         timeout: int, retries: int, seed: int | None = None,
+         tag: str | None = None) -> str:
     url = base_url.rstrip("/") + "/api/chat"
     options: dict[str, Any] = {"temperature": 0, "num_predict": 220}
     if seed is not None:
@@ -191,6 +193,16 @@ def chat(base_url: str, model: str, messages: list[dict[str, str]],
             content = data.get("message", {}).get("content", "")
             if not isinstance(content, str) or not content.strip():
                 raise ValueError("empty model response")
+            USAGE_LOG.append({
+                "tag": tag,
+                "model": model,
+                "prompt_eval_count": data.get("prompt_eval_count"),
+                "eval_count": data.get("eval_count"),
+                "total_duration_ns": data.get("total_duration"),
+                "load_duration_ns": data.get("load_duration"),
+                "prompt_eval_duration_ns": data.get("prompt_eval_duration"),
+                "eval_duration_ns": data.get("eval_duration"),
+            })
             return content.strip()
         except Exception as exc:
             last_error = exc
@@ -266,9 +278,10 @@ def judge_prompt(sample: dict[str, Any], text: str) -> list[dict[str, str]]:
     return [{"role": "system", "content": system}, {"role": "user", "content": user}]
 
 
-def judge(sample: dict[str, Any], text: str, args: argparse.Namespace) -> dict[str, Any]:
+def judge(sample: dict[str, Any], text: str, args: argparse.Namespace,
+          tag: str | None = None) -> dict[str, Any]:
     raw = chat(args.base_url, args.judge_model or args.writer_model,
-               judge_prompt(sample, text), args.timeout, args.retries, args.seed)
+               judge_prompt(sample, text), args.timeout, args.retries, args.seed, tag)
     parsed = parse_json(raw)
     status = str(parsed.get("status", "PARSE_ERROR")).strip().upper()
     if status == "PARSE_ERROR":
@@ -282,14 +295,16 @@ def judge(sample: dict[str, Any], text: str, args: argparse.Namespace) -> dict[s
             "reason": str(parsed.get("reason", "")), "raw_response": raw}
 
 
-def compress_budget(source: str, budget: int, args: argparse.Namespace) -> str:
+def compress_budget(source: str, budget: int, args: argparse.Namespace,
+                    tag: str | None = None) -> str:
     return chat(args.base_url, args.writer_model,
                 writer_prompt(source, budget, args.writer_style),
-                args.timeout, args.retries, args.seed)
+                args.timeout, args.retries, args.seed, tag)
 
 
-def compress(source: str, depth: int, args: argparse.Namespace) -> str:
-    return compress_budget(source, BUDGETS[depth], args)
+def compress(source: str, depth: int, args: argparse.Namespace,
+             tag: str | None = None) -> str:
+    return compress_budget(source, BUDGETS[depth], args, tag)
 
 
 def rewrite_matched_budget_schedule(depth: int) -> list[int]:
@@ -299,11 +314,12 @@ def rewrite_matched_budget_schedule(depth: int) -> list[int]:
 
 def compress_rewrite_matched(sample: dict[str, Any], args: argparse.Namespace) -> dict[str, str]:
     memories: dict[str, str] = {}
-    base = compress(sample["dialogue"], 1, args)
+    base = compress(sample["dialogue"], 1, args, "rewrite_matched_base")
     for depth in (2, 3, 5):
         memory = base
-        for budget in rewrite_matched_budget_schedule(depth)[1:]:
-            memory = compress_budget(memory, budget, args)
+        for step, budget in enumerate(rewrite_matched_budget_schedule(depth)[1:], start=2):
+            memory = compress_budget(memory, budget, args,
+                                     f"rewrite_matched_d{depth}_step{step}")
         memories[str(depth)] = memory
     return memories
 
@@ -499,6 +515,18 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
     return summary
 
 
+def summarize_usage(entries: list[dict[str, Any]]) -> dict[str, Any]:
+    summary: dict[str, Any] = {}
+    for entry in entries:
+        tag = entry.get("tag") or "unknown"
+        bucket = summary.setdefault(tag, {"calls": 0, "prompt_tokens": 0,
+                                          "completion_tokens": 0})
+        bucket["calls"] += 1
+        bucket["prompt_tokens"] += entry.get("prompt_eval_count") or 0
+        bucket["completion_tokens"] += entry.get("eval_count") or 0
+    return summary
+
+
 def run(args: argparse.Namespace) -> None:
     out_dir = Path(args.out_dir) if args.out_dir else (
         OUT if args.design == "v1" else OUT / ("v22" if args.design == "v3" else "v21")
@@ -529,6 +557,7 @@ def run(args: argparse.Namespace) -> None:
                 "Use the original configuration or a new --out-dir."
             )
     config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
+    USAGE_LOG.clear()
 
     completed: dict[str, dict[str, Any]] = {}
     if args.resume and records_path.exists():
@@ -574,24 +603,26 @@ def run(args: argparse.Namespace) -> None:
             }
             try:
                 if not args.skip_judge:
-                    row["raw_judgment"] = judge(sample, sample["dialogue"], args)
+                    row["raw_judgment"] = judge(sample, sample["dialogue"], args, "raw")
                 recursive_memory = sample["dialogue"]
                 for depth in range(1, 6):
-                    recursive_memory = compress(recursive_memory, depth, args)
+                    tag = f"recursive_d{depth}"
+                    recursive_memory = compress(recursive_memory, depth, args, tag)
                     row["recursive_memories"][str(depth)] = recursive_memory
                     row["recursive_topic_mention"][str(depth)] = topic_mentioned(recursive_memory, sample)
                     row["recursive_memory_sizes"][str(depth)] = text_size(recursive_memory)
                     row["recursive_condition"][str(depth)] = det_condition_status(recursive_memory)
                     if depth in DEPTHS and not args.skip_judge:
-                        row["recursive_judgments"][str(depth)] = judge(sample, recursive_memory, args)
+                        row["recursive_judgments"][str(depth)] = judge(sample, recursive_memory, args, tag)
                 for depth in DEPTHS:
-                    direct_memory = compress(sample["dialogue"], depth, args)
+                    tag = f"direct_d{depth}"
+                    direct_memory = compress(sample["dialogue"], depth, args, tag)
                     row["direct_memories"][str(depth)] = direct_memory
                     row["direct_topic_mention"][str(depth)] = topic_mentioned(direct_memory, sample)
                     row["direct_memory_sizes"][str(depth)] = text_size(direct_memory)
                     row["direct_condition"][str(depth)] = det_condition_status(direct_memory)
                     if not args.skip_judge:
-                        row["direct_judgments"][str(depth)] = judge(sample, direct_memory, args)
+                        row["direct_judgments"][str(depth)] = judge(sample, direct_memory, args, tag)
                 if args.rewrite_matched:
                     row["rewrite_matched_memories"]["1"] = row["direct_memories"]["1"]
                     row["rewrite_matched_topic_mention"]["1"] = row["direct_topic_mention"]["1"]
@@ -607,14 +638,24 @@ def run(args: argparse.Namespace) -> None:
                         row["rewrite_matched_memory_sizes"][str(depth)] = text_size(memory)
                         row["rewrite_matched_condition"][str(depth)] = det_condition_status(memory)
                         if not args.skip_judge:
-                            row["rewrite_matched_judgments"][str(depth)] = judge(sample, memory, args)
+                            row["rewrite_matched_judgments"][str(depth)] = judge(
+                                sample, memory, args, f"rewrite_matched_d{depth}")
             except Exception as exc:
                 row["errors"].append(f"{type(exc).__name__}: {exc}")
             out.write(json.dumps(row, ensure_ascii=False) + "\n")
             out.flush()
             completed[sample["sample_id"]] = row
 
+    usage_path = out_dir / "usage.jsonl"
+    usage_path.write_text(
+        "\n".join(json.dumps(entry, ensure_ascii=False) for entry in USAGE_LOG),
+        encoding="utf-8")
+    usage_summary = summarize_usage(USAGE_LOG)
+    (out_dir / "usage_summary.json").write_text(
+        json.dumps(usage_summary, ensure_ascii=False, indent=2), encoding="utf-8")
+
     summary = summarize(list(completed.values()), args)
+    summary["token_usage"] = usage_summary
     summary["errors"] = [
         {"sample_id": row["sample_id"], "errors": row.get("errors", [])}
         for row in completed.values() if row.get("errors")
