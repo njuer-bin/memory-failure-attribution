@@ -38,10 +38,16 @@ LABEL_DEFS = {
 
 def calibration_prompt(sample: dict, text: str) -> list[dict[str, str]]:
     labels = "、".join(sample["allowed_labels"])
+    conditional_rule = (
+        "特别注意：只判断条件（奖学金）是否满足。说话人是否开始考虑或暂时不考虑"
+        "该行动，与 CONDITION_ACTIVE / CONDITION_SATISFIED 标签无关。\n"
+        if sample["dimension"] == "conditional" else ""
+    )
     system = (
         "你是严格的对话状态标注员。只根据给定文本判断目标命题的最终状态。\n"
         "标签定义（必须严格按定义选择）：\n"
         f"{LABEL_DEFS[sample['dimension']]}\n"
+        f"{conditional_rule}"
         "两步判断：\n"
         "第一步：找出文本中关于目标命题的最新状态证据，原文引用到 latest_evidence。\n"
         "第二步：只依据该最新证据选择标签。\n"
@@ -223,7 +229,7 @@ def run(args) -> None:
                       flush=True)
 
     summary = {
-        "protocol": "status_drift_judge_v2.1_calibration",
+        "protocol": "status_drift_judge_v2.2_calibration",
         "judge_model": args.judge_model,
         "seed": args.seed,
         "source_records": str(records_path),

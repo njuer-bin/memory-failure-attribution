@@ -41,7 +41,8 @@ TOPIC_KEYWORDS = {
 DIMENSIONS = ("epistemic", "intentional", "conditional")
 
 
-def _make_row(dimension: str, action: str, updated: bool, sample_id: str) -> dict[str, Any]:
+def _make_row(dimension: str, action: str, updated: bool, sample_id: str,
+              conditional_version: str = "v21") -> dict[str, Any]:
     if dimension == "epistemic":
         initial = f"我可能会{action}，但现在还不能确定。"
         final = (f"我已经确认会{action}，这不是猜测了。" if updated
@@ -54,10 +55,16 @@ def _make_row(dimension: str, action: str, updated: bool, sample_id: str) -> dic
         gold, labels = ("COMMITTED" if updated else "CONSIDERING"), ("CONSIDERING", "COMMITTED")
     else:
         initial = f"如果拿到奖学金，我才考虑{action}。"
-        final = (
-            f"我已经拿到奖学金了，所以这个条件已经满足；我现在开始考虑{action}。"
-            if updated else f"奖学金还没有结果，所以条件尚未满足；我暂时不考虑{action}。"
-        )
+        if conditional_version == "v22":
+            # State only the condition, never the action status; otherwise both
+            # judges read the action clause and the label becomes ambiguous.
+            final = ("我已经拿到奖学金了，条件已经满足。" if updated
+                     else "奖学金还没有结果，条件尚未满足。")
+        else:
+            final = (
+                f"我已经拿到奖学金了，所以这个条件已经满足；我现在开始考虑{action}。"
+                if updated else f"奖学金还没有结果，所以条件尚未满足；我暂时不考虑{action}。"
+            )
         gold, labels = (
             "CONDITION_SATISFIED" if updated else "CONDITION_ACTIVE",
             ("CONDITION_ACTIVE", "CONDITION_SATISFIED"),
@@ -94,21 +101,37 @@ def _build_dataset_v1(limit: int) -> list[dict[str, Any]]:
     return selected
 
 
-def _build_dataset_v2(limit: int) -> list[dict[str, Any]]:
+def _build_dataset_v2(limit: int, conditional_version: str = "v21") -> list[dict[str, Any]]:
     """Crossed design: for each topic, both stable and updated variants."""
     rows: list[dict[str, Any]] = []
     for topic_idx, action in enumerate(TOPICS[:5]):
         for updated in (False, True):
             for dim in DIMENSIONS:
                 variant = "U" if updated else "S"
-                rows.append(_make_row(dim, action, updated, f"{dim}_{topic_idx:02d}_{variant}"))
+                rows.append(_make_row(dim, action, updated, f"{dim}_{topic_idx:02d}_{variant}",
+                                      conditional_version))
     if not 1 <= limit <= len(rows):
         raise ValueError(f"--limit must be between 1 and {len(rows)}")
     return rows[:limit]
 
 
 def build_dataset(limit: int, design: str = "v1") -> list[dict[str, Any]]:
-    return _build_dataset_v2(limit) if design == "v2" else _build_dataset_v1(limit)
+    if design == "v3":
+        return _build_dataset_v2(limit, "v22")
+    if design == "v2":
+        return _build_dataset_v2(limit, "v21")
+    return _build_dataset_v1(limit)
+
+
+def select_samples(limit: int, design: str, dimensions: str) -> list[dict[str, Any]]:
+    allowed = {d.strip() for d in dimensions.split(",") if d.strip()}
+    if not allowed:
+        raise ValueError("--dimensions must name at least one dimension")
+    samples = build_dataset(30, design)
+    samples = [s for s in samples if s["dimension"] in allowed]
+    if not samples:
+        raise ValueError(f"no samples for dimensions {sorted(allowed)}")
+    return samples[:limit]
 
 
 def chat(base_url: str, model: str, messages: list[dict[str, str]],
@@ -284,12 +307,17 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
 
 
 def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str, Any]:
+    protocol_by_design = {
+        "v1": "status_drift_recursive_pilot_v1",
+        "v2": "status_drift_recursive_pilot_v2.1",
+        "v3": "status_drift_recursive_pilot_v2.2",
+    }
     summary: dict[str, Any] = {
-        "protocol": "status_drift_recursive_pilot_v2.1" if args.design == "v2"
-                    else "status_drift_recursive_pilot_v1",
+        "protocol": protocol_by_design[args.design],
         "design": args.design, "writer_style": args.writer_style, "seed": args.seed,
         "writer_model": args.writer_model, "judge_model": args.judge_model or args.writer_model,
         "base_url": args.base_url, "requested_limit": args.limit,
+        "dimensions": args.dimensions,
         "completed_trajectories": len(rows),
         "conditions": {"raw": evaluate_condition(rows, "raw")},
         "warning": "Exploratory synthetic pilot only. Same-model writer/judge results are vulnerable "
@@ -319,7 +347,7 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
 
 def run(args: argparse.Namespace) -> None:
     out_dir = Path(args.out_dir) if args.out_dir else (
-        OUT if args.design == "v1" else OUT / "v21"
+        OUT if args.design == "v1" else OUT / ("v22" if args.design == "v3" else "v21")
     )
     out_dir.mkdir(parents=True, exist_ok=True)
     records_path = out_dir / "records.jsonl"
@@ -330,6 +358,7 @@ def run(args: argparse.Namespace) -> None:
         "base_url": args.base_url, "limit": args.limit, "depths": list(DEPTHS),
         "budgets_chars": BUDGETS, "temperature": 0, "design": args.design,
         "writer_style": args.writer_style, "seed": args.seed, "skip_judge": args.skip_judge,
+        "dimensions": args.dimensions,
     }
     config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -350,7 +379,7 @@ def run(args: argparse.Namespace) -> None:
             except (json.JSONDecodeError, KeyError):
                 continue
 
-    samples = build_dataset(args.limit, args.design)
+    samples = select_samples(args.limit, args.design, args.dimensions)
     mode = "a" if args.resume and records_path.exists() else "w"
     with records_path.open(mode, encoding="utf-8") as out:
         for index, sample in enumerate(samples, 1):
@@ -403,8 +432,10 @@ def main() -> None:
     parser.add_argument("--base-url", default="http://127.0.0.1:11434")
     parser.add_argument("--limit", type=int, default=6,
                         help="Number of trajectories; v1 supports 1-30, v2 supports 1-30.")
-    parser.add_argument("--design", choices=("v1", "v2"), default="v1",
-                        help="v2 is the crossed topic x update design (protocol v2.1).")
+    parser.add_argument("--design", choices=("v1", "v2", "v3"), default="v1",
+                        help="v2 = crossed topic x update; v3 = v2 with fixed conditional turns.")
+    parser.add_argument("--dimensions", default="epistemic,intentional,conditional",
+                        help="Comma-separated dimensions to run.")
     parser.add_argument("--writer-style", choices=("status_aware", "neutral"), default="status_aware")
     parser.add_argument("--skip-judge", action="store_true",
                         help="Only produce memories; judge later with the calibration runner.")

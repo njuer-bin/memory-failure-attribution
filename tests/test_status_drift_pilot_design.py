@@ -3,6 +3,7 @@ from experiments.status_drift_recursive_pilot import (
     _make_row,
     build_dataset,
     det_match,
+    select_samples,
 )
 
 
@@ -59,3 +60,27 @@ def test_conditions_use_string_depth_keys():
     assert conditions["direct_d1"] == "direct memory"
     assert conditions["recursive_d1"] == "recursive memory"
     assert conditions["direct_d2"] == ""
+
+
+def test_select_samples_filters_dimensions():
+    rows = select_samples(10, "v2", "intentional")
+    assert len(rows) == 10
+    assert all(r["dimension"] == "intentional" for r in rows)
+
+
+def test_v3_conditional_states_only_the_condition():
+    rows = select_samples(4, "v3", "conditional")
+    stable = next(r for r in rows if not r["has_legitimate_update"])
+    updated = next(r for r in rows if r["has_legitimate_update"])
+    stable_final = stable["turns"][2]["text"]
+    updated_final = updated["turns"][2]["text"]
+    assert "条件尚未满足" in stable_final
+    assert "条件已经满足" in updated_final
+    assert "暂时不考虑" not in stable_final
+    assert "开始考虑" not in updated_final
+
+
+def test_v2_conditional_keeps_legacy_action_clause():
+    rows = select_samples(2, "v2", "conditional")
+    updated = next(r for r in rows if r["has_legitimate_update"])
+    assert "开始考虑" in updated["turns"][2]["text"]
