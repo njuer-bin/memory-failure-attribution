@@ -1,0 +1,324 @@
+{
+  "protocol": "status_drift_recursive_pilot_v2.1",
+  "design": "v2",
+  "writer_style": "neutral",
+  "seed": 42,
+  "writer_model": "qwen2.5:7b",
+  "judge_model": "qwen2.5:7b",
+  "base_url": "http://127.0.0.1:11434",
+  "requested_limit": 12,
+  "completed_trajectories": 12,
+  "conditions": {
+    "raw": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    },
+    "direct_d1": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    },
+    "recursive_d1": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    },
+    "direct_d2": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    },
+    "recursive_d2": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    },
+    "direct_d3": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    },
+    "recursive_d3": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    },
+    "direct_d5": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    },
+    "recursive_d5": {
+      "n_valid": 0,
+      "accuracy": null,
+      "correct": 0,
+      "proposition_retained_n": 0,
+      "cpsd": null,
+      "cpsd_numerator": 0,
+      "omission_rate": null,
+      "omission_numerator": 0,
+      "legitimate_transition_accuracy": null,
+      "legitimate_transition_n": 0,
+      "by_dimension": {
+        "epistemic": {
+          "n": 0,
+          "accuracy": null
+        },
+        "intentional": {
+          "n": 0,
+          "accuracy": null
+        },
+        "conditional": {
+          "n": 0,
+          "accuracy": null
+        }
+      },
+      "det_n": 12,
+      "det_retained_n": 12,
+      "det_omission_rate": 0.0,
+      "det_omission_numerator": 0,
+      "cpsd_det": null,
+      "cpsd_det_numerator": 0,
+      "cpsd_det_denominator": 0
+    }
+  },
+  "warning": "Exploratory synthetic pilot only. Same-model writer/judge results are vulnerable to correlated bias. Manually adjudicate outputs before making claims.",
+  "recursive_minus_direct_error_rate": {
+    "1": null,
+    "2": null,
+    "3": null,
+    "5": null
+  },
+  "recursive_minus_direct_error_rate_det": {
+    "1": null,
+    "2": null,
+    "3": null,
+    "5": null
+  },
+  "errors": []
+}

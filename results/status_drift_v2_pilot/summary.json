@@ -1,0 +1,252 @@
+{
+  "protocol": "status_drift_recursive_pilot_v1",
+  "writer_model": "qwen2.5:7b",
+  "judge_model": "qwen2.5:7b",
+  "base_url": "http://127.0.0.1:11434",
+  "requested_limit": 6,
+  "completed_trajectories": 6,
+  "conditions": {
+    "raw": {
+      "n_valid": 6,
+      "accuracy": 0.8333333333333334,
+      "correct": 5,
+      "proposition_retained_n": 3,
+      "cpsd": 0.0,
+      "cpsd_numerator": 0,
+      "omission_rate": 0.5,
+      "omission_numerator": 3,
+      "legitimate_transition_accuracy": 1.0,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.5
+        }
+      }
+    },
+    "direct_d1": {
+      "n_valid": 6,
+      "accuracy": 0.5,
+      "correct": 3,
+      "proposition_retained_n": 5,
+      "cpsd": 0.4,
+      "cpsd_numerator": 2,
+      "omission_rate": 0.16666666666666666,
+      "omission_numerator": 1,
+      "legitimate_transition_accuracy": 0.3333333333333333,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      }
+    },
+    "recursive_d1": {
+      "n_valid": 6,
+      "accuracy": 0.5,
+      "correct": 3,
+      "proposition_retained_n": 5,
+      "cpsd": 0.4,
+      "cpsd_numerator": 2,
+      "omission_rate": 0.16666666666666666,
+      "omission_numerator": 1,
+      "legitimate_transition_accuracy": 0.3333333333333333,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      }
+    },
+    "direct_d2": {
+      "n_valid": 6,
+      "accuracy": 0.5,
+      "correct": 3,
+      "proposition_retained_n": 5,
+      "cpsd": 0.4,
+      "cpsd_numerator": 2,
+      "omission_rate": 0.16666666666666666,
+      "omission_numerator": 1,
+      "legitimate_transition_accuracy": 0.3333333333333333,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      }
+    },
+    "recursive_d2": {
+      "n_valid": 6,
+      "accuracy": 0.5,
+      "correct": 3,
+      "proposition_retained_n": 4,
+      "cpsd": 0.5,
+      "cpsd_numerator": 2,
+      "omission_rate": 0.3333333333333333,
+      "omission_numerator": 2,
+      "legitimate_transition_accuracy": 0.3333333333333333,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      }
+    },
+    "direct_d3": {
+      "n_valid": 6,
+      "accuracy": 0.5,
+      "correct": 3,
+      "proposition_retained_n": 5,
+      "cpsd": 0.4,
+      "cpsd_numerator": 2,
+      "omission_rate": 0.16666666666666666,
+      "omission_numerator": 1,
+      "legitimate_transition_accuracy": 0.3333333333333333,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      }
+    },
+    "recursive_d3": {
+      "n_valid": 6,
+      "accuracy": 0.5,
+      "correct": 3,
+      "proposition_retained_n": 4,
+      "cpsd": 0.5,
+      "cpsd_numerator": 2,
+      "omission_rate": 0.3333333333333333,
+      "omission_numerator": 2,
+      "legitimate_transition_accuracy": 0.3333333333333333,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      }
+    },
+    "direct_d5": {
+      "n_valid": 6,
+      "accuracy": 0.5,
+      "correct": 3,
+      "proposition_retained_n": 5,
+      "cpsd": 0.4,
+      "cpsd_numerator": 2,
+      "omission_rate": 0.16666666666666666,
+      "omission_numerator": 1,
+      "legitimate_transition_accuracy": 0.3333333333333333,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.0
+        }
+      }
+    },
+    "recursive_d5": {
+      "n_valid": 6,
+      "accuracy": 0.8333333333333334,
+      "correct": 5,
+      "proposition_retained_n": 5,
+      "cpsd": 0.2,
+      "cpsd_numerator": 1,
+      "omission_rate": 0.16666666666666666,
+      "omission_numerator": 1,
+      "legitimate_transition_accuracy": 0.6666666666666666,
+      "legitimate_transition_n": 3,
+      "by_dimension": {
+        "epistemic": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "intentional": {
+          "n": 2,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 2,
+          "accuracy": 0.5
+        }
+      }
+    }
+  },
+  "warning": "Exploratory synthetic pilot only. Same-model writer/judge results are vulnerable to correlated bias. Manually adjudicate outputs before making claims.",
+  "recursive_minus_direct_error_rate": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "5": -0.33333333333333337
+  },
+  "errors": []
+}

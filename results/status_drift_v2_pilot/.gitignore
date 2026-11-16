@@ -1,2 +1,3 @@
-*
-!.gitignore
+# Raw synthetic pilot outputs are committed for reproducibility.
+__pycache__/
+*.pyc
