@@ -1,0 +1,774 @@
+{
+  "protocol": "status_drift_recursive_pilot_v2.4",
+  "protocol_parent_design": "status_drift_recursive_pilot_v2.2",
+  "design": "v3",
+  "writer_style": "neutral",
+  "seed": 42,
+  "protocol_version": "2.4",
+  "writer_model": "qwen2.5:7b",
+  "judge_model": "qwen2.5:7b",
+  "base_url": "http://127.0.0.1:11434",
+  "requested_limit": 30,
+  "dimensions": "epistemic,intentional,conditional",
+  "completed_trajectories": 30,
+  "conditions": {
+    "raw": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.8333333333333334,
+      "correct": 25,
+      "proposition_retained_n": 23,
+      "cpsd_judge_provisional": 0.0,
+      "cpsd_judge_provisional_numerator": 0,
+      "judge_claimed_proposition_retained_n": 23,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.23333333333333334,
+      "omission_numerator": 7,
+      "legitimate_transition_accuracy": 1.0,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.5
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 30,
+      "topic_not_mentioned_rate": 0.0,
+      "status_error_given_topic_mention": 0.16666666666666666,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 5,
+      "condition_marker_heuristic_accuracy": 0.5,
+      "condition_marker_heuristic_omitted_n": 0,
+      "condition_marker_heuristic_ambiguous_n": 5,
+      "condition_marker_heuristic_omission_rate": 0.0
+    },
+    "direct_d1": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.8333333333333334,
+      "correct": 25,
+      "proposition_retained_n": 23,
+      "cpsd_judge_provisional": 0.043478260869565216,
+      "cpsd_judge_provisional_numerator": 1,
+      "judge_claimed_proposition_retained_n": 23,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.23333333333333334,
+      "omission_numerator": 7,
+      "legitimate_transition_accuracy": 0.9333333333333333,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.5
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 30,
+      "topic_not_mentioned_rate": 0.0,
+      "status_error_given_topic_mention": 0.16666666666666666,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 10,
+      "condition_marker_heuristic_accuracy": 1.0,
+      "condition_marker_heuristic_omitted_n": 0,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.0
+    },
+    "recursive_d1": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.7666666666666667,
+      "correct": 23,
+      "proposition_retained_n": 23,
+      "cpsd_judge_provisional": 0.13043478260869565,
+      "cpsd_judge_provisional_numerator": 3,
+      "judge_claimed_proposition_retained_n": 23,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.23333333333333334,
+      "omission_numerator": 7,
+      "legitimate_transition_accuracy": 0.8,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.3
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 30,
+      "topic_not_mentioned_rate": 0.0,
+      "status_error_given_topic_mention": 0.23333333333333334,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 10,
+      "condition_marker_heuristic_accuracy": 1.0,
+      "condition_marker_heuristic_omitted_n": 0,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.0
+    },
+    "direct_d2": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.7,
+      "correct": 21,
+      "proposition_retained_n": 25,
+      "cpsd_judge_provisional": 0.2,
+      "cpsd_judge_provisional_numerator": 5,
+      "judge_claimed_proposition_retained_n": 25,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.16666666666666666,
+      "omission_numerator": 5,
+      "legitimate_transition_accuracy": 0.6666666666666666,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.9
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.2
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 30,
+      "topic_not_mentioned_rate": 0.0,
+      "status_error_given_topic_mention": 0.3,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 10,
+      "condition_marker_heuristic_accuracy": 1.0,
+      "condition_marker_heuristic_omitted_n": 0,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.0
+    },
+    "recursive_d2": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.5333333333333333,
+      "correct": 16,
+      "proposition_retained_n": 20,
+      "cpsd_judge_provisional": 0.45,
+      "cpsd_judge_provisional_numerator": 9,
+      "judge_claimed_proposition_retained_n": 20,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.3333333333333333,
+      "omission_numerator": 10,
+      "legitimate_transition_accuracy": 0.4,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 0.8
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.3
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 30,
+      "topic_not_mentioned_rate": 0.0,
+      "status_error_given_topic_mention": 0.4666666666666667,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 8,
+      "condition_marker_heuristic_accuracy": 0.8,
+      "condition_marker_heuristic_omitted_n": 2,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.2
+    },
+    "direct_d3": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.7,
+      "correct": 21,
+      "proposition_retained_n": 25,
+      "cpsd_judge_provisional": 0.2,
+      "cpsd_judge_provisional_numerator": 5,
+      "judge_claimed_proposition_retained_n": 25,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.16666666666666666,
+      "omission_numerator": 5,
+      "legitimate_transition_accuracy": 0.6666666666666666,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.9
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.2
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 30,
+      "topic_not_mentioned_rate": 0.0,
+      "status_error_given_topic_mention": 0.3,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 10,
+      "condition_marker_heuristic_accuracy": 1.0,
+      "condition_marker_heuristic_omitted_n": 0,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.0
+    },
+    "recursive_d3": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.43333333333333335,
+      "correct": 13,
+      "proposition_retained_n": 19,
+      "cpsd_judge_provisional": 0.47368421052631576,
+      "cpsd_judge_provisional_numerator": 9,
+      "judge_claimed_proposition_retained_n": 19,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.36666666666666664,
+      "omission_numerator": 11,
+      "legitimate_transition_accuracy": 0.26666666666666666,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 0.4
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.4
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 29,
+      "topic_not_mentioned_rate": 0.03333333333333333,
+      "status_error_given_topic_mention": 0.5862068965517241,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 8,
+      "condition_marker_heuristic_accuracy": 0.8,
+      "condition_marker_heuristic_omitted_n": 2,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.2
+    },
+    "direct_d5": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.6333333333333333,
+      "correct": 19,
+      "proposition_retained_n": 23,
+      "cpsd_judge_provisional": 0.21739130434782608,
+      "cpsd_judge_provisional_numerator": 5,
+      "judge_claimed_proposition_retained_n": 23,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.23333333333333334,
+      "omission_numerator": 7,
+      "legitimate_transition_accuracy": 0.5333333333333333,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.8
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 0.9
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.2
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 29,
+      "topic_not_mentioned_rate": 0.03333333333333333,
+      "status_error_given_topic_mention": 0.3448275862068966,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 10,
+      "condition_marker_heuristic_accuracy": 1.0,
+      "condition_marker_heuristic_omitted_n": 0,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.0
+    },
+    "recursive_d5": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.43333333333333335,
+      "correct": 13,
+      "proposition_retained_n": 13,
+      "cpsd_judge_provisional": 0.46153846153846156,
+      "cpsd_judge_provisional_numerator": 6,
+      "judge_claimed_proposition_retained_n": 13,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.5666666666666667,
+      "omission_numerator": 17,
+      "legitimate_transition_accuracy": 0.3333333333333333,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 0.3
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.5
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 29,
+      "topic_not_mentioned_rate": 0.03333333333333333,
+      "status_error_given_topic_mention": 0.5862068965517241,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 7,
+      "condition_marker_heuristic_accuracy": 0.7,
+      "condition_marker_heuristic_omitted_n": 3,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.3
+    },
+    "rewrite_matched_d1": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.8333333333333334,
+      "correct": 25,
+      "proposition_retained_n": 23,
+      "cpsd_judge_provisional": 0.043478260869565216,
+      "cpsd_judge_provisional_numerator": 1,
+      "judge_claimed_proposition_retained_n": 23,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.23333333333333334,
+      "omission_numerator": 7,
+      "legitimate_transition_accuracy": 0.9333333333333333,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 1.0
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.5
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 30,
+      "topic_not_mentioned_rate": 0.0,
+      "status_error_given_topic_mention": 0.16666666666666666,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 10,
+      "condition_marker_heuristic_accuracy": 1.0,
+      "condition_marker_heuristic_omitted_n": 0,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.0
+    },
+    "rewrite_matched_d2": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.6,
+      "correct": 18,
+      "proposition_retained_n": 19,
+      "cpsd_judge_provisional": 0.3684210526315789,
+      "cpsd_judge_provisional_numerator": 7,
+      "judge_claimed_proposition_retained_n": 19,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.36666666666666664,
+      "omission_numerator": 11,
+      "legitimate_transition_accuracy": 0.5333333333333333,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 0.9
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.4
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 30,
+      "topic_not_mentioned_rate": 0.0,
+      "status_error_given_topic_mention": 0.4,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 8,
+      "condition_marker_heuristic_accuracy": 0.8,
+      "condition_marker_heuristic_omitted_n": 2,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.2
+    },
+    "rewrite_matched_d3": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.5333333333333333,
+      "correct": 16,
+      "proposition_retained_n": 19,
+      "cpsd_judge_provisional": 0.3684210526315789,
+      "cpsd_judge_provisional_numerator": 7,
+      "judge_claimed_proposition_retained_n": 19,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.36666666666666664,
+      "omission_numerator": 11,
+      "legitimate_transition_accuracy": 0.4666666666666667,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.6
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 0.5
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.5
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 29,
+      "topic_not_mentioned_rate": 0.03333333333333333,
+      "status_error_given_topic_mention": 0.4827586206896552,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 8,
+      "condition_marker_heuristic_accuracy": 0.8,
+      "condition_marker_heuristic_omitted_n": 2,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.2
+    },
+    "rewrite_matched_d5": {
+      "n_expected": 30,
+      "n_attempted": 30,
+      "n_valid": 30,
+      "n_invalid_or_parse_error": 0,
+      "n_missing_predictions": 0,
+      "prediction_failure_rate": 0.0,
+      "accuracy": 0.4,
+      "correct": 12,
+      "proposition_retained_n": 13,
+      "cpsd_judge_provisional": 0.46153846153846156,
+      "cpsd_judge_provisional_numerator": 6,
+      "judge_claimed_proposition_retained_n": 13,
+      "metric_warning": "Judge-claimed proposition retention is not human-adjudicated; this conditional error rate is provisional, not confirmatory CPSD.",
+      "omission_rate": 0.5666666666666667,
+      "omission_numerator": 17,
+      "legitimate_transition_accuracy": 0.26666666666666666,
+      "legitimate_transition_n": 15,
+      "by_dimension": {
+        "epistemic": {
+          "n": 10,
+          "accuracy": 0.5
+        },
+        "intentional": {
+          "n": 10,
+          "accuracy": 0.4
+        },
+        "conditional": {
+          "n": 10,
+          "accuracy": 0.3
+        }
+      },
+      "topic_mention_check_n": 30,
+      "topic_mentioned_n": 29,
+      "topic_not_mentioned_rate": 0.03333333333333333,
+      "status_error_given_topic_mention": 0.5862068965517241,
+      "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
+      "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+      "condition_marker_heuristic_n": 10,
+      "condition_marker_heuristic_correct": 6,
+      "condition_marker_heuristic_accuracy": 0.6,
+      "condition_marker_heuristic_omitted_n": 4,
+      "condition_marker_heuristic_ambiguous_n": 0,
+      "condition_marker_heuristic_omission_rate": 0.4
+    }
+  },
+  "warning": "Exploratory synthetic pilot only. Same-model writer/judge results are vulnerable to correlated bias. Manually adjudicate outputs before making claims.",
+  "recursive_minus_direct_error_rate": {
+    "1": 0.06666666666666665,
+    "2": 0.16666666666666663,
+    "3": 0.2666666666666666,
+    "5": 0.19999999999999996
+  },
+  "recursive_minus_direct_provisional_status_error_given_topic_mention_delta": {
+    "1": 0.06666666666666668,
+    "2": 0.16666666666666669,
+    "3": 0.2862068965517241,
+    "5": 0.2413793103448275
+  },
+  "recursive_minus_rewrite_matched_error_rate": {
+    "1": 0.06666666666666665,
+    "2": 0.06666666666666665,
+    "3": 0.09999999999999998,
+    "5": -0.033333333333333326
+  },
+  "rewrite_matched_minus_direct_error_rate": {
+    "1": 0.0,
+    "2": 0.09999999999999998,
+    "3": 0.16666666666666663,
+    "5": 0.23333333333333328
+  },
+  "token_usage": {
+    "judge:raw": {
+      "calls": 30,
+      "prompt_tokens": 6045,
+      "completion_tokens": 1088
+    },
+    "writer:recursive_d1": {
+      "calls": 30,
+      "prompt_tokens": 3929,
+      "completion_tokens": 756
+    },
+    "judge:recursive_d1": {
+      "calls": 30,
+      "prompt_tokens": 4587,
+      "completion_tokens": 1167
+    },
+    "writer:recursive_d2": {
+      "calls": 30,
+      "prompt_tokens": 2471,
+      "completion_tokens": 612
+    },
+    "judge:recursive_d2": {
+      "calls": 30,
+      "prompt_tokens": 4442,
+      "completion_tokens": 1224
+    },
+    "writer:recursive_d3": {
+      "calls": 30,
+      "prompt_tokens": 2324,
+      "completion_tokens": 559
+    },
+    "judge:recursive_d3": {
+      "calls": 30,
+      "prompt_tokens": 4391,
+      "completion_tokens": 1210
+    },
+    "writer:recursive_d4": {
+      "calls": 30,
+      "prompt_tokens": 2269,
+      "completion_tokens": 504
+    },
+    "writer:recursive_d5": {
+      "calls": 30,
+      "prompt_tokens": 2214,
+      "completion_tokens": 483
+    },
+    "judge:recursive_d5": {
+      "calls": 30,
+      "prompt_tokens": 4320,
+      "completion_tokens": 1250
+    },
+    "writer:direct_d1": {
+      "calls": 30,
+      "prompt_tokens": 3929,
+      "completion_tokens": 758
+    },
+    "judge:direct_d1": {
+      "calls": 30,
+      "prompt_tokens": 4589,
+      "completion_tokens": 1186
+    },
+    "writer:direct_d2": {
+      "calls": 30,
+      "prompt_tokens": 3929,
+      "completion_tokens": 699
+    },
+    "judge:direct_d2": {
+      "calls": 30,
+      "prompt_tokens": 4528,
+      "completion_tokens": 1138
+    },
+    "writer:direct_d3": {
+      "calls": 30,
+      "prompt_tokens": 3929,
+      "completion_tokens": 671
+    },
+    "judge:direct_d3": {
+      "calls": 30,
+      "prompt_tokens": 4501,
+      "completion_tokens": 1133
+    },
+    "writer:direct_d5": {
+      "calls": 30,
+      "prompt_tokens": 3929,
+      "completion_tokens": 642
+    },
+    "judge:direct_d5": {
+      "calls": 30,
+      "prompt_tokens": 4473,
+      "completion_tokens": 1143
+    },
+    "writer:rewrite_matched_base": {
+      "calls": 30,
+      "prompt_tokens": 3929,
+      "completion_tokens": 758
+    },
+    "writer:rewrite_matched_d2_step2": {
+      "calls": 30,
+      "prompt_tokens": 2473,
+      "completion_tokens": 618
+    },
+    "writer:rewrite_matched_d3_step2": {
+      "calls": 30,
+      "prompt_tokens": 2473,
+      "completion_tokens": 620
+    },
+    "writer:rewrite_matched_d3_step3": {
+      "calls": 30,
+      "prompt_tokens": 2331,
+      "completion_tokens": 557
+    },
+    "writer:rewrite_matched_d5_step2": {
+      "calls": 30,
+      "prompt_tokens": 2473,
+      "completion_tokens": 620
+    },
+    "writer:rewrite_matched_d5_step3": {
+      "calls": 30,
+      "prompt_tokens": 2331,
+      "completion_tokens": 564
+    },
+    "writer:rewrite_matched_d5_step4": {
+      "calls": 30,
+      "prompt_tokens": 2275,
+      "completion_tokens": 535
+    },
+    "writer:rewrite_matched_d5_step5": {
+      "calls": 30,
+      "prompt_tokens": 2246,
+      "completion_tokens": 487
+    },
+    "judge:rewrite_matched_d2": {
+      "calls": 30,
+      "prompt_tokens": 4447,
+      "completion_tokens": 1224
+    },
+    "judge:rewrite_matched_d3": {
+      "calls": 30,
+      "prompt_tokens": 4392,
+      "completion_tokens": 1249
+    },
+    "judge:rewrite_matched_d5": {
+      "calls": 30,
+      "prompt_tokens": 4327,
+      "completion_tokens": 1294
+    }
+  },
+  "errors": []
+}

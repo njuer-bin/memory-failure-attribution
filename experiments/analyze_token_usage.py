@@ -19,9 +19,11 @@ def load_usage(run_dir: str | Path) -> list[dict]:
             if line.strip()]
 
 
-def token_ranges(entries: list[dict], tag: str) -> dict | None:
+def token_ranges(entries: list[dict], tag: str, role: str | None = None) -> dict | None:
     values = [entry.get("eval_count") for entry in entries
-              if entry.get("tag") == tag and entry.get("eval_count") is not None]
+              if entry.get("tag") == tag
+              and (role is None or entry.get("role") == role)
+              and entry.get("eval_count") is not None]
     if not values:
         return None
     return {
@@ -46,9 +48,8 @@ def main(paths: list[str]) -> None:
                   f"prompt_tokens={value['prompt_tokens']:<7} "
                   f"completion_tokens={value['completion_tokens']}")
         print("final-depth writer completion tokens:")
-        for tag in ("writer:direct_d5", "writer:recursive_d5",
-                    "writer:rewrite_matched_d5_step5"):
-            value = token_ranges(entries, tag)
+        for tag in ("direct_d5", "recursive_d5", "rewrite_matched_d5_step5"):
+            value = token_ranges(entries, tag, "writer")
             if value:
                 print(f"  {tag:<28} calls={value['calls']:<3} "
                       f"min={value['min']} max={value['max']} mean={value['mean']:.1f}")

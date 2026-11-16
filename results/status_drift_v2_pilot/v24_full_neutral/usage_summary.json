@@ -1,0 +1,147 @@
+{
+  "judge:raw": {
+    "calls": 30,
+    "prompt_tokens": 6045,
+    "completion_tokens": 1088
+  },
+  "writer:recursive_d1": {
+    "calls": 30,
+    "prompt_tokens": 3929,
+    "completion_tokens": 756
+  },
+  "judge:recursive_d1": {
+    "calls": 30,
+    "prompt_tokens": 4587,
+    "completion_tokens": 1167
+  },
+  "writer:recursive_d2": {
+    "calls": 30,
+    "prompt_tokens": 2471,
+    "completion_tokens": 612
+  },
+  "judge:recursive_d2": {
+    "calls": 30,
+    "prompt_tokens": 4442,
+    "completion_tokens": 1224
+  },
+  "writer:recursive_d3": {
+    "calls": 30,
+    "prompt_tokens": 2324,
+    "completion_tokens": 559
+  },
+  "judge:recursive_d3": {
+    "calls": 30,
+    "prompt_tokens": 4391,
+    "completion_tokens": 1210
+  },
+  "writer:recursive_d4": {
+    "calls": 30,
+    "prompt_tokens": 2269,
+    "completion_tokens": 504
+  },
+  "writer:recursive_d5": {
+    "calls": 30,
+    "prompt_tokens": 2214,
+    "completion_tokens": 483
+  },
+  "judge:recursive_d5": {
+    "calls": 30,
+    "prompt_tokens": 4320,
+    "completion_tokens": 1250
+  },
+  "writer:direct_d1": {
+    "calls": 30,
+    "prompt_tokens": 3929,
+    "completion_tokens": 758
+  },
+  "judge:direct_d1": {
+    "calls": 30,
+    "prompt_tokens": 4589,
+    "completion_tokens": 1186
+  },
+  "writer:direct_d2": {
+    "calls": 30,
+    "prompt_tokens": 3929,
+    "completion_tokens": 699
+  },
+  "judge:direct_d2": {
+    "calls": 30,
+    "prompt_tokens": 4528,
+    "completion_tokens": 1138
+  },
+  "writer:direct_d3": {
+    "calls": 30,
+    "prompt_tokens": 3929,
+    "completion_tokens": 671
+  },
+  "judge:direct_d3": {
+    "calls": 30,
+    "prompt_tokens": 4501,
+    "completion_tokens": 1133
+  },
+  "writer:direct_d5": {
+    "calls": 30,
+    "prompt_tokens": 3929,
+    "completion_tokens": 642
+  },
+  "judge:direct_d5": {
+    "calls": 30,
+    "prompt_tokens": 4473,
+    "completion_tokens": 1143
+  },
+  "writer:rewrite_matched_base": {
+    "calls": 30,
+    "prompt_tokens": 3929,
+    "completion_tokens": 758
+  },
+  "writer:rewrite_matched_d2_step2": {
+    "calls": 30,
+    "prompt_tokens": 2473,
+    "completion_tokens": 618
+  },
+  "writer:rewrite_matched_d3_step2": {
+    "calls": 30,
+    "prompt_tokens": 2473,
+    "completion_tokens": 620
+  },
+  "writer:rewrite_matched_d3_step3": {
+    "calls": 30,
+    "prompt_tokens": 2331,
+    "completion_tokens": 557
+  },
+  "writer:rewrite_matched_d5_step2": {
+    "calls": 30,
+    "prompt_tokens": 2473,
+    "completion_tokens": 620
+  },
+  "writer:rewrite_matched_d5_step3": {
+    "calls": 30,
+    "prompt_tokens": 2331,
+    "completion_tokens": 564
+  },
+  "writer:rewrite_matched_d5_step4": {
+    "calls": 30,
+    "prompt_tokens": 2275,
+    "completion_tokens": 535
+  },
+  "writer:rewrite_matched_d5_step5": {
+    "calls": 30,
+    "prompt_tokens": 2246,
+    "completion_tokens": 487
+  },
+  "judge:rewrite_matched_d2": {
+    "calls": 30,
+    "prompt_tokens": 4447,
+    "completion_tokens": 1224
+  },
+  "judge:rewrite_matched_d3": {
+    "calls": 30,
+    "prompt_tokens": 4392,
+    "completion_tokens": 1249
+  },
+  "judge:rewrite_matched_d5": {
+    "calls": 30,
+    "prompt_tokens": 4327,
+    "completion_tokens": 1294
+  }
+}

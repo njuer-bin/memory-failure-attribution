@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 15
+  total_runs: 16
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -180,6 +180,13 @@ experiments:
       wall_time_min: null
       change_summary: "120 items per annotator; unsupported_status_change agreement 1.000/kappa 1.000. Drift: raw 0/30, direct D5 0/30, recursive D5 2/29-27 (6.9-7.4%), rewrite D5 3/30-28 (10.0-10.7%). Five cases: epistemic escalation + intentional commitment weakening."
       timestamp: "2026-11-16"
+    - run_id: "v24_full_neutral"
+      hypothesis: "Neutral-writer v2.4 replication with token logging"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "30 trajectories, 0 errors. Recursive-minus-direct error +0.067/+0.167/+0.267/+0.200; cue ABSENT at recursive D5 8/10 vs status-aware 2/10. Token logging shows chained outputs shorter (16.1 vs 21.4 tokens at D5), so not token-matched. 120-item annotation set generated."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_4.md (revision) + docs/STATUS_DRIFT_PILOT_PROTOCOL.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
@@ -189,9 +196,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 14
+  cycle: 15
   last_direction: "deepen"
-  last_reflection: "v2.4 human annotation is complete. Unsupported status drift is 4.2-4.3% overall, 0/30 raw, 0/30 direct D5, 2 recursive D5, 3 rewrite-matched D5; all five cases are epistemic escalation or intentional commitment weakening. Phenomenon gate passes for the status-aware writer; recursion remains directional only. Next: human-annotate a neutral-writer run and add matched-budget controls."
+  last_reflection: "Neutral v2.4 run reproduces the chaining effect (recursive-minus-direct positive; cue ABSENT 8/10 at D5 vs status-aware 2/10) and generates a 120-item annotation set. Token logging shows chained outputs ~25% shorter, so the next causal step is a matched-token-budget experiment. Human annotation of the neutral set is pending."
 
 workspace:
   findings: "findings.md"

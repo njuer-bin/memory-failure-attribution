@@ -72,14 +72,20 @@ in status preservation.**
   accuracy 260/270 (status-aware) vs 232/270 (neutral). The mitigation
   23 → 1 is not a judge artifact. Majority voting still leaves 15
   judge-specific near-tie errors in neutral.
+- **Neutral v2.4 replication (30 trajectories).** Recursive-minus-direct judge
+  error is +0.067/+0.167/+0.267/+0.200 at D1/D2/D3/D5 (recursive worse), while
+  the status-aware run was negative. Deterministic cue ABSENT at recursive D5
+  is 8/10 neutral vs 2/10 status-aware; rewrite-matched D5 is 8/10 vs 2/10.
+  Token logging shows chained outputs are shorter (D5 mean 16.1 vs direct 21.4
+  tokens), so the contrast is not token-matched and a matched-budget follow-up
+  is required.
 - **Human annotation confirms low drift under the status-aware writer.**
   120 items per annotator, v2.4 full run: unsupported status drift is 0/30 at
   Raw, 0/30 at Direct D5, 2/27–29 at Recursive D5 (6.9–7.4%), and 3/28–30 at
   Rewrite-matched D5 (10.0–10.7%); overall 4.2–4.3%. Annotation agreement on
   the drift label is 1.000 (kappa 1.0). All five drift cases are epistemic
   escalation or intentional commitment weakening. This validates the
-  status-aware condition; the larger neutral-writer effect still awaits human
-  annotation.
+  status-aware condition; the neutral-writer effect awaits human annotation.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

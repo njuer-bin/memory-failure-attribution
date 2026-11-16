@@ -1,0 +1,11 @@
+{
+  "n_items": 120,
+  "gold_status_counts": {
+    "POSSIBLE": 20,
+    "CONSIDERING": 20,
+    "CONDITION_ACTIVE": 20,
+    "CERTAIN": 20,
+    "COMMITTED": 20,
+    "CONDITION_SATISFIED": 20
+  }
+}

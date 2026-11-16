@@ -251,3 +251,16 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Phenomenon gate passes for the status-aware writer; recursion is directional
   only (Direct 0 vs Recursive 2 / Rewrite 3).
 - Recorded in `docs/research/2026-11-16-status-drift-v24-human-annotation.md`.
+
+### v2.4 neutral-writer run and annotation set — completed
+
+- 30 trajectories, neutral writer, rewrite-matched, token logging enabled.
+- 0 errors; 0 invalid/missing. Recursive-minus-direct error
+  +0.067/+0.167/+0.267/+0.200 (recursive worse), opposite to status-aware.
+- Deterministic cue ABSENT at recursive D5: 8/10 neutral vs 2/10 status-aware;
+  rewrite-matched D5 8/10 vs 2/10.
+- Token ranges: direct D5 mean 21.4, recursive D5 16.1, rewrite D5 16.2; chained
+  outputs are shorter, so the contrast is not token-matched.
+- 120-item annotation set per annotator generated under
+  `v24_full_neutral/annotation/`.
+- Recorded in `docs/research/2026-11-16-status-drift-v24-neutral-run.md`.
