@@ -1,0 +1,24 @@
+{
+  "n_items": 60,
+  "dimensions": {
+    "intentional": 18,
+    "epistemic": 24,
+    "conditional": 18
+  },
+  "paths": {
+    "TEMP1": 10,
+    "S2": 10,
+    "PEEK": 10,
+    "TEMP2": 10,
+    "PARA": 10,
+    "S1": 10
+  },
+  "gold_status": {
+    "COMMITTED": 6,
+    "POSSIBLE": 12,
+    "CERTAIN": 12,
+    "CONSIDERING": 12,
+    "CONDITION_ACTIVE": 12,
+    "CONDITION_SATISFIED": 6
+  }
+}
