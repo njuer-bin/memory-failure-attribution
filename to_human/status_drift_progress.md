@@ -81,18 +81,22 @@ Report neutral magnitudes as ranges; the status-aware mitigation is stable.
   topic dominates.
 - **Commitment-aware writer:** 10/10 strong commitment cues at every depth
   (recursive D5 included), vs neutral 1 strong/8 none and status-aware
-  5 strong/5 weak. This is a ceiling intervention, not a deployment default.
-- **Sidecar mitigation:** pre-registered (v2.8) and implemented; a parseable
-  `[状态: ...]` line is appended to each memory. Run pending.
+  5 strong/5 weak. Judge confirmation: qwen+gemma agree 180/180 and all 40
+  updated D3/D5 items are COMMITTED. This is a ceiling intervention, not a
+  deployment default.
+- **Sidecar mitigation (v2.8): blocked.** The 7B writer cannot reliably emit
+  prose plus a structured status line in one call; two prompt attempts were
+  invalid and discarded. A reliable version needs a separate extractor or a
+  stronger model. No v2.8 result is claimed.
 - **Human review sample:** `to_human/adjudication_sample.csv` (18 items,
   stratified across writer drift, judge errors, and controls).
 
 ## Currently running
 
-- gemma judging of the 20 commitment-aware trajectories. qwen is done: all 20
-  updated D5 items are judged COMMITTED, and the stable CONSIDERING items are
-  also correct.
-- Next: the 60-trajectory sidecar run, then a human-adjudication pass.
+- No heavy run in progress. The sidecar line is blocked; the main evidence is
+  complete.
+- Next: human adjudication of `adjudication_sample.csv`, final synthesis, and a
+  separate-extractor prototype for the sidecar if desired.
 
 ## File map
 

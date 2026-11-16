@@ -88,6 +88,9 @@ Strong/weak/none commitment cues at D5:
 - status-aware: 5 / 5 / 0
 - commitment-aware: **10 / 0 / 0**
 
+Judge confirmation: qwen and gemma agree **180/180**; all **40/40** updated
+D3/D5 items are judged COMMITTED, and stable CONSIDERING cases remain correct.
+
 ## Figures (planned)
 
 1. Condition diagram: raw → direct / recursive / rewrite-matched.
@@ -105,6 +108,9 @@ Strong/weak/none commitment cues at D5:
   and chaining are still entangled.
 - The commitment-aware prompt is a ceiling intervention, not a deployment
   recommendation.
+- The one-call structured sidecar is blocked with a 7B writer: it either drops
+  the prose or copies the option strings. A reliable version needs a separate
+  status extractor or a stronger model.
 
 ## Related work / novelty
 
@@ -120,8 +126,9 @@ Strong/weak/none commitment cues at D5:
 ## Open questions
 
 1. Does the intentional-specific loss replicate on natural dialogue?
-2. Can a structured status sidecar achieve the commitment-aware result without
-   templated prose?
+2. Can a **separate status extractor** (rather than a one-call prose+sidecar
+   writer) achieve the commitment-aware result without templated prose? The
+   one-call version is blocked at 7B.
 3. Can a post-hoc checker repair weakened cues without the source?
 4. Does the loss change downstream decisions (Stage B)?
 5. What is the human-adjudicated error rate? (Sample CSV prepared.)
