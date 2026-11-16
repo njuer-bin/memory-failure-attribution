@@ -46,12 +46,13 @@ in status preservation.**
   status-aware writer is byte-identical across seeds 42 and 43
   (270/270 = 1.000). The seed option is not a variance control. At temperature
   0, freer prompts can hit near-ties that flip; constrained prompts do not.
-- **A third judge confirms the status-aware result.** Three judges
-  (qwen/gemma/mistral) agree on 0.92–0.95 pairwise; majority accuracy is
-  260/270. Exactly **1** item is wrong under all three judges, and it is the
-  real writer cue loss (`epistemic_02_U`, D5). The 10 majority-wrong items
-  split into 3 writer omissions and 7 judge errors. Majority voting does not
-  remove shared judge biases.
+- **A third judge confirms both writer results.** Three judges
+  (qwen/gemma/mistral) on the 30-run: status-aware has exactly **1**
+  all-three-wrong item (the real `epistemic_02_U` D5 cue loss); neutral has
+  **23** all-three-wrong items, exactly its earlier both-wrong set. Majority
+  accuracy 260/270 (status-aware) vs 232/270 (neutral). The mitigation
+  23 → 1 is not a judge artifact. Majority voting still leaves 15
+  judge-specific near-tie errors in neutral.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

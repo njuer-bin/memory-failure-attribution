@@ -182,3 +182,15 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Majority voting does not remove shared judge bias; deterministic checks and
   manual adjudication remain necessary.
 - Recorded in `docs/research/2026-11-16-status-drift-v3-third-judge.md`.
+
+### Neutral third-judge triangulation — completed
+
+- Added mistral:7b to v3_neutral (270 items).
+- Pairwise agreement 0.848–0.904; majority accuracy 232/270 = 0.859.
+- All 23 qwen-gemma both-wrong items are also wrong under mistral. The
+  all-three-wrong set equals the previous both-wrong set; no item is rescued.
+- Majority-wrong 38 = 23 all-three-wrong + 15 judge-specific near-ties.
+- Mitigation is three-judge-robust: neutral 23 all-three-wrong vs status-aware
+  1.
+- Recorded in
+  `docs/research/2026-11-16-status-drift-v3-neutral-third-judge.md`.
