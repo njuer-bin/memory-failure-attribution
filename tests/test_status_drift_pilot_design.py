@@ -108,6 +108,14 @@ def test_rewrite_matched_budget_schedule():
     assert rewrite_matched_budget_schedule(5) == [220, 220, 220, 220, 100]
 
 
+def test_adjust_budget_for_token_target():
+    from experiments.status_drift_recursive_pilot import adjust_budget
+    assert adjust_budget(100, 16, 21) == 131
+    assert adjust_budget(100, 30, 21) == 70
+    assert adjust_budget(100, None, 21) == 100
+    assert adjust_budget(10, 16, 21) == 20
+
+
 def test_v3_ten_topic_expansion():
     rows = build_dataset(60, "v3", topics_count=10)
     assert len(rows) == 60

@@ -314,16 +314,51 @@ def rewrite_matched_budget_schedule(depth: int) -> list[int]:
     return [BUDGETS[1]] * (depth - 1) + [BUDGETS[depth]]
 
 
-def compress_rewrite_matched(sample: dict[str, Any], args: argparse.Namespace) -> dict[str, str]:
+def adjust_budget(budget: int, tokens: int | None, target: int) -> int:
+    if not tokens or tokens <= 0:
+        return budget
+    return max(20, min(400, int(round(budget * target / tokens))))
+
+
+def compress_to_token_target(source: str, budget: int, target: int,
+                             args: argparse.Namespace, tag_prefix: str):
+    best_memory = None
+    best_tokens = None
+    best_diff = None
+    attempts = getattr(args, "token_attempts", 3)
+    tolerance = getattr(args, "token_tolerance", 2)
+    for attempt in range(1, attempts + 1):
+        memory = compress_budget(source, budget, args, f"{tag_prefix}_attempt{attempt}")
+        entry = USAGE_LOG[-1] if USAGE_LOG else {}
+        tokens = entry.get("eval_count")
+        if tokens is None:
+            return memory, None, attempt
+        diff = abs(tokens - target)
+        if best_diff is None or diff < best_diff:
+            best_memory, best_tokens, best_diff = memory, tokens, diff
+        if diff <= tolerance:
+            break
+        budget = adjust_budget(budget, tokens, target)
+    return best_memory, best_tokens, attempt
+
+
+def compress_rewrite_matched(sample: dict[str, Any], args: argparse.Namespace):
     memories: dict[str, str] = {}
+    tokens: dict[str, int | None] = {}
     base = compress(sample["dialogue"], 1, args, "rewrite_matched_base")
     for depth in (2, 3, 5):
         memory = base
-        for step, budget in enumerate(rewrite_matched_budget_schedule(depth)[1:], start=2):
-            memory = compress_budget(memory, budget, args,
-                                     f"rewrite_matched_d{depth}_step{step}")
+        schedule = rewrite_matched_budget_schedule(depth)[1:]
+        for step, budget in enumerate(schedule, start=2):
+            if args.token_target and depth == 5 and step == 5:
+                memory, token_count, _ = compress_to_token_target(
+                    memory, budget, args.token_target, args, "rewrite_matched_d5")
+                tokens["5"] = token_count
+            else:
+                memory = compress_budget(memory, budget, args,
+                                         f"rewrite_matched_d{depth}_step{step}")
         memories[str(depth)] = memory
-    return memories
+    return memories, tokens
 
 
 def topic_mentioned(text: str, sample: dict[str, Any]) -> bool:
@@ -531,6 +566,15 @@ def summarize_usage(entries: list[dict[str, Any]]) -> dict[str, Any]:
     return summary
 
 
+def final_token_stats(rows: list[dict[str, Any]], key: str) -> dict[str, Any] | None:
+    values = [row.get(key, {}).get("5") for row in rows
+              if row.get(key, {}).get("5") is not None]
+    if not values:
+        return None
+    return {"n": len(values), "mean": sum(values) / len(values),
+            "min": min(values), "max": max(values)}
+
+
 def run(args: argparse.Namespace) -> None:
     out_dir = Path(args.out_dir) if args.out_dir else (
         OUT if args.design == "v1" else OUT / ("v22" if args.design == "v3" else "v21")
@@ -546,6 +590,8 @@ def run(args: argparse.Namespace) -> None:
         "writer_style": args.writer_style, "seed": args.seed, "skip_judge": args.skip_judge,
         "dimensions": args.dimensions, "rewrite_matched": args.rewrite_matched,
         "topics": args.topics, "timeout": args.timeout, "retries": args.retries,
+        "token_target": args.token_target, "token_tolerance": args.token_tolerance,
+        "token_attempts": args.token_attempts,
     }
     canonical_config = json.dumps(config, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     config_fingerprint = hashlib.sha256(canonical_config.encode("utf-8")).hexdigest()
@@ -603,6 +649,8 @@ def run(args: argparse.Namespace) -> None:
                 "recursive_topic_mention": {}, "recursive_condition": {}, "recursive_memory_sizes": {},
                 "rewrite_matched_memories": {}, "rewrite_matched_judgments": {},
                 "rewrite_matched_topic_mention": {}, "rewrite_matched_condition": {}, "rewrite_matched_memory_sizes": {},
+                "direct_final_tokens": {}, "recursive_final_tokens": {},
+                "rewrite_matched_final_tokens": {},
                 "errors": [],
             }
             try:
@@ -611,7 +659,12 @@ def run(args: argparse.Namespace) -> None:
                 recursive_memory = sample["dialogue"]
                 for depth in range(1, 6):
                     tag = f"recursive_d{depth}"
-                    recursive_memory = compress(recursive_memory, depth, args, tag)
+                    if args.token_target and depth == 5:
+                        recursive_memory, token_count, _ = compress_to_token_target(
+                            recursive_memory, BUDGETS[5], args.token_target, args, tag)
+                        row["recursive_final_tokens"]["5"] = token_count
+                    else:
+                        recursive_memory = compress(recursive_memory, depth, args, tag)
                     row["recursive_memories"][str(depth)] = recursive_memory
                     row["recursive_topic_mention"][str(depth)] = topic_mentioned(recursive_memory, sample)
                     row["recursive_memory_sizes"][str(depth)] = text_size(recursive_memory)
@@ -620,7 +673,12 @@ def run(args: argparse.Namespace) -> None:
                         row["recursive_judgments"][str(depth)] = judge(sample, recursive_memory, args, tag)
                 for depth in DEPTHS:
                     tag = f"direct_d{depth}"
-                    direct_memory = compress(sample["dialogue"], depth, args, tag)
+                    if args.token_target and depth == 5:
+                        direct_memory, token_count, _ = compress_to_token_target(
+                            sample["dialogue"], BUDGETS[5], args.token_target, args, tag)
+                        row["direct_final_tokens"]["5"] = token_count
+                    else:
+                        direct_memory = compress(sample["dialogue"], depth, args, tag)
                     row["direct_memories"][str(depth)] = direct_memory
                     row["direct_topic_mention"][str(depth)] = topic_mentioned(direct_memory, sample)
                     row["direct_memory_sizes"][str(depth)] = text_size(direct_memory)
@@ -634,7 +692,8 @@ def run(args: argparse.Namespace) -> None:
                     row["rewrite_matched_condition"]["1"] = row["direct_condition"]["1"]
                     if not args.skip_judge:
                         row["rewrite_matched_judgments"]["1"] = row["direct_judgments"]["1"]
-                    matched = compress_rewrite_matched(sample, args)
+                    matched, matched_tokens = compress_rewrite_matched(sample, args)
+                    row["rewrite_matched_final_tokens"] = matched_tokens
                     for depth in (2, 3, 5):
                         memory = matched[str(depth)]
                         row["rewrite_matched_memories"][str(depth)] = memory
@@ -660,6 +719,14 @@ def run(args: argparse.Namespace) -> None:
 
     summary = summarize(list(completed.values()), args)
     summary["token_usage"] = usage_summary
+    summary["token_target"] = args.token_target
+    summary["token_tolerance"] = args.token_tolerance
+    summary["achieved_final_tokens"] = {
+        "direct_d5": final_token_stats(list(completed.values()), "direct_final_tokens"),
+        "recursive_d5": final_token_stats(list(completed.values()), "recursive_final_tokens"),
+        "rewrite_matched_d5": final_token_stats(list(completed.values()),
+                                                "rewrite_matched_final_tokens"),
+    }
     summary["errors"] = [
         {"sample_id": row["sample_id"], "errors": row.get("errors", [])}
         for row in completed.values() if row.get("errors")
@@ -682,6 +749,10 @@ def main() -> None:
                         help="Comma-separated dimensions to run.")
     parser.add_argument("--topics", type=int, choices=tuple(range(1, 11)), default=5,
                         help="Number of topics for design v2/v3 (max 10).")
+    parser.add_argument("--token-target", type=int, default=None,
+                        help="If set, iteratively adjust the D5 writer budget toward this token count.")
+    parser.add_argument("--token-tolerance", type=int, default=2)
+    parser.add_argument("--token-attempts", type=int, default=3)
     parser.add_argument("--writer-style",
                         choices=("status_aware", "neutral", "commitment_aware", "sidecar"),
                         default="status_aware")
