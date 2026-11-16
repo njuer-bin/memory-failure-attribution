@@ -1,4 +1,4 @@
-"""Validate V3 blind annotation files and compute inter-annotator agreement.
+"""Validate V3 v3.1 blind annotation files and compute agreement.
 
 Usage:
     python -m experiments.check_v3_annotations --a annotator_A.csv --b annotator_B.csv
@@ -12,21 +12,21 @@ from collections import Counter
 
 from experiments.check_annotations import cohen_kappa
 
+DIMENSION_STATUS = {
+    "EPISTEMIC": {"POSSIBLE", "ESTABLISHED", "UNKNOWN", "NOT_EXPRESSED", "UNRECOVERABLE"},
+    "INTENTIONAL": {"CONSIDERING", "COMMITTED", "UNKNOWN", "NOT_EXPRESSED", "UNRECOVERABLE"},
+    "CONDITIONAL": {"CONDITION_ACTIVE", "CONDITION_SATISFIED", "UNKNOWN",
+                    "NOT_EXPRESSED", "UNRECOVERABLE"},
+    "ACTION": {"ACTION_NOT_STARTED", "ACTION_STARTED", "UNKNOWN",
+               "NOT_EXPRESSED", "UNRECOVERABLE"},
+    "CANNOT_DETERMINE": {"UNKNOWN", "NOT_EXPRESSED", "UNRECOVERABLE"},
+}
+
 ALLOWED = {
     "proposition_identity": {"PRESERVED", "PARTIAL", "LOST", "AMBIGUOUS"},
-    "epistemic_applicable": {"APPLICABLE", "NOT_APPLICABLE", "CANNOT_DETERMINE"},
-    "intentional_applicable": {"APPLICABLE", "NOT_APPLICABLE", "CANNOT_DETERMINE"},
-    "conditional_applicable": {"APPLICABLE", "NOT_APPLICABLE", "CANNOT_DETERMINE"},
-    "action_applicable": {"APPLICABLE", "NOT_APPLICABLE", "CANNOT_DETERMINE"},
-    "epistemic_status": {"UNKNOWN", "POSSIBLE", "PROBABLE", "SUPPORTED", "ESTABLISHED",
-                         "REJECTED", "UNEXPRESSED", "UNRECOVERABLE", "NOT_APPLICABLE"},
-    "intention_status": {"NOT_EXPRESSED", "CONSIDERING", "INTERESTED", "INTENDING",
-                         "COMMITTED", "EXECUTING", "COMPLETED", "CANCELLED",
-                         "NOT_INTENDED", "UNRECOVERABLE", "NOT_APPLICABLE"},
-    "action_status": {"NOT_EXPRESSED", "CONSIDERING", "INTENDING", "COMMITTED",
-                      "EXECUTING", "COMPLETED", "CANCELLED", "UNKNOWN", "NOT_APPLICABLE"},
-    "condition_status": {"UNKNOWN", "ACTIVE_UNSATISFIED", "SATISFIED", "FAILED",
-                         "WAIVED", "NOT_APPLICABLE", "UNRECOVERABLE"},
+    "primary_dimension": set(DIMENSION_STATUS),
+    "status_expressed": {"YES", "NO", "UNCLEAR"},
+    "expressed_status": set().union(*DIMENSION_STATUS.values()),
     "evidence_support": {"SUPPORTED_BY_DIALOGUE", "CONTRADICTED_BY_LATER_DIALOGUE",
                          "NOT_SUPPORTED", "AMBIGUOUS", "NOT_ASSESSABLE"},
     "primary_judgment": {"NO_DISTORTION", "LEGITIMATE_UPDATE",
@@ -35,7 +35,8 @@ ALLOWED = {
     "confidence": {"HIGH", "MEDIUM", "LOW"},
 }
 
-REQUIRED = ("proposition_identity", "primary_judgment", "confidence")
+REQUIRED = ("proposition_identity", "primary_dimension", "status_expressed",
+            "primary_judgment", "confidence")
 
 
 def load(path: str) -> list[dict]:
@@ -44,18 +45,35 @@ def load(path: str) -> list[dict]:
 
 
 def validate(rows: list[dict]) -> dict:
-    report = {}
-    for field, allowed in ALLOWED.items():
-        missing = []
-        invalid = []
-        for row in rows:
+    report = {field: {"missing": 0, "invalid": []} for field in ALLOWED}
+    for row in rows:
+        for field, allowed in ALLOWED.items():
             value = (row.get(field) or "").strip()
             if not value:
                 if field in REQUIRED:
-                    missing.append(row.get("item_id"))
-            elif value not in allowed:
-                invalid.append({"item_id": row.get("item_id"), "value": value})
-        report[field] = {"missing": len(missing), "invalid": invalid}
+                    report[field]["missing"] += 1
+                continue
+            if value not in allowed:
+                report[field]["invalid"].append({"item_id": row.get("item_id"), "value": value})
+        dimension = (row.get("primary_dimension") or "").strip()
+        status = (row.get("expressed_status") or "").strip()
+        expressed = (row.get("status_expressed") or "").strip()
+        if dimension in DIMENSION_STATUS and status:
+            if status not in DIMENSION_STATUS[dimension]:
+                report["expressed_status"]["invalid"].append({
+                    "item_id": row.get("item_id"),
+                    "value": f"{status} incompatible with {dimension}",
+                })
+        if expressed == "NO" and status not in ("", "NOT_EXPRESSED", "UNRECOVERABLE"):
+            report["expressed_status"]["invalid"].append({
+                "item_id": row.get("item_id"),
+                "value": f"{status} but status_expressed=NO",
+            })
+        if expressed == "YES" and status in ("NOT_EXPRESSED", "UNRECOVERABLE"):
+            report["expressed_status"]["invalid"].append({
+                "item_id": row.get("item_id"),
+                "value": f"{status} but status_expressed=YES",
+            })
     return report
 
 
@@ -65,10 +83,18 @@ def agreement(a_rows: list[dict], b_rows: list[dict]) -> dict:
     common = sorted(set(a_map) & set(b_map))
     result = {"n_common_items": len(common), "fields": {}}
     for field in ALLOWED:
-        pairs = [(a_map[key][field].strip(), b_map[key][field].strip())
-                 for key in common
-                 if (a_map[key].get(field) or "").strip()
-                 and (b_map[key].get(field) or "").strip()]
+        pairs = []
+        for key in common:
+            left = a_map[key]
+            right = b_map[key]
+            if not (left.get(field) or "").strip() or not (right.get(field) or "").strip():
+                continue
+            if field == "expressed_status":
+                dim_left = (left.get("primary_dimension") or "").strip()
+                dim_right = (right.get("primary_dimension") or "").strip()
+                if dim_left != dim_right:
+                    continue
+            pairs.append((left[field].strip(), right[field].strip()))
         labels_a = [x for x, _ in pairs]
         labels_b = [y for _, y in pairs]
         n = len(pairs)

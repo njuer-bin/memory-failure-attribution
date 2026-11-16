@@ -1,5 +1,5 @@
 from experiments.check_v3_annotations import agreement, validate
-from experiments.make_v3_annotation_set import build_items, select_records
+from experiments.make_v3_annotation_set import LABEL_FIELDS, build_items, select_records
 
 
 def _row(i, dimension="epistemic", gold="CERTAIN"):
@@ -41,6 +41,23 @@ def test_validate_detects_invalid_primary_judgment():
     }]
     report = validate(rows)
     assert len(report["primary_judgment"]["invalid"]) == 1
+
+
+def test_validate_rejects_incompatible_status():
+    rows = [{
+        "item_id": "V3C-0002", "proposition_identity": "PRESERVED",
+        "primary_dimension": "INTENTIONAL", "status_expressed": "YES",
+        "expressed_status": "CONDITION_SATISFIED",
+        "primary_judgment": "NO_DISTORTION", "confidence": "HIGH",
+    }]
+    report = validate(rows)
+    assert len(report["expressed_status"]["invalid"]) == 1
+
+
+def test_v31_label_fields_are_collapsed():
+    assert "primary_dimension" in LABEL_FIELDS
+    assert "status_expressed" in LABEL_FIELDS
+    assert "epistemic_status" not in LABEL_FIELDS
 
 
 def test_agreement_perfect():

@@ -361,3 +361,16 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   Revise applicability rules, collapse ontology, two-step omission/distortion
   judgment, and re-calibrate.
 - Recorded in `docs/research/2026-11-16-v3-annotation-calibration.md`.
+
+### V3.1 annotation guide revision — completed
+
+- Collapsed the ontology to 2–3 labels per dimension.
+- Added one `primary_dimension` and explicit applicability rules.
+- Added a two-step judgment: status expressed? then status supported?
+- Clarified `NO_DISTORTION` vs `LEGITIMATE_UPDATE` and
+  `STATUS_OMISSION` vs `UNSUPPORTED_STATUS_DISTORTION`.
+- Updated the checker for dimension/status compatibility.
+- Generated a new 60-item calibration set under `annotation_v31/` with a new
+  seed and the condition key outside the repository.
+- Next: two annotators label the v3.1 set; re-check agreement before any
+  confirmatory work.

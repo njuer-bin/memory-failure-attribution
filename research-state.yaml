@@ -238,9 +238,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 22
+  cycle: 23
   last_direction: "pivot"
-  last_reflection: "V3 annotation calibration fails: primary kappa 0.578; applicability raw 0.40/0.60; dominant label is STATUS_OMISSION, not unsupported distortion. The deterministic cue metric conflates omission with distortion, so the P1c path gradient is weaker in human labels. Pivot: revise applicability rules and collapse the ontology, re-calibrate before any confirmatory run."
+  last_reflection: "V3 calibration failed on applicability and omission/distortion boundaries. Revised to V3.1: collapsed ontology (2-3 labels/dimension), one primary dimension, two-step status-expressed/status-supported judgment, explicit NO_DISTORTION vs LEGITIMATE_UPDATE rules. Generated a new 60-item calibration set (annotation_v31) with the key outside the repo. Re-calibrate before confirmatory work."
 
 workspace:
   findings: "findings.md"

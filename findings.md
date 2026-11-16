@@ -127,6 +127,11 @@ in status preservation.**
   metric conflates omission with distortion; the P1c path gradient is weak in
   human labels. Do not proceed to confirmatory annotation or the paired study;
   revise applicability rules, collapse the ontology, and re-calibrate.
+- **V3.1 annotation guide revision.** Collapsed the ontology to 2–3 labels per
+  dimension, added one `primary_dimension`, a two-step omission/distortion
+  decision, and explicit `NO_DISTORTION` vs `LEGITIMATE_UPDATE` rules. A new
+  60-item calibration set (`annotation_v31`) is ready; re-calibrate before any
+  confirmatory work.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

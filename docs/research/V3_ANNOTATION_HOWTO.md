@@ -1,19 +1,17 @@
-# V3 Blind Annotation — Practical How-To
+# V3 v3.1 Blind Annotation — Practical How-To
 
-This is the operational checklist for the 60-item calibration set in
-`results/status_drift_v2_pilot/v3_path_pilot_p1c/annotation/`.
+This is the operational checklist for the **v3.1 collapsed-ontology calibration
+set**.
 
 ## Files
 
 - `annotator_A.csv` — one annotator.
 - `annotator_B.csv` — a second, independent annotator.
-- `annotation_items.csv` — same items, no label columns.
-- `condition_key.csv` — **curator only. Do not open it.** It contains path,
-  gold state, and condition mapping.
+- `annotation_items.csv` — same items, no labels.
+- The condition key is stored **outside the repository**; do not open it.
 
-Do not inspect the other annotator's file. Do not edit `annotation_items.csv`.
-Item order is shuffled; do not annotate all paths of one trajectory
-consecutively.
+Do not inspect the other annotator's file. Item order is shuffled; do not
+annotate all paths of one trajectory consecutively.
 
 ## One row at a time
 
@@ -21,118 +19,119 @@ Each row gives you:
 
 - `item_id` — opaque identifier;
 - `target_proposition` — the action, e.g. `购买电脑`;
-- `target_question` — a neutral question, e.g. "说话人对「购买电脑」的确定性状态是什么？";
-- `memory_text` — the generated memory you are judging;
+- `target_question` — neutral, does not reveal dimension or gold;
+- `memory_text` — the memory you are judging;
 - `dialogue` — the full original dialogue.
 
 Work in this order:
 
 1. Read the full dialogue.
-2. Identify the target proposition and the evidence-bearing turns.
-3. Read `memory_text`.
-4. Fill the fields below using only the dialogue as evidence.
+2. Read `memory_text`.
+3. Fill the fields below using only the dialogue as evidence.
 
-## Field-by-field
+## Fields
 
 ### 1. `proposition_identity` (required)
 
-- `PRESERVED` — same claim and essential arguments recoverable.
-- `PARTIAL` — topic identifiable but a material argument/relation/scope is missing.
-- `LOST` — target cannot be recovered.
-- `AMBIGUOUS` — multiple materially different interpretations.
+`PRESERVED` / `PARTIAL` / `LOST` / `AMBIGUOUS`.
 
 A keyword alone is not preservation. For conditional items, the
 condition-to-action relation is part of the proposition.
 
-### 2. Applicability fields
+### 2. `primary_dimension` (required)
 
-For each of `epistemic_applicable`, `intentional_applicable`,
-`conditional_applicable`, `action_applicable`, choose:
+Choose exactly one:
 
-- `APPLICABLE`
-- `NOT_APPLICABLE`
-- `CANNOT_DETERMINE`
+- `EPISTEMIC` — whether something is true, confirmed, or uncertain.
+- `INTENTIONAL` — the speaker's commitment to a future action.
+- `CONDITIONAL` — whether a prerequisite is met; action state is separate.
+- `ACTION` — execution progress of an already-committed action.
+- `CANNOT_DETERMINE`.
 
-### 3. Status fields
+If two seem applicable, choose the one the dialogue's update turns are about and
+explain the other in `rationale`.
 
-Only fill the applicable dimensions; use `NOT_APPLICABLE` otherwise.
+### 3. `status_expressed` (required)
 
-- `epistemic_status`: `UNKNOWN`, `POSSIBLE`, `PROBABLE`, `SUPPORTED`,
-  `ESTABLISHED`, `REJECTED`, `UNEXPRESSED`, `UNRECOVERABLE`, `NOT_APPLICABLE`.
-- `intention_status`: `NOT_EXPRESSED`, `CONSIDERING`, `INTERESTED`, `INTENDING`,
-  `COMMITTED`, `EXECUTING`, `COMPLETED`, `CANCELLED`, `NOT_INTENDED`,
-  `UNRECOVERABLE`, `NOT_APPLICABLE`.
-- `action_status`: `NOT_EXPRESSED`, `CONSIDERING`, `INTENDING`, `COMMITTED`,
-  `EXECUTING`, `COMPLETED`, `CANCELLED`, `UNKNOWN`, `NOT_APPLICABLE`.
-- `condition_status`: `UNKNOWN`, `ACTIVE_UNSATISFIED`, `SATISFIED`, `FAILED`,
-  `WAIVED`, `NOT_APPLICABLE`, `UNRECOVERABLE`.
+- `YES` — the memory expresses a status for the primary dimension.
+- `NO` — no status is expressed or recoverable.
+- `UNCLEAR` — ambiguous.
 
-Critical distinctions:
+### 4. `expressed_status`
 
-- `我可能会` is not `我确定`.
-- `我想去` is not `我已决定去`.
-- A satisfied condition does not imply commitment or execution of the action.
-- `已决定，但时间未定` is still COMMITTED with unresolved timing.
-- A later explicit cancellation supersedes an earlier commitment.
+Use only the labels for your chosen primary dimension:
 
-### 4. `evidence_support` (required)
+- EPISTEMIC: `POSSIBLE`, `ESTABLISHED`, `UNKNOWN`
+- INTENTIONAL: `CONSIDERING`, `COMMITTED`, `UNKNOWN`
+- CONDITIONAL: `CONDITION_ACTIVE`, `CONDITION_SATISFIED`, `UNKNOWN`
+- ACTION: `ACTION_NOT_STARTED`, `ACTION_STARTED`, `UNKNOWN`
+- all: `NOT_EXPRESSED`, `UNRECOVERABLE`
 
-- `SUPPORTED_BY_DIALOGUE`
-- `CONTRADICTED_BY_LATER_DIALOGUE`
-- `NOT_SUPPORTED`
-- `AMBIGUOUS`
-- `NOT_ASSESSABLE`
+### 5. `evidence_support`
 
-### 5. `primary_judgment` (required)
+`SUPPORTED_BY_DIALOGUE` / `CONTRADICTED_BY_LATER_DIALOGUE` / `NOT_SUPPORTED` /
+`AMBIGUOUS` / `NOT_ASSESSABLE`.
 
-Use this decision order:
+### 6. `primary_judgment` (required)
+
+Apply the two-step order:
 
 1. `PROPOSITION_LOSS` — identity is LOST (or materially PARTIAL).
-2. `STATUS_OMISSION` — identity preserved, but the status is absent or not
-   recoverable; no conflicting state is asserted.
-3. `LEGITIMATE_UPDATE` — the memory reflects a later evidence-supported change.
-4. `UNSUPPORTED_STATUS_DISTORTION` — identity preserved, a different status is
-   asserted, and no later dialogue supports it.
-5. `NO_DISTORTION` — status is faithful.
-6. `AMBIGUOUS_UNASSESSABLE` — cannot decide from the memory and dialogue.
+2. `STATUS_OMISSION` — identity preserved, but no status expressed or
+   recoverable; no conflicting state asserted.
+3. `NO_DISTORTION` — the expressed status matches the evidence-supported final
+   state. A memory that simply states the final state belongs here.
+4. `LEGITIMATE_UPDATE` — the dialogue contains a later supported change and the
+   memory represents that change **as a change** (e.g., "was considering, now
+   decided").
+5. `UNSUPPORTED_STATUS_DISTORTION` — a different status is asserted and no later
+   dialogue supports it.
+6. `AMBIGUOUS_UNASSESSABLE` — cannot decide.
 
-Omission is not drift. A shorter paraphrase is not automatically distortion.
+### 7. `subtype`, `rationale`, `confidence`, `turn_references`
 
-### 6. `subtype` (optional but encouraged for drift)
+- subtype: `ESCALATION`, `ATTENUATION`, `COMMITMENT_INFLATION`,
+  `COMMITMENT_DEFLATION`, `CONDITIONAL_COLLAPSE`, `POLARITY_SCOPE`,
+  `TEMPORAL`, `NONE`.
+- confidence: `HIGH`, `MEDIUM`, `LOW`.
+- turn_references: turn IDs or a short quote.
 
-`ESCALATION`, `ATTENUATION`, `COMMITMENT_INFLATION`,
-`COMMITMENT_DEFLATION`, `CONDITIONAL_COLLAPSE`, `POLARITY_SCOPE`,
-`TEMPORAL`, `NONE`.
+## Critical distinctions
 
-### 7. `rationale`, `confidence`, `turn_references`
-
-- `rationale`: one or two sentences.
-- `confidence`: `HIGH`, `MEDIUM`, `LOW`.
-- `turn_references`: dialogue turn IDs or a short quote.
+- `我可能会` ≠ `我确定`; `我想去` ≠ `我已决定去`.
+- A satisfied condition does not prove commitment or execution.
+- `已决定，但时间未定` is still COMMITTED with unresolved timing.
+- A later explicit cancellation supersedes an earlier commitment.
+- **Omission is not distortion**: missing a status cue is `STATUS_OMISSION`
+  unless the memory asserts a different state.
+- **A memory that states the final state is `NO_DISTORTION`**, not
+  `LEGITIMATE_UPDATE`. The latter requires the memory to represent the change as
+  a change.
+- A shorter paraphrase is not automatically distortion.
 
 ## Worked examples
 
-1. Memory `确认去上海工作…` against a dialogue that explicitly confirms:
-   proposition `PRESERVED`; epistemic `ESTABLISHED` or `SUPPORTED`; primary
+1. Memory `确认去上海工作…` vs a dialogue that explicitly confirms:
+   `PRESERVED`, `EPISTEMIC`, `YES`, `ESTABLISHED`, `SUPPORTED_BY_DIALOGUE`,
    `NO_DISTORTION`.
 
-2. Memory `上海工作，天气多变…` against a dialogue that explicitly confirms:
-   proposition `PRESERVED`; epistemic `UNEXPRESSED` or `UNRECOVERABLE`;
-   primary `STATUS_OMISSION` (not `UNSUPPORTED_STATUS_DISTORTION`).
+2. Memory `上海工作，天气多变…` vs a dialogue that explicitly confirms:
+   `PRESERVED`, `EPISTEMIC`, `NO`, `NOT_EXPRESSED`, `NOT_ASSESSABLE`,
+   `STATUS_OMISSION` (not unsupported distortion).
 
-3. Memory `用户申请研究生，推进计划…` against a dialogue that says
-   `我已经决定…`: proposition `PRESERVED`; intention `INTENDING` rather than
-   `COMMITTED`; primary `UNSUPPORTED_STATUS_DISTORTION`, subtype
+3. Memory `用户申请研究生，推进计划…` vs `我已经决定…`:
+   `PRESERVED`, `INTENTIONAL`, `YES`, `CONSIDERING` or `UNKNOWN`,
+   `NOT_SUPPORTED`, `UNSUPPORTED_STATUS_DISTORTION`, subtype
    `COMMITMENT_DEFLATION`.
 
-4. Memory `开始学日语` against a dialogue that only commits to start:
-   proposition `PRESERVED`; intention `COMMITTED`; action `EXECUTING` (if the
-   memory asserts it); primary `UNSUPPORTED_STATUS_DISTORTION`, subtype
-   `TEMPORAL` or `COMMITMENT_INFLATION`.
+4. Memory `开始学日语` vs a dialogue that only commits to start:
+   `PRESERVED`, `ACTION`, `YES`, `ACTION_STARTED`, `NOT_SUPPORTED`,
+   `UNSUPPORTED_STATUS_DISTORTION`, subtype `TEMPORAL`.
 
-5. Memory `已拿到奖学金，条件满足` against a dialogue that says the condition is
-   met but the action is only being considered: condition `SATISFIED`;
-   intention `CONSIDERING`; primary `NO_DISTORTION`.
+5. Memory `已拿到奖学金，条件满足` vs a dialogue where the condition is met but
+   the action is only considered:
+   `PRESERVED`, `CONDITIONAL`, `YES`, `CONDITION_SATISFIED`,
+   `SUPPORTED_BY_DIALOGUE`, `NO_DISTORTION`.
 
 ## After annotating
 
@@ -143,8 +142,9 @@ python -m experiments.check_v3_annotations \
   --a .../annotator_A.csv --b .../annotator_B.csv
 ```
 
-The checker reports missing/invalid values, raw agreement, and Cohen's kappa
-per field. Disagreements are adjudicated only after both files are complete.
+The checker validates labels and dimension/status compatibility, then reports
+raw agreement and Cohen's kappa per field. Disagreements are adjudicated only
+after both files are complete.
 
-This is a 60-item calibration set. Freeze the guide and ontology before the
+This is the v3.1 calibration set. Freeze the guide and ontology before the
 confirmatory annotation set.

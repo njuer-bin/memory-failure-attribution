@@ -121,3 +121,53 @@ reported. The confirmatory ontology is frozen together with the protocol.
 
 ## 11. Non-claims
 The ontology is a research instrument, not a universal theory of belief or intention. Labels must be revised if calibration reveals systematic ambiguity. No claim of psychological access to a speaker's true internal state is made; the target is the state communicated in the dialogue.
+
+## 12. Confirmatory ontology v3.1 (collapsed)
+
+The rich ontology in §3 is for calibration and descriptive work. The
+confirmatory study uses **one primary dimension per item** and 2–3 labels per
+dimension:
+
+- EPISTEMIC: `POSSIBLE` / `ESTABLISHED` / `UNKNOWN`
+- INTENTIONAL: `CONSIDERING` / `COMMITTED` / `UNKNOWN`
+- CONDITIONAL: `CONDITION_ACTIVE` / `CONDITION_SATISFIED` / `UNKNOWN`
+- ACTION: `ACTION_NOT_STARTED` / `ACTION_STARTED` / `UNKNOWN`
+- plus `NOT_EXPRESSED` and `UNRECOVERABLE` for omission.
+
+### Applicability rule
+
+Choose the single dimension the target proposition is primarily about:
+
+- EPISTEMIC: whether something is true, confirmed, or uncertain.
+- INTENTIONAL: the speaker's commitment to a future action.
+- CONDITIONAL: whether a prerequisite is met; action state is separate and is
+  scored only if the memory explicitly asserts it.
+- ACTION: execution progress of an already-committed action.
+
+If two dimensions seem applicable, choose the one the dialogue's update turns
+are about; record the other in `rationale`.
+
+### Two-step judgment
+
+1. **Is any status expressed?**
+   - NO → `STATUS_OMISSION` (if proposition identity is preserved).
+2. **Is the expressed status supported?**
+   - Supported and matches the final state → `NO_DISTORTION`.
+   - The dialogue contains a later supported change, and the memory represents
+     that change as a change → `LEGITIMATE_UPDATE`.
+   - Different from the final state and unsupported → `UNSUPPORTED_STATUS_DISTORTION`.
+
+### NO_DISTORTION vs LEGITIMATE_UPDATE
+
+- `NO_DISTORTION`: the memory's status matches the evidence-supported final
+  state, even if the dialogue contained an update. A memory that simply states
+  the final state is `NO_DISTORTION`.
+- `LEGITIMATE_UPDATE`: the memory explicitly represents a later supported change
+  as a change (e.g., "was considering, now decided") and is faithful.
+
+### STATUS_OMISSION vs UNSUPPORTED_STATUS_DISTORTION
+
+- `STATUS_OMISSION`: no status is asserted or recoverable; there is no
+  conflicting state.
+- `UNSUPPORTED_STATUS_DISTORTION`: a different status is asserted, and no later
+  dialogue evidence supports it.

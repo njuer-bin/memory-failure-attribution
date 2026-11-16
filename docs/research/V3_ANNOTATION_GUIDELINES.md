@@ -1,83 +1,148 @@
-# V3 Blind Human Annotation Guidelines
-**Status:** Draft for annotator calibration. Do not use as a frozen manual until calibration is complete.
+# V3 Blind Human Annotation Guidelines (v3.1)
+
+**Status:** calibration guide for the collapsed confirmatory ontology. Do not
+treat as frozen until the v3.1 calibration set reaches acceptable agreement.
 
 ## 1. Purpose
-Evaluate whether a generated memory preserves the target proposition and accurately represents its evidence-supported state. Do not judge writing quality, helpfulness, or plausibility.
+
+Evaluate whether a generated memory preserves the target proposition and
+accurately represents its evidence-supported state. Do not judge writing
+quality, helpfulness, or plausibility.
 
 ## 2. What annotators receive
-For each item, annotators receive:
-- the source dialogue in chronological order;
-- an opaque target-proposition description that does not reveal the gold state;
-- one anonymized generated memory.
-They do NOT receive condition, model, prompt, gold final state, gold evidence-turn IDs, other annotations, or the expected result.
 
-The target-proposition description must identify the semantic claim without stating its state. Example: "whether the speaker will attend the conference" rather than "the speaker has committed to attending the conference."
+For each item:
+
+- the source dialogue in chronological order;
+- a neutral target-proposition question that does not reveal the dimension or
+  the gold state;
+- one anonymized generated memory.
+
+Annotators do **not** receive condition, path, model, prompt, gold final state,
+gold evidence-turn IDs, or other annotations.
 
 ## 3. Label sequence
+
 ### A. Proposition identity
-Choose one:
-- PRESERVED
-- PARTIAL
-- LOST
-- AMBIGUOUS
 
-Explain which entity, relation, scope, polarity, or argument is missing if not PRESERVED.
+- `PRESERVED` — same claim and essential arguments recoverable.
+- `PARTIAL` — topic identifiable but a material argument/relation/scope missing.
+- `LOST` — target cannot be recovered.
+- `AMBIGUOUS` — multiple materially different interpretations.
 
-### B. Applicable state dimensions
-Mark each as APPLICABLE / NOT_APPLICABLE / CANNOT_DETERMINE:
-- epistemic
-- intentional
-- conditional
-- action/execution
-- polarity/scope/time where relevant
+A keyword alone is not preservation. For conditional items, the
+condition-to-action relation is part of the proposition.
 
-### C. State represented in the memory
-Select the best-fitting label from the ontology for each applicable dimension. Use UNEXPRESSED or UNRECOVERABLE where the memory contains no assessable state. Do not infer commitment from a future-tense phrase unless the ontology's criteria are met.
+### B. Primary dimension (applicability)
 
-### D. Evidence support
-For each represented state, choose:
-- SUPPORTED_BY_DIALOGUE
-- CONTRADICTED_BY_LATER_DIALOGUE
-- NOT_SUPPORTED
-- AMBIGUOUS
-- NOT_ASSESSABLE
-Provide the relevant dialogue turn IDs only if the annotation interface exposes them; otherwise quote a short identifying phrase.
+Choose exactly one:
 
-### E. Final judgment
-- NO_DISTORTION
-- LEGITIMATE_UPDATE
-- UNSUPPORTED_STATUS_DISTORTION
-- STATUS_OMISSION
-- PROPOSITION_LOSS
-- AMBIGUOUS_UNASSESSABLE
+- `EPISTEMIC` — whether something is true, confirmed, or uncertain.
+- `INTENTIONAL` — the speaker's commitment to a future action.
+- `CONDITIONAL` — whether a prerequisite is met; action state is separate.
+- `ACTION` — execution progress of an already-committed action.
+- `CANNOT_DETERMINE`.
 
-Multiple tags may be recorded when different dimensions have different outcomes, but the primary outcome must follow the decision order in the formal definitions.
+If two seem applicable, choose the one the dialogue's update turns are about and
+explain the other in `rationale`.
+
+### C. Status expressed?
+
+- `YES` — the memory expresses a status for the primary dimension.
+- `NO` — no status is expressed or recoverable.
+- `UNCLEAR` — the text is ambiguous.
+
+### D. Expressed status (collapsed labels)
+
+Use only the labels for the chosen primary dimension:
+
+- EPISTEMIC: `POSSIBLE`, `ESTABLISHED`, `UNKNOWN`
+- INTENTIONAL: `CONSIDERING`, `COMMITTED`, `UNKNOWN`
+- CONDITIONAL: `CONDITION_ACTIVE`, `CONDITION_SATISFIED`, `UNKNOWN`
+- ACTION: `ACTION_NOT_STARTED`, `ACTION_STARTED`, `UNKNOWN`
+- all dimensions: `NOT_EXPRESSED`, `UNRECOVERABLE`
+
+### E. Evidence support
+
+- `SUPPORTED_BY_DIALOGUE`
+- `CONTRADICTED_BY_LATER_DIALOGUE`
+- `NOT_SUPPORTED`
+- `AMBIGUOUS`
+- `NOT_ASSESSABLE`
+
+### F. Primary judgment
+
+Apply the two-step order:
+
+1. If `proposition_identity` is `LOST` (or materially `PARTIAL`):
+   `PROPOSITION_LOSS`.
+2. Else if `status_expressed` is `NO` or `UNCLEAR`:
+   `STATUS_OMISSION`.
+3. Else if the expressed status matches the evidence-supported final state:
+   `NO_DISTORTION`.
+4. Else if the dialogue contains a later supported change and the memory
+   represents that change as a change: `LEGITIMATE_UPDATE`.
+5. Else if the expressed status differs and is unsupported:
+   `UNSUPPORTED_STATUS_DISTORTION`.
+6. If identity or status cannot be resolved: `AMBIGUOUS_UNASSESSABLE`.
+
+### G. Subtype, rationale, confidence, turn references
+
+- `subtype` for distortion: `ESCALATION`, `ATTENUATION`,
+  `COMMITMENT_INFLATION`, `COMMITMENT_DEFLATION`, `CONDITIONAL_COLLAPSE`,
+  `POLARITY_SCOPE`, `TEMPORAL`, `NONE`.
+- `rationale`: one or two sentences.
+- `confidence`: `HIGH`, `MEDIUM`, `LOW`.
+- `turn_references`: turn IDs or a short quote.
 
 ## 4. Critical distinctions
-- "I might apply" is not equivalent to "I will apply."
-- "I want to go" is not necessarily "I have decided to go."
-- A prerequisite being satisfied does not prove the action is committed.
-- "I decided to go, but the date is not fixed" remains a commitment with unresolved timing.
+
+- `我可能会` is not `我确定`; `我想去` is not `我已决定去`.
+- A satisfied prerequisite does not prove commitment or execution.
+- `已决定，但时间未定` is still COMMITTED with unresolved timing.
 - A later explicit cancellation supersedes an earlier commitment.
-- A later supported confirmation is a legitimate update, not drift.
-- Removing a status cue is omission unless the remaining memory asserts a different state. Omission is important but must not be silently counted as a changed status.
-- A shorter paraphrase is not automatically a distortion.
+- **Omission is not distortion.** Removing a status cue is
+  `STATUS_OMISSION` unless the memory asserts a different state.
+- **A memory that simply states the final state is `NO_DISTORTION`**, not
+  `LEGITIMATE_UPDATE`. `LEGITIMATE_UPDATE` requires the memory to represent the
+  later supported change *as a change*.
+- A shorter paraphrase is not automatically distortion.
 
 ## 5. Handling uncertainty
-Use AMBIGUOUS or NOT_ASSESSABLE when multiple readings remain plausible. Do not resolve ambiguity by guessing the writer's intent. If the dialogue itself does not determine the final state, mark the gold adjudication as underdetermined rather than inventing a state.
+
+Use `AMBIGUOUS_UNASSESSABLE`, `UNCLEAR`, or `UNRECOVERABLE` rather than guessing.
+If the dialogue itself does not determine the final state, record that the item
+is underdetermined.
 
 ## 6. Independence and adjudication
-Annotators work independently and cannot discuss cases before submission. After labels are locked:
-1. compute raw agreement and chance-corrected agreement;
+
+Annotators work independently and do not discuss cases before submission. After
+labels are locked:
+
+1. compute raw agreement and a chance-corrected statistic;
 2. inspect disagreement categories;
-3. adjudicate with a third reviewer using the dialogue and ontology;
+3. adjudicate with a third reviewer using the dialogue and this guide;
 4. preserve original labels and adjudication separately.
-Gold state and evidence-turn annotations are created by a separate curator and hidden until the independent labels are frozen.
 
-## 7. Quality controls
-Include repeated hidden items to estimate intra-annotator consistency, clear positive/negative controls, and ambiguous controls. Do not use trick questions that rely on undocumented conventions. Report agreement by dimension and label prevalence; a single overall kappa can hide severe class imbalance.
+Gold state and evidence-turn annotations are created by a separate curator and
+remain hidden until labels are frozen.
 
-Staged annotation budget (recommended): a 60-item calibration set first; freeze the guide and ontology; then a confirmatory set sized by the power analysis. For PATH_REPLICATE, each path is a separate anonymized item; path IDs are opaque and shuffled so annotators cannot infer the schedule. Do not annotate all paths of one trajectory consecutively.
+## 7. Quality controls and staged budget
+
+- Include repeated hidden items and clear positive/negative controls.
+- Report agreement per field and label prevalence; a single overall kappa can
+  hide class imbalance.
+- Use a 60-item calibration set first. Freeze this guide and the collapsed
+  ontology only after acceptable agreement. Then size the confirmatory set by
+  power analysis.
+- For PATH_REPLICATE, each path is a separate anonymized item; path IDs are
+  opaque and shuffled. Do not annotate all paths of one trajectory
+  consecutively.
 
 ## 8. Annotation record schema
-Each record should include item_id, annotator_id, proposition_identity, applicable_dimensions, represented_state, evidence_support, primary_judgment, subtype, rationale, confidence, and optional turn references. Condition mapping and gold labels remain in a separate file.
+
+`item_id`, `annotator_id`, `proposition_identity`, `primary_dimension`,
+`status_expressed`, `expressed_status`, `evidence_support`, `primary_judgment`,
+`subtype`, `rationale`, `confidence`, `turn_references`.
+
+Condition mapping and gold labels remain in a separate curator-only file.
