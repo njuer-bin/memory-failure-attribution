@@ -169,3 +169,16 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   not a variance control.
 - Recorded in
   `docs/research/2026-11-16-status-drift-v25-status-aware-stability.md`.
+
+### Third-judge triangulation — completed
+
+- Added mistral:7b to the v3 status-aware run (270 items).
+- Pairwise agreement 0.919–0.952; majority accuracy 260/270 = 0.963.
+- All-three-wrong: exactly 1, `epistemic_02_U` recursive D5 — the real writer
+  cue loss.
+- Majority-wrong 10: 3 writer omissions (conditional_01 D3/D5; epistemic_02
+  D5) and 7 judge errors. qwen+mistral share the confirmation-downgrade bias;
+  gemma+mistral share the conditional action-vs-condition bias.
+- Majority voting does not remove shared judge bias; deterministic checks and
+  manual adjudication remain necessary.
+- Recorded in `docs/research/2026-11-16-status-drift-v3-third-judge.md`.

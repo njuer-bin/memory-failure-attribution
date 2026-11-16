@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 9
+  total_runs: 10
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -124,15 +124,22 @@ experiments:
       wall_time_min: null
       change_summary: "Status-aware seeds 42/43 are byte-identical (270/270). Same-seed 43: status-aware cuts recursive cue ABSENT from 5-6/10 to 2-3/10; direct 0/10. Variance is prompt-dependent near-tie nondeterminism, not seed-driven."
       timestamp: "2026-11-16"
+    - run_id: "v3_third_judge"
+      hypothesis: "Third-judge triangulation of the status-aware result"
+      metric_value: 0.963
+      delta: null
+      wall_time_min: null
+      change_summary: "Added mistral:7b on v3_status_aware. Pairwise agreement 0.919-0.952; majority accuracy 260/270; all-three-wrong = 1 (the real epistemic_02 D5 cue loss). Majority-wrong 10 = 3 writer omissions + 7 judge errors."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md"
   current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 7
+  cycle: 8
   last_direction: "deepen"
-  last_reflection: "v2.5: status-aware is byte-identical across seeds 42/43; same-seed 43 shows status-aware cuts chained cue loss from 5-6/10 to 2-3/10. Variance is prompt-dependent near-tie nondeterminism. Next: third-judge triangulation or a status-cue-aware judge, then novelty check against BELIEFMEM/MemCoRe."
+  last_reflection: "Third judge triangulates the status-aware run: all-three-wrong = 1 real cue loss; majority-wrong 10 = 3 writer omissions + 7 judge errors. Majority voting does not remove shared judge bias. Next: triangulate the neutral 23 both-wrong items, then novelty check."
 
 workspace:
   findings: "findings.md"
