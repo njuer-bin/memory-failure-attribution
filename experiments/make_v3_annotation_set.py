@@ -56,12 +56,10 @@ def deterministic_state(row: dict, memory: str) -> str:
 
 
 def target_question(row: dict) -> str:
-    proposition = row["proposition"]
-    if row["dimension"] == "epistemic":
-        return f"说话人对「{proposition}」的确定性状态是什么？"
-    if row["dimension"] == "intentional":
-        return f"说话人对「{proposition}」的意图或承诺状态是什么？"
-    return f"与「{proposition}」相关的条件状态是什么？"
+    # Neutral: do not reveal the dimension or the gold state. Annotators mark
+    # applicable dimensions themselves.
+    return (f"目标命题：{row['proposition']}。"
+            "请判断记忆是否保留该命题及其在对话中的状态。")
 
 
 def build_items(rows: list[dict], seed: int = 20261116) -> list[dict]:
