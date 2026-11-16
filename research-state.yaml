@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 16
+  total_runs: 17
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -187,6 +187,13 @@ experiments:
       wall_time_min: null
       change_summary: "30 trajectories, 0 errors. Recursive-minus-direct error +0.067/+0.167/+0.267/+0.200; cue ABSENT at recursive D5 8/10 vs status-aware 2/10. Token logging shows chained outputs shorter (16.1 vs 21.4 tokens at D5), so not token-matched. 120-item annotation set generated."
       timestamp: "2026-11-16"
+    - run_id: "v24_neutral_human_annotation"
+      hypothesis: "Human-annotated neutral-writer drift"
+      metric_value: 0.072
+      delta: null
+      wall_time_min: null
+      change_summary: "120 items per annotator; primary-label agreement raw 0.900/kappa 0.764. Overall drift 7.2-8.8% (bounds), Recursive D5 15.4-15.8%, Rewrite D5 19.0-21.4%, Raw/Direct 0%. Intentional 21.9-25.7%. Neutral roughly doubles status-aware drift."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_4.md (revision) + docs/STATUS_DRIFT_PILOT_PROTOCOL.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
@@ -196,9 +203,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 15
+  cycle: 16
   last_direction: "deepen"
-  last_reflection: "Neutral v2.4 run reproduces the chaining effect (recursive-minus-direct positive; cue ABSENT 8/10 at D5 vs status-aware 2/10) and generates a 120-item annotation set. Token logging shows chained outputs ~25% shorter, so the next causal step is a matched-token-budget experiment. Human annotation of the neutral set is pending."
+  last_reflection: "Neutral human annotation confirms the mitigation: overall drift 7.2-8.8% vs status-aware 4.2-4.3%; chained D5 15-21% vs 7-11%; intentional 22-26% vs 7.5-7.9%. Direction is robust to 12 label disagreements. Token mismatch (16 vs 21 tokens at D5) remains the main causal caveat; matched-token-budget experiment is next."
 
 workspace:
   findings: "findings.md"

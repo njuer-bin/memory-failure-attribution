@@ -14,7 +14,7 @@ ALLOWED = {
     "proposition_identity": {"PRESERVED", "PARTIAL", "LOST", "AMBIGUOUS"},
     "polarity": {"POSITIVE", "NEGATIVE", "MIXED", "NOT_APPLICABLE", "UNCLEAR"},
     "epistemic_status": {"POSSIBLE", "PROBABLE", "CERTAIN", "UNKNOWN",
-                         "EXPLICITLY_UNCERTAIN", "NOT_APPLICABLE"},
+                         "EXPLICITLY_UNCERTAIN", "UNCLEAR", "NOT_APPLICABLE"},
     "intention_status": {"NONE", "CONSIDERING", "INTENDING", "COMMITTED",
                          "EXPLICITLY_NOT_INTENDED", "NOT_APPLICABLE"},
     "action_status": {"NOT_STARTED", "IN_PROGRESS", "COMPLETED", "ABANDONED",

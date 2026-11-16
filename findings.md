@@ -84,8 +84,14 @@ in status preservation.**
   Raw, 0/30 at Direct D5, 2/27–29 at Recursive D5 (6.9–7.4%), and 3/28–30 at
   Rewrite-matched D5 (10.0–10.7%); overall 4.2–4.3%. Annotation agreement on
   the drift label is 1.000 (kappa 1.0). All five drift cases are epistemic
-  escalation or intentional commitment weakening. This validates the
-  status-aware condition; the neutral-writer effect awaits human annotation.
+  escalation or intentional commitment weakening.
+- **Human annotation confirms the larger neutral-writer effect.**
+  120 items per annotator, v2.4 neutral run: overall drift 7.2–8.8%
+  (conservative–liberal bounds); Recursive D5 15.4–15.8%; Rewrite-matched D5
+  19.0–21.4%; Raw and Direct D5 0%. Intentional 21.9–25.7%, epistemic 0%,
+  conditional 0–3.3%. The neutral writer roughly doubles the status-aware
+  drift, and more than doubles it at chained D5. Primary-label agreement is
+  raw 0.900 (kappa 0.764) with 12 disagreements; the direction is robust.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

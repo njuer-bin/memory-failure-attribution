@@ -264,3 +264,17 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - 120-item annotation set per annotator generated under
   `v24_full_neutral/annotation/`.
 - Recorded in `docs/research/2026-11-16-status-drift-v24-neutral-run.md`.
+
+### v2.4 neutral human annotation — completed
+
+- 120 items per annotator; primary-label agreement raw 0.900, kappa 0.764
+  (12 disagreements).
+- Overall drift 7.9% (A) / 8.2% (B); bounded 7.2-8.8%.
+- Recursive D5 15.4-15.8%; Rewrite-matched D5 19.0-21.4%; Raw and Direct D5 0%.
+- Intentional 21.9-25.7%; epistemic 0%; conditional 0-3.3%.
+- Status-aware comparison: 4.2-4.3% overall, 6.9-7.4% recursive, 10.0-10.7%
+  rewrite. Neutral roughly doubles the human-annotated drift.
+- Direction robust to the 12 disagreements; token mismatch remains the causal
+  caveat.
+- Recorded in
+  `docs/research/2026-11-16-status-drift-v24-neutral-human-annotation.md`.
