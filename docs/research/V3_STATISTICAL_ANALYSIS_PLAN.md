@@ -19,6 +19,10 @@ outcomes and never interpret it alone.
 
 ## 2. Primary contrasts
 - Within-condition path divergence: PATH_REPLICATE path pairs (primary).
+- **PEEK vs memory-only:** source-access contrast (primary path perturbation).
+- **Deterministic vs sampled decoding:** generation-variability contrast (primary path perturbation).
+- **Prompt paraphrase vs original:** instruction-wording contrast (primary path perturbation).
+- Schedule-only path variation: near-null control (P1b: 9.1%).
 - Recursive versus Direct: path-history contrast (joint outcomes + secondary USDR).
 - Rewrite-matched versus Direct: repeated-rewriting contrast.
 - Repeated-direct versus Direct: call-count contrast.

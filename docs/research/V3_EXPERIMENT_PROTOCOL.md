@@ -18,6 +18,8 @@ G. PATH_REPLICATE: multiple predeclared intermediate schedules under the same co
 H. SOURCE_PEEK: chained rewriting that can access both the prior memory and the original dialogue. Separates transformation history from source availability.
 I. REPEATED_DIRECT: d independent direct compressions of the full dialogue, keeping the last. Matches call count without chaining.
 
+P1b evidence: schedule-only PATH_REPLICATE variation is nearly null (9.1% pairwise divergence), while source access (~50–58%), prompt paraphrase (25–45%), and temperature sampling (27–82%) drive divergence. Treat schedule-only as a near-null control; use SOURCE_PEEK, prompt paraphrase, and deterministic-vs-sampled decoding as the primary path perturbations.
+
 ## 4. Controls to record
 For every generation:
 - trajectory_id, condition, stage, parent_memory_id;

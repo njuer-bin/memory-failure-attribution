@@ -10,7 +10,7 @@ The intended contribution is not another generic memory architecture, uncertaint
 
 ## 2. Research questions
 - RQ1 — Path effect (between-condition): Do Direct, Recursive, and Rewrite-matched transformation histories differ in status fidelity when proposition identity is preserved?
-- RQ1b — Path effect (within-condition): Do multiple transformation paths under the same condition (different intermediate schedules, same source and final budget) produce different final states? This is the operational core of the word "path-dependent".
+- RQ1b — Path effect (within-condition): Do multiple transformation paths under the same condition (different intermediate schedules, source access, prompt wording, or decoding) produce different final states? This is the operational core of the word "path-dependent". P1b found schedule-only variation nearly null; source access and decoding drive divergence.
 - RQ2 — Mechanism: Are observed differences attributable to transformation history rather than final length, number of model calls, source access, topic omission, or writer/judge artifacts?
 - RQ3 — Consequence: Holding proposition content fixed, does changing only its represented status alter downstream agent decisions, clarification, abstention, or authorization behavior?
 - RQ4 — Mitigation: Can evidence anchoring or explicit state-transition verification reduce unsupported distortion without defaulting to UNKNOWN or increasing storage without bound?
@@ -55,6 +55,7 @@ Report both P(unsupported drift | proposition preserved) and P(proposition loss)
 - Path-level unit: for path-dependence claims, the unit is a path within a condition. Report pairwise state divergence and dispersion, not only condition means.
 - Source-access crossing: history (chain / no chain) × source access (memory-only / memory+source) where feasible.
 - Joint-outcome primary: report the joint distribution of proposition identity × status fidelity; do not make a conditional-on-preserved quantity the sole primary outcome.
+- **P1b mechanism finding:** schedule-only path variation is nearly null (S1–S2 pairwise divergence 9.1%); source access (~50–58%), prompt paraphrase (25–45%), and temperature sampling (27–82%) drive divergence. Treat schedule-only as a near-null control, not the primary path axis.
 - Model control: begin with one locally reproducible writer model, then replicate on a second model only after the primary protocol is stable.
 - Human primary labels: model judges are diagnostic only. Preserve raw outputs and blind annotators to condition and gold labels.
 - Legitimate updates: include stable, updated, reversed, cancelled, and conditional trajectories.
@@ -75,6 +76,7 @@ Gate: report whether path divergence exists, is null, or is dominated by proposi
 
 ### P2 — Paired transformation study
 Generate all conditions for each trajectory under predeclared budgets. Store full source, prompts, intermediate memories, final outputs, token counts, model/config fingerprints, and errors.
+Primary path contrasts: source access (PEEK vs memory-only), deterministic vs sampled decoding, and prompt paraphrase vs original. Schedule-only variation is a near-null control.
 Gate: pipeline completeness, no silent missing conditions, and acceptable proposition-retention rates.
 
 ### P3 — Human evaluation
