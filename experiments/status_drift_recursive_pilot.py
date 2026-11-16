@@ -30,7 +30,7 @@ TOPIC_KEYWORDS = {
     "购买电脑": ["购买电脑", "买电脑", "电脑"],
     "去上海工作": ["去上海", "上海工作", "上海"],
     "申请研究生": ["申请研究生", "研究生", "读研"],
-    "参加数学建模比赛": ["数学建模", "建模比赛", "建模"],
+    "参加数学建模比赛": ["数学建模", "建模比赛", "建模", "参赛"],
     "开始学习日语": ["学习日语", "日语"],
     "申请海外交换": ["海外交换", "交换"],
     "报名马拉松": ["马拉松"],
@@ -45,10 +45,12 @@ DIMENSIONS = ("epistemic", "intentional", "conditional")
 # 拿到奖学金 as a substring.
 CONDITION_NEGATIONS = [
     "未拿到奖学金", "没拿到奖学金", "没有拿到奖学金", "拿不到奖学金",
-    "未获奖学金", "没有获奖学金", "未获得奖学金",
+    "未拿奖学金", "未获奖学金", "没有获奖学金", "未获得奖学金",
+    "无奖学金", "没有奖学金",
 ]
 CONDITION_SATISFIED_MARKERS = [
     "条件已满足", "条件满足", "已满足条件", "已经满足",
+    "拿到奖学金", "获得奖学金", "获奖学金",
     "已拿到奖学金", "已经拿到奖学金", "已获奖学金", "已经获得奖学金", "已获得奖学金",
 ]
 CONDITION_ACTIVE_MARKERS = [
@@ -328,7 +330,8 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
     cond_expected = ["SATISFIED" if row["gold_status"] == "CONDITION_SATISFIED" else "ACTIVE"
                      for row in cond_rows]
     cond_correct = sum(a == e for a, e in zip(cond_actual, cond_expected))
-    cond_omitted = sum(a in ("OMITTED", "AMBIGUOUS") for a in cond_actual)
+    cond_omitted = sum(a == "OMITTED" for a in cond_actual)
+    cond_ambiguous = sum(a == "AMBIGUOUS" for a in cond_actual)
 
     return {
         "n_valid": n, "accuracy": correct / n if n else None, "correct": correct,
@@ -352,6 +355,7 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
         "condition_det_correct": cond_correct,
         "condition_det_accuracy": cond_correct / len(cond_rows) if cond_rows else None,
         "condition_det_omitted_n": cond_omitted,
+        "condition_det_ambiguous_n": cond_ambiguous,
         "condition_det_omission_rate": cond_omitted / len(cond_rows) if cond_rows else None,
     }
 

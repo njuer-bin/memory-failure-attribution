@@ -17,6 +17,7 @@ from pathlib import Path
 
 from experiments.status_drift_recursive_pilot import (
     DEPTHS,
+    TOPIC_KEYWORDS,
     chat,
     det_condition_status,
     parse_json,
@@ -131,7 +132,8 @@ def aggregate(items: list[dict]) -> dict:
         x["condition_status"] == ("SATISFIED" if x["gold_status"] == "CONDITION_SATISFIED" else "ACTIVE")
         for x in cond_items
     )
-    cond_omitted = sum(x["condition_status"] in ("OMITTED", "AMBIGUOUS") for x in cond_items)
+    cond_omitted = sum(x["condition_status"] == "OMITTED" for x in cond_items)
+    cond_ambiguous = sum(x["condition_status"] == "AMBIGUOUS" for x in cond_items)
     return {
         "n_items": len(items),
         "n_valid": n,
@@ -166,6 +168,7 @@ def aggregate(items: list[dict]) -> dict:
         "condition_det_correct": cond_correct,
         "condition_det_accuracy": cond_correct / len(cond_items) if cond_items else None,
         "condition_det_omitted_n": cond_omitted,
+        "condition_det_ambiguous_n": cond_ambiguous,
         "condition_det_omission_rate": cond_omitted / len(cond_items) if cond_items else None,
         "conflict_reported_n": sum(x.get("conflict_present") is True for x in valid),
     }
@@ -188,7 +191,8 @@ def run(args) -> None:
                 "proposition": row["proposition"],
                 "allowed_labels": row["allowed_labels"],
             }
-            keywords = row.get("proposition_keywords") or [row["proposition"]]
+            keywords = (TOPIC_KEYWORDS.get(row["proposition"])
+                        or row.get("proposition_keywords") or [row["proposition"]])
             for condition, text in conditions_for(row):
                 old = old_judgment(row, condition) or {}
                 item = {

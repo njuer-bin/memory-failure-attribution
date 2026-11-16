@@ -90,7 +90,9 @@ def test_v2_conditional_keeps_legacy_action_clause():
 def test_det_condition_status_three_states():
     assert det_condition_status("拿不到奖学金，条件不满足") == "ACTIVE"
     assert det_condition_status("没有拿到奖学金") == "ACTIVE"
+    assert det_condition_status("无奖学金，未申请研究生") == "ACTIVE"
     assert det_condition_status("已经拿到奖学金了，条件已经满足") == "SATISFIED"
     assert det_condition_status("获得奖学金，条件已满足") == "SATISFIED"
+    assert det_condition_status("拿到奖学金，考虑购买电脑。") == "SATISFIED"
     assert det_condition_status("去上海工作。") == "OMITTED"
     assert det_condition_status("条件满足但奖学金未拿到") == "AMBIGUOUS"
