@@ -253,10 +253,30 @@ def judge(sample: dict[str, Any], text: str, args: argparse.Namespace) -> dict[s
             "reason": str(parsed.get("reason", "")), "raw_response": raw}
 
 
-def compress(source: str, depth: int, args: argparse.Namespace) -> str:
+def compress_budget(source: str, budget: int, args: argparse.Namespace) -> str:
     return chat(args.base_url, args.writer_model,
-                writer_prompt(source, BUDGETS[depth], args.writer_style),
+                writer_prompt(source, budget, args.writer_style),
                 args.timeout, args.retries, args.seed)
+
+
+def compress(source: str, depth: int, args: argparse.Namespace) -> str:
+    return compress_budget(source, BUDGETS[depth], args)
+
+
+def rewrite_matched_budget_schedule(depth: int) -> list[int]:
+    """d chained calls whose intermediate budgets stay at BUDGETS[1]."""
+    return [BUDGETS[1]] * (depth - 1) + [BUDGETS[depth]]
+
+
+def compress_rewrite_matched(sample: dict[str, Any], args: argparse.Namespace) -> dict[str, str]:
+    memories: dict[str, str] = {}
+    base = compress(sample["dialogue"], 1, args)
+    for depth in (2, 3, 5):
+        memory = base
+        for budget in rewrite_matched_budget_schedule(depth)[1:]:
+            memory = compress_budget(memory, budget, args)
+        memories[str(depth)] = memory
+    return memories
 
 
 def det_match(text: str, sample: dict[str, Any]) -> bool:
@@ -267,20 +287,32 @@ def det_match(text: str, sample: dict[str, Any]) -> bool:
 def _prediction(row: dict[str, Any], condition: str, depth: int | None) -> dict | None:
     if condition == "raw":
         return row.get("raw_judgment")
-    key = "direct_judgments" if condition == "direct" else "recursive_judgments"
+    key = {
+        "direct": "direct_judgments",
+        "recursive": "recursive_judgments",
+        "rewrite_matched": "rewrite_matched_judgments",
+    }[condition]
     return (row.get(key) or {}).get(str(depth))
 
 
 def _memory(row: dict[str, Any], condition: str, depth: int | None) -> str:
     if condition == "raw":
         return row.get("dialogue", "")
-    key = "direct_memories" if condition == "direct" else "recursive_memories"
+    key = {
+        "direct": "direct_memories",
+        "recursive": "recursive_memories",
+        "rewrite_matched": "rewrite_matched_memories",
+    }[condition]
     return (row.get(key) or {}).get(str(depth), "")
 
 
 def _deterministic_retention(row: dict[str, Any], condition: str, depth: int | None) -> bool:
     if condition != "raw":
-        key = "direct_retention" if condition == "direct" else "recursive_retention"
+        key = {
+            "direct": "direct_retention",
+            "recursive": "recursive_retention",
+            "rewrite_matched": "rewrite_matched_retention",
+        }[condition]
         value = (row.get(key) or {}).get(str(depth))
         if value is not None:
             return bool(value)
@@ -322,7 +354,11 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
     def _cond_of(row: dict[str, Any]) -> str:
         if condition == "raw":
             return det_condition_status(row.get("dialogue", ""))
-        key = "direct_condition" if condition == "direct" else "recursive_condition"
+        key = {
+            "direct": "direct_condition",
+            "recursive": "recursive_condition",
+            "rewrite_matched": "rewrite_matched_condition",
+        }[condition]
         stored = (row.get(key) or {}).get(str(depth))
         return stored or det_condition_status(_memory(row, condition, depth))
 
@@ -380,6 +416,10 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
     for depth in DEPTHS:
         summary["conditions"][f"direct_d{depth}"] = evaluate_condition(rows, "direct", depth)
         summary["conditions"][f"recursive_d{depth}"] = evaluate_condition(rows, "recursive", depth)
+    if args.rewrite_matched:
+        for depth in DEPTHS:
+            summary["conditions"][f"rewrite_matched_d{depth}"] = evaluate_condition(
+                rows, "rewrite_matched", depth)
     summary["recursive_minus_direct_error_rate"] = {}
     for depth in DEPTHS:
         direct = summary["conditions"][f"direct_d{depth}"]
@@ -396,6 +436,21 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
             (1 - recursive["cpsd_det"]) - (1 - direct["cpsd_det"])
             if direct["cpsd_det"] is not None and recursive["cpsd_det"] is not None else None
         )
+    if args.rewrite_matched:
+        summary["recursive_minus_rewrite_matched_error_rate"] = {}
+        summary["rewrite_matched_minus_direct_error_rate"] = {}
+        for depth in DEPTHS:
+            recursive = summary["conditions"][f"recursive_d{depth}"]
+            matched = summary["conditions"][f"rewrite_matched_d{depth}"]
+            direct = summary["conditions"][f"direct_d{depth}"]
+            summary["recursive_minus_rewrite_matched_error_rate"][str(depth)] = (
+                (1 - recursive["accuracy"]) - (1 - matched["accuracy"])
+                if recursive["accuracy"] is not None and matched["accuracy"] is not None else None
+            )
+            summary["rewrite_matched_minus_direct_error_rate"][str(depth)] = (
+                (1 - matched["accuracy"]) - (1 - direct["accuracy"])
+                if matched["accuracy"] is not None and direct["accuracy"] is not None else None
+            )
     return summary
 
 
@@ -412,7 +467,7 @@ def run(args: argparse.Namespace) -> None:
         "base_url": args.base_url, "limit": args.limit, "depths": list(DEPTHS),
         "budgets_chars": BUDGETS, "temperature": 0, "design": args.design,
         "writer_style": args.writer_style, "seed": args.seed, "skip_judge": args.skip_judge,
-        "dimensions": args.dimensions,
+        "dimensions": args.dimensions, "rewrite_matched": args.rewrite_matched,
     }
     config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -446,7 +501,10 @@ def run(args: argparse.Namespace) -> None:
                 "raw_judgment": None, "direct_memories": {}, "direct_judgments": {},
                 "direct_retention": {}, "direct_condition": {},
                 "recursive_memories": {}, "recursive_judgments": {},
-                "recursive_retention": {}, "recursive_condition": {}, "errors": [],
+                "recursive_retention": {}, "recursive_condition": {},
+                "rewrite_matched_memories": {}, "rewrite_matched_judgments": {},
+                "rewrite_matched_retention": {}, "rewrite_matched_condition": {},
+                "errors": [],
             }
             try:
                 if not args.skip_judge:
@@ -466,6 +524,20 @@ def run(args: argparse.Namespace) -> None:
                     row["direct_condition"][str(depth)] = det_condition_status(direct_memory)
                     if not args.skip_judge:
                         row["direct_judgments"][str(depth)] = judge(sample, direct_memory, args)
+                if args.rewrite_matched:
+                    row["rewrite_matched_memories"]["1"] = row["direct_memories"]["1"]
+                    row["rewrite_matched_retention"]["1"] = row["direct_retention"]["1"]
+                    row["rewrite_matched_condition"]["1"] = row["direct_condition"]["1"]
+                    if not args.skip_judge:
+                        row["rewrite_matched_judgments"]["1"] = row["direct_judgments"]["1"]
+                    matched = compress_rewrite_matched(sample, args)
+                    for depth in (2, 3, 5):
+                        memory = matched[str(depth)]
+                        row["rewrite_matched_memories"][str(depth)] = memory
+                        row["rewrite_matched_retention"][str(depth)] = det_match(memory, sample)
+                        row["rewrite_matched_condition"][str(depth)] = det_condition_status(memory)
+                        if not args.skip_judge:
+                            row["rewrite_matched_judgments"][str(depth)] = judge(sample, memory, args)
             except Exception as exc:
                 row["errors"].append(f"{type(exc).__name__}: {exc}")
             out.write(json.dumps(row, ensure_ascii=False) + "\n")
@@ -496,6 +568,8 @@ def main() -> None:
     parser.add_argument("--writer-style", choices=("status_aware", "neutral"), default="status_aware")
     parser.add_argument("--skip-judge", action="store_true",
                         help="Only produce memories; judge later with the calibration runner.")
+    parser.add_argument("--rewrite-matched", action="store_true",
+                        help="Also run the chained constant-budget control (protocol v2.3).")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--out-dir", default=None)
     parser.add_argument("--timeout", type=int, default=180)

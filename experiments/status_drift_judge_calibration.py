@@ -101,7 +101,11 @@ def old_judgment(row: dict, condition: str) -> dict | None:
     if condition == "raw":
         return row.get("raw_judgment")
     kind, depth = condition.split("_d")
-    key = "direct_judgments" if kind == "direct" else "recursive_judgments"
+    key = {
+        "direct": "direct_judgments",
+        "recursive": "recursive_judgments",
+        "rewrite_matched": "rewrite_matched_judgments",
+    }[kind]
     return (row.get(key) or {}).get(depth)
 
 
@@ -111,6 +115,10 @@ def conditions_for(row: dict):
         yield f"direct_d{depth}", row.get("direct_memories", {}).get(str(depth), "")
     for depth in DEPTHS:
         yield f"recursive_d{depth}", row.get("recursive_memories", {}).get(str(depth), "")
+    if row.get("rewrite_matched_memories"):
+        for depth in DEPTHS:
+            yield (f"rewrite_matched_d{depth}",
+                   row.get("rewrite_matched_memories", {}).get(str(depth), ""))
 
 
 def aggregate(items: list[dict]) -> dict:
@@ -263,6 +271,9 @@ def run(args) -> None:
                       f"det={item['proposition_match']} retained={item['proposition_retained']}",
                       flush=True)
 
+    condition_names = ["raw"] + [f"direct_d{d}" for d in DEPTHS] + [f"recursive_d{d}" for d in DEPTHS]
+    if any(x["condition"].startswith("rewrite_matched") for x in items):
+        condition_names += [f"rewrite_matched_d{d}" for d in DEPTHS]
     summary = {
         "protocol": "status_drift_judge_v2.2_calibration",
         "judge_model": args.judge_model,
@@ -270,8 +281,7 @@ def run(args) -> None:
         "source_records": str(records_path),
         "conditions": {
             cond: aggregate([x for x in items if x["condition"] == cond])
-            for cond in ["raw"] + [f"direct_d{d}" for d in DEPTHS]
-            + [f"recursive_d{d}" for d in DEPTHS]
+            for cond in condition_names
         },
         "by_dimension": {
             dim: aggregate([x for x in items if x["dimension"] == dim])

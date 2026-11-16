@@ -4,6 +4,7 @@ from experiments.status_drift_recursive_pilot import (
     build_dataset,
     det_condition_status,
     det_match,
+    rewrite_matched_budget_schedule,
     select_samples,
 )
 
@@ -96,3 +97,10 @@ def test_det_condition_status_three_states():
     assert det_condition_status("拿到奖学金，考虑购买电脑。") == "SATISFIED"
     assert det_condition_status("去上海工作。") == "OMITTED"
     assert det_condition_status("条件满足但奖学金未拿到") == "AMBIGUOUS"
+
+
+def test_rewrite_matched_budget_schedule():
+    assert rewrite_matched_budget_schedule(1) == [220]
+    assert rewrite_matched_budget_schedule(2) == [220, 180]
+    assert rewrite_matched_budget_schedule(3) == [220, 220, 140]
+    assert rewrite_matched_budget_schedule(5) == [220, 220, 220, 220, 100]
