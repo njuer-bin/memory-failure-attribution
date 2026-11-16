@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 14
+  total_runs: 12
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -159,7 +159,10 @@ experiments:
       wall_time_min: null
       change_summary: "qwen+gemma on 180 items: agreement 180/180, both-wrong 0; all 40 updated D3/D5 items judged COMMITTED; stable CONSIDERING cases correct. Label confirmation passes."
       timestamp: "2026-11-16"
-  current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md"
+  current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md + _V2_4.md + _V2_5.md + _V2_6.md + _V2_7.md + _V2_8.md (blocked)"
+  invalid_or_blocked:
+    - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
+    - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
   current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
