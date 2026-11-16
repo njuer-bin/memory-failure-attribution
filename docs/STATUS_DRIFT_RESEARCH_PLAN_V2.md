@@ -1,7 +1,7 @@
-# Status Drift in Long-Term Conversational Memory — Research Plan v2.0
+# Status Drift in Long-Term Conversational Memory — Research Plan v2.1
 
-**Title:** Status Drift in Long-Term Conversational Memory: Measuring Epistemic and Intentional Fidelity under Recursive Compression  
-**Chinese:** 长时对话记忆中的状态漂移：递归压缩下的认知与意图保真度测量  
+**Title:** Status Drift in Long-Term Conversational Memory: Measuring Epistemic, Intentional, and Conditional Fidelity under Recursive Compression  
+**Chinese:** 长时对话记忆中的状态漂移：递归压缩下的认知、意图与条件保真度测量  
 **Status:** Research proposal; hypotheses are untested.  
 **Current phase:** Literature audit and small-scale pilot.  
 **Branch:** `research/status-drift-v2-pilot`
