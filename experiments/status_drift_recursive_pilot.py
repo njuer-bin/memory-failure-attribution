@@ -175,9 +175,10 @@ def select_samples(limit: int, design: str, dimensions: str,
 
 def chat(base_url: str, model: str, messages: list[dict[str, str]],
          timeout: int, retries: int, seed: int | None = None,
-         tag: str | None = None, role: str | None = None) -> str:
+         tag: str | None = None, role: str | None = None,
+         temperature: float = 0) -> str:
     url = base_url.rstrip("/") + "/api/chat"
-    options: dict[str, Any] = {"temperature": 0, "num_predict": 220}
+    options: dict[str, Any] = {"temperature": temperature, "num_predict": 220}
     if seed is not None:
         options["seed"] = seed
     payload = {"model": model, "messages": messages, "stream": False, "options": options}
@@ -234,6 +235,9 @@ def writer_prompt(source: str, budget: int, style: str = "status_aware") -> list
     if style == "neutral":
         system = ("你负责维护长期对话记忆。请把输入内容压缩成一条简洁记忆，"
                   "保留重要信息。不要输出解释。")
+    elif style == "neutral_paraphrase":
+        system = ("请把下面的对话整理成一条简短的记忆条目，保留关键信息。"
+                  "只输出记忆内容，不要解释。")
     elif style == "commitment_aware":
         system = (
             "你负责维护长期对话记忆。请把输入内容压缩成一条简洁记忆。"

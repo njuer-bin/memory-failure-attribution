@@ -1,11 +1,13 @@
-"""V3 P1a — within-condition path-replicate pilot.
+"""V3 P1 — path-replicate pilot.
 
-For each trajectory, generate the same final budget through three different
-intermediate schedules plus a direct reference. Measure whether final states
-diverge across paths with the same source and final budget.
+Two designs:
+- schedules: three intermediate-budget schedules (P1a).
+- heterogeneous: five paths varying schedule, source access, prompt paraphrase,
+  and decoding temperature (P1b).
 
 Usage:
-    python -m experiments.v3_path_pilot --limit 12 --out-dir results/status_drift_v2_pilot/v3_path_pilot
+    python -m experiments.v3_path_pilot --design heterogeneous --limit 12 \
+        --out-dir results/status_drift_v2_pilot/v3_path_pilot_p1b
 """
 from __future__ import annotations
 
@@ -27,12 +29,29 @@ from experiments.status_drift_recursive_pilot import (
     writer_prompt,
 )
 
-SCHEDULES = {
-    "A": [220, 180, 140, 120, 100],
-    "B": [220, 200, 160, 130, 100],
-    "C": [220, 160, 150, 120, 100],
-}
 FINAL_BUDGET = 100
+
+SCHEDULE_PATHS = {
+    "A": {"schedule": [220, 180, 140, 120, 100], "source_peek": False,
+          "prompt_style": "neutral", "temperature": 0.0},
+    "B": {"schedule": [220, 200, 160, 130, 100], "source_peek": False,
+          "prompt_style": "neutral", "temperature": 0.0},
+    "C": {"schedule": [220, 160, 150, 120, 100], "source_peek": False,
+          "prompt_style": "neutral", "temperature": 0.0},
+}
+
+HETEROGENEOUS_PATHS = {
+    "S1": {"schedule": [220, 180, 140, 120, 100], "source_peek": False,
+           "prompt_style": "neutral", "temperature": 0.0},
+    "S2": {"schedule": [220, 160, 150, 120, 100], "source_peek": False,
+           "prompt_style": "neutral", "temperature": 0.0},
+    "PEEK": {"schedule": [220, 180, 140, 120, 100], "source_peek": True,
+             "prompt_style": "neutral", "temperature": 0.0},
+    "PARA": {"schedule": [220, 180, 140, 120, 100], "source_peek": False,
+             "prompt_style": "neutral_paraphrase", "temperature": 0.0},
+    "TEMP": {"schedule": [220, 180, 140, 120, 100], "source_peek": False,
+             "prompt_style": "neutral", "temperature": 0.7},
+}
 
 
 def build_trajectories(topics_count: int = 2) -> list[dict[str, Any]]:
@@ -82,14 +101,18 @@ def path_divergence(states: list[str]) -> dict[str, Any]:
     }
 
 
-def run_schedule(dialogue: str, schedule: list[int], args, tag_prefix: str) -> list[str]:
-    memory = dialogue
+def run_path(row: dict[str, Any], name: str, spec: dict[str, Any], args) -> list[str]:
+    memory = row["dialogue"]
     memories = []
-    for stage, budget in enumerate(schedule, 1):
+    for stage, budget in enumerate(spec["schedule"], 1):
+        source = memory
+        if spec["source_peek"]:
+            source = memory + "\n\n[原始对话]\n" + row["dialogue"]
         memory = chat(args.base_url, args.writer_model,
-                      writer_prompt(memory, budget, args.writer_style),
+                      writer_prompt(source, budget, spec["prompt_style"]),
                       args.timeout, args.retries, args.seed,
-                      f"{tag_prefix}_stage{stage}", "writer")
+                      f"{name}_stage{stage}", "writer",
+                      temperature=spec["temperature"])
         memories.append(memory)
     return memories
 
@@ -99,9 +122,29 @@ def topic_mentioned(row: dict[str, Any], memory: str) -> bool:
     return any(keyword in memory for keyword in keywords)
 
 
+def pairwise_path_rates(records: list[dict[str, Any]],
+                        path_names: list[str]) -> dict[str, Any]:
+    result = {}
+    for left, right in itertools.combinations(path_names, 2):
+        n = disagree = 0
+        for row in records:
+            a = row["paths"].get(left, {})
+            b = row["paths"].get(right, {})
+            if not a.get("topic_mentioned") or not b.get("topic_mentioned"):
+                continue
+            n += 1
+            if a["final_state"] != b["final_state"]:
+                disagree += 1
+        result[f"{left}_{right}"] = {
+            "n": n, "disagree": disagree, "rate": disagree / n if n else None,
+        }
+    return result
+
+
 def run(args: argparse.Namespace) -> None:
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+    paths = HETEROGENEOUS_PATHS if args.design == "heterogeneous" else SCHEDULE_PATHS
     trajectories = build_trajectories(args.topics)[:args.limit]
     records = []
     for index, row in enumerate(trajectories, 1):
@@ -112,17 +155,18 @@ def run(args: argparse.Namespace) -> None:
             "has_legitimate_update": row["has_legitimate_update"],
             "dialogue": row["dialogue"], "paths": {}, "direct": {},
         }
-        for name, schedule in SCHEDULES.items():
-            memories = run_schedule(row["dialogue"], schedule, args, f"path_{name}")
+        for name, spec in paths.items():
+            memories = run_path(row, name, spec, args)
             final = memories[-1]
             record["paths"][name] = {
+                "spec": spec,
                 "memories": memories,
                 "sizes": [text_size(memory) for memory in memories],
                 "final_state": normalized_state(row, final),
                 "topic_mentioned": topic_mentioned(row, final),
             }
         direct_memory = chat(args.base_url, args.writer_model,
-                             writer_prompt(row["dialogue"], FINAL_BUDGET, args.writer_style),
+                             writer_prompt(row["dialogue"], FINAL_BUDGET, "neutral"),
                              args.timeout, args.retries, args.seed, "direct", "writer")
         record["direct"] = {
             "memory": direct_memory, "size": text_size(direct_memory),
@@ -142,13 +186,14 @@ def run(args: argparse.Namespace) -> None:
         with (out_dir / "records.jsonl").open("a", encoding="utf-8") as out:
             out.write(json.dumps(record, ensure_ascii=False) + "\n")
 
-    summary = summarize(records, args)
+    summary = summarize(records, args, paths)
     (out_dir / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2),
                                           encoding="utf-8")
     print(json.dumps(summary, ensure_ascii=False, indent=2))
 
 
-def summarize(records: list[dict[str, Any]], args: argparse.Namespace) -> dict[str, Any]:
+def summarize(records: list[dict[str, Any]], args: argparse.Namespace,
+              paths: dict[str, Any]) -> dict[str, Any]:
     by_dimension = {}
     for dimension in DIMENSIONS:
         group = [row for row in records if row["dimension"] == dimension]
@@ -169,9 +214,11 @@ def summarize(records: list[dict[str, Any]], args: argparse.Namespace) -> dict[s
     direct_divergences = [row["direct_vs_paths"]["pairwise_disagreement"] for row in records
                           if row["direct_vs_paths"]["pairwise_disagreement"] is not None]
     return {
-        "protocol": "v3_path_replicate_pilot_v0",
-        "writer_model": args.writer_model, "writer_style": args.writer_style,
-        "seed": args.seed, "schedules": SCHEDULES, "final_budget": FINAL_BUDGET,
+        "protocol": ("v3_path_replicate_pilot_p1b" if args.design == "heterogeneous"
+                     else "v3_path_replicate_pilot_v0"),
+        "design": args.design,
+        "writer_model": args.writer_model, "seed": args.seed,
+        "paths": paths, "final_budget": FINAL_BUDGET,
         "n_trajectories": len(records),
         "mean_pairwise_path_disagreement": (sum(all_divergences) / len(all_divergences)
                                             if all_divergences else None),
@@ -179,11 +226,12 @@ def summarize(records: list[dict[str, Any]], args: argparse.Namespace) -> dict[s
         "any_path_divergence": sum(d > 0 for d in all_divergences),
         "mean_direct_vs_paths_disagreement": (sum(direct_divergences) / len(direct_divergences)
                                               if direct_divergences else None),
+        "pairwise_path_rates": pairwise_path_rates(records, list(paths)),
         "by_dimension": by_dimension,
         "warnings": [
             "Path divergence is measured by deterministic status cues, not human labels.",
             "Topic mention is a weak proposition proxy; topic-lost paths are excluded and counted.",
-            "Schedules differ in intermediate budgets but share the final budget and source.",
+            "Paths share the source and final budget; only the listed perturbation differs.",
         ],
     }
 
@@ -191,10 +239,11 @@ def summarize(records: list[dict[str, Any]], args: argparse.Namespace) -> dict[s
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out-dir", required=True)
+    parser.add_argument("--design", choices=("schedules", "heterogeneous"),
+                        default="schedules")
     parser.add_argument("--limit", type=int, default=12)
     parser.add_argument("--topics", type=int, default=2)
     parser.add_argument("--writer-model", default="qwen2.5:7b")
-    parser.add_argument("--writer-style", choices=("neutral", "status_aware"), default="neutral")
     parser.add_argument("--base-url", default="http://127.0.0.1:11434")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--timeout", type=int, default=180)
