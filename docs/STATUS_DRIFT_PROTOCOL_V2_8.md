@@ -58,3 +58,32 @@ preservation also fails and do not claim a practical mitigation.
 - Existing runs are unchanged; v2.8 uses a new writer mode and output dir.
 - The sidecar is generated from the input, never from gold.
 - Any sidecar parsing failures are reported, not silently dropped.
+
+## 8. Pilot attempt 1 (invalid, discarded)
+
+The first sidecar execution produced **only** the status line and dropped the
+prose (`direct_d1: [状态: 确定性=可能；...]`), and some fields were malformed
+(`确定性=未满足`, `条件=已满足|未满足|不适用`). The run was stopped after 4
+trajectories; its output is discarded and never used.
+
+The prompt was revised to require a two-line output (prose first, sidecar
+second) with a worked example. This is a prompt-bug fix made before any v2.8
+result was observed; it is not a result-driven change.
+
+## 9. Attempt 2 (invalid, discarded) — v2.8 blocked
+
+The revised two-line prompt still fails with qwen2.5:7b:
+
+- `direct_d1` output only the sidecar line, duplicated, with no prose;
+- `recursive_d3` produced prose but copied the option strings verbatim
+  (`确定性=已确认|可能`).
+
+The writer cannot reliably emit prose + a structured sidecar in one call at
+this model scale. **Status: blocked.** A reliable version needs either a
+separate status-extractor call (prose and sidecar generated independently) or a
+stronger writer model.
+
+No v2.8 result is reported. The v2.7 commitment-aware ceiling remains the
+mitigation evidence; the sidecar is recorded as an open engineering direction,
+not a completed experiment.
+

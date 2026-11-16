@@ -165,9 +165,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 12
+  cycle: 13
   last_direction: "deepen"
-  last_reflection: "v2.7 judge confirmation: 180/180 agreement, 40/40 updated D3/D5 COMMITTED. The commitment-aware ceiling is confirmed at both cue and label levels. Next: v2.8 structured sidecar (realistic mitigation) and human adjudication."
+  last_reflection: "v2.8 sidecar is blocked: the 7B writer cannot reliably emit prose plus a structured sidecar (two prompt attempts invalid). No v2.8 result. v2.7 commitment-aware ceiling remains the mitigation evidence. Next: final synthesis and human-adjudication pass."
 
 workspace:
   findings: "findings.md"

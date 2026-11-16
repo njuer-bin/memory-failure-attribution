@@ -111,10 +111,12 @@ committed. No single judge is a valid instrument.
   the status is present. Report both.
 - Judge agreement is necessary but not sufficient; both judges can agree on the
   wrong label when the memory is paraphrased.
-- Do not scale further until the 39 judge disagreements are manually
-  adjudicated and the conditional ontology is tightened again.
-- Direct and recursive conditions are not matched on rewrite count; the
-  recursion claim mixes recursion with repeated editing.
+- All 39 disagreements from the 30-run were manually adjudicated; new runs need
+  their own adjudication pass rather than carrying stale counts.
+- The rewrite-matched control separates chaining from intermediate budget
+  shrinkage; writer call count and chaining remain entangled.
+- A 7B writer cannot reliably emit prose + a structured sidecar in one call;
+  v2.8 is blocked and needs a separate extractor or a stronger model.
 - Never claim novelty before reading BELIEFMEM (2605.05583) and MemCoRe
   (2602.07885) in full.
 
