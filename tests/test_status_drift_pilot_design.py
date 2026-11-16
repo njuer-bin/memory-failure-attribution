@@ -5,9 +5,9 @@ from experiments.status_drift_recursive_pilot import (
     _make_row,
     build_dataset,
     det_condition_status,
-    det_match,
     rewrite_matched_budget_schedule,
     select_samples,
+    topic_mentioned,
 )
 
 
@@ -46,11 +46,11 @@ def test_v2_full_set_is_balanced():
         assert sum(r["dimension"] == dimension for r in rows) == 10
 
 
-def test_deterministic_retention_matches_known_strings():
+def test_topic_mention_matches_known_strings():
     row = _make_row("epistemic", "购买电脑", True, "x")
-    assert det_match("可能购买电脑，但不确定", row)
-    assert det_match("买电脑", row)
-    assert not det_match("今天天气很好，处理了作业", row)
+    assert topic_mentioned("可能购买电脑，但不确定", row)
+    assert topic_mentioned("买电脑", row)
+    assert not topic_mentioned("今天天气很好，处理了作业", row)
 
 
 def test_conditions_use_string_depth_keys():
