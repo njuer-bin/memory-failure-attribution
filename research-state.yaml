@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 21
+  total_runs: 22
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -222,6 +222,13 @@ experiments:
       wall_time_min: null
       change_summary: "42 trajectories x 6 paths + direct. Mean pairwise divergence 32.9%; 31/42 trajectories diverge. Schedule-only 5.3%; PEEK 58-61%; prompt paraphrase 20-27%; temperature 8-14%; TEMP1-TEMP2 8.3%. PEEK best gold match; TEMP worst; direct best. Conditional has 11 topic-lost paths."
       timestamp: "2026-11-16"
+    - run_id: "v3_annotation_calibration"
+      hypothesis: "P1 calibration: can two annotators apply the V3 guide?"
+      metric_value: 0.578
+      delta: null
+      wall_time_min: null
+      change_summary: "60 blind items, two annotators. Primary judgment raw 0.733/kappa 0.578; applicability raw 0.40 epistemic / 0.60 intentional; status-field agreement low. Dominant human label STATUS_OMISSION (A 22/60, B 19/60); unsupported distortion rare (A 1, B 4). Gate fails; revise guide/ontology and re-calibrate."
+      timestamp: "2026-11-16"
   current_protocol: "V3 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md; statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
@@ -231,9 +238,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 21
-  last_direction: "deepen"
-  last_reflection: "P1c (n=42) replicates P1b: path divergence 32.9%, 31/42 trajectories. Schedule-only 5.3%; source access 58-61%; prompt paraphrase 20-27%; temperature 8-14%; TEMP1-TEMP2 sampling variance 8.3%. PEEK best chained gold match; TEMP worst; direct best. Mechanism is information access + generation variability, not budget schedule. Next: blind human labels (PEEK vs S1 vs TEMP) and conditional omission analysis."
+  cycle: 22
+  last_direction: "pivot"
+  last_reflection: "V3 annotation calibration fails: primary kappa 0.578; applicability raw 0.40/0.60; dominant label is STATUS_OMISSION, not unsupported distortion. The deterministic cue metric conflates omission with distortion, so the P1c path gradient is weaker in human labels. Pivot: revise applicability rules and collapse the ontology, re-calibrate before any confirmatory run."
 
 workspace:
   findings: "findings.md"

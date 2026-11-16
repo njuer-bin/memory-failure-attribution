@@ -1,241 +1,241 @@
 ﻿item_id,annotator_id,proposition_identity,epistemic_applicable,intentional_applicable,conditional_applicable,action_applicable,epistemic_status,intention_status,action_status,condition_status,evidence_support,primary_judgment,subtype,rationale,confidence,turn_references,target_proposition,target_question,memory_text,dialogue
-V3C-0001,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未发先不买电脑，忙整理日程应对多事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0001,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,记忆保留『奖学金未发→先不买』的条件→行动关系与未满足状态，与 T1/T3 一致；未出现目标行动的执行断言。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未发先不买电脑，忙整理日程应对多事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0002,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金：买电脑；天气：变日程；今日：作业事务,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0002,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,UNKNOWN,NOT_ASSESSABLE,STATUS_OMISSION,NONE,条件词『奖学金』在，但未说明是否已获得，条件满足状态缺失；T1 的『才考虑』意向也未表达，且未出现冲突状态 → STATUS_OMISSION。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金：买电脑；天气：变日程；今日：作业事务,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0003,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0003,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『考虑买电脑』与 T1/T3『仍在考虑、没有作出承诺』一致，意向强度未被改写。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0004,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，暂不考虑上海工作；天气变化大，整理日程；今日处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V3C-0004,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未定→暂不考虑上海工作』完整保留条件→行动关系与未满足状态，与对话一致。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，暂不考虑上海工作；天气变化大，整理日程；今日处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0005,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑做作业、查天气、排日程。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0005,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,命题保留，但 T3 的『已决定、按计划推进』承诺线索完全消失，记忆也未断言任何相反状态 → STATUS_OMISSION（遗漏不是漂移）。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑做作业、查天气、排日程。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0006,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变，日程未定，处理事务,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+V3C-0006,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,只剩『上海工作』裸命题，T1/T3 的『仍在考虑』意向线索缺失，无相反状态被断言 → STATUS_OMISSION。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变，日程未定，处理事务,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0007,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未发暂不买电脑，整理日程忙作业。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0007,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未发暂不买电脑』条件关系与未满足状态忠实于 T1/T3，无状态被改写。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未发暂不买电脑，整理日程忙作业。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0008,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变，需整理日程，处理作业和事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+V3C-0008,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『上海工作』，T1/T3 的考虑状态线索缺失，未出现冲突状态 → STATUS_OMISSION。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变，需整理日程，处理作业和事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0009,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不考虑上海工作，因天气调整计划，忙作业事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V3C-0009,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未定暂不考虑上海工作』保留条件关系与未满足状态，与 T3『条件尚未满足』一致。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不考虑上海工作，因天气调整计划，忙作业事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0010,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，多变天气，日程作业，未承诺,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+V3C-0010,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『未承诺』直接对应 T3『没有作出承诺』，意向强度未被抬高也未被压低 → CONSIDERING，忠实。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，多变天气，日程作业，未承诺,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0011,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,1月计划：购电脑→应天气→理日程→购决定→做作业→日常务,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0011,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,COMMITTED,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『购决定』保留 T3 的承诺强度 → COMMITTED；『1月』在对话中无来源，属填充层时间噪声，不触及目标命题状态。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,1月计划：购电脑→应天气→理日程→购决定→做作业→日常务,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0012,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑上海工作，天气变化大，整理日程，未承诺，处理课程作业和日常事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+V3C-0012,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『考虑上海工作』+『未承诺』与 T1/T3 一致，无状态被改写。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑上海工作，天气变化大，整理日程，未承诺，处理课程作业和日常事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0013,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作多，整理变天日程，处理作业事务,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0013,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,目标『去上海工作』仍可辨，但 T1/T3 的『仍然只是可能／未确认』确定性线索缺失，记忆也未断言相反状态 → STATUS_OMISSION。,MEDIUM,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作多，整理变天日程，处理作业事务,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0014,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未果，暂不考虑上海工作；整理日程应对天气变化；今日处理作业与事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V3C-0014,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未果→暂不考虑上海工作』条件关系与未满足状态忠实于 T3。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未果，暂不考虑上海工作；整理日程应对天气变化；今日处理作业与事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0015,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未果，暂不上海工作，调整应对天气，处理课程作业，日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V3C-0015,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未果→暂不上海工作』压缩较重但条件关系与未满足状态可恢复；『暂不』对应 T1『才考虑』，未改写强度。,MEDIUM,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未果，暂不上海工作，调整应对天气，处理课程作业，日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0016,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理作业和事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0016,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,命题保留，但『只是可能／尚未确认』的确定性线索未被复述；『考虑』属意向表述，不构成对确定性的断言 → STATUS_OMISSION 而非 distortion。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理作业和事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0017,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理课程，日常事务。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0017,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『考虑买电脑』与 T1/T3『仍在考虑、没有作出承诺』一致，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理课程，日常事务。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0018,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作确认，日程整理，作业处理，关注天气,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0018,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,ESTABLISHED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『上海工作确认』与 T3『已经确认会去上海工作，这不是猜测了』一致 → ESTABLISHED，无扭曲。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作确认，日程整理，作业处理，关注天气,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0019,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,确认去上海工作，整理因天气变化的日程，今日处理课程作业和日常事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0019,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,ESTABLISHED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『确认去上海工作』明确对应 T3 的确认表述，epistemic 状态忠实。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,确认去上海工作，整理因天气变化的日程，今日处理课程作业和日常事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0020,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，天气变化大，整理日程，处理课程作业和日常事务。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0020,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『考虑买电脑』与 T1/T3 一致，无状态被改写。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，天气变化大，整理日程，处理课程作业和日常事务。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0021,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑→调天气→处理作业,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0021,A,PARTIAL,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,UNRECOVERABLE,NOT_ASSESSABLE,PROPOSITION_LOSS,NONE,conditional 命题的条件→行动关系属命题本体；记忆只剩裸『买电脑』，奖学金条件与关系均不可恢复 → PROPOSITION_LOSS。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑→调天气→处理作业,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0022,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,可能买电脑，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0022,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,POSSIBLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『可能买电脑』与 T1/T3『仍然只是可能、我还没有确认』一致 → POSSIBLE，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,可能买电脑，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0023,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,购电脑计划未定，整理日程，处理课程，应对天气变化。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0023,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,POSSIBLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『购电脑计划未定』保留了 T1/T3 的未确认状态 → POSSIBLE，既未升级也未降级。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,购电脑计划未定，整理日程，处理课程，应对天气变化。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0024,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金购机，天气多变改计划，忙于学业事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0024,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,UNKNOWN,NOT_ASSESSABLE,STATUS_OMISSION,NONE,『奖学金购机』保留了条件→行动关系，但条件是否已满足、以及 T1 的『才考虑』意向都未表达 → STATUS_OMISSION。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金购机，天气多变改计划，忙于学业事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0025,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作：整理日程，关注天气。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0025,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『上海工作』，T1/T3『仍然只是可能／未确认』的确定性线索缺失，且未断言相反状态 → STATUS_OMISSION。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作：整理日程，关注天气。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0026,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,计划买电脑→天气变→整理日程→确认买电脑→做作业,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0026,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,ESTABLISHED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『确认买电脑』与 T3『已经确认会购买电脑，这不是猜测了』一致 → ESTABLISHED，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,计划买电脑→天气变→整理日程→确认买电脑→做作业,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0027,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金购机，调整日程，今日任务作业,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0027,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,UNKNOWN,NOT_ASSESSABLE,STATUS_OMISSION,NONE,同 V3C-0024：条件关系在但满足状态与意向线索均缺失 → STATUS_OMISSION。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金购机，调整日程，今日任务作业,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0028,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,电脑购买，天气多变，事务搞定。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0028,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,『电脑购买』保留了命题，但 T1/T3 的『仍在考虑』意向线索缺失；『事务搞定』指填充事件，T4 亦有支持。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,电脑购买，天气多变，事务搞定。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0029,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不买电脑，整理日程应对天气，作业事务已处理。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0029,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,条件关系与未满足状态保留；『作业事务已处理』与 T4『今天还处理了课程作业和一些日常事务』一致，属填充事件而非目标行动。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不买电脑，整理日程应对天气，作业事务已处理。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0030,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变，整理日程，处理事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+V3C-0030,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『上海工作』，意向线索缺失，无冲突状态 → STATUS_OMISSION。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变，整理日程，处理事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0031,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未到暂不买电脑；天气多变整理日程；今日处理作业和事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0031,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未到暂不买电脑』忠实于 T1/T3 的条件与未满足状态。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未到暂不买电脑；天气多变整理日程；今日处理作业和事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0032,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑待定，理日程，做作业，天气多变。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0032,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,POSSIBLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,CONTRADICTED_BY_LATER_DIALOGUE,UNSUPPORTED_STATUS_DISTORTION,ATTENUATION,T3 明确『已经确认会购买电脑，这不是猜测了』，记忆却记为『买电脑待定』，把已确立的确定性降级为未定，且后文无任何支持 → ATTENUATION。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑待定，理日程，做作业，天气多变。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0033,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气变，日程改，课程作业多，事务忙。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0033,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『上海工作』，确定性线索缺失，无相反状态断言 → STATUS_OMISSION。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气变，日程改，课程作业多，事务忙。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0034,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变，整理日程，处理事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+V3C-0034,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『上海工作』，意向线索缺失 → STATUS_OMISSION。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变，整理日程，处理事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0035,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,购电脑，天气变，理日程，完作业，日常事。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0035,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,命题在，但 T3 的『已决定／按计划推进』承诺线索缺失；『完作业』为填充事件（T4 支持），未触及目标行动。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,购电脑，天气变，理日程，完作业，日常事。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0036,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,决策前后购电脑，用于日常事务管理,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0036,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,COMMITTED,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『决策』保留承诺线索 → COMMITTED，与 T3『已决定』一致；但『决策前后购电脑』措辞含歧义（也可能被读作已执行），对话未建立执行基准，故按未表达行动状态处理。,LOW,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,决策前后购电脑，用于日常事务管理,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0037,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,获奖学金购电脑，整理日程应天气，处理作业忙事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0037,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,SATISFIED,NOT_ASSESSABLE,STATUS_OMISSION,NONE,『获奖学金』与 T3『条件已经满足』一致 → condition SATISFIED；但 T1 的『才考虑购买』意向未被表达 → STATUS_OMISSION。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,获奖学金购电脑，整理日程应天气，处理作业忙事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0038,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,确认买电脑，天气变化大，整理日程，处理课程作业和日常事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0038,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,ESTABLISHED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『确认买电脑』与 T3 的确认表述一致 → ESTABLISHED，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,确认买电脑，天气变化大，整理日程，处理课程作业和日常事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0039,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,1-4日：电脑调整，天气多变，整理日程，处理作业。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0039,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,目标可辨，但 T3 的『已确认／不是猜测』确定性线索缺失；『1-4日』在对话中无来源（时间噪声），不影响目标命题状态 → STATUS_OMISSION。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,1-4日：电脑调整，天气多变，整理日程，处理作业。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0040,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未发先不买电脑，忙作业调日程应天气。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0040,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未发先不买电脑』忠实于 T1/T3。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未发先不买电脑，忙作业调日程应天气。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0041,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0041,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『考虑买电脑』与 T1/T3 一致，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0042,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,决定买电脑，处理作业，整理日程，应对天气变化。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0042,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,COMMITTED,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『决定买电脑』与 T3『已经决定要购买电脑，会按这个计划推进』一致 → COMMITTED，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,决定买电脑，处理作业，整理日程，应对天气变化。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0043,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,确认购电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0043,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,ESTABLISHED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『确认购电脑』与 T3 的确认表述一致 → ESTABLISHED，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,确认购电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0044,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑做作业、日常，关注天气，规划日程。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0044,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,命题在，但『已决定／按计划推进』承诺线索完全缺失，无相反状态 → STATUS_OMISSION。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑做作业、日常，关注天气，规划日程。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0045,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未到，暂不买电脑；天气多变，整理日程；作业事务已处理。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0045,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未到，暂不买电脑』忠实于 T1/T3；『作业事务已处理』为填充事件，T4 支持。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未到，暂不买电脑；天气多变，整理日程；作业事务已处理。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0046,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变；忙日程，做作业。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0046,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『上海工作』，T3『已经确认…这不是猜测了』的确定性线索缺失，但未断言相反状态 → STATUS_OMISSION。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气多变；忙日程，做作业。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0047,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,已获奖学金，考虑买电脑；天气变化大，整理日程；今日处理作业和事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+V3C-0047,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,SATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『已获奖学金』对应 T3 条件已满足 → SATISFIED；『考虑买电脑』对应 T1『才考虑』→ CONSIDERING。条件满足不等于已承诺或已执行。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,已获奖学金，考虑买电脑；天气变化大，整理日程；今日处理作业和事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0048,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑→天气多变改计划→忙作业杂事,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0048,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『买电脑』，T1/T3 的『只是可能／未确认』确定性线索缺失，无相反状态 → STATUS_OMISSION。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑→天气多变改计划→忙作业杂事,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0049,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,电脑购买计划待定，调整天气行程，完成课程作业和杂事。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0049,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,POSSIBLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『电脑购买计划待定』与 T1/T3『仍然只是可能、我还没有确认』一致 → POSSIBLE，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,电脑购买计划待定，调整天气行程，完成课程作业和杂事。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0050,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+V3C-0050,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『考虑买电脑』与 T1/T3 一致，忠实。,HIGH,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,考虑买电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0051,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作确认，天气多变，整理日程，处理作业与事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0051,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,ESTABLISHED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『上海工作确认』与 T3 的确认表述一致 → ESTABLISHED，忠实。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作确认，天气多变，整理日程，处理作业与事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0052,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不考虑上海工作，因天气调整计划忙作业。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V3C-0052,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未定暂不考虑上海工作』忠实于 T1/T3 的条件与未满足状态。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不考虑上海工作，因天气调整计划忙作业。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0053,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作确认，整理日程，处理作业，关注天气。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0053,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,ESTABLISHED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『上海工作确认』与 T3 的确认表述一致 → ESTABLISHED，忠实。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作确认，整理日程，处理作业，关注天气。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0054,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作确认，处理事务，整理日程，关注天气。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0054,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,ESTABLISHED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『上海工作确认』与 T3 的确认表述一致 → ESTABLISHED，忠实。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作确认，处理事务，整理日程，关注天气。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0055,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作未定，整理日程，处理事务和作业。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0055,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,POSSIBLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『上海工作未定』保留 T1/T3『仍然只是可能、我还没有确认』→ POSSIBLE，忠实。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作未定，整理日程，处理事务和作业。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0056,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作未定，整理日程应对天气，处理作业事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0056,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,POSSIBLE,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『上海工作未定』与 T1/T3 一致 → POSSIBLE，无升级或降级。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作未定，整理日程应对天气，处理作业事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0057,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气变化大，整理日程，处理课程作业和日常事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+V3C-0057,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『上海工作』，确定性线索缺失，无相反状态断言 → STATUS_OMISSION。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,上海工作，天气变化大，整理日程，处理课程作业和日常事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0058,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,电脑购买、天气多变调整日程、已完成课程与任务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0058,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,裸『电脑购买』，『仍然只是可能／未确认』线索缺失；『已完成课程与任务』为填充事件（T4 支持），未断言目标行动已执行。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,电脑购买、天气多变调整日程、已完成课程与任务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0059,A,,,,,,,,,,,,,,,,购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑计划因天气变化调整，忙于赶作业。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+V3C-0059,A,PRESERVED,APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,APPLICABLE,UNEXPRESSED,NOT_APPLICABLE,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,命题保留，但 T3 的『已确认／不是猜测』确定性线索未表达；『计划』不等于已确认 → STATUS_OMISSION。,MEDIUM,"T1,T3",购买电脑,目标命题：购买电脑。请判断记忆是否保留该命题及其在对话中的状态。,买电脑计划因天气变化调整，忙于赶作业。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V3C-0060,A,,,,,,,,,,,,,,,,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不考虑上海工作，整理日程应对天气，处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V3C-0060,A,PRESERVED,NOT_APPLICABLE,APPLICABLE,APPLICABLE,APPLICABLE,NOT_APPLICABLE,CONSIDERING,NOT_EXPRESSED,ACTIVE_UNSATISFIED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,『奖学金未定暂不考虑上海工作』忠实于 T1/T3 的条件关系与未满足状态。,HIGH,"T1,T3",去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不考虑上海工作，整理日程应对天气，处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"

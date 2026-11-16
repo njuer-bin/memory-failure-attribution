@@ -345,3 +345,19 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Replicates P1b; mechanism is information access + generation variability, not
   budget schedule.
 - Recorded in `docs/research/2026-11-16-v3-path-pilot-p1c.md`.
+
+### V3 blind annotation calibration — completed
+
+- 60 anonymized items, two independent annotators, condition key outside repo.
+- Agreement: primary judgment raw 0.733 / kappa 0.578; epistemic applicability
+  raw 0.40; intentional applicability raw 0.60; status fields low.
+- Human labels: STATUS_OMISSION dominates (A 22/60, B 19/60); unsupported
+  distortion rare (A 1, B 4); B marks many more dimensions applicable than A.
+- Main confusions: NO_DISTORTION → LEGITIMATE_UPDATE (10);
+  STATUS_OMISSION → UNSUPPORTED_STATUS_DISTORTION (3).
+- The deterministic cue metric conflates omission with distortion; the P1c path
+  gradient is weak in human labels.
+- Gate fails: do not proceed to confirmatory annotation or the paired study.
+  Revise applicability rules, collapse ontology, two-step omission/distortion
+  judgment, and re-calibrate.
+- Recorded in `docs/research/2026-11-16-v3-annotation-calibration.md`.

@@ -119,6 +119,14 @@ in status preservation.**
   worst (3/12, 0/14, 8/12; 4/13, 2/14, 7/11); direct remains best. Mechanism:
   information access + generation variability, not budget schedule. Conditional
   has 11 topic-lost paths, so its path results need an omission analysis.
+- **V3 blind annotation calibration fails the agreement gate.** 60 items, two
+  independent annotators. Primary judgment raw 0.733, kappa 0.578;
+  applicability raw 0.40 (epistemic) and 0.60 (intentional); status-field
+  agreement low. Dominant human label is **STATUS_OMISSION** (A 22/60, B
+  19/60); unsupported distortion is rare (A 1, B 4). The deterministic cue
+  metric conflates omission with distortion; the P1c path gradient is weak in
+  human labels. Do not proceed to confirmatory annotation or the paired study;
+  revise applicability rules, collapse the ontology, and re-calibrate.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.
