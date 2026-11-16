@@ -97,13 +97,20 @@ in status preservation.**
   a length artifact. However, recursive D5 topic omission is 13.3%, above the
   pre-registered 10% gate; treat this as directional matched-band evidence, not
   a clean confirmatory result.
-- **V3 P1a path-replicate pilot: path divergence is rare.** 12 trajectories ×
-  3 intermediate schedules + direct, neutral writer, same source and final
-  budget. Only **1/12** trajectories shows any within-condition path divergence
-  (mean pairwise 5.6%); direct-vs-paths disagreement is 34.7%. The robust effect
-  is direct vs chained, not path-to-path. Do not claim broad "path-dependent"
-  behavior yet; broaden the path space or reframe V3 as a transformation-history
-  effect with path dependence as a secondary result.
+- **V3 P1a path-replicate pilot: schedule-only path divergence is rare.**
+  12 trajectories × 3 intermediate schedules + direct, neutral writer, same
+  source and final budget. Only **1/12** trajectories shows any within-condition
+  path divergence (mean pairwise 5.6%); direct-vs-paths disagreement is 34.7%.
+  This motivated P1b's broader path space.
+- **V3 P1b heterogeneous path pilot: path dependence is real but
+  mechanism-specific.** 12 trajectories × 5 paths (schedule, source-peek,
+  prompt paraphrase, temperature 0.7) + direct. Mean pairwise divergence 43.9%;
+  **10/12** trajectories diverge. Schedule-only S1–S2 is nearly null (9.1%);
+  source access gives ~50–58%, prompt paraphrase 25–45%, temperature 27–82%.
+  PEEK preserves gold best (epistemic 3/4, intentional 3/4, conditional 4/4);
+  TEMP is worst (0/4, 0/4, 1/3); direct is best. Path dependence arises from
+  information access and generation variability, not from the budget schedule.
+  Keep the claim but scope it.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

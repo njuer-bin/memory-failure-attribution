@@ -316,3 +316,17 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   is direct vs chained. Do not claim broad path dependence yet; broaden the
   path space or reframe V3 as a transformation-history study.
 - Recorded in `docs/research/2026-11-16-v3-path-pilot.md`.
+
+### V3 P1b heterogeneous path pilot — completed
+
+- 12 trajectories × 5 heterogeneous paths (S1, S2, PEEK, PARA, TEMP) + direct.
+- Mean pairwise path divergence 43.9%; 10/12 trajectories diverge.
+- Pairwise: schedule-only S1–S2 9.1%; source-peek ~50–58%; prompt paraphrase
+  25–45%; temperature 27–82%; PEEK–TEMP 81.8%.
+- Per-path gold match: PEEK best (3/4, 3/4, 4/4); TEMP worst (0/4, 0/4, 1/3);
+  direct best (4/4, 3/4, 4/4).
+- Path dependence is real but mechanism-specific: information access and
+  generation variability, not the budget schedule.
+- Corrected the conditional normalized-state label mapping; divergence summary
+  unaffected (one-to-one relabeling).
+- Recorded in `docs/research/2026-11-16-v3-path-pilot-p1b.md`.

@@ -32,8 +32,8 @@ def test_normalized_state_intentional():
 
 
 def test_normalized_state_conditional():
-    assert normalized_state(_conditional(), "条件尚未满足") == "ACTIVE"
-    assert normalized_state(_conditional(), "条件已经满足") == "SATISFIED"
+    assert normalized_state(_conditional(), "条件尚未满足") == "CONDITION_ACTIVE"
+    assert normalized_state(_conditional(), "条件已经满足") == "CONDITION_SATISFIED"
     assert normalized_state(_conditional(), "购买电脑") == "ABSENT"
 
 

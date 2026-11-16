@@ -69,7 +69,7 @@ def normalized_state(row: dict[str, Any], memory: str) -> str | None:
     gold = row["gold_status"]
     if dimension == "conditional":
         status = det_condition_status(memory)
-        return {"SATISFIED": "SATISFIED", "ACTIVE": "ACTIVE",
+        return {"SATISFIED": "CONDITION_SATISFIED", "ACTIVE": "CONDITION_ACTIVE",
                 "AMBIGUOUS": "AMBIGUOUS", "OMITTED": "ABSENT"}.get(status, status)
     state = cue_state(memory, dimension, gold)
     if state == "MATCH":

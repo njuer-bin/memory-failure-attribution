@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 19
+  total_runs: 20
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -206,7 +206,14 @@ experiments:
       metric_value: 0.056
       delta: null
       wall_time_min: null
-      change_summary: "12 trajectories x 3 intermediate schedules + direct, neutral writer. Only 1/12 shows any path divergence (mean pairwise 5.6%); direct-vs-paths disagreement 34.7%. Path dependence is rare; the robust effect is direct vs chained. Do not claim broad path dependence yet."
+      change_summary: "12 trajectories x 3 intermediate schedules + direct, neutral writer. Only 1/12 shows any path divergence (mean pairwise 5.6%); direct-vs-paths disagreement 34.7%. Schedule-only path dependence is rare; the robust effect is direct vs chained."
+      timestamp: "2026-11-16"
+    - run_id: "v3_path_pilot_p1b"
+      hypothesis: "P1b: heterogeneous path divergence"
+      metric_value: 0.439
+      delta: null
+      wall_time_min: null
+      change_summary: "12 trajectories x 5 heterogeneous paths + direct. Mean pairwise divergence 43.9%; 10/12 trajectories diverge. Schedule-only S1-S2 9.1%; source-peek ~50-58%, prompt paraphrase 25-45%, temperature 27-82%. PEEK preserves gold best; TEMP worst. Path dependence arises from information access and generation variability, not budget schedule."
       timestamp: "2026-11-16"
   current_protocol: "V3 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md; statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md"
   invalid_or_blocked:
@@ -217,9 +224,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 19
+  cycle: 20
   last_direction: "deepen"
-  last_reflection: "V3 P1a path-replicate pilot: only 1/12 trajectories shows within-condition path divergence (mean pairwise 5.6%), while direct-vs-paths disagreement is 34.7%. Path dependence is rare under schedule-only perturbations; the robust effect is direct vs chained. Broaden the path space (source access, prompt, decoding) or reframe V3 as a transformation-history study."
+  last_reflection: "V3 P1b: heterogeneous paths produce genuine divergence (43.9% mean pairwise; 10/12 trajectories). Schedule-only paths are near-null (9.1%), while source access (PEEK), prompt paraphrase, and temperature drive divergence. PEEK preserves gold best; TEMP worst. Keep the path-dependent claim but define the mechanism as information access + generation variability, not budget schedule."
 
 workspace:
   findings: "findings.md"
