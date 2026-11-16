@@ -111,6 +111,14 @@ in status preservation.**
   TEMP is worst (0/4, 0/4, 1/3); direct is best. Path dependence arises from
   information access and generation variability, not from the budget schedule.
   Keep the claim but scope it.
+- **V3 P1c (n=42) replicates path dependence with a mechanism.** Mean pairwise
+  path divergence 32.9%; 31/42 trajectories diverge. Schedule-only S1–S2 is
+  5.3%; source access (PEEK) 58–61%; prompt paraphrase 20–27%; temperature
+  8–14%; TEMP1–TEMP2 sampling variance alone is 8.3%. PEEK has the best chained
+  gold match (epistemic 11/14, intentional 9/14, conditional 14/14); TEMP is
+  worst (3/12, 0/14, 8/12; 4/13, 2/14, 7/11); direct remains best. Mechanism:
+  information access + generation variability, not budget schedule. Conditional
+  has 11 topic-lost paths, so its path results need an omission analysis.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

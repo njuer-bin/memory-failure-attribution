@@ -1,0 +1,197 @@
+{
+  "protocol": "v3_path_replicate_pilot_p1c",
+  "design": "heterogeneous_multi_temp",
+  "writer_model": "qwen2.5:7b",
+  "seed": 42,
+  "paths": {
+    "S1": {
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "prompt_style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "S2": {
+      "schedule": [
+        220,
+        160,
+        150,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "prompt_style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "PEEK": {
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": true,
+      "prompt_style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "PARA": {
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "prompt_style": "neutral_paraphrase",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "TEMP1": {
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "prompt_style": "neutral",
+      "temperature": 0.7,
+      "seed": 42
+    },
+    "TEMP2": {
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "prompt_style": "neutral",
+      "temperature": 0.7,
+      "seed": 43
+    }
+  },
+  "final_budget": 100,
+  "n_trajectories": 42,
+  "mean_pairwise_path_disagreement": 0.32936507936507936,
+  "n_with_path_divergence": 42,
+  "any_path_divergence": 31,
+  "mean_direct_vs_paths_disagreement": 0.3874149659863946,
+  "pairwise_path_rates": {
+    "S1_S2": {
+      "n": 38,
+      "disagree": 2,
+      "rate": 0.05263157894736842
+    },
+    "S1_PEEK": {
+      "n": 38,
+      "disagree": 22,
+      "rate": 0.5789473684210527
+    },
+    "S1_PARA": {
+      "n": 37,
+      "disagree": 10,
+      "rate": 0.2702702702702703
+    },
+    "S1_TEMP1": {
+      "n": 36,
+      "disagree": 5,
+      "rate": 0.1388888888888889
+    },
+    "S1_TEMP2": {
+      "n": 36,
+      "disagree": 5,
+      "rate": 0.1388888888888889
+    },
+    "S2_PEEK": {
+      "n": 41,
+      "disagree": 25,
+      "rate": 0.6097560975609756
+    },
+    "S2_PARA": {
+      "n": 39,
+      "disagree": 8,
+      "rate": 0.20512820512820512
+    },
+    "S2_TEMP1": {
+      "n": 37,
+      "disagree": 4,
+      "rate": 0.10810810810810811
+    },
+    "S2_TEMP2": {
+      "n": 37,
+      "disagree": 3,
+      "rate": 0.08108108108108109
+    },
+    "PEEK_PARA": {
+      "n": 40,
+      "disagree": 24,
+      "rate": 0.6
+    },
+    "PEEK_TEMP1": {
+      "n": 38,
+      "disagree": 23,
+      "rate": 0.6052631578947368
+    },
+    "PEEK_TEMP2": {
+      "n": 38,
+      "disagree": 22,
+      "rate": 0.5789473684210527
+    },
+    "PARA_TEMP1": {
+      "n": 38,
+      "disagree": 9,
+      "rate": 0.23684210526315788
+    },
+    "PARA_TEMP2": {
+      "n": 38,
+      "disagree": 6,
+      "rate": 0.15789473684210525
+    },
+    "TEMP1_TEMP2": {
+      "n": 36,
+      "disagree": 3,
+      "rate": 0.08333333333333333
+    }
+  },
+  "by_dimension": {
+    "epistemic": {
+      "n": 14,
+      "n_with_path_divergence": 14,
+      "mean_pairwise_disagreement": 0.3238095238095238,
+      "any_divergence": 11,
+      "topic_lost_paths": 4
+    },
+    "intentional": {
+      "n": 14,
+      "n_with_path_divergence": 14,
+      "mean_pairwise_disagreement": 0.3523809523809524,
+      "any_divergence": 12,
+      "topic_lost_paths": 0
+    },
+    "conditional": {
+      "n": 14,
+      "n_with_path_divergence": 14,
+      "mean_pairwise_disagreement": 0.31190476190476185,
+      "any_divergence": 8,
+      "topic_lost_paths": 11
+    }
+  },
+  "warnings": [
+    "Path divergence is measured by deterministic status cues, not human labels.",
+    "Topic mention is a weak proposition proxy; topic-lost paths are excluded and counted.",
+    "Paths share the source and final budget; only the listed perturbation differs."
+  ]
+}

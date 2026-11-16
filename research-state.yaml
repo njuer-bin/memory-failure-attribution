@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 20
+  total_runs: 21
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -215,6 +215,13 @@ experiments:
       wall_time_min: null
       change_summary: "12 trajectories x 5 heterogeneous paths + direct. Mean pairwise divergence 43.9%; 10/12 trajectories diverge. Schedule-only S1-S2 9.1%; source-peek ~50-58%, prompt paraphrase 25-45%, temperature 27-82%. PEEK preserves gold best; TEMP worst. Path dependence arises from information access and generation variability, not budget schedule."
       timestamp: "2026-11-16"
+    - run_id: "v3_path_pilot_p1c"
+      hypothesis: "P1c: scaled multi-TEMP heterogeneous paths"
+      metric_value: 0.329
+      delta: null
+      wall_time_min: null
+      change_summary: "42 trajectories x 6 paths + direct. Mean pairwise divergence 32.9%; 31/42 trajectories diverge. Schedule-only 5.3%; PEEK 58-61%; prompt paraphrase 20-27%; temperature 8-14%; TEMP1-TEMP2 8.3%. PEEK best gold match; TEMP worst; direct best. Conditional has 11 topic-lost paths."
+      timestamp: "2026-11-16"
   current_protocol: "V3 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md; statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
@@ -224,9 +231,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 20
+  cycle: 21
   last_direction: "deepen"
-  last_reflection: "V3 P1b: heterogeneous paths produce genuine divergence (43.9% mean pairwise; 10/12 trajectories). Schedule-only paths are near-null (9.1%), while source access (PEEK), prompt paraphrase, and temperature drive divergence. PEEK preserves gold best; TEMP worst. Keep the path-dependent claim but define the mechanism as information access + generation variability, not budget schedule."
+  last_reflection: "P1c (n=42) replicates P1b: path divergence 32.9%, 31/42 trajectories. Schedule-only 5.3%; source access 58-61%; prompt paraphrase 20-27%; temperature 8-14%; TEMP1-TEMP2 sampling variance 8.3%. PEEK best chained gold match; TEMP worst; direct best. Mechanism is information access + generation variability, not budget schedule. Next: blind human labels (PEEK vs S1 vs TEMP) and conditional omission analysis."
 
 workspace:
   findings: "findings.md"

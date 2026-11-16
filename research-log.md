@@ -330,3 +330,18 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Corrected the conditional normalized-state label mapping; divergence summary
   unaffected (one-to-one relabeling).
 - Recorded in `docs/research/2026-11-16-v3-path-pilot-p1b.md`.
+
+### V3 P1c scaled multi-TEMP path pilot — completed
+
+- 42 trajectories × 6 paths (S1, S2, PEEK, PARA, TEMP1, TEMP2) + direct.
+- Mean pairwise path divergence 32.9%; 31/42 trajectories diverge.
+- Pairwise: schedule-only S1–S2 5.3%; source access 58–61%; prompt paraphrase
+  20–27%; temperature 8–14%; **TEMP1–TEMP2 8.3%** (sampling variance alone).
+- Per-path gold match: PEEK best (epistemic 11/14, intentional 9/14,
+  conditional 14/14); TEMP worst (3/12, 0/14, 8/12; 4/13, 2/14, 7/11); direct
+  best.
+- Conditional has 11 topic-lost paths; its path results need an omission
+  analysis.
+- Replicates P1b; mechanism is information access + generation variability, not
+  budget schedule.
+- Recorded in `docs/research/2026-11-16-v3-path-pilot-p1c.md`.
