@@ -143,3 +143,17 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - The run was interrupted once by host memory pressure and resumed with
   `--resume`.
 - Recorded in `docs/research/2026-11-16-status-drift-v23-status-aware.md`.
+
+### v2.4 repeated-seed variance — completed
+
+- Three neutral runs (seeds 42/43/44), 30 trajectories each.
+- Memory identity: 42–43 = 0.642, 42–44 = 0.629, 43–44 = 0.963.
+  Seeds 43/44 are near-identical; seed 42 differs. The dominant variance is
+  between sessions, not between seeds.
+- Deterministic status cue ABSENT (updated, n=10/depth): direct 0–1 in every
+  run; recursive D2 5–7, D3 6–7, D5 6–8. The chaining gap (5–8) far exceeds the
+  cross-run range (≤2).
+- Deterministic proposition omission 0–2/30 in every run.
+- Conclusion: aggregate cue effects are robust; single-run memory-level claims
+  are not. Report ranges, not point estimates.
+- Recorded in `docs/research/2026-11-16-status-drift-v24-variance.md`.

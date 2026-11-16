@@ -41,9 +41,12 @@ in status preservation.**
   updated cases even under status-aware; the judge often recovers the status
   from remaining context. Judge-level accuracy therefore understates the
   cue-level loss.
-- **Cross-run nondeterminism is real.** Two neutral runs with the same seed and
-  prompts produced 106/270 different direct/recursive memories. Within-run
-  contrasts are the valid unit; do not compare single runs as if deterministic.
+- **Cross-run nondeterminism is real and is between-session, not seed-driven.**
+  Three neutral runs: seeds 43 vs 44 were 96% identical, but seed 42 differed
+  from both by ~37%. The writer is near-deterministic within a session but not
+  across sessions. Aggregate cue effects survive (direct ABSENT 0–1 vs
+  recursive D3/D5 ABSENT 6–8 in every run); single-run memory-level claims do
+  not.
 - **v2.3 both-wrong adjudication: 38/46 writer-side, 8 judge errors.** Most
   writer-side cases are status omission or weakening, not an explicit opposite
   status; the judge defaults to the initial status. The adjusted writer-drift
