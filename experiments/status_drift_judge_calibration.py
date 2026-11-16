@@ -183,8 +183,17 @@ def run(args) -> None:
     slug = args.judge_model.replace(":", "_").replace("/", "_")
     out_path = out_dir / f"judge_v21_{slug}.jsonl"
     summary_path = out_dir / f"judge_v21_{slug}_summary.json"
-    items: list[dict] = []
-    with out_path.open("w", encoding="utf-8") as out:
+    existing: dict[str, dict] = {}
+    if args.resume and out_path.exists():
+        for line in out_path.read_text(encoding="utf-8").splitlines():
+            try:
+                item = json.loads(line)
+                existing[item["sample_id"] + "|" + item["condition"]] = item
+            except (json.JSONDecodeError, KeyError):
+                continue
+    items: list[dict] = list(existing.values())
+    mode = "a" if args.resume and out_path.exists() else "w"
+    with out_path.open(mode, encoding="utf-8") as out:
         for row in rows:
             sample = {
                 "dimension": row["dimension"],
@@ -194,6 +203,10 @@ def run(args) -> None:
             keywords = (TOPIC_KEYWORDS.get(row["proposition"])
                         or row.get("proposition_keywords") or [row["proposition"]])
             for condition, text in conditions_for(row):
+                key = row["sample_id"] + "|" + condition
+                if key in existing:
+                    print(f"skip {key}", flush=True)
+                    continue
                 old = old_judgment(row, condition) or {}
                 item = {
                     "sample_id": row["sample_id"],
@@ -280,6 +293,8 @@ def main() -> None:
     parser.add_argument("--records", default=None)
     parser.add_argument("--out-dir", default=None)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--resume", action="store_true",
+                        help="Keep completed (sample_id, condition) items and judge only missing ones.")
     parser.add_argument("--timeout", type=int, default=180)
     parser.add_argument("--retries", type=int, default=2)
     run(parser.parse_args())
