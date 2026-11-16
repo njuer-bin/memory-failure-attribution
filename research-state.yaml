@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 12
+  total_runs: 13
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -145,15 +145,22 @@ experiments:
       wall_time_min: null
       change_summary: "60 trajectories x neutral/status-aware, cue-only. Chaining loss is intentional-specific: neutral intentional recursive D5 ABSENT 9/10 vs epistemic 2/10; status-aware 5/10 vs 2/10; direct 0/10 both. Proposition omission 0-10%; no topic >21% of cue loss."
       timestamp: "2026-11-16"
+    - run_id: "v27_commitment_aware"
+      hypothesis: "P11-P13: commitment-targeted writer"
+      metric_value: 1.0
+      delta: null
+      wall_time_min: null
+      change_summary: "Intentional only, 20 trajectories. Commitment-aware prompt gives 10/10 strict MATCH and 10 strong cues at every depth; 0 absent. Neutral D5 was 1 strong/8 none; status-aware 5 strong/5 weak. Ceiling intervention, not practical default; proposition omission 0-1/20."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md"
   current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 10
+  cycle: 11
   last_direction: "deepen"
-  last_reflection: "v2.6 (60 trajectories) shows the chaining effect is intentional-specific: neutral intentional recursive D5 strict-ABSENT 9/10 vs epistemic 2/10; status-aware 5/10 vs 2/10. Manual reading: status-aware keeps a commitment cue in 10/10 (5 strong + 5 weak); neutral removes it in 8/10. Next: a commitment-targeted writer prompt to test whether weakening can be removed."
+  last_reflection: "v2.7 commitment-aware writer eliminates intentional cue loss (10/10 strong at every depth) but is a ceiling intervention. The practical next step is a post-hoc status checker/repair, plus judging the v2.7 outputs to confirm labels."
 
 workspace:
   findings: "findings.md"

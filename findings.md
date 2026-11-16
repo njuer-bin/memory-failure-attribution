@@ -41,6 +41,13 @@ in status preservation.**
   still carry a weak commitment cue (`推进计划`, `按计划`, `已开始`), while the
   neutral writer removes the cue entirely in 8/10. The status-aware failure
   mode is **cue weakening**, not removal.
+- **The intentional cue loss is prompt-controllable.** A commitment-aware
+  writer that requires an explicit commitment word achieves **10/10 strong
+  cues at every depth** (recursive D5 included), versus neutral 1 strong/8 none
+  and status-aware 5 strong/5 weak. This is a ceiling intervention, not a
+  practical default: the prompt names the target cue and the outputs are
+  templated. The practical implication is a post-hoc status checker/repair
+  step.
 - **Repeated chained rewriting is the destructive factor, not budget
   shrinkage.** v2.3 holds intermediate budgets constant at 220 and recovers
   the same degradation as the shrinking schedule; both are much worse than a

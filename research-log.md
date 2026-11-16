@@ -211,3 +211,16 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   commitment cues and 0 none; neutral has 1 strong + 1 weak + 8 none. The
   status-aware failure mode is cue weakening, not removal.
 - Recorded in `docs/research/2026-11-16-status-drift-v26-10topics.md`.
+
+### v2.7 commitment-aware writer — completed
+
+- Intentional only, 20 trajectories. Commitment-aware prompt: 10/10 strict
+  MATCH and 10 strong commitment cues at every depth (recursive D5 included);
+  0 weak/none.
+- Comparison at intentional D5: neutral 1 strong/1 weak/8 none; status-aware
+  5/10 strong, 5 weak, 0 none; commitment-aware 10 strong, 0 weak/none.
+- P11–P13 supported; proposition omission 0–1/20.
+- This is a ceiling intervention: the prompt names the target cue and outputs
+  are templated. Practical implication is a post-hoc checker/repair step.
+- Recorded in
+  `docs/research/2026-11-16-status-drift-v27-commitment-aware.md`.
