@@ -1,0 +1,63 @@
+{
+  "protocol": "v3_path_replicate_pilot_v0",
+  "writer_model": "qwen2.5:7b",
+  "writer_style": "neutral",
+  "seed": 42,
+  "schedules": {
+    "A": [
+      220,
+      180,
+      140,
+      120,
+      100
+    ],
+    "B": [
+      220,
+      200,
+      160,
+      130,
+      100
+    ],
+    "C": [
+      220,
+      160,
+      150,
+      120,
+      100
+    ]
+  },
+  "final_budget": 100,
+  "n_trajectories": 12,
+  "mean_pairwise_path_disagreement": 0.05555555555555555,
+  "n_with_path_divergence": 12,
+  "any_path_divergence": 1,
+  "mean_direct_vs_paths_disagreement": 0.34722222222222227,
+  "by_dimension": {
+    "epistemic": {
+      "n": 4,
+      "n_with_path_divergence": 4,
+      "mean_pairwise_disagreement": 0.16666666666666666,
+      "any_divergence": 1,
+      "topic_lost_paths": 0
+    },
+    "intentional": {
+      "n": 4,
+      "n_with_path_divergence": 4,
+      "mean_pairwise_disagreement": 0.0,
+      "any_divergence": 0,
+      "topic_lost_paths": 0
+    },
+    "conditional": {
+      "n": 4,
+      "n_with_path_divergence": 4,
+      "mean_pairwise_disagreement": 0.0,
+      "any_divergence": 0,
+      "topic_lost_paths": 1
+    }
+  },
+  "warnings": [
+    "Path divergence is measured by deterministic status cues, not human labels.",
+    "Topic mention is a weak proposition proxy; topic-lost paths are excluded and counted.",
+    "Schedules differ in intermediate budgets but share the final budget and source."
+  ]
+}

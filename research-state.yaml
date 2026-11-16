@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 18
+  total_runs: 19
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -201,6 +201,13 @@ experiments:
       wall_time_min: null
       change_summary: "Neutral, 30 trajectories, D5 token target 17. Achieved means 18.1/16.7/16.3. Band [14,18], topic-mentioned updated cases: direct 1/7 ABSENT, recursive 5/6, rewrite 6/8. Recursive D5 proposition omission 13.3% fails the 10% gate; directional matched-band evidence only."
       timestamp: "2026-11-16"
+    - run_id: "v3_path_pilot"
+      hypothesis: "P1a: within-condition path divergence"
+      metric_value: 0.056
+      delta: null
+      wall_time_min: null
+      change_summary: "12 trajectories x 3 intermediate schedules + direct, neutral writer. Only 1/12 shows any path divergence (mean pairwise 5.6%); direct-vs-paths disagreement 34.7%. Path dependence is rare; the robust effect is direct vs chained. Do not claim broad path dependence yet."
+      timestamp: "2026-11-16"
   current_protocol: "V3 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md; statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
@@ -210,9 +217,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 18
+  cycle: 19
   last_direction: "deepen"
-  last_reflection: "Matched token-band control: at [14,18] tokens among topic-mentioned updated cases, direct 1/7 vs recursive 5/6 vs rewrite 6/8 ABSENT. The chaining effect survives length matching, but recursive D5 proposition omission 13.3% fails the 10% gate, so the result is directional only. Neutral human drift is 6.7-7.9% (two annotators); status-aware A-only 4.2%. Next: status-aware matched-band and larger n."
+  last_reflection: "V3 P1a path-replicate pilot: only 1/12 trajectories shows within-condition path divergence (mean pairwise 5.6%), while direct-vs-paths disagreement is 34.7%. Path dependence is rare under schedule-only perturbations; the robust effect is direct vs chained. Broaden the path space (source access, prompt, decoding) or reframe V3 as a transformation-history study."
 
 workspace:
   findings: "findings.md"

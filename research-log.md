@@ -301,3 +301,18 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   10% gate; the matched-band result is directional, not confirmatory.
 - The chaining effect is not solely a shorter-output artifact in this pilot.
 - Recorded in `docs/research/2026-11-16-status-drift-v29-matched-token.md`.
+
+## V3 — Path-Dependent State Distortion
+
+### V3 P1a path-replicate pilot — completed
+
+- 12 trajectories × 3 intermediate schedules + direct, neutral writer, same
+  source and final budget (100 chars).
+- Mean pairwise path disagreement 5.6%; only **1/12** trajectories shows any
+  within-condition path divergence. Direct-vs-paths disagreement 34.7%.
+- The one divergent case (`epistemic_01_U`) is real: path A loses `确认`,
+  paths B/C preserve it.
+- Path dependence is rare under schedule-only perturbations. The robust effect
+  is direct vs chained. Do not claim broad path dependence yet; broaden the
+  path space or reframe V3 as a transformation-history study.
+- Recorded in `docs/research/2026-11-16-v3-path-pilot.md`.

@@ -97,6 +97,13 @@ in status preservation.**
   a length artifact. However, recursive D5 topic omission is 13.3%, above the
   pre-registered 10% gate; treat this as directional matched-band evidence, not
   a clean confirmatory result.
+- **V3 P1a path-replicate pilot: path divergence is rare.** 12 trajectories ×
+  3 intermediate schedules + direct, neutral writer, same source and final
+  budget. Only **1/12** trajectories shows any within-condition path divergence
+  (mean pairwise 5.6%); direct-vs-paths disagreement is 34.7%. The robust effect
+  is direct vs chained, not path-to-path. Do not claim broad "path-dependent"
+  behavior yet; broaden the path space or reframe V3 as a transformation-history
+  effect with path dependence as a secondary result.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.
