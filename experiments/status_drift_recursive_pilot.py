@@ -175,7 +175,7 @@ def select_samples(limit: int, design: str, dimensions: str,
 
 def chat(base_url: str, model: str, messages: list[dict[str, str]],
          timeout: int, retries: int, seed: int | None = None,
-         tag: str | None = None) -> str:
+         tag: str | None = None, role: str | None = None) -> str:
     url = base_url.rstrip("/") + "/api/chat"
     options: dict[str, Any] = {"temperature": 0, "num_predict": 220}
     if seed is not None:
@@ -195,6 +195,7 @@ def chat(base_url: str, model: str, messages: list[dict[str, str]],
                 raise ValueError("empty model response")
             USAGE_LOG.append({
                 "tag": tag,
+                "role": role,
                 "model": model,
                 "prompt_eval_count": data.get("prompt_eval_count"),
                 "eval_count": data.get("eval_count"),
@@ -281,7 +282,8 @@ def judge_prompt(sample: dict[str, Any], text: str) -> list[dict[str, str]]:
 def judge(sample: dict[str, Any], text: str, args: argparse.Namespace,
           tag: str | None = None) -> dict[str, Any]:
     raw = chat(args.base_url, args.judge_model or args.writer_model,
-               judge_prompt(sample, text), args.timeout, args.retries, args.seed, tag)
+               judge_prompt(sample, text), args.timeout, args.retries, args.seed,
+               tag, "judge")
     parsed = parse_json(raw)
     status = str(parsed.get("status", "PARSE_ERROR")).strip().upper()
     if status == "PARSE_ERROR":
@@ -299,7 +301,7 @@ def compress_budget(source: str, budget: int, args: argparse.Namespace,
                     tag: str | None = None) -> str:
     return chat(args.base_url, args.writer_model,
                 writer_prompt(source, budget, args.writer_style),
-                args.timeout, args.retries, args.seed, tag)
+                args.timeout, args.retries, args.seed, tag, "writer")
 
 
 def compress(source: str, depth: int, args: argparse.Namespace,
@@ -518,8 +520,10 @@ def summarize(rows: list[dict[str, Any]], args: argparse.Namespace) -> dict[str,
 def summarize_usage(entries: list[dict[str, Any]]) -> dict[str, Any]:
     summary: dict[str, Any] = {}
     for entry in entries:
+        role = entry.get("role")
         tag = entry.get("tag") or "unknown"
-        bucket = summary.setdefault(tag, {"calls": 0, "prompt_tokens": 0,
+        key = f"{role}:{tag}" if role else tag
+        bucket = summary.setdefault(key, {"calls": 0, "prompt_tokens": 0,
                                           "completion_tokens": 0})
         bucket["calls"] += 1
         bucket["prompt_tokens"] += entry.get("prompt_eval_count") or 0
