@@ -29,6 +29,22 @@ Do not cite a paper's method or claim until the full text and appendix are read.
 | 2610.07309 | The Right Memory in the Wrong Context: Verifying Retrieval Admissibility | Lifecycle/state admissibility in memory. |
 | 2410.21195 | Belief in the Machine: Epistemological Blind Spots of Language Models | Fact vs belief vs knowledge distinctions. |
 
+## Additional 2026 belief-memory work (metadata only)
+
+| ID | Title | Why it matters |
+|---|---|---|
+| 2610.01415 | Beyond Memory: Harnessing Long-Horizon Agents with Explicit Belief States | Explicit belief-state framework; may cover status tracking. |
+| 2607.23929 | MemTX: Transactional Belief Commit for Stateful Agent Memory | Belief commit/state transitions in agent memory. |
+| 2610.25119 | Memory as Belief: Bayesian Evolution of Memory for Self-Evolving LLM Agents | Treats memory as evolving belief; adjacent to status evolution. |
+| 2605.11436 | Agent-BRACE: Decoupling Beliefs from Actions in Long-Horizon Tasks via Verbalized State Uncertainty | Directly relevant to the status-vs-action distinction. |
+| 2609.21997 | Bayesian Belief Layer for Controllable Opinion Dynamics in LLM Agents | Belief-state dynamics. |
+| 2104.08401 | Enriching a Model's Notion of Belief using a Persistent Memory | Older belief-memory baseline. |
+
+This is a crowded space. The defensible gap is **controlled measurement of
+status-cue loss under repeated/chained compression**, with the
+direct-vs-rewrite-matched contrast and deterministic cue metrics. Do not claim
+a new memory architecture or the first belief-state memory.
+
 ## Immediate literature tasks
 
 1. Read BELIEFMEM (2605.05583) fully. If it already measures status change under
