@@ -89,13 +89,13 @@ def old_judgment(row: dict, condition: str) -> dict | None:
 def conditions_for(row: dict):
     yield "raw", row["dialogue"]
     for depth in DEPTHS:
-        yield f"direct_d{depth}", row.get("direct_memories", {}).get(depth, "")
+        yield f"direct_d{depth}", row.get("direct_memories", {}).get(str(depth), "")
     for depth in DEPTHS:
-        yield f"recursive_d{depth}", row.get("recursive_memories", {}).get(depth, "")
+        yield f"recursive_d{depth}", row.get("recursive_memories", {}).get(str(depth), "")
 
 
 def aggregate(items: list[dict]) -> dict:
-    valid = [x for x in items if x["new_status"] not in ("INVALID_LABEL", "PARSE_ERROR")]
+    valid = [x for x in items if x["new_status"] not in ("INVALID_LABEL", "PARSE_ERROR", "EMPTY_TEXT")]
     n = len(valid)
     correct = sum(x["new_status"] == x["gold_status"] for x in valid)
     retained = [x for x in valid if x["proposition_retained"] is True]
@@ -157,6 +157,21 @@ def run(args) -> None:
                     "old_status": old.get("status"),
                     "text": text,
                 }
+                if not text.strip():
+                    # Never let an indexing bug silently judge empty text; the
+                    # model would default to an arbitrary label.
+                    item.update({
+                        "new_status": "EMPTY_TEXT",
+                        "proposition_retained": None,
+                        "evidence": "",
+                        "confidence": None,
+                        "raw_response": "",
+                        "error": "EMPTY_TEXT: memory missing for this condition",
+                    })
+                    items.append(item)
+                    out.write(json.dumps(item, ensure_ascii=False) + "\n")
+                    out.flush()
+                    continue
                 try:
                     verdict = judge_v11(sample, text, args)
                     item.update({

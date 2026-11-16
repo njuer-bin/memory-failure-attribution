@@ -33,3 +33,12 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Next: judge v1.1 calibration on the same six memories with `qwen2.5:7b` and
   independent `gemma3:12b`, then manual re-adjudication. Recorded in
   `docs/research/2026-11-16-status-drift-smoke-calibration.md`.
+
+### Calibration runner incident (same day)
+
+- First v1.1 calibration run was invalid: integer/string key mismatch made every
+  compressed condition judge an empty string, and the model defaulted to the
+  first allowed label.
+- Fixed `experiments/status_drift_judge_calibration.py` (string keys; explicit
+  `EMPTY_TEXT` guard) and regenerated both model outputs. The invalid run is
+  recorded here and in the calibration note; no result from it is used.

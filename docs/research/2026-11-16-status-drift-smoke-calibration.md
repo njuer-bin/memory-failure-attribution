@@ -122,7 +122,25 @@ hypothesis. It is committed before the calibration run.
 The original v1.0 outputs are preserved in
 `results/status_drift_v2_pilot/records.jsonl`; they are not overwritten.
 
-## 6. Integrity notes
+## 6. Calibration-run incident (2026-11-16)
+
+The first execution of the v1.1 runner was invalid and was discarded. The
+`conditions_for` helper indexed `direct_memories` / `recursive_memories` with
+integer depths while records use string keys (`"1"`, `"2"`, …). Every
+compressed condition was therefore judged as **empty text**, and the model
+defaulted to the first allowed label. This produced a spurious
+"stable-correct / updated-wrong" pattern that looked like a clean result.
+
+The runner now:
+
+- uses string keys for memory lookup;
+- records `EMPTY_TEXT` instead of calling the model when a memory is missing;
+- excludes `EMPTY_TEXT` from metric denominators.
+
+Both model files were regenerated after the fix. No result from the invalid
+calibration is reported.
+
+## 7. Integrity notes
 
 - The adjudication in §3 was performed by the assistant (an LLM), **not by a
   human annotator**. It is a diagnostic, not ground truth.
