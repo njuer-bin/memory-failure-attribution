@@ -78,7 +78,7 @@ The rule-based conditional marker check is a sanity check, not a semantic gold l
 
 ### 4.3 Human annotation
 
-Use the annotation guide and CSV template in this directory. Two annotators independently label a stratified set of outputs before adjudication. Recommended initial reliability set: all 30 trajectories under Raw, Direct D5, Recursive D5, and (if enabled) Rewrite-matched D5. This yields 120 or 150 items per annotator. Expand to all depths only after the guide is stable.
+Use the annotation guide and CSV template in this directory. Two annotators independently label a stratified set of outputs before adjudication. Recommended initial reliability set: all 30 trajectories under Raw, Direct D5, Recursive D5, and (if enabled) Rewrite-matched D5. This yields 120 items per annotator. Expand to all depths only after the guide is stable.
 
 Calculate agreement separately for proposition identity, each applicable status dimension, and unsupported drift. Use Cohen's kappa for two annotators on nominal labels; report raw agreement and class prevalence as well. If missing labels or more annotators are used, consider Krippendorff's alpha. Do not hide low agreement behind adjudicated scores.
 
