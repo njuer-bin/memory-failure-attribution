@@ -1,3 +1,5 @@
+import pytest
+
 from experiments.status_drift_judge_calibration import conditions_for
 from experiments.status_drift_recursive_pilot import (
     _make_row,
@@ -104,3 +106,23 @@ def test_rewrite_matched_budget_schedule():
     assert rewrite_matched_budget_schedule(2) == [220, 180]
     assert rewrite_matched_budget_schedule(3) == [220, 220, 140]
     assert rewrite_matched_budget_schedule(5) == [220, 220, 220, 220, 100]
+
+
+def test_v3_ten_topic_expansion():
+    rows = build_dataset(60, "v3", topics_count=10)
+    assert len(rows) == 60
+    assert len({r["proposition"] for r in rows}) == 10
+    assert sum(r["has_legitimate_update"] for r in rows) == 30
+    for dimension in ("epistemic", "intentional", "conditional"):
+        assert sum(r["dimension"] == dimension for r in rows) == 20
+
+
+def test_select_samples_with_ten_topics():
+    rows = select_samples(20, "v3", "epistemic", topics_count=10)
+    assert len(rows) == 20
+    assert all(r["dimension"] == "epistemic" for r in rows)
+
+
+def test_limit_above_available_raises():
+    with pytest.raises(ValueError):
+        select_samples(31, "v3", "epistemic", topics_count=5)

@@ -133,10 +133,11 @@ def _build_dataset_v1(limit: int) -> list[dict[str, Any]]:
     return selected
 
 
-def _build_dataset_v2(limit: int, conditional_version: str = "v21") -> list[dict[str, Any]]:
+def _build_dataset_v2(limit: int, conditional_version: str = "v21",
+                      topics_count: int = 5) -> list[dict[str, Any]]:
     """Crossed design: for each topic, both stable and updated variants."""
     rows: list[dict[str, Any]] = []
-    for topic_idx, action in enumerate(TOPICS[:5]):
+    for topic_idx, action in enumerate(TOPICS[:topics_count]):
         for updated in (False, True):
             for dim in DIMENSIONS:
                 variant = "U" if updated else "S"
@@ -147,22 +148,26 @@ def _build_dataset_v2(limit: int, conditional_version: str = "v21") -> list[dict
     return rows[:limit]
 
 
-def build_dataset(limit: int, design: str = "v1") -> list[dict[str, Any]]:
+def build_dataset(limit: int, design: str = "v1", topics_count: int = 5) -> list[dict[str, Any]]:
     if design == "v3":
-        return _build_dataset_v2(limit, "v22")
+        return _build_dataset_v2(limit, "v22", topics_count)
     if design == "v2":
-        return _build_dataset_v2(limit, "v21")
+        return _build_dataset_v2(limit, "v21", topics_count)
     return _build_dataset_v1(limit)
 
 
-def select_samples(limit: int, design: str, dimensions: str) -> list[dict[str, Any]]:
+def select_samples(limit: int, design: str, dimensions: str,
+                   topics_count: int = 5) -> list[dict[str, Any]]:
     allowed = {d.strip() for d in dimensions.split(",") if d.strip()}
     if not allowed:
         raise ValueError("--dimensions must name at least one dimension")
-    samples = build_dataset(30, design)
+    max_rows = 30 if design == "v1" else 6 * topics_count
+    samples = build_dataset(max_rows, design, topics_count)
     samples = [s for s in samples if s["dimension"] in allowed]
     if not samples:
         raise ValueError(f"no samples for dimensions {sorted(allowed)}")
+    if limit > len(samples):
+        raise ValueError(f"--limit {limit} exceeds {len(samples)} available trajectories")
     return samples[:limit]
 
 
@@ -468,6 +473,7 @@ def run(args: argparse.Namespace) -> None:
         "budgets_chars": BUDGETS, "temperature": 0, "design": args.design,
         "writer_style": args.writer_style, "seed": args.seed, "skip_judge": args.skip_judge,
         "dimensions": args.dimensions, "rewrite_matched": args.rewrite_matched,
+        "topics": args.topics,
     }
     config_path.write_text(json.dumps(config, ensure_ascii=False, indent=2), encoding="utf-8")
 
@@ -488,7 +494,7 @@ def run(args: argparse.Namespace) -> None:
             except (json.JSONDecodeError, KeyError):
                 continue
 
-    samples = select_samples(args.limit, args.design, args.dimensions)
+    samples = select_samples(args.limit, args.design, args.dimensions, args.topics)
     mode = "a" if args.resume and records_path.exists() else "w"
     with records_path.open(mode, encoding="utf-8") as out:
         for index, sample in enumerate(samples, 1):
@@ -565,6 +571,8 @@ def main() -> None:
                         help="v2 = crossed topic x update; v3 = v2 with fixed conditional turns.")
     parser.add_argument("--dimensions", default="epistemic,intentional,conditional",
                         help="Comma-separated dimensions to run.")
+    parser.add_argument("--topics", type=int, choices=tuple(range(1, 11)), default=5,
+                        help="Number of topics for design v2/v3 (max 10).")
     parser.add_argument("--writer-style", choices=("status_aware", "neutral"), default="status_aware")
     parser.add_argument("--skip-judge", action="store_true",
                         help="Only produce memories; judge later with the calibration runner.")
@@ -576,8 +584,8 @@ def main() -> None:
     parser.add_argument("--retries", type=int, default=2)
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
-    if not 1 <= args.limit <= 30:
-        parser.error("--limit must be between 1 and 30")
+    if args.limit < 1:
+        parser.error("--limit must be at least 1")
     run(args)
 
 
