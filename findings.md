@@ -41,12 +41,14 @@ in status preservation.**
   updated cases even under status-aware; the judge often recovers the status
   from remaining context. Judge-level accuracy therefore understates the
   cue-level loss.
-- **Cross-run nondeterminism is real and is between-session, not seed-driven.**
-  Three neutral runs: seeds 43 vs 44 were 96% identical, but seed 42 differed
-  from both by ~37%. The writer is near-deterministic within a session but not
-  across sessions. Aggregate cue effects survive (direct ABSENT 0–1 vs
-  recursive D3/D5 ABSENT 6–8 in every run); single-run memory-level claims do
-  not.
+- **Cross-run nondeterminism is prompt-dependent.** The neutral writer varies
+  across runs (seed 42 vs 43/44 ≈ 0.63; seed 43 vs 44 ≈ 0.96), while the
+  status-aware writer is byte-identical across seeds 42 and 43
+  (270/270 = 1.000). The seed option is not a variance control. At temperature
+  0, freer prompts can hit near-ties that flip; constrained prompts do not.
+- **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
+  ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
+  both. The mitigation is not a seed or session artifact.
 - **v2.3 both-wrong adjudication: 38/46 writer-side, 8 judge errors.** Most
   writer-side cases are status omission or weakening, not an explicit opposite
   status; the judge defaults to the initial status. The adjusted writer-drift

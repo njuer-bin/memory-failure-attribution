@@ -157,3 +157,15 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Conclusion: aggregate cue effects are robust; single-run memory-level claims
   are not. Report ranges, not point estimates.
 - Recorded in `docs/research/2026-11-16-status-drift-v24-variance.md`.
+
+### v2.5 status-aware seed stability — completed
+
+- Status-aware seeds 42 vs 43: memory identity 270/270 = 1.000; cue metrics
+  identical. Existing v3_status_aware judge outputs apply by identity.
+- Same seed 43, neutral vs status-aware cue ABSENT (updated, n=10/depth):
+  recursive D2 5 vs 2, D3 6 vs 2, D5 6 vs 3; direct 0–1 vs 0.
+- The status-aware mitigation replicates at the same seed. Variance is
+  prompt-dependent near-tie nondeterminism, not seed-driven; the seed option is
+  not a variance control.
+- Recorded in
+  `docs/research/2026-11-16-status-drift-v25-status-aware-stability.md`.

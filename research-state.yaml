@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 8
+  total_runs: 9
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -117,15 +117,22 @@ experiments:
       wall_time_min: null
       change_summary: "Three neutral runs (seeds 42/43/44). Memory identity 42-43=0.642, 42-44=0.629, 43-44=0.963: between-session, not seed-driven. Cue ABSENT direct 0-1 vs recursive D3/D5 6-8 across all runs; chaining effect robust."
       timestamp: "2026-11-16"
+    - run_id: "v25_status_aware_stability"
+      hypothesis: "Status-aware seed stability and same-seed prompt contrast"
+      metric_value: 1.0
+      delta: null
+      wall_time_min: null
+      change_summary: "Status-aware seeds 42/43 are byte-identical (270/270). Same-seed 43: status-aware cuts recursive cue ABSENT from 5-6/10 to 2-3/10; direct 0/10. Variance is prompt-dependent near-tie nondeterminism, not seed-driven."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md"
   current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 6
+  cycle: 7
   last_direction: "deepen"
-  last_reflection: "v2.4: aggregate cue effects survive between-session variance (direct ABSENT 0-1 vs recursive D3/D5 6-8), but memory identity across sessions is only ~0.63-0.96 and seed is not the driver. Next: status-aware seed 43 stability, then a same-session writer-prompt A/B if exact magnitudes matter."
+  last_reflection: "v2.5: status-aware is byte-identical across seeds 42/43; same-seed 43 shows status-aware cuts chained cue loss from 5-6/10 to 2-3/10. Variance is prompt-dependent near-tie nondeterminism. Next: third-judge triangulation or a status-cue-aware judge, then novelty check against BELIEFMEM/MemCoRe."
 
 workspace:
   findings: "findings.md"

@@ -73,3 +73,10 @@ does not explain the cue loss.
 - No judged variance estimate; this is writer-side and cue-level only.
 - The cause of the session effect (model reload, cache, kernel) is not
   identified.
+
+## 7. Update after v2.5
+
+The status-aware writer is byte-identical across seeds 42 and 43 (270/270),
+while the neutral writer varies. The variance is therefore **prompt-dependent
+near-tie nondeterminism**, not simply a between-session effect. The v2.4
+numbers stand; only the causal wording is narrowed.
