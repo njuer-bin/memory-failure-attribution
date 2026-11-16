@@ -228,6 +228,15 @@ def writer_prompt(source: str, budget: int, style: str = "status_aware") -> list
             "“计划中”“开始考虑”或只写行动本身。保留命题、确定性和条件是否满足。"
             "不要补充推断，不要输出解释。"
         )
+    elif style == "sidecar":
+        system = (
+            "你负责维护长期对话记忆。请把输入内容压缩成一条简洁记忆，并在末尾追加"
+            "一行结构化状态：\n"
+            "[状态: 确定性=已确认|可能|不适用；意图=已决定|考虑中|不适用；"
+            "条件=已满足|未满足|不适用]\n"
+            "只填写输入中明确涉及的状态，其余写“不适用”。不得根据常识补充。"
+            "不要输出解释。"
+        )
     else:
         system = (
             "你负责维护长期对话记忆。请把输入内容压缩成一条简洁记忆，忠实保留命题、"
@@ -582,7 +591,7 @@ def main() -> None:
     parser.add_argument("--topics", type=int, choices=tuple(range(1, 11)), default=5,
                         help="Number of topics for design v2/v3 (max 10).")
     parser.add_argument("--writer-style",
-                        choices=("status_aware", "neutral", "commitment_aware"),
+                        choices=("status_aware", "neutral", "commitment_aware", "sidecar"),
                         default="status_aware")
     parser.add_argument("--skip-judge", action="store_true",
                         help="Only produce memories; judge later with the calibration runner.")
