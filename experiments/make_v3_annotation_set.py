@@ -96,6 +96,9 @@ def main() -> None:
     parser.add_argument("--records", required=True)
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--seed", type=int, default=20261116)
+    parser.add_argument("--key-out", default=None,
+                        help="Curator-only condition key path. Keep it outside the "
+                             "repository for blind annotation.")
     args = parser.parse_args()
 
     rows = [json.loads(line) for line in open(args.records, encoding="utf-8")
@@ -125,7 +128,9 @@ def main() -> None:
                 })
                 writer.writerow(row)
 
-    with (out / "condition_key.csv").open("w", encoding="utf-8-sig", newline="") as f:
+    key_path = Path(args.key_out) if args.key_out else out / "condition_key.csv"
+    key_path.parent.mkdir(parents=True, exist_ok=True)
+    with key_path.open("w", encoding="utf-8-sig", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=KEY_FIELDS)
         writer.writeheader()
         for item in items:

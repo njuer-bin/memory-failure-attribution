@@ -1,0 +1,3 @@
+
+# Curator-only annotation key; never commit (blind annotation)
+results/**/annotation/condition_key.csv

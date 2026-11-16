@@ -1,24 +1,24 @@
 {
   "n_items": 60,
   "dimensions": {
+    "conditional": 18,
     "intentional": 18,
-    "epistemic": 24,
-    "conditional": 18
+    "epistemic": 24
   },
   "paths": {
-    "TEMP1": 10,
-    "S2": 10,
-    "PEEK": 10,
-    "TEMP2": 10,
+    "S1": 10,
     "PARA": 10,
-    "S1": 10
+    "PEEK": 10,
+    "S2": 10,
+    "TEMP1": 10,
+    "TEMP2": 10
   },
   "gold_status": {
+    "CONDITION_ACTIVE": 12,
+    "CONDITION_SATISFIED": 6,
+    "CONSIDERING": 12,
     "COMMITTED": 6,
     "POSSIBLE": 12,
-    "CERTAIN": 12,
-    "CONSIDERING": 12,
-    "CONDITION_ACTIVE": 12,
-    "CONDITION_SATISFIED": 6
+    "CERTAIN": 12
   }
 }
