@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 22
+  total_runs: 23
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -229,18 +229,25 @@ experiments:
       wall_time_min: null
       change_summary: "60 blind items, two annotators. Primary judgment raw 0.733/kappa 0.578; applicability raw 0.40 epistemic / 0.60 intentional; status-field agreement low. Dominant human label STATUS_OMISSION (A 22/60, B 19/60); unsupported distortion rare (A 1, B 4). Gate fails; revise guide/ontology and re-calibrate."
       timestamp: "2026-11-16"
+    - run_id: "v3_1_annotation_calibration"
+      hypothesis: "V3.1 recalibration: can two annotators apply the collapsed guide?"
+      metric_value: 0.728
+      delta: null
+      wall_time_min: null
+      change_summary: "60 items, annotation files A/B complete and valid. Primary judgment raw 0.850/kappa 0.728 (V3: 0.578); primary-dimension kappa 0.853; epistemic 0.788, intentional 0.904, conditional 0.126 (fail). NO_DISTORTION A 33/B 39; STATUS_OMISSION 18/18; unsupported distortion 4/1. Partial pass; do not freeze. Annotator provenance and adjudication pending."
+      timestamp: "2026-11-16"
   current_protocol: "V3 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md; statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "Historical exploratory v2.x evidence only; see existing dated reports. No V3 confirmatory results yet."
+  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1 annotation calibration are protocol-development results. No V3 confirmatory results yet."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 23
-  last_direction: "pivot"
-  last_reflection: "V3 calibration failed on applicability and omission/distortion boundaries. Revised to V3.1: collapsed ontology (2-3 labels/dimension), one primary dimension, two-step status-expressed/status-supported judgment, explicit NO_DISTORTION vs LEGITIMATE_UPDATE rules. Generated a new 60-item calibration set (annotation_v31) with the key outside the repo. Re-calibrate before confirmatory work."
+  cycle: 24
+  last_direction: "calibrate"
+  last_reflection: "V3.1 recalibration fixes applicability (dimension kappa 0.853) and lifts primary-judgment agreement to 0.728, but conditional action-vs-condition remains the blocking failure (kappa 0.126). Annotator provenance is unverified. Adjudicate the 9 primary disagreements, revise the conditional rules, and re-calibrate the conditional subset before freezing the guide."
 
 workspace:
   findings: "findings.md"

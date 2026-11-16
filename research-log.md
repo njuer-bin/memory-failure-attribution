@@ -374,3 +374,30 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   seed and the condition key outside the repository.
 - Next: two annotators label the v3.1 set; re-check agreement before any
   confirmatory work.
+
+### V3.1 blind annotation re-calibration — provisional partial pass
+
+- 60 items (10 trajectories × 6 paths). Both annotation files A and B are
+  complete and schema-valid (0 missing required, 0 invalid values).
+- primary_judgment raw 0.850 / kappa 0.728 (V3 calibration: 0.578);
+  primary_dimension 0.900 / 0.853; status_expressed 0.967 / 0.928;
+  expressed_status 0.963 / 0.954 complete-case (0.867 / 0.838 including the six
+  blank/non-blank pairs); evidence_support 0.917 / 0.840; confidence
+  0.833 / 0.536.
+- By key dimension: epistemic 0.875 / 0.788; intentional 0.944 / 0.904;
+  conditional 0.722 / **0.126** (fail).
+- Label distribution: NO_DISTORTION A 33 / B 39; STATUS_OMISSION 18 / 18;
+  UNSUPPORTED_STATUS_DISTORTION 4 / 1. Omission still dominates; unsupported
+  distortion remains rare.
+- Human labels do not reproduce the deterministic path gradient: unsupported
+  distortion PEEK 0/10 both, PARA 0/10 both, S1 1/0, TEMP1 2/1, TEMP2 1/0.
+- 9 primary-judgment disagreements. Dominant residual is conditional
+  action-vs-condition: A reads a satisfied-condition + action juxtaposition as
+  CONDITIONAL_COLLAPSE, B applies the “action scored only if explicitly
+  asserted” rule and says NO_DISTORTION.
+- Gate: partial pass. Epistemic and intentional are usable; conditional is not.
+  Do not freeze the guide or start P2. Annotator provenance (human vs model,
+  independence) is unverified and must be recorded before citing these numbers
+  as human reliability.
+- Recorded in
+  `docs/research/2026-11-16-v3-1-annotation-calibration.md`.

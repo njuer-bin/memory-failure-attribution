@@ -132,6 +132,15 @@ in status preservation.**
   decision, and explicit `NO_DISTORTION` vs `LEGITIMATE_UPDATE` rules. A new
   60-item calibration set (`annotation_v31`) is ready; re-calibrate before any
   confirmatory work.
+- **V3.1 re-calibration: applicability fixed, conditional still fails.** 60
+  items, files A/B. Primary-judgment raw 0.850 / kappa 0.728 (V3: 0.578);
+  primary-dimension kappa 0.853; epistemic kappa 0.788, intentional 0.904,
+  conditional **0.126**. NO_DISTORTION dominates (A 33, B 39); STATUS_OMISSION
+  18/18; unsupported distortion 4/1. Human labels do not reproduce the
+  deterministic path gradient (PEEK and PARA 0 unsupported under both). The
+  recurrent disagreement is conditional action-vs-condition. Provisional
+  partial pass: epistemic/intentional usable, conditional not; do not freeze
+  the guide. Annotator provenance and adjudication are pending.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.
