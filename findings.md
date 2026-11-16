@@ -36,8 +36,11 @@ in status preservation.**
   this. Intentional commitment cues (`决定`) are the vulnerable status;
   epistemic certainty cues are largely robust.
 - **Status-aware mitigation is partial and dimension-specific.** It removes
-  direct-condition cue loss (0/10) and halves intentional recursive D5 loss
-  (9 → 5/10), but does not eliminate it.
+  direct-condition cue loss (0/10) and halves intentional recursive D5 strict
+  cue absence (9 → 5/10). Manual reading: all 5 status-aware "absent" items
+  still carry a weak commitment cue (`推进计划`, `按计划`, `已开始`), while the
+  neutral writer removes the cue entirely in 8/10. The status-aware failure
+  mode is **cue weakening**, not removal.
 - **Repeated chained rewriting is the destructive factor, not budget
   shrinkage.** v2.3 holds intermediate budgets constant at 220 and recovers
   the same degradation as the shrinking schedule; both are much worse than a

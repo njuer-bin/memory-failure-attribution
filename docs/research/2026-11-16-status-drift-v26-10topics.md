@@ -47,6 +47,27 @@ The status-aware prompt removes direct-condition loss entirely and roughly
 halves intentional recursive loss (9 → 5/10 at D5), but does not eliminate it.
 Epistemic is already robust (2/10 in both writers).
 
+## 2b. Manual semantic cue check (intentional D5)
+
+The strict cue metric counts only explicit terms (`决定`, `承诺`,
+`按计划推进`, ...). Manual reading of the 10 intentional updated D5 memories:
+
+| Writer | strong cue (`决定`) | weak cue (`推进计划`, `按计划`, `已开始`) | no cue |
+|---|---:|---:|---:|
+| neutral | 1 | 1 (`推进`) | 8 |
+| status-aware | 5 | 5 | 0 |
+
+- Neutral: only `intentional_09` keeps `决定`; `intentional_03` keeps a weak
+  `推进`; the other 8 remove the commitment cue entirely
+  (`上海工作，留意天气…`, `学习日语…`, `报名马拉松…`).
+- Status-aware: 5 keep `决定`; the other 5 weaken it to `推进计划`, `按计划`,
+  or `已开始…行动完成`. **Every status-aware intentional D5 memory still
+  carries a commitment cue.**
+
+So the strict metric overstates the status-aware loss. The status-aware
+failure mode is **cue weakening**, not cue removal; the neutral failure mode is
+removal in 8/10. Report both strict and semantic counts.
+
 ## 3. Proposition omission
 
 - neutral: direct 1–2/60; recursive 1–6/60 (D5 = 6/60 = 10%, borderline).

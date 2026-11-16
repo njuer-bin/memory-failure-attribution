@@ -207,4 +207,7 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Per-topic: largest topic 5/31 (16.1%) neutral, 3/14 (21.4%) status-aware; no
   single topic dominates.
 - Gates pass with the neutral D5 proposition-omission caveat.
+- Manual semantic check (intentional D5): status-aware has 5 strong + 5 weak
+  commitment cues and 0 none; neutral has 1 strong + 1 weak + 8 none. The
+  status-aware failure mode is cue weakening, not removal.
 - Recorded in `docs/research/2026-11-16-status-drift-v26-10topics.md`.
