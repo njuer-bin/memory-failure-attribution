@@ -91,6 +91,24 @@ Strong/weak/none commitment cues at D5:
 Judge confirmation: qwen and gemma agree **180/180**; all **40/40** updated
 D3/D5 items are judged COMMITTED, and stable CONSIDERING cases remain correct.
 
+### Human annotation (v2.4)
+
+**Status-aware** (single manual annotator A; the B file is gold-derived and is
+not used):
+
+- overall 5/119 = 4.2%; Raw 0/30; Direct D5 0/30; Recursive D5 2/29 = 6.9%;
+  Rewrite-matched D5 3/30 = 10.0%; intentional 3/40 = 7.5%; epistemic 5.0%;
+  conditional 0%.
+
+**Neutral** (two independent manual annotators):
+
+- overall 6.7–7.9% (A 9/114, B 7/105); Raw 0/30; Direct D5 0/30;
+  Recursive D5 13.6–15.4%; Rewrite-matched D5 16.7–17.9%;
+  intentional 21.9–25.7%; epistemic and conditional 0%;
+- primary-label agreement raw 0.942, Cohen's kappa 0.849.
+
+The neutral writer roughly doubles the human-annotated drift.
+
 ## Figures (planned)
 
 1. Condition diagram: raw → direct / recursive / rewrite-matched.
@@ -101,7 +119,11 @@ D3/D5 items are judged COMMITTED, and stable CONSIDERING cases remain correct.
 
 ## Limitations
 
-- Synthetic templates; one writer model; local judges, no human annotation yet.
+- Synthetic templates; one writer model; local judges.
+- Human annotation exists for both writers, but the status-aware estimate uses
+  one manual annotator; the neutral estimate has two-annotator reliability.
+- Token budgets are not matched in the main runs; chained outputs are ~25%
+  shorter. A token-band matched control (v2.9, band 14–18) is in progress.
 - Neutral writer is not reliably deterministic at temperature 0; report ranges.
 - Conditional remains the least reliable dimension (ontology/judge issues).
 - Rewrite-matched controls call count but not intermediate content; call count
@@ -131,4 +153,6 @@ D3/D5 items are judged COMMITTED, and stable CONSIDERING cases remain correct.
    one-call version is blocked at 7B.
 3. Can a post-hoc checker repair weakened cues without the source?
 4. Does the loss change downstream decisions (Stage B)?
-5. What is the human-adjudicated error rate? (Sample CSV prepared.)
+5. What is the human-adjudicated error rate, and does it survive a genuine
+   second annotator for the status-aware condition? (Neutral has two-annotator
+   reliability; status-aware currently uses one manual annotator.)
