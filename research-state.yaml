@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 11
+  total_runs: 12
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -138,15 +138,22 @@ experiments:
       wall_time_min: null
       change_summary: "Added mistral:7b on v3_neutral. All 23 qwen-gemma both-wrong items are also wrong under mistral (23 all-three-wrong); majority accuracy 232/270. Mitigation 23 -> 1 is not a judge artifact."
       timestamp: "2026-11-16"
+    - run_id: "v26_10topics"
+      hypothesis: "Topic generality and dimension specificity"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "60 trajectories x neutral/status-aware, cue-only. Chaining loss is intentional-specific: neutral intentional recursive D5 ABSENT 9/10 vs epistemic 2/10; status-aware 5/10 vs 2/10; direct 0/10 both. Proposition omission 0-10%; no topic >21% of cue loss."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md"
   current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 9
+  cycle: 10
   last_direction: "deepen"
-  last_reflection: "Third judge on both writers: neutral 23 all-three-wrong, status-aware 1; mitigation is robust, not a judge artifact. Next: v2.6 10-topic cue-only expansion to test topic generality, then novelty check."
+  last_reflection: "v2.6 (60 trajectories) shows the chaining effect is intentional-specific: neutral intentional recursive D5 ABSENT 9/10 vs epistemic 2/10; status-aware 5/10 vs 2/10; direct 0/10. Proposition retention is near-perfect. Next: manual confirmation of intentional cue omissions and a commitment-targeted writer prompt."
 
 workspace:
   findings: "findings.md"

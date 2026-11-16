@@ -194,3 +194,17 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   1.
 - Recorded in
   `docs/research/2026-11-16-status-drift-v3-neutral-third-judge.md`.
+
+### v2.6 10-topic expansion — completed
+
+- 60 trajectories (3 dimensions × 10 topics × S/U) per writer, cue-only.
+- Neutral cue ABSENT (updated, n=20/depth): direct 0/3/1/3; recursive
+  0/9/11/11 (D1–D5). Status-aware: direct 0/0/0/0; recursive 0/2/5/7.
+- Dimension-specific: neutral intentional recursive D5 ABSENT 9/10 vs
+  epistemic 2/10; status-aware intentional 5/10 vs epistemic 2/10.
+- Proposition omission: neutral 1–6/60 (D5 = 10%, borderline); status-aware
+  0/60.
+- Per-topic: largest topic 5/31 (16.1%) neutral, 3/14 (21.4%) status-aware; no
+  single topic dominates.
+- Gates pass with the neutral D5 proposition-omission caveat.
+- Recorded in `docs/research/2026-11-16-status-drift-v26-10topics.md`.

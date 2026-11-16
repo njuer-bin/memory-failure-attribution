@@ -29,7 +29,15 @@ in status preservation.**
   `购电脑…`, `上海工作…`, `学习日语…`, or weakening to `决定中`.
 - **Recursion matters only when the writer is not status-preserving.** Under
   the neutral writer, errors cluster at recursive D2–D5; under the status-aware
-  writer only one D5 item fails.
+  writer only one D5 item fails in the 30-run.
+- **The chaining effect is dimension-specific (10 topics, 60 trajectories).**
+  Neutral: intentional recursive D5 ABSENT 9/10 vs epistemic 2/10. Status-aware:
+  intentional 5/10 vs epistemic 2/10; direct 0/10 in both. Aggregate numbers hid
+  this. Intentional commitment cues (`决定`) are the vulnerable status;
+  epistemic certainty cues are largely robust.
+- **Status-aware mitigation is partial and dimension-specific.** It removes
+  direct-condition cue loss (0/10) and halves intentional recursive D5 loss
+  (9 → 5/10), but does not eliminate it.
 - **Repeated chained rewriting is the destructive factor, not budget
   shrinkage.** v2.3 holds intermediate budgets constant at 220 and recovers
   the same degradation as the shrinking schedule; both are much worse than a
@@ -102,12 +110,13 @@ committed. No single judge is a valid instrument.
 ## Hypothesis Status
 
 - **H1 — supported.** Writer strategies differ strongly in status preservation.
-- **H2 — supported under both writers; mechanism refined by v2.3.** Chained
-  rewriting (`recursive` and `rewrite_matched`) degrades status equally and far
-  more than a single compression to the same final budget. Neutral: D3 17 vs 17
-  both-correct, D5 15 vs 16, direct D5 27; status-aware: chained 107–108 vs
-  direct 116 both-correct across depths. The mechanism is repeated re-editing
-  of the writer's own output, not shrinking intermediate budgets. The
+- **H2 — supported under both writers; mechanism refined by v2.3 and v2.6.**
+  Chained rewriting (`recursive` and `rewrite_matched`) degrades status equally
+  and far more than a single compression to the same final budget. Neutral:
+  D3 17 vs 17 both-correct, D5 15 vs 16, direct D5 27; status-aware: chained
+  107–108 vs direct 116 both-correct across depths. The mechanism is repeated
+  re-editing of the writer's own output, not shrinking intermediate budgets.
+  The effect is concentrated in **intentional** status, not epistemic. The
   status-aware prompt reduces the chaining penalty (32 → 8 both-correct cells)
   but does not remove it.
 - **H3 — supported.** Proposition retention (98.9–100%) coexists with status
