@@ -126,3 +126,10 @@ def test_select_samples_with_ten_topics():
 def test_limit_above_available_raises():
     with pytest.raises(ValueError):
         select_samples(31, "v3", "epistemic", topics_count=5)
+
+
+def test_commitment_aware_prompt_differs():
+    from experiments.status_drift_recursive_pilot import writer_prompt
+    prompt = writer_prompt("x", 100, "commitment_aware")
+    assert "承诺词" in prompt[0]["content"]
+    assert prompt != writer_prompt("x", 100, "status_aware")

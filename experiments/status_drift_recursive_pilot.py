@@ -220,6 +220,14 @@ def writer_prompt(source: str, budget: int, style: str = "status_aware") -> list
     if style == "neutral":
         system = ("你负责维护长期对话记忆。请把输入内容压缩成一条简洁记忆，"
                   "保留重要信息。不要输出解释。")
+    elif style == "commitment_aware":
+        system = (
+            "你负责维护长期对话记忆。请把输入内容压缩成一条简洁记忆。"
+            "如果用户对目标行动表达了明确决定或承诺，必须保留明确的承诺词"
+            "（例如“已决定”“已承诺”“会按计划执行”），不得把它弱化为“推进计划”"
+            "“计划中”“开始考虑”或只写行动本身。保留命题、确定性和条件是否满足。"
+            "不要补充推断，不要输出解释。"
+        )
     else:
         system = (
             "你负责维护长期对话记忆。请把输入内容压缩成一条简洁记忆，忠实保留命题、"
@@ -573,7 +581,9 @@ def main() -> None:
                         help="Comma-separated dimensions to run.")
     parser.add_argument("--topics", type=int, choices=tuple(range(1, 11)), default=5,
                         help="Number of topics for design v2/v3 (max 10).")
-    parser.add_argument("--writer-style", choices=("status_aware", "neutral"), default="status_aware")
+    parser.add_argument("--writer-style",
+                        choices=("status_aware", "neutral", "commitment_aware"),
+                        default="status_aware")
     parser.add_argument("--skip-judge", action="store_true",
                         help="Only produce memories; judge later with the calibration runner.")
     parser.add_argument("--rewrite-matched", action="store_true",
