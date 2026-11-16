@@ -40,6 +40,20 @@ in status preservation.**
   and `获奖学金` were both judged as the wrong status. The 23 neutral
   both-wrong items overstate pure writer drift by roughly 6.
 
+## Judge Adjudication (39 disagreements)
+
+All qwen/gemma disagreements were read manually. qwen is correct on 15, gemma
+on 17, and 7 are cases where the writer removed the status and both judges
+guessed. The better judge flips with the writer style:
+
+- status-aware: gemma 9, qwen 2, both wrong 2 (the two conditional omissions).
+- neutral: qwen 13, gemma 8, both wrong 5 (writer omissions).
+
+qwen systematically downgrades explicit confirmations that carry a trailing
+qualifier (`确认…但未确定时间`, `确认…考虑不确定性`). gemma systematically reads
+`已获奖学金` as `CONDITION_ACTIVE` and over-credits `推进中`/`学习中` as
+committed. No single judge is a valid instrument.
+
 ## Lessons and Constraints
 
 - Deterministic checks need broad markers and must count only `OMITTED` toward

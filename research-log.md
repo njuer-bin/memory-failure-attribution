@@ -77,3 +77,15 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - The run was interrupted once by host memory pressure and resumed with the new
   judge `--resume` flag; all 270 x 2 judgements are complete.
 - Recorded in `docs/research/2026-11-16-status-drift-v3-30run.md`.
+
+### Judge disagreement adjudication — completed
+
+- Read all 39 disagreements (13 status-aware, 26 neutral).
+- qwen correct 15, gemma correct 17, both wrong/undecidable 7.
+- The better judge flips with writer style: status-aware favors gemma (9 vs 2);
+  neutral favors qwen (13 vs 8).
+- qwen downgrades explicit confirmations with trailing qualifiers; gemma reads
+  `已获奖学金` as ACTIVE and over-credits `推进中`/`学习中`.
+- The 7 both-wrong disagreements are writer omissions; they strengthen H3.
+- Recorded in
+  `docs/research/2026-11-16-status-drift-judge-adjudication.md`.
