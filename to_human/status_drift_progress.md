@@ -71,12 +71,28 @@ Report neutral magnitudes as ranges; the status-aware mitigation is stable.
   BRACE, MemCoRe). The defensible gap is **controlled measurement of status
   cue loss under chained compression**, not a new memory architecture.
 
-## What was running when this report was written
+## Overnight results added after the first draft
 
-- Third judge (mistral:7b) on the neutral 30-trajectory run, to triangulate the
-  23 both-wrong items.
-- Next: 10-topic expansion (60 trajectories) cue-only study, already
-  pre-registered as v2.6 and implemented (`--topics 10`).
+- **Third judges:** neutral 23 errors are all-three-judge confirmed (mistral
+  also wrong on all 23); status-aware has exactly 1 all-three-wrong item.
+- **10-topic, 60-trajectory cue study:** the chaining loss is
+  intentional-specific. Neutral intentional recursive D5 ABSENT 9/10 vs
+  epistemic 2/10; status-aware 5/10 vs 2/10; direct 0/10 in both. No single
+  topic dominates.
+- **Commitment-aware writer:** 10/10 strong commitment cues at every depth
+  (recursive D5 included), vs neutral 1 strong/8 none and status-aware
+  5 strong/5 weak. This is a ceiling intervention, not a deployment default.
+- **Sidecar mitigation:** pre-registered (v2.8) and implemented; a parseable
+  `[状态: ...]` line is appended to each memory. Run pending.
+- **Human review sample:** `to_human/adjudication_sample.csv` (18 items,
+  stratified across writer drift, judge errors, and controls).
+
+## Currently running
+
+- gemma judging of the 20 commitment-aware trajectories. qwen is done: all 20
+  updated D5 items are judged COMMITTED, and the stable CONSIDERING items are
+  also correct.
+- Next: the 60-trajectory sidecar run, then a human-adjudication pass.
 
 ## File map
 
