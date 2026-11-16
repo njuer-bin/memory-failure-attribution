@@ -15,7 +15,12 @@ import argparse
 import json
 from pathlib import Path
 
-from experiments.status_drift_recursive_pilot import DEPTHS, chat, parse_json
+from experiments.status_drift_recursive_pilot import (
+    DEPTHS,
+    chat,
+    det_condition_status,
+    parse_json,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "results" / "status_drift_v2_pilot"
@@ -121,6 +126,12 @@ def aggregate(items: list[dict]) -> dict:
     agree = sum(x["new_status"] == x["old_status"] for x in valid if x["old_status"] is not None)
     det_items = [x for x in valid if x.get("proposition_match") is True]
     det_distorted = sum(x["new_status"] != x["gold_status"] for x in det_items)
+    cond_items = [x for x in valid if x["dimension"] == "conditional"]
+    cond_correct = sum(
+        x["condition_status"] == ("SATISFIED" if x["gold_status"] == "CONDITION_SATISFIED" else "ACTIVE")
+        for x in cond_items
+    )
+    cond_omitted = sum(x["condition_status"] in ("OMITTED", "AMBIGUOUS") for x in cond_items)
     return {
         "n_items": len(items),
         "n_valid": n,
@@ -151,6 +162,11 @@ def aggregate(items: list[dict]) -> dict:
         "cpsd_det": det_distorted / len(det_items) if det_items else None,
         "cpsd_det_numerator": det_distorted,
         "cpsd_det_denominator": len(det_items),
+        "condition_det_n": len(cond_items),
+        "condition_det_correct": cond_correct,
+        "condition_det_accuracy": cond_correct / len(cond_items) if cond_items else None,
+        "condition_det_omitted_n": cond_omitted,
+        "condition_det_omission_rate": cond_omitted / len(cond_items) if cond_items else None,
         "conflict_reported_n": sum(x.get("conflict_present") is True for x in valid),
     }
 
@@ -184,6 +200,8 @@ def run(args) -> None:
                     "old_status": old.get("status"),
                     "text": text,
                     "proposition_match": any(k in text for k in keywords),
+                    "condition_status": (det_condition_status(text)
+                                         if row["dimension"] == "conditional" else None),
                 }
                 if not text.strip():
                     item.update({

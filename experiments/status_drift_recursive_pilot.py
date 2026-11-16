@@ -40,6 +40,36 @@ TOPIC_KEYWORDS = {
 }
 DIMENSIONS = ("epistemic", "intentional", "conditional")
 
+# Deterministic condition-status markers for the conditional dimension. Checked
+# before the satisfied markers so negations such as 未拿到奖学金 cannot match
+# 拿到奖学金 as a substring.
+CONDITION_NEGATIONS = [
+    "未拿到奖学金", "没拿到奖学金", "没有拿到奖学金", "拿不到奖学金",
+    "未获奖学金", "没有获奖学金", "未获得奖学金",
+]
+CONDITION_SATISFIED_MARKERS = [
+    "条件已满足", "条件满足", "已满足条件", "已经满足",
+    "已拿到奖学金", "已经拿到奖学金", "已获奖学金", "已经获得奖学金", "已获得奖学金",
+]
+CONDITION_ACTIVE_MARKERS = [
+    "条件未满足", "条件不满足", "未满足", "尚未满足",
+    "奖学金还没有结果", "奖学金未", "暂不考虑",
+]
+
+
+def det_condition_status(text: str) -> str:
+    if any(marker in text for marker in CONDITION_NEGATIONS):
+        return "ACTIVE"
+    satisfied = any(marker in text for marker in CONDITION_SATISFIED_MARKERS)
+    active = any(marker in text for marker in CONDITION_ACTIVE_MARKERS)
+    if satisfied and active:
+        return "AMBIGUOUS"
+    if satisfied:
+        return "SATISFIED"
+    if active:
+        return "ACTIVE"
+    return "OMITTED"
+
 
 def _make_row(dimension: str, action: str, updated: bool, sample_id: str,
               conditional_version: str = "v21") -> dict[str, Any]:
@@ -285,6 +315,21 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
     det_distorted = sum(pred["status"] != row["gold_status"] for row, pred in det_pairs)
     det_omitted = sum(not _deterministic_retention(row, condition, depth) for row in rows)
 
+    cond_rows = [row for row in rows if row["dimension"] == "conditional"]
+
+    def _cond_of(row: dict[str, Any]) -> str:
+        if condition == "raw":
+            return det_condition_status(row.get("dialogue", ""))
+        key = "direct_condition" if condition == "direct" else "recursive_condition"
+        stored = (row.get(key) or {}).get(str(depth))
+        return stored or det_condition_status(_memory(row, condition, depth))
+
+    cond_actual = [_cond_of(row) for row in cond_rows]
+    cond_expected = ["SATISFIED" if row["gold_status"] == "CONDITION_SATISFIED" else "ACTIVE"
+                     for row in cond_rows]
+    cond_correct = sum(a == e for a, e in zip(cond_actual, cond_expected))
+    cond_omitted = sum(a in ("OMITTED", "AMBIGUOUS") for a in cond_actual)
+
     return {
         "n_valid": n, "accuracy": correct / n if n else None, "correct": correct,
         "proposition_retained_n": len(retained),
@@ -303,6 +348,11 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
         "cpsd_det": det_distorted / len(det_pairs) if det_pairs else None,
         "cpsd_det_numerator": det_distorted,
         "cpsd_det_denominator": len(det_pairs),
+        "condition_det_n": len(cond_rows),
+        "condition_det_correct": cond_correct,
+        "condition_det_accuracy": cond_correct / len(cond_rows) if cond_rows else None,
+        "condition_det_omitted_n": cond_omitted,
+        "condition_det_omission_rate": cond_omitted / len(cond_rows) if cond_rows else None,
     }
 
 
@@ -390,8 +440,9 @@ def run(args: argparse.Namespace) -> None:
                 **sample, "writer_model": args.writer_model, "judge_model": config["judge_model"],
                 "design": args.design, "writer_style": args.writer_style, "seed": args.seed,
                 "raw_judgment": None, "direct_memories": {}, "direct_judgments": {},
-                "direct_retention": {}, "recursive_memories": {}, "recursive_judgments": {},
-                "recursive_retention": {}, "errors": [],
+                "direct_retention": {}, "direct_condition": {},
+                "recursive_memories": {}, "recursive_judgments": {},
+                "recursive_retention": {}, "recursive_condition": {}, "errors": [],
             }
             try:
                 if not args.skip_judge:
@@ -401,12 +452,14 @@ def run(args: argparse.Namespace) -> None:
                     recursive_memory = compress(recursive_memory, depth, args)
                     row["recursive_memories"][str(depth)] = recursive_memory
                     row["recursive_retention"][str(depth)] = det_match(recursive_memory, sample)
+                    row["recursive_condition"][str(depth)] = det_condition_status(recursive_memory)
                     if depth in DEPTHS and not args.skip_judge:
                         row["recursive_judgments"][str(depth)] = judge(sample, recursive_memory, args)
                 for depth in DEPTHS:
                     direct_memory = compress(sample["dialogue"], depth, args)
                     row["direct_memories"][str(depth)] = direct_memory
                     row["direct_retention"][str(depth)] = det_match(direct_memory, sample)
+                    row["direct_condition"][str(depth)] = det_condition_status(direct_memory)
                     if not args.skip_judge:
                         row["direct_judgments"][str(depth)] = judge(sample, direct_memory, args)
             except Exception as exc:

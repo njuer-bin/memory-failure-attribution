@@ -42,3 +42,18 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Fixed `experiments/status_drift_judge_calibration.py` (string keys; explicit
   `EMPTY_TEXT` guard) and regenerated both model outputs. The invalid run is
   recorded here and in the calibration note; no result from it is used.
+
+### Conditional v2.2 validation — PASS
+
+- Fixed the conditional turn text to state only whether the condition is met,
+  and added a conditional-specific judge rule plus a deterministic condition
+  status check.
+- Validation run (4 conditional trajectories, status-aware writer, two judges):
+  inter-judge agreement 34/36 = 0.944; deterministic proposition omission 0;
+  deterministic condition omission 2/32 = 0.062; zero wrong condition labels.
+- The two condition-omission items are `conditional_01_U` recursive D3/D5
+  (`去上海工作。`); qwen guesses SATISFIED and gemma guesses ACTIVE, so the
+  judge-only gate would have missed them. The deterministic check catches them.
+- Gates pass. Next: full 30-trajectory run with design v3, both writers, both
+  judges. Recorded in
+  `docs/research/2026-11-16-conditional-v22-validation.md`.

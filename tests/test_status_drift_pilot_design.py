@@ -2,6 +2,7 @@ from experiments.status_drift_judge_calibration import conditions_for
 from experiments.status_drift_recursive_pilot import (
     _make_row,
     build_dataset,
+    det_condition_status,
     det_match,
     select_samples,
 )
@@ -84,3 +85,12 @@ def test_v2_conditional_keeps_legacy_action_clause():
     rows = select_samples(2, "v2", "conditional")
     updated = next(r for r in rows if r["has_legitimate_update"])
     assert "开始考虑" in updated["turns"][2]["text"]
+
+
+def test_det_condition_status_three_states():
+    assert det_condition_status("拿不到奖学金，条件不满足") == "ACTIVE"
+    assert det_condition_status("没有拿到奖学金") == "ACTIVE"
+    assert det_condition_status("已经拿到奖学金了，条件已经满足") == "SATISFIED"
+    assert det_condition_status("获得奖学金，条件已满足") == "SATISFIED"
+    assert det_condition_status("去上海工作。") == "OMITTED"
+    assert det_condition_status("条件满足但奖学金未拿到") == "AMBIGUOUS"
