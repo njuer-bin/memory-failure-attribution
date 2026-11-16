@@ -38,6 +38,10 @@ in status preservation.**
 - **Cross-run nondeterminism is real.** Two neutral runs with the same seed and
   prompts produced 106/270 different direct/recursive memories. Within-run
   contrasts are the valid unit; do not compare single runs as if deterministic.
+- **v2.3 both-wrong adjudication: 38/46 writer-side, 8 judge errors.** Most
+  writer-side cases are status omission or weakening, not an explicit opposite
+  status; the judge defaults to the initial status. The adjusted writer-drift
+  count is 38/46. v2.3 passes its pre-registered gates.
 - **The status-aware prompt is a strong but not perfect intervention.** It does
   not guarantee preservation at D5; one topic lost the confirmation cue.
 - **Conditional remains the least reliable dimension.** The v2.2 fix removed

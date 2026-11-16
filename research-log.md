@@ -109,3 +109,18 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   Within-run contrasts are the valid unit.
 - Recorded in
   `docs/research/2026-11-16-status-drift-v23-rewrite-matched.md`.
+
+### v2.3 both-wrong adjudication — completed
+
+- All 46 both-wrong items read and classified.
+- 38 are writer-side status loss/weakening/distortion; 8 are both-judge errors
+  despite a clear cue.
+- Most writer-side cases are status omission, not inversion: the memory drops
+  `确认`/`决定` or reduces the condition to a bare `奖学金` fragment, and the
+  judge defaults to the initial status.
+- The 8 judge errors are two residual modes: conditional action-vs-condition
+  (`奖学金在手，上海工作待定`) and explicit confirmation with a distractor
+  (`确认数学建模`).
+- v2.3 passes all pre-registered gates. Adjusted writer-drift count is 38/46.
+- Recorded in
+  `docs/research/2026-11-16-status-drift-v23-adjudication.md`.

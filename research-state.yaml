@@ -111,7 +111,7 @@ experiments:
 outer_loop:
   cycle: 4
   last_direction: "deepen"
-  last_reflection: "v2.3 shows chained rewriting, not budget shrinkage, drives neutral-writer drift. Next: status-aware rewrite-matched control, repeated-seed variance, and manual adjudication of the new both-wrong items."
+  last_reflection: "v2.3 shows chained rewriting, not budget shrinkage, drives neutral-writer drift. All 46 both-wrong items adjudicated: 38 writer-side, 8 judge errors; gates pass. Next: status-aware rewrite-matched control, repeated-seed variance, and a deterministic status-cue checker for epistemic/intentional."
 
 workspace:
   findings: "findings.md"
