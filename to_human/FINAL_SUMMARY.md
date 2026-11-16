@@ -25,6 +25,8 @@ it is preventable by an explicit commitment-preserving instruction.
 | Intentional D5, neutral (10 topics) | 9/10 status cues absent |
 | Intentional D5, status-aware | 5/10 strict absent, but 10/10 carry a cue (5 strong + 5 weak) |
 | Intentional D5, commitment-aware | 10/10 strong; judges agree 180/180, 40/40 committed |
+| Human-annotated drift, neutral (two annotators) | 6.7–7.9% overall; 13.6–15.4% recursive D5; 16.7–17.9% rewrite D5 |
+| Human-annotated drift, status-aware (one annotator) | 4.2% overall; 6.9% recursive D5; 10.0% rewrite D5 |
 
 Three judges (qwen2.5:7b, gemma3:12b, mistral:7b) confirm the neutral errors:
 all 23 qwen-gemma both-wrong items are also wrong under mistral. The
@@ -50,8 +52,12 @@ needs a separate extractor or a stronger model.
 
 ## Validity and caveats
 
-- Synthetic Chinese templates, one writer model, no human annotation yet.
-  A 33-item human-review sample is at `to_human/adjudication_sample.csv`.
+- Synthetic Chinese templates, one writer model.
+- Human annotation: the neutral condition has two independent manual annotators
+  (unsupported-label kappa 0.849); the status-aware condition uses one manual
+  annotator because its B file was gold-derived and was withdrawn.
+- Unconstrained chained outputs are ~25% shorter in tokens than direct outputs;
+  a matched token-band control (14–18 tokens) is in progress.
 - The neutral writer is not reliably deterministic at temperature 0: the same
   seed produced 63–96% identical memories across runs. Status-aware was
   byte-identical across two seeds (270/270). Report neutral magnitudes as
@@ -74,10 +80,12 @@ architecture.
 
 ## Next
 
-1. Human-adjudicate the 33-item sample.
-2. Build a separate status-extractor sidecar prototype.
-3. Test the intentional-specific loss on natural dialogue.
-4. If confirmed, move to Stage B: downstream decision impact.
+1. Complete the token-band matched control and check whether the chaining
+   effect survives at equal output length.
+2. Obtain a second manual annotator for the status-aware condition.
+3. Build a separate status-extractor sidecar prototype.
+4. Test the intentional-specific loss on natural dialogue.
+5. If confirmed, move to Stage B: downstream decision impact.
 
 ## Where things are
 
@@ -86,4 +94,4 @@ architecture.
 - Raw data: `results/status_drift_v2_pilot/`
 - Metrics: `evaluation/status_cue_metrics.py`, `evaluation/status_sidecar.py`
 - Paper backbone: `docs/research/2026-11-16-status-drift-paper-backbone.md`
-- Everything is pushed to `research/status-drift-v2-pilot`.
+- Everything is pushed to `research/status-drift-v2.4-revision`.

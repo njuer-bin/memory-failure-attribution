@@ -88,15 +88,27 @@ Report neutral magnitudes as ranges; the status-aware mitigation is stable.
   prose plus a structured status line in one call; two prompt attempts were
   invalid and discarded. A reliable version needs a separate extractor or a
   stronger model. No v2.8 result is claimed.
-- **Human review sample:** `to_human/adjudication_sample.csv` (18 items,
-  stratified across writer drift, judge errors, and controls).
+- **Human annotation (v2.4).**
+  - Neutral: two independent manual annotators; unsupported-label agreement
+    raw 0.942, Cohen's kappa 0.849. Drift 6.7–7.9% overall; Raw 0/30;
+    Direct D5 0/30; Recursive D5 13.6–15.4%; Rewrite-matched D5 16.7–17.9%;
+    intentional 21.9–25.7%; epistemic and conditional 0%.
+  - Status-aware: single manual annotator A; drift 4.2% overall, Recursive D5
+    6.9%, Rewrite-matched D5 10.0%, intentional 7.5%. The status-aware B file
+    was gold-derived and is not used.
+  - Neutral roughly doubles the human-annotated drift.
+- **Annotation integrity note:** the status-aware B file was generated from gold
+  defaults; its agreement/kappa claims were withdrawn. The neutral B was later
+  re-annotated manually and is valid.
 
 ## Currently running
 
-- No heavy run in progress. The sidecar line is blocked; the main evidence is
-  complete.
-- Next: human adjudication of `adjudication_sample.csv`, final synthesis, and a
-  separate-extractor prototype for the sidecar if desired.
+- v2.9 matched-token-budget control: neutral writer, 30 trajectories, D5 token
+  target 17 (tolerance 1, 4 attempts); primary comparison is the [14,18] token
+  band. Partial token means at 14/30: direct 18.6, recursive 16.9,
+  rewrite-matched 16.8.
+- Next: complete the band comparison, then obtain a second manual annotator for
+  the status-aware condition.
 
 ## File map
 
