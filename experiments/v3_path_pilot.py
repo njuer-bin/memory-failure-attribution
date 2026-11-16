@@ -53,6 +53,21 @@ HETEROGENEOUS_PATHS = {
              "prompt_style": "neutral", "temperature": 0.7},
 }
 
+HETEROGENEOUS_MULTI_TEMP_PATHS = {
+    "S1": {"schedule": [220, 180, 140, 120, 100], "source_peek": False,
+           "prompt_style": "neutral", "temperature": 0.0, "seed": 42},
+    "S2": {"schedule": [220, 160, 150, 120, 100], "source_peek": False,
+           "prompt_style": "neutral", "temperature": 0.0, "seed": 42},
+    "PEEK": {"schedule": [220, 180, 140, 120, 100], "source_peek": True,
+             "prompt_style": "neutral", "temperature": 0.0, "seed": 42},
+    "PARA": {"schedule": [220, 180, 140, 120, 100], "source_peek": False,
+             "prompt_style": "neutral_paraphrase", "temperature": 0.0, "seed": 42},
+    "TEMP1": {"schedule": [220, 180, 140, 120, 100], "source_peek": False,
+              "prompt_style": "neutral", "temperature": 0.7, "seed": 42},
+    "TEMP2": {"schedule": [220, 180, 140, 120, 100], "source_peek": False,
+              "prompt_style": "neutral", "temperature": 0.7, "seed": 43},
+}
+
 
 def build_trajectories(topics_count: int = 2) -> list[dict[str, Any]]:
     rows = []
@@ -110,7 +125,7 @@ def run_path(row: dict[str, Any], name: str, spec: dict[str, Any], args) -> list
             source = memory + "\n\n[原始对话]\n" + row["dialogue"]
         memory = chat(args.base_url, args.writer_model,
                       writer_prompt(source, budget, spec["prompt_style"]),
-                      args.timeout, args.retries, args.seed,
+                      args.timeout, args.retries, spec.get("seed", args.seed),
                       f"{name}_stage{stage}", "writer",
                       temperature=spec["temperature"])
         memories.append(memory)
@@ -144,7 +159,12 @@ def pairwise_path_rates(records: list[dict[str, Any]],
 def run(args: argparse.Namespace) -> None:
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    paths = HETEROGENEOUS_PATHS if args.design == "heterogeneous" else SCHEDULE_PATHS
+    if args.design == "heterogeneous_multi_temp":
+        paths = HETEROGENEOUS_MULTI_TEMP_PATHS
+    elif args.design == "heterogeneous":
+        paths = HETEROGENEOUS_PATHS
+    else:
+        paths = SCHEDULE_PATHS
     trajectories = build_trajectories(args.topics)[:args.limit]
     records = []
     for index, row in enumerate(trajectories, 1):
@@ -214,8 +234,9 @@ def summarize(records: list[dict[str, Any]], args: argparse.Namespace,
     direct_divergences = [row["direct_vs_paths"]["pairwise_disagreement"] for row in records
                           if row["direct_vs_paths"]["pairwise_disagreement"] is not None]
     return {
-        "protocol": ("v3_path_replicate_pilot_p1b" if args.design == "heterogeneous"
-                     else "v3_path_replicate_pilot_v0"),
+        "protocol": ("v3_path_replicate_pilot_p1c" if args.design == "heterogeneous_multi_temp"
+                     else ("v3_path_replicate_pilot_p1b" if args.design == "heterogeneous"
+                           else "v3_path_replicate_pilot_v0")),
         "design": args.design,
         "writer_model": args.writer_model, "seed": args.seed,
         "paths": paths, "final_budget": FINAL_BUDGET,
@@ -239,7 +260,8 @@ def summarize(records: list[dict[str, Any]], args: argparse.Namespace,
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out-dir", required=True)
-    parser.add_argument("--design", choices=("schedules", "heterogeneous"),
+    parser.add_argument("--design", choices=("schedules", "heterogeneous",
+                                             "heterogeneous_multi_temp"),
                         default="schedules")
     parser.add_argument("--limit", type=int, default=12)
     parser.add_argument("--topics", type=int, default=2)

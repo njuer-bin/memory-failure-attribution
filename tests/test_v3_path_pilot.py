@@ -1,4 +1,5 @@
 from experiments.v3_path_pilot import (
+    HETEROGENEOUS_MULTI_TEMP_PATHS,
     HETEROGENEOUS_PATHS,
     normalized_state,
     pairwise_path_rates,
@@ -54,6 +55,12 @@ def test_heterogeneous_paths_are_five_unique_specs():
     assert len(HETEROGENEOUS_PATHS) == 5
     assert set(HETEROGENEOUS_PATHS) == {"S1", "S2", "PEEK", "PARA", "TEMP"}
     assert len({str(spec) for spec in HETEROGENEOUS_PATHS.values()}) == 5
+
+
+def test_multi_temp_paths_have_distinct_temp_seeds():
+    assert len(HETEROGENEOUS_MULTI_TEMP_PATHS) == 6
+    assert set(HETEROGENEOUS_MULTI_TEMP_PATHS) == {"S1", "S2", "PEEK", "PARA", "TEMP1", "TEMP2"}
+    assert HETEROGENEOUS_MULTI_TEMP_PATHS["TEMP1"]["seed"] != HETEROGENEOUS_MULTI_TEMP_PATHS["TEMP2"]["seed"]
 
 
 def test_pairwise_path_rates():
