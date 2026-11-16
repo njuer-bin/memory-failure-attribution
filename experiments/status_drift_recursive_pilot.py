@@ -271,7 +271,9 @@ def judge(sample: dict[str, Any], text: str, args: argparse.Namespace) -> dict[s
                judge_prompt(sample, text), args.timeout, args.retries, args.seed)
     parsed = parse_json(raw)
     status = str(parsed.get("status", "PARSE_ERROR")).strip().upper()
-    if status not in sample["allowed_labels"]:
+    if status == "PARSE_ERROR":
+        pass
+    elif status not in sample["allowed_labels"]:
         status = "OMITTED" if status in ("OMITTED", "NOT_MENTIONED") else "INVALID_LABEL"
     retained = parsed.get("proposition_retained")
     if not isinstance(retained, bool):
@@ -354,11 +356,12 @@ def _topic_mention_check(row: dict[str, Any], condition: str, depth: int | None)
 
 def evaluate_condition(rows: list[dict[str, Any]], condition: str,
                        depth: int | None = None) -> dict[str, Any]:
-    items = []
-    for row in rows:
-        prediction = _prediction(row, condition, depth)
-        if prediction and prediction.get("status") not in ("INVALID_LABEL", "PARSE_ERROR"):
-            items.append((row, prediction))
+    attempted = [(row, _prediction(row, condition, depth)) for row in rows
+                 if _prediction(row, condition, depth) is not None]
+    invalid = [(row, pred) for row, pred in attempted
+               if pred.get("status") in ("INVALID_LABEL", "PARSE_ERROR")]
+    items = [(row, pred) for row, pred in attempted
+             if pred.get("status") not in ("INVALID_LABEL", "PARSE_ERROR")]
     n = len(items)
     correct = sum(pred["status"] == row["gold_status"] for row, pred in items)
     retained = [(row, pred) for row, pred in items if pred.get("proposition_retained") is True]
@@ -403,7 +406,12 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
     cond_ambiguous = sum(a == "AMBIGUOUS" for a in cond_actual)
 
     return {
-        "n_valid": n, "accuracy": correct / n if n else None, "correct": correct,
+        "n_expected": len(rows), "n_attempted": len(attempted), "n_valid": n,
+        "n_invalid_or_parse_error": len(invalid),
+        "n_missing_predictions": len(rows) - len(attempted),
+        "prediction_failure_rate": ((len(invalid) + len(rows) - len(attempted)) / len(rows)
+                                    if rows else None),
+        "accuracy": correct / n if n else None, "correct": correct,
         "proposition_retained_n": len(retained),
         "cpsd_judge_provisional": distorted / len(retained) if retained else None,
         "cpsd_judge_provisional_numerator": distorted,
