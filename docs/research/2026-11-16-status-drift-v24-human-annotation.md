@@ -1,0 +1,112 @@
+# v2.4 Human Annotation Result (2026-11-16)
+
+**Set:** `results/status_drift_v2_pilot/v24_full/annotation/`
+**Items:** 120 per annotator (30 trajectories × Raw / Direct D5 / Recursive D5 /
+Rewrite-matched D5).
+**Annotators:** A and B, independent.
+**Run:** `v24_full` (design v3, status-aware writer default, qwen2.5:7b writer
+and judge, rewrite-matched enabled).
+
+## 1. Completion and validity
+
+- A: 120 rows, 0 missing labels, 0 invalid values.
+- B: 120 rows, 0 missing labels, 0 invalid values.
+- Same 120 keys in both files.
+
+## 2. Inter-annotator agreement
+
+| Field | Raw agreement | Cohen's kappa |
+|---|---:|---:|
+| proposition_identity | 0.967 | 0.324 |
+| polarity | 0.950 | 0.795 |
+| epistemic_status | 1.000 | 1.000 |
+| intention_status | 0.992 | 0.984 |
+| action_status | 0.925 | 0.841 |
+| condition_status | 0.992 | 0.983 |
+| **unsupported_status_change** | **1.000** | **1.000** |
+
+The low proposition-identity kappa reflects extreme prevalence (A: 119
+PRESERVED / 1 PARTIAL; B: 115 / 5), not disagreement about the common class.
+There are **zero disagreements on the primary drift label**.
+
+## 3. Primary metric — Unsupported Status Drift Rate
+
+Among items with proposition identity PRESERVED:
+
+| Condition | A preserved / YES / rate | B preserved / YES / rate |
+|---|---:|---:|
+| Raw | 30 / 0 / 0.0% | 30 / 0 / 0.0% |
+| Direct D5 | 30 / 0 / 0.0% | 30 / 0 / 0.0% |
+| Recursive D5 | 29 / 2 / 6.9% | 27 / 2 / 7.4% |
+| Rewrite-matched D5 | 30 / 3 / 10.0% | 28 / 3 / 10.7% |
+| **Overall** | 119 / 5 / 4.2% | 115 / 5 / 4.3% |
+
+By dimension (all four conditions):
+
+| Dimension | A YES / preserved | B YES / preserved |
+|---|---:|---:|
+| epistemic | 2 / 40 = 5.0% | 2 / 40 = 5.0% |
+| intentional | 3 / 40 = 7.5% | 3 / 38 = 7.9% |
+| conditional | 0 / 39 = 0.0% | 0 / 37 = 0.0% |
+
+## 4. The five drift cases
+
+All five are at Recursive or Rewrite-matched D5; Raw and Direct D5 have none.
+
+1. `epistemic_01_S` recursive D5 — gold POSSIBLE; memory
+   `计划近期去上海工作…` escalates possible to a planned/certain assertion.
+   Both annotators: epistemic CERTAIN, unsupported YES.
+2. `epistemic_01_S` rewrite-matched D5 — same escalation.
+3. `intentional_02_U` recursive D5 — gold COMMITTED; memory
+   `用户申请研究生，推进计划…` weakens `决定` to `推进计划`.
+   Both: intention INTENDING, unsupported YES.
+4. `intentional_02_U` rewrite-matched D5 — same weakening.
+5. `intentional_04_U` rewrite-matched D5 — gold COMMITTED; memory
+   `用户开始学日语…` loses the commitment cue and may imply execution.
+   A: INTENDING + action IN_PROGRESS; B: intention NONE + action UNKNOWN;
+   both: unsupported YES.
+
+These are exactly the two predicted failure modes: epistemic escalation and
+intentional commitment weakening. No conditional drift was found in this sample.
+
+## 5. Proposition identity
+
+- A: 119/120 PRESERVED, 1 PARTIAL.
+- B: 115/120 PRESERVED, 5 PARTIAL.
+- Four disagreements: `conditional_03_S` and `intentional_03_S` at Recursive D5
+  and Rewrite-matched D5 (A PRESERVED, B PARTIAL). They do not affect the
+  unsupported label (both annotators agree on the drift label), but they change
+  the denominator slightly (rates above report both).
+
+## 6. Interpretation
+
+- **Human labels confirm near-perfect proposition preservation** under the
+  status-aware writer.
+- **Unsupported status drift is low but nonzero** (4.2–4.3% overall) and appears
+  only at Recursive/Rewrite D5; Raw and Direct D5 are zero.
+- The direction matches the chaining hypothesis, but the sample is 30
+  trajectories and the absolute counts are small (2 vs 3). Treat this as
+  **directional evidence**, not an established recursion effect.
+- The `v24_full` run uses the default **status-aware** writer. This result
+  validates the mitigation condition; it does not human-confirm the larger
+  neutral-writer effect reported earlier by LLM judges and the deterministic cue
+  metric.
+- Conditional had zero human-labeled drift in this sample; epistemic (5%) and
+  intentional (7.5–7.9%) carried the five cases.
+
+## 7. Gate status
+
+- Pipeline gate: PASS.
+- Phenomenon-level pilot: **PASS for this run** — five human-adjudicated
+  examples show proposition preservation alongside unsupported status change,
+  with evidence-turn review.
+- Recursion hypothesis: **directional only** (Direct 0 vs Recursive 2 /
+  Rewrite 3); not established without a matched-budget design and a larger
+  sample.
+
+## 8. Next
+
+1. Human-annotate a **neutral-writer** v24 run to test the larger effect.
+2. Adjudicate the four PARTIAL/PRESERVED disagreements.
+3. Add token-level usage logging and a matched final-budget experiment.
+4. Expand topics/annotators before any generalization claim.

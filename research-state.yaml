@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 12
+  total_runs: 15
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -159,18 +159,39 @@ experiments:
       wall_time_min: null
       change_summary: "qwen+gemma on 180 items: agreement 180/180, both-wrong 0; all 40 updated D3/D5 items judged COMMITTED; stable CONSIDERING cases correct. Label confirmation passes."
       timestamp: "2026-11-16"
-  current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md + _V2_4.md + _V2_5.md + _V2_6.md + _V2_7.md + _V2_8.md (blocked)"
+    - run_id: "v24_smoke"
+      hypothesis: "v2.4 pipeline and resume-fingerprint gate"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "6 trajectories, 0 errors, fingerprint and size diagnostics present. Manual reading found judge label inversion and confirmation downgrade; pipeline gate passes, judge provisional."
+      timestamp: "2026-11-16"
+    - run_id: "v24_full"
+      hypothesis: "v2.4 full pilot for human annotation"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "30 trajectories + rewrite-matched, 0 errors, 0 invalid/missing. Uncalibrated judge shows no recursion penalty (recursive-minus-direct negative); judge metrics provisional only."
+      timestamp: "2026-11-16"
+    - run_id: "v24_human_annotation"
+      hypothesis: "Human-annotated unsupported status drift (status-aware writer)"
+      metric_value: 0.042
+      delta: null
+      wall_time_min: null
+      change_summary: "120 items per annotator; unsupported_status_change agreement 1.000/kappa 1.000. Drift: raw 0/30, direct D5 0/30, recursive D5 2/29-27 (6.9-7.4%), rewrite D5 3/30-28 (10.0-10.7%). Five cases: epistemic escalation + intentional commitment weakening."
+      timestamp: "2026-11-16"
+  current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_4.md (revision) + docs/STATUS_DRIFT_PILOT_PROTOCOL.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
+  current_results: "docs/research/2026-11-16-status-drift-v24-full.md; docs/research/2026-11-16-status-drift-v24-human-annotation.md; docs/research/2026-11-16-status-drift-v24-smoke-review.md; docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 13
+  cycle: 14
   last_direction: "deepen"
-  last_reflection: "v2.8 sidecar is blocked: the 7B writer cannot reliably emit prose plus a structured sidecar (two prompt attempts invalid). No v2.8 result. v2.7 commitment-aware ceiling remains the mitigation evidence. Next: final synthesis and human-adjudication pass."
+  last_reflection: "v2.4 human annotation is complete. Unsupported status drift is 4.2-4.3% overall, 0/30 raw, 0/30 direct D5, 2 recursive D5, 3 rewrite-matched D5; all five cases are epistemic escalation or intentional commitment weakening. Phenomenon gate passes for the status-aware writer; recursion remains directional only. Next: human-annotate a neutral-writer run and add matched-budget controls."
 
 workspace:
   findings: "findings.md"

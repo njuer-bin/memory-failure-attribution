@@ -234,3 +234,20 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Deterministic proposition omission 1/20 at recursive D3/D5.
 - The commitment-aware ceiling is confirmed at both cue and label levels.
 - Recorded in `docs/research/2026-11-16-status-drift-v27-judge.md`.
+
+### v2.4 smoke, full run, and human annotation — completed
+
+- Fixed the revised branch's test API (`topic_mentioned`); 53 tests pass.
+- Smoke (6 trajectories): 0 errors, fingerprint and size diagnostics present;
+  manual reading found judge inversion/downgrades; pipeline gate passes.
+- Full run (30 trajectories, rewrite-matched): 0 errors, 0 invalid/missing.
+  The uncalibrated judge shows no recursion penalty (recursive-minus-direct
+  negative), so judge metrics are provisional only.
+- Human annotation: 120 items per annotator, balanced gold statuses;
+  unsupported-status agreement 1.000 (kappa 1.0).
+- Primary drift: Raw 0/30, Direct D5 0/30, Recursive D5 2/27–29 (6.9–7.4%),
+  Rewrite-matched D5 3/28–30 (10.0–10.7%); overall 4.2–4.3%. Five cases:
+  epistemic escalation and intentional commitment weakening.
+- Phenomenon gate passes for the status-aware writer; recursion is directional
+  only (Direct 0 vs Recursive 2 / Rewrite 3).
+- Recorded in `docs/research/2026-11-16-status-drift-v24-human-annotation.md`.
