@@ -2,18 +2,27 @@
 **Status:** Draft; finalize before confirmatory generation and annotation.
 
 ## 1. Estimands
-Primary estimand: paired difference in unsupported status-distortion probability between Recursive and Direct conditions, among outputs adjudicated PRESERVED, at each predeclared budget level.
+**Primary estimand A — joint outcome distribution.** For each condition and
+budget, the unconditional distribution over the four joint categories:
+(1) PRESERVED and status-faithful, (2) PRESERVED and unsupported-distorted,
+(3) PARTIAL/LOST, (4) AMBIGUOUS/unassessable. This avoids conditioning on a
+post-generation variable.
 
-Because proposition preservation is a post-generation variable, this conditional estimand is not interpreted alone. Also estimate unconditional joint outcomes:
-1. PRESERVED and status-faithful;
-2. PRESERVED and unsupported-distorted;
-3. PARTIAL / LOST;
-4. AMBIGUOUS / unassessable.
-This avoids hiding selection effects induced by conditioning on proposition preservation.
+**Primary estimand B — within-condition path divergence.** Among PATH_REPLICATE
+paths for the same trajectory and condition, the pairwise state disagreement and
+dispersion defined in `V3_FORMAL_DEFINITIONS.md` §9, restricted to paths with
+PRESERVED proposition identity.
+
+**Secondary estimand — conditional USDR.** Unsupported status distortion among
+PRESERVED outputs, paired Recursive − Direct. Report alongside the joint
+outcomes and never interpret it alone.
 
 ## 2. Primary contrasts
-- Recursive versus Direct: path-history contrast.
+- Within-condition path divergence: PATH_REPLICATE path pairs (primary).
+- Recursive versus Direct: path-history contrast (joint outcomes + secondary USDR).
 - Rewrite-matched versus Direct: repeated-rewriting contrast.
+- Repeated-direct versus Direct: call-count contrast.
+- Source-peek versus Recursive: source-access contrast.
 - Recursive versus Rewrite-matched: intermediate-budget schedule contrast.
 Raw and Retrieval are reference strategies, not substitutes for the primary paired contrast.
 

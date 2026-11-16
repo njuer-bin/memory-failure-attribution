@@ -91,5 +91,33 @@ Annotators do not see these fields before independent annotation.
 5. Is any difference a legitimate update, a paraphrase, omission, ambiguity, or unsupported distortion?
 This order reduces hindsight leakage from the gold state.
 
-## 9. Non-claims
+## 9. Path and path divergence
+
+A transformation path is the ordered sequence of writer calls and intermediate
+budgets applied to a trajectory, ending at a fixed final budget. A path is not
+the same as a condition: one condition may admit multiple paths.
+
+For a trajectory and condition, let the final memories of P paths be
+m_1,...,m_P. For each applicable state dimension d, define the path state set
+S_d = { state(m_i, d) } over paths whose proposition identity is PRESERVED.
+
+- **Pairwise divergence:** fraction of path pairs whose state differs,
+  averaged over applicable dimensions.
+- **Dispersion:** number of distinct states in S_d minus 1.
+- **Path-dependence index:** 1 − max_state_share (0 = all paths agree; higher =
+  more path-dependent), reported per dimension.
+
+Paths with proposition identity LOST/PARTIAL/AMBIGUOUS are excluded from S_d and
+reported separately. A condition whose path divergence is driven mostly by
+proposition loss is not evidence for status path dependence.
+
+## 10. Ontology convergence for the confirmatory study
+
+The rich ontology is for calibration and descriptive analysis. Before the
+confirmatory run, labels that cannot be applied reliably (e.g., POSSIBLE vs
+PROBABLE vs SUPPORTED, or INTENDING vs COMMITTED) must be collapsed to 2–3
+mutually exclusive categories per dimension, with the mapping and reliability
+reported. The confirmatory ontology is frozen together with the protocol.
+
+## 11. Non-claims
 The ontology is a research instrument, not a universal theory of belief or intention. Labels must be revised if calibration reveals systematic ambiguity. No claim of psychological access to a speaker's true internal state is made; the target is the state communicated in the dialogue.

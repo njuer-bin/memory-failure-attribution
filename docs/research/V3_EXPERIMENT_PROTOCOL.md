@@ -14,6 +14,9 @@ C. RECURSIVE: first write from full dialogue, then rewrite the previous memory f
 D. REWRITE_MATCHED: same number of writing calls as RECURSIVE, but intermediate target budgets are held at a predeclared constant or schedule matched to the recursive condition. This is a mechanism control, not assumed equivalent by name.  
 E. RETRIEVAL: retrieve selected original evidence snippets under a fixed retrieval budget. Treat as a distinct strategy.  
 F. STRUCTURED_STATE (optional): explicit structured state representation with evidence links. Keep optional until implementation and evaluation rules are frozen.
+G. PATH_REPLICATE: multiple predeclared intermediate schedules under the same condition, same source and final budget. This is the primary unit for within-condition path divergence.
+H. SOURCE_PEEK: chained rewriting that can access both the prior memory and the original dialogue. Separates transformation history from source availability.
+I. REPEATED_DIRECT: d independent direct compressions of the full dialogue, keeping the last. Matches call count without chaining.
 
 ## 4. Controls to record
 For every generation:
@@ -27,6 +30,14 @@ No result may be dropped because it is inconvenient or outside a target token ba
 
 ## 5. Budget design
 Use at least two predeclared budget levels if feasible. Select budgets from pilot distributions before the confirmatory run. The primary analysis is intention-to-treat by assigned budget condition, using actual token count as a covariate or descriptive exposure. A post-hoc matched-token subset may be shown only as sensitivity analysis and must be labeled as selection-conditioned.
+
+Concrete assignment rules (to be frozen in P0):
+
+- Final budget B is fixed per trajectory before generation.
+- Each path schedule is predeclared (e.g., 220→180→140→120→100; 220→200→160→130→100).
+- The writer receives the same prompt template across schedules; only the intermediate budgets differ.
+- Report achieved tokens per stage and per condition; never select outputs into a token band as the primary analysis.
+- If a stage fails, keep the failure in the audit log; do not re-roll until a convenient length appears.
 
 ## 6. Trajectory composition
 Balance across:
@@ -47,9 +58,11 @@ Two independent annotators label proposition identity, represented state, eviden
 
 ## 9. Primary and secondary outcomes
 Primary:
-- unsupported status distortion among PRESERVED propositions;
-- paired Recursive − Direct difference at each predeclared budget.
+- **joint outcome distribution** of proposition identity × status fidelity (unconditional);
+- paired Recursive − Direct difference at each predeclared budget, reported alongside the joint outcomes;
+- within-condition **path divergence** among PATH_REPLICATE paths (pairwise state disagreement and dispersion).
 Key secondary:
+- USDR among PRESERVED propositions (conditioned; not interpreted alone);
 - proposition loss and partial identity;
 - status omission without a changed state;
 - legitimate update accuracy;

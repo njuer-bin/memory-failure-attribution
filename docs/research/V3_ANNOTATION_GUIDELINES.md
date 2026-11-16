@@ -77,5 +77,7 @@ Gold state and evidence-turn annotations are created by a separate curator and h
 ## 7. Quality controls
 Include repeated hidden items to estimate intra-annotator consistency, clear positive/negative controls, and ambiguous controls. Do not use trick questions that rely on undocumented conventions. Report agreement by dimension and label prevalence; a single overall kappa can hide severe class imbalance.
 
+Staged annotation budget (recommended): a 60-item calibration set first; freeze the guide and ontology; then a confirmatory set sized by the power analysis. For PATH_REPLICATE, each path is a separate anonymized item; path IDs are opaque and shuffled so annotators cannot infer the schedule. Do not annotate all paths of one trajectory consecutively.
+
 ## 8. Annotation record schema
 Each record should include item_id, annotator_id, proposition_identity, applicable_dimensions, represented_state, evidence_support, primary_judgment, subtype, rationale, confidence, and optional turn references. Condition mapping and gold labels remain in a separate file.
