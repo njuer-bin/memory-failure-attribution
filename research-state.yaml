@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 13
+  total_runs: 14
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -152,15 +152,22 @@ experiments:
       wall_time_min: null
       change_summary: "Intentional only, 20 trajectories. Commitment-aware prompt gives 10/10 strict MATCH and 10 strong cues at every depth; 0 absent. Neutral D5 was 1 strong/8 none; status-aware 5 strong/5 weak. Ceiling intervention, not practical default; proposition omission 0-1/20."
       timestamp: "2026-11-16"
+    - run_id: "v27_judge_confirmation"
+      hypothesis: "Judge confirmation of the commitment-aware result"
+      metric_value: 1.0
+      delta: null
+      wall_time_min: null
+      change_summary: "qwen+gemma on 180 items: agreement 180/180, both-wrong 0; all 40 updated D3/D5 items judged COMMITTED; stable CONSIDERING cases correct. Label confirmation passes."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md"
   current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 11
+  cycle: 12
   last_direction: "deepen"
-  last_reflection: "v2.7 commitment-aware writer eliminates intentional cue loss (10/10 strong at every depth) but is a ceiling intervention. The practical next step is a post-hoc status checker/repair, plus judging the v2.7 outputs to confirm labels."
+  last_reflection: "v2.7 judge confirmation: 180/180 agreement, 40/40 updated D3/D5 COMMITTED. The commitment-aware ceiling is confirmed at both cue and label levels. Next: v2.8 structured sidecar (realistic mitigation) and human adjudication."
 
 workspace:
   findings: "findings.md"

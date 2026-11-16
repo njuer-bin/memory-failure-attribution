@@ -224,3 +224,13 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   are templated. Practical implication is a post-hoc checker/repair step.
 - Recorded in
   `docs/research/2026-11-16-status-drift-v27-commitment-aware.md`.
+
+### v2.7 judge confirmation — completed
+
+- qwen2.5:7b + gemma3:12b on 180 items.
+- Inter-judge agreement 180/180 = 1.000; both-wrong 0/180.
+- All 40 updated D3/D5 items judged COMMITTED by both judges; stable
+  CONSIDERING cases correct.
+- Deterministic proposition omission 1/20 at recursive D3/D5.
+- The commitment-aware ceiling is confirmed at both cue and label levels.
+- Recorded in `docs/research/2026-11-16-status-drift-v27-judge.md`.
