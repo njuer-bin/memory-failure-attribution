@@ -1,0 +1,33 @@
+{
+  "writer_model": "qwen2.5:7b",
+  "judge_model": "qwen2.5:7b",
+  "base_url": "http://127.0.0.1:11434",
+  "limit": 30,
+  "depths": [
+    1,
+    2,
+    3,
+    5
+  ],
+  "budgets_chars": {
+    "1": 220,
+    "2": 180,
+    "3": 140,
+    "4": 120,
+    "5": 100
+  },
+  "temperature": 0,
+  "design": "v3",
+  "writer_style": "neutral",
+  "seed": 42,
+  "skip_judge": false,
+  "dimensions": "epistemic,intentional,conditional",
+  "rewrite_matched": true,
+  "topics": 5,
+  "timeout": 180,
+  "retries": 2,
+  "token_target": 17,
+  "token_tolerance": 1,
+  "token_attempts": 4,
+  "config_fingerprint": "8cfa283fb3de33d779502aef0a7bc28d81436c3d35308bd79992490794e287a4"
+}

@@ -289,3 +289,15 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   two-annotator reliability is valid (raw 0.942, kappa 0.849).
 - Recorded in
   `docs/research/2026-11-16-status-drift-annotation-integrity-correction.md`.
+
+### v2.9 matched token-band — completed
+
+- Neutral, 30 trajectories, D5 token target 17; 0 errors.
+- Achieved D5 writer tokens: direct 18.1 (11-22), recursive 16.7 (10-21),
+  rewrite-matched 16.3 (10-22).
+- Band [14,18], topic-mentioned updated cases: direct 1/7 = 14.3% ABSENT,
+  recursive 5/6 = 83.3%, rewrite-matched 6/8 = 75.0%.
+- Recursive D5 proposition omission 13.3% (4/30) exceeds the pre-registered
+  10% gate; the matched-band result is directional, not confirmatory.
+- The chaining effect is not solely a shorter-output artifact in this pilot.
+- Recorded in `docs/research/2026-11-16-status-drift-v29-matched-token.md`.

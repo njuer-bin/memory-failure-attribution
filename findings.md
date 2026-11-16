@@ -90,6 +90,13 @@ in status preservation.**
   raw 0.942, Cohen's kappa 0.849. Raw and Direct D5 are 0; Recursive D5
   13.6–15.4%; Rewrite-matched D5 16.7–17.9%; intentional 21.9–25.7%;
   epistemic and conditional 0. Neutral roughly doubles the status-aware drift.
+- **Matched token-band control (v2.9) supports the chaining effect,
+  conditionally.** At [14,18] writer tokens, topic-mentioned updated cases:
+  direct 1/7 ABSENT, recursive 5/6, rewrite-matched 6/8. Achieved token means
+  are close (18.1 / 16.7 / 16.3) and ranges overlap, so the effect is not solely
+  a length artifact. However, recursive D5 topic omission is 13.3%, above the
+  pre-registered 10% gate; treat this as directional matched-band evidence, not
+  a clean confirmatory result.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

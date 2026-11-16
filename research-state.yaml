@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 17
+  total_runs: 18
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -194,6 +194,13 @@ experiments:
       wall_time_min: null
       change_summary: "Two independent manual annotators: A 9/114 = 7.9%, B 7/105 = 6.7%; primary-label agreement raw 0.942, kappa 0.849. Recursive D5 13.6-15.4%, rewrite D5 16.7-17.9%, raw/direct 0%; intentional 21.9-25.7%. Neutral roughly doubles the status-aware A-only drift."
       timestamp: "2026-11-16"
+    - run_id: "v29_matched_token_band"
+      hypothesis: "Chaining effect at matched output length"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Neutral, 30 trajectories, D5 token target 17. Achieved means 18.1/16.7/16.3. Band [14,18], topic-mentioned updated cases: direct 1/7 ABSENT, recursive 5/6, rewrite 6/8. Recursive D5 proposition omission 13.3% fails the 10% gate; directional matched-band evidence only."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_4.md (revision) + docs/STATUS_DRIFT_PILOT_PROTOCOL.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
@@ -203,9 +210,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 17
+  cycle: 18
   last_direction: "deepen"
-  last_reflection: "Neutral B was manually re-annotated: two independent annotators agree at raw 0.942 / kappa 0.849, with drift 6.7-7.9% (chained D5 13.6-15.4%, intentional 21.9-25.7%). Status-aware uses A-only (4.2%) by project decision; its B is gold-derived and not used. Next: matched-token-budget experiment."
+  last_reflection: "Matched token-band control: at [14,18] tokens among topic-mentioned updated cases, direct 1/7 vs recursive 5/6 vs rewrite 6/8 ABSENT. The chaining effect survives length matching, but recursive D5 proposition omission 13.3% fails the 10% gate, so the result is directional only. Neutral human drift is 6.7-7.9% (two annotators); status-aware A-only 4.2%. Next: status-aware matched-band and larger n."
 
 workspace:
   findings: "findings.md"

@@ -41,8 +41,9 @@ def token_stats(rows: list[dict], condition: str) -> dict | None:
 
 
 def band_stats(rows: list[dict], condition: str, low: int, high: int,
-               in_band: bool = True) -> dict:
+               in_band: bool = True, require_topic: bool = True) -> dict:
     items = []
+    topic_lost = 0
     for row in rows:
         if not eligible(row):
             continue
@@ -52,11 +53,14 @@ def band_stats(rows: list[dict], condition: str, low: int, high: int,
         inside = low <= tokens <= high
         if inside != in_band:
             continue
+        if require_topic and not (row.get(f"{condition}_topic_mention") or {}).get("5", False):
+            topic_lost += 1
+            continue
         items.append(row)
     absent = sum(1 for row in items
                  if cue_state(memory(row, condition), row["dimension"],
                               row["gold_status"]) == "ABSENT")
-    return {"n": len(items), "absent": absent,
+    return {"n": len(items), "absent": absent, "topic_lost": topic_lost,
             "rate": absent / len(items) if items else None}
 
 
@@ -72,7 +76,8 @@ def main() -> None:
     for condition in CONDITIONS:
         print(f"{condition:<16} {token_stats(rows, condition)}")
 
-    print(f"\n=== cue ABSENT in band [{args.low}, {args.high}] (updated cases) ===")
+    print(f"\n=== cue ABSENT in band [{args.low}, {args.high}] "
+          f"(updated, topic-mentioned cases) ===")
     for condition in CONDITIONS:
         print(f"{condition:<16} {band_stats(rows, condition, args.low, args.high, True)}")
 
