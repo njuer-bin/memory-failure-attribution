@@ -45,6 +45,42 @@ status-cue loss under repeated/chained compression**, with the
 direct-vs-rewrite-matched contrast and deterministic cue metrics. Do not claim
 a new memory architecture or the first belief-state memory.
 
+## Verified summaries (AlphaXiv, 2026-11-16)
+
+### BELIEFMEM — Belief Memory: Agent Memory Under Partial Observability (2605.05583)
+
+- Stores attribute-level probabilistic beliefs: candidate hypotheses plus
+  evidence-based probabilities, updated with a noisy-OR merge and archived
+  prior probabilities. Belief-aware retrieval returns candidates with
+  probabilities.
+- Evaluated on LoCoMo (F1/BLEU) and ALFWorld (success rate); ablations show
+  probabilistic memory beats deterministic memory.
+- **Not** a measurement of status preservation under recursive/repeated
+  compression; no direct-vs-chained control, no status-cue metric.
+
+### MemCoRe — Recovering Evidence from Progressively Compressed Factual Knowledge (2602.07885)
+
+- Compression hierarchy: detailed records → keywords → topic groups; retrieval
+  searches across levels. Framed as an information-bottleneck trade-off.
+- Measures evidence recall/retrieval under compression, **not** epistemic,
+  intentional, or conditional status preservation.
+- Adjacent on progressive compression, but a different target.
+
+## Novelty position
+
+The defensible contribution is a **controlled diagnostic**:
+
+1. status-cue loss measured separately from proposition retention;
+2. direct vs chained vs rewrite-matched controls, isolating chained rewriting
+   from intermediate budget shrinkage;
+3. a deterministic cue metric plus three-judge validation;
+4. a status-aware writer prompt as a mitigation baseline.
+
+BELIEFMEM already covers probabilistic belief memory; MemCoRe covers
+compression-hierarchy retrieval. Neither appears to measure status drift under
+chained rewriting. Still unread in full: PoS (2610.01415), MemTX (2607.23929),
+Memory as Belief (2610.25119), Agent-BRACE (2605.11436).
+
 ## Immediate literature tasks
 
 1. Read BELIEFMEM (2605.05583) fully. If it already measures status change under
