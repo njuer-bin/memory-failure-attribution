@@ -339,12 +339,12 @@ def _memory(row: dict[str, Any], condition: str, depth: int | None) -> str:
     return (row.get(key) or {}).get(str(depth), "")
 
 
-def _deterministic_retention(row: dict[str, Any], condition: str, depth: int | None) -> bool:
+def _topic_mention_check(row: dict[str, Any], condition: str, depth: int | None) -> bool:
     if condition != "raw":
         key = {
-            "direct": "direct_retention",
-            "recursive": "recursive_retention",
-            "rewrite_matched": "rewrite_matched_retention",
+            "direct": "direct_topic_mention",
+            "recursive": "recursive_topic_mention",
+            "rewrite_matched": "rewrite_matched_topic_mention",
         }[condition]
         value = (row.get(key) or {}).get(str(depth))
         if value is not None:
@@ -378,9 +378,9 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
     det_pairs = [(row, pred) for row in rows
                  for pred in [_prediction(row, condition, depth)]
                  if pred and pred.get("status") not in ("INVALID_LABEL", "PARSE_ERROR")
-                 and _deterministic_retention(row, condition, depth)]
+                 and _topic_mention_check(row, condition, depth)]
     det_distorted = sum(pred["status"] != row["gold_status"] for row, pred in det_pairs)
-    det_omitted = sum(not _deterministic_retention(row, condition, depth) for row in rows)
+    det_omitted = sum(not _topic_mention_check(row, condition, depth) for row in rows)
 
     cond_rows = [row for row in rows if row["dimension"] == "conditional"]
 
@@ -420,12 +420,13 @@ def evaluate_condition(rows: list[dict[str, Any]], condition: str,
         "topic_not_mentioned_rate": det_omitted / len(rows) if rows else None,
         "status_error_given_topic_mention": det_distorted / len(det_pairs) if det_pairs else None,
         "topic_mention_warning": "Lexical topic mention does not establish proposition identity, polarity, relation, or semantic retention.",
-        "condition_det_n": len(cond_rows),
-        "condition_det_correct": cond_correct,
-        "condition_det_accuracy": cond_correct / len(cond_rows) if cond_rows else None,
-        "condition_det_omitted_n": cond_omitted,
-        "condition_det_ambiguous_n": cond_ambiguous,
-        "condition_det_omission_rate": cond_omitted / len(cond_rows) if cond_rows else None,
+        "condition_marker_heuristic_warning": "Rule-based Chinese marker matching is a diagnostic sanity check, not a semantic gold label.",
+        "condition_marker_heuristic_n": len(cond_rows),
+        "condition_marker_heuristic_correct": cond_correct,
+        "condition_marker_heuristic_accuracy": cond_correct / len(cond_rows) if cond_rows else None,
+        "condition_marker_heuristic_omitted_n": cond_omitted,
+        "condition_marker_heuristic_ambiguous_n": cond_ambiguous,
+        "condition_marker_heuristic_omission_rate": cond_omitted / len(cond_rows) if cond_rows else None,
     }
 
 
@@ -503,7 +504,7 @@ def run(args: argparse.Namespace) -> None:
         "budgets_chars": BUDGETS, "temperature": 0, "design": args.design,
         "writer_style": args.writer_style, "seed": args.seed, "skip_judge": args.skip_judge,
         "dimensions": args.dimensions, "rewrite_matched": args.rewrite_matched,
-        "topics": args.topics,
+        "topics": args.topics, "timeout": args.timeout, "retries": args.retries,
     }
     canonical_config = json.dumps(config, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     config_fingerprint = hashlib.sha256(canonical_config.encode("utf-8")).hexdigest()
@@ -526,10 +527,17 @@ def run(args: argparse.Namespace) -> None:
             try:
                 obj = json.loads(line)
                 is_complete = (
-                    obj.get("raw_judgment") is not None
-                    and all(str(d) in obj.get("direct_judgments", {}) for d in DEPTHS)
-                    and all(str(d) in obj.get("recursive_judgments", {}) for d in DEPTHS)
-                    and not obj.get("errors")
+                    not obj.get("errors")
+                    and (
+                        (args.skip_judge
+                         and all(str(d) in obj.get("direct_memories", {}) for d in DEPTHS)
+                         and all(str(d) in obj.get("recursive_memories", {}) for d in DEPTHS))
+                        or
+                        (not args.skip_judge
+                         and obj.get("raw_judgment") is not None
+                         and all(str(d) in obj.get("direct_judgments", {}) for d in DEPTHS)
+                         and all(str(d) in obj.get("recursive_judgments", {}) for d in DEPTHS))
+                    )
                 )
                 if (is_complete and obj.get("config_fingerprint") == config_fingerprint):
                     completed[obj["sample_id"]] = obj
@@ -548,11 +556,11 @@ def run(args: argparse.Namespace) -> None:
                 "design": args.design, "writer_style": args.writer_style, "seed": args.seed,
                 "config_fingerprint": config_fingerprint,
                 "raw_judgment": None, "direct_memories": {}, "direct_judgments": {},
-                "direct_retention": {}, "direct_condition": {}, "direct_memory_sizes": {},
+                "direct_topic_mention": {}, "direct_condition": {}, "direct_memory_sizes": {},
                 "recursive_memories": {}, "recursive_judgments": {},
-                "recursive_retention": {}, "recursive_condition": {}, "recursive_memory_sizes": {},
+                "recursive_topic_mention": {}, "recursive_condition": {}, "recursive_memory_sizes": {},
                 "rewrite_matched_memories": {}, "rewrite_matched_judgments": {},
-                "rewrite_matched_retention": {}, "rewrite_matched_condition": {}, "rewrite_matched_memory_sizes": {},
+                "rewrite_matched_topic_mention": {}, "rewrite_matched_condition": {}, "rewrite_matched_memory_sizes": {},
                 "errors": [],
             }
             try:
@@ -562,7 +570,7 @@ def run(args: argparse.Namespace) -> None:
                 for depth in range(1, 6):
                     recursive_memory = compress(recursive_memory, depth, args)
                     row["recursive_memories"][str(depth)] = recursive_memory
-                    row["recursive_retention"][str(depth)] = topic_mentioned(recursive_memory, sample)
+                    row["recursive_topic_mention"][str(depth)] = topic_mentioned(recursive_memory, sample)
                     row["recursive_memory_sizes"][str(depth)] = text_size(recursive_memory)
                     row["recursive_condition"][str(depth)] = det_condition_status(recursive_memory)
                     if depth in DEPTHS and not args.skip_judge:
@@ -570,14 +578,14 @@ def run(args: argparse.Namespace) -> None:
                 for depth in DEPTHS:
                     direct_memory = compress(sample["dialogue"], depth, args)
                     row["direct_memories"][str(depth)] = direct_memory
-                    row["direct_retention"][str(depth)] = topic_mentioned(direct_memory, sample)
+                    row["direct_topic_mention"][str(depth)] = topic_mentioned(direct_memory, sample)
                     row["direct_memory_sizes"][str(depth)] = text_size(direct_memory)
                     row["direct_condition"][str(depth)] = det_condition_status(direct_memory)
                     if not args.skip_judge:
                         row["direct_judgments"][str(depth)] = judge(sample, direct_memory, args)
                 if args.rewrite_matched:
                     row["rewrite_matched_memories"]["1"] = row["direct_memories"]["1"]
-                    row["rewrite_matched_retention"]["1"] = row["direct_retention"]["1"]
+                    row["rewrite_matched_topic_mention"]["1"] = row["direct_topic_mention"]["1"]
                     row["rewrite_matched_memory_sizes"]["1"] = row["direct_memory_sizes"]["1"]
                     row["rewrite_matched_condition"]["1"] = row["direct_condition"]["1"]
                     if not args.skip_judge:
@@ -586,7 +594,7 @@ def run(args: argparse.Namespace) -> None:
                     for depth in (2, 3, 5):
                         memory = matched[str(depth)]
                         row["rewrite_matched_memories"][str(depth)] = memory
-                        row["rewrite_matched_retention"][str(depth)] = topic_mentioned(memory, sample)
+                        row["rewrite_matched_topic_mention"][str(depth)] = topic_mentioned(memory, sample)
                         row["rewrite_matched_memory_sizes"][str(depth)] = text_size(memory)
                         row["rewrite_matched_condition"][str(depth)] = det_condition_status(memory)
                         if not args.skip_judge:
