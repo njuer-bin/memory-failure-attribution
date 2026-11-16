@@ -89,3 +89,23 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - The 7 both-wrong disagreements are writer omissions; they strengthen H3.
 - Recorded in
   `docs/research/2026-11-16-status-drift-judge-adjudication.md`.
+
+### v2.3 rewrite-matched control — completed
+
+- Neutral writer, 30 trajectories, `--rewrite-matched`, seed 42, both judges.
+- Inter-judge agreement 350/390 = 0.897.
+- Both-correct by condition (d1/d2/d3/d5): direct 29/28/28/27; recursive
+  29/20/17/16; rewrite-matched 29/19/17/15.
+- Paired both-correct: recursive vs rewrite-matched 82 vs 80 (3 vs 1);
+  rewrite-matched vs direct 80 vs 112 (0 vs 32); recursive vs direct 82 vs 112
+  (2 vs 32).
+- Deterministic proposition omission 0–2/30; condition omission direct 0/10,
+  recursive 3–5/10, rewrite-matched 4/10.
+- Interpretation: repeated chained rewriting, not shrinking intermediate
+  budgets, drives status drift. Proposition omission stays low, so the loss is
+  status-specific.
+- Cross-run nondeterminism: the v3 and v2.3 neutral runs produced 106/270
+  different direct/recursive memories despite the same seed and prompts.
+  Within-run contrasts are the valid unit.
+- Recorded in
+  `docs/research/2026-11-16-status-drift-v23-rewrite-matched.md`.

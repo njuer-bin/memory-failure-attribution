@@ -54,14 +54,14 @@ hypotheses:
     motivation: "Central recursion claim; requires paired recursive-vs-direct comparison."
     parent: null
     priority: high
-    note: "Supported under the neutral writer (errors cluster at recursive D2-D5); not under the status-aware writer (one D5 error)."
+    note: "Supported under the neutral writer. v2.3 shows rewrite-matched (constant intermediate budgets) equals recursive and both are much worse than direct, so repeated chained rewriting rather than budget shrinkage drives the effect. Not observed under the status-aware writer."
   - id: H3
     statement: "Proposition retention does not guarantee status retention."
     status: supported
     motivation: "Motivates CPSD as a separate metric from omission."
     parent: null
     priority: high
-    note: "Neutral proposition omission 1.1% while 23 items have a status error agreed by both judges."
+    note: "Neutral proposition omission 1.1% in v3 and 0-2/30 in v2.3 while status errors are far more frequent."
   - id: H4
     statement: "Status-only corruption may independently alter downstream decisions."
     status: pending
@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 5
+  total_runs: 6
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -96,15 +96,22 @@ experiments:
       wall_time_min: null
       change_summary: "30 trajectories x 2 writers x 2 judges; status-aware 256/270 both-correct, neutral 221/270; pairwise 43 vs 8; condition omission 2/90 vs 10/90."
       timestamp: "2026-11-16"
-  current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + docs/STATUS_DRIFT_PROTOCOL_V2_2.md"
-  current_results: "docs/research/2026-11-16-status-drift-v3-30run.md"
+    - run_id: "v23_rewrite_matched"
+      hypothesis: "H2 mechanism: recursion vs repeated rewriting"
+      metric_value: 0.897
+      delta: null
+      wall_time_min: null
+      change_summary: "Neutral writer, 30 trajectories; rewrite-matched (constant 220 intermediates) equals recursive (D3 17 vs 17, D5 15 vs 16 both-correct) and both are far worse than direct (D5 27). Repeated chained rewriting, not budget shrinkage, drives drift."
+      timestamp: "2026-11-16"
+  current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md"
+  current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 3
+  cycle: 4
   last_direction: "deepen"
-  last_reflection: "30-run completed. H1/H3 supported; H2 supported only under the neutral writer. Next: manually adjudicate all 39 judge disagreements, add a rewrite-matched control, and tighten the conditional judge before any external claim."
+  last_reflection: "v2.3 shows chained rewriting, not budget shrinkage, drives neutral-writer drift. Next: status-aware rewrite-matched control, repeated-seed variance, and manual adjudication of the new both-wrong items."
 
 workspace:
   findings: "findings.md"

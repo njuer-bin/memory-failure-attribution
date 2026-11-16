@@ -30,6 +30,14 @@ in status preservation.**
 - **Recursion matters only when the writer is not status-preserving.** Under
   the neutral writer, errors cluster at recursive D2–D5; under the status-aware
   writer only one D5 item fails.
+- **Repeated chained rewriting is the destructive factor, not budget
+  shrinkage.** v2.3 holds intermediate budgets constant at 220 and recovers
+  the same degradation as the shrinking schedule; both are much worse than a
+  single compression to the same final budget. Proposition omission stays
+  0–2/30, so the loss is status-specific.
+- **Cross-run nondeterminism is real.** Two neutral runs with the same seed and
+  prompts produced 106/270 different direct/recursive memories. Within-run
+  contrasts are the valid unit; do not compare single runs as if deterministic.
 - **The status-aware prompt is a strong but not perfect intervention.** It does
   not guarantee preservation at D5; one topic lost the confirmation cue.
 - **Conditional remains the least reliable dimension.** The v2.2 fix removed
@@ -72,9 +80,12 @@ committed. No single judge is a valid instrument.
 ## Hypothesis Status
 
 - **H1 — supported.** Writer strategies differ strongly in status preservation.
-- **H2 — supported under the neutral writer; not under the status-aware
-  writer.** Recursion adds drift only when the prompt does not require
-  preservation.
+- **H2 — supported under the neutral writer; refined by v2.3.** Chained
+  rewriting (`recursive` and `rewrite_matched`) degrades status equally
+  (D3 17 vs 17 both-correct, D5 15 vs 16) and far more than a single
+  compression to the same final budget (D5 27). The mechanism is repeated
+  re-editing of the writer's own output, not shrinking intermediate budgets.
+  It is not observed under the status-aware writer (one D5 error).
 - **H3 — supported.** Proposition retention (98.9–100%) coexists with status
   errors agreed by both judges.
 - **H4 — untested.**
