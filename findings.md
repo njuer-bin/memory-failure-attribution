@@ -79,19 +79,17 @@ in status preservation.**
   Token logging shows chained outputs are shorter (D5 mean 16.1 vs direct 21.4
   tokens), so the contrast is not token-matched and a matched-budget follow-up
   is required.
-- **Human annotation confirms low drift under the status-aware writer.**
-  120 items per annotator, v2.4 full run: unsupported status drift is 0/30 at
-  Raw, 0/30 at Direct D5, 2/27–29 at Recursive D5 (6.9–7.4%), and 3/28–30 at
-  Rewrite-matched D5 (10.0–10.7%); overall 4.2–4.3%. Annotation agreement on
-  the drift label is 1.000 (kappa 1.0). All five drift cases are epistemic
-  escalation or intentional commitment weakening.
-- **Human annotation confirms the larger neutral-writer effect.**
-  120 items per annotator, v2.4 neutral run: overall drift 7.2–8.8%
-  (conservative–liberal bounds); Recursive D5 15.4–15.8%; Rewrite-matched D5
-  19.0–21.4%; Raw and Direct D5 0%. Intentional 21.9–25.7%, epistemic 0%,
-  conditional 0–3.3%. The neutral writer roughly doubles the status-aware
-  drift, and more than doubles it at chained D5. Primary-label agreement is
-  raw 0.900 (kappa 0.764) with 12 disagreements; the direction is robust.
+- **Status-aware drift, single manual annotator (A): 4.2%.** 120 items, v2.4
+  full run: 0/30 at Raw, 0/30 at Direct D5, 2/29 at Recursive D5 (6.9%),
+  3/30 at Rewrite-matched D5 (10.0%); overall 5/119 = 4.2%. All five cases are
+  epistemic escalation or intentional commitment weakening. The status-aware B
+  file is gold-derived and is **not used**; A-only is the accepted estimate for
+  this condition (project decision).
+- **Neutral drift, two independent manual annotators: 6.7–7.9%.** 120 items,
+  v2.4 neutral run: A 9/114 = 7.9%, B 7/105 = 6.7%; primary-label agreement
+  raw 0.942, Cohen's kappa 0.849. Raw and Direct D5 are 0; Recursive D5
+  13.6–15.4%; Rewrite-matched D5 16.7–17.9%; intentional 21.9–25.7%;
+  epistemic and conditional 0. Neutral roughly doubles the status-aware drift.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

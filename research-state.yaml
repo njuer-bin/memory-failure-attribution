@@ -178,7 +178,7 @@ experiments:
       metric_value: 0.042
       delta: null
       wall_time_min: null
-      change_summary: "120 items per annotator; unsupported_status_change agreement 1.000/kappa 1.000. Drift: raw 0/30, direct D5 0/30, recursive D5 2/29-27 (6.9-7.4%), rewrite D5 3/30-28 (10.0-10.7%). Five cases: epistemic escalation + intentional commitment weakening."
+      change_summary: "Single manual annotator A: 5/119 = 4.2% overall; 0/30 raw, 0/30 direct D5, 2/29 recursive D5, 3/30 rewrite D5. Status-aware B is gold-derived and not used (project decision); A-only is the accepted estimate."
       timestamp: "2026-11-16"
     - run_id: "v24_full_neutral"
       hypothesis: "Neutral-writer v2.4 replication with token logging"
@@ -192,7 +192,7 @@ experiments:
       metric_value: 0.072
       delta: null
       wall_time_min: null
-      change_summary: "120 items per annotator; primary-label agreement raw 0.900/kappa 0.764. Overall drift 7.2-8.8% (bounds), Recursive D5 15.4-15.8%, Rewrite D5 19.0-21.4%, Raw/Direct 0%. Intentional 21.9-25.7%. Neutral roughly doubles status-aware drift."
+      change_summary: "Two independent manual annotators: A 9/114 = 7.9%, B 7/105 = 6.7%; primary-label agreement raw 0.942, kappa 0.849. Recursive D5 13.6-15.4%, rewrite D5 16.7-17.9%, raw/direct 0%; intentional 21.9-25.7%. Neutral roughly doubles the status-aware A-only drift."
       timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_4.md (revision) + docs/STATUS_DRIFT_PILOT_PROTOCOL.md"
   invalid_or_blocked:
@@ -203,9 +203,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 16
+  cycle: 17
   last_direction: "deepen"
-  last_reflection: "Neutral human annotation confirms the mitigation: overall drift 7.2-8.8% vs status-aware 4.2-4.3%; chained D5 15-21% vs 7-11%; intentional 22-26% vs 7.5-7.9%. Direction is robust to 12 label disagreements. Token mismatch (16 vs 21 tokens at D5) remains the main causal caveat; matched-token-budget experiment is next."
+  last_reflection: "Neutral B was manually re-annotated: two independent annotators agree at raw 0.942 / kappa 0.849, with drift 6.7-7.9% (chained D5 13.6-15.4%, intentional 21.9-25.7%). Status-aware uses A-only (4.2%) by project decision; its B is gold-derived and not used. Next: matched-token-budget experiment."
 
 workspace:
   findings: "findings.md"

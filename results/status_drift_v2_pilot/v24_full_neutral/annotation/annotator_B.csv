@@ -1,297 +1,297 @@
 ﻿trajectory_id,dimension,target_proposition,condition,depth,annotator_id,proposition_identity,polarity,epistemic_status,intention_status,action_status,condition_status,gold_final_status_from_dialogue,evidence_turn_ids,unsupported_status_change,notes,memory_text,dialogue
-epistemic_00_S,epistemic,购买电脑,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+epistemic_00_S,epistemic,购买电脑,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,原始对话；T1/T3『可能／未确认』明确 POSSIBLE。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_00_S,epistemic,购买电脑,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,可能购买电脑，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+epistemic_00_S,epistemic,购买电脑,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『可能购买电脑』保留不确定性措辞。,可能购买电脑，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_00_S,epistemic,购买电脑,recursive,5,B,PARTIAL,UNCLEAR,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『电脑购控』谓词损坏，『购买电脑』命题只能部分恢复；无确定性线索 → epistemic UNKNOWN。命题不完整按 omission 处理，不计 drift。,电脑购控，天气变改日程，任务完,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+epistemic_00_S,epistemic,购买电脑,recursive,5,B,PARTIAL,UNCLEAR,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『电脑购控』谓词损坏（『购』+『控』不成词），『购买电脑』只能部分恢复 → PARTIAL；无确定性线索 → epistemic UNCLEAR。按 omission 报告，不计 drift。,电脑购控，天气变改日程，任务完,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_00_S,epistemic,购买电脑,rewrite_matched,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,『买电脑』保留命题，但『可能/不确定』丢失且无替代状态线索 → epistemic UNKNOWN，不硬判 CERTAIN。,买电脑，天气多变改计划，完成课程。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+epistemic_00_S,epistemic,购买电脑,rewrite_matched,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,『买电脑』命题在但无确定性词 → epistemic UNCLEAR；记忆无明确状态，不硬判 YES。,买电脑，天气多变改计划，完成课程。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会购买电脑。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_00_S,intentional,购买电脑,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+intentional_00_S,intentional,购买电脑,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,原始对话；T1/T3『正在考虑／没有作出承诺』→ CONSIDERING。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_00_S,intentional,购买电脑,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,考虑买电脑，未决定；天气变化大，整理日程；作业和日常事务。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+intentional_00_S,intentional,购买电脑,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,『考虑买电脑，未决定』。,考虑买电脑，未决定；天气变化大，整理日程；作业和日常事务。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_00_S,intentional,购买电脑,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,考虑买电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+intentional_00_S,intentional,购买电脑,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,『考虑买电脑』保留意向状态。,考虑买电脑，应对天气，整理日程，处理作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_00_S,intentional,购买电脑,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,考虑买电脑，应对天气，管理日程，完成作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+intentional_00_S,intentional,购买电脑,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,同上；『完成作业』指填充事件，非目标行动。,考虑买电脑，应对天气，管理日程，完成作业。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑购买电脑，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_00_S,conditional,购买电脑,raw,raw,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+conditional_00_S,conditional,购买电脑,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,T1 条件→行动关系完整，T3『条件尚未满足』→ ACTIVE_UNSATISFIED。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_00_S,conditional,购买电脑,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未到，暂不买电脑』保留条件→行动关系与未满足状态（用户例 5）。,奖学金未到，暂不买电脑；天气多变，整理日程；作业在手，事务繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+conditional_00_S,conditional,购买电脑,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,用户例 5：『奖学金未到，暂不买电脑』条件活跃未满足 → unsupported NO。,奖学金未到，暂不买电脑；天气多变，整理日程；作业在手，事务繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_00_S,conditional,购买电脑,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未到先不买电脑，整理行程防雨，手头作业多。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+conditional_00_S,conditional,购买电脑,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未到先不买电脑』保留条件→行动关系与未满足状态。,奖学金未到先不买电脑，整理行程防雨，手头作业多。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_00_S,conditional,购买电脑,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未发先不买电脑，忙整理日程应对天气，手中有作业事务繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+conditional_00_S,conditional,购买电脑,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未发先不买电脑』同上。,奖学金未发先不买电脑，忙整理日程应对天气，手中有作业事务繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_00_U,epistemic,购买电脑,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+epistemic_00_U,epistemic,购买电脑,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,T3『已经确认…不是猜测了』明确 CERTAIN。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_00_U,epistemic,购买电脑,direct,5,B,PRESERVED,MIXED,EXPLICITLY_UNCERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,记忆同时列出『确定/不确定』，未断言单一确定性状态 → EXPLICITLY_UNCERTAIN；不硬判 YES（用户例 1）。,[对话记忆] 购买电脑（确定/不确定），天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+epistemic_00_U,epistemic,购买电脑,direct,5,B,PRESERVED,MIXED,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,用户例 1：记忆同时列出『确定/不确定』，未断言单一确定性状态 → epistemic UNCLEAR；不硬判 YES。,[对话记忆] 购买电脑（确定/不确定），天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_00_U,epistemic,购买电脑,recursive,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,『购电脑处理事务』保留购买电脑命题，但无确定性线索 → UNKNOWN。,购电脑处理事务，调天气日程,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+epistemic_00_U,epistemic,购买电脑,recursive,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,『购电脑处理事务』状态词全失（cue 缺失）→ UNCLEAR；不硬判 YES。,购电脑处理事务，调天气日程,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_00_U,epistemic,购买电脑,rewrite_matched,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,同上：无确定性线索，状态不可判定。,购电脑处理工作，天气变改计划,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
+epistemic_00_U,epistemic,购买电脑,rewrite_matched,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,同 014，无确定性线索；『改计划』为填充事件。,购电脑处理工作，天气变改计划,"[Turn 1] 我可能会购买电脑，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会购买电脑，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_00_U,intentional,购买电脑,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+intentional_00_U,intentional,购买电脑,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,T3『已经决定…按这个计划推进』→ COMMITTED。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_00_U,intentional,购买电脑,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『考虑…已决定推进』：以『已决定』为最终状态，与 gold COMMITTED 一致。,考虑买电脑，已决定推进，处理作业和日常事务，天气变化大，整理日程。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+intentional_00_U,intentional,购买电脑,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『已决定推进』保留 COMMITTED；『考虑买电脑』是 T1 旧状态残留。,考虑买电脑，已决定推进，处理作业和日常事务，天气变化大，整理日程。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_00_U,intentional,购买电脑,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,决定/承诺线索完全消失，只剩『买电脑』活动式罗列 → intention NONE；gold COMMITTED 无后文支持 → YES（承诺弱化）。,买电脑做作业、日常，关注天气，规划日程。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+intentional_00_U,intentional,购买电脑,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,决定与承诺完全消失，只剩动作/用途罗列 → 承诺弱化，gold COMMITTED 无后文支持 → YES。,买电脑做作业、日常，关注天气，规划日程。,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_00_U,intentional,购买电脑,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,『买电脑：…』只剩话题式罗列，承诺线索丢失 → NONE → YES。,买电脑：课程作业、日常事务、天气、日程,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
+intentional_00_U,intentional,购买电脑,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,仅剩名词罗列『买电脑：课程作业、日常事务…』，无意向状态 → 承诺弱化 → YES。,买电脑：课程作业、日常事务、天气、日程,"[Turn 1] 我正在考虑购买电脑，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要购买电脑，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_00_U,conditional,购买电脑,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+conditional_00_U,conditional,购买电脑,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,T3『已经拿到奖学金，条件已经满足』→ SATISFIED。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_00_U,conditional,购买电脑,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『已获奖学金』= 条件满足，与 gold 一致。,已获奖学金，考虑买电脑；天气变化大，整理日程；今日处理作业和事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+conditional_00_U,conditional,购买电脑,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『已获奖学金』条件满足明确。,已获奖学金，考虑买电脑；天气变化大，整理日程；今日处理作业和事务。,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_00_U,conditional,购买电脑,recursive,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,NO,只剩关键词罗列，条件→行动关系与『已满足』状态均丢失；命题不完整，按 omission 处理，不计 drift。,"买电脑,奖学金,调日程因天,处理作业事务","[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+conditional_00_U,conditional,购买电脑,recursive,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,NO,"『买电脑,奖学金』两元素并列但条件→行动关系断裂（conditional 的关系属于命题本体）→ PARTIAL；条件满足状态未表达 → UNCLEAR；omission 不计 drift。","买电脑,奖学金,调日程因天,处理作业事务","[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_00_U,conditional,购买电脑,rewrite_matched,5,B,AMBIGUOUS,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,UNCLEAR,『奖学金买电脑→天气变→改计划』因果链歧义（奖学金用于买电脑／拿到后买电脑），条件状态不可判定。,奖学金买电脑→天气变→改计划→今日专心做作业,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
+conditional_00_U,conditional,购买电脑,rewrite_matched,5,B,AMBIGUOUS,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,UNCLEAR,『奖学金买电脑→天气变→改计划→…』把条件与填充事件串成因果链，可读作多种实质解释 → AMBIGUOUS；状态不可解 → unsupported UNCLEAR。,奖学金买电脑→天气变→改计划→今日专心做作业,"[Turn 1] 如果拿到奖学金，我才考虑购买电脑。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_01_S,epistemic,去上海工作,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+epistemic_01_S,epistemic,去上海工作,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,原始对话；T1/T3『可能／未确认』。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_01_S,epistemic,去上海工作,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,上海工作可能，天气多变，整理日程，处理作业和事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+epistemic_01_S,epistemic,去上海工作,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『上海工作可能』保留不确定性。,上海工作可能，天气多变，整理日程，处理作业和事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_01_S,epistemic,去上海工作,recursive,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『未定』保留不确定性 → POSSIBLE，与 gold 一致；递归不等于漂移（用户例 2）。,上海工作未定，整理日程应对天气，处理课程作业和日常事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+epistemic_01_S,epistemic,去上海工作,recursive,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,用户例 2：『上海工作未定』保留不确定性 → POSSIBLE，NO；递归不等于一定漂移。,上海工作未定，整理日程应对天气，处理课程作业和日常事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_01_S,epistemic,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『未定』保留不确定性。,上海工作未定，整理日程防天气变，处理课程事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+epistemic_01_S,epistemic,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,同 026，『未定』保留 POSSIBLE。,上海工作未定，整理日程防天气变，处理课程事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会去上海工作。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_01_S,intentional,去上海工作,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+intentional_01_S,intentional,去上海工作,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,原始对话；T1/T3『正在考虑／没有作出承诺』。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_01_S,intentional,去上海工作,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,考虑去上海工作，未决定，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+intentional_01_S,intentional,去上海工作,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,『考虑去上海工作，未决定』。,考虑去上海工作，未决定，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_01_S,intentional,去上海工作,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,只剩『上海工作』话题，无考虑/未决定线索；gold CONSIDERING 无法判定 → UNCLEAR，不硬判 YES。,上海工作，天气多变，整理日程，处理事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+intentional_01_S,intentional,去上海工作,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,只剩裸命题，未表达任何意向状态 → 按『记忆没有明确状态』保守记 UNCLEAR，不硬判 YES。,上海工作，天气多变，整理日程，处理事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_01_S,intentional,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,『未承诺』与 gold CONSIDERING 的『未作出承诺』一致。,上海工作，天气多变，整理日程，未承诺，处理作业事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+intentional_01_S,intentional,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,『未承诺』明确对应 T3『没有作出承诺』→ CONSIDERING。,上海工作，天气多变，整理日程，未承诺，处理作业事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑去上海工作，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_01_S,conditional,去上海工作,raw,raw,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+conditional_01_S,conditional,去上海工作,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,原始对话；条件活跃且未满足。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_01_S,conditional,去上海工作,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未定，暂不考虑上海工作』条件未满足。,奖学金未定，暂不考虑上海工作；天气变化大，整理日程；今日处理作业和事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+conditional_01_S,conditional,去上海工作,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未定，暂不考虑上海工作』完整保留条件→行动关系。,奖学金未定，暂不考虑上海工作；天气变化大，整理日程；今日处理作业和事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_01_S,conditional,去上海工作,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未定暂不考虑上海工作，整理日程应对天气，处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+conditional_01_S,conditional,去上海工作,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,同 033。,奖学金未定暂不考虑上海工作，整理日程应对天气，处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_01_S,conditional,去上海工作,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未定暂不考虑上海工作，整理日程应对天气，处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+conditional_01_S,conditional,去上海工作,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,同 033。,奖学金未定暂不考虑上海工作，整理日程应对天气，处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_01_U,epistemic,去上海工作,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+epistemic_01_U,epistemic,去上海工作,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,T3『已经确认会去上海工作，这不是猜测了』。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_01_U,epistemic,去上海工作,direct,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认』保留 CERTAIN。,记忆：确认去上海工作，天气多变，整理日程，处理作业和事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+epistemic_01_U,epistemic,去上海工作,direct,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认去上海工作』保留 CERTAIN。,记忆：确认去上海工作，天气多变，整理日程，处理作业和事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_01_U,epistemic,去上海工作,recursive,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,无确定性线索 → UNKNOWN。,上海工作，天气多变，整理日程，处理作业事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+epistemic_01_U,epistemic,去上海工作,recursive,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,『确认』线索丢失，只剩裸命题；epistemic 无状态可判 → UNCLEAR，不硬判 YES。,上海工作，天气多变，整理日程，处理作业事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_01_U,epistemic,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,无确定性线索 → UNKNOWN。,上海工作，留意天气，安排日程，处理事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
+epistemic_01_U,epistemic,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,同 038，确定性 cue 缺失。,上海工作，留意天气，安排日程，处理事务。,"[Turn 1] 我可能会去上海工作，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会去上海工作，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_01_U,intentional,去上海工作,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+intentional_01_U,intentional,去上海工作,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,T3『已经决定…按这个计划推进』。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要去上海工作，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要去上海工作，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_01_U,intentional,去上海工作,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,,决定去上海工作，处理作业和事务，天气变化大，整理日程。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+intentional_01_U,intentional,去上海工作,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『决定去上海工作』保留 COMMITTED。,决定去上海工作，处理作业和事务，天气变化大，整理日程。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要去上海工作，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_01_U,intentional,去上海工作,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,承诺线索消失，只剩『上海工作』话题 → intention NONE → YES。,上海工作，留意天气，整理日程，处理作业事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+intentional_01_U,intentional,去上海工作,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,决定与承诺完全消失，只剩主题与填充事件罗列 → 典型承诺弱化 → YES。,上海工作，留意天气，整理日程，处理作业事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要去上海工作，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_01_U,intentional,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,承诺线索消失，只剩话题罗列 → NONE → YES。,上海工作，关注天气，规划日程，处理作业和日常事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
+intentional_01_U,intentional,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,同 042。,上海工作，关注天气，规划日程，处理作业和日常事务。,"[Turn 1] 我正在考虑去上海工作，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要去上海工作，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_01_U,conditional,去上海工作,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+conditional_01_U,conditional,去上海工作,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,原始对话；T3『条件已经满足』。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_01_U,conditional,去上海工作,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,已获奖学金，考虑去上海工作；整理日程，处理作业。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+conditional_01_U,conditional,去上海工作,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『已获奖学金，考虑去上海工作』。,已获奖学金，考虑去上海工作；整理日程，处理作业。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_01_U,conditional,去上海工作,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『获奖学金』保留条件满足状态；并列项可恢复条件→行动关系。,获奖学金，考虑上海工作，关注天气，整理日程，处理作业事务,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+conditional_01_U,conditional,去上海工作,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『获奖学金，考虑上海工作』→ 条件已满足。,获奖学金，考虑上海工作，关注天气，整理日程，处理作业事务,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_01_U,conditional,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_SATISFIED,3,YES,『申请奖学金』把已获得（条件满足）写成仍在申请（条件未满足）→ 条件状态倒退，无后文支持 → YES。,关注天气，整理日程，处理作业，考虑上海工作，申请奖学金,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+conditional_01_U,conditional,去上海工作,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,UNCLEAR,边界：『申请奖学金』与 T3『已拿到奖学金』措辞冲突，但无法确认记忆是否在断言条件未满足 → UNCLEAR，不硬判 YES。,关注天气，整理日程，处理作业，考虑上海工作，申请奖学金,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_02_S,epistemic,申请研究生,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
+epistemic_02_S,epistemic,申请研究生,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,原始对话；T1/T3『可能／未确认』。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会申请研究生。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会申请研究生。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_02_S,epistemic,申请研究生,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『计划申请研究生未定』保留可能/未定。,计划申请研究生未定，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
+epistemic_02_S,epistemic,申请研究生,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『计划申请研究生未定』保留不确定性。,计划申请研究生未定，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会申请研究生。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_02_S,epistemic,申请研究生,recursive,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,无确定性线索 → UNKNOWN。,申请研究生，关注天气，整理日程，处理作业，日常事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
+epistemic_02_S,epistemic,申请研究生,recursive,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,『申请研究生』裸命题，可能/未定等线索全失；不把裸断言读成 CERTAIN → UNCLEAR。,申请研究生，关注天气，整理日程，处理作业，日常事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会申请研究生。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_02_S,epistemic,申请研究生,rewrite_matched,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,无确定性线索 → UNKNOWN。,申请研究生，关注天气，整理日程，处理作业，日常事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
+epistemic_02_S,epistemic,申请研究生,rewrite_matched,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,同 050，确定性 cue 缺失。,申请研究生，关注天气，整理日程，处理作业，日常事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会申请研究生。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_02_S,intentional,申请研究生,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
+intentional_02_S,intentional,申请研究生,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,原始对话；T1/T3『正在考虑／没有作出承诺』。,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑申请研究生，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑申请研究生，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_02_S,intentional,申请研究生,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,考虑申请研究生，未决定；天气变化大，整理日程；处理作业，日常事务。,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
+intentional_02_S,intentional,申请研究生,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,『考虑申请研究生，未决定』。,考虑申请研究生，未决定；天气变化大，整理日程；处理作业，日常事务。,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑申请研究生，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_02_S,intentional,申请研究生,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,『研究生申请+…』话题式罗列，无考虑线索；gold CONSIDERING 无法判定 → UNCLEAR。,研究生申请+天气应对+日程整理+作业处理+日常事务,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
+intentional_02_S,intentional,申请研究生,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,『研究生申请+天气应对+…』为标签式罗列，未表达意向状态 → 保守记 UNCLEAR，不硬判 YES。,研究生申请+天气应对+日程整理+作业处理+日常事务,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑申请研究生，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_02_S,intentional,申请研究生,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,话题式罗列，无考虑线索 → UNCLEAR。,研究生申请+天气应对+日程整理+作业处理+日常事务,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
+intentional_02_S,intentional,申请研究生,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,同 054。,研究生申请+天气应对+日程整理+作业处理+日常事务,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑申请研究生，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_02_S,conditional,申请研究生,raw,raw,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
+conditional_02_S,conditional,申请研究生,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,原始对话；条件活跃且未满足。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_02_S,conditional,申请研究生,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未定，暂不考虑申请研究生；天气变化大，整理日程；今日处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
+conditional_02_S,conditional,申请研究生,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未定，暂不考虑申请研究生』。,奖学金未定，暂不考虑申请研究生；天气变化大，整理日程；今日处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_02_S,conditional,申请研究生,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『暂不读研』把『暂不考虑申请研究生』略压成行动否定；条件未满足保留。,奖学金未定暂不读研，整理日程应对天气，处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
+conditional_02_S,conditional,申请研究生,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未定暂不读研』保留条件→行动关系；『读研』为缩略。,奖学金未定暂不读研，整理日程应对天气，处理作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_02_S,conditional,申请研究生,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『暂不读研』= 条件未满足的行动侧表达，状态忠实。,奖学金未定暂不读研，整理日程应对天气，专注作业。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
+conditional_02_S,conditional,申请研究生,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,同 058。,奖学金未定暂不读研，整理日程应对天气，专注作业。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_02_U,epistemic,申请研究生,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
+epistemic_02_U,epistemic,申请研究生,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,原始对话；T3『已经确认』。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会申请研究生，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会申请研究生，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_02_U,epistemic,申请研究生,direct,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,,申请研究生确认，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
+epistemic_02_U,epistemic,申请研究生,direct,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『申请研究生确认』明确保留 CERTAIN。,申请研究生确认，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会申请研究生，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -299,273 +299,273 @@ epistemic_02_U,epistemic,申请研究生,recursive,5,B,PRESERVED,POSITIVE,CERTAI
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会申请研究生，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_02_U,epistemic,申请研究生,rewrite_matched,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,,确认研究生申请，关注天气，整理日程，处理作业，日常事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
+epistemic_02_U,epistemic,申请研究生,rewrite_matched,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认研究生申请』保留 CERTAIN。,确认研究生申请，关注天气，整理日程，处理作业，日常事务。,"[Turn 1] 我可能会申请研究生，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会申请研究生，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_02_U,intentional,申请研究生,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
+intentional_02_U,intentional,申请研究生,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,原始对话；T3『已经决定』。,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要申请研究生，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要申请研究生，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_02_U,intentional,申请研究生,direct,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『申请人学决定』表述损坏、『研究生』对象丢失 → PARTIAL；决定线索尚在、状态与 gold 一致，不计 drift。,申请人学决定，天气变化，整理日程，处理作业事务。,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
+intentional_02_U,intentional,申请研究生,direct,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『申请人学决定』表述损坏、『研究生』对象丢失 → PARTIAL；但『决定』线索在，状态与 gold 一致 → 不计 drift。,申请人学决定，天气变化，整理日程，处理作业事务。,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要申请研究生，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_02_U,intentional,申请研究生,recursive,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,命题关系被压坏（『申请研究生』→『申请人：管理研究生课程』），intention NONE；属 omission，不计 drift（用户例 3）。,申请人：管理研究生课程、天气及日程,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
+intentional_02_U,intentional,申请研究生,recursive,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,用户例 3：命题关系被压坏（『申请研究生』→『申请人：管理研究生课程』）→ PARTIAL，intention NONE；属 omission，不计 drift。,申请人：管理研究生课程、天气及日程,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要申请研究生，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_02_U,intentional,申请研究生,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,INTENDING,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,『研究生申请，计划推进』保留命题，但『决定』弱化为『计划推进』→ INTENDING < COMMITTED → YES。,申请人：研究生申请，计划推进，课程处理，事务应对，天气应对，日程整理,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
+intentional_02_U,intentional,申请研究生,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,INTENDING,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,『研究生申请』命题可恢复（不同于 066 的关系替换），但只有『计划推进』无『决定』→ INTENDING，承诺弱化 → YES。边界：若按例 3 判 PARTIAL 则不计 drift。,申请人：研究生申请，计划推进，课程处理，事务应对，天气应对，日程整理,"[Turn 1] 我正在考虑申请研究生，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要申请研究生，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_02_U,conditional,申请研究生,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
+conditional_02_U,conditional,申请研究生,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,原始对话；T3『条件已经满足』。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_02_U,conditional,申请研究生,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,已获奖学金，考虑申请研究生；整理日程，处理作业。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
+conditional_02_U,conditional,申请研究生,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『已获奖学金，考虑申请研究生』。,已获奖学金，考虑申请研究生；整理日程，处理作业。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_02_U,conditional,申请研究生,recursive,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_SATISFIED,3,UNCLEAR,只剩『奖学金申请』（仍在申请）且目标行动缺失 → PARTIAL；条件状态与 gold SATISFIED 不同，但命题不完整，不计 YES → UNCLEAR。,奖学金申请，天气多变，日程整理；今日任务：作业与日常。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
+conditional_02_U,conditional,申请研究生,recursive,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,NO,『奖学金申请』把目标命题『申请研究生』的对象换成奖学金，研究生完全消失 → PARTIAL；条件状态亦不可判 → omission，不计 drift。,奖学金申请，天气多变，日程整理；今日任务：作业与日常。,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_02_U,conditional,申请研究生,rewrite_matched,5,B,AMBIGUOUS,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,UNCLEAR,『研究生申请奖学金』把申请研究生与奖学金申请压成歧义短语，条件状态不可判定。,研究生申请奖学金，整理天气日程，今日任务：作业+事务,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
+conditional_02_U,conditional,申请研究生,rewrite_matched,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,NO,『研究生申请奖学金』中『申请』的对象被奖学金替换，条件→行动关系不可恢复 → PARTIAL；条件满足状态未表达 → UNCLEAR。,研究生申请奖学金，整理天气日程，今日任务：作业+事务,"[Turn 1] 如果拿到奖学金，我才考虑申请研究生。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_03_S,epistemic,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
+epistemic_03_S,epistemic,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,原始对话；T1/T3『可能／未确认』。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会参加数学建模比赛。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会参加数学建模比赛。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_03_S,epistemic,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,可能参加数学建模比赛，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
+epistemic_03_S,epistemic,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『可能参加数学建模比赛』保留不确定性。,可能参加数学建模比赛，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会参加数学建模比赛。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_03_S,epistemic,参加数学建模比赛,recursive,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,『备赛数学建模』保留命题（行动式表达），但无确定性线索 → UNKNOWN。,整理日程，处理作业，应对天气，备赛数学建模,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
+epistemic_03_S,epistemic,参加数学建模比赛,recursive,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,『备赛数学建模』为行动层措辞，确定性线索全失 → epistemic UNCLEAR，不硬判 YES。,整理日程，处理作业，应对天气，备赛数学建模,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会参加数学建模比赛。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_03_S,epistemic,参加数学建模比赛,rewrite_matched,5,B,PARTIAL,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『考虑参赛』丢失比赛对象（数学建模比赛）→ PARTIAL；无确定性线索，按 omission 处理。,整理日程作业，关注天气，考虑参赛,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
+epistemic_03_S,epistemic,参加数学建模比赛,rewrite_matched,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『考虑参赛』保留不确定性 → POSSIBLE，与 gold 一致。,整理日程作业，关注天气，考虑参赛,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会参加数学建模比赛。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_03_S,intentional,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
+intentional_03_S,intentional,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,原始对话；T1/T3『正在考虑／没有作出承诺』。,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑参加数学建模比赛，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑参加数学建模比赛，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_03_S,intentional,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,考虑参加数学建模比赛，未决定。天气变化大，整理日程。处理作业，日常事务。,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
+intentional_03_S,intentional,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,『考虑参加数学建模比赛，未决定』。,考虑参加数学建模比赛，未决定。天气变化大，整理日程。处理作业，日常事务。,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑参加数学建模比赛，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_03_S,intentional,参加数学建模比赛,recursive,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,只剩『数学建模』话题词，『考虑参加』整体丢失 → PARTIAL；无意图线索，不硬判 YES。,数学建模、天气预测、日程整理、作业处理,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
+intentional_03_S,intentional,参加数学建模比赛,recursive,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,仅余主题词『数学建模』，参加比赛这一事件与『考虑』关系不可恢复（关键词不算保持）→ PARTIAL；omission，不计 drift。,数学建模、天气预测、日程整理、作业处理,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑参加数学建模比赛，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_03_S,intentional,参加数学建模比赛,rewrite_matched,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,只剩话题词，『考虑参加』丢失 → PARTIAL；无意图线索。,数学建模、天气变化、日程整理、作业处理,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
+intentional_03_S,intentional,参加数学建模比赛,rewrite_matched,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,同 078。,数学建模、天气变化、日程整理、作业处理,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑参加数学建模比赛，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_03_S,conditional,参加数学建模比赛,raw,raw,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+conditional_03_S,conditional,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,原始对话；条件活跃且未满足。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_03_S,conditional,参加数学建模比赛,direct,5,B,PARTIAL,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『参赛』丢失比赛对象 → PARTIAL；条件未满足状态忠实，不计 drift。,奖学金未定，暂不考虑参赛；天气多变，整理日程；处理作业，事务繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+conditional_03_S,conditional,参加数学建模比赛,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未定，暂不考虑参赛』。,奖学金未定，暂不考虑参赛；天气多变，整理日程；处理作业，事务繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_03_S,conditional,参加数学建模比赛,recursive,5,B,PARTIAL,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未定，暂不参赛；整理日程应对天气；作业与事务已处理。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+conditional_03_S,conditional,参加数学建模比赛,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未定，暂不参赛』；『作业与事务已处理』为填充事件失真。,奖学金未定，暂不参赛；整理日程应对天气；作业与事务已处理。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_03_S,conditional,参加数学建模比赛,rewrite_matched,5,B,PARTIAL,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未定暂不参赛，整理日程防天气变，作业已处理。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+conditional_03_S,conditional,参加数学建模比赛,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,同 082。,奖学金未定暂不参赛，整理日程防天气变，作业已处理。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_03_U,epistemic,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
+epistemic_03_U,epistemic,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,原始对话；T3『已经确认』。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会参加数学建模比赛，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会参加数学建模比赛，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_03_U,epistemic,参加数学建模比赛,direct,5,B,PARTIAL,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认参赛』丢失比赛对象 → PARTIAL；CERTAIN 状态忠实，不计 drift。,记忆：确认参赛，天气多变，整理日程，处理作业。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
+epistemic_03_U,epistemic,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认参赛』保留 CERTAIN。,记忆：确认参赛，天气多变，整理日程，处理作业。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会参加数学建模比赛，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_03_U,epistemic,参加数学建模比赛,recursive,5,B,PARTIAL,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认数学建模』丢失『参加』谓词 → PARTIAL；CERTAIN 状态忠实。,记忆：确认数学建模，关注天气，整理日程，处理作业。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
+epistemic_03_U,epistemic,参加数学建模比赛,recursive,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认数学建模』保留 CERTAIN 线索。,记忆：确认数学建模，关注天气，整理日程，处理作业。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会参加数学建模比赛，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_03_U,epistemic,参加数学建模比赛,rewrite_matched,5,B,PARTIAL,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认比赛』对象模糊 → PARTIAL；CERTAIN 状态忠实。,记忆：确认比赛，关注天气，整理日程，处理作业。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
+epistemic_03_U,epistemic,参加数学建模比赛,rewrite_matched,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确认比赛』保留 CERTAIN 线索。,记忆：确认比赛，关注天气，整理日程，处理作业。,"[Turn 1] 我可能会参加数学建模比赛，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会参加数学建模比赛，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_03_U,intentional,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
+intentional_03_U,intentional,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,原始对话；T3『已经决定』。,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要参加数学建模比赛，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要参加数学建模比赛，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_03_U,intentional,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,,决定参加数学建模比赛，处理作业和日常事务，天气变化大，整理日程。,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
+intentional_03_U,intentional,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『决定参加数学建模比赛』。,决定参加数学建模比赛，处理作业和日常事务，天气变化大，整理日程。,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要参加数学建模比赛，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_03_U,intentional,参加数学建模比赛,recursive,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,INTENDING,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,UNCLEAR,『数学建模比赛事项推进』丢失『参加』谓词，『推进』弱于决定；命题不完整，不计 YES → UNCLEAR。,数学建模比赛事项推进与整理,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
+intentional_03_U,intentional,参加数学建模比赛,recursive,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,INTENDING,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『数学建模比赛事项推进与整理』丢失『参加』谓词 → PARTIAL；『推进』弱于『决定』→ INTENDING；omission 不计 YES → NO。,数学建模比赛事项推进与整理,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要参加数学建模比赛，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_03_U,intentional,参加数学建模比赛,rewrite_matched,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,INTENDING,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,UNCLEAR,『数学建模比赛、推进计划』同上：命题不完整 + 意图弱化为 INTENDING。,数学建模比赛、推进计划、课程作业、天气变化、日程整理,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
+intentional_03_U,intentional,参加数学建模比赛,rewrite_matched,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,INTENDING,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『数学建模比赛、推进计划、…』为名词罗列，『参加』谓词丢失 → PARTIAL；『推进计划』→ INTENDING；不计 YES。,数学建模比赛、推进计划、课程作业、天气变化、日程整理,"[Turn 1] 我正在考虑参加数学建模比赛，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要参加数学建模比赛，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_03_U,conditional,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+conditional_03_U,conditional,参加数学建模比赛,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,原始对话；T3『条件已经满足』。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_03_U,conditional,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,已获奖学金，考虑参加数学建模比赛，同时整理日程和处理事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+conditional_03_U,conditional,参加数学建模比赛,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『已获奖学金，考虑参加数学建模比赛』。,已获奖学金，考虑参加数学建模比赛，同时整理日程和处理事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_03_U,conditional,参加数学建模比赛,recursive,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『参赛』丢失比赛对象 → PARTIAL；条件满足状态忠实。,已获奖学金，考虑参赛，整理日程，处理事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+conditional_03_U,conditional,参加数学建模比赛,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『已获奖学金，考虑参赛』。,已获奖学金，考虑参赛，整理日程，处理事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_03_U,conditional,参加数学建模比赛,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,已获奖学金，整理日程，处理作业，考虑参加数学建模比赛。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+conditional_03_U,conditional,参加数学建模比赛,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『已获奖学金…考虑参加数学建模比赛』。,已获奖学金，整理日程，处理作业，考虑参加数学建模比赛。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_04_S,epistemic,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
+epistemic_04_S,epistemic,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,原始对话；T1/T3『可能／未确认』。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会开始学习日语。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会开始学习日语。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_04_S,epistemic,开始学习日语,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,,计划可能开始学日语，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
+epistemic_04_S,epistemic,开始学习日语,direct,5,B,PRESERVED,POSITIVE,POSSIBLE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",NO,『计划可能开始学日语』保留不确定性。,计划可能开始学日语，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会开始学习日语。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_04_S,epistemic,开始学习日语,recursive,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,无确定性线索 → UNKNOWN。,学日语，整理天气多变日程，处理课程事务。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
+epistemic_04_S,epistemic,开始学习日语,recursive,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,『学日语…』状态词全失；不把裸命题读成 CERTAIN → UNCLEAR。,学日语，整理天气多变日程，处理课程事务。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会开始学习日语。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_04_S,epistemic,开始学习日语,rewrite_matched,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,『日语学习』保留命题但无确定性线索 → UNKNOWN。,日语学习，天气课程安排,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
+epistemic_04_S,epistemic,开始学习日语,rewrite_matched,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,POSSIBLE,"1,3",UNCLEAR,『日语学习，天气课程安排』压缩严重且无确定性线索 → UNCLEAR。,日语学习，天气课程安排,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 目前仍然只是可能，我还没有确认会开始学习日语。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_04_S,intentional,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
+intentional_04_S,intentional,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,原始对话；T1/T3『正在考虑／没有作出承诺』。,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑开始学习日语，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑开始学习日语，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_04_S,intentional,开始学习日语,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,,考虑开始学日语，未决定。天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
+intentional_04_S,intentional,开始学习日语,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,CONSIDERING,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,『考虑开始学日语，未决定』。,考虑开始学日语，未决定。天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑开始学习日语，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_04_S,intentional,开始学习日语,recursive,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NONE,UNKNOWN,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,只剩『日语作业』线索，『考虑开始学习日语』不可恢复 → PARTIAL；『完成作业』可能暗示已开始，但无明确状态，不硬判 YES。,日程因天气，今日完成日语作业,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
+intentional_04_S,intentional,开始学习日语,recursive,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,目标命题『开始学习日语』被替换成『完成日语作业』，且对话无执行证据（勿自动当作已执行）→ PARTIAL；omission，不计 drift。,日程因天气，今日完成日语作业,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑开始学习日语，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_04_S,intentional,开始学习日语,rewrite_matched,5,B,PARTIAL,POSITIVE,NOT_APPLICABLE,NONE,UNKNOWN,NOT_APPLICABLE,CONSIDERING,"1,3",UNCLEAR,同上：目标命题不可恢复，行动状态不明。,日程因天气，今日完成日语作业,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
+intentional_04_S,intentional,开始学习日语,rewrite_matched,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,CONSIDERING,"1,3",NO,同 102。,日程因天气，今日完成日语作业,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我仍然只是在考虑开始学习日语，没有作出承诺。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_04_S,conditional,开始学习日语,raw,raw,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
+conditional_04_S,conditional,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,原始对话；条件活跃且未满足。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_04_S,conditional,开始学习日语,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未定，暂不学日语；天气多变，整理日程；作业在手，事务繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
+conditional_04_S,conditional,开始学习日语,direct,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未定，暂不学日语』。,奖学金未定，暂不学日语；天气多变，整理日程；作业在手，事务繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_04_S,conditional,开始学习日语,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未拿』= 条件未满足（比『还没有结果』略强，但状态同向）。,奖学金未拿暂不学日语，调日程因天气，今日重点处理作业。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
+conditional_04_S,conditional,开始学习日语,recursive,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,『奖学金未拿暂不学日语』条件未满足明确。,奖学金未拿暂不学日语，调日程因天气，今日重点处理作业。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_04_S,conditional,开始学习日语,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,,奖学金未定暂不学日语，天气多变整理日程，作业繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
+conditional_04_S,conditional,开始学习日语,rewrite_matched,5,B,PRESERVED,NEGATIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,ACTIVE_UNSATISFIED,CONDITION_ACTIVE,"1,3",NO,同 105。,奖学金未定暂不学日语，天气多变整理日程，作业繁忙。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_04_U,epistemic,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
+epistemic_04_U,epistemic,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,原始对话；T3『已经确认』。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会开始学习日语，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会开始学习日语，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_04_U,epistemic,开始学习日语,direct,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,,确定开始学日语，整理日程，处理作业和事务，天气变化大。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
+epistemic_04_U,epistemic,开始学习日语,direct,5,B,PRESERVED,POSITIVE,CERTAIN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,NO,『确定开始学日语』保留 CERTAIN。,确定开始学日语，整理日程，处理作业和事务，天气变化大。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会开始学习日语，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_04_U,epistemic,开始学习日语,recursive,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,无确定性线索 → UNKNOWN。,学习日语，整理天气，处理课程，日常事务。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
+epistemic_04_U,epistemic,开始学习日语,recursive,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,『学习日语，整理天气…』无『确认』，确定性 cue 缺失 → UNCLEAR，不硬判 YES。,学习日语，整理天气，处理课程，日常事务。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会开始学习日语，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-epistemic_04_U,epistemic,开始学习日语,rewrite_matched,5,B,PRESERVED,POSITIVE,UNKNOWN,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,无确定性线索 → UNKNOWN。,日语学习，调整天气日程，兼顾课程作业和个人事务。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
+epistemic_04_U,epistemic,开始学习日语,rewrite_matched,5,B,PRESERVED,POSITIVE,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,CERTAIN,3,UNCLEAR,同 110。,日语学习，调整天气日程，兼顾课程作业和个人事务。,"[Turn 1] 我可能会开始学习日语，但现在还不能确定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经确认会开始学习日语，这不是猜测了。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_04_U,intentional,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
+intentional_04_U,intentional,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,原始对话；T3『已经决定』。,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要开始学习日语，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要开始学习日语，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_04_U,intentional,开始学习日语,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,,决定学日语，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
+intentional_04_U,intentional,开始学习日语,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,COMMITTED,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,NO,『决定学日语』保留 COMMITTED。,决定学日语，天气变化大，整理日程，处理作业和事务。,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要开始学习日语，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_04_U,intentional,开始学习日语,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,UNKNOWN,NOT_APPLICABLE,COMMITTED,3,YES,『学习日语、关注天气…』命题在，但决定/承诺完全消失 → NONE；记忆把学习写成活动 → action UNKNOWN；gold COMMITTED 无支持 → YES（承诺弱化，用户例 4）。,学习日语、关注天气、整理日程、处理课程事务。,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
+intentional_04_U,intentional,开始学习日语,recursive,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,用户例 4：命题在但决定/承诺完全消失，只剩『学习日语、关注天气…』动作罗列 → NONE，承诺弱化 → YES；勿把『学习日语』当作已执行。,学习日语、关注天气、整理日程、处理课程事务。,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要开始学习日语，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-intentional_04_U,intentional,开始学习日语,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,UNKNOWN,NOT_APPLICABLE,COMMITTED,3,YES,同上（用户例 4 原文）：命题在，承诺消失 → NONE → YES。,学习日语、关注天气、整理日程、处理课程、日常事务,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
+intentional_04_U,intentional,开始学习日语,rewrite_matched,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NONE,NOT_STARTED,NOT_APPLICABLE,COMMITTED,3,YES,用户例 4：gold COMMITTED，记忆无决定/承诺 → NONE，unsupported YES；action 按对话记 NOT_STARTED。,学习日语、关注天气、整理日程、处理课程、日常事务,"[Turn 1] 我正在考虑开始学习日语，还没有作出决定。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经决定要开始学习日语，会按这个计划推进。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_04_U,conditional,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
+conditional_04_U,conditional,开始学习日语,raw,raw,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,原始对话；T3『条件已经满足』。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。","[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_04_U,conditional,开始学习日语,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,,已获奖学金，将开始学习日语，今日处理作业与事务，天气变化大，整理日程中。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
+conditional_04_U,conditional,开始学习日语,direct,5,B,PRESERVED,POSITIVE,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,SATISFIED,CONDITION_SATISFIED,3,NO,『已获奖学金』条件满足明确；『将开始学习日语』属行动层升级，条件维度不判漂移。,已获奖学金，将开始学习日语，今日处理作业与事务，天气变化大，整理日程中。,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_04_U,conditional,开始学习日语,recursive,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,NO,只剩『日语奖学金』且目标行动（开始学习日语）不可恢复 → PARTIAL；条件状态不可判定，按 omission 处理。,日语奖学金，作业，天气多变，整理日程,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
+conditional_04_U,conditional,开始学习日语,recursive,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,NO,『日语奖学金』把目标动作与条件压成一个词，条件→行动关系不可恢复 → PARTIAL；条件满足状态不可判 → UNCLEAR。,日语奖学金，作业，天气多变，整理日程,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-conditional_04_U,conditional,开始学习日语,rewrite_matched,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,NO,同上：条件与目标行动被压成话题词，条件状态不可判定。,日语奖学金，天气应对，日程整理，作业与事务处理,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
+conditional_04_U,conditional,开始学习日语,rewrite_matched,5,B,PARTIAL,UNCLEAR,NOT_APPLICABLE,NOT_APPLICABLE,NOT_APPLICABLE,UNCLEAR,CONDITION_SATISFIED,3,NO,同 118。,日语奖学金，天气应对，日程整理，作业与事务处理,"[Turn 1] 如果拿到奖学金，我才考虑开始学习日语。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"

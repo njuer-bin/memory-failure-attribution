@@ -2,7 +2,9 @@
 
 **Set:** `results/status_drift_v2_pilot/v24_full_neutral/annotation/`
 **Items:** 120 per annotator (Raw / Direct D5 / Recursive D5 / Rewrite-matched D5).
-**Annotators:** A and B, independent.
+**Annotators:** A and B, two independent manual annotations. (An earlier
+gold-derived B was withdrawn and re-annotated manually; see the correction
+note.)
 **Run:** `v24_full_neutral` (neutral writer, qwen2.5:7b writer/judge,
 rewrite-matched, token logging).
 
@@ -13,92 +15,69 @@ rewrite-matched, token logging).
 
 | Field | Raw agreement | Cohen's kappa |
 |---|---:|---:|
-| proposition_identity | 0.858 | 0.366 |
-| polarity | 0.908 | 0.702 |
-| epistemic_status | 0.875 | 0.765 |
+| proposition_identity | 0.925 | 0.540 |
+| polarity | 0.917 | 0.727 |
+| epistemic_status | 1.000 | 1.000 |
 | intention_status | 1.000 | 1.000 |
-| action_status | 0.967 | 0.927 |
-| condition_status | 0.983 | 0.967 |
-| unsupported_status_change | 0.900 | 0.764 |
+| action_status | 1.000 | 1.000 |
+| condition_status | 1.000 | 1.000 |
+| **unsupported_status_change** | **0.942** | **0.849** |
 
-The primary label has 12 disagreements, mostly `UNCLEAR` vs `NO` when one
-annotator considers the proposition PARTIAL. The drift-rate conclusion is
-reported with both individual and bounded (conservative/liberal) estimates.
+The primary drift label now has genuine inter-annotator reliability
+(kappa 0.849).
 
 ## 2. Primary metric — Unsupported Status Drift Rate
 
 | Condition | A (YES / preserved) | B (YES / preserved) |
 |---|---:|---:|
 | Raw | 0 / 30 = 0.0% | 0 / 30 = 0.0% |
-| Direct D5 | 0 / 30 = 0.0% | 0 / 27 = 0.0% |
-| Recursive D5 | 4 / 26 = 15.4% | 3 / 19 = 15.8% |
-| Rewrite-matched D5 | 5 / 28 = 17.9% | 5 / 21 = 23.8% |
-| **Overall** | 9 / 114 = 7.9% | 8 / 97 = 8.2% |
+| Direct D5 | 0 / 30 = 0.0% | 0 / 29 = 0.0% |
+| Recursive D5 | 4 / 26 = 15.4% | 3 / 22 = 13.6% |
+| Rewrite-matched D5 | 5 / 28 = 17.9% | 4 / 24 = 16.7% |
+| **Overall** | 9 / 114 = 7.9% | 7 / 105 = 6.7% |
 
-Bounded estimates across the 12 disagreements:
+Bounded estimates:
 
-- **Conservative** (YES only if both annotators say YES): 7/97 = **7.2%**.
-- **Liberal** (YES if either annotator says YES): 10/114 = **8.8%**.
-- Recursive D5: 3/19 = 15.8% conservative, 4/26 = 15.4% liberal.
-- Rewrite-matched D5: 4/21 = 19.0% conservative, 6/28 = 21.4% liberal.
-- Raw and Direct D5: 0 in every estimate.
+- Conservative (YES only if both annotators say YES): 7/105 = **6.7%**.
+- Liberal (YES if either says YES): 9/114 = **7.9%**.
 
 By dimension:
 
 | Dimension | A | B |
 |---|---:|---:|
-| epistemic | 0/40 = 0.0% | 0/35 = 0.0% |
+| epistemic | 0/40 = 0.0% | 0/39 = 0.0% |
 | intentional | 9/35 = 25.7% | 7/32 = 21.9% |
-| conditional | 0/39 = 0.0% | 1/30 = 3.3% |
+| conditional | 0/39 = 0.0% | 0/34 = 0.0% |
 
 ## 3. Comparison with the status-aware writer
 
-Human-annotated unsupported drift, same protocol:
-
-| Condition | neutral | status-aware |
+| Condition | neutral (two manual annotators) | status-aware (A-only) |
 |---|---:|---:|
-| Overall | 7.2–8.8% | 4.2–4.3% |
-| Recursive D5 | 15.4–15.8% | 6.9–7.4% |
-| Rewrite-matched D5 | 19.0–21.4% | 10.0–10.7% |
-| Intentional (all) | 21.9–25.7% | 7.5–7.9% |
+| Overall | 6.7–7.9% | 4.2% |
+| Recursive D5 | 13.6–15.4% | 6.9% |
+| Rewrite-matched D5 | 16.7–17.9% | 10.0% |
+| Intentional (all) | 21.9–25.7% | 7.5% |
 | Epistemic (all) | 0.0% | 5.0% |
-| Conditional (all) | 0.0–3.3% | 0.0% |
+| Conditional (all) | 0.0% | 0.0% |
 
-The neutral writer roughly doubles the human-annotated drift overall, and more
-than doubles it at chained D5 and in the intentional dimension.
+The neutral writer roughly doubles the status-aware drift at chained depth and
+in the intentional dimension. The neutral estimate now has two-annotator
+reliability; the status-aware estimate still rests on one manual annotator
+because its B file remains gold-derived.
 
-## 4. Disagreements (12)
+## 4. Interpretation
 
-Patterns:
+- **Two-annotator reliability confirms the neutral chaining effect.** Raw and
+  Direct D5 are zero; Recursive D5 is 13.6–15.4%; Rewrite-matched D5 is
+  16.7–17.9%; intentional carries 21.9–25.7%.
+- **Status-aware mitigation is directionally confirmed but its reliability
+  statistics are pending** a manual re-annotation of the status-aware B file.
+- The token mismatch (chained outputs ~25% shorter) remains a causal caveat and
+  motivates a matched-token-budget follow-up.
 
-- `UNCLEAR` vs `NO` when one annotator marks the proposition `PARTIAL`
-  (e.g., conditional_00_U / conditional_04_U recursive D5, epistemic_00_S
-  recursive D5, intentional_04_S recursive/rewrite D5).
-- `YES` vs `UNCLEAR` on intentional_03_U recursive/rewrite D5: one annotator
-  treats `推进计划` as commitment weakening (YES), the other as a PARTIAL
-  proposition (UNCLEAR).
-- One `UNCLEAR` vs `YES` on conditional_01_U rewrite D5: the memory states both
-  the received scholarship and a not-satisfied condition.
+## 5. Next
 
-These disagreements change the estimated rate by at most ~1.6 percentage points
-and do not change the direction or the neutral > status-aware ordering.
-
-## 5. Interpretation
-
-- **Human labels confirm the neutral-writer chaining effect.** Raw and Direct D5
-  have zero drift; Recursive D5 and Rewrite-matched D5 have 15–21%; the
-  intentional dimension carries most cases (22–26%).
-- **Status-aware mitigation is human-confirmed.** It roughly halves the drift at
-  every chained condition.
-- **Token mismatch remains a caveat.** Chained memories are ~25% shorter in
-  tokens (16.1 vs 21.4 at D5), so a matched-token-budget follow-up is required
-  before a causal recursion claim.
-- The 12 disagreements should be adjudicated for a single final table; the
-  bounded estimates are robust enough to support the qualitative conclusion.
-
-## 6. Next
-
-1. Adjudicate the 12 primary-label disagreements.
-2. Build a matched-token-budget experiment (target the same final writer token
-   count across direct/recursive/rewrite).
+1. Manually re-annotate the status-aware B file to obtain two-annotator
+   reliability for the mitigation condition.
+2. Build a matched-token-budget experiment.
 3. Compare human drift rates at matched token budgets before causal wording.

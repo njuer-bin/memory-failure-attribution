@@ -243,13 +243,15 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Full run (30 trajectories, rewrite-matched): 0 errors, 0 invalid/missing.
   The uncalibrated judge shows no recursion penalty (recursive-minus-direct
   negative), so judge metrics are provisional only.
-- Human annotation: 120 items per annotator, balanced gold statuses;
-  unsupported-status agreement 1.000 (kappa 1.0).
-- Primary drift: Raw 0/30, Direct D5 0/30, Recursive D5 2/27–29 (6.9–7.4%),
-  Rewrite-matched D5 3/28–30 (10.0–10.7%); overall 4.2–4.3%. Five cases:
-  epistemic escalation and intentional commitment weakening.
-- Phenomenon gate passes for the status-aware writer; recursion is directional
-  only (Direct 0 vs Recursive 2 / Rewrite 3).
+- Single manual annotator A (120 items): Raw 0/30, Direct D5 0/30,
+  Recursive D5 2/29 (6.9%), Rewrite-matched D5 3/30 (10.0%); overall 5/119 =
+  4.2%. Five cases: epistemic escalation and intentional commitment weakening.
+- **Correction:** the status-aware annotator B was gold-derived
+  (`annotation/_work/fill_b.py`) and is not used. A-only is the accepted
+  estimate for this condition (project decision); no inter-annotator reliability
+  is claimed for status-aware.
+- Phenomenon gate passes for the status-aware writer on A's labels; recursion is
+  directional only (Direct 0 vs Recursive 2 / Rewrite 3).
 - Recorded in `docs/research/2026-11-16-status-drift-v24-human-annotation.md`.
 
 ### v2.4 neutral-writer run and annotation set — completed
@@ -265,16 +267,25 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   `v24_full_neutral/annotation/`.
 - Recorded in `docs/research/2026-11-16-status-drift-v24-neutral-run.md`.
 
-### v2.4 neutral human annotation — completed
+### v2.4 neutral human annotation — completed (two manual annotators)
 
-- 120 items per annotator; primary-label agreement raw 0.900, kappa 0.764
-  (12 disagreements).
-- Overall drift 7.9% (A) / 8.2% (B); bounded 7.2-8.8%.
-- Recursive D5 15.4-15.8%; Rewrite-matched D5 19.0-21.4%; Raw and Direct D5 0%.
-- Intentional 21.9-25.7%; epistemic 0%; conditional 0-3.3%.
-- Status-aware comparison: 4.2-4.3% overall, 6.9-7.4% recursive, 10.0-10.7%
-  rewrite. Neutral roughly doubles the human-annotated drift.
-- Direction robust to the 12 disagreements; token mismatch remains the causal
-  caveat.
+- Two independent manual annotations: A 9/114 = 7.9%, B 7/105 = 6.7%;
+  primary-label agreement raw 0.942, Cohen's kappa 0.849.
+- Raw 0/30 both; Direct D5 0/30 and 0/29; Recursive D5 4/26 = 15.4% and
+  3/22 = 13.6%; Rewrite-matched D5 5/28 = 17.9% and 4/24 = 16.7%.
+- Intentional 25.7% / 21.9%; epistemic and conditional 0%.
+- Status-aware comparison (A-only, its B not used): 4.2% overall. Neutral
+  roughly doubles the drift.
+- Token mismatch remains the causal caveat.
 - Recorded in
   `docs/research/2026-11-16-status-drift-v24-neutral-human-annotation.md`.
+
+### Annotation integrity correction — recorded
+
+- `annotation/_work/fill_b.py` filled the status-aware annotator B from gold
+  defaults with overrides; it is not an independent annotator.
+- The status-aware B is not used; A-only estimates stand (4.2% overall).
+- The neutral B was later manually re-annotated and is independent; neutral
+  two-annotator reliability is valid (raw 0.942, kappa 0.849).
+- Recorded in
+  `docs/research/2026-11-16-status-drift-annotation-integrity-correction.md`.
