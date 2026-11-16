@@ -57,3 +57,23 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Gates pass. Next: full 30-trajectory run with design v3, both writers, both
   judges. Recorded in
   `docs/research/2026-11-16-conditional-v22-validation.md`.
+
+### v3 30-trajectory run — completed
+
+- 30 trajectories (3 dimensions x 5 topics x S/U) x 2 writers x 2 judges,
+  design v3, seed 42.
+- status-aware: inter-judge agreement 0.952; 256/270 both-correct; 1 both-wrong
+  (`epistemic_02_U` recursive D5); deterministic proposition omission 0/270;
+  condition omission 2/90.
+- neutral: agreement 0.904; 221/270 both-correct; 23 both-wrong, concentrated
+  at recursive D2-D5; proposition omission 3/270; condition omission 10/90
+  (11.1%, narrowly above the 10% smoke threshold).
+- Pairwise: status-aware both-correct and neutral not on 43 items; reverse on 8.
+- Manual reading: most neutral both-wrong items are real status-cue loss or
+  weakening; about 6 are judge errors (`确认数学建模`, `获奖学金`,
+  `奖学金在手`). Conditional remains the least reliable dimension.
+- Hypothesis verdicts: H1 supported; H2 supported only under the neutral
+  writer; H3 supported; H4 untested.
+- The run was interrupted once by host memory pressure and resumed with the new
+  judge `--resume` flag; all 270 x 2 judgements are complete.
+- Recorded in `docs/research/2026-11-16-status-drift-v3-30run.md`.

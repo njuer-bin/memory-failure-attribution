@@ -43,22 +43,25 @@ literature:
 hypotheses:
   - id: H1
     statement: "Compression strategies differ in status preservation."
-    status: pending
+    status: supported
     motivation: "Baseline measurement before claiming a phenomenon."
     parent: null
     priority: high
+    note: "30-run: status-aware 256/270 both-correct vs neutral 221/270; pairwise 43 vs 8."
   - id: H2
     statement: "Recursive compression may add status drift beyond one-shot compression."
-    status: pending
+    status: supported-conditionally
     motivation: "Central recursion claim; requires paired recursive-vs-direct comparison."
     parent: null
     priority: high
+    note: "Supported under the neutral writer (errors cluster at recursive D2-D5); not under the status-aware writer (one D5 error)."
   - id: H3
     statement: "Proposition retention does not guarantee status retention."
-    status: pending
+    status: supported
     motivation: "Motivates CPSD as a separate metric from omission."
     parent: null
     priority: high
+    note: "Neutral proposition omission 1.1% while 23 items have a status error agreed by both judges."
   - id: H4
     statement: "Status-only corruption may independently alter downstream decisions."
     status: pending
@@ -67,27 +70,41 @@ hypotheses:
     priority: low
 
 experiments:
-  proxy_metric: "CPSD (status errors among proposition-retained outputs) plus raw accuracy; report omission rate and denominators"
+  proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 1
+  total_runs: 5
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
       metric_value: null
       delta: null
       wall_time_min: null
-      change_summary: "6-trajectory v1.0 smoke test; pipeline reproduced, judge instrument invalid (conditional label inversion, broken retention field)"
+      change_summary: "6-trajectory v1.0 smoke; pipeline reproduced, judge instrument invalid. Discarded."
       timestamp: "2026-11-16"
-  active_protocol: "docs/STATUS_DRIFT_PILOT_PROTOCOL.md"
-  calibration_protocol: "docs/research/2026-11-16-status-drift-smoke-calibration.md"
+    - run_id: "conditional_v22_validation"
+      hypothesis: "Conditional ontology fix"
+      metric_value: 0.944
+      delta: null
+      wall_time_min: null
+      change_summary: "4 conditional trajectories; inter-judge agreement 0.944; deterministic condition omission 2/32; gates passed."
+      timestamp: "2026-11-16"
+    - run_id: "v3_30run"
+      hypothesis: "H1-H3 at 30 trajectories"
+      metric_value: 0.952
+      delta: null
+      wall_time_min: null
+      change_summary: "30 trajectories x 2 writers x 2 judges; status-aware 256/270 both-correct, neutral 221/270; pairwise 43 vs 8; condition omission 2/90 vs 10/90."
+      timestamp: "2026-11-16"
+  current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + docs/STATUS_DRIFT_PROTOCOL_V2_2.md"
+  current_results: "docs/research/2026-11-16-status-drift-v3-30run.md"
   runner: "experiments/status_drift_recursive_pilot.py"
-  calibration_runner: "experiments/status_drift_judge_calibration.py"
+  judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 1
+  cycle: 3
   last_direction: "deepen"
-  last_reflection: "Smoke test failed the judge-validity gate. Do not scale to 30. Calibrate the judge (v1.1) on the same six memories with an independent model, then re-adjudicate."
+  last_reflection: "30-run completed. H1/H3 supported; H2 supported only under the neutral writer. Next: manually adjudicate all 39 judge disagreements, add a rewrite-matched control, and tighten the conditional judge before any external claim."
 
 workspace:
   findings: "findings.md"
