@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 6
+  total_runs: 7
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -103,15 +103,22 @@ experiments:
       wall_time_min: null
       change_summary: "Neutral writer, 30 trajectories; rewrite-matched (constant 220 intermediates) equals recursive (D3 17 vs 17, D5 15 vs 16 both-correct) and both are far worse than direct (D5 27). Repeated chained rewriting, not budget shrinkage, drives drift."
       timestamp: "2026-11-16"
+    - run_id: "v23_status_aware"
+      hypothesis: "P10: rewrite-matched under status-aware writer"
+      metric_value: 0.933
+      delta: null
+      wall_time_min: null
+      change_summary: "Status-aware writer, 30 trajectories; rewrite-matched ≈ recursive (108 vs 107 both-correct) and both slightly below direct (116). Chaining penalty 8 vs 32 under neutral; both-wrong 3 vs 23. Mitigated, not eliminated."
+      timestamp: "2026-11-16"
   current_protocol: "docs/STATUS_DRIFT_PROTOCOL_V2_1.md + _V2_2.md + _V2_3.md"
-  current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md"
+  current_results: "docs/research/2026-11-16-status-drift-v3-30run.md; docs/research/2026-11-16-status-drift-v23-rewrite-matched.md; docs/research/2026-11-16-status-drift-v23-status-aware.md"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 4
+  cycle: 5
   last_direction: "deepen"
-  last_reflection: "v2.3 shows chained rewriting, not budget shrinkage, drives neutral-writer drift. All 46 both-wrong items adjudicated: 38 writer-side, 8 judge errors; gates pass. Next: status-aware rewrite-matched control, repeated-seed variance, and a deterministic status-cue checker for epistemic/intentional."
+  last_reflection: "v2.3 now covers both writers. Chained rewriting drives drift in both; status-aware cuts the chaining penalty from 32 to 8 both-correct cells but leaves cue-level loss in ~4-5/10 deep updated cases. Next: repeated-seed variance and a status-cue-aware judge/extraction step."
 
 workspace:
   findings: "findings.md"
@@ -119,7 +126,7 @@ workspace:
   repo_history: "docs/RESEARCH_LOG.md"
   literature_dir: "literature/"
   experiments_dir: "experiments/"
-  results_dir: "results/status_drift_v2_pilot/ (git-ignored)"
+  results_dir: "results/status_drift_v2_pilot/ (raw outputs committed)"
   to_human_dir: "to_human/"
 
 integrity:

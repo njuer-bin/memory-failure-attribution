@@ -35,6 +35,12 @@ in status preservation.**
   the same degradation as the shrinking schedule; both are much worse than a
   single compression to the same final budget. Proposition omission stays
   0–2/30, so the loss is status-specific.
+- **Status-aware mitigates but does not eliminate chained cue loss.** v2.3
+  neutral: chaining penalty 32 both-correct cells and 23 both-wrong items.
+  Status-aware: 8 and 3. Yet the explicit cue is absent in roughly 4–5/10 deep
+  updated cases even under status-aware; the judge often recovers the status
+  from remaining context. Judge-level accuracy therefore understates the
+  cue-level loss.
 - **Cross-run nondeterminism is real.** Two neutral runs with the same seed and
   prompts produced 106/270 different direct/recursive memories. Within-run
   contrasts are the valid unit; do not compare single runs as if deterministic.
@@ -84,12 +90,14 @@ committed. No single judge is a valid instrument.
 ## Hypothesis Status
 
 - **H1 — supported.** Writer strategies differ strongly in status preservation.
-- **H2 — supported under the neutral writer; refined by v2.3.** Chained
-  rewriting (`recursive` and `rewrite_matched`) degrades status equally
-  (D3 17 vs 17 both-correct, D5 15 vs 16) and far more than a single
-  compression to the same final budget (D5 27). The mechanism is repeated
-  re-editing of the writer's own output, not shrinking intermediate budgets.
-  It is not observed under the status-aware writer (one D5 error).
+- **H2 — supported under both writers; mechanism refined by v2.3.** Chained
+  rewriting (`recursive` and `rewrite_matched`) degrades status equally and far
+  more than a single compression to the same final budget. Neutral: D3 17 vs 17
+  both-correct, D5 15 vs 16, direct D5 27; status-aware: chained 107–108 vs
+  direct 116 both-correct across depths. The mechanism is repeated re-editing
+  of the writer's own output, not shrinking intermediate budgets. The
+  status-aware prompt reduces the chaining penalty (32 → 8 both-correct cells)
+  but does not remove it.
 - **H3 — supported.** Proposition retention (98.9–100%) coexists with status
   errors agreed by both judges.
 - **H4 — untested.**

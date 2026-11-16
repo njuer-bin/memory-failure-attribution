@@ -124,3 +124,22 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - v2.3 passes all pre-registered gates. Adjusted writer-drift count is 38/46.
 - Recorded in
   `docs/research/2026-11-16-status-drift-v23-adjudication.md`.
+
+### v2.3 status-aware rewrite-matched — completed
+
+- Status-aware writer, 30 trajectories, `--rewrite-matched`, seed 42, both
+  judges. Inter-judge agreement 364/390 = 0.933.
+- Both-correct by condition (d1/d2/d3/d5): direct 29/29/29/29; recursive
+  29/27/25/26; rewrite-matched 29/27/26/26. Both-wrong: 1 recursive, 2
+  rewrite-matched, all `epistemic_02_U` cue omission.
+- Paired: recursive vs rewrite-matched 107 vs 108 (6 vs 7); rewrite-matched vs
+  direct 108 vs 116 (1 vs 9); recursive vs direct 107 vs 116 (3 vs 12).
+- Deterministic proposition omission 0/30 everywhere; condition omission direct
+  0/10, recursive 1/10 at D3/D5, rewrite-matched 0/10.
+- Deterministic status cue (updated, D5): direct 10 MATCH/0 ABSENT; recursive
+  4/5; rewrite-matched 4/4.
+- P10 supported: status-aware reduces the chaining penalty (32 → 8
+  both-correct cells; 23 → 3 both-wrong) but does not eliminate cue loss.
+- The run was interrupted once by host memory pressure and resumed with
+  `--resume`.
+- Recorded in `docs/research/2026-11-16-status-drift-v23-status-aware.md`.
