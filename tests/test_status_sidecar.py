@@ -25,3 +25,8 @@ def test_missing_sidecar_returns_none():
 
 def test_unrelated_field_returns_none():
     assert sidecar_status("[状态: 意图=已决定]", "epistemic") is None
+
+
+def test_last_sidecar_wins():
+    text = "[状态: 确定性=可能]\n[状态: 确定性=已确认]"
+    assert sidecar_status(text, "epistemic") == "CERTAIN"

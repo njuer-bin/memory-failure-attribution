@@ -26,11 +26,13 @@ _KV_SPLIT_RE = re.compile(r"[=:：]")
 
 
 def parse_sidecar(text: str) -> dict[str, str] | None:
-    match = _SIDECAR_RE.search(text)
-    if not match:
+    matches = _SIDECAR_RE.findall(text)
+    if not matches:
         return None
+    # Recursive memories may accumulate sidecars; the last one is the latest.
+    payload = matches[-1]
     fields: dict[str, str] = {}
-    for part in _PAIR_SPLIT_RE.split(match.group(1)):
+    for part in _PAIR_SPLIT_RE.split(payload):
         part = part.strip()
         if not part:
             continue
