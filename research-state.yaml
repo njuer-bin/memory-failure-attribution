@@ -1,0 +1,106 @@
+# Research State — Status Drift v2 Pilot
+# Adapted from the autoresearch template. This repo keeps its authoritative
+# experiment history in docs/RESEARCH_LOG.md; these files add agent-loop state.
+
+project:
+  title: "Status Drift in Long-Term Conversational Memory"
+  question: "Does recursive compression of conversational memory change the epistemic, intentional, or conditional status of a proposition beyond one-shot compression?"
+  status: active
+  started: "2026-11-16"
+  domain: "long-term conversational memory / epistemic status fidelity"
+  branch: "research/status-drift-v2-pilot"
+
+literature:
+  key_papers:
+    # Named in docs/STATUS_DRIFT_RESEARCH_PLAN_V2.md; bibliographic details still to verify.
+    - id: "HELM"
+      title: "HELM (to verify full title/venue)"
+      authors: "to verify"
+      year: null
+      relevance: "Related work on memory/uncertainty; full text and appendix must be checked before any novelty claim"
+    - id: "ProgMem"
+      title: "ProgMem (to verify full title/venue)"
+      authors: "to verify"
+      year: null
+      relevance: "Related work on plan lifecycle management"
+    - id: "BELIEFMEM"
+      title: "BELIEFMEM (to verify full title/venue)"
+      authors: "to verify"
+      year: null
+      relevance: "Related work on belief-state memory"
+    - id: "AnswerBubbles"
+      title: "Answer Bubbles (to verify full title/venue)"
+      authors: "to verify"
+      year: null
+      relevance: "Related work on provenance/uncertainty preservation"
+  open_problems:
+    - "Whether status drift is separable from proposition omission under compression"
+    - "Whether recursion adds drift beyond repeated one-shot writing at matched budgets"
+  evidence_gaps:
+    - "No controlled trajectory benchmark for status-only corruption yet"
+    - "No downstream-behavior measurement yet"
+
+hypotheses:
+  - id: H1
+    statement: "Compression strategies differ in status preservation."
+    status: pending
+    motivation: "Baseline measurement before claiming a phenomenon."
+    parent: null
+    priority: high
+  - id: H2
+    statement: "Recursive compression may add status drift beyond one-shot compression."
+    status: pending
+    motivation: "Central recursion claim; requires paired recursive-vs-direct comparison."
+    parent: null
+    priority: high
+  - id: H3
+    statement: "Proposition retention does not guarantee status retention."
+    status: pending
+    motivation: "Motivates CPSD as a separate metric from omission."
+    parent: null
+    priority: high
+  - id: H4
+    statement: "Status-only corruption may independently alter downstream decisions."
+    status: pending
+    motivation: "Later Stage B; not tested by the current pilot."
+    parent: null
+    priority: low
+
+experiments:
+  proxy_metric: "CPSD (status errors among proposition-retained outputs) plus raw accuracy; report omission rate and denominators"
+  baseline_value: null
+  best_value: null
+  total_runs: 1
+  trajectory:
+    - run_id: "smoke_001"
+      hypothesis: "H1-H3 pipeline check"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "6-trajectory v1.0 smoke test; pipeline reproduced, judge instrument invalid (conditional label inversion, broken retention field)"
+      timestamp: "2026-11-16"
+  active_protocol: "docs/STATUS_DRIFT_PILOT_PROTOCOL.md"
+  calibration_protocol: "docs/research/2026-11-16-status-drift-smoke-calibration.md"
+  runner: "experiments/status_drift_recursive_pilot.py"
+  calibration_runner: "experiments/status_drift_judge_calibration.py"
+
+outer_loop:
+  cycle: 1
+  last_direction: "deepen"
+  last_reflection: "Smoke test failed the judge-validity gate. Do not scale to 30. Calibrate the judge (v1.1) on the same six memories with an independent model, then re-adjudicate."
+
+workspace:
+  findings: "findings.md"
+  log: "research-log.md"
+  repo_history: "docs/RESEARCH_LOG.md"
+  literature_dir: "literature/"
+  experiments_dir: "experiments/"
+  results_dir: "results/status_drift_v2_pilot/ (git-ignored)"
+  to_human_dir: "to_human/"
+
+integrity:
+  - "No fabricated results or references."
+  - "Synthetic pilot only; no population-level claims."
+  - "Manual adjudication required before scientific claims."
+  - "Report proposition omission separately from status distortion."
+  - "Do not claim novelty until full-text/appendix comparison is complete."
