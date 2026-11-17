@@ -64,16 +64,17 @@ hypotheses:
     note: "P3: 88/300 proposition-preserved items are status omissions; PLR is 10-20% in chained conditions, so omission is not explained by proposition loss. Unsupported distortion is rare (3/300)."
   - id: H4
     statement: "Status-only corruption may independently alter downstream decisions."
-    status: pending
-    motivation: "Later Stage B; not tested by the current pilot."
+    status: supported-for-distortion
+    motivation: "Stage B downstream behavior; tested by P4."
     parent: null
-    priority: low
+    priority: high
+    note: "P4: distorted status raises unauthorized action from 6.7% to 66.7% (paired +0.600, CI [0.433,0.767]). Omitted status does not raise unauthorized action (0/30) but lowers evidence-consistent action by 26.7 points. The effect is real for distortion, not for omission on this task."
 
 experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 32
+  total_runs: 33
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -299,18 +300,25 @@ experiments:
       wall_time_min: null
       change_summary: "Adjudicated 330 items: NO_DISTORTION 182, STATUS_OMISSION 88, PROPOSITION_LOSS 30, LEGITIMATE_UPDATE 27, UNSUPPORTED 3; PRESERVED 300. Omission among PRESERVED: recursive 0.444, rewrite_matched 0.462, para 0.542, temp1 0.423, temp2 0.519, path_s2 0.538; direct 0.037, repeated_direct 0.037, source_peek 0.000, raw 0.000, retrieval 0.333. Paired vs recursive: direct -0.367 [-0.567,-0.167], repeated_direct -0.367, source_peek -0.400 [-0.567,-0.233], rewrite_matched 0.000 [-0.167,0.167]. USDR overall 3/300 = 1.0%; condition contrasts uninformative. Claim reframed: chaining causes status omission; unsupported distortion is a rare subtype."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.3 frozen for P2/P3; P4 draft docs/research/V3_P4_PROTOCOL_DRAFT.md (not frozen). Core: V3_P2_PROTOCOL.md, V3_P2_FREEZE.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runner experiments/v3_p2_paired_study.py; analysis experiments/analyze_p3_outcomes.py"
+    - run_id: "v3_p4_behavioral"
+      hypothesis: "H4: does status-only corruption alter downstream action?"
+      metric_value: 0.667
+      delta: null
+      wall_time_min: null
+      change_summary: "30 P2 trajectories x present/omitted/distorted + no_memory, sandboxed PROCEED/CONFIRM/ABSTAIN/OTHER; 120/120 complete, 0 parse failures. present unauthorized 2/30 (6.7%), evidence-consistent 28/30; omitted unauthorized 0/30, evidence-consistent 20/30 (under-action), all CONFIRM; distorted unauthorized 20/30 (66.7%), evidence-consistent 0/30; no_memory unauthorized 0/30, 13 CONFIRM/17 ABSTAIN. Paired vs present: omitted unauthorized -0.067 [-0.167,0.000], evidence-consistent -0.267 [-0.467,-0.067]; distorted unauthorized +0.600 [0.433,0.767], evidence-consistent -0.933 [-1.000,-0.833]. Omission is conservative; distortion is dangerous. Conditional present had 2/10 agent conditional-collapse errors."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2.3 frozen for P2/P3; P4 frozen docs/research/V3_P4_PROTOCOL.md and V3_P4_FREEZE.md. Core: V3_P2_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners experiments/v3_p2_paired_study.py, v3_p4_behavioral.py; analysis experiments/analyze_p3_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1/V3.2 annotation calibrations are protocol-development results. The v3.2.2 identity re-annotation passes the calibration gate (primary kappa 0.827, identity 0.837, action_status 1.000). P2 passes the completeness gate (30/30, 300/300, 0 errors). P3 blind labels are reliable (primary kappa 0.944) and show status omission of 44-54% in chained conditions vs 3.7% in direct/repeated-direct and 0% in source-peek; unsupported distortion is 3/330. P4/P5 not started."
+  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1/V3.2 annotation calibrations are protocol-development results. V3.2.2 identity re-annotation passes calibration (primary kappa 0.827, identity 0.837). P2 passes completeness (30/30, 300/300, 0 errors). P3 blind labels are reliable (primary kappa 0.944): chained rewriting causes status omission 44-54%, unsupported distortion 3/330. P4: omission is behaviorally conservative (0/30 unauthorized, -26.7 points evidence-consistent action); distortion is dangerous (66.7% unauthorized vs 6.7%). P5 not started."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 31
-  last_direction: "design"
-  last_reflection: "P3 reframed the project: chained rewriting causes status omission (44-54%) rather than unsupported distortion (0.9%); the v2 intentional-specific pattern does not replicate in blind human labels (omission 27.6% conditional, 33.0% epistemic, 27.3% intentional). The paper backbone is updated to the V3 result and the old claim is explicitly scoped to v2 exploratory evidence. A P4 draft protocol is ready for sign-off: paired present/omitted/distorted status variants, sandboxed assistant decisions, unauthorized-action primary outcome. Do not run P4 until the variants, scenarios, and parser are reviewed."
+  cycle: 32
+  last_direction: "test"
+  last_reflection: "P4 separates the two failure modes behaviorally. Omission, the dominant memory failure, is conservative: the agent always confirms and never takes unauthorized action, at the cost of 26.7 points of evidence-consistent action on established/committed statuses. Distortion, the rare memory failure, is dangerous: unauthorized action rises from 6.7% to 66.7%. Conditional present memories also trigger 2/10 agent-side conditional-collapse errors. The paper must report omission and distortion separately and must not merge them into one drift effect. Next: P5 mitigation scored on both outcomes, then replication and the novelty audit."
 
 workspace:
   findings: "findings.md"

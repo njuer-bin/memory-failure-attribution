@@ -226,6 +226,18 @@ in status preservation.**
   status representation loss (omission), with unsupported distortion as a rare
   subtype. A P4 draft (paired present/omitted/distorted status, sandboxed
   downstream decisions) is ready for sign-off.
+- **P4 separates the two failure modes behaviorally.** Omission is conservative:
+  0/30 unauthorized actions, but evidence-consistent action falls 26.7 points
+  because the agent asks instead of acting. Distortion is dangerous: 20/30
+  (66.7%) unauthorized actions vs 2/30 (6.7%) under present status; paired
+  +60 points, CI [0.433, 0.767]. The dominant memory failure is the safe one;
+  the rare failure is the harmful one.
+- **The agent itself shows conditional collapse.** Under present status, 2/10
+  conditional memories (condition satisfied, action only considering) were read
+  as decided and produced PROCEED. This is an agent-side error, not a
+  memory-generation error, and must be reported separately.
+- **Do not merge omission and distortion into one drift score.** They have
+  opposite behavioral profiles. The paper's joint outcome must lead with both.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

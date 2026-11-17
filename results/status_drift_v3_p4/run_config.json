@@ -1,0 +1,23 @@
+{
+  "protocol": "v3_p4_behavioral",
+  "frozen_protocol": "docs/research/V3_P4_PROTOCOL.md",
+  "agent_model": "qwen2.5:7b",
+  "model_info": {
+    "name": "qwen2.5:7b",
+    "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "modified_at": "2026-10-10T13:37:53.699076+08:00"
+  },
+  "base_url": "http://127.0.0.1:11434",
+  "variants": [
+    "present",
+    "omitted",
+    "distorted",
+    "no_memory"
+  ],
+  "filler": "天气多变，日程已调整。",
+  "seed": 20261118,
+  "prompt_sha256": "e615e9a465a24840b8448cd05e56a91949b4b95e55a3d8fd82702509fde7f497",
+  "runner_sha256": "36ec772b6608d4a27c84334f71b39d7ae8af4e287d00652244debe2dda94fda2",
+  "started_at": "2026-11-17T06:06:42.949589+00:00",
+  "n_trajectories": 30
+}

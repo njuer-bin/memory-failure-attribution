@@ -66,6 +66,27 @@ Omission/unsupported/faithful are among proposition-preserved items.
    transition verification).
 3. Full-text novelty audit before any novelty claim.
 
+## P4 update (2026-11-17)
+
+P4 is frozen and run: 30 trajectories × present/omitted/distorted + no_memory,
+120/120 items, 0 parse failures.
+
+| Variant | Unauthorized | Evidence-consistent | Clarify |
+|---|---:|---:|---:|
+| present | 6.7% | 93.3% | 60.0% |
+| omitted | 0.0% | 66.7% | 100% |
+| distorted | 66.7% | 0.0% | 33.3% |
+| no_memory | 0.0% | 66.7% | 43.3% |
+
+Omission is behaviorally conservative (asks, never acts without authorization)
+but causes under-action on established/committed statuses. Distortion is
+behaviorally dangerous (66.7% unauthorized, paired +60 points). The dominant
+memory failure is the safe one; the rare failure is the harmful one.
+
+**Next:** P5 mitigation scored on both omission and distortion; replication;
+full-text novelty audit.
+
+
 ## Where things are
 
 - Protocol/freeze: `docs/research/V3_P2_PROTOCOL.md`, `V3_P2_FREEZE.md`

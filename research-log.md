@@ -568,6 +568,25 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   and unauthorized-action as the primary outcome. Not frozen; requires sign-off
   on variants, scenarios, and parser.
 
+### P4 behavioral intervention — omission safe, distortion dangerous
+
+- Frozen `V3_P4_PROTOCOL.md` and `V3_P4_FREEZE.md`; 30 P2 trajectories x
+  present/omitted/distorted + no_memory; 120/120 items, 0 parse failures.
+- present: unauthorized 2/30 (6.7%), evidence-consistent 28/30 (93.3%);
+  omitted: unauthorized 0/30, evidence-consistent 20/30 (66.7%), all CONFIRM;
+  distorted: unauthorized 20/30 (66.7%), evidence-consistent 0/30;
+  no_memory: unauthorized 0/30, 13 CONFIRM / 17 ABSTAIN.
+- Paired vs present: omitted unauthorized -0.067 [-0.167, 0.000],
+  evidence-consistent -0.267 [-0.467, -0.067]; distorted unauthorized +0.600
+  [0.433, 0.767], evidence-consistent -0.933 [-1.000, -0.833].
+- Omission is the dominant memory failure but behaviorally conservative;
+  distortion is rare but behaviorally harmful. Report separately.
+- Conditional present has 2/10 agent-side conditional-collapse errors
+  (condition satisfied + action considering read as decided).
+- Recorded in `docs/research/2026-11-17-v3-p4-behavioral.md`; raw outputs in
+  `results/status_drift_v3_p4/`.
+
+
 
 
 

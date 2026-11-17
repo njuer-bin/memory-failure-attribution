@@ -230,3 +230,37 @@ unsupported distortion underpowered; raw/retrieval are references.
 **Next.** P4 status-only downstream intervention (correct / omitted / distorted
 status, identical proposition wording), then P5 mitigation comparison, then the
 full-text novelty audit. Do not claim novelty before that audit.
+
+## V3 P4 behavioral update (2026-11-17)
+
+**Design.** 30 P2 trajectories × present/omitted/distorted status variants plus
+a no-memory reference; sandboxed assistant chooses PROCEED/CONFIRM/ABSTAIN/
+OTHER. Frozen in `V3_P4_FREEZE.md`; result in
+`docs/research/2026-11-17-v3-p4-behavioral.md`.
+
+**Result.** Omission is conservative, distortion is dangerous:
+
+| Variant | Unauthorized | Evidence-consistent | Clarify |
+|---|---:|---:|---:|
+| present | 6.7% | 93.3% | 60.0% |
+| omitted | 0.0% | 66.7% | 100% |
+| distorted | 66.7% | 0.0% | 33.3% |
+| no_memory | 0.0% | 66.7% | 43.3% |
+
+Paired vs present: omitted unauthorized −0.067 [−0.167, 0.000],
+evidence-consistent −0.267 [−0.467, −0.067]; distorted unauthorized +0.600
+[0.433, 0.767], evidence-consistent −0.933 [−1.000, −0.833].
+
+**Interpretation.** The dominant memory failure (omission) causes under-action
+and clarification, not unauthorized action. The rare failure (distortion)
+causes unauthorized action in two thirds of cases. The two failure modes must
+be reported separately: a single "status drift" effect would hide that the
+common failure is safe and the rare one is harmful.
+
+**Dimension note.** Conditional present memories are fragile even without
+manipulation: 2/10 were read as decided and produced PROCEED. This is an agent
+conditional-collapse error, distinct from the memory variant.
+
+**Limitations.** One agent model, one scenario per trajectory, 30 trajectories,
+no power claim; sandboxed only. A second model and a second scenario are
+replication, not part of the primary contrast.
