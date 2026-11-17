@@ -1,0 +1,76 @@
+# V3 P2/P3 Result — One-Page Summary (2026-11-17)
+
+## What was run
+
+- **P2:** 30 new trajectories (5 topics × 3 dimensions × stable/updated),
+  10 generated conditions + raw, writer `qwen2.5:7b`, final budget 100.
+  Completeness: 30/30 trajectories, 300/300 conditions, 0 errors.
+- **P3:** 330 blind items (30 × 11 conditions), two annotators, frozen v3.2.3
+  guide. Reliability: primary-judgment κ **0.944**, identity κ 0.943,
+  action_status κ 0.924, condition status κ 0.989.
+- Adjudication: model-assisted (23 overrides); original labels preserved.
+
+## Headline result
+
+**Chained rewriting causes status omission, not unsupported distortion.**
+
+| Condition | Proposition loss | Unsupported | Status omission | Faithful |
+|---|---:|---:|---:|---:|
+| raw | 0.0% | 0.0% | 0.0% | 100% |
+| direct | 10.0% | 0.0% | 3.7% | 96.3% |
+| recursive | 10.0% | 3.7% | **44.4%** | 51.9% |
+| rewrite-matched | 13.3% | 0.0% | **46.2%** | 53.8% |
+| repeated-direct | 10.0% | 0.0% | 3.7% | 96.3% |
+| source-peek | 0.0% | 0.0% | **0.0%** | 100% |
+| paraphrase | 20.0% | 0.0% | 54.2% | 45.8% |
+| temp1 | 13.3% | 7.7% | 42.3% | 50.0% |
+| temp2 | 10.0% | 0.0% | 51.9% | 48.1% |
+| path-S2 | 13.3% | 0.0% | 53.8% | 46.2% |
+| retrieval | 0.0% | 0.0% | 33.3% | 66.7% |
+
+Omission/unsupported/faithful are among proposition-preserved items.
+
+## Mechanism
+
+- **Chaining, not budget shrinkage:** rewrite-matched (constant intermediate
+  budgets) equals recursive (paired omission difference 0.000).
+- **Not raw call count:** repeated-direct matches call count but behaves like
+  direct (−0.367, CI [−0.567, −0.167]).
+- **Source access protects:** source-peek omits 0/30 and loses 0/30
+  propositions (−0.400, CI [−0.567, −0.233]).
+- **Decoding / paraphrase / schedule** do not materially change omission.
+
+## Two corrections to the earlier story
+
+1. **Unsupported distortion is rare:** 3/330 (0.9%), not the main outcome.
+   The claim is **path-dependent status representation loss (omission)**.
+2. **The v2 intentional-specific pattern does not replicate:** omission is
+   27.6% conditional, 33.0% epistemic, 27.3% intentional. Scope the old claim
+   to v2 deterministic/judge evidence.
+
+## Caveats
+
+- Synthetic Chinese templates; one writer model; 5 topics; 30 trajectories
+  (no power claim).
+- Adjudication is model-assisted, not human; annotator provenance is
+  unrecorded (maintainer decision). Report as annotator-unspecified.
+- Raw and retrieval are references, not production strategies.
+- P2/P3 are not pooled with v2.x or P1.
+
+## Next
+
+1. Review/sign off `V3_P4_PROTOCOL_DRAFT.md` (paired present/omitted/distorted
+   status variants; sandboxed downstream decisions; unauthorized-action
+   primary outcome). Then freeze and run P4.
+2. P5 mitigation comparison (neutral, status-aware, evidence-anchored,
+   transition verification).
+3. Full-text novelty audit before any novelty claim.
+
+## Where things are
+
+- Protocol/freeze: `docs/research/V3_P2_PROTOCOL.md`, `V3_P2_FREEZE.md`
+- P3 result: `docs/research/2026-11-17-v3-p3-outcomes.md`
+- Raw outputs: `results/status_drift_v3_p2/`
+- Labels/key: `results/status_drift_v3_p2/annotation/`; key outside the repo
+- Analysis: `results/status_drift_v3_p2/analysis/`
+- Paper backbone: `docs/research/2026-11-16-status-drift-paper-backbone.md`
