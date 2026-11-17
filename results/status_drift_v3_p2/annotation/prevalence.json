@@ -1,0 +1,33 @@
+{
+  "n_items": 330,
+  "conditions": {
+    "rewrite_matched": 30,
+    "path_s2": 30,
+    "temp1": 30,
+    "recursive": 30,
+    "source_peek": 30,
+    "retrieval": 30,
+    "repeated_direct": 30,
+    "para": 30,
+    "temp2": 30,
+    "direct": 30,
+    "raw": 30
+  },
+  "dimensions": {
+    "intentional": 110,
+    "conditional": 110,
+    "epistemic": 110
+  },
+  "gold_status": {
+    "COMMITTED": 55,
+    "CONDITION_SATISFIED": 55,
+    "CONSIDERING": 55,
+    "POSSIBLE": 55,
+    "CONDITION_ACTIVE": 55,
+    "CERTAIN": 55
+  },
+  "primary_subset": {
+    "true": 150,
+    "false": 180
+  }
+}

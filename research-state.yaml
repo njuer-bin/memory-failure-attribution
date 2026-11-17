@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 28
+  total_runs: 30
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -271,18 +271,32 @@ experiments:
       wall_time_min: null
       change_summary: "Froze ontology v3.2.3, P2 protocol, SAP section 11, and runner with SHA-256 hashes in V3_P2_FREEZE.md. P2 design: 30 new trajectories (5 new topics x 3 dimensions x stable/updated), 10 generated conditions + raw, qwen2.5:7b neutral writer, final budget 100, seeds 42/43. Smoke test: 1 trajectory, 10/10 conditions complete, 0 errors. Full generation pending."
       timestamp: "2026-11-17"
+    - run_id: "v3_p2_generation"
+      hypothesis: "P2 completeness gate"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Full P2 generation: 30/30 trajectories, 300/300 generated conditions + 30 raw references, 0 errors, 0 empty finals. Gate passed. Condition means: direct 20.0 eval tokens / 28.2 chars; recursive 16.4 / 22.7; rewrite_matched 16.5 / 23.0; repeated_direct 20.1 / 28.4; source_peek 20.1 / 28.2; para 17.5 / 23.6; temp1 15.4 / 20.7; temp2 16.1 / 21.9; path_s2 15.8 / 21.5; retrieval 46.8 / 0 writer. Topic-mention diagnostics 0.83-1.00; not a proposition-retention measure. Model digest 845dbda0ea48."
+      timestamp: "2026-11-17"
+    - run_id: "v3_p3_annotation_set"
+      hypothesis: "P3 blind human evaluation of P2 outputs"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Generated 330-item P3 blind annotation set (30 trajectories x 10 generated conditions + raw), shuffled, blank A/B files with action_status, condition key outside repo at G:/memory_failure_backup/v3_p2_annotation_key.csv. Balanced: 110 items per dimension, 55 per gold status, 30 per condition; primary subset (raw/direct/recursive/rewrite_matched/source_peek) = 150 items. Awaiting two independent annotations under v3.2.3."
+      timestamp: "2026-11-17"
   current_protocol: "V3.2.3 frozen: P2 protocol docs/research/V3_P2_PROTOCOL.md; freeze record docs/research/V3_P2_FREEZE.md; formal ontology docs/research/V3_FORMAL_DEFINITIONS.md; annotation V3_ANNOTATION_GUIDELINES.md and V3_ANNOTATION_HOWTO.md; SAP V3_STATISTICAL_ANALYSIS_PLAN.md; runner experiments/v3_p2_paired_study.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1/V3.2 annotation calibrations are protocol-development results. The v3.2.2 identity re-annotation passes the calibration gate (primary kappa 0.827, identity 0.837, action_status 1.000). P2 is frozen and generation is starting; no P2/P3 results yet."
+  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1/V3.2 annotation calibrations are protocol-development results. The v3.2.2 identity re-annotation passes the calibration gate (primary kappa 0.827, identity 0.837, action_status 1.000). P2 is generated and passes the completeness gate (30/30 trajectories, 300/300 conditions, 0 errors). The 330-item P3 blind annotation set is ready; no P3 labels yet."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 28
-  last_direction: "confirm"
-  last_reflection: "The v3.2.2 identity re-annotation passed the gate (primary kappa 0.827, identity 0.837, action_status 1.000), and v3.2.3 clarified the seven residual boundaries. The P2 protocol, SAP section, runner, and ontology are frozen with SHA-256 hashes. P2 uses 30 new trajectories across 5 unseen topics and 10 generated conditions plus raw; the smoke test completed 10/10 conditions with no errors. Next: run full generation, verify the completeness gate, then prepare the P3 blind annotation set from the frozen outputs."
+  cycle: 29
+  last_direction: "evaluate"
+  last_reflection: "P2 generation passed the completeness gate: 30/30 trajectories, 300/300 generated conditions, 0 errors, 0 empty finals. Deterministic diagnostics show the expected pattern: chained conditions (recursive, rewrite_matched, temp, path_s2) produce shorter memories than direct/source_peek, while retrieval is longest. These are not proposition-retention evidence. The 330-item P3 blind annotation set is ready (balanced across dimensions, gold statuses, and conditions; 150-item primary subset). Next: two independent annotations under the frozen v3.2.3 guide, then the P3 gate."
 
 workspace:
   findings: "findings.md"

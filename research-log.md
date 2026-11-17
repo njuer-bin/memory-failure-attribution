@@ -506,6 +506,31 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Next: full 30-trajectory generation, then the completeness gate and P3 blind
   annotation set.
 
+### P2 full generation — completeness gate passed
+
+- 30/30 trajectories; 300/300 generated conditions + 30 raw references;
+  0 errors; 0 empty finals.
+- Condition means (eval tokens / final characters): direct 20.0 / 28.2;
+  recursive 16.4 / 22.7; rewrite_matched 16.5 / 23.0; repeated_direct 20.1 /
+  28.4; source_peek 20.1 / 28.2; para 17.5 / 23.6; temp1 15.4 / 20.7;
+  temp2 16.1 / 21.9; path_s2 15.8 / 21.5; retrieval 46.8 characters (no writer).
+- Topic-mention diagnostics 0.83–1.00; explicitly not proposition-retention
+  evidence.
+- Model: qwen2.5:7b digest `845dbda0ea48...`.
+- Recorded in `results/status_drift_v3_p2/` with `run_config.json`,
+  `records.jsonl`, `summary.json`.
+
+### P3 blind annotation set — ready
+
+- 330 items: 30 trajectories × 10 generated conditions + 30 raw references.
+- Balanced: 110 per dimension; 55 per gold status; 30 per condition.
+- Primary subset (raw, direct, recursive, rewrite_matched, source_peek) = 150
+  items.
+- Shuffled, blank A/B files with the v3.2.3 schema including `action_status`;
+  condition key outside the repo at `G:/memory_failure_backup/v3_p2_annotation_key.csv`.
+- Awaiting two independent annotations under v3.2.3.
+
+
 
 
 

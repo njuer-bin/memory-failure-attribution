@@ -191,6 +191,16 @@ in status preservation.**
   final budget 100, seeds 42/43. The smoke test completed 10/10 conditions with
   no errors. The completeness gate is 30/30 trajectories and 300/300 generated
   conditions; P3 blind annotation under v3.2.3 is the primary measurement.
+- **P2 completeness gate passed.** 30/30 trajectories, 300/300 generated
+  conditions + 30 raw references, 0 errors, 0 empty finals. Chained conditions
+  are shorter on average (recursive 22.7 chars/16.4 tokens; rewrite-matched
+  23.0/16.5; temp1 20.7/15.4; path_s2 21.5/15.8) than direct (28.2/20.0) and
+  source-peek (28.2/20.1); retrieval is longest (46.8 chars). Topic-mention
+  diagnostics are 0.83–1.00 and are not proposition-retention evidence.
+- **The P3 blind set is ready.** 330 items (30 trajectories × 11 conditions),
+  balanced across dimensions, gold statuses, and conditions; a 150-item primary
+  subset covers raw/direct/recursive/rewrite_matched/source_peek. Two
+  independent annotations under the frozen v3.2.3 guide are the next gate.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

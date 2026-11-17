@@ -1,0 +1,120 @@
+{
+  "protocol": "v3_p2_paired_study",
+  "n_trajectories": 30,
+  "expected_generated_conditions": 300,
+  "complete_generated_conditions": 300,
+  "missing_conditions": 0,
+  "raw_references": 30,
+  "by_condition": {
+    "direct": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 28.166666666666668,
+      "mean_final_eval_tokens": 20.033333333333335,
+      "topic_mentioned_rate": 0.9666666666666667
+    },
+    "recursive": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 22.666666666666668,
+      "mean_final_eval_tokens": 16.4,
+      "topic_mentioned_rate": 0.9
+    },
+    "rewrite_matched": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 23,
+      "mean_final_eval_tokens": 16.533333333333335,
+      "topic_mentioned_rate": 0.9
+    },
+    "repeated_direct": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 28.4,
+      "mean_final_eval_tokens": 20.133333333333333,
+      "topic_mentioned_rate": 0.9666666666666667
+    },
+    "source_peek": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 28.2,
+      "mean_final_eval_tokens": 20.066666666666666,
+      "topic_mentioned_rate": 0.9666666666666667
+    },
+    "para": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 23.6,
+      "mean_final_eval_tokens": 17.533333333333335,
+      "topic_mentioned_rate": 0.9333333333333333
+    },
+    "temp1": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 20.666666666666668,
+      "mean_final_eval_tokens": 15.433333333333334,
+      "topic_mentioned_rate": 0.8666666666666667
+    },
+    "temp2": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 21.933333333333334,
+      "mean_final_eval_tokens": 16.133333333333333,
+      "topic_mentioned_rate": 0.8666666666666667
+    },
+    "path_s2": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 21.5,
+      "mean_final_eval_tokens": 15.8,
+      "topic_mentioned_rate": 0.8333333333333334
+    },
+    "retrieval": {
+      "n": 30,
+      "complete": 30,
+      "missing": 0,
+      "errors": 0,
+      "error_examples": [],
+      "mean_final_chars": 46.833333333333336,
+      "mean_final_eval_tokens": null,
+      "topic_mentioned_rate": 1.0
+    }
+  },
+  "gate": {
+    "all_trajectories_present": true,
+    "all_conditions_complete": true,
+    "error_rate": 0.0
+  },
+  "warnings": [
+    "Topic mention is a lexical diagnostic, not proposition retention.",
+    "Deterministic status cues are diagnostics; P3 human labels are primary.",
+    "Do not drop outputs by length or content."
+  ]
+}

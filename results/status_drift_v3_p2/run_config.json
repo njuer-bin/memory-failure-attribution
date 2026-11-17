@@ -1,0 +1,139 @@
+{
+  "protocol": "v3_p2_paired_study",
+  "frozen_protocol": "docs/research/V3_P2_PROTOCOL.md",
+  "annotation_guide": "docs/research/V3_ANNOTATION_GUIDELINES.md (v3.2.3)",
+  "writer_model": "qwen2.5:7b",
+  "model_info": {
+    "name": "qwen2.5:7b",
+    "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "modified_at": "2026-10-10T13:37:53.699076+08:00"
+  },
+  "base_url": "http://127.0.0.1:11434",
+  "conditions": {
+    "direct": {
+      "kind": "direct",
+      "budget": 100,
+      "style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "recursive": {
+      "kind": "chain",
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "rewrite_matched": {
+      "kind": "chain",
+      "schedule": [
+        220,
+        220,
+        220,
+        220,
+        100
+      ],
+      "source_peek": false,
+      "style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "repeated_direct": {
+      "kind": "repeat_direct",
+      "n": 5,
+      "budget": 100,
+      "style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "source_peek": {
+      "kind": "chain",
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": true,
+      "style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "para": {
+      "kind": "chain",
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "style": "neutral_paraphrase",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "temp1": {
+      "kind": "chain",
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "style": "neutral",
+      "temperature": 0.7,
+      "seed": 42
+    },
+    "temp2": {
+      "kind": "chain",
+      "schedule": [
+        220,
+        180,
+        140,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "style": "neutral",
+      "temperature": 0.7,
+      "seed": 43
+    },
+    "path_s2": {
+      "kind": "chain",
+      "schedule": [
+        220,
+        160,
+        150,
+        120,
+        100
+      ],
+      "source_peek": false,
+      "style": "neutral",
+      "temperature": 0.0,
+      "seed": 42
+    },
+    "retrieval": {
+      "kind": "retrieval",
+      "budget": 100
+    }
+  },
+  "final_budget": 100,
+  "prompt_hashes": {
+    "neutral": "206c81481f6b155e5a3e479a7222f58c9eb49d54911149a5d5d96e3716fc69df",
+    "neutral_paraphrase": "2899ae865af703c05a731ccddd11b43552a2095b4327e072205e4cfcc28f7244"
+  },
+  "runner_sha256": "0d5cb0fc6f8591bdac4098f26c5fec343e2a76f5653ddd635c02f4f4026512cf",
+  "started_at": "2026-11-17T03:29:15.153579+00:00",
+  "n_trajectories": 30
+}
