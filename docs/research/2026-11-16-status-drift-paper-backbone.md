@@ -300,17 +300,16 @@ The omission/distortion asymmetry replicates almost exactly; gemma made zero
 present-status conditional-collapse errors (qwen 2/30).
 
 **Writer (gemma3:12b).** First 12 pre-registered trajectories × 7 conditions.
-Human faithful (κ 0.702, provisional): direct 11/12, recursive 10/12,
-rewrite-matched 7/12, repeated-direct 11/12, neutral-source 10/12,
-status-aware 11/12, combined 12/12. Rewrite-matched remains worst, but
-recursive is far less destructive than in qwen; source access alone is weaker;
-status-aware and the combination are stronger. The mitigation ranking is
-model-dependent. The writer run over-collected 30 trajectories; the first 12
+v3.2.5 recheck (primary κ 0.834): human faithful direct 11/12, recursive 8/12,
+rewrite-matched 6/12, repeated-direct 11/12, neutral-source 10/12,
+status-aware 11/12, combined 12/12. Recursive and rewrite-matched are the low
+conditions; direct and repeated-direct are high. Source access alone remains
+weaker in gemma (0.83 vs qwen 1.00), while status-aware and the combination are
+at or above qwen. The writer run over-collected 30 trajectories; the first 12
 are the primary cohort and the rest exploratory.
 
 **Reading.** The behavioral asymmetry is model-robust. The writer-side
-mitigation ranking is not: qwen benefits most from source access, gemma from
-the status-aware prompt and the combination. Do not claim a universal
-source-access mitigation; report the model boundary. Writer reliability
-κ 0.702 is below the gate; v3.2.5 clarifications would need a recheck for a
-strong writer claim.
+mitigation ranking is model-dependent: qwen benefits most from source access,
+gemma from the status-aware prompt and the combination. The chain effect
+replicates in direction, not in every magnitude. Do not claim a universal
+source-access mitigation; report the model boundary.

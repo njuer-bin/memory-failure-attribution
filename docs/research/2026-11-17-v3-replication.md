@@ -1,5 +1,9 @@
 # V3 Second-Model Replication — gemma3:12b (2026-11-17)
 
+> **Update (v3.2.5 writer recheck):** the 84 writer items were re-annotated
+> under v3.2.5; primary-judgment κ **0.834**. §6 supersedes the provisional
+> writer numbers in §5. The agent result in §2 is unchanged.
+
 **Protocol:** `V3_REPLICATION_PROTOCOL.md`, frozen `V3_REPLICATION_FREEZE.md`.
 **Models:** `gemma3:12b` for both writer and agent.
 **Status:** writer replication generated; 84-item blind human set pending.
@@ -123,4 +127,60 @@ Human faithful (NO_DISTORTION + LUA; all items preserved):
 numbers are provisional. The v3.2.5 clarifications below would need a recheck
 for a clean claim. The agent replication (§2) does not depend on these labels
 and is solid.
+
+## 6. v3.2.5 writer recheck (primary)
+
+The 84 writer items were re-annotated under v3.2.5 (new shuffle, new item ids,
+blank files). Reliability:
+
+| Field | Raw | Cohen's κ |
+|---|---:|---:|
+| proposition_identity | 1.000 | — (all PRESERVED) |
+| primary_dimension | 1.000 | 1.000 |
+| status_expressed | 1.000 | 1.000 |
+| expressed_status | 1.000 | 1.000 |
+| action_status | 0.964 | 0.924 |
+| evidence_support | 0.952 | 0.850 |
+| **primary_judgment** | **0.940** | **0.834** |
+
+The v3.2.5 clarifications removed the gemma-specific disagreements. Five
+primary disagreements remained, all `LEGITIMATE_UPDATE` vs `NO_DISTORTION`
+(both faithful); 12 adjudication overrides, model-assisted.
+
+Human faithful (NO_DISTORTION + LUA; all items preserved):
+
+| Condition | Faithful | Omission | Unsupported | Ambiguous |
+|---|---:|---:|---:|---:|
+| direct | 11/12 = 0.92 | 1/12 | 0/12 | 0/12 |
+| recursive | 8/12 = **0.67** | 1/12 | 3/12 | 0/12 |
+| rewrite_matched | 6/12 = **0.50** | 1/12 | 3/12 | 2/12 |
+| repeated_direct | 11/12 = 0.92 | 1/12 | 0/12 | 0/12 |
+| neutral_source | 10/12 = 0.83 | 1/12 | 1/12 | 0/12 |
+| status_aware | 11/12 = 0.92 | 0/12 | 1/12 | 0/12 |
+| status_aware_source | **12/12 = 1.00** | 0/12 | 0/12 | 0/12 |
+
+**Comparison to qwen (writer).**
+
+| Condition | qwen | gemma v3.2.5 |
+|---|---:|---:|
+| direct | 0.96 | 0.92 |
+| recursive | 0.52 | 0.67 |
+| rewrite_matched | 0.54 | 0.50 |
+| repeated_direct | 0.96 | 0.92 |
+| source (neutral) | 1.00 | 0.83 |
+| status_aware | 0.90 | 0.92 |
+| status_aware_source | 0.93 | 1.00 |
+
+The chain effect now replicates more clearly: recursive and rewrite-matched
+are the low conditions, direct and repeated-direct are high. Rewrite-matched
+is the worst in gemma (0.50), consistent with chained re-editing. Source access
+alone remains weaker in gemma (0.83 vs 1.00), while status-aware and the
+combination are at or above the qwen values. The mitigation ranking is still
+**model-dependent**: qwen benefits most from source access, gemma from the
+status-aware prompt and the combination.
+
+**Conclusion.** The writer replication is confirmed in direction but not in
+every magnitude. The agent asymmetry is model-robust. Report the writer
+mitigation as model-dependent rather than universal.
+
 

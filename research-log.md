@@ -712,6 +712,21 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   writer-replication claim. The agent replication does not depend on this and
   is solid.
 
+### gemma3:12b writer v3.2.5 recheck — reliability passes, replication confirmed in direction
+
+- Full 84-item re-annotation: primary raw 0.940 / kappa 0.834; identity 1.000;
+  status_expressed 1.000; expressed 1.000; action 0.964 / 0.924; evidence
+  0.952 / 0.850. 12 adjudication overrides.
+- Human faithful: direct 11/12, recursive 8/12, rewrite_matched 6/12,
+  repeated_direct 11/12, neutral_source 10/12, status_aware 11/12,
+  status_aware_source 12/12.
+- The chain effect now replicates more clearly; source access alone remains
+  weaker in gemma (0.83 vs qwen 1.00); status_aware and the combination are at
+  or above qwen. The mitigation ranking is model-dependent.
+- Recorded in `docs/research/2026-11-17-v3-replication.md` §6; analysis in
+  `results/status_drift_v3_replication_writer/analysis_v325/`.
+
+
 
 
 

@@ -81,7 +81,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 44
+  total_runs: 45
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -391,18 +391,25 @@ experiments:
       wall_time_min: null
       change_summary: "84 items, A/B complete. Reliability: primary raw 0.893/kappa 0.702 (below 0.80); identity 1.000; status_expressed 0.917/0.550; expressed 0.821/0.791; action 1.000; evidence 0.893/0.523. 17 adjudication overrides. Adjudicated faithful: direct 11/12, recursive 10/12, rewrite_matched 7/12, repeated_direct 11/12, neutral_source 10/12, status_aware 11/12, status_aware_source 12/12. Writer replication is partial: rewrite-matched still worst, recursive less destructive than qwen, source access weaker, status_aware stronger; mitigation ranking is model-dependent. Provisional due to kappa."
       timestamp: "2026-11-17"
+    - run_id: "v3_replication_writer_recheck_v325"
+      hypothesis: "Writer replication reliability after v3.2.5 clarifications"
+      metric_value: 0.834
+      delta: null
+      wall_time_min: null
+      change_summary: "Full 84-item re-annotation under v3.2.5: primary raw 0.940/kappa 0.834; identity 1.000; status_expressed 1.000; expressed 1.000; action 0.964/0.924; evidence 0.952/0.850. 12 adjudication overrides. Adjudicated faithful: direct 11/12, recursive 8/12, rewrite_matched 6/12, repeated_direct 11/12, neutral_source 10/12, status_aware 11/12, status_aware_source 12/12. The chain effect now replicates more clearly; source access remains weaker in gemma (0.83 vs qwen 1.00); status_aware and the combination are strong. Writer replication confirmed in direction, model-dependent in magnitude."
+      timestamp: "2026-11-17"
   current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30. gemma3:12b agent replication: omission 0/30 unauthorized, distortion 20/30 - P4 asymmetry replicates. gemma3:12b writer replication (provisional, kappa 0.702): direct 11/12, recursive 10/12, rewrite 7/12, repeated 11/12, neutral_source 10/12, status_aware 11/12, combined 12/12; mitigation ranking is model-dependent."
+  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30. gemma3:12b agent replication: omission 0/30 unauthorized, distortion 20/30 - P4 asymmetry replicates. gemma3:12b writer replication v3.2.5 (kappa 0.834): direct 11/12, recursive 8/12, rewrite 6/12, repeated 11/12, neutral_source 10/12, status_aware 11/12, combined 12/12; chain effect replicates, mitigation ranking model-dependent."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 40
+  cycle: 41
   last_direction: "replicate"
-  last_reflection: "Second-model replication splits into a solid and a provisional result. The agent asymmetry replicates almost exactly (omission 0/30 unauthorized, distortion 20/30, present 0/30), so the behavioral danger of distortion is model-robust. The writer replication is only partial: rewrite-matched remains worst (7/12 faithful), but recursive is far less destructive in gemma (10/12) than in qwen (14/27), source access alone is weaker (10/12), and status_aware/combined are strong (11/12, 12/12). The mitigation ranking is model-dependent. Writer reliability is 0.702, below the gate; v3.2.5 clarifies gemma's temporal-escalation and 待定/计划中 phrasings. A writer recheck is optional before a strong writer-replication claim."
+  last_reflection: "The v3.2.5 writer recheck resolves the gemma reliability problem: primary kappa 0.834. The chain effect now replicates more clearly (recursive 0.67, rewrite-matched 0.50, direct/repeated 0.92), but source access alone remains weaker in gemma (0.83 vs qwen 1.00), while status-aware and the combination are at or above qwen. The writer mitigation ranking is model-dependent; the agent asymmetry is model-robust. Writer replication is confirmed in direction, not in every magnitude. Next: novelty audit and paper integration, or a third model if resources permit."
 
 workspace:
   findings: "findings.md"

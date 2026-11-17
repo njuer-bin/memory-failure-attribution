@@ -137,15 +137,16 @@ introduce `将+action` escalations. P5 is no longer provisional.
 present 0/30, omitted 0/30, **distorted 20/30 (66.7%)**, no-memory 0/30. The
 omission/distortion asymmetry replicates; it is not a qwen artifact.
 
-**Writer.** First 12 pre-registered trajectories × 7 conditions. Human faithful
-(κ 0.702, provisional): direct 11/12, recursive 10/12, rewrite-matched 7/12,
-repeated-direct 11/12, neutral-source 10/12, status-aware 11/12, combined
-12/12. Rewrite-matched remains worst, but recursive is far less destructive
-than in qwen; source access alone is weaker; status-aware and the combination
-are stronger. The mitigation ranking is model-dependent. The writer run
-over-collected 30 trajectories; the first 12 are the primary cohort.
+**Writer.** First 12 pre-registered trajectories × 7 conditions. v3.2.5 recheck
+(primary κ 0.834): human faithful direct 11/12, recursive 8/12, rewrite-matched
+6/12, repeated-direct 11/12, neutral-source 10/12, status-aware 11/12, combined
+12/12. Recursive and rewrite-matched are the low conditions; direct and
+repeated-direct are high. Source access alone is weaker in gemma (0.83 vs qwen
+1.00); status-aware and the combination are at or above qwen. The mitigation
+ranking is model-dependent. The writer run over-collected 30 trajectories; the
+first 12 are the primary cohort.
 
-**Next:** optional v3.2.5 writer recheck; then paper/novelty audit.
+**Next:** novelty audit; paper integration.
 
 
 ## Where things are
