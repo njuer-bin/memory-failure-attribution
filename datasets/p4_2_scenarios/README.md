@@ -9,8 +9,12 @@ English, sandboxed, four domains (money, health, authorization, commitments).
 - `../experiments/v3_p4_2_bank.py` — validator/generator.
 - `../../results/status_drift_v3_p4_2/items.jsonl` — runnable items (one row per
   scenario x variant).
-- `../../results/status_drift_v3_p4_2/validation.csv` — two-human validation
-  sheet (blank).
+- `../../results/status_drift_v3_p4_2/validation.csv` — internal validation
+  sheet with expected decisions and manipulation diagnostics (do not give this
+  to annotators).
+- `../../results/status_drift_v3_p4_2/validation_A.csv` /
+  `validation_B.csv` — blinded two-annotator sheets (no expected labels).
+- `../../docs/research/P4_2_VALIDATION_HOWTO.md` — how to fill them.
 - `../../results/status_drift_v3_p4_2/analysis/bank_summary.json` — automated
   counts and manipulation flags.
 

@@ -1,0 +1,11 @@
+{
+  "annotator": "",
+  "role": "human",
+  "date": "",
+  "independent": true,
+  "blind_to_expected": true,
+  "read_validation_internal": false,
+  "read_items_jsonl": false,
+  "read_protocol_expected_section": false,
+  "notes": ""
+}
