@@ -60,9 +60,10 @@ status-specific, proposition-controlled transformation-history diagnostic.
 - Two independent human annotations under `V3_REAL_DATA_AUDIT_PROTOCOL.md` are
   the next blocking step. The model diagnostic must not be reported as human
   annotation.
-- **The 50-item screen is a rubric diagnostic, not human reliability.** A's
-  provenance is blank; B records itself as a rubric-guided model. Agreement:
-  dimension κ 0.826 and semantic labelability 0.730 are usable;
+- **The 50-item screen is a human-versus-model rubric diagnostic, not human
+  reliability.** A records `role=human` (WMY); B records `role=model`
+  (YTB-directed WorkBuddy, full AI generation, no independent human review).
+  Agreement: dimension κ 0.826 and semantic labelability 0.730 are usable;
   `lexical_labelable` κ 0.226, `update_present` κ 0.170,
   `evidence_sufficient` κ 0.535, and `status_bearing` κ 0.606 fail or are
   weak (status-bearing raw agreement is 0.920; kappa is prevalence-sensitive).

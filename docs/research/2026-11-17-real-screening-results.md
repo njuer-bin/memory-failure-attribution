@@ -1,9 +1,17 @@
 # Real-Screening Results and Rubric Defects (2026-11-17)
 
 Status: diagnostic only. **This is not a two-human reliability result.**
-Annotator A's provenance file is blank; annotator B records
-`role=model` (WorkBuddy, rubric-guided, no human review). The agreement below
-is useful for finding rubric defects, not for validating the instrument.
+Annotator A records `role=human` (WMY). Annotator B records `role=model`
+(YTB-directed WorkBuddy; the `model_assistance` field states that all 10
+scoring columns were AI-produced with no independent human annotation). The
+agreement below is useful for finding rubric defects, not for validating the
+instrument.
+
+Provenance note: B's returned file initially set `role=human` while its own
+`model_assistance` field said full AI generation. The role was corrected to
+`model` and the correction is preserved in
+`screening_provenance_B.json`; approving model output is not independent human
+annotation.
 
 ## 1. What was filled
 
@@ -142,8 +150,9 @@ P4.2 needs a curated high-stakes scenario bank.
    only status varies; two human raters validate realism and manipulation
    before freezing.
 4. **Annotators:** two independent humans are required. The current A/B pair
-   does not meet this (B is a model; A's provenance is blank). The screening
-   result is a rubric diagnostic, not human reliability.
+   does not meet this: A is human (WMY), B is YTB-directed model output. The
+   screening result is therefore a human-versus-model rubric diagnostic, not
+   human reliability.
 5. **Sample size:** set after calibration plus a small real-data pilot; target
    a paired CI half-width of 0.10-0.12; planning target 150-200 usable
    propositions; reduce conditions before reducing items.
@@ -153,8 +162,9 @@ P4.2 needs a curated high-stakes scenario bank.
 
 ## 6. Next actions
 
-1. Fill A's provenance; recruit a genuine second human annotator. Until then,
-   no human reliability claim is possible.
+1. Recruit a genuine second human annotator, or have YTB independently
+   re-annotate the sheet—not approve the model output. Until then, no human
+   reliability claim is possible. A's provenance is now recorded (WMY).
 2. Revise the guide with D1-D5 (Stage 2 draft v2) and add the 17 lexical, 9
    evidence, 8 update, and 4 status anchors.
 3. Re-calibrate on a **fresh** 60-item set from different conversations; do
