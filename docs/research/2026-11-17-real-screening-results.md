@@ -1,17 +1,17 @@
 # Real-Screening Results and Rubric Defects (2026-11-17)
 
-Status: diagnostic only. **This is not a two-human reliability result.**
-Annotator A records `role=human` (WMY). Annotator B records `role=model`
-(YTB-directed WorkBuddy; the `model_assistance` field states that all 10
-scoring columns were AI-produced with no independent human annotation). The
-agreement below is useful for finding rubric defects, not for validating the
-instrument.
+Status: **mixed-provenance diagnostic, not an unaided two-human reliability
+result.** Two humans annotated independently (A=WMY, B=YTB), but B used an AI
+first draft and reviewed/edited every cell. The comparison is
+human-reviewed-model versus human. It is useful for finding rubric defects and
+still requires a model-free subset before any human-reliability claim.
 
-Provenance note: B's returned file initially set `role=human` while its own
-`model_assistance` field said full AI generation. The role was corrected to
-`model` and the correction is preserved in
-`screening_provenance_B.json`; approving model output is not independent human
-annotation.
+Provenance note: the B file initially recorded `role=human` while its
+`model_assistance` field said full AI generation with no human review; a later
+edit changed only the notes to "provided as reference". On 2026-11-17 the
+annotator clarified the process as AI first draft plus item-by-item human
+review. The record is now `role=human-reviewed-model`, with the history
+preserved in `screening_provenance_B.json`.
 
 ## 1. What was filled
 
@@ -149,10 +149,10 @@ P4.2 needs a curated high-stakes scenario bank.
    authorization, and commitments; proposition/evidence/task/length matched;
    only status varies; two human raters validate realism and manipulation
    before freezing.
-4. **Annotators:** two independent humans are required. The current A/B pair
-   does not meet this: A is human (WMY), B is YTB-directed model output. The
-   screening result is therefore a human-versus-model rubric diagnostic, not
-   human reliability.
+4. **Annotators:** two independent humans are required. The current pair has
+   two humans who worked independently (A=WMY, B=YTB), but B used an AI first
+   draft and edited it. It is therefore a human-reviewed-model versus human
+   diagnostic, not an unaided two-human reliability result.
 5. **Sample size:** set after calibration plus a small real-data pilot; target
    a paired CI half-width of 0.10-0.12; planning target 150-200 usable
    propositions; reduce conditions before reducing items.
@@ -162,9 +162,10 @@ P4.2 needs a curated high-stakes scenario bank.
 
 ## 6. Next actions
 
-1. Recruit a genuine second human annotator, or have YTB independently
-   re-annotate the sheet—not approve the model output. Until then, no human
-   reliability claim is possible. A's provenance is now recorded (WMY).
+1. Have YTB re-annotate a model-free subset (20-30 items) from scratch, or
+   have a third human annotate the full 50 without the AI draft; compare that
+   subset with A to quantify how much the AI first pass moved the labels.
+   Until then, no unaided human reliability claim is possible.
 2. Revise the guide with D1-D5 (Stage 2 draft v2) and add the 17 lexical, 9
    evidence, 8 update, and 4 status anchors.
 3. Re-calibrate on a **fresh** 60-item set from different conversations; do

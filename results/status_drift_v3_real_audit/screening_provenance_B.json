@@ -1,10 +1,11 @@
 {
-  "annotator": "YTB (AI assistant WorkBuddy, rubric-guided)",
-  "role": "model",
+  "annotator": "YTB",
+  "role": "human-reviewed-model",
   "date": "2026-11-17",
   "independent": true,
   "read_diagnostic_read": false,
-  "model_assistance": "full - all 10 scoring columns of screening_B.csv were produced by an AI assistant following the rubric supplied in the task prompt; no independent human annotation or review",
-  "notes": "screening_B.csv 的 10 个评分列由 AI 严格按用户给定 rubric（含 5 个锚点示例）生成；未打开 diagnostic_read.csv、diagnostic_summary.json，也未查看 screening_A.csv 的标签。role 与 model_assistance 按实际情况填写，未沿用模板默认值，以免误记为人类独立标注。",
-  "provenance_correction": "The file as returned set role=human while model_assistance states that all 10 scoring columns were AI-produced with no independent human annotation. Under the project rule that model annotation is never recorded as human annotation, role is recorded as model and the annotator is labeled as the AI assistant. If YTB independently reviewed and edited every label, re-annotate the sheet and update this record; approval of model output is not independent human annotation."
+  "model_assistance": "AI first draft (WorkBuddy) generated initial values for all 10 scoring columns; YTB reviewed and edited each item. Final labels are human-approved but were not produced without a model first pass.",
+  "notes": "A (WMY) and B (YTB) completed independently: no discussion of items, no viewing of the other file, and no access to diagnostic_read.csv. B used an AI first draft and reviewed/edited all 450 cells; this is human-reviewed model annotation, not unaided human annotation.",
+  "independence_note": "Independent between annotators; B's process is not model-free.",
+  "provenance_history": "Initial file set role=human with model_assistance=full AI generation/no human review; a later edit changed only the notes to 'provided as reference'. Clarified by the annotator on 2026-11-17: AI first draft plus item-by-item human review. Recorded as human-reviewed-model to avoid both overclaiming (unaided human) and underclaiming (pure model)."
 }

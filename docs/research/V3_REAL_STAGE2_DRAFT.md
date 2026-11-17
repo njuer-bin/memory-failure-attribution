@@ -24,12 +24,12 @@ number would hide both.
 
 ## 1a. What the 50-item screen changed (2026-11-17)
 
-The screen was filled by A (provenance blank) and B (a rubric-guided model),
-so it is a rubric diagnostic, not a human reliability estimate. Agreement was
-usable for `dimension` (kappa 0.826), `semantic_labelable` (0.730), and
-`difficulty` (0.750); it failed for `lexical_labelable` (0.226) and
-`update_present` (0.170), and was weak for `evidence_sufficient` (0.535) and
-`status_bearing` (0.606, raw 0.920).
+The screen was filled by A (human, WMY) and B (human, YTB, reviewing an AI
+first draft), so it is a mixed-provenance rubric diagnostic, not an unaided
+two-human reliability estimate. Agreement was usable for `dimension` (kappa
+0.826), `semantic_labelable` (0.730), and `difficulty` (0.750); it failed for
+`lexical_labelable` (0.226) and `update_present` (0.170), and was weak for
+`evidence_sufficient` (0.535) and `status_bearing` (0.606, raw 0.920).
 
 This version therefore:
 
@@ -303,6 +303,10 @@ Gold fields are filled once per item; memory fields once per
 ## 10. Independence, blinding, and adjudication
 
 - Two annotators label every item independently.
+- An AI first draft may be used for one annotator only if disclosed. That
+  annotator's labels are `human-reviewed-model`, not unaided human. Re-annotate
+  a model-free subset (20-30 items) to estimate anchoring before claiming
+  reliability.
 - Memory annotators are blind to the transformation label and to the gold
   status. The gold annotator is blind to `M`.
 - If one person plays both roles, the roles must be separated in time and the
@@ -428,10 +432,13 @@ dataset composition, and the decision to keep or drop epistemic.
    validate realism and manipulation before the run. The scenario-writing
    model is not the tested agent.
 4. **Annotators — two independent humans are required.** The current A/B pair
-   is not compliant: B is a rubric-guided model and A's provenance is blank.
-   A third human adjudicator is preferred; if unavailable, use a
-   pre-registered deterministic rule and report unadjudicated and adjudicated
-   results side by side. Model assistance is always labeled.
+   has two independent humans, but B used an AI first draft and edited it, so
+   the pair is `human-reviewed-model` versus human. Obtain a model-free subset
+   (YTB re-annotates 20-30 items from scratch, or a third human labels all 50)
+   before claiming unaided human reliability. A third human adjudicator is
+   preferred; if unavailable, use a pre-registered deterministic rule and
+   report unadjudicated and adjudicated results side by side. Model assistance
+   is always disclosed.
 5. **Sample size — precision-based after calibration plus a pilot.** Planning
    target 150-200 usable propositions; final n set by the paired-difference SD
    from a 40-60 item pilot, targeting a CI half-width of 0.10-0.12. Reduce

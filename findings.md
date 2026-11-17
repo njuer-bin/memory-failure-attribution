@@ -60,13 +60,13 @@ status-specific, proposition-controlled transformation-history diagnostic.
 - Two independent human annotations under `V3_REAL_DATA_AUDIT_PROTOCOL.md` are
   the next blocking step. The model diagnostic must not be reported as human
   annotation.
-- **The 50-item screen is a human-versus-model rubric diagnostic, not human
-  reliability.** A records `role=human` (WMY); B records `role=model`
-  (YTB-directed WorkBuddy, full AI generation, no independent human review).
-  Agreement: dimension κ 0.826 and semantic labelability 0.730 are usable;
-  `lexical_labelable` κ 0.226, `update_present` κ 0.170,
-  `evidence_sufficient` κ 0.535, and `status_bearing` κ 0.606 fail or are
-  weak (status-bearing raw agreement is 0.920; kappa is prevalence-sensitive).
+- **The 50-item screen is a mixed-provenance rubric diagnostic, not an unaided
+  two-human reliability result.** A (WMY) and B (YTB) worked independently, but
+  B used an AI first draft and edited every cell. Agreement: dimension κ 0.826
+  and semantic labelability 0.730 are usable; `lexical_labelable` κ 0.226,
+  `update_present` κ 0.170, `evidence_sufficient` κ 0.535, and
+  `status_bearing` κ 0.606 fail or are weak (status-bearing raw agreement is
+  0.920; kappa is prevalence-sensitive).
 - **The failures are systematic rubric defects.** A misleading cue
   ("I think I'll") was counted as lexically labelable; a later re-mention was
   counted as an update; evidence sufficiency conflated gold assignability with
