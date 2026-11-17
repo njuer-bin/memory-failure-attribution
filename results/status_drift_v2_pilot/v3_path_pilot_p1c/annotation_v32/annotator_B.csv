@@ -19,7 +19,7 @@ V32C-0005,B,PARTIAL,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_D
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0006,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确奖学金尚未满足，记忆称奖学金未定并暂不参赛，与对话一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不参赛，整理日程应对天气，作业完事务毕。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+V32C-0006,B,PARTIAL,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“暂不参赛”缺少具体宾语“数学建模”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不参赛，整理日程应对天气，作业完事务毕。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -27,7 +27,7 @@ V32C-0007,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0008,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确奖学金尚未满足，记忆称奖学金未定并暂不参赛，与对话一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不参赛，整理日程注意天气，作业已完成。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+V32C-0008,B,PARTIAL,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“暂不参赛”缺少具体宾语“数学建模”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不参赛，整理日程注意天气，作业已完成。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -35,7 +35,7 @@ V32C-0009,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0010,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确奖学金尚未满足，记忆称奖学金未定并暂不参赛，与对话一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，暂不参赛，关注天气，整理日程，处理作业，日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+V32C-0010,B,PARTIAL,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“暂不参赛”缺少具体宾语“数学建模”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，暂不参赛，关注天气，整理日程，处理作业，日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -43,7 +43,7 @@ V32C-0011,B,PRESERVED,CONDITIONAL,NO,NOT_EXPRESSED,NOT_EXPRESSED,NOT_ASSESSABLE,
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0012,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确奖学金尚未满足，记忆称奖学金未定并暂不参赛，与对话一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不参赛；天气多变整理日程；今日处理作业及事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+V32C-0012,B,PARTIAL,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“暂不参赛”缺少具体宾语“数学建模”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定暂不参赛；天气多变整理日程；今日处理作业及事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -67,7 +67,7 @@ V32C-0017,B,PARTIAL,CONDITIONAL,NO,NOT_EXPRESSED,NOT_EXPRESSED,NOT_ASSESSABLE,PR
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0018,B,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确条件已满足，记忆“获奖学金”与之一致；“计划参赛”仅为意向未升级为已开始，无失真。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,获奖学金，计划参赛，整理日程，处理事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+V32C-0018,B,PARTIAL,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“计划参赛”缺少具体宾语“数学建模”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,获奖学金，计划参赛，整理日程，处理事务。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -99,7 +99,7 @@ V32C-0025,B,PARTIAL,CONDITIONAL,NO,NOT_EXPRESSED,NOT_EXPRESSED,NOT_ASSESSABLE,PR
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0026,B,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确条件已满足，记忆“奖学金在手”与之一致；“上海工作待定”仅为未决意向，行动未升级，无失真。,MEDIUM,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，上海工作待定，留意天气，整理日程，今日事务清,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V32C-0026,B,PARTIAL,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“上海工作待定”仅剩话题，缺少谓词“去”（T1），命题部分丢失；条件状态与 T3 一致。,MEDIUM,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，上海工作待定，留意天气，整理日程，今日事务清,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -115,7 +115,7 @@ V32C-0029,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0030,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确奖学金尚未满足，记忆称奖学金未定并暂不参赛，与对话一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，暂不参赛；整理日程应对天气；作业与事务已处理。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+V32C-0030,B,PARTIAL,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“暂不参赛”缺少具体宾语“数学建模”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，暂不参赛；整理日程应对天气；作业与事务已处理。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -123,7 +123,7 @@ V32C-0031,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0032,B,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确条件已满足，记忆“奖学金在手”与之一致；“上海工作待定”仅为未决意向，行动未升级，无失真。,MEDIUM,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，上海工作待定，因天气调日程，今日任务：作业和日常。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V32C-0032,B,PARTIAL,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“上海工作待定”仅剩话题，缺少谓词“去”（T1），命题部分丢失；条件状态与 T3 一致。,MEDIUM,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，上海工作待定，因天气调日程，今日任务：作业和日常。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -131,7 +131,7 @@ V32C-0033,B,PARTIAL,CONDITIONAL,NO,NOT_EXPRESSED,NOT_EXPRESSED,NOT_ASSESSABLE,PR
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0034,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确奖学金尚未满足，记忆称奖学金未定并暂不参赛，与对话一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，暂不参赛；整理日程防多变；作业已处理。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+V32C-0034,B,PARTIAL,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“暂不参赛”缺少具体宾语“数学建模”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，暂不参赛；整理日程防多变；作业已处理。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -151,7 +151,7 @@ V32C-0038,B,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0039,B,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确条件已满足，记忆“奖学金在手”与之一致；“瞄准上海工作”仅为意向，行动未升级，无失真。,MEDIUM,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，瞄准上海工作，兼顾天气，日程与作业两不误。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V32C-0039,B,PARTIAL,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“瞄准上海工作”仅剩话题，缺少谓词“去”（T1），命题部分丢失；条件状态与 T3 一致。,MEDIUM,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，瞄准上海工作，兼顾天气，日程与作业两不误。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -167,7 +167,7 @@ V32C-0042,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0043,B,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确条件已满足，记忆“奖学金在手”与之一致；“上海工作待定”仅为未决意向，行动未升级，无失真。,MEDIUM,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，上海工作待定，关注天气，规划日程，今日任务：完成作业与事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V32C-0043,B,PARTIAL,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“上海工作待定”仅剩话题，缺少谓词“去”（T1），命题部分丢失；条件状态与 T3 一致。,MEDIUM,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，上海工作待定，关注天气，规划日程，今日任务：完成作业与事务。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -179,7 +179,7 @@ V32C-0045,B,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 奖学金还没有结果，条件尚未满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0046,B,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确条件已满足，记忆“奖学金在手，参赛有心”与对话一致，行动仅为意向，无失真。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，参赛有心，日程需理，作业要清。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
+V32C-0046,B,PARTIAL,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆“参赛有心”缺少具体宾语“数学建模”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,参加数学建模比赛,目标命题：参加数学建模比赛。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，参赛有心，日程需理，作业要清。,"[Turn 1] 如果拿到奖学金，我才考虑参加数学建模比赛。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
@@ -231,7 +231,7 @@ V32C-0058,B,PRESERVED,CONDITIONAL,NO,NOT_EXPRESSED,NOT_EXPRESSED,NOT_ASSESSABLE,
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-V32C-0059,B,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确条件已满足，记忆“奖学金在手”与之一致；“上海工作”未表达行动状态，无失真。,HIGH,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，上海工作，关注天气，日程整理，作业处理。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
+V32C-0059,B,PARTIAL,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,PROPOSITION_LOSS,NONE,记忆仅剩“上海工作”话题名词，缺少谓词“去”（T1），命题部分丢失；条件状态与 T3 一致。,HIGH,T1;T3,去上海工作,目标命题：去上海工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金在手，上海工作，关注天气，日程整理，作业处理。,"[Turn 1] 如果拿到奖学金，我才考虑去上海工作。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"

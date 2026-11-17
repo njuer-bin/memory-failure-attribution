@@ -1,4 +1,4 @@
-# V3 Blind Annotation — Practical How-To (v3.2.2)
+# V3 Blind Annotation — Practical How-To (v3.2.3)
 
 This is the operational checklist for the **v3.2 conditional calibration set**
 (`annotation_v32/`).
@@ -57,6 +57,12 @@ both in the memory, then apply:
 
 Do not infer identity from status correctness or from the target question.
 
+Serial-verb targets (`去/来 + place + action`, e.g. `去上海工作`): the head
+predicate is the final action (`工作`); the directional verb is not required
+when the action and place are preserved and the memory refers to the same
+agent/plan. `上海工作待定` → `PRESERVED`. `上海工作多` is a different
+(generic job-market) claim → `PARTIAL`.
+
 ### 2. `primary_dimension` (required)
 
 Choose exactly one:
@@ -85,6 +91,8 @@ condition state.
 Explicit cues include `可能`/`不能确定`, `确认`/`已确定`, `考虑`/`打算`,
 `决定`/`已承诺`, `未拿到`/`未满足`, `已拿到`/`条件满足`. Juxtaposition such as
 `奖学金购机` is not a cue for either condition satisfied or action commitment.
+A generic cue (`已达标`/`已满足`) counts only when the trajectory has a single
+explicit prerequisite; otherwise use `UNKNOWN`.
 
 ### 4. `expressed_status`
 
@@ -126,20 +134,22 @@ status is explicitly expressed, assess it even when identity is `PARTIAL`.
 
 Apply this order strictly:
 
-1. `PROPOSITION_LOSS` — identity is `LOST` or `PARTIAL` (no "materially
+1. `AMBIGUOUS_UNASSESSABLE` — identity is `AMBIGUOUS` (identity ambiguity
+   preempts status).
+2. `PROPOSITION_LOSS` — identity is `LOST` or `PARTIAL` (no "materially
    partial" exception).
-2. `LEGITIMATE_UPDATE` — the dialogue contains a later supported change and the
+3. `LEGITIMATE_UPDATE` — the dialogue contains a later supported change and the
    memory represents it as a change (explicit marker, or an ordered chain that
    retains both the old and new state).
-3. `UNSUPPORTED_STATUS_DISTORTION` — any applicable dimension explicitly
+4. `UNSUPPORTED_STATUS_DISTORTION` — any applicable dimension explicitly
    asserts an unsupported state. For conditional items this includes
    `action_status = COMMITTED` when the dialogue only supports `CONSIDERING`
    (subtype `CONDITIONAL_COLLAPSE`).
-4. `STATUS_OMISSION` — the primary dimension has no explicit status cue and no
+5. `STATUS_OMISSION` — the primary dimension has no explicit status cue and no
    dimension is distorted.
-5. `NO_DISTORTION` — the expressed statuses match the evidence-supported final
+6. `NO_DISTORTION` — the expressed statuses match the evidence-supported final
    states. A memory that only states the final state belongs here.
-6. `AMBIGUOUS_UNASSESSABLE` — cannot decide.
+7. `AMBIGUOUS_UNASSESSABLE` — status cannot be resolved.
 
 ### 8. `subtype`, `rationale`, `confidence`, `turn_references`
 

@@ -1,4 +1,4 @@
-# V3 Blind Human Annotation Guidelines (v3.2.2)
+# V3 Blind Human Annotation Guidelines (v3.2.3)
 
 **Status:** calibration guide for the collapsed confirmatory ontology. Do not
 treat as frozen until the v3.2 conditional calibration set reaches acceptable
@@ -19,7 +19,10 @@ an explicit action escalation with no dialogue support is
 the condition state are reliable (κ 1.000 and 0.974) but that proposition
 identity was applied at topic level by one annotator. v3.2.2 adds the
 head-predicate + object worksheet below and defines evidence support as support
-for the **expressed status**, not the proposition.
+for the **expressed status**, not the proposition. v3.2.3 clarifies serial-verb
+targets (`去上海工作` → main action `工作`), makes `AMBIGUOUS` identity preempt
+the status judgment, and restricts generic satisfaction cues (`已达标`) to
+trajectories with a single explicit prerequisite.
 
 ## 1. Purpose
 
@@ -72,6 +75,13 @@ absent (e.g. `电脑调整` for `购买电脑`; `上海工作多` for `去上海
    topic noun remains (`海外交换` for `申请海外交换`).
 5. Do not infer identity from status correctness or from the target question.
 
+**Serial-verb targets (v3.2.3).** For targets of the form `去/来 + place +
+action` (e.g. `去上海工作`), the head predicate is the final action (`工作`);
+the directional verb is not required if the action and place are preserved and
+the memory refers to the same agent/plan. `上海工作待定` → `PRESERVED`. A
+generic statement about the place (`上海工作多`) is a different claim →
+`PARTIAL`.
+
 | Target | Memory | Identity |
 |---|---|---|
 | 购买电脑 | 买电脑 / 购电脑 / 购机 | PRESERVED |
@@ -81,6 +91,8 @@ absent (e.g. `电脑调整` for `购买电脑`; `上海工作多` for `去上海
 | 申请研究生 | 奖学金申请 | PARTIAL (object lost) |
 | 参加数学建模比赛 | 参赛 | PARTIAL (specific object lost) |
 | 申请研究生 | 研究生申请奖学金 | AMBIGUOUS (two parses) |
+| 去上海工作 | 上海工作待定 / 瞄准上海工作 | PRESERVED (main action `工作` + place) |
+| 去上海工作 | 上海工作多 | PARTIAL (different claim: generic job market) |
 
 ### B. Primary dimension (applicability)
 
@@ -116,7 +128,9 @@ Examples of explicit cues: `可能` / `不能确定` (POSSIBLE), `确认` / `已
 (ESTABLISHED), `考虑` / `打算` (CONSIDERING), `决定` / `已承诺` (COMMITTED),
 `未拿到` / `未满足` (CONDITION_ACTIVE), `已拿到` / `条件满足` (CONDITION_SATISFIED).
 Juxtaposition alone (`奖学金购机`) is **not** a cue for condition satisfied or
-for action commitment.
+for action commitment. A generic satisfaction cue (`已达标` / `已满足`) counts
+only when the trajectory has a single explicit prerequisite; if it could refer
+to another standard, use `UNKNOWN`.
 
 ### D. Expressed status (collapsed labels)
 
@@ -162,23 +176,25 @@ judgment still follows the identity-first order.
 
 Apply this order strictly:
 
-1. If `proposition_identity` is `LOST` or `PARTIAL`: `PROPOSITION_LOSS`.
+1. If `proposition_identity` is `AMBIGUOUS`: `AMBIGUOUS_UNASSESSABLE`.
+   Identity ambiguity preempts the status judgment.
+2. Else if `proposition_identity` is `LOST` or `PARTIAL`: `PROPOSITION_LOSS`.
    There is no "materially partial" exception; partial loss is loss for the
    primary outcome and is reported separately.
-2. Else if the dialogue contains a later supported change and the memory
+3. Else if the dialogue contains a later supported change and the memory
    represents that change **as a change**: `LEGITIMATE_UPDATE`.
    An explicitly ordered chain that retains both the earlier and the later
    state of the same proposition (e.g. `计划买电脑→…→确认买电脑`) counts.
-3. Else if any applicable dimension explicitly asserts a state that the
+4. Else if any applicable dimension explicitly asserts a state that the
    dialogue does not support: `UNSUPPORTED_STATUS_DISTORTION`.
    For `CONDITIONAL`, this includes `action_status = COMMITTED` when the
    dialogue only supports `CONSIDERING` (subtype `CONDITIONAL_COLLAPSE`).
-4. Else if the primary dimension has no explicit status cue: `STATUS_OMISSION`.
-5. Else if the expressed statuses match the evidence-supported final states:
+5. Else if the primary dimension has no explicit status cue: `STATUS_OMISSION`.
+6. Else if the expressed statuses match the evidence-supported final states:
    `NO_DISTORTION`.
-6. If identity or status cannot be resolved: `AMBIGUOUS_UNASSESSABLE`.
+7. If status cannot be resolved: `AMBIGUOUS_UNASSESSABLE`.
 
-Steps 2 and 3 are checked before omission and no-distortion: an explicit
+Steps 3 and 4 are checked before omission and no-distortion: an explicit
 unsupported action escalation is distortion even when the condition state is
 omitted. A memory that only states the final state remains `NO_DISTORTION`.
 

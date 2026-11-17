@@ -470,5 +470,27 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   condition/action fields. Do not freeze or start P2.
 - Recorded in `docs/research/2026-11-17-v3-2-conditional-calibration.md`.
 
+### V3.2.2 identity re-annotation — gate passed
+
+- Same 60 items; re-labeled `proposition_identity`, `primary_judgment`, and
+  `evidence_support`; condition/action fields retained. 0 missing / 0 invalid.
+- `proposition_identity` raw 0.917 / kappa 0.837; `primary_judgment`
+  0.900 / 0.827; `evidence_support` 0.983 / 0.961; `action_status` 1.000;
+  `expressed_status` 0.974.
+- Gate passes: primary kappa >= 0.80 and identity kappa >= 0.70.
+- Seven residual boundary items: five serial-verb `去上海工作` cases
+  (`上海工作待定`; A PRESERVED vs B PARTIAL), one `AMBIGUOUS` identity judgment
+  (V32C-0055), one `已达标` condition cue (V32C-0041).
+- v3.2.3 clarifies all three: serial-verb head predicate is the final action;
+  `AMBIGUOUS` identity preempts status; generic satisfaction cues require a
+  single explicit prerequisite.
+- Adjudication round 2 (`annotation_v32/adjudication_round2.csv`, model-assisted)
+  resolves five toward A and two toward B. Adjudicated distribution:
+  PROPOSITION_LOSS 31, NO_DISTORTION 22, STATUS_OMISSION 5, UNSUPPORTED 1,
+  AMBIGUOUS 1; 28 PRESERVED.
+- Recommendation: freeze v3.2.3 and proceed to P2; optional 7-item recheck for a
+  clean observed agreement.
+
+
 
 

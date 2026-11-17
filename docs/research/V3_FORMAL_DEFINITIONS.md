@@ -122,7 +122,7 @@ reported. The confirmatory ontology is frozen together with the protocol.
 ## 11. Non-claims
 The ontology is a research instrument, not a universal theory of belief or intention. Labels must be revised if calibration reveals systematic ambiguity. No claim of psychological access to a speaker's true internal state is made; the target is the state communicated in the dialogue.
 
-## 12. Confirmatory ontology v3.2.1 (collapsed)
+## 12. Confirmatory ontology v3.2.3 (collapsed)
 
 The rich ontology in §3 is for calibration and descriptive work. The
 confirmatory study uses **one primary dimension per item** and 2–3 labels per
@@ -150,7 +150,11 @@ object shorthand counts). `PARTIAL` if the head predicate is replaced by a
 different action (`读研` for `申请研究生`), the object is lost or broadened
 (`参赛` for `参加数学建模比赛`; `奖学金申请` for `申请研究生`), or only a topic
 noun remains (`海外交换` for `申请海外交换`). Two materially different parses
-are `AMBIGUOUS` (`研究生申请奖学金`).
+are `AMBIGUOUS` (`研究生申请奖学金`). For serial-verb targets
+(`去/来 + place + action`), the head predicate is the final action; the
+directional verb is not required when the action and place are preserved and
+the memory refers to the same agent/plan (`上海工作待定` for `去上海工作` is
+`PRESERVED`; `上海工作多` is a different claim and remains `PARTIAL`).
 
 ### Applicability rule
 
@@ -189,19 +193,20 @@ state is recorded in a separate required field, `action_status` ∈
   `CONSIDERING` is `UNSUPPORTED_STATUS_DISTORTION` (`CONDITIONAL_COLLAPSE`),
   even if the condition state is correct.
 
-### Judgment order (v3.2.1)
+### Judgment order (v3.2.3)
 
-1. `PROPOSITION_LOSS` — identity `LOST` or `PARTIAL`.
-2. `LEGITIMATE_UPDATE` — later supported change represented **as a change**
+1. `AMBIGUOUS_UNASSESSABLE` — identity `AMBIGUOUS` (preempts status).
+2. `PROPOSITION_LOSS` — identity `LOST` or `PARTIAL`.
+3. `LEGITIMATE_UPDATE` — later supported change represented **as a change**
    (explicit marker, or an ordered chain retaining both states).
-3. `UNSUPPORTED_STATUS_DISTORTION` — an applicable dimension explicitly asserts
+4. `UNSUPPORTED_STATUS_DISTORTION` — an applicable dimension explicitly asserts
    an unsupported state (condition or action).
-4. `STATUS_OMISSION` — the primary dimension has no explicit status cue and no
+5. `STATUS_OMISSION` — the primary dimension has no explicit status cue and no
    dimension is distorted.
-5. `NO_DISTORTION` — expressed statuses match the final state.
-6. `AMBIGUOUS_UNASSESSABLE` — unresolvable.
+6. `NO_DISTORTION` — expressed statuses match the final state.
+7. `AMBIGUOUS_UNASSESSABLE` — status unresolvable.
 
-Steps 2 and 3 precede omission and no-distortion so that a supported update is
+Steps 3 and 4 precede omission and no-distortion so that a supported update is
 not hidden by `NO_DISTORTION` and an unsupported action escalation is not
 hidden by `STATUS_OMISSION`.
 

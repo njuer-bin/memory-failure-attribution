@@ -164,24 +164,28 @@ in status preservation.**
   `action_status` field; an explicit `COMMITTED` action with only
   `CONSIDERING` support is `UNSUPPORTED_STATUS_DISTORTION`
   (`CONDITIONAL_COLLAPSE`).
-- **The v3.2.1 conditional calibration passes on status, fails on identity.**
-  60 items. `action_status` 60/60 (κ 1.000), condition state 59/60 (κ 0.974),
-  dimension 60/60; but `primary_judgment` κ 0.550, `proposition_identity`
-  κ 0.378, `evidence_support` κ 0.437. The gate fails. All 16 identity
-  disagreements are A `PRESERVED` vs B `PARTIAL`/`AMBIGUOUS`: A applies
-  topic-level preservation, B applies head-predicate + object. The one real
-  distortion (`已获奖学金，开始学日语`) is labeled identically by both as
-  `CONDITIONAL_COLLAPSE`.
+- **The v3.2.1 conditional calibration failed only on identity; the v3.2.2
+  re-annotation passes.** First round: `action_status` 60/60 (κ 1.000),
+  condition state 59/60 (κ 0.974), but `primary_judgment` κ 0.550,
+  `proposition_identity` κ 0.378, `evidence_support` κ 0.437. All 16 identity
+  disagreements were A `PRESERVED` vs B `PARTIAL`/`AMBIGUOUS`: A applied
+  topic-level preservation, B head-predicate + object. After the v3.2.2
+  identity worksheet and evidence rule: identity κ 0.837, primary κ 0.827,
+  evidence κ 0.961, action κ 1.000. Gate passes.
 - **Strict identity implies substantial proposition loss.** Under the
-  predicate+object rule, 23/60 (38%) are `PARTIAL`; the joint outcome must
-  report proposition loss separately, and status analyses are conditioned on
-  the 36 `PRESERVED` items. A lenient topic-level rule would inflate the
-  status-distortion denominator.
-- **The next gate is an identity re-annotation.** v3.2.2 adds the identity
-  worksheet and the evidence-support rule. Re-annotate
-  `proposition_identity`, `primary_judgment`, and `evidence_support` on the
-  same 60 items (retain condition/action). Do not start P2 before primary
-  κ ≥ 0.80 and identity κ ≥ 0.70.
+  predicate+object rule, 31/60 (52%) are `PARTIAL`/`AMBIGUOUS`; the joint
+  outcome must report proposition loss separately, and status analyses are
+  conditioned on the 28 `PRESERVED` items. A lenient topic-level rule would
+  inflate the status-distortion denominator.
+- **The one real distortion is stable across both rounds.** `V32C-0020`
+  (`已获奖学金，开始学日语`) is labeled identically by both annotators as
+  `CONDITION_SATISFIED` + `COMMITTED`, `UNSUPPORTED_STATUS_DISTORTION`,
+  `CONDITIONAL_COLLAPSE`. The condition/action instrument works.
+- **Seven residual boundary items remain.** Five serial-verb
+  `去上海工作` cases (`上海工作待定`), one `AMBIGUOUS` identity judgment, one
+  `已达标` cue. v3.2.3 clarifies them; adjudication round 2 resolves five toward
+  A and two toward B. Recommendation: freeze v3.2.3 and start P2; a 7-item
+  recheck is optional for a clean observed agreement.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

@@ -127,3 +127,56 @@ Agreement with adjudication:
 4. If identity κ ≥ 0.70 and primary κ ≥ 0.80, freeze and proceed to P2. If not,
    simplify the identity ontology (e.g. PRESERVED vs not-PRESERVED) before
    another confirmatory attempt.
+
+## 8. Re-annotation under v3.2.2 (2026-11-17)
+
+The same two annotators re-labeled `proposition_identity`, `primary_judgment`,
+and `evidence_support` on the same 60 items; condition/action fields were
+retained. Both files validate with 0 missing and 0 invalid values.
+
+| Field | n | Raw | Cohen's κ |
+|---|---:|---:|---:|
+| proposition_identity | 60 | 0.917 | **0.837** |
+| primary_dimension | 60 | 1.000 | 1.000 |
+| status_expressed | 60 | 0.983 | 0.959 |
+| expressed_status | 60 | 0.983 | 0.974 |
+| action_status | 60 | 1.000 | 1.000 |
+| evidence_support | 60 | 0.983 | 0.961 |
+| **primary_judgment** | **60** | **0.900** | **0.827** |
+| confidence | 60 | 0.733 | 0.220 |
+
+**Gate: PASS.** Primary κ 0.827 ≥ 0.80 and identity κ 0.837 ≥ 0.70; all
+conditional subfields exceed 0.70. The v3.2.2 identity worksheet fixed the
+topic-level reading.
+
+Seven residual disagreements remain, all rule boundaries:
+
+- five `去上海工作` items where memory says `上海工作待定` / `瞄准上海工作`
+  (A `PRESERVED`, B `PARTIAL`);
+- one `AMBIGUOUS` identity item (V32C-0055) where A scored `STATUS_OMISSION`
+  instead of `AMBIGUOUS_UNASSESSABLE`;
+- one `已达标` condition cue (V32C-0041) where A used `UNKNOWN`.
+
+v3.2.3 clarifies all three: serial-verb targets use the final action as the
+head predicate; `AMBIGUOUS` identity preempts status; a generic satisfaction
+cue counts only with a single explicit prerequisite. These clarifications were
+added after observing the residual boundary, so they are not part of the
+observed κ. Adjudication of the seven items (`adjudication_round2.csv`,
+model-assisted) resolves five toward A and two toward B.
+
+Adjudicated distribution (n=60):
+
+| Label | n |
+|---|---:|
+| PROPOSITION_LOSS | 31 |
+| NO_DISTORTION | 22 |
+| STATUS_OMISSION | 5 |
+| UNSUPPORTED_STATUS_DISTORTION | 1 |
+| AMBIGUOUS_UNASSESSABLE | 1 |
+
+Proposition loss remains high (31/60, 52%) even after the serial-verb
+correction; status analyses are conditioned on the 28 `PRESERVED` items.
+
+**Recommendation:** freeze v3.2.3 with the serial-verb and ambiguity
+clarifications and proceed to P2. Before P2 generation, recheck the seven
+adjudicated items under v3.2.3 if a clean observed agreement is required.
