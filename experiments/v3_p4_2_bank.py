@@ -202,7 +202,8 @@ def main() -> None:
         validation_rows.append({
             "scenario_id": sid, "domain": scenario["domain"],
             "control_type": scenario["control_type"], "title": scenario["title"],
-            "evidence": scenario["evidence"], "request": scenario["request"],
+            "evidence": scenario["evidence"], "rule": scenario["rule"],
+            "request": scenario["request"],
             "present": variants["present"], "omitted": variants["omitted"],
             "distorted": variants["distorted"],
             "filler_present": fillers["present"],
