@@ -401,3 +401,30 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   as human reliability.
 - Recorded in
   `docs/research/2026-11-16-v3-1-annotation-calibration.md`.
+
+### V3.1 adjudication and v3.2 rule revision — completed
+
+- Adjudicated the 9 primary-judgment and other field disagreements with a model
+  third-reviewer simulation; original A/B files unchanged. Record:
+  `annotation_v31/adjudication.csv`; write-up:
+  `docs/research/2026-11-17-v3-1-adjudication.md`.
+- Diagnosed four guide defects: condition relation was counted inside
+  proposition identity; `LEGITIMATE_UPDATE` was checked after `NO_DISTORTION`
+  and was therefore unreachable; status expression had no explicit-cue rule;
+  "materially `PARTIAL`" was undefined.
+- Adjudicated distribution: NO_DISTORTION 34, STATUS_OMISSION 19,
+  PROPOSITION_LOSS 3, LEGITIMATE_UPDATE 2, AMBIGUOUS_UNASSESSABLE 1,
+  UNSUPPORTED_STATUS_DISTORTION 1. Agreement with adjudication: A 0.917 raw /
+  0.859 kappa, B 0.850 / 0.720 on primary judgment.
+- Revised the guide, how-to, and formal definitions to v3.2: proposition unit =
+  predicate + arguments; explicit-cue rule; conditional status = condition
+  state only; `LEGITIMATE_UPDATE` before `NO_DISTORTION`; any `PARTIAL` scores
+  `PROPOSITION_LOSS`.
+- Generated `annotation_v32/`: 60 conditional items (5 updated + 5 stable
+  trajectories × 6 paths; 30 CONDITION_SATISFIED / 30 CONDITION_ACTIVE), new
+  seed, blank annotator files, key outside the repo at
+  `G:/memory_failure_backup/v3_annotation_key_p1c_v32.csv`.
+- Next: two independent annotations under v3.2; pre-register the freeze
+  threshold (proposal: overall kappa >= 0.80, every dimension >= 0.70).
+  Provenance of A/B is still unrecorded and the adjudication is model-assisted.
+

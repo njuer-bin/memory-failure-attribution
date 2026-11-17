@@ -1,0 +1,18 @@
+{
+  "n_items": 60,
+  "dimensions": {
+    "conditional": 60
+  },
+  "paths": {
+    "S1": 10,
+    "PARA": 10,
+    "PEEK": 10,
+    "S2": 10,
+    "TEMP1": 10,
+    "TEMP2": 10
+  },
+  "gold_status": {
+    "CONDITION_ACTIVE": 30,
+    "CONDITION_SATISFIED": 30
+  }
+}

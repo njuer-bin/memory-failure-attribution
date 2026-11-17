@@ -122,7 +122,7 @@ reported. The confirmatory ontology is frozen together with the protocol.
 ## 11. Non-claims
 The ontology is a research instrument, not a universal theory of belief or intention. Labels must be revised if calibration reveals systematic ambiguity. No claim of psychological access to a speaker's true internal state is made; the target is the state communicated in the dialogue.
 
-## 12. Confirmatory ontology v3.1 (collapsed)
+## 12. Confirmatory ontology v3.2 (collapsed)
 
 The rich ontology in §3 is for calibration and descriptive work. The
 confirmatory study uses **one primary dimension per item** and 2–3 labels per
@@ -134,6 +134,15 @@ dimension:
 - ACTION: `ACTION_NOT_STARTED` / `ACTION_STARTED` / `UNKNOWN`
 - plus `NOT_EXPRESSED` and `UNRECOVERABLE` for omission.
 
+### Proposition identity unit (v3.2)
+
+Proposition identity is scored over the **target predicate plus its essential
+arguments**. Modality, condition relation, and state labels are *not* part of
+identity. For a conditional trajectory the target proposition is the action
+(e.g. `购买电脑`), not the full "if condition, then action" sentence. A topic
+label without the target predicate is `PARTIAL`; in the primary outcome every
+`PARTIAL` is scored as `PROPOSITION_LOSS` and reported separately.
+
 ### Applicability rule
 
 Choose the single dimension the target proposition is primarily about:
@@ -143,19 +152,38 @@ Choose the single dimension the target proposition is primarily about:
 - CONDITIONAL: whether a prerequisite is met; action state is separate and is
   scored only if the memory explicitly asserts it.
 - ACTION: execution progress of an already-committed action.
+- CANNOT_DETERMINE: the memory supports two incompatible readings.
 
 If two dimensions seem applicable, choose the one the dialogue's update turns
 are about; record the other in `rationale`.
 
-### Two-step judgment
+### Status expression (v3.2)
 
-1. **Is any status expressed?**
-   - NO → `STATUS_OMISSION` (if proposition identity is preserved).
-2. **Is the expressed status supported?**
-   - Supported and matches the final state → `NO_DISTORTION`.
-   - The dialogue contains a later supported change, and the memory represents
-     that change as a change → `LEGITIMATE_UPDATE`.
-   - Different from the final state and unsupported → `UNSUPPORTED_STATUS_DISTORTION`.
+A status is expressed only with an explicit lexical cue. An unmarked action
+verb records the action but does not assert its state; a bare topic noun does
+not assert a condition state. Juxtaposition (`奖学金购机`) is not a cue for
+condition satisfied or action committed.
+
+### Conditional scoring (v3.2)
+
+Store condition and action separately. When `CONDITIONAL` is the primary
+dimension, `expressed_status` records the **condition state only**; the action
+state, if explicitly cued, is recorded in `rationale`. A satisfied condition
+with an unexpressed action state is `NO_DISTORTION` on the conditional
+dimension. A condition state expressed without an explicit acquisition or
+satisfaction cue is `STATUS_OMISSION`, not distortion.
+
+### Judgment order (v3.2)
+
+1. `PROPOSITION_LOSS` — identity `LOST` or `PARTIAL`.
+2. `STATUS_OMISSION` — identity preserved, no explicit status cue.
+3. `LEGITIMATE_UPDATE` — later supported change represented **as a change**
+   (explicit marker, or an ordered chain retaining both states).
+4. `NO_DISTORTION` — expressed status matches the final state.
+5. `UNSUPPORTED_STATUS_DISTORTION` — different, unsupported status.
+6. `AMBIGUOUS_UNASSESSABLE` — unresolvable.
+
+Step 3 must precede step 4; otherwise `LEGITIMATE_UPDATE` is unreachable.
 
 ### NO_DISTORTION vs LEGITIMATE_UPDATE
 
@@ -163,7 +191,8 @@ are about; record the other in `rationale`.
   state, even if the dialogue contained an update. A memory that simply states
   the final state is `NO_DISTORTION`.
 - `LEGITIMATE_UPDATE`: the memory explicitly represents a later supported change
-  as a change (e.g., "was considering, now decided") and is faithful.
+  as a change (e.g., "was considering, now decided", or an ordered chain
+  retaining both states) and is faithful.
 
 ### STATUS_OMISSION vs UNSUPPORTED_STATUS_DISTORTION
 

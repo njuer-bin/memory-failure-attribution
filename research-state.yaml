@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 23
+  total_runs: 25
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -236,18 +236,32 @@ experiments:
       wall_time_min: null
       change_summary: "60 items, annotation files A/B complete and valid. Primary judgment raw 0.850/kappa 0.728 (V3: 0.578); primary-dimension kappa 0.853; epistemic 0.788, intentional 0.904, conditional 0.126 (fail). NO_DISTORTION A 33/B 39; STATUS_OMISSION 18/18; unsupported distortion 4/1. Partial pass; do not freeze. Annotator provenance and adjudication pending."
       timestamp: "2026-11-16"
-  current_protocol: "V3 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md; statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md"
+    - run_id: "v3_2_annotation_adjudication"
+      hypothesis: "Can rule revisions make the V3.1 disagreements determinate?"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Model third-reviewer adjudication of 12 disputed items (9 primary judgments). Diagnosed four guide defects: condition relation counted in proposition identity; LEGITIMATE_UPDATE checked after NO_DISTORTION and therefore unreachable; no explicit-cue rule for status expression; undefined 'materially PARTIAL'. Revised guide to v3.2 and recorded adjudication.csv. Adjudicated distribution: NO_DISTORTION 34, STATUS_OMISSION 19, PROPOSITION_LOSS 3, LEGITIMATE_UPDATE 2, AMBIGUOUS 1, UNSUPPORTED 1. Model adjudication only; provenance still unrecorded."
+      timestamp: "2026-11-17"
+    - run_id: "v3_2_conditional_calibration_set"
+      hypothesis: "P1 calibration: can the revised conditional rules reach agreement?"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Generated annotation_v32: 60 conditional items (5 updated + 5 stable trajectories x 6 paths; 30 CONDITION_SATISFIED / 30 CONDITION_ACTIVE), new seed, blank annotator files, key outside repo at G:/memory_failure_backup/v3_annotation_key_p1c_v32.csv. Awaiting two independent annotations under the v3.2 guide."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md and V3_ANNOTATION_HOWTO.md (v3.2); statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md; adjudication record: docs/research/2026-11-17-v3-1-adjudication.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1 annotation calibration are protocol-development results. No V3 confirmatory results yet."
+  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots, the V3.1 annotation calibration, and the V3.2 model-assisted adjudication are protocol-development results. No V3 confirmatory results yet. The V3.2 conditional calibration set is waiting for annotation."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 24
+  cycle: 25
   last_direction: "calibrate"
-  last_reflection: "V3.1 recalibration fixes applicability (dimension kappa 0.853) and lifts primary-judgment agreement to 0.728, but conditional action-vs-condition remains the blocking failure (kappa 0.126). Annotator provenance is unverified. Adjudicate the 9 primary disagreements, revise the conditional rules, and re-calibrate the conditional subset before freezing the guide."
+  last_reflection: "Adjudication traced the conditional failure to four guide defects, not sampling noise: condition relation was counted inside proposition identity; LEGITIMATE_UPDATE was checked after NO_DISTORTION and was unreachable; status expression lacked an explicit-cue rule; and 'materially PARTIAL' was undefined. v3.2 fixes all four and resolves all nine primary disagreements. The v3.2 conditional-focused 60-item set is ready; the next gate is two independent annotations under v3.2. Provenance of A/B remains unrecorded and the adjudication is model-assisted only."
 
 workspace:
   findings: "findings.md"

@@ -141,6 +141,27 @@ in status preservation.**
   recurrent disagreement is conditional action-vs-condition. Provisional
   partial pass: epistemic/intentional usable, conditional not; do not freeze
   the guide. Annotator provenance and adjudication are pending.
+- **The conditional failure is a guide defect, not sampling noise.** The v3.1
+  adjudication found four rule ambiguities: the condition relation was counted
+  inside proposition identity (conflicting with the formal ontology);
+  `LEGITIMATE_UPDATE` was checked after `NO_DISTORTION`, making it unreachable;
+  status expression had no explicit-cue rule, so `购电脑`/`购机` was read by one
+  annotator as commitment and by the other as mere juxtaposition; and
+  "materially PARTIAL" had no boundary. All nine primary disagreements become
+  determinate under the v3.2 rules. The adjudication is model-assisted, not
+  human.
+- **v3.2 rules: explicit cues and a strict judgment order.** A status counts
+  only with an explicit lexical cue (`已拿到`/`条件满足` vs bare `奖学金`);
+  proposition identity is predicate + arguments, with condition/status scored
+  separately; an ordered chain retaining both old and new states is
+  `LEGITIMATE_UPDATE`; any `PARTIAL` is `PROPOSITION_LOSS`. A conditional
+  memory with condition satisfied but no action cue is `NO_DISTORTION` on the
+  conditional dimension, with the action state recorded as unexpressed.
+- **The next gate is a conditional-only calibration.** 60 items (5 updated + 5
+  stable conditional trajectories × 6 paths) are ready under `annotation_v32/`.
+  The pre-registered proposal is overall kappa >= 0.80 and every dimension
+  kappa >= 0.70; conditional must reach 0.70 to be reportable and 0.80 to be
+  frozen. Do not start P2 before this gate passes.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

@@ -1,5 +1,10 @@
 # V3.1 Blind Annotation Re-calibration Result (2026-11-16)
 
+> **Update (2026-11-17):** the disagreements reported here were adjudicated and
+> the guide was revised to v3.2; see
+> `docs/research/2026-11-17-v3-1-adjudication.md`. The adjudication is
+> model-assisted and the annotator provenance remains unrecorded.
+
 **Set:** `results/status_drift_v2_pilot/v3_path_pilot_p1c/annotation_v31/`
 **Items:** 60 (10 trajectories × 6 paths), anonymized and shuffled.
 **Annotators:** files A and B. **Provenance is not yet recorded** (see §7).

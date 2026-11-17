@@ -39,7 +39,13 @@ KEY_FIELDS = ["item_id", "trajectory_id", "dimension", "gold_status", "path",
               "topic_mentioned", "deterministic_state", "path_spec"]
 
 
-def select_records(rows: list[dict]) -> list[dict]:
+def select_records(rows: list[dict], sample_ids: list[str] | None = None) -> list[dict]:
+    if sample_ids:
+        index = {row["sample_id"]: row for row in rows}
+        missing = [sample_id for sample_id in sample_ids if sample_id not in index]
+        if missing:
+            raise SystemExit(f"unknown sample ids: {missing}")
+        return [index[sample_id] for sample_id in sample_ids]
     selected = []
     for dimension, count in (("epistemic", 4), ("intentional", 3), ("conditional", 3)):
         group = [row for row in rows if row["dimension"] == dimension]
@@ -60,9 +66,11 @@ def target_question(row: dict) -> str:
             "请判断记忆是否保留该命题及其在对话中的状态。")
 
 
-def build_items(rows: list[dict], seed: int = 20261116) -> list[dict]:
+def build_items(rows: list[dict], seed: int = 20261116,
+                sample_ids: list[str] | None = None,
+                id_prefix: str = "V3C") -> list[dict]:
     items = []
-    for row in select_records(rows):
+    for row in select_records(rows, sample_ids):
         for path in PATHS:
             path_record = (row.get("paths") or {}).get(path)
             if not path_record or not path_record.get("memories"):
@@ -83,7 +91,7 @@ def build_items(rows: list[dict], seed: int = 20261116) -> list[dict]:
             })
     random.Random(seed).shuffle(items)
     for index, item in enumerate(items, 1):
-        item["item_id"] = f"V3C-{index:04d}"
+        item["item_id"] = f"{id_prefix}-{index:04d}"
     return items
 
 
@@ -92,6 +100,10 @@ def main() -> None:
     parser.add_argument("--records", required=True)
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--seed", type=int, default=20261116)
+    parser.add_argument("--sample-ids", default=None,
+                        help="Comma-separated sample_id list; overrides the default "
+                             "per-dimension selection.")
+    parser.add_argument("--id-prefix", default="V3C")
     parser.add_argument("--key-out", default=None,
                         help="Curator-only condition key path. Keep it outside the "
                              "repository for blind annotation.")
@@ -99,7 +111,9 @@ def main() -> None:
 
     rows = [json.loads(line) for line in open(args.records, encoding="utf-8")
             if line.strip()]
-    items = build_items(rows, args.seed)
+    sample_ids = ([s.strip() for s in args.sample_ids.split(",") if s.strip()]
+                  if args.sample_ids else None)
+    items = build_items(rows, args.seed, sample_ids, args.id_prefix)
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
 
