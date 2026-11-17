@@ -467,7 +467,14 @@ experiments:
       wall_time_min: null
       change_summary: "50/50 items filled by A (WMY, human) and B (YTB, human-reviewed AI first draft); the annotators worked independently but B is not model-free. Agreement: dimension raw 0.920/kappa 0.826; semantic_labelable 0.960/0.730; status_bearing 0.920/0.606; evidence_sufficient 0.820/0.535; lexical_labelable 0.660/0.226; update_present 0.840/0.170. Systematic defects: lexical_labelable conflated cue presence with correct cue type; update_present lacked a later-mention-no-change category; evidence_sufficient conflated gold assignability with later comparison; risk statements mis-typed as epistemic. Decisions: epistemic dropped from real-data confirmatory; conditional enriched with pre-registered inclusion plus natural base rate; P4.2 curated 40-60 scenario bank; two independent humans required (current pair is mixed-provenance); n set by precision after calibration+pilot; second domain longmemeval_s, not oracle. Stage 2 guide revised to v2; calibration on a fresh 60-item set pending."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py. Real-dialogue Stage 1: V3_REAL_DATA_AUDIT_PROTOCOL.md + v3_real_feasibility_audit.py; screening results: 2026-11-17-real-screening-results.md; screening how-to: REAL_SCREENING_ANNOTATION_HOWTO.md; Stage 2 draft v2 (not frozen): V3_REAL_STAGE2_DRAFT.md; pilot frozen at tag freeze/v3-pilot-2026-11-17."
+    - run_id: "v3_p4_2_bank"
+      hypothesis: "P4.2 strict status-only intervention bank"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Built 40 English high-stakes scenarios (10 each: money/health/authorization/commitments): 36 over-commitment (26 intentional, 10 conditional) + 4 authorized-execution controls; 4 variants (present/omitted/distorted/no_memory) = 160 runnable items. Automated manipulation checks pass: 0 proposition flags (>=2 shared content terms), 0 length flags (token spread <=3 after neutral filler), no schema errors. Two-human validation and the runner are pending."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py. Real-dialogue Stage 1: V3_REAL_DATA_AUDIT_PROTOCOL.md + v3_real_feasibility_audit.py; screening results: 2026-11-17-real-screening-results.md; screening how-to: REAL_SCREENING_ANNOTATION_HOWTO.md; Stage 2 draft v2 (not frozen): V3_REAL_STAGE2_DRAFT.md; P4.2 draft: V3_P4_2_PROTOCOL_DRAFT.md, bank datasets/p4_2_scenarios/, generator experiments/v3_p4_2_bank.py; pilot frozen at tag freeze/v3-pilot-2026-11-17."
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
@@ -475,7 +482,7 @@ experiments:
   next_actions:
     - "Blocker: obtain a model-free subset (YTB re-annotates 20-30 items from scratch, or a third human labels all 50); the current A/B pair is two independent humans but B used an AI first draft, so no unaided human-reliability claim is possible yet"
     - "Stage 2: freeze V3_REAL_STAGE2_DRAFT.md v2 after the D1-D5 rubric revisions; calibrate on a fresh 60-item set (LoCoMo intentional, enriched conditional, longmemeval_s), then gate on LSF/SSF kappa"
-    - "Build the P4.2 curated scenario bank (40-60 high-stakes items across money/health/authorization/commitments) with two-human validation before freezing"
+    - "P4.2 bank: 40 high-stakes scenarios built and passing automated manipulation checks (0 proposition/length flags); two-human validation of validation.csv is the next gate, then the runner"
     - "Stage 3: P4.2 status-only intervention with matched proposition/evidence/task/length and two agent models"
     - "Stage 4: rewrite-depth and recovery experiment (per-round omission onset, recovery with source access, repeated-direct vs chained)"
     - "Stage 5: precision-based sample size, paired trajectory-level statistics, cost analysis, ablations, related-work comparison, then paper positioning"

@@ -79,6 +79,14 @@ status-specific, proposition-controlled transformation-history diagnostic.
   size is precision-based after calibration plus a pilot; the second domain is
   `longmemeval_s` (44-57 sessions), not the 1-6-session oracle.
 - Stage 2 guide revised to v2; calibration on a fresh 60-item set is pending.
+- **P4.2 scenario bank is built and passes automated manipulation checks.** 40
+  English high-stakes scenarios (10 each: money, health, authorization,
+  commitments), each with present / omitted / distorted / no-memory variants:
+  36 over-commitment scenarios (26 intentional, 10 conditional) plus 4
+  authorized-execution positive controls. Proposition identity is checked by
+  shared content terms, length by a neutral filler (token spread <= 3), and
+  the authorization rule makes the expected decision determinate. The bank is
+  not run yet; two-human validation and the two-model runner are pending.
 
 ### v2 exploratory baseline (2026-11-16, 30-trajectory run)
 

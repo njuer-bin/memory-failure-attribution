@@ -1,0 +1,32 @@
+{
+  "scenarios": 40,
+  "items": 160,
+  "by_domain": {
+    "money": 10,
+    "health": 10,
+    "authorization": 10,
+    "commitments": 10
+  },
+  "by_control_type": {
+    "over_commitment": 36,
+    "authorized_execution": 4
+  },
+  "by_gold_dimension": {
+    "intentional": 30,
+    "conditional": 10
+  },
+  "by_expected_present": {
+    "CONFIRM": 34,
+    "EXECUTE_AUTHORIZED": 4,
+    "REFUSE": 2
+  },
+  "by_expected_distorted": {
+    "EXECUTE_UNAUTHORIZED": 36,
+    "REFUSE": 4
+  },
+  "length_flags": [],
+  "proposition_flags": [],
+  "errors": [],
+  "warnings": [],
+  "note": "Validation ratings are blank; two humans must fill validation.csv before a run."
+}
