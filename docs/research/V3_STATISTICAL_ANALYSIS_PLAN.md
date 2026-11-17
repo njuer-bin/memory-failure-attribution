@@ -66,3 +66,39 @@ Create paired status-only variants with proposition wording, evidence, length, a
 - sensitivity to ambiguous cases;
 - leave-one-template-family-out analysis.
 A post-hoc token-matched subset is descriptive only because selection on generated length can bias the comparison.
+
+## 11. P2 pre-registration
+
+**Design.** 30 new trajectories (5 topics × 3 dimensions × stable/updated), all
+conditions per trajectory (`V3_P2_PROTOCOL.md`). Trajectory is the cluster.
+
+**Primary outcome.** Joint distribution of proposition identity × status
+fidelity, unconditional, by condition.
+
+**Primary contrast.** `source_peek` vs `recursive` (source access). Key
+secondary contrasts: `temp1`/`temp2` vs `recursive` (decoding), `para` vs
+`recursive` (prompt wording), `rewrite_matched` vs `recursive` (intermediate
+budget), `repeated_direct` vs `recursive` (call count without chaining),
+`path_s2` vs `recursive` (schedule-only near-null control). `raw` and
+`retrieval` are references.
+
+**Estimation.** Paired trajectory-level differences with cluster-aware
+bootstrap intervals (resample trajectories). If the design supports it, a
+mixed-effects logistic model with condition fixed and trajectory random; report
+convergence. For the key secondary family, report Holm-adjusted p-values or
+label the family exploratory.
+
+**Sample size.** N=30 is a predeclared confirmatory cohort for paired
+estimation, not a power claim. Report effect sizes and 95% intervals; do not
+assert adequate power. If annotation resources force a smaller evaluable set,
+narrow the estimand rather than claiming power.
+
+**Exclusions and missingness.** Only the predeclared P2 exclusions; report
+generation errors, annotation missingness, and denominators by condition.
+Never drop an output because its length or label is inconvenient.
+
+**Sensitivity.** Alternative treatment of PARTIAL identity; all-output joint
+outcomes; actual token count as covariate; deterministic topic-mention
+diagnostics as a descriptive check only.
+
+**Isolation.** P2 is not pooled with v2.x or P1.

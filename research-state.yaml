@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 27
+  total_runs: 28
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -264,18 +264,25 @@ experiments:
       wall_time_min: null
       change_summary: "Same 60 items; identity/judgment/evidence re-annotated, condition/action retained. 0 missing/invalid. proposition_identity raw 0.917/kappa 0.837; primary_judgment 0.900/0.827; evidence_support 0.983/0.961; action_status 1.000; expressed_status 0.974. Gate PASSES. Seven residual boundary items: five serial-verb '去上海工作' (A PRESERVED vs B PARTIAL), one AMBIGUOUS-identity judgment, one '已达标' cue. v3.2.3 clarifies all three. Adjudicated distribution: PROPOSITION_LOSS 31, NO_DISTORTION 22, STATUS_OMISSION 5, UNSUPPORTED 1, AMBIGUOUS 1; 28 PRESERVED."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.3 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md and V3_ANNOTATION_HOWTO.md (v3.2.3); statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md; adjudication records: docs/research/2026-11-17-v3-1-adjudication.md and 2026-11-17-v3-2-conditional-calibration.md"
+    - run_id: "v3_p2_freeze"
+      hypothesis: "P2 paired transformation study: freeze and generate"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Froze ontology v3.2.3, P2 protocol, SAP section 11, and runner with SHA-256 hashes in V3_P2_FREEZE.md. P2 design: 30 new trajectories (5 new topics x 3 dimensions x stable/updated), 10 generated conditions + raw, qwen2.5:7b neutral writer, final budget 100, seeds 42/43. Smoke test: 1 trajectory, 10/10 conditions complete, 0 errors. Full generation pending."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2.3 frozen: P2 protocol docs/research/V3_P2_PROTOCOL.md; freeze record docs/research/V3_P2_FREEZE.md; formal ontology docs/research/V3_FORMAL_DEFINITIONS.md; annotation V3_ANNOTATION_GUIDELINES.md and V3_ANNOTATION_HOWTO.md; SAP V3_STATISTICAL_ANALYSIS_PLAN.md; runner experiments/v3_p2_paired_study.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots, the V3.1 annotation calibration, the V3.2 model-assisted adjudication, and the V3.2.1 conditional calibration are protocol-development results. The v3.2.2 identity re-annotation passes the conditional calibration gate (primary kappa 0.827, identity 0.837, action_status 1.000). No V3 confirmatory results yet."
+  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1/V3.2 annotation calibrations are protocol-development results. The v3.2.2 identity re-annotation passes the calibration gate (primary kappa 0.827, identity 0.837, action_status 1.000). P2 is frozen and generation is starting; no P2/P3 results yet."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 27
+  cycle: 28
   last_direction: "confirm"
-  last_reflection: "The v3.2.2 identity worksheet lifted the conditional calibration over the gate: primary kappa 0.827, identity 0.837, evidence 0.961, action_status 1.000. Seven residual items are rule boundaries (five serial-verb 去上海工作, one AMBIGUOUS-identity judgment, one 已达标 cue); v3.2.3 clarifies them and the adjudication resolves them. Proposition loss is 31/60 even after the serial-verb correction, so the joint outcome must lead with proposition loss and condition status analyses on the 28 PRESERVED items. Recommend freezing v3.2.3 and starting P2; a 7-item recheck is optional for a clean observed agreement."
+  last_reflection: "The v3.2.2 identity re-annotation passed the gate (primary kappa 0.827, identity 0.837, action_status 1.000), and v3.2.3 clarified the seven residual boundaries. The P2 protocol, SAP section, runner, and ontology are frozen with SHA-256 hashes. P2 uses 30 new trajectories across 5 unseen topics and 10 generated conditions plus raw; the smoke test completed 10/10 conditions with no errors. Next: run full generation, verify the completeness gate, then prepare the P3 blind annotation set from the frozen outputs."
 
 workspace:
   findings: "findings.md"

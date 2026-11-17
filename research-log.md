@@ -491,6 +491,22 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Recommendation: freeze v3.2.3 and proceed to P2; optional 7-item recheck for a
   clean observed agreement.
 
+### P2 protocol freeze and smoke — completed
+
+- Froze ontology v3.2.3, `V3_P2_PROTOCOL.md`, SAP §11, and the P2 runner with
+  SHA-256 hashes in `V3_P2_FREEZE.md`.
+- P2 design: 30 new trajectories (5 new topics: 换一份工作, 开始健身, 开一家网店,
+  学会游泳, 考驾照; × 3 dimensions × stable/updated); conditions raw, direct,
+  recursive, rewrite_matched, repeated_direct, source_peek, para, temp1, temp2,
+  path_s2, retrieval.
+- Writer `qwen2.5:7b`, neutral prompt, final budget 100, seeds 42/43.
+- Smoke test: 1 trajectory, 10/10 generated conditions complete, 0 errors;
+  source_peek preserved the possible status, repeated_direct was deterministic,
+  temp1/temp2 diverged, retrieval returned both evidence turns.
+- Next: full 30-trajectory generation, then the completeness gate and P3 blind
+  annotation set.
+
+
 
 
 

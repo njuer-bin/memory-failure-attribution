@@ -186,6 +186,11 @@ in status preservation.**
   `已达标` cue. v3.2.3 clarifies them; adjudication round 2 resolves five toward
   A and two toward B. Recommendation: freeze v3.2.3 and start P2; a 7-item
   recheck is optional for a clean observed agreement.
+- **P2 is frozen and generation has started.** 30 new trajectories across 5
+  unseen topics, 10 generated conditions plus raw, `qwen2.5:7b` neutral writer,
+  final budget 100, seeds 42/43. The smoke test completed 10/10 conditions with
+  no errors. The completeness gate is 30/30 trajectories and 300/300 generated
+  conditions; P3 blind annotation under v3.2.3 is the primary measurement.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.
