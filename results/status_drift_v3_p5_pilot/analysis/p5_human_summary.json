@@ -1,0 +1,470 @@
+{
+  "protocol": "v3_p5_human",
+  "n_items": 72,
+  "by_strategy": {
+    "neutral": {
+      "n": 12,
+      "identity": {
+        "PRESERVED": 12
+      },
+      "judgment": {
+        "NO_DISTORTION": 6,
+        "STATUS_OMISSION": 5,
+        "UNSUPPORTED_STATUS_DISTORTION": 1
+      },
+      "faithful": {
+        "count": 6,
+        "denominator": 12,
+        "rate": 0.5
+      },
+      "omission": {
+        "count": 5,
+        "denominator": 12,
+        "rate": 0.4166666666666667
+      },
+      "unsupported": {
+        "count": 1,
+        "denominator": 12,
+        "rate": 0.08333333333333333
+      },
+      "loss": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      },
+      "lua": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      }
+    },
+    "status_aware": {
+      "n": 12,
+      "identity": {
+        "PRESERVED": 12
+      },
+      "judgment": {
+        "NO_DISTORTION": 10,
+        "UNSUPPORTED_STATUS_DISTORTION": 1,
+        "STATUS_OMISSION": 1
+      },
+      "faithful": {
+        "count": 10,
+        "denominator": 12,
+        "rate": 0.8333333333333334
+      },
+      "omission": {
+        "count": 1,
+        "denominator": 12,
+        "rate": 0.08333333333333333
+      },
+      "unsupported": {
+        "count": 1,
+        "denominator": 12,
+        "rate": 0.08333333333333333
+      },
+      "loss": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      },
+      "lua": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      }
+    },
+    "unknown_heavy": {
+      "n": 12,
+      "identity": {
+        "LOST": 5,
+        "PRESERVED": 7
+      },
+      "judgment": {
+        "PROPOSITION_LOSS": 5,
+        "NO_DISTORTION": 2,
+        "LEGITIMATE_UPDATE": 4,
+        "STATUS_OMISSION": 1
+      },
+      "faithful": {
+        "count": 6,
+        "denominator": 7,
+        "rate": 0.8571428571428571
+      },
+      "omission": {
+        "count": 1,
+        "denominator": 7,
+        "rate": 0.14285714285714285
+      },
+      "unsupported": {
+        "count": 0,
+        "denominator": 7,
+        "rate": 0.0
+      },
+      "loss": {
+        "count": 5,
+        "denominator": 12,
+        "rate": 0.4166666666666667
+      },
+      "lua": {
+        "count": 4,
+        "denominator": 7,
+        "rate": 0.5714285714285714
+      }
+    },
+    "source_peek": {
+      "n": 12,
+      "identity": {
+        "PRESERVED": 12
+      },
+      "judgment": {
+        "NO_DISTORTION": 11,
+        "STATUS_OMISSION": 1
+      },
+      "faithful": {
+        "count": 11,
+        "denominator": 12,
+        "rate": 0.9166666666666666
+      },
+      "omission": {
+        "count": 1,
+        "denominator": 12,
+        "rate": 0.08333333333333333
+      },
+      "unsupported": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      },
+      "loss": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      },
+      "lua": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      }
+    },
+    "evidence_anchored": {
+      "n": 12,
+      "identity": {
+        "PRESERVED": 12
+      },
+      "judgment": {
+        "NO_DISTORTION": 10,
+        "LEGITIMATE_UPDATE": 1,
+        "STATUS_OMISSION": 1
+      },
+      "faithful": {
+        "count": 11,
+        "denominator": 12,
+        "rate": 0.9166666666666666
+      },
+      "omission": {
+        "count": 1,
+        "denominator": 12,
+        "rate": 0.08333333333333333
+      },
+      "unsupported": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      },
+      "loss": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      },
+      "lua": {
+        "count": 1,
+        "denominator": 12,
+        "rate": 0.08333333333333333
+      }
+    },
+    "transition_verification": {
+      "n": 12,
+      "identity": {
+        "PRESERVED": 12
+      },
+      "judgment": {
+        "NO_DISTORTION": 10,
+        "STATUS_OMISSION": 2
+      },
+      "faithful": {
+        "count": 10,
+        "denominator": 12,
+        "rate": 0.8333333333333334
+      },
+      "omission": {
+        "count": 2,
+        "denominator": 12,
+        "rate": 0.16666666666666666
+      },
+      "unsupported": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      },
+      "loss": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      },
+      "lua": {
+        "count": 0,
+        "denominator": 12,
+        "rate": 0.0
+      }
+    }
+  },
+  "contrasts": [
+    {
+      "strategy": "status_aware",
+      "reference": "neutral",
+      "outcome": "faithful",
+      "n_pairs": 12,
+      "mean_difference": 0.3333333333333333,
+      "bootstrap_low": 0.08333333333333333,
+      "bootstrap_high": 0.5833333333333334,
+      "n_strategy_positive": 4,
+      "n_reference_positive": 0,
+      "n_ties": 8
+    },
+    {
+      "strategy": "status_aware",
+      "reference": "neutral",
+      "outcome": "omission",
+      "n_pairs": 12,
+      "mean_difference": -0.3333333333333333,
+      "bootstrap_low": -0.5833333333333334,
+      "bootstrap_high": -0.08333333333333333,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 4,
+      "n_ties": 8
+    },
+    {
+      "strategy": "status_aware",
+      "reference": "neutral",
+      "outcome": "unsupported",
+      "n_pairs": 12,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 12
+    },
+    {
+      "strategy": "status_aware",
+      "reference": "neutral",
+      "outcome": "loss",
+      "n_pairs": 12,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 12
+    },
+    {
+      "strategy": "unknown_heavy",
+      "reference": "neutral",
+      "outcome": "faithful",
+      "n_pairs": 12,
+      "mean_difference": 0.0,
+      "bootstrap_low": -0.5,
+      "bootstrap_high": 0.4166666666666667,
+      "n_strategy_positive": 4,
+      "n_reference_positive": 4,
+      "n_ties": 4
+    },
+    {
+      "strategy": "unknown_heavy",
+      "reference": "neutral",
+      "outcome": "omission",
+      "n_pairs": 12,
+      "mean_difference": -0.3333333333333333,
+      "bootstrap_low": -0.5833333333333334,
+      "bootstrap_high": -0.08333333333333333,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 4,
+      "n_ties": 8
+    },
+    {
+      "strategy": "unknown_heavy",
+      "reference": "neutral",
+      "outcome": "unsupported",
+      "n_pairs": 12,
+      "mean_difference": -0.08333333333333333,
+      "bootstrap_low": -0.25,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 1,
+      "n_ties": 11
+    },
+    {
+      "strategy": "unknown_heavy",
+      "reference": "neutral",
+      "outcome": "loss",
+      "n_pairs": 12,
+      "mean_difference": 0.4166666666666667,
+      "bootstrap_low": 0.16666666666666666,
+      "bootstrap_high": 0.6666666666666666,
+      "n_strategy_positive": 5,
+      "n_reference_positive": 0,
+      "n_ties": 7
+    },
+    {
+      "strategy": "source_peek",
+      "reference": "neutral",
+      "outcome": "faithful",
+      "n_pairs": 12,
+      "mean_difference": 0.4166666666666667,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.75,
+      "n_strategy_positive": 6,
+      "n_reference_positive": 1,
+      "n_ties": 5
+    },
+    {
+      "strategy": "source_peek",
+      "reference": "neutral",
+      "outcome": "omission",
+      "n_pairs": 12,
+      "mean_difference": -0.3333333333333333,
+      "bootstrap_low": -0.6666666666666666,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 1,
+      "n_reference_positive": 5,
+      "n_ties": 6
+    },
+    {
+      "strategy": "source_peek",
+      "reference": "neutral",
+      "outcome": "unsupported",
+      "n_pairs": 12,
+      "mean_difference": -0.08333333333333333,
+      "bootstrap_low": -0.25,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 1,
+      "n_ties": 11
+    },
+    {
+      "strategy": "source_peek",
+      "reference": "neutral",
+      "outcome": "loss",
+      "n_pairs": 12,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 12
+    },
+    {
+      "strategy": "evidence_anchored",
+      "reference": "neutral",
+      "outcome": "faithful",
+      "n_pairs": 12,
+      "mean_difference": 0.4166666666666667,
+      "bootstrap_low": 0.16666666666666666,
+      "bootstrap_high": 0.6666666666666666,
+      "n_strategy_positive": 5,
+      "n_reference_positive": 0,
+      "n_ties": 7
+    },
+    {
+      "strategy": "evidence_anchored",
+      "reference": "neutral",
+      "outcome": "omission",
+      "n_pairs": 12,
+      "mean_difference": -0.3333333333333333,
+      "bootstrap_low": -0.6666666666666666,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 1,
+      "n_reference_positive": 5,
+      "n_ties": 6
+    },
+    {
+      "strategy": "evidence_anchored",
+      "reference": "neutral",
+      "outcome": "unsupported",
+      "n_pairs": 12,
+      "mean_difference": -0.08333333333333333,
+      "bootstrap_low": -0.25,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 1,
+      "n_ties": 11
+    },
+    {
+      "strategy": "evidence_anchored",
+      "reference": "neutral",
+      "outcome": "loss",
+      "n_pairs": 12,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 12
+    },
+    {
+      "strategy": "transition_verification",
+      "reference": "neutral",
+      "outcome": "faithful",
+      "n_pairs": 12,
+      "mean_difference": 0.3333333333333333,
+      "bootstrap_low": 0.08333333333333333,
+      "bootstrap_high": 0.5833333333333334,
+      "n_strategy_positive": 4,
+      "n_reference_positive": 0,
+      "n_ties": 8
+    },
+    {
+      "strategy": "transition_verification",
+      "reference": "neutral",
+      "outcome": "omission",
+      "n_pairs": 12,
+      "mean_difference": -0.25,
+      "bootstrap_low": -0.5833333333333334,
+      "bootstrap_high": 0.08333333333333333,
+      "n_strategy_positive": 1,
+      "n_reference_positive": 4,
+      "n_ties": 7
+    },
+    {
+      "strategy": "transition_verification",
+      "reference": "neutral",
+      "outcome": "unsupported",
+      "n_pairs": 12,
+      "mean_difference": -0.08333333333333333,
+      "bootstrap_low": -0.25,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 1,
+      "n_ties": 11
+    },
+    {
+      "strategy": "transition_verification",
+      "reference": "neutral",
+      "outcome": "loss",
+      "n_pairs": 12,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_strategy_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 12
+    }
+  ],
+  "warnings": [
+    "Adjudication is model-assisted; original A/B labels are preserved.",
+    "Rates are over PRESERVED for omission/unsupported/faithful/lua; loss over all items.",
+    "n=12 per strategy; paired pilot estimates only, no power claim.",
+    "The mitigation claim requires the P5 confirmatory design."
+  ]
+}

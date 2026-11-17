@@ -249,8 +249,19 @@ in status preservation.**
   the compressed memory as the source of truth. `evidence_anchored` preserves
   status best but its evidence tags are frequently wrong and it inflates the
   budget.
-- **P5 deterministic ranking needs human confirmation.** A 72-item blind set is
-  ready; deterministic cue states are diagnostics, not human labels.
+- **P5 human labels confirm the ranking, with one correction.** 72 items,
+  primary κ 0.881. Faithful: neutral 6/12, status_aware 10/12, source_peek
+  11/12, evidence_anchored 11/12, transition_verification 10/12,
+  unknown_heavy 6/7 preserved but 5/12 proposition loss. Paired vs neutral
+  faithful: status_aware +0.333 [0.083,0.583], source_peek +0.417
+  [0.000,0.750], evidence_anchored +0.417 [0.167,0.667], transition +0.333
+  [0.083,0.583].
+- **`status_aware` remains the practical candidate but is not a complete fix.**
+  It improves faithful status by 33 points at 1.03× length, but still produces
+  one real conditional collapse (`已拿奖学金，将开始健身`).
+  `evidence_anchored` loses its deterministic advantage under human labels and
+  remains 1.84× with wrong anchors; `unknown_heavy` is disqualified by 42%
+  proposition loss.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

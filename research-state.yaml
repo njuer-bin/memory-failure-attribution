@@ -69,12 +69,19 @@ hypotheses:
     parent: null
     priority: high
     note: "P4: distorted status raises unauthorized action from 6.7% to 66.7% (paired +0.600, CI [0.433,0.767]). Omitted status does not raise unauthorized action (0/30) but lowers evidence-consistent action by 26.7 points. The effect is real for distortion, not for omission on this task."
+  - id: H5
+    statement: "A status-preserving writer can reduce status omission without unacceptable budget inflation."
+    status: supported-pilot
+    motivation: "P5 mitigation; requires a confirmatory run."
+    parent: null
+    priority: high
+    note: "P5 pilot: status_aware 10/12 faithful vs neutral 6/12 at 1.03x length; source_peek 11/12 at 1.23x; evidence_anchored 11/12 but 1.84x with wrong anchors; transition_verification 10/12; unknown_heavy loses 5/12 propositions. status_aware still has 1 conditional collapse. Pilot only."
 
 experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 35
+  total_runs: 36
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -321,18 +328,25 @@ experiments:
       wall_time_min: null
       change_summary: "Generated 72-item P5 blind annotation set (12 trajectories x 6 strategies), shuffled, blank A/B files with action_status, key outside repo at G:/memory_failure_backup/v3_p5_annotation_key.csv. Balanced: 24 per dimension, 12 per gold status, 12 per strategy. Awaiting two independent annotations under v3.2.3."
       timestamp: "2026-11-17"
+    - run_id: "v3_p5_human"
+      hypothesis: "P5 human confirmation of the mitigation ranking"
+      metric_value: 0.833
+      delta: null
+      wall_time_min: null
+      change_summary: "72 items, A/B complete. primary raw 0.944/kappa 0.881; identity 1.000; status_expressed 1.000; expressed_status 0.889/0.869; action 0.972/0.947; evidence 0.986/0.963. Faithful (NO_DISTORTION+LUA): neutral 6/12, status_aware 10/12, unknown_heavy 6/7 preserved but 5/12 proposition loss, source_peek 11/12, evidence_anchored 11/12, transition_verification 10/12. Paired vs neutral faithful: status_aware +0.333 [0.083,0.583], source_peek +0.417 [0.000,0.750], evidence_anchored +0.417 [0.167,0.667], transition +0.333 [0.083,0.583]. status_aware still has 1 conditional collapse; evidence_anchored remains 1.84x budget with wrong anchors; unknown_heavy disqualified by 42% proposition loss."
+      timestamp: "2026-11-17"
   current_protocol: "V3.2.3 frozen for P2/P3; P4 frozen; P5 pilot protocol docs/research/V3_P5_PILOT_PROTOCOL.md (pilot, not frozen for confirmatory). Core: V3_P2_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_mitigation_pilot.py; analysis analyze_p3_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "V3.2.2 calibration passes (primary kappa 0.827). P2 completeness 30/30, 300/300. P3 human labels (kappa 0.944): chained rewriting causes status omission 44-54%, unsupported distortion 3/330. P4: omission is conservative (0/30 unauthorized, -26.7 points evidence-consistent action); distortion is dangerous (66.7% unauthorized vs 6.7%). P5 pilot: status_aware 10/12 MATCH at 1.03x budget; evidence_anchored 10 MATCH + 2 AMBIGUOUS but 1.84x; transition_verification 9/12; unknown_heavy is abstention control. P5 blind annotation pending."
+  current_results: "V3.2.2 calibration passes (primary kappa 0.827). P2 completeness 30/30, 300/300. P3 human labels (kappa 0.944): chained rewriting causes status omission 44-54%, unsupported distortion 3/330. P4: omission is conservative (0/30 unauthorized, -26.7 points evidence-consistent action); distortion is dangerous (66.7% unauthorized vs 6.7%). P5 pilot human labels: neutral 6/12 faithful; status_aware 10/12 at 1.03x; source_peek 11/12 at 1.23x; evidence_anchored 11/12 at 1.84x; transition 10/12; unknown_heavy 5/12 proposition loss. status_aware is the best low-cost candidate; mitigation confirmatory run not started."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 33
+  cycle: 34
   last_direction: "mitigate"
-  last_reflection: "P5 pilot triages mitigations. status_aware is the best low-cost option: 10/12 deterministic MATCH versus 7/12 neutral at 1.03x length and no abstention. evidence_anchored preserves status best (10 MATCH + 2 AMBIGUOUS, 0 ABSENT) but runs at 1.84x length and its evidence tags are often wrong, so it fails the budget gate. source_peek matches status_aware at 1.23x. transition_verification is only 9/12 and unstable across dimensions; the verifier does not reliably restore dropped status. unknown_heavy is a trivial-abstention control. A 72-item blind set is ready to test whether the deterministic ranking survives human labels."
+  last_reflection: "Human labels confirm the P5 ranking: neutral 6/12 faithful, status_aware 10/12 at 1.03x length, source_peek and evidence_anchored 11/12, transition_verification 10/12. Evidence_anchored's apparent advantage disappears under human labels and it still costs 1.84x length with wrong anchors; unknown_heavy preserves status only by losing 5/12 propositions. status_aware remains the practical candidate but still produces one real conditional collapse. Next: a confirmatory P5 with more trajectories if the mitigation claim is to be published, plus the full-text novelty audit."
 
 workspace:
   findings: "findings.md"

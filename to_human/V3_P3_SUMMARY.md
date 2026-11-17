@@ -86,6 +86,29 @@ memory failure is the safe one; the rare failure is the harmful one.
 **Next:** P5 mitigation scored on both omission and distortion; replication;
 full-text novelty audit.
 
+## P5 update (2026-11-17)
+
+12 trajectories × 6 writer strategies, 72 blind human labels (primary κ 0.881).
+Faithful (NO_DISTORTION + LEGITIMATE_UPDATE):
+
+| Strategy | Faithful | Omission | Unsupported | Proposition loss |
+|---|---:|---:|---:|---:|
+| neutral | 6/12 | 5/12 | 1/12 | 0/12 |
+| status_aware | 10/12 | 1/12 | 1/12 | 0/12 |
+| source_peek | 11/12 | 1/12 | 0/12 | 0/12 |
+| evidence_anchored | 11/12 | 1/12 | 0/12 | 0/12 |
+| transition_verification | 10/12 | 2/12 | 0/12 | 0/12 |
+| unknown_heavy | 6/7 preserved | 1/7 | 0/7 | **5/12** |
+
+`status_aware` is the best low-cost candidate (+33 points faithful at 1.03×
+length) but still has one real conditional collapse. `source_peek` is stronger
+if the source can be exposed at rewrite time. `evidence_anchored` costs 1.84×
+and its anchors are often wrong. `unknown_heavy` is disqualified by 42%
+proposition loss.
+
+**Next:** confirmatory P5 with more trajectories; replication; full-text novelty
+audit.
+
 
 ## Where things are
 

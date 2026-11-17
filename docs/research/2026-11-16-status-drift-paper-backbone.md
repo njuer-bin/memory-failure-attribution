@@ -267,11 +267,14 @@ replication, not part of the primary contrast.
 
 ## V3 P5 mitigation pilot (2026-11-17)
 
-12 trajectories × 6 strategies under one 5-stage chain; deterministic
-diagnostics only. MATCH of 12: neutral 7, status_aware 10 (1.03× length),
-source_peek 10 (1.23×), evidence_anchored 10 + 2 AMBIGUOUS (1.84×, fails the
-1.5× budget flag; evidence tags often wrong), transition_verification 9
-(1.02×; epistemic 4/4, conditional 2/4), unknown_heavy 4 with 100% abstention.
-`status_aware` is the best low-cost candidate; the verifier does not reliably
-repair status; `unknown_heavy` is a trivial-abstention control. A 72-item blind
-human set is ready. Do not claim mitigation success from deterministic cues.
+12 trajectories × 6 strategies under one 5-stage chain. Deterministic
+diagnostics were followed by 72 blind human labels (primary κ 0.881).
+Faithful (NO_DISTORTION + LUA): neutral 6/12, status_aware 10/12 at 1.03×
+length, source_peek 11/12 at 1.23×, evidence_anchored 11/12 at 1.84× with
+frequently wrong anchors, transition_verification 10/12. `unknown_heavy`
+reaches 6/7 faithful among preserved items but loses 5/12 propositions — a
+trivial-abstention control, not a mitigation. Paired vs neutral faithful:
+status_aware +0.333 [0.083, 0.583], source_peek +0.417 [0.000, 0.750],
+evidence_anchored +0.417 [0.167, 0.667], transition +0.333 [0.083, 0.583].
+`status_aware` is the best low-cost candidate but still produces one real
+conditional collapse. Pilot only; a confirmatory mitigation run is required.

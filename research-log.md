@@ -603,6 +603,24 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   key outside the repo). Deterministic cues are diagnostics, not human labels.
 - Recorded in `docs/research/2026-11-17-v3-p5-pilot.md`.
 
+### P5 human confirmation — ranking holds, status_aware still best low-cost
+
+- 72 items, A/B complete. primary raw 0.944 / kappa 0.881; identity 1.000;
+  status_expressed 1.000; expressed_status 0.889 / 0.869; action_status
+  0.972 / 0.947; evidence_support 0.986 / 0.963. 13 adjudication overrides.
+- Faithful (NO_DISTORTION + LUA): neutral 6/12; status_aware 10/12;
+  unknown_heavy 6/7 preserved but 5/12 proposition loss; source_peek 11/12;
+  evidence_anchored 11/12; transition_verification 10/12.
+- Paired vs neutral faithful: status_aware +0.333 [0.083,0.583],
+  source_peek +0.417 [0.000,0.750], evidence_anchored +0.417 [0.167,0.667],
+  transition +0.333 [0.083,0.583].
+- status_aware still produces one real conditional collapse; evidence_anchored
+  loses its apparent advantage under human labels and stays 1.84x with wrong
+  anchors; unknown_heavy is disqualified by 42% proposition loss.
+- Recorded in `docs/research/2026-11-17-v3-p5-pilot.md`; analysis in
+  `results/status_drift_v3_p5_pilot/analysis/`.
+
+
 
 
 
