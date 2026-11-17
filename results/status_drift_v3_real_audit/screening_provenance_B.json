@@ -1,0 +1,9 @@
+{
+  "annotator": "AI assistant (WorkBuddy), rubric-guided",
+  "role": "model",
+  "date": "2026-11-17",
+  "independent": true,
+  "read_diagnostic_read": false,
+  "model_assistance": "full - all 10 scoring columns of screening_B.csv were produced by an AI assistant following the rubric supplied in the task prompt; no independent human annotation or review",
+  "notes": "screening_B.csv 的 10 个评分列由 AI 严格按用户给定 rubric（含 5 个锚点示例）生成；未打开 diagnostic_read.csv、diagnostic_summary.json，也未查看 screening_A.csv 的标签。role 与 model_assistance 按实际情况填写，未沿用模板默认值，以免误记为人类独立标注。"
+}

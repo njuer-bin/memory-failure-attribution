@@ -1,0 +1,31 @@
+{
+  "A": {
+    "status_bearing_yes": 46,
+    "status_bearing_ambiguous": 2,
+    "status_bearing_no": 2,
+    "semantic_labelable_yes": 47,
+    "dimension": {
+      "epistemic": 5,
+      "conditional": 5,
+      "intentional": 36,
+      "none": 2,
+      "mixed": 2
+    },
+    "later_mention": 35
+  },
+  "B": {
+    "status_bearing_yes": 43,
+    "status_bearing_ambiguous": 3,
+    "status_bearing_no": 4,
+    "semantic_labelable_yes": 45,
+    "dimension": {
+      "epistemic": 3,
+      "conditional": 6,
+      "intentional": 36,
+      "none": 4,
+      "mixed": 1
+    },
+    "later_mention": 35
+  },
+  "note": "A provenance blank; B is model (WorkBuddy). Not two independent humans."
+}

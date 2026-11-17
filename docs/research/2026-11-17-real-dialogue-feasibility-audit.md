@@ -140,3 +140,14 @@ does not support sampling P4.2 scenarios from these data.
 - Screening sheets: `screening_50.csv`, `screening_A.csv`, `screening_B.csv`
 - Diagnostic read: `diagnostic_read.csv`, `analysis/diagnostic_summary.json`
 - Automated summary: `analysis/feasibility_summary.json`
+
+## 9. Update after the 50-item screen (2026-11-17)
+
+Both sheets are filled, but the pair is not two independent humans: B records
+itself as a rubric-guided model and A's provenance is blank. Agreement and the
+resulting rubric revisions are in `2026-11-17-real-screening-results.md`.
+Dimension (kappa 0.826) and semantic labelability (0.730) are usable;
+`lexical_labelable` (0.226) and `update_present` (0.170) fail and are being
+redefined in `V3_REAL_STAGE2_DRAFT.md` v2. The provisional gate verdict is
+unchanged: intentional is viable, conditional needs enrichment, epistemic is
+dropped, and P4.2 needs curated high-stakes scenarios.

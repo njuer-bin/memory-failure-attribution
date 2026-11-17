@@ -1,8 +1,12 @@
-# Stage 2 Draft — Real-Dialogue Status Fidelity Annotation and Calibration
+# Stage 2 Draft v2 — Real-Dialogue Status Fidelity Annotation and Calibration
 
-Status: **DRAFT, not frozen.** Freeze only after the two-annotator calibration
-passes and the open decisions at the end are confirmed. This document does not
-change the frozen V3 synthetic pilot (`freeze/v3-pilot-2026-11-17`).
+Status: **DRAFT v2, not frozen.** Revised after the 50-item screening exposed
+rubric defects in `lexical_labelable` and `update_present`. Calibration has
+not passed; the current A/B pair is not two independent humans (B is a model,
+A's provenance is blank). Do not freeze or run confirmatory generation yet.
+
+This document does not change the frozen V3 synthetic pilot
+(`freeze/v3-pilot-2026-11-17`).
 
 ## 1. What Stage 2 must settle
 
@@ -17,6 +21,28 @@ confirmatory generation:
 These are separate outcomes. A memory can lose the cue and keep the status
 (paraphrase), or keep a cue and change the status (distortion). Reporting one
 number would hide both.
+
+## 1a. What the 50-item screen changed (2026-11-17)
+
+The screen was filled by A (provenance blank) and B (a rubric-guided model),
+so it is a rubric diagnostic, not a human reliability estimate. Agreement was
+usable for `dimension` (kappa 0.826), `semantic_labelable` (0.730), and
+`difficulty` (0.750); it failed for `lexical_labelable` (0.226) and
+`update_present` (0.170), and was weak for `evidence_sufficient` (0.535) and
+`status_bearing` (0.606, raw 0.920).
+
+This version therefore:
+
+- defines `lexical_labelable` as "would the cue rule assign the **correct**
+  status type?", not "is a cue present?";
+- gives `update_present` three states (`yes` / `no` / `unknown`) so a later
+  mention without a change is not scored as an update;
+- defines `evidence_sufficient` as both gold assignability and later
+  comparison;
+- adds anchors for conditional risk, past evaluation, self-encouragement, and
+  hedged plans.
+
+Full defect analysis: `2026-11-17-real-screening-results.md`.
 
 ## 2. Unit of analysis
 
@@ -132,6 +158,15 @@ Rules:
   `CUE_ALTERED`.
 - `CUE_ABSENT` is never automatically distortion.
 - Record the cue text and its position in `M`.
+- **Cue type must match the semantic status.** A cue whose canonical type is
+  different does not count as preserved:
+  - "I think I'll X": `I think` is canonically epistemic, status is
+    intentional → not preserved.
+  - "I'll definitely X": `definitely` is canonically epistemic, status is
+    intentional → not preserved.
+  - "If I X, I'll Y" with a conditional status: `if` matches → preserved.
+  - "just in case" is a conditional backup cue; add it explicitly to the cue
+    table or it will be missed.
 
 ## 6. Semantic Status Fidelity (SSF)
 
@@ -185,6 +220,59 @@ Rules:
 - **Questions** → exclude.
 - **Sarcasm / unresolved hedging** → `ambiguous` with a note.
 
+## 8a. Corrected screening-field definitions (from the 50-item screen)
+
+These replace the ambiguous v1 wording.
+
+### `lexical_labelable`
+
+`yes` only if the cue-mapping rule would assign the **same status type** as
+the semantic dimension. A present but misleading cue is `no` while
+`lexical_cue_present` stays `yes`.
+
+- "I think I'll try it" → cue `I think` (epistemic) vs status intentional →
+  `no`.
+- "I'll definitely check it out" → `definitely` (epistemic) vs intentional →
+  `no`.
+- "worried it'll break if I don't fix it" → `if` (conditional) vs conditional
+  → `yes`.
+- "I'll pack it just in case" → `in case` (conditional) vs conditional →
+  `yes`, provided `in case` is in the cue table.
+
+### `update_present`
+
+- `yes`: a later session changes the status; quote the change.
+- `no`: a later mention exists and the status is unchanged.
+- `unknown`: no later mention is available.
+
+Do not use `yes` for a mere re-mention. Do not use `unknown` when a later
+mention exists but is unchanged.
+
+### `evidence_sufficient`
+
+- `yes`: the gold status is assignable **and** a later memory can be compared.
+- `partial`: the gold status is assignable but the comparison is weak.
+- `no`: the gold status is not assignable.
+
+### `status_bearing` anchors
+
+- `yes`: "who knows if I'll ever get a pet" (possibility);
+  "if I don't make changes soon, it can get worse" (conditional risk);
+  "wondering if I can use bacteria from the old tank" (uncertainty).
+- `no`: "the bread I tried didn't turn out" (past evaluation);
+  "I think schools should be funded" (normative stance);
+  "I'm open to any accommodation as long as it's safe" (preference).
+
+### `dimension` anchors
+
+- A risk statement with `if` is `conditional`, not `epistemic`
+  ("it can get worse if I don't...").
+- A past evaluation is `none`, not `intentional`.
+- Self-encouragement ("I'll keep going and find those keys") is `none`, not a
+  status.
+- A hedged future action ("I think I'll X", "maybe I'll X") is `intentional`
+  with weak strength, not `epistemic`.
+
 ## 9. Annotation form (formal study)
 
 One row per `(item, transformation)`. Proposed columns:
@@ -231,15 +319,23 @@ Gold fields are filled once per item; memory fields once per
 
 ## 11. Calibration set and gates
 
-Proposed calibration: 60 items.
+Proposed calibration: 60 items from **different conversations** than the 50
+screening items. The screening set is a development set; reusing it would
+inflate agreement.
 
 - 30 LoCoMo intentional-status propositions (15 considering/intending,
   15 committed/completed).
-- 15 LoCoMo conditional propositions (condition and action states).
-- 15 LongMemEval knowledge-update or multi-session items as a second-domain
-  check.
-- Include at least 10 items that the Stage 1 diagnostic rated `ambiguous` or
-  `no`; do not calibrate only on easy items.
+- 15 conditional propositions with judgeable condition and action states,
+  enriched per the Stage 2 decision.
+- 15 long-haystack LongMemEval-s items (44-57 sessions) as a second-domain
+  check; do not use the 1-6-session oracle variant for depth.
+- Include at least 10 items from the `ambiguous`/`no` boundary anchors, and at
+  least 5 cue-mismatch items ("I think I'll", "I'll definitely") that broke
+  `lexical_labelable` in the screening set.
+
+The current A/B agreement (kappa 0.826 dimension, 0.730 semantic labelability,
+0.226 lexical labelability, 0.170 update) is a rubric diagnostic, not a
+calibration pass.
 
 Proposed reliability gates (to confirm before freezing):
 
@@ -263,7 +359,12 @@ After calibration:
 
 1. Set `n_usable` from the calibration yield: 150-200 usable propositions is the
    planning target (no formal power claim; report precision).
-2. Screen `n_usable / yield` candidates; if yield is 60%, screen ~300.
+2. Set the final n after a 40-60 item real-data pilot estimates the paired
+   difference SD. Target a paired CI half-width of 0.10-0.12. If the annotation
+   budget is fixed, reduce the number of conditions (for example, move
+   `repeated_direct` to a side arm) before reducing the item count; the paired
+   contrast is the primary analysis.
+3. Screen `n_usable / yield` candidates; if yield is 60%, screen ~300.
 3. Stratify by dimension (intentional primary; conditional secondary; epistemic
    only if calibration supports it) and by consequence (high / partial / low).
 4. Include only items with `status_bearing=yes`, a clear proposition,
@@ -306,20 +407,47 @@ Frozen when calibration passes:
 Not frozen until opened by a protocol amendment: writer models, budgets,
 dataset composition, and the decision to keep or drop epistemic.
 
-## 15. Open decisions (confirm before freezing)
+## 15. Decisions recorded (2026-11-17)
 
-1. **Epistemic:** drop it for the confirmatory study, or add targeted
-   elicitation? The Stage 1 diagnostic found 2/50.
-2. **Conditional:** enrich by targeted sampling, or keep it as a small
-   secondary analysis?
-3. **Consequence:** how is "high-stakes" operationalized for P4.2
-   (money / health / authorization / commitments), and who curates it?
-4. **Annotators:** are the two annotators independent humans, and is a third
-   human available for adjudication?
-5. **Sample size:** accept the 150-200 usable planning target, or set a
-   precision target after calibration?
-6. **Second domain:** is LongMemEval's 3-session haystack acceptable as a
-   second-domain check, or is another long-history corpus needed?
+1. **Epistemic — dropped from the real-data confirmatory arm.** The screen found
+   2/50 semantic epistemic propositions (5/50 by A, 3/50 by B at the label
+   level). A confirmatory claim would be underpowered, and targeted elicitation
+   would risk the same construct-validity objection as synthetic templates.
+   Epistemic stays in the frozen synthetic V3 arm and may appear as a
+   descriptive note on real data.
+2. **Conditional — targeted enrichment, not a small secondary analysis.** The
+   natural screen yielded only 5-6 conditional items, mostly backup or
+   preference phrasing. Enrichment requires a pre-registered inclusion rule:
+   condition state and action state both judgeable, and a consequence.
+   Report the natural-sample descriptive base rate separately and never call
+   the enriched sample a natural distribution.
+3. **P4.2 — curated high-stakes scenario bank.** 40-60 scenarios across money,
+   health, authorization, and commitments. Proposition content, evidence,
+   task, and length matched; only the status varies (present / omitted /
+   distorted). A model may draft scenarios, but humans approve, blind, and
+   validate realism and manipulation before the run. The scenario-writing
+   model is not the tested agent.
+4. **Annotators — two independent humans are required.** The current A/B pair
+   is not compliant: B is a rubric-guided model and A's provenance is blank.
+   A third human adjudicator is preferred; if unavailable, use a
+   pre-registered deterministic rule and report unadjudicated and adjudicated
+   results side by side. Model assistance is always labeled.
+5. **Sample size — precision-based after calibration plus a pilot.** Planning
+   target 150-200 usable propositions; final n set by the paired-difference SD
+   from a 40-60 item pilot, targeting a CI half-width of 0.10-0.12. Reduce
+   conditions before reducing items if the budget is fixed.
+6. **Second domain — `longmemeval_s`, not the oracle variant.** The oracle
+   haystack has 1-6 sessions (median 2); the `s` variant has 44-57 sessions.
+   Use `s` for depth replication if the full split is available; use the oracle
+   only as a construct check, and never as evidence about chained rewriting.
+
+### Remaining prerequisites before freezing
+
+- Fill A's provenance and recruit a genuine second human annotator.
+- Pass a fresh 60-item calibration after the D1-D5 revisions.
+- Validate the P4.2 scenario bank with two humans.
+- Record the freeze hashes for the guide, ontology, cue table, form schema,
+  inclusion/exclusion rules, adjudication order, and analysis plan.
 
 ## 16. Related artifacts
 

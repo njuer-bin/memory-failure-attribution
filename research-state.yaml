@@ -460,18 +460,25 @@ experiments:
       wall_time_min: null
       change_summary: "Rule-based screen over LoCoMo (10 conversations, 19 sessions) and LongMemEval oracle (500 x 3 sessions): 2,135 candidates (intentional 1,123, epistemic 981, conditional 31); 269 potential updates; 725 later-session re-mentions. 50-item balanced screening sheet generated with blank A/B files. Model diagnostic (not human): 42/50 status-bearing, but semantic dimension is intentional 32, conditional 8, epistemic 2; only 4/50 clearly consequential; 39/50 evidence sufficient. Epistemic fails the dimension-coverage gate and P4.2 relevance fails; intentional is the viable real-dialogue dimension."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py. Real-dialogue Stage 1: V3_REAL_DATA_AUDIT_PROTOCOL.md + v3_real_feasibility_audit.py; screening how-to: REAL_SCREENING_ANNOTATION_HOWTO.md; Stage 2 draft (not frozen): V3_REAL_STAGE2_DRAFT.md; pilot frozen at tag freeze/v3-pilot-2026-11-17."
+    - run_id: "v3_real_screening"
+      hypothesis: "Stage 1 screening reliability and rubric defects"
+      metric_value: 0.826
+      delta: null
+      wall_time_min: null
+      change_summary: "50/50 items filled by A (provenance blank) and B (rubric-guided model; not human). Agreement: dimension raw 0.920/kappa 0.826; semantic_labelable 0.960/0.730; status_bearing 0.920/0.606; evidence_sufficient 0.820/0.535; lexical_labelable 0.660/0.226; update_present 0.840/0.170. Systematic defects: lexical_labelable conflated cue presence with correct cue type; update_present lacked a later-mention-no-change category; evidence_sufficient conflated gold assignability with later comparison; risk statements mis-typed as epistemic. Decisions: epistemic dropped from real-data confirmatory; conditional enriched with pre-registered inclusion plus natural base rate; P4.2 curated 40-60 scenario bank; two independent humans required (current pair does not qualify); n set by precision after calibration+pilot; second domain longmemeval_s, not oracle. Stage 2 guide revised to v2; calibration on a fresh 60-item set pending."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py. Real-dialogue Stage 1: V3_REAL_DATA_AUDIT_PROTOCOL.md + v3_real_feasibility_audit.py; screening results: 2026-11-17-real-screening-results.md; screening how-to: REAL_SCREENING_ANNOTATION_HOWTO.md; Stage 2 draft v2 (not frozen): V3_REAL_STAGE2_DRAFT.md; pilot frozen at tag freeze/v3-pilot-2026-11-17."
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
   current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized, evidence-consistent -26.7 pts), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, negative interaction -0.500. gemma3:12b agent replication confirms the behavioral asymmetry (distorted 20/30, present 0/30); writer replication v3.2.5 (kappa 0.834) confirms the chain direction with a model-dependent mitigation ranking. Full-text novelty audit complete (14 PDFs): the ingredients are prior work; the defensible claim is the status-specific, proposition-controlled combination."
   next_actions:
-    - "Stage 1 gate: two independent human annotators fill screening_A/B under V3_REAL_DATA_AUDIT_PROTOCOL.md; adjudicate; compute precision, evidence sufficiency, and per-dimension labelability"
-    - "Stage 2: freeze the real-data annotation guide and the two metrics (Lexical Status Fidelity, Semantic Status Fidelity); run a calibration set before any confirmatory generation"
-    - "Stage 3: P4.2 status-only intervention with curated high-stakes scenarios, matched proposition/evidence/task/length, two agent models"
+    - "Blocker: fill screening_provenance_A.json and recruit a genuine second human annotator; the current A/B pair is one unprovenanced annotator plus one model, so no human-reliability claim is possible"
+    - "Stage 2: freeze V3_REAL_STAGE2_DRAFT.md v2 after the D1-D5 rubric revisions; calibrate on a fresh 60-item set (LoCoMo intentional, enriched conditional, longmemeval_s), then gate on LSF/SSF kappa"
+    - "Build the P4.2 curated scenario bank (40-60 high-stakes items across money/health/authorization/commitments) with two-human validation before freezing"
+    - "Stage 3: P4.2 status-only intervention with matched proposition/evidence/task/length and two agent models"
     - "Stage 4: rewrite-depth and recovery experiment (per-round omission onset, recovery with source access, repeated-direct vs chained)"
-    - "Stage 5: paired trajectory-level statistics, cost analysis, ablations, related-work comparison, then paper positioning"
-    - "Optional now: natural-dialogue pilot on LoCoMo intentional status; LongMemEval knowledge-update as second domain"
+    - "Stage 5: precision-based sample size, paired trajectory-level statistics, cost analysis, ablations, related-work comparison, then paper positioning"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 

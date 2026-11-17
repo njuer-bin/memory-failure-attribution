@@ -60,6 +60,24 @@ status-specific, proposition-controlled transformation-history diagnostic.
 - Two independent human annotations under `V3_REAL_DATA_AUDIT_PROTOCOL.md` are
   the next blocking step. The model diagnostic must not be reported as human
   annotation.
+- **The 50-item screen is a rubric diagnostic, not human reliability.** A's
+  provenance is blank; B records itself as a rubric-guided model. Agreement:
+  dimension κ 0.826 and semantic labelability 0.730 are usable;
+  `lexical_labelable` κ 0.226, `update_present` κ 0.170,
+  `evidence_sufficient` κ 0.535, and `status_bearing` κ 0.606 fail or are
+  weak (status-bearing raw agreement is 0.920; kappa is prevalence-sensitive).
+- **The failures are systematic rubric defects.** A misleading cue
+  ("I think I'll") was counted as lexically labelable; a later re-mention was
+  counted as an update; evidence sufficiency conflated gold assignability with
+  later comparison; conditional risk statements were typed as epistemic.
+- **Decisions (2026-11-17).** Epistemic is dropped from the real-data
+  confirmatory arm (2/50 semantic epistemic) and retained in the synthetic V3
+  arm; conditional is enriched with pre-registered inclusion plus a natural
+  base rate; P4.2 uses a curated 40-60 high-stakes scenario bank; two
+  independent humans are required (the current pair is not compliant); sample
+  size is precision-based after calibration plus a pilot; the second domain is
+  `longmemeval_s` (44-57 sessions), not the 1-6-session oracle.
+- Stage 2 guide revised to v2; calibration on a fresh 60-item set is pending.
 
 ### v2 exploratory baseline (2026-11-16, 30-trajectory run)
 
