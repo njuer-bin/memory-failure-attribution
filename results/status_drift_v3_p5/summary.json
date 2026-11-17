@@ -1,0 +1,114 @@
+{
+  "protocol": "v3_p5_confirmatory",
+  "n_trajectories": 30,
+  "expected_conditions": 120,
+  "complete_conditions": 120,
+  "by_condition": {
+    "neutral": {
+      "n": 30,
+      "state_relation": {
+        "ABSENT": 16,
+        "MATCH": 14
+      },
+      "topic_mentioned_rate": 0.9,
+      "mean_final_chars": 22.433333333333334,
+      "mean_final_eval_tokens": 16.2,
+      "budget_inflation_vs_neutral": 1.0
+    },
+    "status_aware": {
+      "n": 30,
+      "state_relation": {
+        "MATCH": 27,
+        "ABSENT": 3
+      },
+      "topic_mentioned_rate": 1.0,
+      "mean_final_chars": 23.566666666666666,
+      "mean_final_eval_tokens": 15.933333333333334,
+      "budget_inflation_vs_neutral": 1.050520059435364
+    },
+    "neutral_source": {
+      "n": 30,
+      "state_relation": {
+        "MATCH": 29,
+        "ABSENT": 1
+      },
+      "topic_mentioned_rate": 0.9666666666666667,
+      "mean_final_chars": 27.633333333333333,
+      "mean_final_eval_tokens": 19.733333333333334,
+      "budget_inflation_vs_neutral": 1.2317979197622586
+    },
+    "status_aware_source": {
+      "n": 30,
+      "state_relation": {
+        "MATCH": 27,
+        "AMBIGUOUS": 3
+      },
+      "topic_mentioned_rate": 1.0,
+      "mean_final_chars": 31.033333333333335,
+      "mean_final_eval_tokens": 20.866666666666667,
+      "budget_inflation_vs_neutral": 1.3833580980683506
+    }
+  },
+  "by_dimension": {
+    "epistemic": {
+      "neutral": {
+        "ABSENT": 7,
+        "MATCH": 3
+      },
+      "status_aware": {
+        "MATCH": 9,
+        "ABSENT": 1
+      },
+      "neutral_source": {
+        "MATCH": 10
+      },
+      "status_aware_source": {
+        "MATCH": 8,
+        "AMBIGUOUS": 2
+      }
+    },
+    "intentional": {
+      "neutral": {
+        "MATCH": 5,
+        "ABSENT": 5
+      },
+      "status_aware": {
+        "MATCH": 10
+      },
+      "neutral_source": {
+        "MATCH": 9,
+        "ABSENT": 1
+      },
+      "status_aware_source": {
+        "MATCH": 10
+      }
+    },
+    "conditional": {
+      "neutral": {
+        "MATCH": 6,
+        "ABSENT": 4
+      },
+      "status_aware": {
+        "MATCH": 8,
+        "ABSENT": 2
+      },
+      "neutral_source": {
+        "MATCH": 10
+      },
+      "status_aware_source": {
+        "AMBIGUOUS": 1,
+        "MATCH": 9
+      }
+    }
+  },
+  "gate": {
+    "all_trajectories_present": true,
+    "all_conditions_complete": true,
+    "max_budget_inflation": 1.3833580980683506
+  },
+  "warnings": [
+    "Deterministic status cues are diagnostics, not human labels.",
+    "Topic mention is a weak proposition proxy.",
+    "P5 is not pooled with P2/P3/P4 or the pilot."
+  ]
+}

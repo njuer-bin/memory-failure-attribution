@@ -620,6 +620,20 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Recorded in `docs/research/2026-11-17-v3-p5-pilot.md`; analysis in
   `results/status_drift_v3_p5_pilot/analysis/`.
 
+### P5 confirmatory generation — complete, human labels pending
+
+- 30 P2 trajectories x 4 conditions (neutral, status_aware, neutral_source,
+  status_aware_source), 120/120 complete.
+- Deterministic MATCH/30: neutral 14 (16 ABSENT), status_aware 27 (3 ABSENT),
+  neutral_source 29 (1 ABSENT), status_aware_source 27 (3 AMBIGUOUS).
+- Budget inflation vs neutral: status_aware 1.05x, neutral_source 1.23x,
+  status_aware_source 1.38x; all below the 1.5x flag.
+- Source access is the stronger single factor; status_aware is the low-cost
+  option; the combination adds no deterministic benefit.
+- Generated 120-item blind set (`results/status_drift_v3_p5/annotation/`,
+  key outside the repo). Awaiting two annotations under v3.2.3.
+
+
 
 
 

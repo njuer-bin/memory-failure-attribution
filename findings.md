@@ -262,6 +262,12 @@ in status preservation.**
   `evidence_anchored` loses its deterministic advantage under human labels and
   remains 1.84× with wrong anchors; `unknown_heavy` is disqualified by 42%
   proposition loss.
+- **P5 confirmatory generation: source access is the stronger factor.**
+  30 trajectories × 4 conditions, 120/120. Deterministic MATCH/30: neutral 14,
+  status_aware 27 (1.05×), neutral_source 29 (1.23×), status_aware_source 27
+  with 3 AMBIGUOUS (1.38×). All below the 1.5× budget flag. The combination
+  does not add deterministic benefit over source access alone; human labels
+  will decide the final ranking.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

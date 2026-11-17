@@ -81,7 +81,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 36
+  total_runs: 38
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -335,18 +335,32 @@ experiments:
       wall_time_min: null
       change_summary: "72 items, A/B complete. primary raw 0.944/kappa 0.881; identity 1.000; status_expressed 1.000; expressed_status 0.889/0.869; action 0.972/0.947; evidence 0.986/0.963. Faithful (NO_DISTORTION+LUA): neutral 6/12, status_aware 10/12, unknown_heavy 6/7 preserved but 5/12 proposition loss, source_peek 11/12, evidence_anchored 11/12, transition_verification 10/12. Paired vs neutral faithful: status_aware +0.333 [0.083,0.583], source_peek +0.417 [0.000,0.750], evidence_anchored +0.417 [0.167,0.667], transition +0.333 [0.083,0.583]. status_aware still has 1 conditional collapse; evidence_anchored remains 1.84x budget with wrong anchors; unknown_heavy disqualified by 42% proposition loss."
       timestamp: "2026-11-17"
+    - run_id: "v3_p5_confirmatory_generation"
+      hypothesis: "P5 confirmatory: prompt x source access"
+      metric_value: 0.9
+      delta: null
+      wall_time_min: null
+      change_summary: "30 P2 trajectories x 4 conditions, 120/120 complete. Deterministic MATCH/30: neutral 14 (16 ABSENT), status_aware 27 (3 ABSENT), neutral_source 29 (1 ABSENT), status_aware_source 27 (3 AMBIGUOUS). Budget inflation vs neutral: status_aware 1.05x, neutral_source 1.23x, status_aware_source 1.38x; all below the 1.5x flag. Topic mention 0.90-1.00. Human annotation pending."
+      timestamp: "2026-11-17"
+    - run_id: "v3_p5_confirmatory_annotation_set"
+      hypothesis: "P5 confirmatory human evaluation"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Generated 120-item blind set (30 trajectories x 4 conditions), shuffled, blank A/B files with action_status, key outside repo at G:/memory_failure_backup/v3_p5_confirmatory_key.csv. Balanced: 40 per dimension, 20 per gold status, 30 per condition. Awaiting two annotations under v3.2.3."
+      timestamp: "2026-11-17"
   current_protocol: "V3.2.3 frozen for P2/P3; P4 frozen; P5 pilot protocol docs/research/V3_P5_PILOT_PROTOCOL.md (pilot, not frozen for confirmatory). Core: V3_P2_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_mitigation_pilot.py; analysis analyze_p3_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "V3.2.2 calibration passes (primary kappa 0.827). P2 completeness 30/30, 300/300. P3 human labels (kappa 0.944): chained rewriting causes status omission 44-54%, unsupported distortion 3/330. P4: omission is conservative (0/30 unauthorized, -26.7 points evidence-consistent action); distortion is dangerous (66.7% unauthorized vs 6.7%). P5 pilot human labels: neutral 6/12 faithful; status_aware 10/12 at 1.03x; source_peek 11/12 at 1.23x; evidence_anchored 11/12 at 1.84x; transition 10/12; unknown_heavy 5/12 proposition loss. status_aware is the best low-cost candidate; mitigation confirmatory run not started."
+  current_results: "V3.2.2 calibration passes (primary kappa 0.827). P2 completeness 30/30, 300/300. P3 human labels (kappa 0.944): chained rewriting causes status omission 44-54%, unsupported distortion 3/330. P4: omission is conservative (0/30 unauthorized, -26.7 points evidence-consistent action); distortion is dangerous (66.7% unauthorized vs 6.7%). P5 pilot human labels: neutral 6/12 faithful; status_aware 10/12 at 1.03x; source_peek 11/12. P5 confirmatory generation: 120/120, deterministic MATCH 14/27/29/27 for neutral/status_aware/neutral_source/status_aware_source; inflation 1.00/1.05/1.23/1.38; human labels pending."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 34
+  cycle: 35
   last_direction: "mitigate"
-  last_reflection: "Human labels confirm the P5 ranking: neutral 6/12 faithful, status_aware 10/12 at 1.03x length, source_peek and evidence_anchored 11/12, transition_verification 10/12. Evidence_anchored's apparent advantage disappears under human labels and it still costs 1.84x length with wrong anchors; unknown_heavy preserves status only by losing 5/12 propositions. status_aware remains the practical candidate but still produces one real conditional collapse. Next: a confirmatory P5 with more trajectories if the mitigation claim is to be published, plus the full-text novelty audit."
+  last_reflection: "The P5 confirmatory generation is complete: 30 trajectories x 4 conditions, 120/120, all budget inflation below 1.5x. Deterministic diagnostics show status_aware 27/30 MATCH vs neutral 14/30 at 1.05x; neutral_source 29/30 at 1.23x; status_aware_source 27/30 with 3 AMBIGUOUS at 1.38x. Source access is the stronger single factor; status_aware alone is the low-cost option; the combination does not add deterministic benefit. The 120-item blind set is ready. Human labels will decide whether the prompt effect survives and whether the combination earns its budget."
 
 workspace:
   findings: "findings.md"
