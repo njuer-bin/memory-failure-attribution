@@ -1,14 +1,46 @@
-# Findings — Status Drift v2 Pilot
+# Findings — Status Drift (v2 exploratory → V3 confirmatory)
 
 This file is the evolving narrative synthesis for the autonomous research loop.
-Authoritative pre-autoresearch history lives in `docs/RESEARCH_LOG.md`; the v2
-plan and protocol live in `docs/STATUS_DRIFT_RESEARCH_PLAN_V2.md`,
-`docs/STATUS_DRIFT_PILOT_PROTOCOL.md`, and `docs/STATUS_DRIFT_PROTOCOL_V2_1.md`
-/ `_V2_2.md`.
+The current result is the V3 confirmatory line; the v2 sections are retained
+as exploratory history. Authoritative pre-autoresearch history lives in
+`docs/RESEARCH_LOG.md`; V3 protocols, freeze records, and run notes live in
+`docs/research/` (`V3_*`, `2026-11-17-*`).
 
-## Current Understanding (2026-11-16, after the 30-trajectory run)
+## Current Understanding (2026-11-17, after V3 P2–P5 and replication)
 
-The pilot now has a coherent result. **The writer prompt is the dominant factor
+**V3 is the current result; the v2 baseline below is exploratory and must not
+be pooled with it.** Under paired transformation histories with blind human
+labels (30 new trajectories × 10 generated conditions + raw, 330 items,
+primary-judgment κ 0.944), chained rewriting causes **status omission**, not
+unsupported distortion:
+
+- Omission among proposition-preserved items: recursive 44.4%,
+  rewrite-matched 46.2%, source-peek 0.0%, direct 3.7%, repeated-direct 3.7%,
+  raw 0%. Dimension-general (conditional 27.6%, epistemic 33.0%,
+  intentional 27.3%).
+- Unsupported distortion is 3/330 (0.9%); the condition contrasts are
+  uninformative at that event count.
+- Mechanism: rewrite-matched equals recursive (paired difference 0.000
+  [−0.167, 0.167]) and repeated-direct behaves like direct, so repeated
+  re-editing of the writer's own output — not intermediate budget shrinkage or
+  raw call count — drives the loss. Source access removes it (−0.400
+  [−0.567, −0.233]).
+- Downstream (P4): omission is conservative (0/30 unauthorized, but
+  evidence-consistent action −26.7 points), distortion is dangerous
+  (66.7% vs 6.7% unauthorized; +0.600 [0.433, 0.767]). Replicates on gemma3:12b.
+- Mitigation (P5 confirmatory, v3.2.4 recheck κ 0.974): source access alone
+  1.00 faithful, status-aware prompt 0.90, combination 0.93 with a negative
+  interaction (−0.500). The ranking is model-dependent.
+- The v2 "intentional commitment cues are specifically vulnerable" pattern
+  does **not** replicate in V3 blind human labels.
+
+Novelty: the individual ingredients are prior work (audited in
+`docs/research/2026-11-17-novelty-audit.md`); the defensible claim is the
+status-specific, proposition-controlled transformation-history diagnostic.
+
+### v2 exploratory baseline (2026-11-16, 30-trajectory run)
+
+The v2 pilot has a coherent result. **The writer prompt is the dominant factor
 in status preservation.**
 
 - **status-aware writer:** 256/270 condition-items are correct under both
@@ -371,31 +403,54 @@ committed. No single judge is a valid instrument.
   shrinkage; writer call count and chaining remain entangled.
 - A 7B writer cannot reliably emit prose + a structured sidecar in one call;
   v2.8 is blocked and needs a separate extractor or a stronger model.
-- Never claim novelty before reading BELIEFMEM (2605.05583) and MemCoRe
-  (2602.07885) in full.
+- The full-text novelty audit is complete (14 PDFs, `literature/pdfs/`); the
+  individual ingredients are prior work. The defensible claim is the
+  status-specific, proposition-controlled combination — see
+  `docs/research/2026-11-17-novelty-audit.md` for the say/do-not-say list.
+- V3 annotation guides are versioned: v3.2.3 for the P2/P3 labels, v3.2.4
+  for the P5 recheck, v3.2.5 for the gemma writer recheck. Do not mix
+  reliability statistics across guide versions.
 
 ## Hypothesis Status
 
-- **H1 — supported.** Writer strategies differ strongly in status preservation.
-- **H2 — supported under both writers; mechanism refined by v2.3 and v2.6.**
-  Chained rewriting (`recursive` and `rewrite_matched`) degrades status equally
-  and far more than a single compression to the same final budget. Neutral:
-  D3 17 vs 17 both-correct, D5 15 vs 16, direct D5 27; status-aware: chained
-  107–108 vs direct 116 both-correct across depths. The mechanism is repeated
-  re-editing of the writer's own output, not shrinking intermediate budgets.
-  The effect is concentrated in **intentional** status, not epistemic. The
-  status-aware prompt reduces the chaining penalty (32 → 8 both-correct cells)
-  but does not remove it.
-- **H3 — supported.** Proposition retention (98.9–100%) coexists with status
-  errors agreed by both judges.
-- **H4 — untested.**
+V3 statuses are authoritative; v2 evidence is kept as supporting history.
+
+- **H1 — supported.** Writer/transformation strategies differ strongly in
+  status preservation. V3: chained conditions omit status in 44–54% of
+  proposition-preserved items vs 3.7% for direct; v2: status-aware 256/270 vs
+  neutral 221/270 both-judge-correct.
+- **H2 — supported, mechanism refined.** Repeated chained rewriting of the
+  writer's own output, not intermediate budget shrinkage or call count, drives
+  the loss. V3 paired omission vs recursive: rewrite-matched 0.000
+  [−0.167, 0.167], repeated-direct −0.367, source-peek −0.400. v2 rewrite-matched
+  (constant 220 intermediates) and the 14–18-token matched band agree.
+- **H3 — supported.** Proposition retention does not guarantee status
+  retention: 300/330 V3 items preserve the proposition; 88/300 are status
+  omissions. Proposition loss (10–20% in chained conditions) does not explain
+  the omission contrast.
+- **H4 — supported for distortion.** P4: present 2/30 unauthorized, omitted
+  0/30 (but evidence-consistent −26.7 points), distorted 20/30 (+0.600
+  [0.433, 0.767]). The asymmetry replicates on gemma3:12b (distorted 20/30,
+  present 0/30). Omission is the common, safe failure; distortion is the rare,
+  harmful one.
+- **H5 — supported.** status-aware 27/30 faithful vs neutral 14/26 at 1.05×
+  budget; source access 30/30 at 1.23×; combination 28/30 at 1.38× with a
+  −0.500 interaction. Source access is the stronger mitigation; status-aware is
+  a partial fallback. In gemma the ranking flips toward the prompt, so report
+  the model boundary, not a universal mitigation.
 
 ## Open Questions
 
-- After manual adjudication of all 39 disagreements, how many neutral errors
-  remain writer-side?
-- Does a rewrite-matched control preserve the recursive effect?
-- Can a third judge or a condition-only extraction step fix the residual
-  conditional ontology errors?
-- Does the D5 status-aware cue loss replicate across topics and seeds?
-- Do BELIEFMEM / MemCoRe already measure this contrast?
+- Does the omission effect hold on natural dialogue, not only synthetic Chinese
+  templates?
+- The writer replication covers 12 pre-registered trajectories on one second
+  model; does the mitigation ranking stabilize at 30 trajectories or a third
+  writer?
+- Can a separate status extractor (beyond the blocked one-call 7B sidecar)
+  preserve commitment status without templated prose?
+- Do the ABBEL/Supersede appendices already contain a proposition/status split?
+  This is the main remaining novelty risk.
+- Annotator provenance is unrecorded and adjudication is model-assisted; how
+  much of the κ stability survives fully independent annotation?
+- Unsupported distortion is underpowered (3/330); is the P4 distortion effect
+  stable at a larger event count?

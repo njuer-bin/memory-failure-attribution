@@ -1,5 +1,13 @@
 # Status Drift Pilot — Progress Report (2026-11-16, overnight run)
 
+> **Superseded for current conclusions (2026-11-17).** This report covers the
+> v2 exploratory pilot. The V3 confirmatory results are in `FINAL_SUMMARY.md`
+> and `docs/research/2026-11-16-status-drift-paper-backbone.md` (V3 update).
+> In particular, the v2 "intentional-specific" claim did not replicate in V3
+> blind human labels, and "status-aware is the main mitigation" was revised to
+> "source access is the strongest mitigation; the ranking is model-dependent".
+> The body below is retained unchanged as history.
+
 Branch: `research/status-drift-v2-pilot`
 Remote: https://github.com/njuer-bin/memory-failure-attribution/tree/research/status-drift-v2-pilot
 

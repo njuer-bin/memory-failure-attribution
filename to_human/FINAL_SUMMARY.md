@@ -1,97 +1,147 @@
-# Status Drift Pilot — Final One-Page Summary (2026-11-16)
+# Status Drift — Final Summary (2026-11-17, V3)
+
+> Supersedes the 2026-11-16 v2 summary, which is retained in git history.
+> v2 exploratory results are not pooled with V3. Authoritative detail:
+> `docs/research/2026-11-16-status-drift-paper-backbone.md` (V3 update).
 
 ## Question
 
-When long-term memory repeatedly compresses a conversation, does it preserve
-the **status** of a proposition (possible vs confirmed, considering vs
-committed, condition active vs satisfied), even when the proposition survives?
+When the same conversation passes through different memory transformation
+histories, does the **status** attached to a proposition (epistemic /
+intentional / conditional) survive — even when the proposition does — and do
+status-only differences change downstream agent behavior?
 
 ## Answer
 
-**No — chained rewriting degrades status, and the damage is concentrated in
-intentional commitment, not epistemic certainty.** The effect is caused by
-re-editing the writer's own output, not by shrinking compression budgets, and
-it is preventable by an explicit commitment-preserving instruction.
+**Chained rewriting causes status omission, not unsupported distortion.** The
+dominant path effect is that the writer drops the status while keeping the
+proposition. Omission is behaviorally conservative; the rare distortion is
+dangerous. Source access during rewriting removes the omission.
 
-## Key evidence
+## Design
 
-| Comparison | Result |
-|---|---|
-| 30 trajectories, neutral writer | 23/270 items wrong under three judges |
-| 30 trajectories, status-aware writer | 1/270 items wrong under three judges |
-| Direct vs chained (same final budget) | direct 27/30 correct vs chained 15–16/30 at D5 |
-| Chained vs rewrite-matched (constant 220 intermediates) | 82 vs 80 both-correct: equal |
-| Proposition omission | 0–10%, far below the status loss |
-| Intentional D5, neutral (10 topics) | 9/10 status cues absent |
-| Intentional D5, status-aware | 5/10 strict absent, but 10/10 carry a cue (5 strong + 5 weak) |
-| Intentional D5, commitment-aware | 10/10 strong; judges agree 180/180, 40/40 committed |
-| Human-annotated drift, neutral (two annotators) | 6.7–7.9% overall; 13.6–15.4% recursive D5; 16.7–17.9% rewrite D5 |
-| Human-annotated drift, status-aware (one annotator) | 4.2% overall; 6.9% recursive D5; 10.0% rewrite D5 |
+30 new trajectories (5 topics × 3 dimensions × stable/updated), 10 generated
+transformation conditions + raw reference, `qwen2.5:7b` neutral writer, final
+budget 100, seeds 42/43. Protocol, ontology, guide, SAP, and runner frozen and
+hashed before generation (`V3_P2_FREEZE.md`). 330 blind human labels, two
+independent annotators; model-assisted adjudication of 23 disagreements.
 
-Three judges (qwen2.5:7b, gemma3:12b, mistral:7b) confirm the neutral errors:
-all 23 qwen-gemma both-wrong items are also wrong under mistral. The
-status-aware run has exactly one all-three-judge error, a real cue loss.
+## Main result (330 adjudicated items)
+
+Omission among proposition-preserved items:
+
+| Condition | Proposition loss | Omission | Faithful |
+|---|---:|---:|---:|
+| raw | 0.000 | 0.000 | 1.000 |
+| direct | 0.100 | 0.037 | 0.963 |
+| recursive | 0.100 | 0.444 | 0.519 |
+| rewrite_matched | 0.133 | 0.462 | 0.538 |
+| repeated_direct | 0.100 | 0.037 | 0.963 |
+| source_peek | 0.000 | 0.000 | 1.000 |
+| para | 0.200 | 0.542 | 0.458 |
+| temp1 | 0.133 | 0.423 | 0.500 |
+| temp2 | 0.100 | 0.519 | 0.481 |
+| path_s2 | 0.133 | 0.538 | 0.462 |
+| retrieval | 0.000 | 0.333 | 0.667 |
+
+Unsupported status distortion: 3/330 (0.9%); condition contrasts are
+uninformative at that event count. Reliability: primary-judgment κ 0.944;
+identity 0.943; action 0.924; expressed status 0.989; evidence 0.972.
+
+Paired omission vs recursive: direct −0.367 [−0.567, −0.167]; repeated-direct
+−0.367; source-peek −0.400 [−0.567, −0.233]; rewrite-matched 0.000
+[−0.167, 0.167].
 
 ## Mechanism
 
-The rewrite-matched control keeps the recursive chain and the number of writer
-calls but holds intermediate budgets at 220. It produces the same degradation
-as the shrinking-budget recursion, so the damage is **chained rewriting** —
-re-editing the writer's own output — not the budget schedule.
+Rewrite-matched equals recursive: holding intermediate budgets constant does
+not help. Repeated-direct matches call count without chaining and behaves like
+direct. So the cause is repeated re-editing of the writer's own output, not
+budget shrinkage or raw call count. Source access eliminates it.
 
-## Mitigation curve (intentional D5)
+## Downstream behavior (P4)
 
-- neutral: 1 strong cue, 1 weak, 8 none.
-- status-aware: 5 strong, 5 weak, 0 none.
-- commitment-aware: **10 strong, 0 weak, 0 none** (ceiling intervention; the
-  prompt names the target cue and outputs are templated).
+Sandboxed agent sees present / omitted / distorted status with identical
+proposition wording and chooses PROCEED / CONFIRM / ABSTAIN / OTHER.
 
-A realistic structured-sidecar mitigation is currently **blocked**: the 7B
-writer cannot reliably emit prose plus a parseable status line in one call. It
-needs a separate extractor or a stronger model.
+| Variant | Unauthorized | Evidence-consistent |
+|---|---:|---:|
+| present | 6.7% | 93.3% |
+| omitted | 0.0% | 66.7% |
+| distorted | 66.7% | 0.0% |
+| no_memory | 0.0% | 66.7% |
+
+Paired vs present: omitted unauthorized −0.067 [−0.167, 0.000], evidence-
+consistent −0.267 [−0.467, −0.067]; distorted unauthorized +0.600
+[0.433, 0.767], evidence-consistent −0.933 [−1.000, −0.833]. The common
+failure (omission) causes under-action; the rare failure (distortion) causes
+unauthorized action. Keep the two outcomes separate — one "drift score" would
+hide this.
+
+## Mitigation (P5 confirmatory, v3.2.4 recheck κ 0.974)
+
+30 trajectories × 2×2 prompt × source access, 120 items. Human faithful
+(NO_DISTORTION + legitimate update): neutral 14/26 (0.54), status-aware
+27/30 (0.90), neutral+source 30/30 (1.00), status-aware+source 28/30 (0.93).
+Paired vs neutral: status-aware +0.433 [0.267, 0.600]; source +0.533
+[0.367, 0.700]; interaction −0.500 [−0.667, −0.333]. Budget 1.05× / 1.23× /
+1.38×, all below the 1.5× flag. Source access is the strongest mitigation; the
+prompt is partial; the combination is non-additive and can introduce
+`将 + action` escalations.
+
+## Replication (gemma3:12b)
+
+- **Agent (30 × 4 = 120):** distorted 20/30 unauthorized, present 0/30,
+  omitted 0/30, no-memory 0/30. The omission/distortion asymmetry is not a
+  qwen artifact.
+- **Writer (12 pre-registered trajectories × 7 conditions, κ 0.834):**
+  faithful direct 11/12, recursive 8/12, rewrite-matched 6/12,
+  repeated-direct 11/12, neutral-source 10/12, status-aware 11/12,
+  combined 12/12. The chain effect replicates in direction. The mitigation
+  ranking is model-dependent: source access alone is weaker in gemma
+  (0.83 vs qwen 1.00), while the prompt and combination are at or above qwen.
+
+## Novelty (full-text audit of 14 papers)
+
+Not novel: state tracking as a problem (StateMem), structured belief states
+(ProgMem, BELIEFMEM), belief revision, recursive summarization and chained
+rewriting harm (ABBEL, Supersede, ReSum), source access (LiveCtx), memory
+state → action (STALE, MemTX, EAL-Bench), belief-change intervention (TWIST).
+
+Defensible claim: the **status-specific, proposition-controlled
+transformation-history diagnostic** — status tuple + paired rewriting
+histories + proposition identity fixed + omission/distortion split + blind
+human labels + status-only downstream intervention + second-model replication.
+The ingredients are prior work; the combination and measurement target are the
+contribution.
 
 ## Validity and caveats
 
-- Synthetic Chinese templates, one writer model.
-- Human annotation: the neutral condition has two independent manual annotators
-  (unsupported-label kappa 0.849); the status-aware condition uses one manual
-  annotator because its B file was gold-derived and was withdrawn.
-- Unconstrained chained outputs are ~25% shorter in tokens than direct outputs;
-  a matched token-band control (14–18 tokens) is in progress.
-- The neutral writer is not reliably deterministic at temperature 0: the same
-  seed produced 63–96% identical memories across runs. Status-aware was
-  byte-identical across two seeds (270/270). Report neutral magnitudes as
-  ranges.
-- Conditional is the least reliable dimension; its ontology and judge behavior
-  remain a limitation.
-- Direct and rewrite-matched controls still leave call count entangled with
-  chaining.
-- The commitment-aware result is a ceiling, not a deployment recommendation.
-
-## Novelty
-
-The belief-memory space is crowded (BELIEFMEM 2605.05583, MemCoRe 2602.07885,
-PoS, MemTX, Agent-BRACE, TWIST). BELIEFMEM is a probabilistic belief-memory
-architecture; MemCoRe is compression-hierarchy evidence retrieval. Neither
-appears to measure status preservation under chained compression. The
-defensible gap is the **controlled status-cue diagnostic** with a
-rewrite-matched mechanism control and a mitigation curve — not a new memory
-architecture.
+- Synthetic Chinese templates; no natural-dialogue replication yet.
+- 30 trajectories; no formal power claim; unsupported distortion underpowered.
+- One primary writer and 12 replicated trajectories under the second writer.
+- Annotator provenance unrecorded; adjudication is model-assisted.
+- Behavioral tasks are sandboxed simulations.
+- The v2 "intentional commitment cues are uniquely vulnerable" claim did not
+  replicate in V3 blind human labels.
 
 ## Next
 
-1. Complete the token-band matched control and check whether the chaining
-   effect survives at equal output length.
-2. Obtain a second manual annotator for the status-aware condition.
-3. Build a separate status-extractor sidecar prototype.
-4. Test the intentional-specific loss on natural dialogue.
-5. If confirmed, move to Stage B: downstream decision impact.
+1. Write the paper from the backbone document using the audit's say/do-not-say
+   list.
+2. Optional: natural-dialogue replication, a third writer, and the full
+   30-trajectory writer replication.
+3. Optional: separate status-extractor prototype (the one-call 7B sidecar is
+   blocked).
+4. Before submission: check ABBEL/Supersede appendices for a
+   proposition/status split.
 
 ## Where things are
 
-- Protocols: `docs/STATUS_DRIFT_PROTOCOL_V2_*.md`
-- Results: `docs/research/2026-11-16-status-drift-*.md`
-- Raw data: `results/status_drift_v2_pilot/`
-- Metrics: `evaluation/status_cue_metrics.py`, `evaluation/status_sidecar.py`
+- Narrative: `findings.md`; state: `research-state.yaml`
 - Paper backbone: `docs/research/2026-11-16-status-drift-paper-backbone.md`
-- Everything is pushed to `research/status-drift-v2.4-revision`.
+- Novelty audit: `docs/research/2026-11-17-novelty-audit.md`
+- Protocols: `docs/research/V3_*_PROTOCOL.md`, `V3_*_FREEZE.md`
+- Run notes: `docs/research/2026-11-17-*.md`
+- Raw outputs: `results/status_drift_v3_*`, `results/status_drift_v2_pilot/`
+- 46 experiment runs recorded in `research-state.yaml`

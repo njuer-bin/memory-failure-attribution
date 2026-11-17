@@ -10,6 +10,28 @@ Instead of treating every error as retrieval failure, the project traces require
 
 Conversation → Formation → Storage → Evolution → Retrieval → Reranking → Context → Reasoning → Answer
 
+## Current focus (V3, 2026-11-17)
+
+The active branch is `research/path-dependent-state-distortion-v3`. It asks a
+narrower follow-up: when the same conversation is rewritten through different
+memory transformation histories, does the **status** attached to a proposition
+(epistemic / intentional / conditional) survive even when the proposition does,
+and do status-only differences change downstream agent behavior?
+
+Headline from the frozen paired study with blind human labels: chained
+rewriting causes **status omission** in 44–54% of proposition-preserved
+memories, while unsupported distortion is rare (0.9%). Rewrite-matched equals
+recursive and repeated-direct equals direct, isolating chained re-editing from
+budget shrinkage and call count; source access during rewriting removes the
+omission. Omission is behaviorally conservative, distortion is dangerous, and
+the asymmetry replicates on a second model.
+
+See `docs/research/2026-11-16-status-drift-paper-backbone.md` (V3 update),
+`findings.md`, `research-state.yaml`, and
+`docs/research/2026-11-17-novelty-audit.md`. Everything below documents
+phase 1 (lifecycle failure attribution), which is frozen and retained as
+history.
+
 ## Research questions
 
 - **RQ1 — Failure Attribution:** At which lifecycle boundary does required evidence first become unavailable?
@@ -171,9 +193,9 @@ The semantic judge uses the local Ollama model and evaluates each existing answe
 
 For reproducibility, the lexical metrics remain stored alongside the semantic verdict.
 
-## Research status
+## Research status (phase 1 — frozen)
 
-The project currently has:
+The phase-1 project has:
 
 - reusable long-term memory infrastructure
 - provenance-aware lifecycle tracing
@@ -184,7 +206,10 @@ The project currently has:
 - semantic answer calibration
 - post-hoc anomaly analysis
 
-The revised n=10 semantic calibration gate is now stable. The next step is to freeze this protocol and scale to n=50 LongMemEval samples, followed by inspection and then larger evaluation. LoCoMo cross-benchmark validation and statistically useful failure-attribution tables come after the larger LongMemEval run.
+The revised n=10 semantic calibration gate is stable and phase 1 is frozen as
+history. The active work has moved to the V3 status-drift line described at the
+top; phase-1 next steps (n=50 LongMemEval, LoCoMo cross-benchmark validation)
+are not being pursued on this branch.
 
 Detailed experimental history is maintained in docs/RESEARCH_LOG.md.
 

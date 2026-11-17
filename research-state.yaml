@@ -1,4 +1,4 @@
-# Research State — Status Drift v2 Pilot
+# Research State — Path-Dependent State Distortion (V3)
 # Adapted from the autoresearch template. This repo keeps its authoritative
 # experiment history in docs/RESEARCH_LOG.md; these files add agent-loop state.
 
@@ -11,34 +11,82 @@ project:
   branch: "research/path-dependent-state-distortion-v3"
 
 literature:
-  key_papers:
-    # Named in docs/STATUS_DRIFT_RESEARCH_PLAN_V2.md; bibliographic details still to verify.
-    - id: "HELM"
-      title: "HELM (to verify full title/venue)"
-      authors: "to verify"
-      year: null
-      relevance: "Related work on memory/uncertainty; full text and appendix must be checked before any novelty claim"
+  audit: "docs/research/2026-11-17-novelty-audit.md; full texts in literature/pdfs/"
+  # The earlier placeholder list (HELM, ProgMem, BELIEFMEM, AnswerBubbles with
+  # unverified titles) is superseded by the audited set below.
+  audited_papers:
+    - id: "StateMem"
+      ref: "arXiv 2608.19652"
+      overlap: "state tracking vs recall; five failure modes; human + judge labels"
+      verdict: "closest on the phenomenon; no rewriting histories or status tuple"
     - id: "ProgMem"
-      title: "ProgMem (to verify full title/venue)"
-      authors: "to verify"
-      year: null
-      relevance: "Related work on plan lifecycle management"
+      ref: "Findings of AACL 2026"
+      overlap: "structured memory programs; temporal updates, plan changes, uncertainty"
+      verdict: "structured state representation already published"
     - id: "BELIEFMEM"
-      title: "BELIEFMEM (to verify full title/venue)"
-      authors: "to verify"
-      year: null
-      relevance: "Related work on belief-state memory"
-    - id: "AnswerBubbles"
-      title: "Answer Bubbles (to verify full title/venue)"
-      authors: "to verify"
-      year: null
-      relevance: "Related work on provenance/uncertainty preservation"
+      ref: "Findings of EMNLP 2026"
+      overlap: "AGM belief revision with a history-preserving belief base"
+      verdict: "belief revision already published"
+    - id: "STALE"
+      ref: "arXiv 2605.06527"
+      overlap: "implicit stale state; downstream policy adaptation"
+      verdict: "cannot claim first stale-state -> behavior"
+    - id: "StateAuditor"
+      ref: "arXiv 2608.01619"
+      overlap: "state-to-draft transition verification; response repair"
+      verdict: "downstream state repair already studied"
+    - id: "MemDerive"
+      ref: "arXiv 2610.25373"
+      overlap: "derived-state benchmark with a gold DAG"
+      verdict: "state derivation, not status fidelity"
+    - id: "ABBEL"
+      ref: "arXiv 2512.20111"
+      overlap: "recursive summarization into belief states; omission/incorrect updates"
+      verdict: "cannot claim first recursive-summary omission"
+    - id: "Supersede"
+      ref: "arXiv 2606.27472"
+      overlap: "bounded notes rewritten per session; failure grows with length"
+      verdict: "cannot claim first chained-rewriting harm; claim must be status-specificity"
+    - id: "LiveCtx"
+      ref: "Discover Computing 2026"
+      overlap: "raw history preserved; query-time compression"
+      verdict: "source access is not novel"
+    - id: "ReSum"
+      ref: "arXiv 2509.13313"
+      overlap: "periodic recursive context summarization"
+      verdict: "recursive summarization is prior work"
+    - id: "LightMem"
+      ref: "arXiv 2510.18866"
+      overlap: "compression + topic-aware short-term + sleep-time consolidation"
+      verdict: "compression lifecycle is prior work"
+    - id: "MemTX"
+      ref: "arXiv 2607.23929"
+      overlap: "transactional belief commit; action-safety gating"
+      verdict: "memory -> action already studied"
+    - id: "EAL-Bench"
+      ref: "arXiv 2609.01836"
+      overlap: "false authority formation and propagation; unauthorized actions"
+      verdict: "memory-state -> action is not new"
+    - id: "TWIST"
+      ref: "arXiv 2609.28575"
+      overlap: "intervention quality at belief change points; human-validated"
+      verdict: "belief-change intervention already studied"
+  not_claimed:
+    - "first state tracking, or state tracking distinct from recall (StateMem)"
+    - "structured belief-state / plan memory (ProgMem, BELIEFMEM)"
+    - "recursive-summarization omission or chained-rewriting harm (ABBEL, Supersede, ReSum)"
+    - "source access or raw-history preservation (LiveCtx)"
+    - "memory state -> action or unauthorized action (STALE, StateAuditor, MemTX, EAL-Bench)"
+  defensible_claim: "Status-specific, proposition-controlled transformation-history diagnostic: a status tuple measured across paired rewriting histories with proposition identity fixed, omission vs unsupported distortion separated, blind human labels, a status-only downstream intervention, and a second-model replication. The ingredients are prior work; the combination and measurement target are the contribution."
   open_problems:
-    - "Whether status drift is separable from proposition omission under compression"
-    - "Whether recursion adds drift beyond repeated one-shot writing at matched budgets"
+    - "Whether status omission translates into harm in real (non-sandboxed) workflows where clarification is costly"
+    - "Whether the mitigation ranking (source access vs status-aware prompt) generalizes across writers"
+    - "Whether ABBEL/Supersede appendices already contain a proposition/status split"
   evidence_gaps:
-    - "No controlled trajectory benchmark for status-only corruption yet"
-    - "No downstream-behavior measurement yet"
+    - "No natural-dialogue replication; trajectories are synthetic Chinese templates"
+    - "Writer replication covers 12 pre-registered trajectories under one second model"
+    - "Unsupported distortion is underpowered (3/330); only its behavioral effect is clear"
+    - "Annotator provenance is unrecorded; adjudication is model-assisted"
 
 hypotheses:
   - id: H1
@@ -409,7 +457,12 @@ experiments:
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30. gemma3:12b agent replication confirms the behavioral asymmetry; writer replication v3.2.5 (kappa 0.834) confirms the chain direction with model-dependent mitigation. Novelty audit: state tracking/structured belief state/belief revision/downstream stale-state effects are prior work (StateMem, ProgMem, BELIEFMEM, STALE); defensible core is the controlled transformation-history status-loss diagnostic. Full-text audit pending."
+  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized, evidence-consistent -26.7 pts), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, negative interaction -0.500. gemma3:12b agent replication confirms the behavioral asymmetry (distorted 20/30, present 0/30); writer replication v3.2.5 (kappa 0.834) confirms the chain direction with a model-dependent mitigation ranking. Full-text novelty audit complete (14 PDFs): the ingredients are prior work; the defensible claim is the status-specific, proposition-controlled combination."
+  next_actions:
+    - "Write the paper from docs/research/2026-11-16-status-drift-paper-backbone.md (V3 update) using the say/do-not-say list in the novelty audit"
+    - "Optional: natural-dialogue replication; third writer; 30-trajectory writer replication for the second model"
+    - "Optional: separate status-extractor prototype (the one-call 7B sidecar is blocked)"
+    - "Before submission: check ABBEL/Supersede appendices for a proposition/status split"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
