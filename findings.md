@@ -306,6 +306,17 @@ in status preservation.**
 - **The agent asymmetry is model-robust.** gemma3:12b: omitted status 0/30
   unauthorized, distorted 20/30 (66.7%), present 0/30, no-memory 0/30. The
   omission/distortion asymmetry is not a qwen artifact.
+- **Novelty audit narrows the claim.** StateMem/StateMemBench already defines
+  state tracking vs recall; ProgMem publishes structured state programs;
+  BELIEFMEM publishes AGM belief revision; STALE/StateAuditor study stale state
+  and downstream policy adaptation; ABBEL studies recursive summarization into
+  belief states; MemTX/EAL-Bench study memory state → unauthorized action;
+  TWIST benchmarks belief-change intervention. The defensible core is the
+  controlled transformation-history experiment: chained re-editing isolated
+  from budget/call count, proposition identity fixed, status omission vs
+  distortion separated, blind human labels, and a status-only downstream
+  intervention. Do not claim first state tracking, first structured state, or
+  first memory→action effect. Full-text audit still required.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

@@ -149,14 +149,40 @@ The neutral writer roughly doubles the human-annotated drift.
 
 ## Related work / novelty
 
-- BELIEFMEM (2605.05583): probabilistic belief memory, LoCoMo/ALFWorld; not a
-  measurement of status under chained compression.
-- MemCoRe (2602.07885): compression-hierarchy evidence retrieval; not status
-  preservation.
-- PoS, MemTX, Memory as Belief, Agent-BRACE, TWIST: adjacent belief/state work;
-  full-text comparison pending.
-- Novelty claim: controlled status-cue diagnostic with a rewrite-matched
-  mechanism control and a mitigation curve, not a new memory architecture.
+**2026 closest work (abstract-level audit; full texts pending).**
+
+- **StateMem / StateMemBench** (2608.19652): state tracking vs recall, current
+  vs superseded state, 234 multi-session scenarios. State tracking is already an
+  explicit, benchmarked problem.
+- **ProgMem** (Findings of AACL 2026): structured memory programs for temporal
+  updates, plan changes, counterfactuals, uncertainty. Structured state
+  representation is published.
+- **BELIEFMEM** (Findings of EMNLP 2026): AGM belief revision with a
+  history-preserving belief base. Belief revision is published.
+- **STALE** (2605.06527) and **StateAuditor** (2608.01619): implicit stale
+  state and downstream policy adaptation.
+- **ABBEL** (2512.20111): recursive summarization into belief states, with
+  omission/incorrect updates.
+- **MemTX** (2607.23929), **EAL-Bench** (2609.01836), **Revoked but Still
+  Authoritative** (2609.08258): memory state → action authorization.
+- **TWIST** (2609.28575): intervention quality at belief change points.
+
+**What is no longer novel:** first discovery of state tracking; structured
+belief-state representation; uncertainty preservation; memory errors affecting
+actions; source access or recursive summarization as ideas.
+
+**Defensible claim:** a **controlled transformation-history diagnostic** of
+path-dependent status representation loss under chained rewriting. The same
+dialogue is transformed through direct / recursive / rewrite-matched /
+repeated-direct / source-access histories; proposition identity is held fixed;
+status omission and unsupported distortion are separate outcomes; blind human
+labels use a calibrated ontology; and a status-only downstream intervention
+shows omission is conservative while distortion is dangerous. None of the
+audited papers runs this specific paired transformation-history test with
+proposition-controlled status outcomes.
+
+Do not claim novelty until the full texts and appendices of StateMem, ProgMem,
+BELIEFMEM, STALE, ABBEL, MemTX, EAL-Bench, and TWIST are read.
 
 ## Open questions
 

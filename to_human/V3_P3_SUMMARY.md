@@ -148,6 +148,25 @@ first 12 are the primary cohort.
 
 **Next:** novelty audit; paper integration.
 
+## Novelty audit (2026-11-17)
+
+StateMem/StateMemBench (2608.19652) already defines state tracking vs recall;
+ProgMem (AACL 2026 Findings) publishes structured memory programs; BELIEFMEM
+(EMNLP 2026 Findings) publishes AGM belief revision; STALE (2605.06527) studies
+stale state and downstream policy adaptation; ABBEL (2512.20111) studies
+recursive summarization into belief states; MemTX/EAL-Bench study memory state
+→ unauthorized action; TWIST benchmarks belief-change intervention.
+
+**The defensible core is narrower:** a controlled transformation-history
+experiment that isolates chained re-editing from budget and call count, holds
+proposition identity fixed, separates status omission from unsupported
+distortion, uses blind human labels, and adds a status-only downstream
+intervention. Do not claim first state tracking, first structured state, or
+first memory→action effect.
+
+Full-text audit of StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, MemTX,
+EAL-Bench, and TWIST is still required before submission.
+
 
 ## Where things are
 

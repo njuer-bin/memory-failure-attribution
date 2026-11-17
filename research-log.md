@@ -726,6 +726,27 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Recorded in `docs/research/2026-11-17-v3-replication.md` §6; analysis in
   `results/status_drift_v3_replication_writer/analysis_v325/`.
 
+### Novelty audit — claim narrowed against 2026 agent-memory work
+
+- Abstract-level audit (OpenAlex/arXiv; full texts pending).
+- Closest work: StateMem/StateMemBench (2608.19652; state tracking vs recall),
+  ProgMem (AACL 2026 Findings; structured memory programs), BELIEFMEM (EMNLP
+  2026 Findings; AGM belief revision), STALE (2605.06527; stale state and
+  downstream policy adaptation), ABBEL (2512.20111; recursive summarization
+  into belief states), MemTX/EAL-Bench/Revoked (memory state → action), TWIST
+  (intervention quality).
+- No longer novel: first state-tracking problem; structured state
+  representation; uncertainty preservation; memory errors affecting actions;
+  source access/recursive summarization as ideas.
+- Defensible core: controlled transformation-history experiment isolating
+  chained re-editing from budget and call count, with proposition-controlled
+  status omission vs distortion, blind human labels, and a status-only
+  downstream intervention.
+- Recorded in `docs/research/2026-11-17-novelty-audit.md`; survey updated in
+  `literature/survey.md`. Full-text audit of StateMem, ProgMem, BELIEFMEM,
+  STALE, ABBEL, MemTX, EAL-Bench, TWIST required before submission.
+
+
 
 
 

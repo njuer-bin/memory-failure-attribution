@@ -1,8 +1,35 @@
 # Literature Survey — Status Drift in Long-Term Conversational Memory
 
-**Last updated:** 2026-11-16
-**Status:** metadata verified via arXiv search; full texts not yet read.
+**Last updated:** 2026-11-17
+**Status:** metadata and abstracts verified; full texts not yet read.
 Do not cite a paper's method or claim until the full text and appendix are read.
+
+## 2026-11-17 expanded novelty audit (closest work)
+
+| Paper | Venue/ID | What it covers | Why it narrows our claim |
+|---|---|---|---|
+| StateMem / StateMemBench | 2608.19652 | State tracking vs recall; 234 multi-session scenarios; current vs superseded state; StateMem tracks supersession and dependencies. | State tracking is already an explicit, benchmarked problem. We cannot claim first discovery. |
+| ProgMem | Findings of AACL 2026 | Structured memory programs for temporal updates, plan changes, counterfactuals, uncertainty. | Structured belief/state representation is published. We cannot claim the state tuple as method novelty. |
+| BELIEFMEM | Findings of EMNLP 2026 | AGM belief revision (EXP/REV/DUP/CON), history-preserving belief base, supersession pointers. | Belief revision and uncertainty preservation are published. |
+| STALE | 2605.06527 | Implicit conflict; State Resolution, Premise Resistance, Implicit Policy Adaptation; downstream behavior. | Cannot claim first evidence that stale state changes downstream behavior. |
+| StateAuditor | 2608.01619 | Repairs the STALE policy-adaptation gap with transition verification. | Downstream state→behavior repair is studied. |
+| MemDerive | 2610.25373 | Derived-state benchmark; failures where the state exists but is not retrieved/propagated. | State derivation/tracking failures are benchmarked. |
+| ABBEL | 2512.20111 | Recursive summarization into natural-language belief states; notes omission/incorrect updates. | Recursive summarization and belief-state omission are studied; we must isolate transformation history. |
+| Agent-BRACE | 2605.11436 | Atomic belief claims + verbalized certainty; policy decoupled from belief. | Belief/action separation is prior work. |
+| MemTX | 2607.23929 | Transactional belief commit; action-safety gating. | Memory state → action authorization is prior work. |
+| EAL-Bench | 2609.01836 | Memory misrepresents authorization state; false authority → unauthorized action. | Memory errors → unauthorized action is prior work. |
+| Revoked but Still Authoritative | 2609.08258 | Revoked facts remain retrievable and drive unsafe actions. | Stale/revoked memory → action is prior work. |
+| TWIST | 2609.28575 | Intervention quality at belief change points; human-validated κ 0.85. | Belief-change intervention evaluation is prior work. |
+| Supersede / LiveCtx / LightMem / ReSum | maintainer audit | Real-dialogue knowledge-update failures; source-preserving query-time selection; compression lifecycle; recursive summarization. | Source access and recursive summarization are adjacent, not novel. Full texts pending. |
+
+**Revised novelty position:** the defensible core is a **controlled
+transformation-history experiment**: the same dialogue through direct /
+recursive / rewrite-matched / repeated-direct / source-access histories, with
+proposition identity held fixed, status omission and unsupported distortion
+separated, blind human labels, and a status-only downstream intervention.
+StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, and MemTX each cover part of the
+phenomenon; none audited here runs this specific paired transformation-history
+test. See `docs/research/2026-11-17-novelty-audit.md`.
 
 ## Plan-named works
 

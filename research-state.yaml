@@ -81,7 +81,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 45
+  total_runs: 46
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -398,18 +398,25 @@ experiments:
       wall_time_min: null
       change_summary: "Full 84-item re-annotation under v3.2.5: primary raw 0.940/kappa 0.834; identity 1.000; status_expressed 1.000; expressed 1.000; action 0.964/0.924; evidence 0.952/0.850. 12 adjudication overrides. Adjudicated faithful: direct 11/12, recursive 8/12, rewrite_matched 6/12, repeated_direct 11/12, neutral_source 10/12, status_aware 11/12, status_aware_source 12/12. The chain effect now replicates more clearly; source access remains weaker in gemma (0.83 vs qwen 1.00); status_aware and the combination are strong. Writer replication confirmed in direction, model-dependent in magnitude."
       timestamp: "2026-11-17"
+    - run_id: "novelty_audit_v3"
+      hypothesis: "Is the V3 claim novel against 2026 agent-memory work?"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Abstract-level audit (OpenAlex/arXiv; full texts pending). Closest work: StateMem/StateMemBench (state tracking vs recall), ProgMem (structured memory programs), BELIEFMEM (AGM belief revision), STALE/StateAuditor (stale state and downstream policy adaptation), ABBEL (recursive summarization into belief states), MemTX/EAL-Bench/Revoked (memory state -> action), TWIST (intervention quality). The claim 'first state-tracking problem' and 'structured state representation' are no longer novel. Defensible core: controlled transformation-history experiment isolating chained re-editing from budget/call count, with proposition-controlled status omission vs distortion, blind human labels, and a status-only downstream intervention. Full-text audit required before submission."
+      timestamp: "2026-11-17"
   current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30. gemma3:12b agent replication: omission 0/30 unauthorized, distortion 20/30 - P4 asymmetry replicates. gemma3:12b writer replication v3.2.5 (kappa 0.834): direct 11/12, recursive 8/12, rewrite 6/12, repeated 11/12, neutral_source 10/12, status_aware 11/12, combined 12/12; chain effect replicates, mitigation ranking model-dependent."
+  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30. gemma3:12b agent replication confirms the behavioral asymmetry; writer replication v3.2.5 (kappa 0.834) confirms the chain direction with model-dependent mitigation. Novelty audit: state tracking/structured belief state/belief revision/downstream stale-state effects are prior work (StateMem, ProgMem, BELIEFMEM, STALE); defensible core is the controlled transformation-history status-loss diagnostic. Full-text audit pending."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 41
-  last_direction: "replicate"
-  last_reflection: "The v3.2.5 writer recheck resolves the gemma reliability problem: primary kappa 0.834. The chain effect now replicates more clearly (recursive 0.67, rewrite-matched 0.50, direct/repeated 0.92), but source access alone remains weaker in gemma (0.83 vs qwen 1.00), while status-aware and the combination are at or above qwen. The writer mitigation ranking is model-dependent; the agent asymmetry is model-robust. Writer replication is confirmed in direction, not in every magnitude. Next: novelty audit and paper integration, or a third model if resources permit."
+  cycle: 42
+  last_direction: "position"
+  last_reflection: "The novelty audit changes the paper's framing. StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, MemTX, and TWIST already cover state tracking, structured belief states, belief revision, downstream stale-state effects, recursive summarization, memory-to-action authorization, and intervention quality. The defensible core is narrower: a controlled transformation-history experiment that isolates chained re-editing from budget and call count, holds proposition identity fixed, separates status omission from unsupported distortion, uses blind human labels, and adds a status-only downstream intervention. Full-text audits of StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, MemTX, EAL-Bench, and TWIST are required before submission."
 
 workspace:
   findings: "findings.md"
