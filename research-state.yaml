@@ -453,16 +453,25 @@ experiments:
       wall_time_min: null
       change_summary: "Full-text audit of 14 PDFs (pdftotext). Closest: StateMem/StateMemBench (state tracking vs recall, five failure modes, human labels), ProgMem (structured state programs), BELIEFMEM (AGM belief revision), STALE/StateAuditor (implicit stale state and downstream policy adaptation), ABBEL (recursive summarization with omission/update errors), Supersede (bounded notes rewritten per session; failure grows with conversation length, not compression ratio), LiveCtx (raw history + query-time compression; source access studied), MemTX/EAL-Bench (memory state -> unauthorized action; EAL-Bench 45.4% formation, 99% propagation), TWIST (intervention quality). No audited paper combines status tuple + paired transformation histories + proposition identity fixed + omission/distortion split + blind human labels + status-only downstream intervention + second-model replication. The individual ingredients are prior work; the combination is the defensible claim."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py"
+    - run_id: "v3_real_feasibility_audit"
+      hypothesis: "Stage 1: does real dialogue contain labelable status propositions?"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Rule-based screen over LoCoMo (10 conversations, 19 sessions) and LongMemEval oracle (500 x 3 sessions): 2,135 candidates (intentional 1,123, epistemic 981, conditional 31); 269 potential updates; 725 later-session re-mentions. 50-item balanced screening sheet generated with blank A/B files. Model diagnostic (not human): 42/50 status-bearing, but semantic dimension is intentional 32, conditional 8, epistemic 2; only 4/50 clearly consequential; 39/50 evidence sufficient. Epistemic fails the dimension-coverage gate and P4.2 relevance fails; intentional is the viable real-dialogue dimension."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py. Real-dialogue Stage 1: V3_REAL_DATA_AUDIT_PROTOCOL.md + v3_real_feasibility_audit.py; pilot frozen at tag freeze/v3-pilot-2026-11-17."
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
   current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized, evidence-consistent -26.7 pts), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, negative interaction -0.500. gemma3:12b agent replication confirms the behavioral asymmetry (distorted 20/30, present 0/30); writer replication v3.2.5 (kappa 0.834) confirms the chain direction with a model-dependent mitigation ranking. Full-text novelty audit complete (14 PDFs): the ingredients are prior work; the defensible claim is the status-specific, proposition-controlled combination."
   next_actions:
-    - "Write the paper from docs/research/2026-11-16-status-drift-paper-backbone.md (V3 update) using the say/do-not-say list in the novelty audit"
-    - "Optional: natural-dialogue replication; third writer; 30-trajectory writer replication for the second model"
-    - "Optional: separate status-extractor prototype (the one-call 7B sidecar is blocked)"
-    - "Before submission: check ABBEL/Supersede appendices for a proposition/status split"
+    - "Stage 1 gate: two independent human annotators fill screening_A/B under V3_REAL_DATA_AUDIT_PROTOCOL.md; adjudicate; compute precision, evidence sufficiency, and per-dimension labelability"
+    - "Stage 2: freeze the real-data annotation guide and the two metrics (Lexical Status Fidelity, Semantic Status Fidelity); run a calibration set before any confirmatory generation"
+    - "Stage 3: P4.2 status-only intervention with curated high-stakes scenarios, matched proposition/evidence/task/length, two agent models"
+    - "Stage 4: rewrite-depth and recovery experiment (per-round omission onset, recovery with source access, repeated-direct vs chained)"
+    - "Stage 5: paired trajectory-level statistics, cost analysis, ablations, related-work comparison, then paper positioning"
+    - "Optional now: natural-dialogue pilot on LoCoMo intentional status; LongMemEval knowledge-update as second domain"
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 

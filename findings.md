@@ -38,6 +38,29 @@ Novelty: the individual ingredients are prior work (audited in
 `docs/research/2026-11-17-novelty-audit.md`); the defensible claim is the
 status-specific, proposition-controlled transformation-history diagnostic.
 
+### Real-dialogue feasibility audit (Stage 1, 2026-11-17)
+
+- A rule-based screen over LoCoMo (10 conversations x 19 sessions) and
+  LongMemEval oracle (500 x 3 sessions) produced 2,135 candidates
+  (intentional 1,123, epistemic 981, conditional 31); 725 are re-mentioned in
+  a later session and 269 contain a potential change cue.
+- The 50-item screening set and blank A/B files are ready
+  (`results/status_drift_v3_real_audit/`). A model diagnostic read — not human
+  annotation — rates 42/50 as status-bearing, but semantically 32 are
+  intentional, 8 conditional, and only 2 epistemic.
+- Marker-based epistemic detection mostly captures "I think I'll ..." plans or
+  evaluative stances. A lexical-cue metric would count those as epistemic
+  status when they are not.
+- Only 4/50 items are clearly consequential for a downstream authorization
+  decision; P4.2 cannot be sampled from chat corpora and needs curated
+  high-stakes scenarios.
+- Provisional gate verdict: intentional status is viable on real dialogue;
+  conditional is thin; epistemic fails dimension coverage; downstream
+  relevance fails on sampled data.
+- Two independent human annotations under `V3_REAL_DATA_AUDIT_PROTOCOL.md` are
+  the next blocking step. The model diagnostic must not be reported as human
+  annotation.
+
 ### v2 exploratory baseline (2026-11-16, 30-trajectory run)
 
 The v2 pilot has a coherent result. **The writer prompt is the dominant factor

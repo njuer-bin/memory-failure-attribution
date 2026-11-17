@@ -1,0 +1,56 @@
+{
+  "n": 50,
+  "status_bearing": {
+    "yes": 42,
+    "no": 5,
+    "ambiguous": 3
+  },
+  "dimension": {
+    "epistemic": 2,
+    "conditional": 8,
+    "none": 5,
+    "mixed": 3,
+    "intentional": 32
+  },
+  "proposition_clear": {
+    "yes": 43,
+    "no": 7
+  },
+  "evidence_sufficient": {
+    "yes": 39,
+    "no": 5,
+    "partial": 6
+  },
+  "lexical_labelable": {
+    "yes": 43,
+    "no": 7
+  },
+  "semantic_labelable": {
+    "yes": 42,
+    "no": 8
+  },
+  "consequential": {
+    "partial": 29,
+    "no": 17,
+    "yes": 4
+  },
+  "difficulty": {
+    "2": 11,
+    "1": 32,
+    "3": 7
+  },
+  "later_mention_present": 35,
+  "later_mention_by_status": {
+    "yes": 29,
+    "ambiguous": 3,
+    "no": 3
+  },
+  "semantic_labelable_by_dimension": {
+    "epistemic": 2,
+    "intentional": 29,
+    "conditional": 8,
+    "mixed": 3,
+    "none": 0
+  },
+  "provenance": "Model diagnostic read (Claude Sonnet 4.6) on 2026-11-17. NOT human annotation; do not report as annotator labels."
+}

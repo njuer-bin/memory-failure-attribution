@@ -1,0 +1,51 @@
+candidate_id,status_bearing,dimension,proposition_clear,evidence_sufficient,lexical_cue_present,lexical_labelable,semantic_labelable,consequential,update_present,difficulty_1_3,note
+RD-001,yes,epistemic,yes,yes,yes,yes,yes,partial,no,2,possibility of pet ownership constrained by allergy
+RD-002,yes,conditional,yes,yes,yes,yes,yes,partial,unknown,1,conditional use of grooming tips
+RD-003,no,none,no,no,yes,no,no,no,unknown,3,concessive even if; no status proposition
+RD-004,yes,mixed,yes,partial,yes,yes,yes,partial,unknown,2,hoped-for future action once skill improves
+RD-005,yes,conditional,yes,yes,yes,yes,yes,partial,unknown,2,conditional health risk; doctor evidence
+RD-006,no,none,no,no,yes,no,no,no,unknown,3,policy opinion; I think is a stance marker
+RD-007,yes,mixed,yes,yes,yes,yes,yes,partial,unknown,2,considering pet purchase conditional on allergy
+RD-008,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,low-stakes intention to read a book
+RD-009,ambiguous,intentional,yes,partial,yes,yes,no,no,unknown,2,to-do list; commitment strength unclear
+RD-010,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,considering starting exercise
+RD-011,no,none,no,no,yes,no,no,no,unknown,3,self-encouragement; no world proposition
+RD-012,yes,intentional,yes,yes,yes,yes,yes,yes,unknown,1,considering career direction; workshop evidence
+RD-013,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,planned conference attendance with time
+RD-014,yes,intentional,yes,yes,yes,yes,yes,yes,unknown,1,considering marketing plan; time frame
+RD-015,ambiguous,intentional,no,partial,yes,no,no,partial,unknown,3,vague effort; no specific proposition
+RD-016,yes,intentional,yes,yes,yes,yes,yes,yes,unknown,1,considering career change; stated reasons
+RD-017,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,2,ongoing habit effort
+RD-018,yes,intentional,yes,yes,yes,yes,yes,partial,no,1,planned outdoor activity with time
+RD-019,yes,intentional,yes,yes,yes,yes,yes,yes,unknown,1,booked trip; executed commitment
+RD-020,ambiguous,intentional,no,partial,yes,no,no,no,unknown,3,desire/interest; no actionable proposition
+RD-021,no,none,no,no,yes,no,no,no,no,3,preference condition as long as safe and clean
+RD-022,yes,conditional,yes,yes,yes,yes,yes,partial,unknown,2,conditional resource provision
+RD-023,yes,conditional,yes,yes,yes,yes,yes,partial,unknown,1,conditional saving of a design
+RD-024,yes,mixed,yes,yes,yes,yes,yes,partial,unknown,2,uncertainty about seeding a new tank
+RD-025,yes,conditional,yes,yes,yes,yes,yes,partial,unknown,1,conditional future appraisal
+RD-026,yes,conditional,yes,yes,yes,yes,yes,partial,unknown,1,conditional boot damage risk
+RD-027,yes,conditional,yes,yes,yes,yes,yes,no,unknown,1,conditional packing detail
+RD-028,yes,conditional,yes,yes,yes,yes,yes,partial,unknown,1,conditional device upgrade
+RD-029,yes,epistemic,yes,yes,yes,yes,yes,partial,yes,2,explicit self-correction of a price belief
+RD-030,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,planned first step of a publishing routine
+RD-031,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,planned trial of software
+RD-032,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,planned guitar service before festival
+RD-033,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,self-proposed reading strategy
+RD-034,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,planned viewing schedule
+RD-035,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,deferred viewing intention
+RD-036,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,intention to try a recipe
+RD-037,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,considering car tune-up
+RD-038,yes,intentional,yes,yes,yes,yes,yes,partial,no,1,planned road trip
+RD-039,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,considering new recipes
+RD-040,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,possible attendance at a future event
+RD-041,no,none,no,no,yes,no,no,no,unknown,3,past recipe evaluation; no current status
+RD-042,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,considering a bread recipe
+RD-043,yes,intentional,yes,yes,yes,yes,yes,no,unknown,1,considering an Italian bread recipe
+RD-044,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,planned road trip with route request
+RD-045,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,planned San Francisco trip with date
+RD-046,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,considering event registration
+RD-047,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,planned dinner party
+RD-048,yes,intentional,yes,partial,yes,yes,yes,partial,unknown,2,planned Australia trip; destination underspecified
+RD-049,yes,intentional,yes,partial,yes,yes,yes,partial,unknown,2,planned beach trip; details underspecified
+RD-050,yes,intentional,yes,yes,yes,yes,yes,partial,unknown,1,planned theme-park trip
