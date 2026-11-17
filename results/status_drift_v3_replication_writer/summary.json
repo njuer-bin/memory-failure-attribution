@@ -1,0 +1,101 @@
+{
+  "protocol": "v3_replication_writer_gemma3_12b",
+  "n_trajectories": 30,
+  "expected_conditions": 210,
+  "complete_conditions": 210,
+  "by_condition": {
+    "direct": {
+      "n": 30,
+      "state_relation": {
+        "ABSENT": 6,
+        "MATCH": 19,
+        "AMBIGUOUS": 5
+      },
+      "topic_mentioned_rate": 0.9666666666666667,
+      "mean_final_chars": 39.56666666666667,
+      "mean_final_eval_tokens": 25.933333333333334,
+      "budget_inflation_vs_recursive": 1.2326064382139148
+    },
+    "recursive": {
+      "n": 30,
+      "state_relation": {
+        "ABSENT": 23,
+        "AMBIGUOUS": 2,
+        "MATCH": 5
+      },
+      "topic_mentioned_rate": 0.9333333333333333,
+      "mean_final_chars": 32.1,
+      "mean_final_eval_tokens": 22.833333333333332,
+      "budget_inflation_vs_recursive": 1.0
+    },
+    "rewrite_matched": {
+      "n": 30,
+      "state_relation": {
+        "ABSENT": 24,
+        "AMBIGUOUS": 2,
+        "MATCH": 4
+      },
+      "topic_mentioned_rate": 0.9333333333333333,
+      "mean_final_chars": 33.3,
+      "mean_final_eval_tokens": 23.666666666666668,
+      "budget_inflation_vs_recursive": 1.0373831775700932
+    },
+    "repeated_direct": {
+      "n": 30,
+      "state_relation": {
+        "ABSENT": 7,
+        "MATCH": 18,
+        "AMBIGUOUS": 5
+      },
+      "topic_mentioned_rate": 0.9666666666666667,
+      "mean_final_chars": 39.833333333333336,
+      "mean_final_eval_tokens": 26.133333333333333,
+      "budget_inflation_vs_recursive": 1.240913811007269
+    },
+    "neutral_source": {
+      "n": 30,
+      "state_relation": {
+        "ABSENT": 11,
+        "AMBIGUOUS": 4,
+        "MATCH": 15
+      },
+      "topic_mentioned_rate": 1.0,
+      "mean_final_chars": 38.166666666666664,
+      "mean_final_eval_tokens": 26.266666666666666,
+      "budget_inflation_vs_recursive": 1.1889927310488058
+    },
+    "status_aware": {
+      "n": 30,
+      "state_relation": {
+        "ABSENT": 11,
+        "MATCH": 15,
+        "AMBIGUOUS": 4
+      },
+      "topic_mentioned_rate": 1.0,
+      "mean_final_chars": 40.56666666666667,
+      "mean_final_eval_tokens": 27.733333333333334,
+      "budget_inflation_vs_recursive": 1.2637590861889927
+    },
+    "status_aware_source": {
+      "n": 30,
+      "state_relation": {
+        "ABSENT": 4,
+        "AMBIGUOUS": 6,
+        "MATCH": 20
+      },
+      "topic_mentioned_rate": 1.0,
+      "mean_final_chars": 43.4,
+      "mean_final_eval_tokens": 28.866666666666667,
+      "budget_inflation_vs_recursive": 1.35202492211838
+    }
+  },
+  "gate": {
+    "all_trajectories_present": false,
+    "all_conditions_complete": true
+  },
+  "warnings": [
+    "Deterministic status cues are diagnostics, not human labels.",
+    "Replication cohort: first 12 P2 trajectories.",
+    "Do not pool with the qwen confirmatory runs."
+  ]
+}

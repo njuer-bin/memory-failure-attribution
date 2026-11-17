@@ -667,6 +667,20 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   `docs/research/2026-11-17-v3-p5-confirmatory.md`; analysis in
   `results/status_drift_v3_p5/analysis_v324/`.
 
+### gemma3:12b writer replication — generation complete, labels pending
+
+- 30 trajectories x 7 conditions, 210/210 complete. The resume ran without
+  `--limit 12`; the pre-registered analysis uses the first 12, the other 18 are
+  exploratory.
+- Deterministic MATCH/12: direct 7, recursive 2, rewrite_matched 0,
+  repeated_direct 7, neutral_source 4, status_aware 7,
+  status_aware_source 8.
+- The chain effect replicates; source access does not restore status as
+  strongly as in qwen. Human labels are required.
+- Generated an 84-item blind set under v3.2.4 (first 12 x 7), key outside the
+  repo at `G:/memory_failure_backup/v3_replication_key.csv`.
+
+
 
 
 

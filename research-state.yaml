@@ -81,7 +81,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 40
+  total_runs: 42
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -363,18 +363,32 @@ experiments:
       wall_time_min: null
       change_summary: "Full 120-item re-annotation under v3.2.4: primary raw 0.992/kappa 0.974; identity 0.992/0.853; status_expressed 1.000; expressed 0.875/0.854; action 0.992/0.984; evidence 0.983/0.942. 19 adjudication overrides. Adjudicated faithful: neutral 14/26=0.54, status_aware 27/30=0.90, neutral_source 30/30=1.00, status_aware_source 28/30=0.93. Paired vs neutral faithful: status_aware +0.433 [0.267,0.600], neutral_source +0.533 [0.367,0.700], interaction -0.500 [-0.667,-0.333]. Confirms source access as strongest; prompt partial; combination non-additive."
       timestamp: "2026-11-17"
+    - run_id: "v3_replication_writer_gemma"
+      hypothesis: "Second-model writer replication"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "gemma3:12b writer, 30 trajectories x 7 conditions = 210/210 complete (the resume ran without --limit 12; the pre-registered 12 are the first 12, the other 18 are exploratory). Deterministic MATCH/12: direct 7, recursive 2, rewrite_matched 0, repeated_direct 7, neutral_source 4, status_aware 7, status_aware_source 8. The chain effect replicates; source access does not restore status as strongly as in qwen. Human annotation set (84 items) ready."
+      timestamp: "2026-11-17"
+    - run_id: "v3_replication_annotation_set"
+      hypothesis: "Blind human labels for the gemma writer replication"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Generated 84-item blind set (first 12 P2 trajectories x 7 conditions), shuffled, blank A/B files, key outside repo at G:/memory_failure_backup/v3_replication_key.csv. Awaiting two annotations under v3.2.4."
+      timestamp: "2026-11-17"
   current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 pilot: status_aware 10/12 faithful vs neutral 6/12. P5 confirmatory v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, prompt partial, combination negative interaction (-0.500). Replication and novelty audit pending."
+  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, prompt partial, combination negative interaction. gemma3:12b writer replication (30 trajectories generated; first 12 pre-registered): deterministic chain effect replicates, source access weaker than qwen; human labels pending. gemma3:12b agent replication running."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 37
-  last_direction: "mitigate"
-  last_reflection: "The v3.2.4 recheck resolves the P5 reliability problem: primary kappa 0.974 on 120 items. The conclusion is unchanged and stronger. Source access alone reaches 30/30 faithful; status_aware alone 27/30 with 2 conditional collapses; the combination 28/30 and is worse than source alone (interaction -0.500). Expose the source at rewrite time first; use the status-aware prompt only when source access is impossible. Remaining work: replication, novelty audit, and paper integration."
+  cycle: 38
+  last_direction: "replicate"
+  last_reflection: "The second-model writer replication is generated: gemma3:12b, 30 trajectories x 7 conditions, 210/210 complete. The resume accidentally ran without --limit 12, so the pre-registered 12-trajectory analysis uses the first 12 and the other 18 are exploratory. Deterministic diagnostics replicate the chain effect (direct 7/12 MATCH, recursive 2/12, rewrite-matched 0/12, repeated-direct 7/12), but source access does not restore status as strongly as in qwen (neutral_source 4/12, status_aware_source 8/12). Human labels are needed; an 84-item blind set is ready. Agent replication with gemma3:12b is running."
 
 workspace:
   findings: "findings.md"

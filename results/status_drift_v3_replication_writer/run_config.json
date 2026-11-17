@@ -1,0 +1,60 @@
+{
+  "protocol": "v3_replication_writer_gemma3_12b",
+  "frozen_protocol": "docs/research/V3_REPLICATION_PROTOCOL.md",
+  "writer_model": "gemma3:12b",
+  "base_url": "http://127.0.0.1:11434",
+  "conditions": {
+    "direct": {
+      "kind": "direct",
+      "prompt": "neutral",
+      "source_access": false
+    },
+    "recursive": {
+      "kind": "chain",
+      "prompt": "neutral",
+      "source_access": false
+    },
+    "rewrite_matched": {
+      "kind": "chain",
+      "prompt": "neutral",
+      "source_access": false,
+      "schedule": [
+        220,
+        220,
+        220,
+        220,
+        100
+      ]
+    },
+    "repeated_direct": {
+      "kind": "repeat_direct",
+      "prompt": "neutral",
+      "source_access": false
+    },
+    "neutral_source": {
+      "kind": "chain",
+      "prompt": "neutral",
+      "source_access": true
+    },
+    "status_aware": {
+      "kind": "chain",
+      "prompt": "status_aware",
+      "source_access": false
+    },
+    "status_aware_source": {
+      "kind": "chain",
+      "prompt": "status_aware",
+      "source_access": true
+    }
+  },
+  "schedule": [
+    220,
+    180,
+    140,
+    120,
+    100
+  ],
+  "seed": 42,
+  "started_at": "2026-11-17T10:09:26.592382+00:00",
+  "n_trajectories": 30
+}
