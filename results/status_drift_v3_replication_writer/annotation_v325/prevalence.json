@@ -1,0 +1,25 @@
+{
+  "n_items": 84,
+  "conditions": {
+    "repeated_direct": 12,
+    "recursive": 12,
+    "status_aware": 12,
+    "direct": 12,
+    "neutral_source": 12,
+    "rewrite_matched": 12,
+    "status_aware_source": 12
+  },
+  "dimensions": {
+    "epistemic": 28,
+    "intentional": 28,
+    "conditional": 28
+  },
+  "gold_status": {
+    "CERTAIN": 14,
+    "COMMITTED": 14,
+    "POSSIBLE": 14,
+    "CONDITION_SATISFIED": 14,
+    "CONDITION_ACTIVE": 14,
+    "CONSIDERING": 14
+  }
+}
