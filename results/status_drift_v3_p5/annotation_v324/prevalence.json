@@ -1,0 +1,22 @@
+{
+  "n_items": 120,
+  "conditions": {
+    "neutral": 30,
+    "neutral_source": 30,
+    "status_aware": 30,
+    "status_aware_source": 30
+  },
+  "dimensions": {
+    "conditional": 40,
+    "epistemic": 40,
+    "intentional": 40
+  },
+  "gold_status": {
+    "CONDITION_SATISFIED": 20,
+    "POSSIBLE": 20,
+    "CERTAIN": 20,
+    "CONDITION_ACTIVE": 20,
+    "COMMITTED": 20,
+    "CONSIDERING": 20
+  }
+}

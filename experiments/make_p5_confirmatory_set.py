@@ -33,7 +33,8 @@ def target_question(proposition: str) -> str:
             "请判断记忆是否保留该命题及其在对话中的状态。")
 
 
-def build_items(records: list[dict], seed: int = 20261120) -> list[dict]:
+def build_items(records: list[dict], seed: int = 20261120,
+                prefix: str = "P5C") -> list[dict]:
     items = []
     for record in records:
         for condition, entry in record["conditions"].items():
@@ -60,7 +61,7 @@ def build_items(records: list[dict], seed: int = 20261120) -> list[dict]:
             })
     random.Random(seed).shuffle(items)
     for index, item in enumerate(items, 1):
-        item["item_id"] = f"P5C-{index:04d}"
+        item["item_id"] = f"{prefix}-{index:04d}"
     return items
 
 
@@ -69,12 +70,13 @@ def main() -> None:
     parser.add_argument("--records", required=True)
     parser.add_argument("--out-dir", required=True)
     parser.add_argument("--seed", type=int, default=20261120)
+    parser.add_argument("--prefix", default="P5C")
     parser.add_argument("--key-out", default=None)
     args = parser.parse_args()
 
     records = [json.loads(line) for line in open(args.records, encoding="utf-8")
                if line.strip()]
-    items = build_items(records, args.seed)
+    items = build_items(records, args.seed, args.prefix)
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
 
