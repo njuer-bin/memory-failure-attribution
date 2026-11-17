@@ -109,6 +109,29 @@ proposition loss.
 **Next:** confirmatory P5 with more trajectories; replication; full-text novelty
 audit.
 
+## P5 confirmatory update (2026-11-17)
+
+2×2 prompt (neutral/status-aware) × source access (memory-only/memory+source),
+30 trajectories, 120 blind items. Human faithful
+(NO_DISTORTION + LEGITIMATE_UPDATE):
+
+| Condition | Faithful | Omission | Unsupported | Budget |
+|---|---:|---:|---:|---:|
+| neutral | 14/27 = 0.52 | 12/27 = 0.44 | 1/27 | 1.00× |
+| status_aware | 26/30 = 0.87 | 1/30 | 2/30 | 1.05× |
+| neutral_source | **30/30 = 1.00** | 0/30 | 0/30 | 1.23× |
+| status_aware_source | 28/30 = 0.93 | 0/30 | 1/30 | 1.38× |
+
+Paired vs neutral faithful: status_aware +0.400 [0.233, 0.567];
+neutral_source +0.533 [0.367, 0.700]; interaction −0.467 [−0.633, −0.300].
+
+**Source access is the strongest mitigation; the status-aware prompt is
+partial; combining them is worse than source alone** because the prompt can
+introduce `将+action` escalations. Human reliability is provisional
+(primary κ 0.689 < 0.80); v3.2.4 clarifications are pending calibration.
+
+**Next:** v3.2.4 recheck; then paper/novelty audit.
+
 
 ## Where things are
 

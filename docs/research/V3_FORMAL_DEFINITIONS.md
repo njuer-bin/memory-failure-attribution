@@ -122,7 +122,7 @@ reported. The confirmatory ontology is frozen together with the protocol.
 ## 11. Non-claims
 The ontology is a research instrument, not a universal theory of belief or intention. Labels must be revised if calibration reveals systematic ambiguity. No claim of psychological access to a speaker's true internal state is made; the target is the state communicated in the dialogue.
 
-## 12. Confirmatory ontology v3.2.3 (collapsed)
+## 12. Confirmatory ontology v3.2.4 (collapsed)
 
 The rich ontology in §3 is for calibration and descriptive work. The
 confirmatory study uses **one primary dimension per item** and 2–3 labels per
@@ -233,3 +233,22 @@ even when proposition identity is `PARTIAL`.
   conflicting state.
 - `UNSUPPORTED_STATUS_DISTORTION`: a different status is asserted, and no later
   dialogue evidence supports it.
+
+## 13. v3.2.4 post-P5 clarifications (pending calibration)
+
+- **Nominalized predicates:** a nominalized form of the target action preserves
+  identity when the action and object are recoverable (`驾照考试` for `考驾照`;
+  `日语学习` for `开始学习日语`). A bare topic noun remains `PARTIAL`.
+- **Future-action cues:** `将/就要/会 + action` asserts a future commitment →
+  `COMMITTED`; `计划/打算/考虑 + action` → `CONSIDERING`; `已决定/已承诺/按计划
+  推进` → `COMMITTED`.
+- **Contradictory cues:** affirmative and negative status cues for the same
+  proposition without a resolvable scope → `UNCLEAR` / `UNKNOWN` /
+  `AMBIGUOUS_UNASSESSABLE`.
+- **Aspect and negative action states:** `...中` → `COMMITTED`/ongoing;
+  `不/暂不/不打算 + action` → `NOT_PURSUING`; bare action verb →
+  `NOT_EXPRESSED`.
+
+These rules were added after the P5 confirmatory set showed systematic
+disagreements; they are not yet calibrated. P5 human results are provisional
+until a recheck under v3.2.4.

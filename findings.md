@@ -268,6 +268,18 @@ in status preservation.**
   with 3 AMBIGUOUS (1.38×). All below the 1.5× budget flag. The combination
   does not add deterministic benefit over source access alone; human labels
   will decide the final ranking.
+- **P5 confirmatory human labels: source access wins, the prompt is partial,
+  the combination is non-additive.** Faithful: neutral 14/27 (0.52),
+  status_aware 26/30 (0.87), neutral_source 30/30 (1.00),
+  status_aware_source 28/30 (0.93). Paired vs neutral: status_aware +0.400
+  [0.233, 0.567]; neutral_source +0.533 [0.367, 0.700]; interaction −0.467
+  [−0.633, −0.300]. Exposing the source at rewrite time is the strongest
+  mitigation; a status-aware prompt is a partial fallback and can introduce
+  `将+action` escalations when source is available.
+- **P5 reliability is below the gate.** Primary κ 0.689 vs the 0.80 threshold;
+  disagreements are systematic (`驾照考试`, `将+action`, contradictory cues,
+  aspect/negative action states). v3.2.4 clarifies them; P5 is provisional
+  until a recheck.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

@@ -633,6 +633,25 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Generated 120-item blind set (`results/status_drift_v3_p5/annotation/`,
   key outside the repo). Awaiting two annotations under v3.2.3.
 
+### P5 confirmatory human result — source access strongest, prompt partial, combination non-additive
+
+- 120 items, A/B complete. Reliability: primary raw 0.900 / kappa 0.689
+  (below the 0.80 gate); identity 0.958 / 0.528 (prevalence); expressed
+  0.858 / 0.834; action 0.958 / 0.919; evidence 0.950 / 0.817.
+- Adjudicated faithful (NO+LUA): neutral 14/27 = 0.52; status_aware 26/30 =
+  0.87; neutral_source 30/30 = 1.00; status_aware_source 28/30 = 0.93.
+- Paired vs neutral faithful: status_aware +0.400 [0.233, 0.567];
+  neutral_source +0.533 [0.367, 0.700]; interaction -0.467 [-0.633, -0.300].
+- Source access alone is the strongest mitigation; status_aware is partial;
+  the combination is worse than source alone and introduces `将+action`
+  escalations.
+- Systematic disagreements: nominalized `驾照考试`, `将+action`, contradictory
+  cues, aspect/negative action states. v3.2.4 clarifies them; P5 is provisional
+  until a recheck.
+- Recorded in `docs/research/2026-11-17-v3-p5-confirmatory.md`; analysis in
+  `results/status_drift_v3_p5/analysis/`.
+
+
 
 
 

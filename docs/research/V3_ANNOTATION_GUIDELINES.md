@@ -1,4 +1,4 @@
-# V3 Blind Human Annotation Guidelines (v3.2.3)
+# V3 Blind Human Annotation Guidelines (v3.2.4)
 
 **Status:** calibration guide for the collapsed confirmatory ontology. Do not
 treat as frozen until the v3.2 conditional calibration set reaches acceptable
@@ -22,7 +22,9 @@ head-predicate + object worksheet below and defines evidence support as support
 for the **expressed status**, not the proposition. v3.2.3 clarifies serial-verb
 targets (`去上海工作` → main action `工作`), makes `AMBIGUOUS` identity preempt
 the status judgment, and restricts generic satisfaction cues (`已达标`) to
-trajectories with a single explicit prerequisite.
+trajectories with a single explicit prerequisite. v3.2.4 adds the post-P5
+clarifications in §9 (nominalized predicates, future-action cues, contradictory
+cues, aspect/negative action states); they are pending calibration.
 
 ## 1. Purpose
 
@@ -268,3 +270,39 @@ remain hidden until labels are frozen.
 `subtype`, `rationale`, `confidence`, `turn_references`.
 
 Condition mapping and gold labels remain in a separate curator-only file.
+
+## 9. v3.2.4 clarifications (post-P5, pending calibration)
+
+These resolve systematic disagreements on the P5 confirmatory set. They are
+**not yet calibrated**; treat P5 human results as provisional until a recheck.
+
+### Nominalized predicates
+
+A nominalized form of the target action preserves identity when the action and
+object are recoverable:
+
+- `驾照考试` for `考驾照` → `PRESERVED` (`考试` nominalizes `考`).
+- `日语学习` for `开始学习日语` → `PRESERVED`.
+- A bare topic noun without the action (`驾照` alone) remains `PARTIAL`.
+
+### Future-action cues
+
+- `将 / 就要 / 会 + action` asserts a future commitment → `COMMITTED`
+  (e.g. `将开始健身`).
+- `计划 / 打算 / 考虑 + action` are weaker → `CONSIDERING`.
+- `已决定 / 已承诺 / 按计划推进` → `COMMITTED`.
+
+### Contradictory cues
+
+If the memory contains both an affirmative and a negative status cue for the
+same proposition and the scope is not resolvable (`确认未开网店`,
+`确认将开网店但不确定`), use `status_expressed = UNCLEAR`,
+`expressed_status = UNKNOWN`, `evidence_support = AMBIGUOUS` or
+`NOT_ASSESSABLE`, and `primary_judgment = AMBIGUOUS_UNASSESSABLE`.
+
+### Aspect and negative action states
+
+- `...中` (e.g. `换工作中`) asserts committed/ongoing → `COMMITTED`.
+- `不 / 暂不 / 不打算 + action` asserts a negative action state →
+  `NOT_PURSUING`.
+- A bare action verb remains `NOT_EXPRESSED`.
