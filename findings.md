@@ -201,6 +201,26 @@ in status preservation.**
   balanced across dimensions, gold statuses, and conditions; a 150-item primary
   subset covers raw/direct/recursive/rewrite_matched/source_peek. Two
   independent annotations under the frozen v3.2.3 guide are the next gate.
+- **P3 human labels are reliable.** 330 items: primary-judgment raw 0.967 /
+  κ 0.944; identity 0.991 / 0.943; action_status 0.961 / 0.924;
+  expressed_status 0.991 / 0.989; evidence 0.988 / 0.972; dimension 1.000.
+  One B data-entry inconsistency was resolved in adjudication.
+- **The confirmatory result is status omission, not unsupported distortion.**
+  Among 300 proposition-preserved items, 88 are `STATUS_OMISSION` (29%);
+  unsupported distortion is 3/330 (0.9%). Omission by condition: recursive
+  44.4%, rewrite_matched 46.2%, para 54.2%, temp1 42.3%, temp2 51.9%,
+  path_s2 53.8%; direct 3.7%, repeated_direct 3.7%, source_peek 0%, raw 0%,
+  retrieval 33.3%.
+- **Mechanism: chaining, not budget or call count.** Rewrite-matched equals
+  recursive (paired omission difference 0.000, CI [−0.167, 0.167]); repeated-
+  direct matches call count but behaves like direct (−0.367, CI
+  [−0.567, −0.167]); source-peek eliminates omission (−0.400, CI
+  [−0.567, −0.233]). Intermediate budget shrinkage and raw call count are not
+  the cause.
+- **The V3 claim must be restated.** The supported claim is **path-dependent
+  status representation loss**, dominated by omission, with unsupported
+  distortion as a rare subtype. A strong "distortion" framing is not supported
+  by the P3 counts.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

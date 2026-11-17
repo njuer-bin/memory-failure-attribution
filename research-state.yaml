@@ -54,14 +54,14 @@ hypotheses:
     motivation: "Central recursion claim; requires paired recursive-vs-direct comparison."
     parent: null
     priority: high
-    note: "Supported under the neutral writer. v2.3 shows rewrite-matched (constant intermediate budgets) equals recursive and both are much worse than direct, so repeated chained rewriting rather than budget shrinkage drives the effect. Not observed under the status-aware writer."
+    note: "Supported under the neutral writer. v2.3 shows rewrite-matched equals recursive and both are much worse than direct, so repeated chained rewriting rather than budget shrinkage drives the effect. P3 confirms with human labels: omission among preserved 44.4% recursive vs 3.7% direct; rewrite-matched 46.2%; repeated-direct 3.7%; source-peek 0%. The dominant outcome is status omission, not unsupported distortion (3/330)."
   - id: H3
     statement: "Proposition retention does not guarantee status retention."
     status: supported
     motivation: "Motivates CPSD as a separate metric from omission."
     parent: null
     priority: high
-    note: "Neutral proposition omission 1.1% in v3 and 0-2/30 in v2.3 while status errors are far more frequent."
+    note: "P3: 88/300 proposition-preserved items are status omissions; PLR is 10-20% in chained conditions, so omission is not explained by proposition loss. Unsupported distortion is rare (3/300)."
   - id: H4
     statement: "Status-only corruption may independently alter downstream decisions."
     status: pending
@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 30
+  total_runs: 32
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -285,18 +285,32 @@ experiments:
       wall_time_min: null
       change_summary: "Generated 330-item P3 blind annotation set (30 trajectories x 10 generated conditions + raw), shuffled, blank A/B files with action_status, condition key outside repo at G:/memory_failure_backup/v3_p2_annotation_key.csv. Balanced: 110 items per dimension, 55 per gold status, 30 per condition; primary subset (raw/direct/recursive/rewrite_matched/source_peek) = 150 items. Awaiting two independent annotations under v3.2.3."
       timestamp: "2026-11-17"
+    - run_id: "v3_p3_human_annotation"
+      hypothesis: "P3 blind annotation reliability on P2 outputs"
+      metric_value: 0.944
+      delta: null
+      wall_time_min: null
+      change_summary: "330 items, A/B complete. primary_judgment raw 0.967/kappa 0.944; proposition_identity 0.991/0.943; action_status 0.961/0.924; expressed_status 0.991/0.989; evidence 0.988/0.972; dimension 1.000. A 0 invalid; B 2 invalid values on one item (P2A-0149, status_expressed=YES with NOT_EXPRESSED), resolved by adjudication. 23 adjudication overrides, model-assisted; original labels preserved."
+      timestamp: "2026-11-17"
+    - run_id: "v3_p3_outcomes"
+      hypothesis: "P3 confirmatory outcome distribution"
+      metric_value: 0.444
+      delta: null
+      wall_time_min: null
+      change_summary: "Adjudicated 330 items: NO_DISTORTION 182, STATUS_OMISSION 88, PROPOSITION_LOSS 30, LEGITIMATE_UPDATE 27, UNSUPPORTED 3; PRESERVED 300. Omission among PRESERVED: recursive 0.444, rewrite_matched 0.462, para 0.542, temp1 0.423, temp2 0.519, path_s2 0.538; direct 0.037, repeated_direct 0.037, source_peek 0.000, raw 0.000, retrieval 0.333. Paired vs recursive: direct -0.367 [-0.567,-0.167], repeated_direct -0.367, source_peek -0.400 [-0.567,-0.233], rewrite_matched 0.000 [-0.167,0.167]. USDR overall 3/300 = 1.0%; condition contrasts uninformative. Claim reframed: chaining causes status omission; unsupported distortion is a rare subtype."
+      timestamp: "2026-11-17"
   current_protocol: "V3.2.3 frozen: P2 protocol docs/research/V3_P2_PROTOCOL.md; freeze record docs/research/V3_P2_FREEZE.md; formal ontology docs/research/V3_FORMAL_DEFINITIONS.md; annotation V3_ANNOTATION_GUIDELINES.md and V3_ANNOTATION_HOWTO.md; SAP V3_STATISTICAL_ANALYSIS_PLAN.md; runner experiments/v3_p2_paired_study.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1/V3.2 annotation calibrations are protocol-development results. The v3.2.2 identity re-annotation passes the calibration gate (primary kappa 0.827, identity 0.837, action_status 1.000). P2 is generated and passes the completeness gate (30/30 trajectories, 300/300 conditions, 0 errors). The 330-item P3 blind annotation set is ready; no P3 labels yet."
+  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1/V3.2 annotation calibrations are protocol-development results. The v3.2.2 identity re-annotation passes the calibration gate (primary kappa 0.827, identity 0.837, action_status 1.000). P2 passes the completeness gate (30/30, 300/300, 0 errors). P3 blind labels are reliable (primary kappa 0.944) and show status omission of 44-54% in chained conditions vs 3.7% in direct/repeated-direct and 0% in source-peek; unsupported distortion is 3/330. P4/P5 not started."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 29
-  last_direction: "evaluate"
-  last_reflection: "P2 generation passed the completeness gate: 30/30 trajectories, 300/300 generated conditions, 0 errors, 0 empty finals. Deterministic diagnostics show the expected pattern: chained conditions (recursive, rewrite_matched, temp, path_s2) produce shorter memories than direct/source_peek, while retrieval is longest. These are not proposition-retention evidence. The 330-item P3 blind annotation set is ready (balanced across dimensions, gold statuses, and conditions; 150-item primary subset). Next: two independent annotations under the frozen v3.2.3 guide, then the P3 gate."
+  cycle: 30
+  last_direction: "interpret"
+  last_reflection: "P3 blind labels are highly reliable (primary kappa 0.944; identity 0.943; action 0.924). The confirmatory result is a reframing: chained rewriting causes status OMISSION (44-54% of proposition-preserved outputs), while unsupported distortion is rare (3/330). Rewrite-matched equals recursive, so intermediate budget shrinkage is not the cause; repeated-direct equals direct, so call count is not the cause; source-peek eliminates omission. The V3 claim should be restated as path-dependent status representation loss, not unsupported distortion. Next: P4 downstream status-only intervention and P5 mitigation, plus the full-text novelty audit."
 
 workspace:
   findings: "findings.md"

@@ -530,6 +530,32 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   condition key outside the repo at `G:/memory_failure_backup/v3_p2_annotation_key.csv`.
 - Awaiting two independent annotations under v3.2.3.
 
+### P3 human evaluation — reliability and outcomes
+
+- 330 items, A/B complete. primary_judgment raw 0.967 / kappa 0.944;
+  proposition_identity 0.991 / 0.943; action_status 0.961 / 0.924;
+  expressed_status 0.991 / 0.989; evidence_support 0.988 / 0.972;
+  primary_dimension 1.000. A 0 invalid; B 2 invalid values on P2A-0149,
+  resolved by adjudication.
+- Adjudication: 23 overrides, model-assisted, original labels preserved.
+  Adjudicated labels: NO_DISTORTION 182, STATUS_OMISSION 88,
+  PROPOSITION_LOSS 30, LEGITIMATE_UPDATE 27, UNSUPPORTED 3.
+  Identity: PRESERVED 300, PARTIAL 29, LOST 1.
+- Omission among PRESERVED: recursive 44.4%, rewrite_matched 46.2%,
+  para 54.2%, temp1 42.3%, temp2 51.9%, path_s2 53.8%; direct 3.7%,
+  repeated_direct 3.7%, source_peek 0%, raw 0%, retrieval 33.3%.
+- Paired vs recursive (omission): direct -0.367 [-0.567,-0.167],
+  repeated_direct -0.367, source_peek -0.400 [-0.567,-0.233],
+  rewrite_matched 0.000 [-0.167,0.167]; temp/para/path null.
+- PLR 10-20% in chained conditions, 0% raw/source_peek/retrieval; omission is
+  not explained by proposition loss. Annotation ambiguity 1/330.
+- USDR overall 3/300 = 1.0% (recursive 1, temp1 2); condition contrasts
+  uninformative. The claim is reframed: **path-dependent status representation
+  loss (omission)**, with unsupported distortion as a rare subtype.
+- Recorded in `docs/research/2026-11-17-v3-p3-outcomes.md`; analysis in
+  `results/status_drift_v3_p2/analysis/`.
+
+
 
 
 
