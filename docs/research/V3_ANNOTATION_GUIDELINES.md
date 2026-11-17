@@ -1,4 +1,4 @@
-# V3 Blind Human Annotation Guidelines (v3.2)
+# V3 Blind Human Annotation Guidelines (v3.2.1)
 
 **Status:** calibration guide for the collapsed confirmatory ontology. Do not
 treat as frozen until the v3.2 conditional calibration set reaches acceptable
@@ -10,7 +10,10 @@ proposition identity no longer includes the condition relation; a status counts
 as expressed only with an explicit cue; an ordered chain that retains both the
 old and new state is `LEGITIMATE_UPDATE`; and `LEGITIMATE_UPDATE` is checked
 before `NO_DISTORTION`. Any `PARTIAL` identity is now scored
-`PROPOSITION_LOSS`.
+`PROPOSITION_LOSS`. v3.2.1 adds a required `action_status` field for
+`CONDITIONAL` items so condition and action states are measured separately;
+an explicit action escalation with no dialogue support is
+`UNSUPPORTED_STATUS_DISTORTION` (`CONDITIONAL_COLLAPSE`).
 
 ## 1. Purpose
 
@@ -96,8 +99,17 @@ Use only the labels for the chosen primary dimension:
 - all dimensions: `NOT_EXPRESSED`, `UNRECOVERABLE`
 
 For `CONDITIONAL`, `expressed_status` records the **condition state only**.
-Record the action state (if explicitly cued) in `rationale`; it is a secondary
-dimension and does not replace the condition state.
+Record the action state separately in `action_status` (v3.2.1):
+
+- `NOT_EXPRESSED` — no explicit cue for the action's state.
+- `CONSIDERING` — explicit consideration or interest, no commitment.
+- `COMMITTED` — explicit decision, commitment, registration, start, or
+  execution (`决定`, `已报名`, `开始`, `已买`, `按计划推进`).
+- `UNKNOWN` — an action cue is present but supports incompatible states.
+- `NOT_APPLICABLE` — non-conditional item.
+
+A bare action verb (`购电脑`, `参赛`) is not a cue; only an explicit state cue
+counts. For all conditional items `action_status` is required.
 
 ### E. Evidence support
 
@@ -114,19 +126,22 @@ Apply this order strictly:
 1. If `proposition_identity` is `LOST` or `PARTIAL`: `PROPOSITION_LOSS`.
    There is no "materially partial" exception; partial loss is loss for the
    primary outcome and is reported separately.
-2. Else if `status_expressed` is `NO` or `UNCLEAR`: `STATUS_OMISSION`.
-3. Else if the dialogue contains a later supported change and the memory
+2. Else if the dialogue contains a later supported change and the memory
    represents that change **as a change**: `LEGITIMATE_UPDATE`.
    An explicitly ordered chain that retains both the earlier and the later
    state of the same proposition (e.g. `计划买电脑→…→确认买电脑`) counts.
-4. Else if the expressed status matches the evidence-supported final state:
+3. Else if any applicable dimension explicitly asserts a state that the
+   dialogue does not support: `UNSUPPORTED_STATUS_DISTORTION`.
+   For `CONDITIONAL`, this includes `action_status = COMMITTED` when the
+   dialogue only supports `CONSIDERING` (subtype `CONDITIONAL_COLLAPSE`).
+4. Else if the primary dimension has no explicit status cue: `STATUS_OMISSION`.
+5. Else if the expressed statuses match the evidence-supported final states:
    `NO_DISTORTION`.
-5. Else if the expressed status differs and is unsupported:
-   `UNSUPPORTED_STATUS_DISTORTION`.
 6. If identity or status cannot be resolved: `AMBIGUOUS_UNASSESSABLE`.
 
-Step 3 must be checked **before** step 4. A memory that only states the final
-state (no earlier state retained) remains `NO_DISTORTION`.
+Steps 2 and 3 are checked before omission and no-distortion: an explicit
+unsupported action escalation is distortion even when the condition state is
+omitted. A memory that only states the final state remains `NO_DISTORTION`.
 
 ### G. Subtype, rationale, confidence, turn references
 
@@ -148,6 +163,10 @@ state (no earlier state retained) remains `NO_DISTORTION`.
 - **Implicit inference is not assertion.** `奖学金购机` does not assert that the
   condition is satisfied or that the purchase is committed. `获奖学金购电脑`
   asserts condition satisfied (explicit `获奖学金`) but not action commitment.
+- **Explicit action escalation is distortion.** `开始学日语` or `报名马拉松`
+  after a dialogue that only says `才考虑...` asserts `COMMITTED` without
+  support; score `UNSUPPORTED_STATUS_DISTORTION`, subtype
+  `CONDITIONAL_COLLAPSE`, even if the condition state is correct.
 - **A memory that simply states the final state is `NO_DISTORTION`**, not
   `LEGITIMATE_UPDATE`. `LEGITIMATE_UPDATE` requires the memory to represent the
   later supported change *as a change* (explicit marker or ordered chain that

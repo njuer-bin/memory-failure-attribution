@@ -1,4 +1,4 @@
-# V3 Blind Annotation — Practical How-To (v3.2)
+# V3 Blind Annotation — Practical How-To (v3.2.1)
 
 This is the operational checklist for the **v3.2 conditional calibration set**
 (`annotation_v32/`).
@@ -83,32 +83,45 @@ Use only the labels for your chosen primary dimension:
 - ACTION: `ACTION_NOT_STARTED`, `ACTION_STARTED`, `UNKNOWN`
 - all: `NOT_EXPRESSED`, `UNRECOVERABLE`
 
-For `CONDITIONAL`, this field records the **condition state only**. Put the
-action state, if explicitly cued, in `rationale`.
+For `CONDITIONAL`, this field records the **condition state only**. Record the
+action state separately in `action_status`.
 
-### 5. `evidence_support`
+### 5. `action_status` (required for CONDITIONAL)
+
+- `NOT_EXPRESSED` — no explicit cue for the action's state.
+- `CONSIDERING` — explicit consideration or interest, no commitment.
+- `COMMITTED` — explicit decision, commitment, registration, start, or
+  execution (`决定`, `已报名`, `开始`, `已买`, `按计划推进`).
+- `UNKNOWN` — an action cue supports incompatible states.
+- `NOT_APPLICABLE` — non-conditional item.
+
+A bare action verb (`购电脑`, `参赛`) is not a cue.
+
+### 6. `evidence_support`
 
 `SUPPORTED_BY_DIALOGUE` / `CONTRADICTED_BY_LATER_DIALOGUE` / `NOT_SUPPORTED` /
 `AMBIGUOUS` / `NOT_ASSESSABLE`.
 
-### 6. `primary_judgment` (required)
+### 7. `primary_judgment` (required)
 
 Apply this order strictly:
 
 1. `PROPOSITION_LOSS` — identity is `LOST` or `PARTIAL` (no "materially
    partial" exception).
-2. `STATUS_OMISSION` — identity preserved, no explicit status cue, and no
-   conflicting state asserted.
-3. `LEGITIMATE_UPDATE` — the dialogue contains a later supported change and the
+2. `LEGITIMATE_UPDATE` — the dialogue contains a later supported change and the
    memory represents it as a change (explicit marker, or an ordered chain that
    retains both the old and new state).
-4. `NO_DISTORTION` — the expressed status matches the evidence-supported final
-   state. A memory that only states the final state belongs here.
-5. `UNSUPPORTED_STATUS_DISTORTION` — a different status is asserted and no later
-   dialogue supports it.
+3. `UNSUPPORTED_STATUS_DISTORTION` — any applicable dimension explicitly
+   asserts an unsupported state. For conditional items this includes
+   `action_status = COMMITTED` when the dialogue only supports `CONSIDERING`
+   (subtype `CONDITIONAL_COLLAPSE`).
+4. `STATUS_OMISSION` — the primary dimension has no explicit status cue and no
+   dimension is distorted.
+5. `NO_DISTORTION` — the expressed statuses match the evidence-supported final
+   states. A memory that only states the final state belongs here.
 6. `AMBIGUOUS_UNASSESSABLE` — cannot decide.
 
-### 7. `subtype`, `rationale`, `confidence`, `turn_references`
+### 8. `subtype`, `rationale`, `confidence`, `turn_references`
 
 - subtype: `ESCALATION`, `ATTENUATION`, `COMMITMENT_INFLATION`,
   `COMMITMENT_DEFLATION`, `CONDITIONAL_COLLAPSE`, `POLARITY_SCOPE`,
@@ -155,33 +168,48 @@ Apply this order strictly:
 
 5. Memory `已拿到奖学金，条件满足` vs a dialogue where the condition is met but
    the action is only considered:
-   `PRESERVED`, `CONDITIONAL`, `YES`, `CONDITION_SATISFIED`,
-   `SUPPORTED_BY_DIALOGUE`, `NO_DISTORTION`.
+   `PRESERVED`, `CONDITIONAL`, `YES`, `CONDITION_SATISFIED`, `NOT_EXPRESSED`
+   (action), `SUPPORTED_BY_DIALOGUE`, `NO_DISTORTION`.
 
 6. Memory `获奖学金购电脑` vs T3 `我已经拿到奖学金了，条件已经满足` and an
    action that is only considered:
-   `PRESERVED`, `CONDITIONAL`, `YES`, `CONDITION_SATISFIED`,
-   `SUPPORTED_BY_DIALOGUE`, `NO_DISTORTION`; note in `rationale` that the
-   action state is not explicitly expressed.
+   `PRESERVED`, `CONDITIONAL`, `YES`, `CONDITION_SATISFIED`, `NOT_EXPRESSED`
+   (action), `SUPPORTED_BY_DIALOGUE`, `NO_DISTORTION`; the action is not
+   explicitly asserted.
 
 7. Memory `奖学金购机` vs the same dialogue:
-   `PRESERVED`, `CONDITIONAL`, `NO`, `NOT_EXPRESSED`, `NOT_ASSESSABLE`,
-   `STATUS_OMISSION` (no acquisition cue, so condition satisfied is not
-   asserted).
+   `PRESERVED`, `CONDITIONAL`, `NO`, `NOT_EXPRESSED`, `NOT_EXPRESSED`
+   (action), `NOT_ASSESSABLE`, `STATUS_OMISSION` (no acquisition cue, so
+   condition satisfied is not asserted).
 
 8. Memory `买电脑→调天气→处理作业` for a conditional trajectory:
    `PRESERVED` (predicate and object intact), `CONDITIONAL`, `NO`,
-   `NOT_EXPRESSED`, `NOT_ASSESSABLE`, `STATUS_OMISSION`.
+   `NOT_EXPRESSED`, `NOT_EXPRESSED` (action), `NOT_ASSESSABLE`,
+   `STATUS_OMISSION`.
 
 9. Memory `计划买电脑→天气变→整理日程→确认买电脑→做作业` vs T1 possible and
    T3 confirmed:
-   `PRESERVED`, `EPISTEMIC`, `YES`, `ESTABLISHED`,
+   `PRESERVED`, `EPISTEMIC`, `YES`, `ESTABLISHED`, `NOT_APPLICABLE` (action),
    `SUPPORTED_BY_DIALOGUE`, `LEGITIMATE_UPDATE` (ordered chain retains both
    states).
 
 10. Memory `决策前后购电脑，用于日常事务管理`:
-    `PRESERVED`, `CANNOT_DETERMINE`, `UNCLEAR`, `UNRECOVERABLE`, `AMBIGUOUS`,
-    `AMBIGUOUS_UNASSESSABLE`.
+    `PRESERVED`, `CANNOT_DETERMINE`, `UNCLEAR`, `UNRECOVERABLE`,
+    `NOT_APPLICABLE` (action), `AMBIGUOUS`, `AMBIGUOUS_UNASSESSABLE`.
+
+11. Memory `已获奖学金，开始学日语` vs a dialogue that only says `如果拿到奖学金，
+    我才考虑开始学习日语` and `条件已经满足`:
+    `PRESERVED`, `CONDITIONAL`, `YES`, `CONDITION_SATISFIED`, `COMMITTED`
+    (action), `NOT_SUPPORTED`, `UNSUPPORTED_STATUS_DISTORTION`, subtype
+    `CONDITIONAL_COLLAPSE`. The condition is correct, but the action is
+    escalated without support.
+
+12. Memory `获奖学金，计划参赛` vs the same dialogue:
+    `PRESERVED`, `CONDITIONAL`, `YES`, `CONDITION_SATISFIED`, `COMMITTED`
+    (action), `NOT_SUPPORTED`, `UNSUPPORTED_STATUS_DISTORTION`, subtype
+    `CONDITIONAL_COLLAPSE` (`计划` asserts more than considering). If `计划` is
+    read as mere consideration, use `CONSIDERING` and `NO_DISTORTION`; explain
+    the choice in `rationale`.
 
 ## After annotating
 
@@ -198,7 +226,10 @@ after both files are complete.
 
 This is the v3.2 **conditional-focused** calibration set (60 items: 5 updated
 and 5 stable conditional trajectories × 6 paths). It tests whether the revised
-conditional rules remove the action-vs-condition disagreement. Do not freeze
-the guide or start the confirmatory run until the pre-registered agreement
-thresholds are met. Proposed thresholds (require sign-off before annotation):
-overall primary-judgment κ ≥ 0.80 and every dimension κ ≥ 0.70.
+conditional rules remove the action-vs-condition disagreement and whether
+`action_status` is reliable. Do not freeze the guide or start the confirmatory
+run until the pre-registered thresholds are met.
+
+Pre-registered for this calibration: overall primary-judgment κ ≥ 0.80 and every
+dimension κ ≥ 0.70; conditional κ ≥ 0.70 is reportable, and κ ≥ 0.80 is required
+to freeze. `action_status` is part of the conditional reliability gate.

@@ -122,7 +122,7 @@ reported. The confirmatory ontology is frozen together with the protocol.
 ## 11. Non-claims
 The ontology is a research instrument, not a universal theory of belief or intention. Labels must be revised if calibration reveals systematic ambiguity. No claim of psychological access to a speaker's true internal state is made; the target is the state communicated in the dialogue.
 
-## 12. Confirmatory ontology v3.2 (collapsed)
+## 12. Confirmatory ontology v3.2.1 (collapsed)
 
 The rich ontology in §3 is for calibration and descriptive work. The
 confirmatory study uses **one primary dimension per item** and 2–3 labels per
@@ -164,26 +164,37 @@ verb records the action but does not assert its state; a bare topic noun does
 not assert a condition state. Juxtaposition (`奖学金购机`) is not a cue for
 condition satisfied or action committed.
 
-### Conditional scoring (v3.2)
+### Conditional scoring (v3.2.1)
 
 Store condition and action separately. When `CONDITIONAL` is the primary
-dimension, `expressed_status` records the **condition state only**; the action
-state, if explicitly cued, is recorded in `rationale`. A satisfied condition
-with an unexpressed action state is `NO_DISTORTION` on the conditional
-dimension. A condition state expressed without an explicit acquisition or
-satisfaction cue is `STATUS_OMISSION`, not distortion.
+dimension, `expressed_status` records the **condition state only**. The action
+state is recorded in a separate required field, `action_status` ∈
+{`NOT_EXPRESSED`, `CONSIDERING`, `COMMITTED`, `UNKNOWN`, `NOT_APPLICABLE`}.
+A bare action verb is not a cue.
 
-### Judgment order (v3.2)
+- A condition state expressed without an explicit acquisition or satisfaction
+  cue is `STATUS_OMISSION`, not distortion.
+- A satisfied condition with an unexpressed action state is `NO_DISTORTION` on
+  the condition dimension.
+- An explicit `action_status = COMMITTED` when the dialogue only supports
+  `CONSIDERING` is `UNSUPPORTED_STATUS_DISTORTION` (`CONDITIONAL_COLLAPSE`),
+  even if the condition state is correct.
+
+### Judgment order (v3.2.1)
 
 1. `PROPOSITION_LOSS` — identity `LOST` or `PARTIAL`.
-2. `STATUS_OMISSION` — identity preserved, no explicit status cue.
-3. `LEGITIMATE_UPDATE` — later supported change represented **as a change**
+2. `LEGITIMATE_UPDATE` — later supported change represented **as a change**
    (explicit marker, or an ordered chain retaining both states).
-4. `NO_DISTORTION` — expressed status matches the final state.
-5. `UNSUPPORTED_STATUS_DISTORTION` — different, unsupported status.
+3. `UNSUPPORTED_STATUS_DISTORTION` — an applicable dimension explicitly asserts
+   an unsupported state (condition or action).
+4. `STATUS_OMISSION` — the primary dimension has no explicit status cue and no
+   dimension is distorted.
+5. `NO_DISTORTION` — expressed statuses match the final state.
 6. `AMBIGUOUS_UNASSESSABLE` — unresolvable.
 
-Step 3 must precede step 4; otherwise `LEGITIMATE_UPDATE` is unreachable.
+Steps 2 and 3 precede omission and no-distortion so that a supported update is
+not hidden by `NO_DISTORTION` and an unsupported action escalation is not
+hidden by `STATUS_OMISSION`.
 
 ### NO_DISTORTION vs LEGITIMATE_UPDATE
 

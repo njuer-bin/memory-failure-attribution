@@ -428,3 +428,22 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   threshold (proposal: overall kappa >= 0.80, every dimension >= 0.70).
   Provenance of A/B is still unrecorded and the adjudication is model-assisted.
 
+### v3.2.1 conditional instrument: action_status added — completed
+
+- A deterministic scan of the 60 v3.2 memories found explicit action
+  escalations that the condition-only form would score `NO_DISTORTION`
+  (e.g. `已获奖学金，开始学日语`; `获奖学金，计划参赛`).
+- Added a required `action_status` field for `CONDITIONAL` items:
+  `NOT_EXPRESSED` / `CONSIDERING` / `COMMITTED` / `UNKNOWN` /
+  `NOT_APPLICABLE`.
+- Judgment order now checks `LEGITIMATE_UPDATE` and
+  `UNSUPPORTED_STATUS_DISTORTION` before omission and no-distortion; an
+  explicit `COMMITTED` action with only `CONSIDERING` support is
+  `UNSUPPORTED_STATUS_DISTORTION` (`CONDITIONAL_COLLAPSE`).
+- Regenerated `annotation_v32/` with blank labels and the new field; updated
+  the checker, guide, how-to, and formal definitions.
+- Provenance decision: maintainer directed that annotator provenance is not a
+  blocker. Report as annotator-unspecified calibration; do not describe A/B as
+  independent human annotators.
+
+

@@ -157,11 +157,20 @@ in status preservation.**
   `LEGITIMATE_UPDATE`; any `PARTIAL` is `PROPOSITION_LOSS`. A conditional
   memory with condition satisfied but no action cue is `NO_DISTORTION` on the
   conditional dimension, with the action state recorded as unexpressed.
+- **The condition-only form under-measured conditional collapse.** A scan of
+  the v3.2 set found explicit action escalations (`已获奖学金，开始学日语`;
+  `获奖学金，计划参赛`) that the old form would have scored `NO_DISTORTION`
+  because only the condition state was recorded. v3.2.1 adds a required
+  `action_status` field; an explicit `COMMITTED` action with only
+  `CONSIDERING` support is `UNSUPPORTED_STATUS_DISTORTION`
+  (`CONDITIONAL_COLLAPSE`).
 - **The next gate is a conditional-only calibration.** 60 items (5 updated + 5
   stable conditional trajectories × 6 paths) are ready under `annotation_v32/`.
-  The pre-registered proposal is overall kappa >= 0.80 and every dimension
+  The pre-registered threshold is overall kappa >= 0.80 and every dimension
   kappa >= 0.70; conditional must reach 0.70 to be reportable and 0.80 to be
-  frozen. Do not start P2 before this gate passes.
+  frozen. Do not start P2 before this gate passes. Annotator provenance is
+  waived as a blocker by maintainer decision; report as annotator-unspecified
+  calibration.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

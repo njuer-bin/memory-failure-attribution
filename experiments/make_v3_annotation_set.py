@@ -27,9 +27,9 @@ PATHS = ("S1", "S2", "PEEK", "PARA", "TEMP1", "TEMP2")
 
 LABEL_FIELDS = [
     "annotator_id", "proposition_identity", "primary_dimension",
-    "status_expressed", "expressed_status", "evidence_support",
-    "primary_judgment", "subtype", "rationale", "confidence",
-    "turn_references",
+    "status_expressed", "expressed_status", "action_status",
+    "evidence_support", "primary_judgment", "subtype", "rationale",
+    "confidence", "turn_references",
 ]
 
 ITEM_FIELDS = ["item_id", "target_proposition", "target_question",

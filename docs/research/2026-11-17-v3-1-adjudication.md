@@ -140,10 +140,15 @@ Written into `V3_ANNOTATION_GUIDELINES.md`,
   `获奖学金购电脑` expresses condition satisfied but not action commitment;
   `奖学金购机` expresses neither.
 - **Conditional scoring.** `expressed_status` records the condition state only;
-  the action state, if explicitly cued, goes in `rationale`.
-- **Update ordering.** `LEGITIMATE_UPDATE` is checked before `NO_DISTORTION`.
-  An ordered chain retaining both old and new states counts as representing the
-  change as a change; only the final state remains `NO_DISTORTION`.
+  the action state is recorded in the separate `action_status` field
+  (`NOT_EXPRESSED`, `CONSIDERING`, `COMMITTED`, `UNKNOWN`). An explicit
+  `COMMITTED` action when the dialogue only supports `CONSIDERING` is
+  `UNSUPPORTED_STATUS_DISTORTION` (`CONDITIONAL_COLLAPSE`), even if the
+  condition state is correct.
+- **Update ordering.** `LEGITIMATE_UPDATE` and `UNSUPPORTED_STATUS_DISTORTION`
+  are checked before `STATUS_OMISSION` and `NO_DISTORTION`. An ordered chain
+  retaining both old and new states counts as representing the change as a
+  change; only the final state remains `NO_DISTORTION`.
 - **Ambiguity.** `CANNOT_DETERMINE` is for memories supporting incompatible
   readings, not for `PARTIAL` identity.
 
@@ -151,25 +156,32 @@ Under these rules, all nine primary disagreements become determinate:
 V3C-0003 → NO_DISTORTION; 0008/0012/0035 → PROPOSITION_LOSS; 0013/0022/0053/0058
 → STATUS_OMISSION; 0014/0033 → LEGITIMATE_UPDATE.
 
-## 7. Provenance caveat
+## 7. Provenance decision
 
-The maintainer has declared A and B final, but the repository still does not
-record who or what produced them, their procedure, or their independence. A
-previous B file was withdrawn because it was gold-derived. Until provenance is
-recorded in the curator-only key, these numbers must be labeled
-**annotator-unspecified calibration**, not human inter-annotator reliability.
+The maintainer (2026-11-17) directed that annotator provenance is not a blocker
+for continuing the analysis. A and B are used as provided. The repository still
+does not record who or what produced them, their procedure, or their
+independence, and a previous B file was withdrawn because it was gold-derived.
+Accordingly:
+
+- report these numbers as **annotator-unspecified calibration**;
+- do not describe A and B as independent human annotators;
+- do not use this κ as external human-reliability evidence without provenance.
+
+The model adjudication in §4 remains model-assisted and cannot substitute for a
+human adjudicator.
 
 ## 8. Required next actions
 
-1. Record annotator provenance (identity or model, procedure, date,
-   independence) in the curator-only key.
-2. Recalibrate on the v3.2 conditional-focused set
-   (`annotation_v32/`, 60 items: 5 updated + 5 stable conditional
-   trajectories × 6 paths), with the revised guide.
-3. Pre-register the freeze threshold before annotation. Proposal: overall
-   primary-judgment κ ≥ 0.80 and every dimension κ ≥ 0.70; conditional must
-   reach κ ≥ 0.70 to be reportable and ≥ 0.80 to be frozen. This proposal
-   requires sign-off.
+1. Annotate the v3.2 conditional-focused set (`annotation_v32/`, 60 items: 5
+   updated + 5 stable conditional trajectories × 6 paths) under the v3.2.1
+   guide, including the required `action_status` field.
+2. Pre-registered freeze threshold for this calibration: overall
+   primary-judgment κ ≥ 0.80 and every dimension κ ≥ 0.70; conditional
+   κ ≥ 0.70 is reportable and κ ≥ 0.80 is required to freeze. `action_status`
+   is part of the conditional reliability gate.
+3. Run `experiments.check_v3_annotations`; adjudicate disagreements with a
+   human third reviewer and preserve original labels.
 4. If the conditional gate passes, freeze the guide and ontology, then proceed
    to P2 confirmatory generation. If it fails, revise the conditional rules
    again rather than dropping the dimension.

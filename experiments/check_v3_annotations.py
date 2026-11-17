@@ -1,4 +1,4 @@
-"""Validate V3 v3.1 blind annotation files and compute agreement.
+"""Validate V3 v3.2 blind annotation files and compute agreement.
 
 Usage:
     python -m experiments.check_v3_annotations --a annotator_A.csv --b annotator_B.csv
@@ -27,6 +27,8 @@ ALLOWED = {
     "primary_dimension": set(DIMENSION_STATUS),
     "status_expressed": {"YES", "NO", "UNCLEAR"},
     "expressed_status": set().union(*DIMENSION_STATUS.values()),
+    "action_status": {"NOT_EXPRESSED", "CONSIDERING", "COMMITTED", "UNKNOWN",
+                      "NOT_APPLICABLE"},
     "evidence_support": {"SUPPORTED_BY_DIALOGUE", "CONTRADICTED_BY_LATER_DIALOGUE",
                          "NOT_SUPPORTED", "AMBIGUOUS", "NOT_ASSESSABLE"},
     "primary_judgment": {"NO_DISTORTION", "LEGITIMATE_UPDATE",
@@ -73,6 +75,20 @@ def validate(rows: list[dict]) -> dict:
             report["expressed_status"]["invalid"].append({
                 "item_id": row.get("item_id"),
                 "value": f"{status} but status_expressed=YES",
+            })
+        action = (row.get("action_status") or "").strip()
+        if dimension == "CONDITIONAL":
+            if not action:
+                report["action_status"]["missing"] += 1
+            elif action == "NOT_APPLICABLE":
+                report["action_status"]["invalid"].append({
+                    "item_id": row.get("item_id"),
+                    "value": "NOT_APPLICABLE for CONDITIONAL item",
+                })
+        elif action and action != "NOT_APPLICABLE":
+            report["action_status"]["invalid"].append({
+                "item_id": row.get("item_id"),
+                "value": f"{action} but primary_dimension={dimension}",
             })
     return report
 
