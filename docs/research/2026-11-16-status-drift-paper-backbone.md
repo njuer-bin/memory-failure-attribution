@@ -361,3 +361,23 @@ mitigation ranking is model-dependent: qwen benefits most from source access,
 gemma from the status-aware prompt and the combination. The chain effect
 replicates in direction, not in every magnitude. Do not claim a universal
 source-access mitigation; report the model boundary.
+
+## Statistical caliber notes (2026-11-17 freeze)
+
+Pilot frozen at commit `15faa4d` (tag `freeze/v3-pilot-2026-11-17`); see
+`docs/research/V3_FINAL_FREEZE.md` and `V3_FREEZE_MANIFEST.txt`.
+
+- Condition-table percentages are descriptive. Their Wilson intervals assume
+  independent items and are anti-conservative because items cluster within
+  trajectories. The inferential estimates are the paired contrasts (10,000-
+  resample trajectory bootstrap).
+- Paired omission contrasts are differences in the fraction of all
+  trajectory-condition cells labeled `STATUS_OMISSION`, not conditional-on-
+  preserved rate differences. Conditional rates are in the condition table.
+- USDR is 3/300 = 1.0% among generated conditions; 3/330 = 0.9% including the
+  raw reference. State the denominator.
+- Reliability: report raw agreement and kappa together (kappa is
+  prevalence-sensitive). Adjudication is model-assisted, not independent human
+  adjudication.
+- Guide versions are not pooled: v3.2.3 (P2/P3), v3.2.4 (P5 recheck), v3.2.5
+  (gemma writer recheck).
