@@ -1,4 +1,4 @@
-# V3 Blind Human Annotation Guidelines (v3.2.1)
+# V3 Blind Human Annotation Guidelines (v3.2.2)
 
 **Status:** calibration guide for the collapsed confirmatory ontology. Do not
 treat as frozen until the v3.2 conditional calibration set reaches acceptable
@@ -14,6 +14,12 @@ before `NO_DISTORTION`. Any `PARTIAL` identity is now scored
 `CONDITIONAL` items so condition and action states are measured separately;
 an explicit action escalation with no dialogue support is
 `UNSUPPORTED_STATUS_DISTORTION` (`CONDITIONAL_COLLAPSE`).
+
+**v3.2.2 (2026-11-17).** The v3.2.1 calibration showed that `action_status` and
+the condition state are reliable (κ 1.000 and 0.974) but that proposition
+identity was applied at topic level by one annotator. v3.2.2 adds the
+head-predicate + object worksheet below and defines evidence support as support
+for the **expressed status**, not the proposition.
 
 ## 1. Purpose
 
@@ -51,6 +57,30 @@ For a conditional trajectory the target proposition is the action itself (e.g.
 A keyword or topic label alone is not preservation. If the target predicate is
 absent (e.g. `电脑调整` for `购买电脑`; `上海工作多` for `去上海工作`), record
 `PARTIAL`, not `PRESERVED`.
+
+**Identity worksheet (v3.2.2).** For every item:
+
+1. Write the target's **head predicate** and **object/entity**.
+2. Locate both in the memory. Direct synonyms and inflections count; aspect and
+   modality words do not (`开始学习` preserves `学习`; `决定购买` preserves
+   `购买`).
+3. `PRESERVED` only if both are recoverable. A contextually unambiguous object
+   shorthand counts (`购机` for `购买电脑` in a computer trajectory).
+4. `PARTIAL` if the head predicate is replaced by a different action
+   (`读研` for `申请研究生`), the object is lost or broadened
+   (`参赛` for `参加数学建模比赛`; `奖学金申请` for `申请研究生`), or only a
+   topic noun remains (`海外交换` for `申请海外交换`).
+5. Do not infer identity from status correctness or from the target question.
+
+| Target | Memory | Identity |
+|---|---|---|
+| 购买电脑 | 买电脑 / 购电脑 / 购机 | PRESERVED |
+| 开始学习日语 | 学日语 / 日语学习 | PRESERVED |
+| 申请海外交换 | 暂不考虑海外交换 | PARTIAL (no `申请`) |
+| 申请研究生 | 暂不读研 | PARTIAL (different action) |
+| 申请研究生 | 奖学金申请 | PARTIAL (object lost) |
+| 参加数学建模比赛 | 参赛 | PARTIAL (specific object lost) |
+| 申请研究生 | 研究生申请奖学金 | AMBIGUOUS (two parses) |
 
 ### B. Primary dimension (applicability)
 
@@ -114,6 +144,13 @@ A bare action verb (`购电脑`, `参赛`) is not a cue; only an explicit state 
 counts. For all conditional items `action_status` is required.
 
 ### E. Evidence support
+
+Evidence support is about the **expressed status**, not about the proposition.
+If `status_expressed` is `NO` or `UNCLEAR` (or the status is `NOT_EXPRESSED` /
+`UNRECOVERABLE`), use `NOT_ASSESSABLE`; do not use `SUPPORTED_BY_DIALOGUE`
+merely because the dialogue's final state is clear. If a status is explicitly
+expressed, assess it even when proposition identity is `PARTIAL`; the primary
+judgment still follows the identity-first order.
 
 - `SUPPORTED_BY_DIALOGUE`
 - `CONTRADICTED_BY_LATER_DIALOGUE`

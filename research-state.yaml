@@ -73,7 +73,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 25
+  total_runs: 26
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -250,18 +250,25 @@ experiments:
       wall_time_min: null
       change_summary: "Generated annotation_v32: 60 conditional items (5 updated + 5 stable trajectories x 6 paths; 30 CONDITION_SATISFIED / 30 CONDITION_ACTIVE), new seed, blank annotator files, key outside repo at G:/memory_failure_backup/v3_annotation_key_p1c_v32.csv. v3.2.1 adds a required action_status field so condition and action states are measured separately; a deterministic scan found explicit action escalations (e.g. '已获奖学金，开始学日语') that the condition-only form would have scored NO_DISTORTION. Awaiting two independent annotations under the v3.2.1 guide."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.1 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md and V3_ANNOTATION_HOWTO.md (v3.2.1); statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md; adjudication record: docs/research/2026-11-17-v3-1-adjudication.md"
+    - run_id: "v3_2_conditional_calibration_result"
+      hypothesis: "V3.2.1 conditional calibration: is the instrument reliable?"
+      metric_value: 0.55
+      delta: null
+      wall_time_min: null
+      change_summary: "60 items, A/B complete. action_status 60/60 (kappa 1.000), expressed_status 59/60 (0.974), primary_dimension 60/60; but primary_judgment raw 0.733/kappa 0.550, proposition_identity 0.733/0.378, evidence_support 0.800/0.437. Gate FAILS. All 16 identity disagreements are A PRESERVED vs B PARTIAL/AMBIGUOUS: A applies topic-level preservation, B applies head-predicate+object. The one distortion case (V32C-0020 '已获奖学金，开始学日语') is agreed by both as CONDITIONAL_COLLAPSE. Adjudication resolves disputed fields toward B; model-assisted. v3.2.2 adds an identity worksheet and an evidence-support rule; re-annotate identity/judgment/evidence."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2.2 draft: docs/research/V3_EXPERIMENT_PROTOCOL.md; formal ontology: docs/research/V3_FORMAL_DEFINITIONS.md; blind annotation: docs/research/V3_ANNOTATION_GUIDELINES.md and V3_ANNOTATION_HOWTO.md (v3.2.2); statistical plan: docs/research/V3_STATISTICAL_ANALYSIS_PLAN.md; adjudication records: docs/research/2026-11-17-v3-1-adjudication.md and 2026-11-17-v3-2-conditional-calibration.md"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots, the V3.1 annotation calibration, and the V3.2 model-assisted adjudication are protocol-development results. No V3 confirmatory results yet. The V3.2 conditional calibration set is waiting for annotation."
+  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots, the V3.1 annotation calibration, the V3.2 model-assisted adjudication, and the V3.2.1 conditional calibration are protocol-development results. The V3.2.1 condition/action instrument is reliable; proposition identity is not yet reproducible. No V3 confirmatory results yet."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 25
+  cycle: 26
   last_direction: "calibrate"
-  last_reflection: "Adjudication traced the conditional failure to four guide defects, not sampling noise: condition relation was counted inside proposition identity; LEGITIMATE_UPDATE was checked after NO_DISTORTION and was unreachable; status expression lacked an explicit-cue rule; and 'materially PARTIAL' was undefined. v3.2 fixes all four and resolves all nine primary disagreements. A deterministic scan then found explicit action escalations in the v3.2 set, so v3.2.1 adds a required action_status field; otherwise 'condition satisfied -> action committed' would be scored NO_DISTORTION. The v3.2.1 conditional 60-item set is ready. Provenance of A/B is waived as a blocker by maintainer decision; report as annotator-unspecified calibration. Next gate: two annotations and conditional kappa."
+  last_reflection: "The v3.2.1 conditional instrument works for status: action_status is 60/60 and condition state 59/60, and both annotators independently flag the one real conditional collapse. The gate fails only because proposition identity is applied at topic level by A vs head-predicate+object by B; evidence support inherits the same divergence. v3.2.2 adds an identity worksheet and defines evidence support as support for the expressed status. Re-annotate identity/judgment/evidence on the same 60 items; condition/action fields can be retained. Do not freeze or start P2 until primary kappa >= 0.80 and identity kappa >= 0.70."
 
 workspace:
   findings: "findings.md"

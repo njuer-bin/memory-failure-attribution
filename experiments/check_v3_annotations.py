@@ -90,6 +90,14 @@ def validate(rows: list[dict]) -> dict:
                 "item_id": row.get("item_id"),
                 "value": f"{action} but primary_dimension={dimension}",
             })
+        evidence = (row.get("evidence_support") or "").strip()
+        if evidence == "SUPPORTED_BY_DIALOGUE" and (
+                expressed in ("NO", "UNCLEAR")
+                or status in ("NOT_EXPRESSED", "UNRECOVERABLE")):
+            report["evidence_support"]["invalid"].append({
+                "item_id": row.get("item_id"),
+                "value": f"SUPPORTED_BY_DIALOGUE but status_expressed={expressed}",
+            })
     return report
 
 

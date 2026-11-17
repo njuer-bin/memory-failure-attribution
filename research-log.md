@@ -446,4 +446,29 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   blocker. Report as annotator-unspecified calibration; do not describe A/B as
   independent human annotators.
 
+### V3.2.1 conditional calibration — failed on identity, passed on status
+
+- 60 conditional items; A and B complete and schema-valid.
+- `action_status` 60/60 (kappa 1.000); `expressed_status` 59/60 (0.974);
+  `primary_dimension` 60/60. The conditional state/action instrument works.
+- `primary_judgment` raw 0.733 / kappa 0.550; `proposition_identity`
+  0.733 / 0.378; `evidence_support` 0.800 / 0.437. Gate fails.
+- 16 identity disagreements: A `PRESERVED` vs B `PARTIAL` (15) or `AMBIGUOUS`
+  (1). A applies topic-level preservation; B applies head-predicate + object.
+  Examples: `暂不考虑海外交换` vs `申请海外交换`; `读研` vs `申请研究生`;
+  `奖学金申请` vs `申请研究生`; `参赛` vs `参加数学建模比赛`.
+- The one real distortion (`V32C-0020`, `已获奖学金，开始学日语`) is labeled
+  identically by both: `UNSUPPORTED_STATUS_DISTORTION`,
+  `CONDITIONAL_COLLAPSE`.
+- Adjudication resolves all disputed fields toward B under the stated rule;
+  it is model-assisted and not independent. Adjudicated distribution:
+  PRESERVED 36 / PARTIAL 23 / AMBIGUOUS 1; NO_DISTORTION 30 /
+  PROPOSITION_LOSS 23 / STATUS_OMISSION 5 / UNSUPPORTED 1 / AMBIGUOUS 1.
+- v3.2.2 adds an identity worksheet and defines `evidence_support` as support
+  for the expressed status (`NOT_ASSESSABLE` when no status is expressed).
+- Next: re-annotate identity/judgment/evidence on the same 60 items; retain the
+  condition/action fields. Do not freeze or start P2.
+- Recorded in `docs/research/2026-11-17-v3-2-conditional-calibration.md`.
+
+
 

@@ -164,13 +164,24 @@ in status preservation.**
   `action_status` field; an explicit `COMMITTED` action with only
   `CONSIDERING` support is `UNSUPPORTED_STATUS_DISTORTION`
   (`CONDITIONAL_COLLAPSE`).
-- **The next gate is a conditional-only calibration.** 60 items (5 updated + 5
-  stable conditional trajectories × 6 paths) are ready under `annotation_v32/`.
-  The pre-registered threshold is overall kappa >= 0.80 and every dimension
-  kappa >= 0.70; conditional must reach 0.70 to be reportable and 0.80 to be
-  frozen. Do not start P2 before this gate passes. Annotator provenance is
-  waived as a blocker by maintainer decision; report as annotator-unspecified
-  calibration.
+- **The v3.2.1 conditional calibration passes on status, fails on identity.**
+  60 items. `action_status` 60/60 (κ 1.000), condition state 59/60 (κ 0.974),
+  dimension 60/60; but `primary_judgment` κ 0.550, `proposition_identity`
+  κ 0.378, `evidence_support` κ 0.437. The gate fails. All 16 identity
+  disagreements are A `PRESERVED` vs B `PARTIAL`/`AMBIGUOUS`: A applies
+  topic-level preservation, B applies head-predicate + object. The one real
+  distortion (`已获奖学金，开始学日语`) is labeled identically by both as
+  `CONDITIONAL_COLLAPSE`.
+- **Strict identity implies substantial proposition loss.** Under the
+  predicate+object rule, 23/60 (38%) are `PARTIAL`; the joint outcome must
+  report proposition loss separately, and status analyses are conditioned on
+  the 36 `PRESERVED` items. A lenient topic-level rule would inflate the
+  status-distortion denominator.
+- **The next gate is an identity re-annotation.** v3.2.2 adds the identity
+  worksheet and the evidence-support rule. Re-annotate
+  `proposition_identity`, `primary_judgment`, and `evidence_support` on the
+  same 60 items (retain condition/action). Do not start P2 before primary
+  κ ≥ 0.80 and identity κ ≥ 0.70.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

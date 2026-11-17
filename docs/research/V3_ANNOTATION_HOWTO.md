@@ -1,4 +1,4 @@
-# V3 Blind Annotation — Practical How-To (v3.2.1)
+# V3 Blind Annotation — Practical How-To (v3.2.2)
 
 This is the operational checklist for the **v3.2 conditional calibration set**
 (`annotation_v32/`).
@@ -43,6 +43,19 @@ conditional trajectory the target is the action (e.g. `购买电脑`), not the w
 A keyword or topic label alone is not preservation. If the target predicate is
 absent (`电脑调整` for `购买电脑`; `上海工作多` for `去上海工作`), record
 `PARTIAL`.
+
+**Identity worksheet.** Write the target's head predicate and object, locate
+both in the memory, then apply:
+
+- `PRESERVED`: both recoverable (direct synonyms count; `购机` for `购买电脑`
+  counts in a computer trajectory).
+- `PARTIAL`: head predicate replaced by a different action (`读研` for
+  `申请研究生`), object lost or broadened (`参赛` for `参加数学建模比赛`;
+  `奖学金申请` for `申请研究生`), or only a topic noun remains (`海外交换` for
+  `申请海外交换`).
+- `AMBIGUOUS`: two materially different parses (`研究生申请奖学金`).
+
+Do not infer identity from status correctness or from the target question.
 
 ### 2. `primary_dimension` (required)
 
@@ -100,6 +113,11 @@ action state separately in `action_status`.
 A bare action verb (`购电脑`, `参赛`) is not a cue.
 
 ### 6. `evidence_support`
+
+Evidence support is about the **expressed status**, not the proposition. If
+`status_expressed` is `NO` or `UNCLEAR`, use `NOT_ASSESSABLE`; do not use
+`SUPPORTED_BY_DIALOGUE` merely because the dialogue's final state is clear. If a
+status is explicitly expressed, assess it even when identity is `PARTIAL`.
 
 `SUPPORTED_BY_DIALOGUE` / `CONTRADICTED_BY_LATER_DIALOGUE` / `NOT_SUPPORTED` /
 `AMBIGUOUS` / `NOT_ASSESSABLE`.
@@ -227,11 +245,13 @@ raw agreement and Cohen's kappa per field. Disagreements are adjudicated only
 after both files are complete.
 
 This is the v3.2 **conditional-focused** calibration set (60 items: 5 updated
-and 5 stable conditional trajectories × 6 paths). It tests whether the revised
-conditional rules remove the action-vs-condition disagreement and whether
-`action_status` is reliable. Do not freeze the guide or start the confirmatory
-run until the pre-registered thresholds are met.
+and 5 stable conditional trajectories × 6 paths). The v3.2.1 calibration showed
+that condition and action states are reliable (`action_status` κ 1.000,
+condition state κ 0.974) but proposition identity is not (κ 0.378). v3.2.2 adds
+the identity worksheet; re-annotate `proposition_identity`,
+`primary_judgment`, and `evidence_support` on the same items (condition/action
+fields can be retained).
 
-Pre-registered for this calibration: overall primary-judgment κ ≥ 0.80 and every
+Pre-registered thresholds: overall primary-judgment κ ≥ 0.80 and every
 dimension κ ≥ 0.70; conditional κ ≥ 0.70 is reportable, and κ ≥ 0.80 is required
 to freeze. `action_status` is part of the conditional reliability gate.

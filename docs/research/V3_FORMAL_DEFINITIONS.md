@@ -143,6 +143,15 @@ identity. For a conditional trajectory the target proposition is the action
 label without the target predicate is `PARTIAL`; in the primary outcome every
 `PARTIAL` is scored as `PROPOSITION_LOSS` and reported separately.
 
+Operational test (v3.2.2): write the target's head predicate and object; locate
+both in the memory. Direct synonyms and inflections count; aspect and modality
+do not. `PRESERVED` only if both are recoverable (a contextually unambiguous
+object shorthand counts). `PARTIAL` if the head predicate is replaced by a
+different action (`读研` for `申请研究生`), the object is lost or broadened
+(`参赛` for `参加数学建模比赛`; `奖学金申请` for `申请研究生`), or only a topic
+noun remains (`海外交换` for `申请海外交换`). Two materially different parses
+are `AMBIGUOUS` (`研究生申请奖学金`).
+
 ### Applicability rule
 
 Choose the single dimension the target proposition is primarily about:
@@ -195,6 +204,14 @@ state is recorded in a separate required field, `action_status` ∈
 Steps 2 and 3 precede omission and no-distortion so that a supported update is
 not hidden by `NO_DISTORTION` and an unsupported action escalation is not
 hidden by `STATUS_OMISSION`.
+
+### Evidence support (v3.2.2)
+
+`evidence_support` scores support for the **expressed status**, not the
+proposition. If no status is expressed (`status_expressed = NO/UNCLEAR`), use
+`NOT_ASSESSABLE`; do not use `SUPPORTED_BY_DIALOGUE` merely because the
+dialogue's final state is clear. If a status is explicitly expressed, assess it
+even when proposition identity is `PARTIAL`.
 
 ### NO_DISTORTION vs LEGITIMATE_UPDATE
 
