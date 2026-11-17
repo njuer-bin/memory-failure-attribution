@@ -137,14 +137,15 @@ introduce `将+action` escalations. P5 is no longer provisional.
 present 0/30, omitted 0/30, **distorted 20/30 (66.7%)**, no-memory 0/30. The
 omission/distortion asymmetry replicates; it is not a qwen artifact.
 
-**Writer.** First 12 pre-registered trajectories × 7 conditions. Deterministic
-MATCH: direct 7, recursive 2, rewrite-matched 0, repeated-direct 7,
-neutral-source 4, status-aware 7, combined 8. The chain effect replicates;
-source access is weaker than in qwen (4/12 vs 29/30). Human labels pending
-(84 items). The writer run over-collected 30 trajectories; the first 12 are
-the primary cohort.
+**Writer.** First 12 pre-registered trajectories × 7 conditions. Human faithful
+(κ 0.702, provisional): direct 11/12, recursive 10/12, rewrite-matched 7/12,
+repeated-direct 11/12, neutral-source 10/12, status-aware 11/12, combined
+12/12. Rewrite-matched remains worst, but recursive is far less destructive
+than in qwen; source access alone is weaker; status-aware and the combination
+are stronger. The mitigation ranking is model-dependent. The writer run
+over-collected 30 trajectories; the first 12 are the primary cohort.
 
-**Next:** annotate the 84 writer items; then paper/novelty audit.
+**Next:** optional v3.2.5 writer recheck; then paper/novelty audit.
 
 
 ## Where things are

@@ -695,6 +695,24 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Writer human labels pending; recorded in
   `docs/research/2026-11-17-v3-replication.md`.
 
+### gemma3:12b writer human labels — partial replication, model-dependent mitigation
+
+- 84 items, A/B complete. Reliability: primary raw 0.893 / kappa 0.702
+  (below 0.80); identity 1.000; status_expressed 0.917/0.550; expressed
+  0.821/0.791; action 1.000; evidence 0.893/0.523. 17 adjudication overrides.
+- Human faithful (NO+LUA): direct 11/12, recursive 10/12, rewrite_matched
+  7/12, repeated_direct 11/12, neutral_source 10/12, status_aware 11/12,
+  status_aware_source 12/12.
+- The writer replication is partial: rewrite-matched remains worst; recursive
+  is far less destructive than in qwen; source access alone is weaker;
+  status-aware and the combination are stronger. The mitigation ranking is
+  model-dependent.
+- Reliability is below the gate; v3.2.5 clarifies gemma temporal escalations
+  and 待定/计划中 phrasings. A writer recheck is optional before a strong
+  writer-replication claim. The agent replication does not depend on this and
+  is solid.
+
+
 
 
 

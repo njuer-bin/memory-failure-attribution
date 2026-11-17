@@ -299,13 +299,18 @@ action: present 0/30, omitted 0/30, distorted 20/30 (66.7%), no-memory 0/30.
 The omission/distortion asymmetry replicates almost exactly; gemma made zero
 present-status conditional-collapse errors (qwen 2/30).
 
-**Writer (gemma3:12b).** First 12 pre-registered trajectories × 7 conditions;
-deterministic MATCH: direct 7, recursive 2, rewrite-matched 0, repeated-direct
-7, neutral-source 4, status-aware 7, combined 8. The chain effect replicates;
-source access does not restore status as strongly as in qwen (4/12 vs 29/30).
-Human labels are pending (84 items). The writer run over-collected 30
-trajectories; the first 12 are the primary cohort and the rest exploratory.
+**Writer (gemma3:12b).** First 12 pre-registered trajectories × 7 conditions.
+Human faithful (κ 0.702, provisional): direct 11/12, recursive 10/12,
+rewrite-matched 7/12, repeated-direct 11/12, neutral-source 10/12,
+status-aware 11/12, combined 12/12. Rewrite-matched remains worst, but
+recursive is far less destructive than in qwen; source access alone is weaker;
+status-aware and the combination are stronger. The mitigation ranking is
+model-dependent. The writer run over-collected 30 trajectories; the first 12
+are the primary cohort and the rest exploratory.
 
-**Reading.** The behavioral asymmetry is model-robust. The writer-side source
-advantage may be model-dependent; do not claim a general source-access
-mitigation until the gemma human labels are in.
+**Reading.** The behavioral asymmetry is model-robust. The writer-side
+mitigation ranking is not: qwen benefits most from source access, gemma from
+the status-aware prompt and the combination. Do not claim a universal
+source-access mitigation; report the model boundary. Writer reliability
+κ 0.702 is below the gate; v3.2.5 clarifications would need a recheck for a
+strong writer claim.

@@ -292,14 +292,20 @@ in status preservation.**
   distorted status: 20/30 (66.7%) unauthorized; present: 0/30; no-memory:
   0/30. The pattern is not a qwen artifact. gemma made zero present-status
   conditional-collapse errors (qwen 2/30).
-- **Second-model writer replication: chain effect holds, source access is
-  weaker.** gemma3:12b, first 12 trajectories × 7 conditions. Deterministic
-  MATCH: direct 7, recursive 2, rewrite-matched 0, repeated-direct 7,
-  neutral-source 4, status-aware 7, combined 8. Chaining replicates; source
-  access does not restore status as strongly as in qwen (4/12 vs 29/30),
-  possibly a model or cue-extraction difference. Human labels are pending.
-  The writer run over-collected 30 trajectories; the pre-registered 12 are the
-  primary cohort.
+- **Second-model writer replication: chain effect holds, but the mitigation
+  ranking is model-dependent.** gemma3:12b, first 12 trajectories × 7
+  conditions. Deterministic MATCH: direct 7, recursive 2, rewrite-matched 0,
+  repeated-direct 7, neutral-source 4, status-aware 7, combined 8. Human
+  faithful (κ 0.702, provisional): direct 11/12, recursive 10/12,
+  rewrite-matched 7/12, repeated-direct 11/12, neutral-source 10/12,
+  status-aware 11/12, combined 12/12. Rewrite-matched remains worst, but
+  recursive is far less destructive than in qwen; source access alone is
+  weaker; status-aware and the combination are stronger. The mitigation
+  ranking is model-dependent. The writer run over-collected 30 trajectories;
+  the pre-registered 12 are the primary cohort.
+- **The agent asymmetry is model-robust.** gemma3:12b: omitted status 0/30
+  unauthorized, distorted 20/30 (66.7%), present 0/30, no-memory 0/30. The
+  omission/distortion asymmetry is not a qwen artifact.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

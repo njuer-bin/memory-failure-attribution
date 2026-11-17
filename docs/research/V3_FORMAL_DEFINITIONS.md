@@ -252,3 +252,18 @@ even when proposition identity is `PARTIAL`.
 These rules were added after the P5 confirmatory set showed systematic
 disagreements; they are not yet calibrated. P5 human results are provisional
 until a recheck under v3.2.4.
+
+## 14. v3.2.5 post-replication clarifications (pending calibration)
+
+- `已开始 / 进行中 / 计划进行中` when the evidence only confirms "will start"
+  (`会开始`) is a temporal escalation → `UNSUPPORTED_STATUS_DISTORTION`,
+  subtype `TEMPORAL`.
+- `待定 / 未定` as the only cue is `CONSIDERING` (intentional) or `POSSIBLE`
+  (epistemic), not omission.
+- `计划中` for a gold COMMITTED target is `CONSIDERING`/commitment deflation
+  unless the memory says `按计划推进` or `已决定`.
+- Contradictory pairs (`待定 + 已安排`, `到账 + 需满足`) →
+  `AMBIGUOUS_UNASSESSABLE`.
+
+These are added after the gemma3:12b writer replication and are pending a
+recheck.

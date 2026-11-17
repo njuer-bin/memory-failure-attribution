@@ -78,3 +78,49 @@ not a qwen artifact.
 3. If the source-access difference persists in human labels, report it as a
    model-dependent mitigation effect rather than a general one.
 4. Agent replication can be reported now; it does not need annotation.
+
+## 5. Writer human labels (provisional)
+
+84 items, two annotators, v3.2.4. Reliability: primary raw 0.893 / **κ 0.702**
+(below the 0.80 gate); identity 1.000 (all PRESERVED); status_expressed 0.917 /
+0.550; expressed_status 0.821 / 0.791; action_status 1.000; evidence 0.893 /
+0.523. 17 adjudication overrides, model-assisted.
+
+The disagreements are systematic gemma phrasings:
+
+- `已开始 / 进行中` when the dialogue only confirms "will start" → TEMPORAL
+  escalation, not NO_DISTORTION;
+- `待定 / 未定` as the only cue → CONSIDERING or POSSIBLE, not omission;
+- `计划中` for a gold COMMITTED target → CONSIDERING/deflation;
+- contradictory `待定 + 已安排`, `到账 + 需满足` → AMBIGUOUS_UNASSESSABLE.
+
+Human faithful (NO_DISTORTION + LUA; all items preserved):
+
+| Condition | Faithful | Omission | Unsupported | Ambiguous |
+|---|---:|---:|---:|---:|
+| direct | 11/12 = 0.92 | 1/12 | 0/12 | 0/12 |
+| recursive | 10/12 = 0.83 | 1/12 | 1/12 | 0/12 |
+| rewrite_matched | **7/12 = 0.58** | 1/12 | 2/12 | 2/12 |
+| repeated_direct | 11/12 = 0.92 | 1/12 | 0/12 | 0/12 |
+| neutral_source | 10/12 = 0.83 | 1/12 | 1/12 | 0/12 |
+| status_aware | 11/12 = 0.92 | 1/12 | 1/12 | 0/12 |
+| status_aware_source | **12/12 = 1.00** | 0/12 | 0/12 | 0/12 |
+
+**Comparison to qwen.** The writer replication is only partial:
+
+- The rewrite-matched condition is still the worst (0.58), consistent with
+  chained re-editing being destructive.
+- Recursive is much less destructive in gemma (0.83) than in qwen (0.52);
+  gemma's longer, more explicit rewrites may preserve status better.
+- Source access alone is weaker in gemma (0.83) than in qwen (1.00).
+- `status_aware` is stronger in gemma (0.92) than in qwen (0.90), and the
+  combination is best at 1.00.
+- The mitigation ranking is therefore **model-dependent**: qwen benefits most
+  from source access; gemma benefits more from the status-aware prompt and the
+  combination.
+
+**Caveat.** Primary κ 0.702 is below the gate; these writer-side replication
+numbers are provisional. The v3.2.5 clarifications below would need a recheck
+for a clean claim. The agent replication (§2) does not depend on these labels
+and is solid.
+

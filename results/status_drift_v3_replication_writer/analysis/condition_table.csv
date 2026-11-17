@@ -1,0 +1,8 @@
+﻿condition,n,faithful_n,faithful_rate,omission_n,unsupported_n,ambiguous_n,loss_n
+direct,12,11,0.9166666666666666,1,0,0,0
+neutral_source,12,10,0.8333333333333334,1,1,0,0
+recursive,12,10,0.8333333333333334,1,1,0,0
+repeated_direct,12,11,0.9166666666666666,1,0,0,0
+rewrite_matched,12,7,0.5833333333333334,1,2,2,0
+status_aware,12,11,0.9166666666666666,0,1,0,0
+status_aware_source,12,12,1.0,0,0,0,0

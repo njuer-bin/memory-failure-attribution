@@ -1,4 +1,4 @@
-# V3 Blind Human Annotation Guidelines (v3.2.4)
+# V3 Blind Human Annotation Guidelines (v3.2.5)
 
 **Status:** calibration guide for the collapsed confirmatory ontology. Do not
 treat as frozen until the v3.2 conditional calibration set reaches acceptable
@@ -306,3 +306,19 @@ same proposition and the scope is not resolvable (`确认未开网店`,
 - `不 / 暂不 / 不打算 + action` asserts a negative action state →
   `NOT_PURSUING`.
 - A bare action verb remains `NOT_EXPRESSED`.
+
+## 10. v3.2.5 clarifications (post-replication, pending calibration)
+
+These resolve systematic gemma3:12b writer phrasings:
+
+- `已开始 / 进行中 / 计划进行中` for a target whose evidence only confirms
+  "will start" (`会开始`) is a **temporal escalation** →
+  `UNSUPPORTED_STATUS_DISTORTION`, subtype `TEMPORAL`.
+- `待定 / 未定` as the only status cue counts as `CONSIDERING` (intentional) or
+  `POSSIBLE` (epistemic); it is not omission.
+- `计划中` for a gold COMMITTED target is `CONSIDERING` (commitment deflation),
+  unless the memory says `按计划推进` or `已决定`.
+- Contradictory pairs (`待定 + 已安排`, `到账 + 需满足`) →
+  `AMBIGUOUS_UNASSESSABLE` (see §9).
+
+These are pending calibration on the replication set.
