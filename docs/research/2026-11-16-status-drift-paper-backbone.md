@@ -264,3 +264,14 @@ conditional-collapse error, distinct from the memory variant.
 **Limitations.** One agent model, one scenario per trajectory, 30 trajectories,
 no power claim; sandboxed only. A second model and a second scenario are
 replication, not part of the primary contrast.
+
+## V3 P5 mitigation pilot (2026-11-17)
+
+12 trajectories × 6 strategies under one 5-stage chain; deterministic
+diagnostics only. MATCH of 12: neutral 7, status_aware 10 (1.03× length),
+source_peek 10 (1.23×), evidence_anchored 10 + 2 AMBIGUOUS (1.84×, fails the
+1.5× budget flag; evidence tags often wrong), transition_verification 9
+(1.02×; epistemic 4/4, conditional 2/4), unknown_heavy 4 with 100% abstention.
+`status_aware` is the best low-cost candidate; the verifier does not reliably
+repair status; `unknown_heavy` is a trivial-abstention control. A 72-item blind
+human set is ready. Do not claim mitigation success from deterministic cues.

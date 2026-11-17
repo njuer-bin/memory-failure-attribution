@@ -74,7 +74,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 33
+  total_runs: 35
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -307,18 +307,32 @@ experiments:
       wall_time_min: null
       change_summary: "30 P2 trajectories x present/omitted/distorted + no_memory, sandboxed PROCEED/CONFIRM/ABSTAIN/OTHER; 120/120 complete, 0 parse failures. present unauthorized 2/30 (6.7%), evidence-consistent 28/30; omitted unauthorized 0/30, evidence-consistent 20/30 (under-action), all CONFIRM; distorted unauthorized 20/30 (66.7%), evidence-consistent 0/30; no_memory unauthorized 0/30, 13 CONFIRM/17 ABSTAIN. Paired vs present: omitted unauthorized -0.067 [-0.167,0.000], evidence-consistent -0.267 [-0.467,-0.067]; distorted unauthorized +0.600 [0.433,0.767], evidence-consistent -0.933 [-1.000,-0.833]. Omission is conservative; distortion is dangerous. Conditional present had 2/10 agent conditional-collapse errors."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.3 frozen for P2/P3; P4 frozen docs/research/V3_P4_PROTOCOL.md and V3_P4_FREEZE.md. Core: V3_P2_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners experiments/v3_p2_paired_study.py, v3_p4_behavioral.py; analysis experiments/analyze_p3_outcomes.py"
+    - run_id: "v3_p5_mitigation_pilot"
+      hypothesis: "P5: which writer mitigation preserves status at matched budget?"
+      metric_value: 0.833
+      delta: null
+      wall_time_min: null
+      change_summary: "12 trajectories x 6 strategies under the same 5-stage chain; 72/72 complete, 0 errors. Deterministic MATCH (of 12): neutral 7, status_aware 10, unknown_heavy 4 (+2 AMBIGUOUS, 100% abstention), source_peek 10, evidence_anchored 10 (+2 AMBIGUOUS, 0 ABSENT, 1.84x budget), transition_verification 9. status_aware is the best low-cost mitigation (1.03x budget); evidence_anchored fails the 1.5x budget flag and its evidence tags are often wrong; transition_verification is dimension-unstable (epistemic 4/4, conditional 2/4). Pilot only; deterministic cues, no human labels."
+      timestamp: "2026-11-17"
+    - run_id: "v3_p5_annotation_set"
+      hypothesis: "P5 blind human confirmation of mitigation strategies"
+      metric_value: null
+      delta: null
+      wall_time_min: null
+      change_summary: "Generated 72-item P5 blind annotation set (12 trajectories x 6 strategies), shuffled, blank A/B files with action_status, key outside repo at G:/memory_failure_backup/v3_p5_annotation_key.csv. Balanced: 24 per dimension, 12 per gold status, 12 per strategy. Awaiting two independent annotations under v3.2.3."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2.3 frozen for P2/P3; P4 frozen; P5 pilot protocol docs/research/V3_P5_PILOT_PROTOCOL.md (pilot, not frozen for confirmatory). Core: V3_P2_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_mitigation_pilot.py; analysis analyze_p3_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "Historical exploratory v2.x evidence only; V3 P1a-P1c path pilots and the V3.1/V3.2 annotation calibrations are protocol-development results. V3.2.2 identity re-annotation passes calibration (primary kappa 0.827, identity 0.837). P2 passes completeness (30/30, 300/300, 0 errors). P3 blind labels are reliable (primary kappa 0.944): chained rewriting causes status omission 44-54%, unsupported distortion 3/330. P4: omission is behaviorally conservative (0/30 unauthorized, -26.7 points evidence-consistent action); distortion is dangerous (66.7% unauthorized vs 6.7%). P5 not started."
+  current_results: "V3.2.2 calibration passes (primary kappa 0.827). P2 completeness 30/30, 300/300. P3 human labels (kappa 0.944): chained rewriting causes status omission 44-54%, unsupported distortion 3/330. P4: omission is conservative (0/30 unauthorized, -26.7 points evidence-consistent action); distortion is dangerous (66.7% unauthorized vs 6.7%). P5 pilot: status_aware 10/12 MATCH at 1.03x budget; evidence_anchored 10 MATCH + 2 AMBIGUOUS but 1.84x; transition_verification 9/12; unknown_heavy is abstention control. P5 blind annotation pending."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 32
-  last_direction: "test"
-  last_reflection: "P4 separates the two failure modes behaviorally. Omission, the dominant memory failure, is conservative: the agent always confirms and never takes unauthorized action, at the cost of 26.7 points of evidence-consistent action on established/committed statuses. Distortion, the rare memory failure, is dangerous: unauthorized action rises from 6.7% to 66.7%. Conditional present memories also trigger 2/10 agent-side conditional-collapse errors. The paper must report omission and distortion separately and must not merge them into one drift effect. Next: P5 mitigation scored on both outcomes, then replication and the novelty audit."
+  cycle: 33
+  last_direction: "mitigate"
+  last_reflection: "P5 pilot triages mitigations. status_aware is the best low-cost option: 10/12 deterministic MATCH versus 7/12 neutral at 1.03x length and no abstention. evidence_anchored preserves status best (10 MATCH + 2 AMBIGUOUS, 0 ABSENT) but runs at 1.84x length and its evidence tags are often wrong, so it fails the budget gate. source_peek matches status_aware at 1.23x. transition_verification is only 9/12 and unstable across dimensions; the verifier does not reliably restore dropped status. unknown_heavy is a trivial-abstention control. A 72-item blind set is ready to test whether the deterministic ranking survives human labels."
 
 workspace:
   findings: "findings.md"

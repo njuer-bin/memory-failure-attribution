@@ -1,0 +1,28 @@
+{
+  "protocol": "v3_p5_mitigation_pilot",
+  "frozen_protocol": "docs/research/V3_P5_PILOT_PROTOCOL.md",
+  "writer_model": "qwen2.5:7b",
+  "base_url": "http://127.0.0.1:11434",
+  "schedule": [
+    220,
+    180,
+    140,
+    120,
+    100
+  ],
+  "strategies": [
+    "neutral",
+    "status_aware",
+    "unknown_heavy",
+    "source_peek",
+    "evidence_anchored",
+    "transition_verification"
+  ],
+  "abstention_markers": [
+    "状态不明",
+    "无法判断"
+  ],
+  "seed": 42,
+  "started_at": "2026-11-17T06:22:43.288662+00:00",
+  "n_trajectories": 12
+}

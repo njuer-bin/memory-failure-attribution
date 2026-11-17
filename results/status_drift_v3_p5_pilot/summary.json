@@ -1,0 +1,169 @@
+{
+  "protocol": "v3_p5_mitigation_pilot",
+  "n_trajectories": 12,
+  "expected_conditions": 72,
+  "complete_conditions": 72,
+  "by_strategy": {
+    "neutral": {
+      "n": 12,
+      "state_relation": {
+        "ABSENT": 5,
+        "MATCH": 7
+      },
+      "topic_mentioned_rate": 0.9166666666666666,
+      "abstention_rate": 0.0,
+      "mean_final_chars": 22.5,
+      "mean_writer_eval_tokens": 19.266666666666666,
+      "budget_inflation_vs_neutral": 1.0
+    },
+    "status_aware": {
+      "n": 12,
+      "state_relation": {
+        "ABSENT": 2,
+        "MATCH": 10
+      },
+      "topic_mentioned_rate": 1.0,
+      "abstention_rate": 0.0,
+      "mean_final_chars": 23.166666666666668,
+      "mean_writer_eval_tokens": 19.733333333333334,
+      "budget_inflation_vs_neutral": 1.0296296296296297
+    },
+    "unknown_heavy": {
+      "n": 12,
+      "state_relation": {
+        "ABSENT": 6,
+        "AMBIGUOUS": 2,
+        "MATCH": 4
+      },
+      "topic_mentioned_rate": 0.5833333333333334,
+      "abstention_rate": 1.0,
+      "mean_final_chars": 26.583333333333332,
+      "mean_writer_eval_tokens": 22.533333333333335,
+      "budget_inflation_vs_neutral": 1.1814814814814814
+    },
+    "source_peek": {
+      "n": 12,
+      "state_relation": {
+        "MATCH": 10,
+        "ABSENT": 2
+      },
+      "topic_mentioned_rate": 1.0,
+      "abstention_rate": 0.0,
+      "mean_final_chars": 27.583333333333332,
+      "mean_writer_eval_tokens": 20.833333333333332,
+      "budget_inflation_vs_neutral": 1.2259259259259259
+    },
+    "evidence_anchored": {
+      "n": 12,
+      "state_relation": {
+        "MATCH": 10,
+        "AMBIGUOUS": 2
+      },
+      "topic_mentioned_rate": 1.0,
+      "abstention_rate": 0.0,
+      "mean_final_chars": 41.5,
+      "mean_writer_eval_tokens": 27.75,
+      "budget_inflation_vs_neutral": 1.8444444444444446
+    },
+    "transition_verification": {
+      "n": 12,
+      "state_relation": {
+        "MATCH": 9,
+        "ABSENT": 3
+      },
+      "topic_mentioned_rate": 1.0,
+      "abstention_rate": 0.0,
+      "mean_final_chars": 22.916666666666668,
+      "mean_writer_eval_tokens": 19.05,
+      "budget_inflation_vs_neutral": 1.0185185185185186
+    }
+  },
+  "by_dimension": {
+    "epistemic": {
+      "neutral": {
+        "ABSENT": 2,
+        "MATCH": 2
+      },
+      "status_aware": {
+        "ABSENT": 1,
+        "MATCH": 3
+      },
+      "unknown_heavy": {
+        "ABSENT": 2,
+        "AMBIGUOUS": 1,
+        "MATCH": 1
+      },
+      "source_peek": {
+        "MATCH": 3,
+        "ABSENT": 1
+      },
+      "evidence_anchored": {
+        "MATCH": 3,
+        "AMBIGUOUS": 1
+      },
+      "transition_verification": {
+        "MATCH": 4
+      }
+    },
+    "intentional": {
+      "neutral": {
+        "MATCH": 2,
+        "ABSENT": 2
+      },
+      "status_aware": {
+        "MATCH": 4
+      },
+      "unknown_heavy": {
+        "ABSENT": 3,
+        "AMBIGUOUS": 1
+      },
+      "source_peek": {
+        "MATCH": 4
+      },
+      "evidence_anchored": {
+        "MATCH": 4
+      },
+      "transition_verification": {
+        "MATCH": 3,
+        "ABSENT": 1
+      }
+    },
+    "conditional": {
+      "neutral": {
+        "MATCH": 3,
+        "ABSENT": 1
+      },
+      "status_aware": {
+        "MATCH": 3,
+        "ABSENT": 1
+      },
+      "unknown_heavy": {
+        "MATCH": 3,
+        "ABSENT": 1
+      },
+      "source_peek": {
+        "MATCH": 3,
+        "ABSENT": 1
+      },
+      "evidence_anchored": {
+        "AMBIGUOUS": 1,
+        "MATCH": 3
+      },
+      "transition_verification": {
+        "MATCH": 2,
+        "ABSENT": 2
+      }
+    }
+  },
+  "gate": {
+    "all_trajectories_present": true,
+    "all_strategies_complete": true,
+    "max_budget_inflation": 1.8444444444444446
+  },
+  "warnings": [
+    "Deterministic status cues are diagnostics, not human labels.",
+    "Topic mention is a weak proposition proxy.",
+    "unknown_heavy is a trivial-abstention control, not a mitigation.",
+    "Pilot only; do not pool with P2/P3/P4 or v2.x."
+  ]
+}

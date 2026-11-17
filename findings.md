@@ -238,6 +238,19 @@ in status preservation.**
   memory-generation error, and must be reported separately.
 - **Do not merge omission and distortion into one drift score.** They have
   opposite behavioral profiles. The paper's joint outcome must lead with both.
+- **P5 pilot: status_aware is the best low-cost mitigation.** 12 trajectories
+  × 6 strategies under one chain; deterministic MATCH: neutral 7/12,
+  status_aware 10/12 at 1.03× length, source_peek 10/12 at 1.23×,
+  evidence_anchored 10 MATCH + 2 AMBIGUOUS at 1.84× (fails the 1.5× budget
+  flag), transition_verification 9/12, unknown_heavy 4/12 with 100%
+  abstention.
+- **The verifier does not reliably repair status.** `transition_verification`
+  fixes 4/4 epistemic items but only 2/4 conditional items; it often treats
+  the compressed memory as the source of truth. `evidence_anchored` preserves
+  status best but its evidence tags are frequently wrong and it inflates the
+  budget.
+- **P5 deterministic ranking needs human confirmation.** A 72-item blind set is
+  ready; deterministic cue states are diagnostics, not human labels.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

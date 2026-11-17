@@ -586,6 +586,24 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Recorded in `docs/research/2026-11-17-v3-p4-behavioral.md`; raw outputs in
   `results/status_drift_v3_p4/`.
 
+### P5 mitigation pilot — status_aware best low-cost, evidence_anchored budget fail
+
+- 12 trajectories x 6 strategies under the same 5-stage chain; 72/72 complete,
+  0 errors.
+- Deterministic MATCH (of 12): neutral 7, status_aware 10, unknown_heavy 4
+  (+2 AMBIGUOUS, 100% abstention), source_peek 10, evidence_anchored 10
+  (+2 AMBIGUOUS, 0 ABSENT), transition_verification 9.
+- Budget inflation vs neutral: status_aware 1.03x, transition_verification
+  1.02x, source_peek 1.23x, evidence_anchored 1.84x (fails the 1.5x flag).
+- status_aware is the best low-cost mitigation in the pilot; evidence_anchored
+  preserves status best but its evidence tags are often wrong; the verifier in
+  transition_verification does not reliably restore dropped status
+  (epistemic 4/4, conditional 2/4).
+- Generated a 72-item blind annotation set (`results/status_drift_v3_p5_pilot/annotation/`,
+  key outside the repo). Deterministic cues are diagnostics, not human labels.
+- Recorded in `docs/research/2026-11-17-v3-p5-pilot.md`.
+
+
 
 
 

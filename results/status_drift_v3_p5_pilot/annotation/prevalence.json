@@ -1,0 +1,24 @@
+{
+  "n_items": 72,
+  "strategies": {
+    "unknown_heavy": 12,
+    "neutral": 12,
+    "transition_verification": 12,
+    "evidence_anchored": 12,
+    "source_peek": 12,
+    "status_aware": 12
+  },
+  "dimensions": {
+    "intentional": 24,
+    "epistemic": 24,
+    "conditional": 24
+  },
+  "gold_status": {
+    "CONSIDERING": 12,
+    "POSSIBLE": 12,
+    "COMMITTED": 12,
+    "CONDITION_ACTIVE": 12,
+    "CERTAIN": 12,
+    "CONDITION_SATISFIED": 12
+  }
+}
