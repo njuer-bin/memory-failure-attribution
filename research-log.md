@@ -746,6 +746,29 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   `literature/survey.md`. Full-text audit of StateMem, ProgMem, BELIEFMEM,
   STALE, ABBEL, MemTX, EAL-Bench, TWIST required before submission.
 
+### Full-text novelty audit — 14 PDFs read
+
+- Extracted 14 PDFs in `literature/pdfs/` with `pdftotext`; read the key
+  sections and updated `docs/research/2026-11-17-novelty-audit.md`.
+- Supersede (2606.27472) already rewrites a bounded notes memory after each
+  session and shows failure grows with conversation length, not compression
+  ratio. Chained-rewriting harm is not new.
+- ABBEL (2512.20111) already diagnoses omission/incorrect updates under
+  recursive summarization, but evaluates task performance, not
+  proposition-controlled status fidelity.
+- LiveCtx (Discover Computing 2026) already preserves raw history and
+  compresses at query time; source access is not novel.
+- EAL-Bench (2609.01836) already measures memory false authority → executor
+  unauthorized action (45.4% formation, 99% propagation); memory-state → action
+  is not new.
+- StateMem (2608.19652) already defines state tracking vs recall with five
+  failure modes and human/judge labels; no rewriting histories or status tuples.
+- Defensible core: status-specific, proposition-controlled transformation
+  history + omission/distortion split + blind human labels + status-only
+  intervention + second-model replication. Individual ingredients are prior
+  work; the combination and measurement target are the novelty.
+
+
 
 
 

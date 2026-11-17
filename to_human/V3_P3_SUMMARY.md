@@ -164,8 +164,14 @@ distortion, uses blind human labels, and adds a status-only downstream
 intervention. Do not claim first state tracking, first structured state, or
 first memory→action effect.
 
-Full-text audit of StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, MemTX,
-EAL-Bench, and TWIST is still required before submission.
+Full-text audit of the 14 PDFs confirms the ingredients are prior work:
+Supersede already rewrites bounded notes per session and shows failure grows
+with conversation length, not compression ratio; ABBEL already diagnoses
+omission/update errors under recursive summarization; LiveCtx preserves raw
+history and compresses at query time; EAL-Bench measures memory false authority
+→ unauthorized action (45.4% formation, 99% propagation). The novelty is the
+status-specific, proposition-controlled combination, not chaining,
+summarization, source access, or memory→action alone.
 
 
 ## Where things are

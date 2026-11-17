@@ -22,14 +22,37 @@ Do not cite a paper's method or claim until the full text and appendix are read.
 | TWIST | 2609.28575 | Intervention quality at belief change points; human-validated κ 0.85. | Belief-change intervention evaluation is prior work. |
 | Supersede / LiveCtx / LightMem / ReSum | maintainer audit | Real-dialogue knowledge-update failures; source-preserving query-time selection; compression lifecycle; recursive summarization. | Source access and recursive summarization are adjacent, not novel. Full texts pending. |
 
-**Revised novelty position:** the defensible core is a **controlled
-transformation-history experiment**: the same dialogue through direct /
-recursive / rewrite-matched / repeated-direct / source-access histories, with
-proposition identity held fixed, status omission and unsupported distortion
-separated, blind human labels, and a status-only downstream intervention.
-StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, and MemTX each cover part of the
-phenomenon; none audited here runs this specific paired transformation-history
-test. See `docs/research/2026-11-17-novelty-audit.md`.
+**Full-text audit update (2026-11-17).** The 14 PDFs in `literature/pdfs/`
+were extracted and read. The closest findings:
+
+- **Supersede** (2606.27472): a bounded notes memory rewritten after each
+  session; failure grows with conversation length, not compression ratio. The
+  chained-rewriting harm is therefore not a new discovery; V3 must claim
+  **status-specificity**, not chaining itself.
+- **ABBEL** (2512.20111): recursive summarization into belief states; explicitly
+  diagnoses omission and incorrect updates, but evaluates task performance, not
+  proposition-controlled status fidelity.
+- **LiveCtx** (Discover Computing 2026): preserves raw history, retrieves at
+  query time, compresses once. Source access is already a studied idea.
+- **EAL-Bench** (2609.01836): writer → memory → executor; false-authority
+  formation 45.4%, propagation to unauthorized action 99%; one-shot vs
+  incremental typed updates. Memory-state → action is not a new contribution.
+- **StateMem** (2608.19652): state tracking vs recall, five failure modes,
+  judge + human labels; no rewriting histories or status tuples.
+- **STALE / StateAuditor** (2605.06527 / 2608.01619): implicit stale state and
+  downstream policy adaptation; not compression.
+- **ProgMem / BELIEFMEM**: structured state programs / AGM belief revision;
+  no paired transformation-history status measurement.
+
+**Revised novelty position:** the defensible core is a **status-specific,
+proposition-controlled transformation-history experiment**: the same dialogue
+through direct / recursive / rewrite-matched / repeated-direct / source-access
+histories, with proposition identity held fixed, status omission and
+unsupported distortion separated, blind human labels, and a status-only
+downstream intervention. The individual ingredients (state tracking, recursive
+summarization, belief revision, source access, memory→action) are prior work;
+the combination and the status-specific measurement are the novelty. See
+`docs/research/2026-11-17-novelty-audit.md`.
 
 ## Plan-named works
 

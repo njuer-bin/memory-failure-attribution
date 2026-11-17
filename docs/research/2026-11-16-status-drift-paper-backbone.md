@@ -184,6 +184,28 @@ proposition-controlled status outcomes.
 Do not claim novelty until the full texts and appendices of StateMem, ProgMem,
 BELIEFMEM, STALE, ABBEL, MemTX, EAL-Bench, and TWIST are read.
 
+**Full-text update (2026-11-17).** The 14 PDFs in `literature/pdfs/` were read.
+Three findings change the framing:
+
+- **Supersede** (2606.27472) already rewrites a bounded notes memory after each
+  session and shows the failure grows with conversation length, not compression
+  ratio. Chained-rewriting harm is not new; the claim must be
+  **status-specificity**, not chaining itself.
+- **ABBEL** (2512.20111) already diagnoses omission and incorrect updates under
+  recursive summarization, but evaluates task performance rather than
+  proposition-controlled status fidelity.
+- **LiveCtx** (Discover Computing 2026) already preserves raw history and
+  compresses at query time; source access is not a novel idea.
+- **EAL-Bench** (2609.01836) already measures memory false authority → executor
+  unauthorized action (45.4% formation, 99% propagation); memory-state → action
+  is not a new contribution.
+
+The defensible contribution is therefore the **status-specific,
+proposition-controlled** combination: status tuple + paired transformation
+histories + proposition identity fixed + omission/distortion split + blind
+human labels + status-only intervention + second-model replication. The
+individual ingredients are prior work.
+
 ## Open questions
 
 1. Does the intentional-specific loss replicate on natural dialogue?

@@ -1,3 +1,16 @@
 
 # Curator-only annotation key; never commit (blind annotation)
 results/**/annotation/condition_key.csv
+
+# Local Python/build artifacts
+__pycache__/
+*.pyc
+
+# Downloaded papers and extracted text (keep local; cite metadata instead)
+literature/pdfs/
+literature/pdfs_txt/
+
+# Local scratch / invalid runs
+results/**/_work/
+results/**/acl-recovery/
+results/**/v28_sidecar_60_INVALID_ATTEMPT1/

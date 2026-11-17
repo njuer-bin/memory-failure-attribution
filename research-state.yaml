@@ -403,7 +403,7 @@ experiments:
       metric_value: null
       delta: null
       wall_time_min: null
-      change_summary: "Abstract-level audit (OpenAlex/arXiv; full texts pending). Closest work: StateMem/StateMemBench (state tracking vs recall), ProgMem (structured memory programs), BELIEFMEM (AGM belief revision), STALE/StateAuditor (stale state and downstream policy adaptation), ABBEL (recursive summarization into belief states), MemTX/EAL-Bench/Revoked (memory state -> action), TWIST (intervention quality). The claim 'first state-tracking problem' and 'structured state representation' are no longer novel. Defensible core: controlled transformation-history experiment isolating chained re-editing from budget/call count, with proposition-controlled status omission vs distortion, blind human labels, and a status-only downstream intervention. Full-text audit required before submission."
+      change_summary: "Full-text audit of 14 PDFs (pdftotext). Closest: StateMem/StateMemBench (state tracking vs recall, five failure modes, human labels), ProgMem (structured state programs), BELIEFMEM (AGM belief revision), STALE/StateAuditor (implicit stale state and downstream policy adaptation), ABBEL (recursive summarization with omission/update errors), Supersede (bounded notes rewritten per session; failure grows with conversation length, not compression ratio), LiveCtx (raw history + query-time compression; source access studied), MemTX/EAL-Bench (memory state -> unauthorized action; EAL-Bench 45.4% formation, 99% propagation), TWIST (intervention quality). No audited paper combines status tuple + paired transformation histories + proposition identity fixed + omission/distortion split + blind human labels + status-only downstream intervention + second-model replication. The individual ingredients are prior work; the combination is the defensible claim."
       timestamp: "2026-11-17"
   current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py"
   invalid_or_blocked:
@@ -414,9 +414,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 42
+  cycle: 43
   last_direction: "position"
-  last_reflection: "The novelty audit changes the paper's framing. StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, MemTX, and TWIST already cover state tracking, structured belief states, belief revision, downstream stale-state effects, recursive summarization, memory-to-action authorization, and intervention quality. The defensible core is narrower: a controlled transformation-history experiment that isolates chained re-editing from budget and call count, holds proposition identity fixed, separates status omission from unsupported distortion, uses blind human labels, and adds a status-only downstream intervention. Full-text audits of StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, MemTX, EAL-Bench, and TWIST are required before submission."
+  last_reflection: "The full-text audit of 14 papers settles the novelty question. StateMem, ProgMem, BELIEFMEM, STALE, ABBEL, Supersede, LiveCtx, MemTX, EAL-Bench, and TWIST already cover state tracking, structured belief states, belief revision, downstream stale-state behavior, recursive summarization omission, chained bounded-memory rewriting, source access, and memory-to-action authorization. The individual ingredients are not novel. The defensible contribution is the status-specific, proposition-controlled combination: a status tuple measured across paired transformation histories with proposition identity fixed, omission vs distortion separated, blind human labels, a status-only downstream intervention, and a second-model replication. The paper must be written as a controlled diagnostic, not a new architecture or first discovery."
 
 workspace:
   findings: "findings.md"

@@ -317,6 +317,15 @@ in status preservation.**
   distortion separated, blind human labels, and a status-only downstream
   intervention. Do not claim first state tracking, first structured state, or
   first memory→action effect. Full-text audit still required.
+- **Full-text audit confirms the ingredients are prior work.** Supersede
+  already rewrites a bounded notes memory per session and shows failure grows
+  with conversation length, not compression ratio; ABBEL already diagnoses
+  omission/incorrect updates under recursive summarization; LiveCtx already
+  preserves raw history and compresses at query time; EAL-Bench already
+  measures memory false authority → unauthorized action (45.4% formation, 99%
+  propagation). The novelty is the **status-specific, proposition-controlled**
+  combination, not chaining, summarization, source access, or memory→action
+  alone.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.
