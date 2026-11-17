@@ -680,6 +680,22 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Generated an 84-item blind set under v3.2.4 (first 12 x 7), key outside the
   repo at `G:/memory_failure_backup/v3_replication_key.csv`.
 
+### gemma3:12b agent replication — P4 asymmetry replicates
+
+- 30 trajectories x 4 variants = 120/120, 0 parse failures.
+- present: 10 PROCEED / 20 CONFIRM, unauthorized 0/30, evidence-consistent
+  30/30.
+- omitted: 0 PROCEED / 30 CONFIRM, unauthorized 0/30, evidence-consistent
+  20/30.
+- distorted: 20 PROCEED / 10 CONFIRM, unauthorized 20/30 (66.7%),
+  evidence-consistent 0/30.
+- no_memory: 0 PROCEED / 10 CONFIRM / 20 ABSTAIN, unauthorized 0/30.
+- The omission/distortion asymmetry is not a qwen artifact. gemma made zero
+  present-status conditional-collapse errors (qwen 2/30).
+- Writer human labels pending; recorded in
+  `docs/research/2026-11-17-v3-replication.md`.
+
+
 
 
 

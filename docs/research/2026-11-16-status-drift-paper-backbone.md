@@ -291,3 +291,21 @@ neutral faithful: status_aware +0.433 [0.267, 0.600]; neutral_source +0.533
 strongest mitigation; the status-aware prompt is partial; the combination is
 not additive and can introduce `将 + action` escalations. Human reliability
 passes after the v3.2.4 clarifications.
+
+## V3 second-model replication (2026-11-17)
+
+**Agent (gemma3:12b).** 30 trajectories × 4 variants, 120/120. Unauthorized
+action: present 0/30, omitted 0/30, distorted 20/30 (66.7%), no-memory 0/30.
+The omission/distortion asymmetry replicates almost exactly; gemma made zero
+present-status conditional-collapse errors (qwen 2/30).
+
+**Writer (gemma3:12b).** First 12 pre-registered trajectories × 7 conditions;
+deterministic MATCH: direct 7, recursive 2, rewrite-matched 0, repeated-direct
+7, neutral-source 4, status-aware 7, combined 8. The chain effect replicates;
+source access does not restore status as strongly as in qwen (4/12 vs 29/30).
+Human labels are pending (84 items). The writer run over-collected 30
+trajectories; the first 12 are the primary cohort and the rest exploratory.
+
+**Reading.** The behavioral asymmetry is model-robust. The writer-side source
+advantage may be model-dependent; do not claim a general source-access
+mitigation until the gemma human labels are in.

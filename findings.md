@@ -287,6 +287,19 @@ in status preservation.**
   neutral: status_aware +0.433 [0.267, 0.600]; neutral_source +0.533
   [0.367, 0.700]; interaction −0.500 [−0.667, −0.333]. Source access beats the
   prompt; the combination is non-additive. P5 is no longer provisional.
+- **Second-model agent replication: the omission/distortion asymmetry holds.**
+  gemma3:12b, 30 trajectories × 4 variants. Omitted status: 0/30 unauthorized;
+  distorted status: 20/30 (66.7%) unauthorized; present: 0/30; no-memory:
+  0/30. The pattern is not a qwen artifact. gemma made zero present-status
+  conditional-collapse errors (qwen 2/30).
+- **Second-model writer replication: chain effect holds, source access is
+  weaker.** gemma3:12b, first 12 trajectories × 7 conditions. Deterministic
+  MATCH: direct 7, recursive 2, rewrite-matched 0, repeated-direct 7,
+  neutral-source 4, status-aware 7, combined 8. Chaining replicates; source
+  access does not restore status as strongly as in qwen (4/12 vs 29/30),
+  possibly a model or cue-extraction difference. Human labels are pending.
+  The writer run over-collected 30 trajectories; the pre-registered 12 are the
+  primary cohort.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

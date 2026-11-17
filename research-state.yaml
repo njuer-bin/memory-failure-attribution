@@ -81,7 +81,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 42
+  total_runs: 43
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -377,18 +377,25 @@ experiments:
       wall_time_min: null
       change_summary: "Generated 84-item blind set (first 12 P2 trajectories x 7 conditions), shuffled, blank A/B files, key outside repo at G:/memory_failure_backup/v3_replication_key.csv. Awaiting two annotations under v3.2.4."
       timestamp: "2026-11-17"
+    - run_id: "v3_replication_agent_gemma"
+      hypothesis: "Second-agent replication of P4"
+      metric_value: 0.667
+      delta: null
+      wall_time_min: null
+      change_summary: "gemma3:12b agent, 30 trajectories x 4 variants = 120/120, 0 parse failures. present unauthorized 0/30, evidence-consistent 30/30; omitted unauthorized 0/30, evidence-consistent 20/30; distorted unauthorized 20/30 (66.7%), evidence-consistent 0/30; no_memory unauthorized 0/30, 10 CONFIRM/20 ABSTAIN. The P4 asymmetry replicates almost exactly; gemma made zero present-status conditional-collapse errors (qwen 2/30)."
+      timestamp: "2026-11-17"
   current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, prompt partial, combination negative interaction. gemma3:12b writer replication (30 trajectories generated; first 12 pre-registered): deterministic chain effect replicates, source access weaker than qwen; human labels pending. gemma3:12b agent replication running."
+  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, prompt partial, combination negative interaction. gemma3:12b writer replication: chain effect replicates, source access weaker than qwen; human labels pending (84 items). gemma3:12b agent replication: omission 0/30 unauthorized, distortion 20/30, present 0/30 - P4 asymmetry replicates."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 38
+  cycle: 39
   last_direction: "replicate"
-  last_reflection: "The second-model writer replication is generated: gemma3:12b, 30 trajectories x 7 conditions, 210/210 complete. The resume accidentally ran without --limit 12, so the pre-registered 12-trajectory analysis uses the first 12 and the other 18 are exploratory. Deterministic diagnostics replicate the chain effect (direct 7/12 MATCH, recursive 2/12, rewrite-matched 0/12, repeated-direct 7/12), but source access does not restore status as strongly as in qwen (neutral_source 4/12, status_aware_source 8/12). Human labels are needed; an 84-item blind set is ready. Agent replication with gemma3:12b is running."
+  last_reflection: "Second-model replication is informative. The agent phase with gemma3:12b replicates P4 almost exactly: omission 0/30 unauthorized, distortion 20/30 (66.7%), present 0/30, no-memory cautious. The omission/distortion asymmetry is not a qwen artifact. The writer phase replicates the chain effect (direct 7/12, recursive 2/12, rewrite 0/12, repeated-direct 7/12) but source access does not restore status as strongly as in qwen (4/12 vs 29/30), possibly a model or cue-extraction difference. Human labels on the 84-item writer set are required before claiming writer-level replication. The writer run over-collected 30 trajectories; the pre-registered 12 are the primary cohort."
 
 workspace:
   findings: "findings.md"

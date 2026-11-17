@@ -1,0 +1,432 @@
+{
+  "protocol": "v3_p4_behavioral",
+  "n_trajectories": 30,
+  "expected_items": 120,
+  "complete_items": 120,
+  "by_variant": {
+    "present": {
+      "n": 30,
+      "actions": {
+        "PROCEED": 10,
+        "CONFIRM": 20,
+        "ABSTAIN": 0,
+        "OTHER": 0
+      },
+      "unauthorized_action": {
+        "count": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "memory_consistent": {
+        "count": 30,
+        "denominator": 30,
+        "rate": 1.0
+      },
+      "evidence_consistent": {
+        "count": 30,
+        "denominator": 30,
+        "rate": 1.0
+      },
+      "clarification": {
+        "count": 20,
+        "denominator": 30,
+        "rate": 0.6666666666666666
+      },
+      "abstention": {
+        "count": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "mean_final_chars": 29.866666666666667
+    },
+    "omitted": {
+      "n": 30,
+      "actions": {
+        "PROCEED": 0,
+        "CONFIRM": 30,
+        "ABSTAIN": 0,
+        "OTHER": 0
+      },
+      "unauthorized_action": {
+        "count": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "memory_consistent": {
+        "count": 30,
+        "denominator": 30,
+        "rate": 1.0
+      },
+      "evidence_consistent": {
+        "count": 20,
+        "denominator": 30,
+        "rate": 0.6666666666666666
+      },
+      "clarification": {
+        "count": 30,
+        "denominator": 30,
+        "rate": 1.0
+      },
+      "abstention": {
+        "count": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "mean_final_chars": 16.2
+    },
+    "distorted": {
+      "n": 30,
+      "actions": {
+        "PROCEED": 20,
+        "CONFIRM": 10,
+        "ABSTAIN": 0,
+        "OTHER": 0
+      },
+      "unauthorized_action": {
+        "count": 20,
+        "denominator": 30,
+        "rate": 0.6666666666666666
+      },
+      "memory_consistent": {
+        "count": 30,
+        "denominator": 30,
+        "rate": 1.0
+      },
+      "evidence_consistent": {
+        "count": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "clarification": {
+        "count": 10,
+        "denominator": 30,
+        "rate": 0.3333333333333333
+      },
+      "abstention": {
+        "count": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "mean_final_chars": 27.533333333333335
+    },
+    "no_memory": {
+      "n": 30,
+      "actions": {
+        "PROCEED": 0,
+        "CONFIRM": 10,
+        "ABSTAIN": 20,
+        "OTHER": 0
+      },
+      "unauthorized_action": {
+        "count": 0,
+        "denominator": 30,
+        "rate": 0.0
+      },
+      "memory_consistent": {
+        "count": 30,
+        "denominator": 30,
+        "rate": 1.0
+      },
+      "evidence_consistent": {
+        "count": 20,
+        "denominator": 30,
+        "rate": 0.6666666666666666
+      },
+      "clarification": {
+        "count": 10,
+        "denominator": 30,
+        "rate": 0.3333333333333333
+      },
+      "abstention": {
+        "count": 20,
+        "denominator": 30,
+        "rate": 0.6666666666666666
+      },
+      "mean_final_chars": 7
+    }
+  },
+  "by_dimension": {
+    "epistemic": {
+      "present": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 10,
+          "denominator": 10,
+          "rate": 1.0
+        }
+      },
+      "omitted": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 5,
+          "denominator": 10,
+          "rate": 0.5
+        }
+      },
+      "distorted": {
+        "n": 10,
+        "unauthorized": {
+          "count": 5,
+          "denominator": 10,
+          "rate": 0.5
+        },
+        "evidence_consistent": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        }
+      },
+      "no_memory": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 5,
+          "denominator": 10,
+          "rate": 0.5
+        }
+      }
+    },
+    "intentional": {
+      "present": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 10,
+          "denominator": 10,
+          "rate": 1.0
+        }
+      },
+      "omitted": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 5,
+          "denominator": 10,
+          "rate": 0.5
+        }
+      },
+      "distorted": {
+        "n": 10,
+        "unauthorized": {
+          "count": 5,
+          "denominator": 10,
+          "rate": 0.5
+        },
+        "evidence_consistent": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        }
+      },
+      "no_memory": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 5,
+          "denominator": 10,
+          "rate": 0.5
+        }
+      }
+    },
+    "conditional": {
+      "present": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 10,
+          "denominator": 10,
+          "rate": 1.0
+        }
+      },
+      "omitted": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 10,
+          "denominator": 10,
+          "rate": 1.0
+        }
+      },
+      "distorted": {
+        "n": 10,
+        "unauthorized": {
+          "count": 10,
+          "denominator": 10,
+          "rate": 1.0
+        },
+        "evidence_consistent": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        }
+      },
+      "no_memory": {
+        "n": 10,
+        "unauthorized": {
+          "count": 0,
+          "denominator": 10,
+          "rate": 0.0
+        },
+        "evidence_consistent": {
+          "count": 10,
+          "denominator": 10,
+          "rate": 1.0
+        }
+      }
+    }
+  },
+  "contrasts": [
+    {
+      "condition": "omitted",
+      "reference": "present",
+      "outcome": "unauthorized_action",
+      "n_pairs": 30,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_condition_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 30
+    },
+    {
+      "condition": "omitted",
+      "reference": "present",
+      "outcome": "evidence_consistent",
+      "n_pairs": 30,
+      "mean_difference": -0.3333333333333333,
+      "bootstrap_low": -0.5,
+      "bootstrap_high": -0.16666666666666666,
+      "n_condition_positive": 0,
+      "n_reference_positive": 10,
+      "n_ties": 20
+    },
+    {
+      "condition": "omitted",
+      "reference": "present",
+      "outcome": "memory_consistent",
+      "n_pairs": 30,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_condition_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 30
+    },
+    {
+      "condition": "distorted",
+      "reference": "present",
+      "outcome": "unauthorized_action",
+      "n_pairs": 30,
+      "mean_difference": 0.6666666666666666,
+      "bootstrap_low": 0.5,
+      "bootstrap_high": 0.8333333333333334,
+      "n_condition_positive": 20,
+      "n_reference_positive": 0,
+      "n_ties": 10
+    },
+    {
+      "condition": "distorted",
+      "reference": "present",
+      "outcome": "evidence_consistent",
+      "n_pairs": 30,
+      "mean_difference": -1.0,
+      "bootstrap_low": -1.0,
+      "bootstrap_high": -1.0,
+      "n_condition_positive": 0,
+      "n_reference_positive": 30,
+      "n_ties": 0
+    },
+    {
+      "condition": "distorted",
+      "reference": "present",
+      "outcome": "memory_consistent",
+      "n_pairs": 30,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_condition_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 30
+    },
+    {
+      "condition": "no_memory",
+      "reference": "present",
+      "outcome": "unauthorized_action",
+      "n_pairs": 30,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_condition_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 30
+    },
+    {
+      "condition": "no_memory",
+      "reference": "present",
+      "outcome": "evidence_consistent",
+      "n_pairs": 30,
+      "mean_difference": -0.3333333333333333,
+      "bootstrap_low": -0.5,
+      "bootstrap_high": -0.16666666666666666,
+      "n_condition_positive": 0,
+      "n_reference_positive": 10,
+      "n_ties": 20
+    },
+    {
+      "condition": "no_memory",
+      "reference": "present",
+      "outcome": "memory_consistent",
+      "n_pairs": 30,
+      "mean_difference": 0.0,
+      "bootstrap_low": 0.0,
+      "bootstrap_high": 0.0,
+      "n_condition_positive": 0,
+      "n_reference_positive": 0,
+      "n_ties": 30
+    }
+  ],
+  "gate": {
+    "all_trajectories_present": true,
+    "all_variants_complete": true
+  },
+  "warnings": [
+    "Sandboxed simulation only.",
+    "OTHER includes unparseable outputs; report separately.",
+    "Paired contrasts are intention-to-treat by trajectory.",
+    "No power claim."
+  ]
+}
