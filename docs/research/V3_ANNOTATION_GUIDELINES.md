@@ -102,6 +102,8 @@ For `CONDITIONAL`, `expressed_status` records the **condition state only**.
 Record the action state separately in `action_status` (v3.2.1):
 
 - `NOT_EXPRESSED` — no explicit cue for the action's state.
+- `NOT_PURSUING` — explicitly not intended, not pursued, or not started
+  (`暂不`, `不打算`, `还没开始`).
 - `CONSIDERING` — explicit consideration or interest, no commitment.
 - `COMMITTED` — explicit decision, commitment, registration, start, or
   execution (`决定`, `已报名`, `开始`, `已买`, `按计划推进`).

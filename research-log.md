@@ -434,7 +434,7 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   escalations that the condition-only form would score `NO_DISTORTION`
   (e.g. `已获奖学金，开始学日语`; `获奖学金，计划参赛`).
 - Added a required `action_status` field for `CONDITIONAL` items:
-  `NOT_EXPRESSED` / `CONSIDERING` / `COMMITTED` / `UNKNOWN` /
+  `NOT_EXPRESSED` / `NOT_PURSUING` / `CONSIDERING` / `COMMITTED` / `UNKNOWN` /
   `NOT_APPLICABLE`.
 - Judgment order now checks `LEGITIMATE_UPDATE` and
   `UNSUPPORTED_STATUS_DISTORTION` before omission and no-distortion; an

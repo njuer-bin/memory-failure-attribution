@@ -169,8 +169,8 @@ condition satisfied or action committed.
 Store condition and action separately. When `CONDITIONAL` is the primary
 dimension, `expressed_status` records the **condition state only**. The action
 state is recorded in a separate required field, `action_status` ∈
-{`NOT_EXPRESSED`, `CONSIDERING`, `COMMITTED`, `UNKNOWN`, `NOT_APPLICABLE`}.
-A bare action verb is not a cue.
+{`NOT_EXPRESSED`, `NOT_PURSUING`, `CONSIDERING`, `COMMITTED`, `UNKNOWN`,
+`NOT_APPLICABLE`}. A bare action verb is not a cue.
 
 - A condition state expressed without an explicit acquisition or satisfaction
   cue is `STATUS_OMISSION`, not distortion.

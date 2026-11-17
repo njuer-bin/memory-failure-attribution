@@ -141,8 +141,8 @@ Written into `V3_ANNOTATION_GUIDELINES.md`,
   `奖学金购机` expresses neither.
 - **Conditional scoring.** `expressed_status` records the condition state only;
   the action state is recorded in the separate `action_status` field
-  (`NOT_EXPRESSED`, `CONSIDERING`, `COMMITTED`, `UNKNOWN`). An explicit
-  `COMMITTED` action when the dialogue only supports `CONSIDERING` is
+  (`NOT_EXPRESSED`, `NOT_PURSUING`, `CONSIDERING`, `COMMITTED`, `UNKNOWN`). An
+  explicit `COMMITTED` action when the dialogue only supports `CONSIDERING` is
   `UNSUPPORTED_STATUS_DISTORTION` (`CONDITIONAL_COLLAPSE`), even if the
   condition state is correct.
 - **Update ordering.** `LEGITIMATE_UPDATE` and `UNSUPPORTED_STATUS_DISTORTION`
