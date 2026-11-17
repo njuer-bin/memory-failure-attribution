@@ -1,5 +1,10 @@
 # V3 P5 Confirmatory Result (2026-11-17)
 
+> **Update (v3.2.4 recheck):** a full 120-item re-annotation under v3.2.4
+> reaches primary-judgment κ **0.974** (raw 0.992). The v3.2.4 numbers in §7
+> supersede the provisional κ 0.689 analysis in §1–§6; the qualitative
+> conclusion is unchanged and stronger.
+
 **Design:** 2×2 prompt (neutral / status-aware) × source access (memory-only /
 memory + source), 30 P2 trajectories, 5-stage chain 220 → 180 → 140 → 120 → 100.
 Frozen in `V3_P5_CONFIRMATORY_FREEZE.md`.
@@ -102,3 +107,52 @@ resamples).
    difference as definitive before that.
 3. Update the paper: source access is the primary mitigation; status-aware is
    a partial fallback; the combination is not additive.
+
+## 7. v3.2.4 recheck (2026-11-17)
+
+The same 120 memories were re-annotated under v3.2.4 (new shuffle, new item
+ids, blank files). Both files are schema-valid.
+
+**Reliability:**
+
+| Field | Raw | Cohen's κ |
+|---|---:|---:|
+| proposition_identity | 0.992 | 0.853 |
+| primary_dimension | 1.000 | 1.000 |
+| status_expressed | 1.000 | 1.000 |
+| expressed_status | 0.875 | 0.854 |
+| action_status | 0.992 | 0.984 |
+| evidence_support | 0.983 | 0.942 |
+| **primary_judgment** | **0.992** | **0.974** |
+| confidence | 0.817 | 0.252 |
+
+The v3.2.4 clarifications removed the systematic disagreements. One primary
+judgment remained (a keyword string without predicate+object); 15
+field-level `expressed_status` corrections were explicit `决定` → COMMITTED;
+one bare-action field and two evidence fields were adjudicated. 19 overrides,
+model-assisted; original labels preserved.
+
+**Outcomes (adjudicated, faithful = NO_DISTORTION + LUA):**
+
+| Condition | Faithful | Omission | Unsupported | Ambiguous | Loss |
+|---|---:|---:|---:|---:|---:|
+| neutral | 14/26 = 0.54 | 11/26 = 0.42 | 1/26 = 0.04 | 0/26 | 4/30 = 0.13 |
+| status_aware | 27/30 = 0.90 | 0/30 | 2/30 = 0.07 | 1/30 | 0/30 |
+| neutral_source | **30/30 = 1.00** | 0/30 | 0/30 | 0/30 | 0/30 |
+| status_aware_source | 28/30 = 0.93 | 0/30 | 1/30 = 0.03 | 1/30 | 0/30 |
+
+**Paired contrasts:**
+
+| Contrast | Faithful diff | Omission diff |
+|---|---:|---:|
+| status_aware vs neutral | +0.433 [0.267, 0.600] | −0.367 [−0.533, −0.200] |
+| neutral_source vs neutral | **+0.533 [0.367, 0.700]** | −0.367 [−0.533, −0.200] |
+| status_aware_source vs neutral_source | −0.067 [−0.167, 0.000] | 0.000 |
+| status_aware_source vs neutral | +0.467 [0.300, 0.633] | −0.367 [−0.533, −0.200] |
+| interaction (faithful) | **−0.500 [−0.667, −0.333]** | — |
+
+**Conclusion (confirmed).** Source access alone is the strongest mitigation
+(30/30). The status-aware prompt is a partial fallback (+43 points faithful,
+0 omission, but 2 conditional collapses). The combination is worse than source
+alone (negative interaction) because the prompt introduces `将 + action`
+escalations. The result is now reliable (primary κ 0.974), not provisional.

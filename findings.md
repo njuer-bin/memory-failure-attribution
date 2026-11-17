@@ -280,6 +280,13 @@ in status preservation.**
   disagreements are systematic (`驾照考试`, `将+action`, contradictory cues,
   aspect/negative action states). v3.2.4 clarifies them; P5 is provisional
   until a recheck.
+- **The v3.2.4 recheck passes and confirms the conclusion.** Full 120-item
+  re-annotation: primary κ **0.974**, identity 0.853, action 0.984, evidence
+  0.942. Faithful: neutral 14/26 (0.54), status_aware 27/30 (0.90),
+  neutral_source 30/30 (1.00), status_aware_source 28/30 (0.93). Paired vs
+  neutral: status_aware +0.433 [0.267, 0.600]; neutral_source +0.533
+  [0.367, 0.700]; interaction −0.500 [−0.667, −0.333]. Source access beats the
+  prompt; the combination is non-additive. P5 is no longer provisional.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

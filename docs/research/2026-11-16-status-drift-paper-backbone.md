@@ -283,11 +283,11 @@ conditional collapse. Pilot only; a confirmatory mitigation run is required.
 
 2×2 prompt (neutral/status-aware) × source access (memory-only/memory+source),
 30 trajectories, 120 items, 120/120 complete; budget inflation 1.05×/1.23×/
-1.38×, all below 1.5×. Human faithful (NO_DISTORTION + LUA): neutral 14/27
-(0.52), status_aware 26/30 (0.87), neutral_source 30/30 (1.00),
-status_aware_source 28/30 (0.93). Paired vs neutral faithful: status_aware
-+0.400 [0.233, 0.567]; neutral_source +0.533 [0.367, 0.700]; interaction
-−0.467 [−0.633, −0.300]. Source access is the strongest mitigation; the
-status-aware prompt is partial; the combination is not additive and can
-introduce `将 + action` escalations. Human reliability is provisional
-(primary κ 0.689 < 0.80); v3.2.4 clarifications are pending calibration.
+1.38×, all below 1.5×. Human faithful (NO_DISTORTION + LUA), v3.2.4 recheck
+(primary κ 0.974): neutral 14/26 (0.54), status_aware 27/30 (0.90),
+neutral_source 30/30 (1.00), status_aware_source 28/30 (0.93). Paired vs
+neutral faithful: status_aware +0.433 [0.267, 0.600]; neutral_source +0.533
+[0.367, 0.700]; interaction −0.500 [−0.667, −0.333]. Source access is the
+strongest mitigation; the status-aware prompt is partial; the combination is
+not additive and can introduce `将 + action` escalations. Human reliability
+passes after the v3.2.4 clarifications.

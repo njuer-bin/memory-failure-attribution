@@ -651,6 +651,23 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Recorded in `docs/research/2026-11-17-v3-p5-confirmatory.md`; analysis in
   `results/status_drift_v3_p5/analysis/`.
 
+### P5 v3.2.4 recheck — reliability passes, conclusion confirmed
+
+- Full 120-item re-annotation under v3.2.4: primary raw 0.992 / kappa 0.974;
+  identity 0.992 / 0.853; status_expressed 1.000; expressed 0.875 / 0.854;
+  action 0.992 / 0.984; evidence 0.983 / 0.942. 19 adjudication overrides.
+- Adjudicated faithful: neutral 14/26 = 0.54; status_aware 27/30 = 0.90;
+  neutral_source 30/30 = 1.00; status_aware_source 28/30 = 0.93.
+- Paired vs neutral faithful: status_aware +0.433 [0.267, 0.600];
+  neutral_source +0.533 [0.367, 0.700]; interaction -0.500
+  [-0.667, -0.333].
+- Source access remains the strongest mitigation; status_aware is a partial
+  fallback; the combination is non-additive.
+- P5 is no longer provisional. Recorded in
+  `docs/research/2026-11-17-v3-p5-confirmatory.md`; analysis in
+  `results/status_drift_v3_p5/analysis_v324/`.
+
+
 
 
 

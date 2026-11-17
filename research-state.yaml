@@ -71,17 +71,17 @@ hypotheses:
     note: "P4: distorted status raises unauthorized action from 6.7% to 66.7% (paired +0.600, CI [0.433,0.767]). Omitted status does not raise unauthorized action (0/30) but lowers evidence-consistent action by 26.7 points. The effect is real for distortion, not for omission on this task."
   - id: H5
     statement: "A status-preserving writer can reduce status omission without unacceptable budget inflation."
-    status: supported-provisional
-    motivation: "P5 mitigation; confirmatory run complete but reliability below gate."
+    status: supported
+    motivation: "P5 mitigation; confirmatory run and v3.2.4 recheck complete."
     parent: null
     priority: high
-    note: "P5 confirmatory: status_aware 26/30 faithful vs neutral 14/27 at 1.05x; source access alone 30/30 at 1.23x; combination 28/30 at 1.38x with a negative interaction. Source access is the stronger mitigation; status_aware is a partial fallback. Primary kappa 0.689 is below the 0.80 gate, so provisional pending v3.2.4 recheck."
+    note: "v3.2.4 recheck (kappa 0.974): status_aware 27/30 faithful vs neutral 14/26 at 1.05x; source access alone 30/30 at 1.23x; combination 28/30 at 1.38x with a negative interaction (-0.500). Source access is the stronger mitigation; status_aware is a partial fallback. The prompt's gain is real but smaller than source access."
 
 experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 39
+  total_runs: 40
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -356,18 +356,25 @@ experiments:
       wall_time_min: null
       change_summary: "120 items, A/B complete. Reliability: primary raw 0.900/kappa 0.689 (below 0.80 gate); identity 0.958/0.528 (prevalence); expressed 0.858/0.834; action 0.958/0.919; evidence 0.950/0.817. Adjudicated faithful (NO+LUA): neutral 14/27=0.52, status_aware 26/30=0.87, neutral_source 30/30=1.00, status_aware_source 28/30=0.93. Paired vs neutral faithful: status_aware +0.400 [0.233,0.567]; neutral_source +0.533 [0.367,0.700]; interaction -0.467 [-0.633,-0.300]. Source access is the strongest mitigation; status_aware is partial; the combination is not additive and introduces '将+action' escalations. Provisional pending v3.2.4 recheck."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.4 clarifications pending calibration; P2/P3 frozen at v3.2.3, P4 frozen, P5 confirmatory frozen. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py"
+    - run_id: "v3_p5_confirmatory_recheck_v324"
+      hypothesis: "P5 confirmatory reliability after v3.2.4 clarifications"
+      metric_value: 0.974
+      delta: null
+      wall_time_min: null
+      change_summary: "Full 120-item re-annotation under v3.2.4: primary raw 0.992/kappa 0.974; identity 0.992/0.853; status_expressed 1.000; expressed 0.875/0.854; action 0.992/0.984; evidence 0.983/0.942. 19 adjudication overrides. Adjudicated faithful: neutral 14/26=0.54, status_aware 27/30=0.90, neutral_source 30/30=1.00, status_aware_source 28/30=0.93. Paired vs neutral faithful: status_aware +0.433 [0.267,0.600], neutral_source +0.533 [0.367,0.700], interaction -0.500 [-0.667,-0.333]. Confirms source access as strongest; prompt partial; combination non-additive."
+      timestamp: "2026-11-17"
+  current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 pilot: status_aware 10/12 faithful vs neutral 6/12. P5 confirmatory (provisional, primary kappa 0.689): neutral 14/27, status_aware 26/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, prompt partial, combination negative interaction. v3.2.4 clarifications pending calibration."
+  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized), distortion dangerous (66.7% vs 6.7%). P5 pilot: status_aware 10/12 faithful vs neutral 6/12. P5 confirmatory v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, prompt partial, combination negative interaction (-0.500). Replication and novelty audit pending."
   runner: "experiments/status_drift_recursive_pilot.py"
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 36
+  cycle: 37
   last_direction: "mitigate"
-  last_reflection: "P5 confirmatory human labels: source access alone is the strongest mitigation (30/30 faithful), status_aware alone is partial (26/30), and combining them is worse than source alone (28/30) with a large negative interaction (-0.467). The status-aware prompt introduces '将+action' escalations when source is available. Reliability is below the gate (primary kappa 0.689), driven by systematic rule boundaries; v3.2.4 clarifies them and P5 is provisional until a recheck. Practical implication: expose the source at rewrite time first; use a status-aware prompt only when source access is impossible."
+  last_reflection: "The v3.2.4 recheck resolves the P5 reliability problem: primary kappa 0.974 on 120 items. The conclusion is unchanged and stronger. Source access alone reaches 30/30 faithful; status_aware alone 27/30 with 2 conditional collapses; the combination 28/30 and is worse than source alone (interaction -0.500). Expose the source at rewrite time first; use the status-aware prompt only when source access is impossible. Remaining work: replication, novelty audit, and paper integration."
 
 workspace:
   findings: "findings.md"
