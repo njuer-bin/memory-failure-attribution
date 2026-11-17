@@ -299,7 +299,7 @@ experiments:
       wall_time_min: null
       change_summary: "Adjudicated 330 items: NO_DISTORTION 182, STATUS_OMISSION 88, PROPOSITION_LOSS 30, LEGITIMATE_UPDATE 27, UNSUPPORTED 3; PRESERVED 300. Omission among PRESERVED: recursive 0.444, rewrite_matched 0.462, para 0.542, temp1 0.423, temp2 0.519, path_s2 0.538; direct 0.037, repeated_direct 0.037, source_peek 0.000, raw 0.000, retrieval 0.333. Paired vs recursive: direct -0.367 [-0.567,-0.167], repeated_direct -0.367, source_peek -0.400 [-0.567,-0.233], rewrite_matched 0.000 [-0.167,0.167]. USDR overall 3/300 = 1.0%; condition contrasts uninformative. Claim reframed: chaining causes status omission; unsupported distortion is a rare subtype."
       timestamp: "2026-11-17"
-  current_protocol: "V3.2.3 frozen: P2 protocol docs/research/V3_P2_PROTOCOL.md; freeze record docs/research/V3_P2_FREEZE.md; formal ontology docs/research/V3_FORMAL_DEFINITIONS.md; annotation V3_ANNOTATION_GUIDELINES.md and V3_ANNOTATION_HOWTO.md; SAP V3_STATISTICAL_ANALYSIS_PLAN.md; runner experiments/v3_p2_paired_study.py"
+  current_protocol: "V3.2.3 frozen for P2/P3; P4 draft docs/research/V3_P4_PROTOCOL_DRAFT.md (not frozen). Core: V3_P2_PROTOCOL.md, V3_P2_FREEZE.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runner experiments/v3_p2_paired_study.py; analysis experiments/analyze_p3_outcomes.py"
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
@@ -308,9 +308,9 @@ experiments:
   judge_runner: "experiments/status_drift_judge_calibration.py"
 
 outer_loop:
-  cycle: 30
-  last_direction: "interpret"
-  last_reflection: "P3 blind labels are highly reliable (primary kappa 0.944; identity 0.943; action 0.924). The confirmatory result is a reframing: chained rewriting causes status OMISSION (44-54% of proposition-preserved outputs), while unsupported distortion is rare (3/330). Rewrite-matched equals recursive, so intermediate budget shrinkage is not the cause; repeated-direct equals direct, so call count is not the cause; source-peek eliminates omission. The V3 claim should be restated as path-dependent status representation loss, not unsupported distortion. Next: P4 downstream status-only intervention and P5 mitigation, plus the full-text novelty audit."
+  cycle: 31
+  last_direction: "design"
+  last_reflection: "P3 reframed the project: chained rewriting causes status omission (44-54%) rather than unsupported distortion (0.9%); the v2 intentional-specific pattern does not replicate in blind human labels (omission 27.6% conditional, 33.0% epistemic, 27.3% intentional). The paper backbone is updated to the V3 result and the old claim is explicitly scoped to v2 exploratory evidence. A P4 draft protocol is ready for sign-off: paired present/omitted/distorted status variants, sandboxed assistant decisions, unauthorized-action primary outcome. Do not run P4 until the variants, scenarios, and parser are reviewed."
 
 workspace:
   findings: "findings.md"

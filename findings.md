@@ -217,10 +217,15 @@ in status preservation.**
   [−0.567, −0.167]); source-peek eliminates omission (−0.400, CI
   [−0.567, −0.233]). Intermediate budget shrinkage and raw call count are not
   the cause.
-- **The V3 claim must be restated.** The supported claim is **path-dependent
-  status representation loss**, dominated by omission, with unsupported
-  distortion as a rare subtype. A strong "distortion" framing is not supported
-  by the P3 counts.
+- **The v2 intentional-specific pattern does not replicate.** In V3 blind human
+  labels, omission among preserved is 27.6% conditional, 33.0% epistemic, and
+  27.3% intentional. The earlier "intentional commitment cues are uniquely
+  vulnerable" claim is scoped to the v2 deterministic/judge evidence, not the
+  V3 confirmatory result.
+- **The paper backbone is reframed.** The working claim is path-dependent
+  status representation loss (omission), with unsupported distortion as a rare
+  subtype. A P4 draft (paired present/omitted/distorted status, sandboxed
+  downstream decisions) is ready for sign-off.
 - **Status-aware mitigation replicates at the same seed.** Seed 43: chained cue
   ABSENT 2–3/10 under status-aware vs 5–6/10 under neutral; direct 0/10 in
   both. The mitigation is not a seed or session artifact.

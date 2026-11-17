@@ -555,6 +555,20 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - Recorded in `docs/research/2026-11-17-v3-p3-outcomes.md`; analysis in
   `results/status_drift_v3_p2/analysis/`.
 
+### Paper backbone reframed; P4 draft — completed
+
+- Updated the paper backbone with the V3 design, reliability, condition table,
+  paired contrasts, and the reframed claim: path-dependent status
+  representation loss (omission), with unsupported distortion as a rare subtype.
+- Explicitly scoped the v2 intentional-specific cue-loss claim to exploratory
+  deterministic/judge evidence. It does not replicate in V3 blind human labels
+  (omission 27.6% conditional, 33.0% epistemic, 27.3% intentional).
+- Drafted `V3_P4_PROTOCOL_DRAFT.md`: paired present/omitted/distorted status
+  variants with identical proposition wording, sandboxed assistant decisions,
+  and unauthorized-action as the primary outcome. Not frozen; requires sign-off
+  on variants, scenarios, and parser.
+
+
 
 
 

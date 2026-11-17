@@ -1,38 +1,51 @@
-# Status Drift Pilot — Paper Backbone (2026-11-16)
+# Status Drift Pilot — Paper Backbone (2026-11-16; V3 update 2026-11-17)
 
 Working synthesis of committed results. Not a paper draft; a narrative skeleton
-with the evidence attached.
+with the evidence attached. Sections 1–8 summarize the v2.x exploratory pilots.
+The **V3 confirmatory update** at the end supersedes the headline claim.
 
-## Working title
+## Working title (V3)
 
-**Status Drift in Chained Conversational Memory Compression: Commitment Cues
-Are Lost Before Propositions Are**
+**Path-Dependent Status Loss in Chained Conversational Memory Compression:
+Status Is Omitted Before the Proposition Is Lost**
 
-## Abstract (working)
+## Abstract (V3 working)
 
 Long-term LLM agents repeatedly compress conversational memory. We ask whether
 this changes the epistemic, intentional, or conditional **status** attached to a
-proposition, even when the proposition survives. Across 30- and 60-trajectory
-synthetic pilots, three local judges, and a deterministic status-cue metric, we
-find that chained rewriting — not shrinking compression budgets — erodes status
-cues. The loss is concentrated in **intentional commitment** (`决定`), not
-epistemic certainty; propositions remain identifiable. A rewrite-matched control
-(intermediate budgets held constant) reproduces the effect, isolating the chain
-from the budget schedule. A status-aware writer reduces the loss, and a
-commitment-targeted writer eliminates it in a 20-trajectory ceiling test,
-showing the phenomenon is controllable rather than an inherent model limit.
+proposition, even when the proposition survives. In a frozen paired study
+(30 new trajectories, 10 transformation conditions plus raw, 330 blind human
+labels), chained rewriting causes **status omission** in 44–54% of
+proposition-preserved memories, while unsupported status distortion is rare
+(3/330, 0.9%). One-shot compression and repeated independent compression omit
+status in only 3.7%, and chained rewriting with source access omits it in 0%.
+A rewrite-matched control (constant intermediate budgets) equals recursive
+rewriting, isolating chaining from budget shrinkage; repeated-direct matches
+call count without chaining and behaves like direct. Proposition loss is
+10–20% in chained conditions and does not explain the omission contrast. The
+supported claim is therefore **path-dependent status representation loss**, not
+a strong unsupported-distortion effect.
 
-## Contributions
+## Contributions (V3)
 
-1. **A diagnostic**: status-cue loss measured separately from proposition
-   retention, with a deterministic cue metric and three-judge validation.
-2. **A mechanism**: chained rewriting, not intermediate budget shrinkage,
-   drives the loss (direct vs recursive vs rewrite-matched).
-3. **A dimension split**: intentional commitment cues are vulnerable; epistemic
-   certainty cues are largely robust.
-4. **A mitigation curve**: neutral → status-aware → commitment-aware, from 8/10
-   cue removal to 0/10, with the caveat that the strongest prompt is a ceiling
-   intervention.
+1. **A blind, calibrated diagnostic** separating proposition identity, status
+   omission, and unsupported status distortion; primary-judgment κ 0.944 on 330
+   confirmatory items.
+2. **A mechanism**: chained rewriting, not intermediate budget shrinkage or raw
+   call count, drives status omission (rewrite-matched = recursive;
+   repeated-direct = direct).
+3. **A protective factor**: source access during rewriting eliminates omission
+   (0/30) and proposition loss (0/30).
+4. **A reframing**: the dominant path effect is status omission, not
+   unsupported distortion. The v2 intentional-specific cue-loss pattern does
+   **not** replicate in V3 blind human labels; omission is dimension-general.
+5. **Frozen artifacts**: protocol, ontology, annotation guide, SAP, runner, and
+   raw outputs are versioned and hashed before generation.
+
+## v2 exploratory evidence (retained; not pooled with V3)
+
+The following v2.x results motivated V3 and remain exploratory. They used
+deterministic cue metrics and model judges; they are not confirmatory.
 
 ## Method
 
@@ -156,3 +169,64 @@ The neutral writer roughly doubles the human-annotated drift.
 5. What is the human-adjudicated error rate, and does it survive a genuine
    second annotator for the status-aware condition? (Neutral has two-annotator
    reliability; status-aware currently uses one manual annotator.)
+
+## V3 confirmatory update (2026-11-17)
+
+**Design.** 30 new trajectories (5 topics × 3 dimensions × stable/updated),
+10 generated conditions plus raw, writer `qwen2.5:7b`, final budget 100,
+seeds 42/43. Protocol and artifacts frozen in `V3_P2_FREEZE.md`;
+labels in `results/status_drift_v3_p2/annotation/`; analysis in
+`results/status_drift_v3_p2/analysis/`.
+
+**Reliability.** 330 items, two annotators: primary-judgment raw 0.967 /
+κ 0.944; identity 0.991 / 0.943; action_status 0.961 / 0.924;
+expressed_status 0.991 / 0.989; evidence 0.988 / 0.972; dimension 1.000.
+Adjudication is model-assisted (23 overrides); original labels are preserved.
+
+**Outcome distribution (adjudicated).** NO_DISTORTION 182, STATUS_OMISSION 88,
+PROPOSITION_LOSS 30, LEGITIMATE_UPDATE 27, UNSUPPORTED_STATUS_DISTORTION 3.
+Identity: PRESERVED 300, PARTIAL 29, LOST 1.
+
+**By condition (USDR and omission over PRESERVED).**
+
+| Condition | PLR | USDR | Omission | Faithful |
+|---|---:|---:|---:|---:|
+| raw | 0.000 | 0.000 | 0.000 | 1.000 |
+| direct | 0.100 | 0.000 | 0.037 | 0.963 |
+| recursive | 0.100 | 0.037 | 0.444 | 0.519 |
+| rewrite_matched | 0.133 | 0.000 | 0.462 | 0.538 |
+| repeated_direct | 0.100 | 0.000 | 0.037 | 0.963 |
+| source_peek | 0.000 | 0.000 | 0.000 | 1.000 |
+| para | 0.200 | 0.000 | 0.542 | 0.458 |
+| temp1 | 0.133 | 0.077 | 0.423 | 0.500 |
+| temp2 | 0.100 | 0.000 | 0.519 | 0.481 |
+| path_s2 | 0.133 | 0.000 | 0.538 | 0.462 |
+| retrieval | 0.000 | 0.000 | 0.333 | 0.667 |
+
+**Paired contrasts vs recursive (omission).** Direct −0.367
+[−0.567, −0.167]; repeated-direct −0.367; source-peek −0.400
+[−0.567, −0.233]; rewrite-matched 0.000 [−0.167, 0.167]. Temperature,
+prompt paraphrase, and schedule-only point estimates are within 8 points and
+their intervals cross zero. USDR has only 3 events; condition contrasts are
+uninformative.
+
+**Dimension result.** Omission among preserved is similar across dimensions
+(conditional 27.6%, epistemic 33.0%, intentional 27.3%). The v2 claim that
+intentional commitment is specifically vulnerable is **not replicated** in V3
+blind human labels; it may reflect the deterministic cue metric or the v2
+template family.
+
+**Reframed claim.** Chained rewriting is associated with path-dependent
+**status representation loss**, dominated by omission. Unsupported distortion
+is a rare subtype (0.9%). The mechanism is re-editing the writer's own output:
+rewrite-matched equals recursive, repeated-direct equals direct, and source
+access removes the effect. Budget shrinkage and raw call count are not
+sufficient explanations.
+
+**Limitations added by V3.** Synthetic templates; one writer; 30 trajectories
+(no power claim); model-assisted adjudication; annotator provenance unrecorded;
+unsupported distortion underpowered; raw/retrieval are references.
+
+**Next.** P4 status-only downstream intervention (correct / omitted / distorted
+status, identical proposition wording), then P5 mitigation comparison, then the
+full-text novelty audit. Do not claim novelty before that audit.
