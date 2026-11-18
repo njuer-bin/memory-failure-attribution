@@ -38,10 +38,10 @@ failed twice and is reported as future work, not as a confirmatory
 real-dialogue result. See `docs/research/2026-11-18-real-data-arm-scoping.md`.
 
 See `docs/research/2026-11-16-status-drift-paper-backbone.md` (V3 update),
-`findings.md`, `research-state.yaml`, and
-`docs/research/2026-11-17-novelty-audit.md`. Everything below documents
-phase 1 (lifecycle failure attribution), which is frozen and retained as
-history.
+`findings.md`, `research-state.yaml`, `docs/research/2026-11-17-novelty-audit.md`,
+and the complete first draft at `paper/V3_PAPER_DRAFT.md` (numbers mapped to
+frozen artifacts in `paper/V3_NUMBERS.md`). Everything below documents phase 1
+(lifecycle failure attribution), which is frozen and retained as history.
 
 ## Research questions
 
