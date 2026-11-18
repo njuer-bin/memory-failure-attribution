@@ -31,6 +31,12 @@ agent infers a commitment the memory no longer states. The omission phenomenon
 itself replicates on a second model; the behavioral asymmetry does not
 generalize.
 
+The real-dialogue arm (Stage 1/2) is scoped to a feasibility audit plus a
+40-item gold-coding calibration; the gold calibration passes after a
+third-person adjudication of three boundary items. The LSF/SSF calibration
+failed twice and is reported as future work, not as a confirmatory
+real-dialogue result. See `docs/research/2026-11-18-real-data-arm-scoping.md`.
+
 See `docs/research/2026-11-16-status-drift-paper-backbone.md` (V3 update),
 `findings.md`, `research-state.yaml`, and
 `docs/research/2026-11-17-novelty-audit.md`. Everything below documents

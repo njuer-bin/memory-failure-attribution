@@ -1,0 +1,27 @@
+{
+  "items": 15,
+  "memories": 45,
+  "conditions": {
+    "source_peek": 15,
+    "direct": 15,
+    "recursive": 15
+  },
+  "gold_dimensions": {
+    "epistemic": 3,
+    "intentional": 42
+  },
+  "writer_model": "qwen2.5:7b",
+  "budgets": {
+    "direct": 40,
+    "chain": [
+      80,
+      60,
+      50,
+      45,
+      40
+    ]
+  },
+  "seed": 20261121,
+  "key_sha256": "b6e57dc154658fefbe12c052de2a7aa93d396bf7eb1982656bcb266e6adc37f1",
+  "note": "Blind memory sheet; condition and gold labels are only in the key."
+}

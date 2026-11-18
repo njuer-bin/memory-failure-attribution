@@ -1,11 +1,11 @@
-# Stage 2 Draft v2.3 — Real-Dialogue Status Fidelity Annotation and Calibration
+# Stage 2 Draft v2.4 — Real-Dialogue Status Fidelity Annotation and Calibration
 
-Status: **DRAFT v2.3, not frozen.** Revised after the 50-item screening, the
-failed 60-item calibration, and two 40-item runs. Run 2 (new annotator A) passes
-`gold_status` (raw 0.900, κ 0.875) but fails `gold_dimension` on κ (0.925 /
-0.639) with three boundary disagreements. v2.3 adds examples for instructions
-to the assistant, past/emotional musing, and "I've managed to X". Do not freeze
-or run confirmatory generation yet.
+Status: **DRAFT v2.4, not frozen.** Revised after the 50-item screening, the
+60-item gold calibration, two 40-item runs, and the failed LSF/SSF calibration.
+The LSF/SSF failure (LSF raw 0.733 / κ 0.581; SSF raw 0.578 / κ 0.432) came from
+generator target drift and an underspecified cue/SSF boundary. v2.4 adds a cue
+lexicon, an SSF decision tree, proposition-identity examples, and a target-focus
+rule for the generator. Do not freeze or run confirmatory generation yet.
 
 This document does not change the frozen V3 synthetic pilot
 (`freeze/v3-pilot-2026-11-17`).
@@ -401,6 +401,71 @@ like" is a past feeling.
 If the sentence is about the assistant's task or a past emotion, `E0`. If it is
 about the speaker's own future or past action, intentional. If it is about the
 truth of a factual claim, epistemic.
+
+## 8e. v2.4 cue lexicon and LSF/SSF decision tree (2026-11-18)
+
+The LSF/SSF calibration failed because the guide did not map common paraphrases
+to status types and did not define the `UNDERSPECIFIED` vs `DISTORTED` boundary.
+These rules are binding.
+
+### Cue lexicon (canonical type)
+
+| Cue | Canonical status type |
+|---|---|
+| "thinking of/about", "considering", "might", "maybe", "wondering whether to" | `CONSIDERING` |
+| "want to", "would like to", "interested in", "hope to" | `INTERESTED` (a bare desire; "hope to" is not `COMMITTED`) |
+| "plan to", "intend to", "going to", "will" (future action), "planning to", "aim to" | `INTENDING` |
+| "decided", "committed", "booked", "signed up", "registered", "paid", "promised", "chose" (a decision) | `COMMITTED` |
+| "trying to", "currently X-ing", "have been X-ing", "started", "in the process of" | `EXECUTING` |
+| "managed to", "finished", "completed", "did", "have done" | `COMPLETED` |
+| "sure", "probably", "possibly", "likely", "established", "confirmed" | epistemic |
+| "if", "unless", "in case", "as long as", "depending on" | conditional |
+
+"I think I'll X" is a hedged `INTENDING` cue, not an epistemic cue. "Will" is
+`INTENDING` unless a decision/booking cue makes it `COMMITTED`.
+
+### LSF decision
+
+1. Determine the evidence-supported status type.
+2. Find the status cue in M.
+3. Same type → `CUE_PRESERVED`.
+4. Different type or materially different strength → `CUE_ALTERED`.
+5. No cue → `CUE_ABSENT`.
+6. Source had no cue → `NOT_APPLICABLE`.
+
+### SSF decision tree
+
+1. If proposition identity is `LOST` or `AMBIGUOUS`, `SSF=UNASSESSABLE`.
+2. Assign the status type M implies, using the cue lexicon and semantics.
+3. Same type as the evidence status, or a paraphrase with the same action
+   implication → `SEMANTIC_CORRECT`.
+4. M permits the evidence status but does not determine it → 
+   `SEMANTIC_UNDERSPECIFIED`.
+5. M implies an incompatible status → `SEMANTIC_DISTORTED`.
+   Incompatible means the action authorization changes:
+   `CONSIDERING`/`INTERESTED` vs `COMMITTED`/`EXECUTING`/`COMPLETED`;
+   `INTENDING` vs `COMPLETED`; condition satisfied vs unsatisfied.
+   A weaker cue within the same authorization family (e.g., `INTENDING` vs
+   `COMMITTED` where both authorize the same action) is `UNDERSPECIFIED`, not
+   distortion.
+6. A missing cue alone is not distortion. If M still implies the same status,
+   it is `CORRECT`.
+
+### Proposition identity
+
+- `PRESERVED`: action + object + person recoverable.
+- `PARTIAL`: one core element (action, object, person, condition) is missing.
+- `LOST`: only a topic/entity remains, no recoverable action.
+- `AMBIGUOUS`: cannot decide.
+
+Examples: "write a blog post about journaling" → `PRESERVED`; "write about
+journaling" (object missing) → `PARTIAL`; "journaling" (topic only) → `LOST`.
+
+### `UNASSESSABLE`
+
+Use `UNASSESSABLE` when the proposition is lost/ambiguous in M or E is
+insufficient. Do not use it merely because the status cue is absent; a memory
+without a cue can still be `UNDERSPECIFIED` or `CORRECT` by implication.
 
 ## 9. Annotation form (formal study)
 

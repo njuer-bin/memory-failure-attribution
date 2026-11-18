@@ -203,6 +203,43 @@ status-specific, proposition-controlled transformation-history diagnostic.
   with adjudication. This is not a full Stage 2 freeze: LSF/SSF calibration,
   the cue table, inclusion rules, adjudication order, and the analysis plan
   remain to be frozen.
+- **LSF/SSF calibration sheet is generated.** 15 gold items (14 intentional,
+  1 epistemic) x 3 memory conditions (`direct`, `recursive`, `source_peek`) =
+  45 memories, writer `qwen2.5:7b`. Mean final words: direct 20.9, recursive
+  19.1, source_peek 24.2. The sheet is blind; condition and gold labels are in
+  the key outside the repo. Epistemic is one item and descriptive only. LSF/SSF
+  annotation is the next gate.
+- **LSF/SSF run 1 fails; the generator was drifting off the target turn.** All
+  three gates fail: LSF raw 0.733 / κ 0.581, SSF 0.578 / κ 0.432, proposition
+  identity 0.756 / κ 0.507. The generator had stripped the `>>` target-turn
+  marker, so with multi-topic real contexts the writer often compressed an
+  adjacent turn (e.g., a memory about Melanie/Caroline when the target was
+  "I want to live authentically"). The guide also lacked a cue lexicon and an
+  `UNDERSPECIFIED` vs `DISTORTED` rule. v2.4 adds both; the generator keeps the
+  marker and focuses the writer on the marked turn. Run-1 labels are preserved
+  as `*_failed_run1.csv`. The 45-memory sheet was regenerated; spot checks show
+  the memories now follow the target proposition semantically (paraphrase still
+  produces lexical zero-overlap cases). Re-annotation under v2.4 is pending; do
+  not freeze.
+- **LSF/SSF run 2 improves but still fails.** LSF 0.800 / κ 0.689 (gate 0.85 /
+  0.70), SSF 0.756 / κ 0.625 (0.80 / 0.65), proposition identity 0.800 / κ 0.607
+  (0.90 / 0.80). LSF and SSF are close; identity is the blocker because memories
+  replace the target speech act ("write" → "ask for advice"). LSF/SSF
+  disagreements are mostly outside identity (8/9 and 10/11) and turn on cue
+  paraphrase ("will use" vs "would like to") and the distortion boundary.
+  Options: v2.5 predicate rule + training + re-annotate, third-person
+  adjudication of 29 disagreements, or scope the real-data arm to the
+  feasibility audit + gold calibration and report LSF/SSF as failed/future work.
+  Recommendation for the paper timeline: scope the arm; keep the primary claims
+  on synthetic V3 and P4.2.
+- **Decision C: the real-data arm is scoped, not confirmed.** The paper reports
+  the feasibility audit and the 40-item gold-coding calibration (which passes
+  with third-person adjudication). The LSF/SSF calibration failed twice (run 2:
+  LSF 0.800/0.689, SSF 0.756/0.625, identity 0.800/0.607) and is reported as a
+  failed calibration and future work. Do not claim real-dialogue LSF/SSF
+  reliability, natural-dialogue replication of the omission effect, or
+  conditional reliability. Primary claims remain synthetic V3 (P2/P3/P5) and
+  P4.2. See `docs/research/2026-11-18-real-data-arm-scoping.md`.
 
 ### v2 exploratory baseline (2026-11-16, 30-trajectory run)
 

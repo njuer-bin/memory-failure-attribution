@@ -1,0 +1,42 @@
+[1/15] S2IE-005
+[2/15] S2IE-032
+[3/15] S2IE-016
+[4/15] S2IE-002
+[5/15] S2IE-019
+[6/15] S2IE-029
+[7/15] S2IE-006
+[8/15] S2IE-017
+[9/15] S2IE-011
+[10/15] S2IE-035
+[11/15] S2IE-008
+[12/15] S2IE-009
+[13/15] S2IE-037
+[14/15] S2IE-018
+[15/15] S2IE-010
+{
+  "items": 15,
+  "memories": 45,
+  "conditions": {
+    "source_peek": 15,
+    "direct": 15,
+    "recursive": 15
+  },
+  "gold_dimensions": {
+    "epistemic": 3,
+    "intentional": 42
+  },
+  "writer_model": "qwen2.5:7b",
+  "budgets": {
+    "direct": 40,
+    "chain": [
+      80,
+      60,
+      50,
+      45,
+      40
+    ]
+  },
+  "seed": 20261121,
+  "key_sha256": "b6e57dc154658fefbe12c052de2a7aa93d396bf7eb1982656bcb266e6adc37f1",
+  "note": "Blind memory sheet; condition and gold labels are only in the key."
+}

@@ -1,0 +1,465 @@
+{
+  "n_memories": 45,
+  "fields": {
+    "lsf_outcome": {
+      "n": 45,
+      "raw_agreement": 0.7333333333333333,
+      "cohen_kappa": 0.5813953488372092,
+      "A_distribution": {
+        "CUE_ALTERED": 11,
+        "CUE_PRESERVED": 23,
+        "CUE_ABSENT": 11
+      },
+      "B_distribution": {
+        "CUE_PRESERVED": 20,
+        "CUE_ALTERED": 13,
+        "CUE_ABSENT": 12
+      },
+      "disagreements": [
+        {
+          "memory_id": "S2M-001",
+          "A": "CUE_ALTERED",
+          "B": "CUE_PRESERVED"
+        },
+        {
+          "memory_id": "S2M-003",
+          "A": "CUE_PRESERVED",
+          "B": "CUE_ALTERED"
+        },
+        {
+          "memory_id": "S2M-004",
+          "A": "CUE_PRESERVED",
+          "B": "CUE_ALTERED"
+        },
+        {
+          "memory_id": "S2M-006",
+          "A": "CUE_ALTERED",
+          "B": "CUE_PRESERVED"
+        },
+        {
+          "memory_id": "S2M-007",
+          "A": "CUE_PRESERVED",
+          "B": "CUE_ALTERED"
+        },
+        {
+          "memory_id": "S2M-008",
+          "A": "CUE_PRESERVED",
+          "B": "CUE_ALTERED"
+        },
+        {
+          "memory_id": "S2M-015",
+          "A": "CUE_ALTERED",
+          "B": "CUE_ABSENT"
+        },
+        {
+          "memory_id": "S2M-020",
+          "A": "CUE_ALTERED",
+          "B": "CUE_PRESERVED"
+        },
+        {
+          "memory_id": "S2M-030",
+          "A": "CUE_PRESERVED",
+          "B": "CUE_ALTERED"
+        },
+        {
+          "memory_id": "S2M-033",
+          "A": "CUE_PRESERVED",
+          "B": "CUE_ALTERED"
+        },
+        {
+          "memory_id": "S2M-044",
+          "A": "CUE_PRESERVED",
+          "B": "CUE_ALTERED"
+        },
+        {
+          "memory_id": "S2M-045",
+          "A": "CUE_ALTERED",
+          "B": "CUE_PRESERVED"
+        }
+      ]
+    },
+    "ssf_outcome": {
+      "n": 45,
+      "raw_agreement": 0.5777777777777777,
+      "cohen_kappa": 0.43189368770764114,
+      "A_distribution": {
+        "SEMANTIC_DISTORTED": 10,
+        "SEMANTIC_CORRECT": 17,
+        "SEMANTIC_UNDERSPECIFIED": 14,
+        "UNASSESSABLE": 4
+      },
+      "B_distribution": {
+        "SEMANTIC_UNDERSPECIFIED": 15,
+        "SEMANTIC_CORRECT": 10,
+        "SEMANTIC_DISTORTED": 10,
+        "UNASSESSABLE": 10
+      },
+      "disagreements": [
+        {
+          "memory_id": "S2M-001",
+          "A": "SEMANTIC_DISTORTED",
+          "B": "SEMANTIC_UNDERSPECIFIED"
+        },
+        {
+          "memory_id": "S2M-004",
+          "A": "SEMANTIC_CORRECT",
+          "B": "SEMANTIC_DISTORTED"
+        },
+        {
+          "memory_id": "S2M-006",
+          "A": "SEMANTIC_DISTORTED",
+          "B": "SEMANTIC_UNDERSPECIFIED"
+        },
+        {
+          "memory_id": "S2M-007",
+          "A": "SEMANTIC_CORRECT",
+          "B": "SEMANTIC_DISTORTED"
+        },
+        {
+          "memory_id": "S2M-008",
+          "A": "SEMANTIC_CORRECT",
+          "B": "SEMANTIC_DISTORTED"
+        },
+        {
+          "memory_id": "S2M-012",
+          "A": "SEMANTIC_UNDERSPECIFIED",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-013",
+          "A": "SEMANTIC_CORRECT",
+          "B": "SEMANTIC_UNDERSPECIFIED"
+        },
+        {
+          "memory_id": "S2M-015",
+          "A": "SEMANTIC_DISTORTED",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-018",
+          "A": "SEMANTIC_UNDERSPECIFIED",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-019",
+          "A": "SEMANTIC_DISTORTED",
+          "B": "SEMANTIC_UNDERSPECIFIED"
+        },
+        {
+          "memory_id": "S2M-023",
+          "A": "SEMANTIC_UNDERSPECIFIED",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-024",
+          "A": "SEMANTIC_UNDERSPECIFIED",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-025",
+          "A": "SEMANTIC_CORRECT",
+          "B": "SEMANTIC_UNDERSPECIFIED"
+        },
+        {
+          "memory_id": "S2M-028",
+          "A": "SEMANTIC_DISTORTED",
+          "B": "SEMANTIC_UNDERSPECIFIED"
+        },
+        {
+          "memory_id": "S2M-030",
+          "A": "SEMANTIC_CORRECT",
+          "B": "SEMANTIC_DISTORTED"
+        },
+        {
+          "memory_id": "S2M-031",
+          "A": "SEMANTIC_UNDERSPECIFIED",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-033",
+          "A": "SEMANTIC_UNDERSPECIFIED",
+          "B": "SEMANTIC_DISTORTED"
+        },
+        {
+          "memory_id": "S2M-044",
+          "A": "SEMANTIC_CORRECT",
+          "B": "SEMANTIC_DISTORTED"
+        },
+        {
+          "memory_id": "S2M-045",
+          "A": "SEMANTIC_DISTORTED",
+          "B": "SEMANTIC_UNDERSPECIFIED"
+        }
+      ]
+    },
+    "proposition_identity_in_memory": {
+      "n": 45,
+      "raw_agreement": 0.7555555555555555,
+      "cohen_kappa": 0.5074626865671642,
+      "A_distribution": {
+        "PRESERVED": 30,
+        "LOST": 4,
+        "PARTIAL": 11
+      },
+      "B_distribution": {
+        "PARTIAL": 16,
+        "PRESERVED": 28,
+        "LOST": 1
+      },
+      "disagreements": [
+        {
+          "memory_id": "S2M-001",
+          "A": "PRESERVED",
+          "B": "PARTIAL"
+        },
+        {
+          "memory_id": "S2M-006",
+          "A": "PARTIAL",
+          "B": "PRESERVED"
+        },
+        {
+          "memory_id": "S2M-008",
+          "A": "PRESERVED",
+          "B": "PARTIAL"
+        },
+        {
+          "memory_id": "S2M-011",
+          "A": "PRESERVED",
+          "B": "PARTIAL"
+        },
+        {
+          "memory_id": "S2M-019",
+          "A": "PARTIAL",
+          "B": "PRESERVED"
+        },
+        {
+          "memory_id": "S2M-031",
+          "A": "PRESERVED",
+          "B": "PARTIAL"
+        },
+        {
+          "memory_id": "S2M-033",
+          "A": "PARTIAL",
+          "B": "PRESERVED"
+        },
+        {
+          "memory_id": "S2M-037",
+          "A": "LOST",
+          "B": "PARTIAL"
+        },
+        {
+          "memory_id": "S2M-040",
+          "A": "LOST",
+          "B": "PARTIAL"
+        },
+        {
+          "memory_id": "S2M-042",
+          "A": "LOST",
+          "B": "PARTIAL"
+        },
+        {
+          "memory_id": "S2M-045",
+          "A": "PRESERVED",
+          "B": "PARTIAL"
+        }
+      ]
+    },
+    "status_assigned_from_memory": {
+      "n": 45,
+      "raw_agreement": 0.6666666666666666,
+      "cohen_kappa": 0.5692405871091256,
+      "A_distribution": {
+        "ESTABLISHED": 3,
+        "EXECUTING": 4,
+        "INTENDING": 24,
+        "UNASSESSABLE": 5,
+        "COMMITTED": 3,
+        "INTERESTED": 4,
+        "CONSIDERING": 2
+      },
+      "B_distribution": {
+        "SUPPORTED": 2,
+        "EXECUTING": 3,
+        "INTENDING": 15,
+        "COMMITTED": 3,
+        "UNASSESSABLE": 10,
+        "CONSIDERING": 4,
+        "COMPLETED": 3,
+        "INTERESTED": 4,
+        "ESTABLISHED": 1
+      },
+      "disagreements": [
+        {
+          "memory_id": "S2M-001",
+          "A": "ESTABLISHED",
+          "B": "SUPPORTED"
+        },
+        {
+          "memory_id": "S2M-004",
+          "A": "INTENDING",
+          "B": "COMMITTED"
+        },
+        {
+          "memory_id": "S2M-006",
+          "A": "INTENDING",
+          "B": "CONSIDERING"
+        },
+        {
+          "memory_id": "S2M-007",
+          "A": "COMMITTED",
+          "B": "COMPLETED"
+        },
+        {
+          "memory_id": "S2M-008",
+          "A": "INTENDING",
+          "B": "COMMITTED"
+        },
+        {
+          "memory_id": "S2M-015",
+          "A": "EXECUTING",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-018",
+          "A": "INTENDING",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-023",
+          "A": "INTENDING",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-024",
+          "A": "INTENDING",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-028",
+          "A": "INTENDING",
+          "B": "CONSIDERING"
+        },
+        {
+          "memory_id": "S2M-030",
+          "A": "INTENDING",
+          "B": "COMMITTED"
+        },
+        {
+          "memory_id": "S2M-031",
+          "A": "INTENDING",
+          "B": "UNASSESSABLE"
+        },
+        {
+          "memory_id": "S2M-033",
+          "A": "COMMITTED",
+          "B": "COMPLETED"
+        },
+        {
+          "memory_id": "S2M-044",
+          "A": "COMMITTED",
+          "B": "COMPLETED"
+        },
+        {
+          "memory_id": "S2M-045",
+          "A": "ESTABLISHED",
+          "B": "SUPPORTED"
+        }
+      ]
+    }
+  },
+  "gates": {
+    "proposition_identity_in_memory": {
+      "raw": 0.7555555555555555,
+      "kappa": 0.5074626865671642,
+      "pass": false
+    },
+    "lsf_outcome": {
+      "raw": 0.7333333333333333,
+      "kappa": 0.5813953488372092,
+      "pass": false
+    },
+    "ssf_outcome": {
+      "raw": 0.5777777777777777,
+      "kappa": 0.43189368770764114,
+      "pass": false
+    }
+  },
+  "by_condition": {
+    "source_peek": {
+      "n": 15,
+      "A_lsf": {
+        "CUE_ALTERED": 3,
+        "CUE_PRESERVED": 8,
+        "CUE_ABSENT": 4
+      },
+      "B_lsf": {
+        "CUE_PRESERVED": 7,
+        "CUE_ALTERED": 4,
+        "CUE_ABSENT": 4
+      },
+      "A_ssf": {
+        "SEMANTIC_DISTORTED": 3,
+        "SEMANTIC_UNDERSPECIFIED": 5,
+        "SEMANTIC_CORRECT": 6,
+        "UNASSESSABLE": 1
+      },
+      "B_ssf": {
+        "SEMANTIC_UNDERSPECIFIED": 6,
+        "SEMANTIC_CORRECT": 3,
+        "SEMANTIC_DISTORTED": 3,
+        "UNASSESSABLE": 3
+      }
+    },
+    "direct": {
+      "n": 15,
+      "A_lsf": {
+        "CUE_PRESERVED": 10,
+        "CUE_ALTERED": 4,
+        "CUE_ABSENT": 1
+      },
+      "B_lsf": {
+        "CUE_PRESERVED": 9,
+        "CUE_ALTERED": 5,
+        "CUE_ABSENT": 1
+      },
+      "A_ssf": {
+        "SEMANTIC_CORRECT": 8,
+        "SEMANTIC_UNDERSPECIFIED": 3,
+        "SEMANTIC_DISTORTED": 3,
+        "UNASSESSABLE": 1
+      },
+      "B_ssf": {
+        "SEMANTIC_CORRECT": 4,
+        "SEMANTIC_DISTORTED": 4,
+        "SEMANTIC_UNDERSPECIFIED": 6,
+        "UNASSESSABLE": 1
+      }
+    },
+    "recursive": {
+      "n": 15,
+      "A_lsf": {
+        "CUE_ABSENT": 6,
+        "CUE_ALTERED": 4,
+        "CUE_PRESERVED": 5
+      },
+      "B_lsf": {
+        "CUE_ABSENT": 7,
+        "CUE_ALTERED": 4,
+        "CUE_PRESERVED": 4
+      },
+      "A_ssf": {
+        "UNASSESSABLE": 2,
+        "SEMANTIC_DISTORTED": 4,
+        "SEMANTIC_CORRECT": 3,
+        "SEMANTIC_UNDERSPECIFIED": 6
+      },
+      "B_ssf": {
+        "UNASSESSABLE": 6,
+        "SEMANTIC_DISTORTED": 3,
+        "SEMANTIC_CORRECT": 3,
+        "SEMANTIC_UNDERSPECIFIED": 3
+      }
+    }
+  },
+  "all_gates_pass": false
+}

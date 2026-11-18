@@ -1,20 +1,22 @@
 # Stage 2 Pre-Freeze Record (2026-11-18)
 
-**Status: NOT FROZEN.** This record fixes the candidate v2.3 guide hashes and
-the calibration artifacts so that the freeze can be evaluated against a stable
-version. Run 2 (new annotator A) passed `gold_status` and failed
-`gold_dimension` on κ with three boundary disagreements; a third-person
-adjudication of those three items passes both gold gates
-(`gold_dimension` 1.000 / 1.000; `gold_status` 0.975 / 0.969). The gold
-calibration is therefore complete with adjudication. Stage 2 is still not
-frozen: LSF/SSF calibration and the remaining freeze checklist are pending. Do
-not run confirmatory generation from this record.
+**Status: SCOPED, NOT FROZEN.** Decision C (2026-11-18) scopes the real-dialogue
+arm to the feasibility audit plus the 40-item gold-coding calibration. LSF/SSF
+is reported as a failed calibration and future work; there is no confirmatory
+real-dialogue generation. This record keeps the candidate v2.4 guide hashes and
+the calibration artifacts for reproducibility. The gold calibration passes after third-person adjudication
+(`gold_dimension` 1.000 / 1.000; `gold_status` 0.975 / 0.969). The first
+LSF/SSF calibration failed (LSF 0.733 / 0.581; SSF 0.578 / 0.432; proposition
+identity 0.756 / 0.507); v2.4 adds a cue lexicon and SSF tree, and the
+regenerated sheet now keeps the target-turn marker. Run 2 improved to LSF
+0.800 / 0.689, SSF 0.756 / 0.625, identity 0.800 / 0.607; identity is the
+blocker. Stage 2 is still not frozen. Do not run confirmatory generation.
 
 ## Candidate guide and ontology (SHA-256)
 
 | SHA-256 | File |
 |---|---|
-| `5cabe670c6119681e479c91afdad3380432ffe624c7a5735014c132d6f342b5c` | `docs/research/V3_REAL_STAGE2_DRAFT.md` (v2.3, boundary examples) |
+| `95cc02b055efa1a9db3edc3f2d64a725be51a59a49666134a38048689f9099d9` | `docs/research/V3_REAL_STAGE2_DRAFT.md` (v2.4, cue lexicon + SSF tree) |
 | `621b8691c3cb21f8c93df6ba9b631b3880d075bd3818cb29949fd17499b4c904` | `docs/research/V3_REAL_DATA_AUDIT_PROTOCOL.md` |
 | `2c984a124e299e4a6b8c4ed457bf108fc996d840ba4705e4a95852d9cff7faf2` | `docs/research/V3_FORMAL_DEFINITIONS.md` (ontology) |
 | `4afa97f932f3b85fff48b5ee94c701c4e4389217e11b71ab4bdcd0822164de15` | `docs/research/2026-11-17-real-screening-results.md` (D1-D5 evidence) |
@@ -133,6 +135,37 @@ conditional reliability from this calibration.
 See `2026-11-18-stage2-calibration-40-result.md`, `analysis/agreement_run1_2026-11-18.json`,
 and `analysis/agreement_run2.json`.
 
+## LSF/SSF calibration sheet (2026-11-18)
+
+- 15 gold items (14 intentional, 1 epistemic) x 3 conditions
+  (`direct`, `recursive`, `source_peek`) = 45 memories.
+- Writer `qwen2.5:7b`, English neutral prompt; direct budget 40 words, chain
+  [80, 60, 50, 45, 40]. Mean final words: direct 20.9, recursive 19.1,
+  source_peek 24.2.
+- Blind sheet: `results/status_drift_v3_real_audit/stage2_lsf_ssf/`; condition
+  and gold labels are only in the key outside the repository.
+- Epistemic is one item (three memories); report it descriptively and do not
+  gate epistemic reliability on it.
+- Gates: `proposition_identity_in_memory` raw ≥0.90 / κ ≥0.80;
+  `lsf_outcome` raw ≥0.85 / κ ≥0.70; `ssf_outcome` raw ≥0.80 / κ ≥0.65.
+
+- Generator: `1f62b1b3bd362b60cf051a803810b723d9b9c4bf8293717523d8b6dece218868`
+- Sheets: `4006d6540cd9c622bbb4e694fe3e3042e3a79de1e35b5ce15927b61539d9b598`
+- Key (outside repo):
+  `b6e57dc154658fefbe12c052de2a7aa93d396bf7eb1982656bcb266e6adc37f1`
+
+Run 1 failed (LSF 0.733/0.581; SSF 0.578/0.432; identity 0.756/0.507) because
+the generator stripped the target-turn marker. The generator now keeps `>>`
+and focuses the writer on that turn; the sheet was regenerated under v2.4.
+Run 2 improved to LSF 0.800/0.689, SSF 0.756/0.625, identity 0.800/0.607.
+LSF and SSF are close to their gates; proposition identity is the blocker
+(predicate paraphrase, e.g., "write" → "ask for advice").
+
+Options: (A) v2.5 predicate rule + training + re-annotate; (B) third-person
+adjudication of the 29 disagreements; (C) scope the real-data arm to the
+feasibility audit + gold calibration and report LSF/SSF as failed/future work.
+Recommendation for the paper timeline: C. Run-1 and run-2 labels are preserved.
+
 ## Model-free re-annotation subset
 
 25 screening items, stratified across dataset and auto dimension, re-issued
@@ -147,8 +180,8 @@ not a new two-human reliability estimate.
    subset is the anchoring check. A's screening provenance is recorded.
 2. YTB has not yet re-annotated the 25-item model-free subset.
 3. Gold calibration passes after third-person adjudication of the three
-   boundary items. Next: LSF/SSF calibration on a generated-memory sheet, then
-   the remaining freeze checklist. Conditional remains deferred.
+   boundary items. The 45-memory LSF/SSF sheet is generated; annotation and the
+   LSF/SSF gates are pending. Conditional remains deferred.
 4. LSF/SSF calibration needs generated memory variants `M`; that sheet does not
    exist yet.
 5. The guide, cue table, inclusion rules, adjudication order, reliability
@@ -160,7 +193,8 @@ not a new two-human reliability estimate.
 - [x] 40-item intentional/epistemic calibration passed the pre-registered
       gates after third-person adjudication of three boundary items.
       (`gold_dimension` 1.000/1.000; `gold_status` 0.975/0.969.)
-- [ ] LSF/SSF calibration passed on a separate memory sheet.
+- [ ] LSF/SSF calibration passed on a separate memory sheet. (Run 1 and run 2
+      failed; LSF/SSF near their gates, identity κ 0.607 is the blocker.)
 - [ ] Cue table, inclusion/exclusion rules, adjudication order, and analysis
       plan hashed together with the guide.
 - [ ] Stage 2 freeze record written with all hashes; only then may confirmatory
