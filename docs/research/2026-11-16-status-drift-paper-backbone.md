@@ -176,10 +176,10 @@ path-dependent status representation loss under chained rewriting. The same
 dialogue is transformed through direct / recursive / rewrite-matched /
 repeated-direct / source-access histories; proposition identity is held fixed;
 status omission and unsupported distortion are separate outcomes; blind human
-labels use a calibrated ontology; and a status-only downstream intervention
-shows omission is conservative while distortion is dangerous. None of the
-audited papers runs this specific paired transformation-history test with
-proposition-controlled status outcomes.
+labels use a calibrated ontology; and status-only downstream interventions show
+that distortion reliably raises unauthorized action while omission's behavioral
+profile is task-dependent. None of the audited papers runs this specific paired
+transformation-history test with proposition-controlled status outcomes.
 
 Do not claim novelty until the full texts and appendices of StateMem, ProgMem,
 BELIEFMEM, STALE, ABBEL, MemTX, EAL-Bench, and TWIST are read.
@@ -299,11 +299,14 @@ Paired vs present: omitted unauthorized −0.067 [−0.167, 0.000],
 evidence-consistent −0.267 [−0.467, −0.067]; distorted unauthorized +0.600
 [0.433, 0.767], evidence-consistent −0.933 [−1.000, −0.833].
 
-**Interpretation.** The dominant memory failure (omission) causes under-action
-and clarification, not unauthorized action. The rare failure (distortion)
-causes unauthorized action in two thirds of cases. The two failure modes must
-be reported separately: a single "status drift" effect would hide that the
-common failure is safe and the rare one is harmful.
+**Interpretation (P4, scoped).** In these synthetic Chinese tasks, the dominant
+memory failure (omission) causes under-action and clarification, not
+unauthorized action; the rare failure (distortion) causes unauthorized action
+in two thirds of cases. P4.2 (2026-11-18, English high-stakes authorization
+with positive controls) does **not** replicate this asymmetry: distortion harm
+remains, but omission also produces unauthorized action when the agent infers a
+commitment the memory does not state. Do not state "omission is conservative"
+as a general behavioral law; report the task family and the request framing.
 
 **Dimension note.** Conditional present memories are fragile even without
 manipulation: 2/10 were read as decided and produced PROCEED. This is an agent
@@ -312,6 +315,46 @@ conditional-collapse error, distinct from the memory variant.
 **Limitations.** One agent model, one scenario per trajectory, 30 trajectories,
 no power claim; sandboxed only. A second model and a second scenario are
 replication, not part of the primary contrast.
+
+## V3 P4.2 behavioral update (2026-11-18)
+
+**Design.** 38 validated English high-stakes scenarios (34 over-commitment +
+4 authorized-execution controls) x present/omitted/distorted/no_memory, run on
+`qwen2.5:7b` and `gemma3:12b` (304 calls). Frozen in `V3_P4_2_FREEZE.md` and
+`V3_P4_2_RUNNER_FREEZE.md`; result note
+`docs/research/2026-11-18-v3-p4-2-results.md`.
+
+**Result.** Distortion harm replicates; omission is not conservative:
+
+| Variant | qwen unauthorized | gemma unauthorized |
+|---|---:|---:|
+| present | 0/38 | 0/38 |
+| omitted | 6/38 (0.158) | 5/38 (0.132) |
+| distorted | 9/38 (0.237) | 8/38 (0.211) |
+| no_memory | 0/38 | 0/38 |
+
+Paired vs present: omitted +0.158 [0.053, 0.289] / +0.132 [0.026, 0.237];
+distorted +0.237 [0.105, 0.368] / +0.211 [0.079, 0.342]. Within the 34
+over-commitment scenarios, omitted is 2/34 and 3/34 (intervals touch zero),
+distorted is 9/34 and 8/34, and distorted-minus-omitted is +0.206
+[0.088, 0.353] / +0.147 [0.029, 0.265]. The four controls account for most of
+the pooled omission rate: qwen executes 4/4 and gemma 2/4 on "the user
+mentioned X". A topic-only re-wording (no date, no request) still yields qwen
+1/4 and gemma 3/4, so the effect is not only lexical.
+
+**Mechanism.** Reason coding of all 32 unauthorized records: the 17 distorted
+cases follow an explicitly authorizing memory (`D1`); the 15 omission cases
+assert an unstated commitment (`O1`, 6), upgrade a mention (`O2`, 3), or use
+the current request as authorization (`O3`, 6). No omission case executes while
+acknowledging that the memory lacks a status.
+
+**Interpretation.** P4.2 does not replicate P4's "omission is conservative"
+asymmetry and must not be pooled with it. The paper should claim: distortion is
+the robust behavioral harm; omission is a common representation failure whose
+downstream profile depends on the task and on whether the agent fills the
+missing status from the current request.
+
+
 
 ## V3 P5 mitigation pilot (2026-11-17)
 

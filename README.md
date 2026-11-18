@@ -23,8 +23,13 @@ rewriting causes **status omission** in 44–54% of proposition-preserved
 memories, while unsupported distortion is rare (0.9%). Rewrite-matched equals
 recursive and repeated-direct equals direct, isolating chained re-editing from
 budget shrinkage and call count; source access during rewriting removes the
-omission. Omission is behaviorally conservative, distortion is dangerous, and
-the asymmetry replicates on a second model.
+omission. Distortion is the robust behavioral harm: it raises unauthorized
+action in both the P4 synthetic tasks and the stricter English P4.2 bank.
+Omission's behavioral profile is task-dependent — conservative under-action in
+P4, but capable of over-action in high-stakes authorization tasks when the
+agent infers a commitment the memory no longer states. The omission phenomenon
+itself replicates on a second model; the behavioral asymmetry does not
+generalize.
 
 See `docs/research/2026-11-16-status-drift-paper-backbone.md` (V3 update),
 `findings.md`, `research-state.yaml`, and
