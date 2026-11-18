@@ -85,8 +85,17 @@ status-specific, proposition-controlled transformation-history diagnostic.
   36 over-commitment scenarios (26 intentional, 10 conditional) plus 4
   authorized-execution positive controls. Proposition identity is checked by
   shared content terms, length by a neutral filler (token spread <= 3), and
-  the authorization rule makes the expected decision determinate. The bank is
-  not run yet; two-human validation and the two-model runner are pending.
+  the authorization rule makes the expected decision determinate.
+- **P4.2 validation passes; the bank is frozen at 38/40.** Two blind human
+  annotators (WMY, YTB; 2026-11-18; provenance recorded, no model assistance)
+  rated all 40 scenarios. Pooled means: realism 4.11 (A 3.98, B 4.25), status
+  clarity 4.98, rule clarity 4.95, distortion plausibility 4.25, stake severity
+  3.35; `only_status_differs` 38/40 (raw agreement 0.975, kappa 0.655).
+  `AUT-05` (both annotators) and `AUT-01` (B only; A's dissent recorded) are
+  excluded because the distorted variant changes scope, not only status. The
+  frozen set is 38 scenarios / 152 items (`V3_P4_2_FREEZE.md`); the
+  pooled-means gate interpretation and A's 3.975 realism mean are disclosed in
+  the freeze record. The two-model runner is pending.
 
 ### v2 exploratory baseline (2026-11-16, 30-trajectory run)
 

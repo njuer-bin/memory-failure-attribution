@@ -129,7 +129,7 @@ experiments:
   proxy_metric: "CPSD (status errors among proposition-retained outputs) plus accuracy, deterministic proposition/condition omission, and inter-judge agreement"
   baseline_value: null
   best_value: null
-  total_runs: 46
+  total_runs: 47
   trajectory:
     - run_id: "smoke_001"
       hypothesis: "H1-H3 pipeline check"
@@ -474,15 +474,22 @@ experiments:
       wall_time_min: null
       change_summary: "Built 40 English high-stakes scenarios (10 each: money/health/authorization/commitments): 36 over-commitment (26 intentional, 10 conditional) + 4 authorized-execution controls; 4 variants (present/omitted/distorted/no_memory) = 160 runnable items. Automated manipulation checks pass: 0 proposition flags (>=2 shared content terms), 0 length flags (token spread <=3 after neutral filler), no schema errors. Two-human validation and the runner are pending."
       timestamp: "2026-11-17"
+    - run_id: "v3_p4_2_validation"
+      hypothesis: "P4.2 bank passes two-human validation and can be frozen"
+      metric_value: 4.1125
+      delta: null
+      wall_time_min: null
+      change_summary: "WMY + YTB blind validation (2026-11-18), 40 scenarios, provenance recorded, no model assistance. Pooled means: realism 4.113 (A 3.975, B 4.250), status clarity 4.975, rule clarity 4.950, distortion plausibility 4.250, stake severity 3.350; only_status_differs 38/40=0.950 (raw 0.975, kappa 0.655). AUT-05 (both no) and AUT-01 (B no, A yes) excluded because the distorted variant changes scope; 38 scenarios / 152 items survive. Gate interpretation recorded as pooled across annotators, with A's 3.975 realism disclosed. Frozen in V3_P4_2_FREEZE.md; runner pending."
+      timestamp: "2026-11-18"
   current_protocol: "V3.2.4 calibrated on the P5 recheck (primary kappa 0.974); P2/P3 used v3.2.3, P4/P5 frozen designs. Core: V3_P2_PROTOCOL.md, V3_P5_CONFIRMATORY_PROTOCOL.md, V3_FORMAL_DEFINITIONS.md, V3_ANNOTATION_GUIDELINES.md, V3_STATISTICAL_ANALYSIS_PLAN.md; runners v3_p2_paired_study.py, v3_p4_behavioral.py, v3_p5_confirmatory.py; analysis analyze_p3_outcomes.py, analyze_p5_confirmatory_outcomes.py. Real-dialogue Stage 1: V3_REAL_DATA_AUDIT_PROTOCOL.md + v3_real_feasibility_audit.py; screening results: 2026-11-17-real-screening-results.md; screening how-to: REAL_SCREENING_ANNOTATION_HOWTO.md; Stage 2 draft v2 (not frozen): V3_REAL_STAGE2_DRAFT.md; P4.2 draft: V3_P4_2_PROTOCOL_DRAFT.md, bank datasets/p4_2_scenarios/, generator experiments/v3_p4_2_bank.py; pilot frozen at tag freeze/v3-pilot-2026-11-17."
   invalid_or_blocked:
     - "v2.8 sidecar attempts 1-2 (invalid prompt output; local only, not committed)"
     - "v1.0 judge smoke and first v1.1 calibration (invalid; documented and discarded)"
-  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized, evidence-consistent -26.7 pts), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, negative interaction -0.500. gemma3:12b agent replication confirms the behavioral asymmetry (distorted 20/30, present 0/30); writer replication v3.2.5 (kappa 0.834) confirms the chain direction with a model-dependent mitigation ranking. Full-text novelty audit complete (14 PDFs): the ingredients are prior work; the defensible claim is the status-specific, proposition-controlled combination."
+  current_results: "P3: chained rewriting causes status omission 44-54%, unsupported distortion 3/330 (kappa 0.944). P4: omission conservative (0/30 unauthorized, evidence-consistent -26.7 pts), distortion dangerous (66.7% vs 6.7%). P5 v3.2.4 recheck (kappa 0.974): neutral 14/26, status_aware 27/30, neutral_source 30/30, status_aware_source 28/30; source access strongest, negative interaction -0.500. gemma3:12b agent replication confirms the behavioral asymmetry (distorted 20/30, present 0/30); writer replication v3.2.5 (kappa 0.834) confirms the chain direction with a model-dependent mitigation ranking. Full-text novelty audit complete (14 PDFs): the ingredients are prior work; the defensible claim is the status-specific, proposition-controlled combination. P4.2 bank passes two-human validation (WMY+YTB, 2026-11-18): all pooled gates pass, 38/40 scenarios survive, frozen at 38 scenarios / 152 items in V3_P4_2_FREEZE.md."
   next_actions:
     - "Blocker: obtain a model-free subset (YTB re-annotates 20-30 items from scratch, or a third human labels all 50); the current A/B pair is two independent humans but B used an AI first draft, so no unaided human-reliability claim is possible yet"
     - "Stage 2: freeze V3_REAL_STAGE2_DRAFT.md v2 after the D1-D5 rubric revisions; calibrate on a fresh 60-item set (LoCoMo intentional, enriched conditional, longmemeval_s), then gate on LSF/SSF kappa"
-    - "P4.2 bank: 40 high-stakes scenarios built and passing automated manipulation checks (0 proposition/length flags); two-human validation of validation.csv is the next gate, then the runner"
+    - "P4.2 bank is frozen at 38 scenarios / 152 items (V3_P4_2_FREEZE.md); implement the two-model runner with a strict parser, then freeze protocol+runner before the first call (304 calls)"
     - "Stage 3: P4.2 status-only intervention with matched proposition/evidence/task/length and two agent models"
     - "Stage 4: rewrite-depth and recovery experiment (per-round omission onset, recovery with source access, repeated-direct vs chained)"
     - "Stage 5: precision-based sample size, paired trajectory-level statistics, cost analysis, ablations, related-work comparison, then paper positioning"

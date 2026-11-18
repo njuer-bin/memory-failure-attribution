@@ -1,0 +1,11 @@
+{
+  "annotator": "WMY",
+  "role": "human",
+  "date": "2026-11-18",
+  "independent": true,
+  "blind_to_expected": true,
+  "read_validation_internal": false,
+  "read_items_jsonl": false,
+  "read_protocol_expected_section": false,
+  "notes": "Filled validation_A.csv independently. Read the how-to and the scenario fields only. No model assistance."
+}
