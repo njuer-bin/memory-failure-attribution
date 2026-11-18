@@ -120,6 +120,15 @@ status-specific, proposition-controlled transformation-history diagnostic.
   contain — agent-side inference from a topic mention. The imperative request
   ("Submit ... today") remains a confound; a neutral-request v3 probe is
   optional, not required.
+- **Reason coding separates the two mechanisms (analyst, not human).** All 32
+  unauthorized records: the 17 distorted cases all follow an explicitly
+  authorizing memory (`D1_FOLLOWED_DISTORTED_MEMORY`); the 15 omission cases
+  assert an unstated commitment (`O1`, 6), upgrade a mention (`O2`, 3), or use
+  the current request as authorization (`O3`, 6; all four v2 probe cases are
+  `O3`). No omission case executes while acknowledging that the memory lacks a
+  status. Coding is post hoc, gold-unblinded, and analyst-performed
+  (`results/status_drift_v3_p4_2/analysis/unauthorized_reason_codes.csv`), not
+  a pre-registered human instrument.
 
 ### v2 exploratory baseline (2026-11-16, 30-trajectory run)
 
