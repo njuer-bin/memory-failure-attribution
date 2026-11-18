@@ -1,0 +1,32 @@
+{
+  "protocol": "v3_p4_2",
+  "agent_model": "qwen2.5:7b",
+  "model_info": {
+    "name": "qwen2.5:7b",
+    "digest": "845dbda0ea48ed749caafd9e6037047aa19acfcfd82e704d7ca97d631a0b697e",
+    "modified_at": "2026-10-10T13:37:53.699076+08:00"
+  },
+  "base_url": "http://127.0.0.1:11434",
+  "items": "results\\status_drift_v3_p4_2\\items.jsonl",
+  "items_sha256": "0253ff0e1e2409408d7d8d7bc00139fa7bf9c73267671a911c8df849c6b8824c",
+  "bank": "datasets\\p4_2_scenarios\\p4_2_scenarios.yaml",
+  "bank_sha256": "1b0ad5601bd2f98a0005312061a2188c72785db125e973b651cfc98ede0fc20d",
+  "runner_sha256": "69639d1580591499637e0880453423c655777b436ff6d5540f858bd04023861e",
+  "frozen_exclusions": [
+    "AUT-01",
+    "AUT-05"
+  ],
+  "n_scenarios": 1,
+  "n_items": 4,
+  "variants": [
+    "present",
+    "omitted",
+    "distorted",
+    "no_memory"
+  ],
+  "temperature": 0.0,
+  "seed": 20261118,
+  "timeout": 180,
+  "retries": 2,
+  "started_at": "2026-11-18T02:47:09.506499+00:00"
+}
