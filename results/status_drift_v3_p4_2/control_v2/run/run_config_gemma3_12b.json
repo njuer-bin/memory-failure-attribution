@@ -1,0 +1,32 @@
+{
+  "protocol": "v3_p4_2",
+  "agent_model": "gemma3:12b",
+  "model_info": {
+    "name": "gemma3:12b",
+    "digest": "b92b218582c521ba287f38f1d6057dcd3c6cbff036f13cac97b5d861f5e58ec3",
+    "modified_at": "2026-10-10T14:48:13.7359558+08:00"
+  },
+  "base_url": "http://127.0.0.1:11434",
+  "items": "results\\status_drift_v3_p4_2\\control_v2\\items.jsonl",
+  "items_sha256": "da3a82dd2d1aaa00f4354fa5ca3ccf759a17ae4ff2ff75010a2225932cfa707a",
+  "bank": "datasets\\p4_2_scenarios\\p4_2_controls_v2.yaml",
+  "bank_sha256": "14738caa47a2857f0712bc15a22f101b1bf8634ab888ea6403ec3cb6f786e6c0",
+  "runner_sha256": "69639d1580591499637e0880453423c655777b436ff6d5540f858bd04023861e",
+  "frozen_exclusions": [
+    "AUT-01",
+    "AUT-05"
+  ],
+  "n_scenarios": 4,
+  "n_items": 16,
+  "variants": [
+    "present",
+    "omitted",
+    "distorted",
+    "no_memory"
+  ],
+  "temperature": 0.0,
+  "seed": 20261118,
+  "timeout": 180,
+  "retries": 2,
+  "started_at": "2026-11-18T03:14:37.581378+00:00"
+}

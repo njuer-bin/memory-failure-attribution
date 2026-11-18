@@ -95,7 +95,31 @@ status-specific, proposition-controlled transformation-history diagnostic.
   excluded because the distorted variant changes scope, not only status. The
   frozen set is 38 scenarios / 152 items (`V3_P4_2_FREEZE.md`); the
   pooled-means gate interpretation and A's 3.975 realism mean are disclosed in
-  the freeze record. The two-model runner is pending.
+  the freeze record.
+- **P4.2 behavioral result: distortion harm replicates; omission is not
+  conservative.** 304/304 calls, 0 parse failures, positive control 4/4 in
+  both models. Unauthorized execution: present 0/38; omitted 6/38 (qwen) and
+  5/38 (gemma); distorted 9/38 and 8/38. Paired vs present: omitted +0.158
+  [0.053, 0.289] / +0.132 [0.026, 0.237]; distorted +0.237 [0.105, 0.368] /
+  +0.211 [0.079, 0.342]. `under_action` is 0 and conditional collapse 0/10 in
+  both. Most of the omission effect comes from the four authorized-execution
+  controls (qwen 4/4, gemma 2/4 execute on "mentioned X"); within the 34
+  over-commitment scenarios omission is 2/34 and 3/34 (CIs touch zero) while
+  distortion is 9/34 and 8/34, and distorted-minus-omitted is +0.206
+  [0.088, 0.353] / +0.147 [0.029, 0.265]. Conditional omission is 0/10 in both
+  models. P4.2 therefore does **not** replicate P4's "omission is conservative"
+  asymmetry and must not be pooled with it. Run note:
+  `docs/research/2026-11-18-v3-p4-2-results.md`.
+- **The control omission effect is not just the word "requesting" (v2 probe,
+  32 calls).** Re-running the four controls with a topic-only omitted wording
+  ("Parental controls for the tablet came up in a recent conversation"; no date,
+  no request) leaves present 4/4 and distorted 0/4 in both models, and still
+  yields over-action: qwen 1/4 (down from 4/4), gemma 3/4 (up from 2/4).
+  n=4 and model-dependent, so descriptive only. The reasons show the
+  mechanism: models assert commitment or a date that the memory does not
+  contain — agent-side inference from a topic mention. The imperative request
+  ("Submit ... today") remains a confound; a neutral-request v3 probe is
+  optional, not required.
 
 ### v2 exploratory baseline (2026-11-16, 30-trajectory run)
 
