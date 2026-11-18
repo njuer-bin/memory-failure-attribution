@@ -1,9 +1,11 @@
-# Stage 2 Draft v2 — Real-Dialogue Status Fidelity Annotation and Calibration
+# Stage 2 Draft v2.3 — Real-Dialogue Status Fidelity Annotation and Calibration
 
-Status: **DRAFT v2, not frozen.** Revised after the 50-item screening exposed
-rubric defects in `lexical_labelable` and `update_present`. Calibration has
-not passed; the current A/B pair is not two independent humans (B is a model,
-A's provenance is blank). Do not freeze or run confirmatory generation yet.
+Status: **DRAFT v2.3, not frozen.** Revised after the 50-item screening, the
+failed 60-item calibration, and two 40-item runs. Run 2 (new annotator A) passes
+`gold_status` (raw 0.900, κ 0.875) but fails `gold_dimension` on κ (0.925 /
+0.639) with three boundary disagreements. v2.3 adds examples for instructions
+to the assistant, past/emotional musing, and "I've managed to X". Do not freeze
+or run confirmatory generation yet.
 
 This document does not change the frozen V3 synthetic pilot
 (`freeze/v3-pilot-2026-11-17`).
@@ -273,6 +275,133 @@ mention exists but is unchanged.
 - A hedged future action ("I think I'll X", "maybe I'll X") is `intentional`
   with weak strength, not `epistemic`.
 
+## 8b. v2.1 calibration revisions (2026-11-18)
+
+The 60-item gold calibration failed (`2026-11-18-stage2-calibration-result.md`).
+The disagreements cluster into four rules; these are now binding.
+
+### `E0` encoding
+
+If `gold_dimension=E0`, then `gold_status=N/A`, `gold_condition_state=N/A`,
+`gold_action_state=N/A`, and `gold_strength=N/A`. Never use `NOT_EXPRESSED`
+for an `E0` item. `NOT_EXPRESSED` is only for a non-`E0` intentional item where
+no intention is expressed.
+
+### Desire vs intention
+
+- "I want to X", "I'd like to X", "I'm interested in X" → `INTERESTED`.
+  A bare desire is not a plan and not a commitment.
+- "I plan to X", "I intend to X", "I'm going to X" → `INTENDING`.
+- "I'm thinking of X", "I'm considering X", "I might X" → `CONSIDERING`.
+- `COMMITTED` only with an explicit decision, booking, registration, payment,
+  or equivalent commitment cue.
+- If a desire is accompanied by a concrete plan or step, code `INTENDING` and
+  quote the plan. Do not upgrade a desire to `INTENDING` on context alone.
+
+### `EXECUTING`
+
+- Use `EXECUTING` only when the action is already under way: "I'm trying to X",
+  "I've been X-ing", "I started X".
+- "I'm going to keep X-ing" → `INTENDING`.
+- "I want to keep X-ing" → `INTERESTED`.
+
+### Conditional boundary
+
+- Conditional status is about the speaker's own action contingent on a factual
+  prerequisite. Both the condition state and the action state must be judgeable.
+- Offers or advice to the interlocutor ("let me know if you need someone to
+  talk to", "if I can do anything to help") and generic conditionals about the
+  world ("we can have great experiences if we take risks") are `E0`, not
+  conditional.
+- If either the condition or the action is not judgeable, use `E0`; do not fill
+  only one state.
+
+### Own-action wondering
+
+- "I'm wondering if I could X", where X is the speaker's own action → intentional
+  `CONSIDERING`, not epistemic.
+- Epistemic applies when the uncertainty is about a factual proposition, not
+  about whether the speaker will act.
+
+### Strength and confidence anchors
+
+- `gold_strength=weak`: hedged desire or possibility, no plan.
+- `moderate`: stated plan, or ongoing consideration.
+- `strong`: explicit decision/commitment, or a completed action.
+- `gold_confidence=high`: the evidence directly states the status with an
+  explicit cue.
+- `medium`: the status is inferred from context, or the plan is implied.
+- `low`: ambiguous or a boundary case.
+
+### `target_proposition`
+
+Write one English sentence in the form "The speaker [status] [action/object]".
+Do not write commentary, Chinese translations, or multiple propositions. Free
+text is not agreement-gated, but a consistent form makes adjudication cheaper.
+
+## 8c. v2.2 worked examples and target-proposition rule (2026-11-18)
+
+The 40-item calibration failed because four v2.1 rules were not applied. These
+examples are binding; apply them before the next calibration run.
+
+| Sentence | Label | Why |
+|---|---|---|
+| "I think I'll go with the fruit chaat." | intentional `INTENDING`, moderate | "I think I'll" is hedged; not a decision, so not `COMMITTED`. |
+| "I'm going to try making it tonight." | `INTENDING`, moderate | "try" states an intention; not a decision, so not `COMMITTED`. |
+| "I'd like to find a more challenging route." | `INTERESTED`, weak/moderate | Desire, no plan; not `INTENDING`. |
+| "I want to live authentically and help others do the same." | `INTERESTED` | Desire/values, no plan; not `INTENDING`. |
+| "I'm going to keep chasing my dreams and working hard." | `INTENDING` | Resolve, not an action already under way; not `EXECUTING`. |
+| "I'm trying to improve my data analysis skills." | `EXECUTING` | Action already under way. |
+| "I have to go, bye!" | `E0`; all status fields `N/A` | No status proposition about a future action. |
+| "I'm gonna keep writing, but if acting calls out I might give it a try." | target P = keep writing; `INTENDING`; note the secondary conditional | One target proposition; the "if acting" clause goes in `notes`. Do not code `mixed`. |
+| "I'm trying to juggle my engineering, relationship, and growing as a person." | `E0` if the proposition is vague/emotional; `EXECUTING` only if it names an ongoing action | Choose one reading and explain the boundary in `notes`. |
+
+**Target-proposition rule.** One item = one target proposition, usually the main
+clause. If a sentence has a main action plus a secondary conditional or
+emotional clause, code the main action and put the secondary clause in `notes`.
+Use `mixed` only when the **same** proposition independently carries two status
+dimensions (for example, a factual claim with both epistemic uncertainty and an
+intentional commitment). If the second dimension is a condition, use
+`conditional`; if it is background, use the primary dimension and note it.
+
+**Strength anchors.** `weak` = desire, hedge, or possibility with no plan;
+`moderate` = stated plan or intention; `strong` = explicit decision,
+commitment, booking, payment, or completed action.
+
+## 8d. v2.3 boundary examples (2026-11-18)
+
+Run 2 passes `gold_status` but fails `gold_dimension` on three items. These
+rules are binding.
+
+### Instructions to the assistant / roleplay
+
+"I will provide some details about the app and it will be your job to write up a
+detailed statement..." is an instruction to the assistant, not the speaker's own
+status. Code `E0`. Only the speaker's own action, state, or belief is a status
+proposition.
+
+### Past or emotional musing
+
+"I think about my life too sometimes ... felt like writing a drama" is past
+emotion/musing, not a current or future action status. Code `E0`. A status
+requires a current or future action/state, or an explicit commitment; "felt
+like" is a past feeling.
+
+### "I've managed to X"
+
+- If X is the speaker's own action, code intentional `COMPLETED`.
+- If the item is a factual claim about a state or the world, code epistemic
+  `SUPPORTED` or `ESTABLISHED`.
+- If both are present, code the action and put the factual claim in `notes`.
+  Do not use `mixed` unless both dimensions independently carry the same
+  proposition.
+
+### Rule of thumb
+
+If the sentence is about the assistant's task or a past emotion, `E0`. If it is
+about the speaker's own future or past action, intentional. If it is about the
+truth of a factual claim, epistemic.
+
 ## 9. Annotation form (formal study)
 
 One row per `(item, transformation)`. Proposed columns:
@@ -306,7 +435,8 @@ Gold fields are filled once per item; memory fields once per
 - An AI first draft may be used for one annotator only if disclosed. That
   annotator's labels are `human-reviewed-model`, not unaided human. Re-annotate
   a model-free subset (20-30 items) to estimate anchoring before claiming
-  reliability.
+  reliability; the 25-item subset is in
+  `results/status_drift_v3_real_audit/model_free_25/`.
 - Memory annotators are blind to the transformation label and to the gold
   status. The gold annotator is blind to `M`.
 - If one person plays both roles, the roles must be separated in time and the
@@ -450,7 +580,9 @@ dataset composition, and the decision to keep or drop epistemic.
 
 ### Remaining prerequisites before freezing
 
-- Fill A's provenance and recruit a genuine second human annotator.
+- Fill the 25-item model-free re-annotation subset
+  (`results/status_drift_v3_real_audit/model_free_25/`); A's screening
+  provenance is recorded. Recruit a third human adjudicator if available.
 - Pass a fresh 60-item calibration after the D1-D5 revisions.
 - Validate the P4.2 scenario bank with two humans.
 - Record the freeze hashes for the guide, ontology, cue table, form schema,

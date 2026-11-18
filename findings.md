@@ -25,9 +25,11 @@ unsupported distortion:
   re-editing of the writer's own output — not intermediate budget shrinkage or
   raw call count — drives the loss. Source access removes it (−0.400
   [−0.567, −0.233]).
-- Downstream (P4): omission is conservative (0/30 unauthorized, but
-  evidence-consistent action −26.7 points), distortion is dangerous
-  (66.7% vs 6.7% unauthorized; +0.600 [0.433, 0.767]). Replicates on gemma3:12b.
+- Downstream (P4): in the synthetic Chinese tasks, omission is conservative
+  (0/30 unauthorized, but evidence-consistent action −26.7 points), distortion
+  is dangerous (66.7% vs 6.7% unauthorized; +0.600 [0.433, 0.767]). Replicates
+  on gemma3:12b. **P4.2 does not replicate the omission side**; see the P4.2
+  bullet below.
 - Mitigation (P5 confirmatory, v3.2.4 recheck κ 0.974): source access alone
   1.00 faithful, status-aware prompt 0.90, combination 0.93 with a negative
   interaction (−0.500). The ranking is model-dependent.
@@ -129,6 +131,78 @@ status-specific, proposition-controlled transformation-history diagnostic.
   status. Coding is post hoc, gold-unblinded, and analyst-performed
   (`results/status_drift_v3_p4_2/analysis/unauthorized_reason_codes.csv`), not
   a pre-registered human instrument.
+- **Stage 2 is pre-frozen, not frozen.** The candidate v2 guide, ontology,
+  screening evidence, and calibration generator are hashed in
+  `V3_REAL_STAGE2_PREFREEZE.md`. A 60-item gold calibration set (35 LoCoMo, 25
+  longmemeval; 39 intentional, 15 conditional, 6 epistemic; 11 boundary and 5
+  cue-mismatch items) and a 25-item model-free re-annotation subset are ready.
+  Because the public LoCoMo-Refined split has only 10 conversations and all
+  were used in screening, the calibration set is **not** conversation-disjoint;
+  it excludes the exact items but reuses conversations. Freeze is blocked on
+  the model-free re-annotation and the 60-item gold calibration; LSF/SSF
+  calibration needs a separate generated-memory sheet.
+- **The 25-item "model-free" check is model-assisted, not model-free.** The
+  provenance records WorkBuddy/MiniMax assistance, exposure to cue-derived
+  columns, and full-corpus searching for later mentions. Compared with old B:
+  dimension raw 0.880 / κ 0.762, but `update_present` raw 0.200 / κ 0.040
+  because old labels were mostly `unknown` while the new annotator searched the
+  source; `evidence_sufficient` raw 0.560 / κ 0.042. The result is a
+  model-assisted sensitivity analysis, not an anchoring estimate. A strict
+  correction sheet without cue columns or source ids is ready at
+  `results/status_drift_v3_real_audit/model_free_25_strict/`; a third human (or
+  a washed-out YTB) must fill it. The 50-item screen remains a mixed-provenance
+  diagnostic, and the 60-item calibration is the primary Stage 2 gate.
+- **Stage 2 calibration v1 fails; the guide is revised to v2.1.** Both sheets
+  complete (60/60), but `gold_dimension` passes (raw 0.917, κ 0.809) while
+  `gold_status` fails (raw 0.633, κ 0.584; after normalizing the seven both-E0
+  status entries, raw 0.750, κ 0.708). The conditional arm is n=4 (raw 0.500).
+  The disagreements are systematic, not sampling noise: (1) A used
+  `NOT_EXPRESSED` and B `N/A` for E0; (2) "I want to / I'd like to" was coded
+  `INTENDING`/`CONSIDERING`/`EXECUTING` by A but `INTERESTED` by B (9
+  disagreements); (3) `EXECUTING` was used for resolve ("I'm going to keep
+  X-ing") as well as ongoing action; (4) an offer to the interlocutor ("let me
+  know if you need...") was coded conditional by A but E0 by B. v2.1 adds
+  explicit rules for all four. Provenance is not collected by maintainer
+  decision; report the calibration as annotator-unspecified. The v2 candidate set
+  excludes screening + v1 items but has only 7 conditional items; choose
+  between a descriptive conditional arm and sourcing more conditional dialogue
+  before annotating it.
+- **Decision C: calibrate intentional/epistemic now; conditional separately.**
+  A 40-item set is ready at
+  `results/status_drift_v3_real_audit/stage2_calibration_40_intent_epi/`
+  (25 LoCoMo, 15 longmemeval; 29 intentional, 11 epistemic; 7 boundary, 4
+  cue-mismatch). It excludes screening and v1-calibration items, reuses LoCoMo
+  conversations (not conversation-disjoint), and gates only `gold_dimension`
+  and `gold_status`. The conditional arm is deferred; the paper must not claim
+  conditional reliability from this calibration. The v2 candidate with 7
+  conditional items is superseded.
+- **The 40-item calibration fails on rule adherence, not ontology.** Both
+  sheets complete (40/40); `gold_dimension` raw 0.875 / κ 0.600 and
+  `gold_status` raw 0.675 / κ 0.607 both fail. Of 13 status disagreements, 10
+  are direct v2.1 violations by A while B matches the guide: `E0` encoding (2),
+  commitment inflation ("I think I'll" → `COMMITTED`, 4), desire as intention
+  ("I want to" → `INTENDING`, 3), and `EXECUTING` for resolve (2). Two
+  `mixed`/`E0` cases expose a target-proposition gap. v2.2 adds worked examples
+  and a one-target-proposition rule (`STAGE2_V22_TRAINING.md`). Training pass,
+  then re-annotate these 40 as a calibration round; do not freeze and do not use
+  them as confirmatory data.
+- **Run 2 (new annotator A) passes `gold_status`, fails `gold_dimension` on
+  three boundary items.** `gold_status` raw 0.900 / κ 0.875 (PASS);
+  `gold_dimension` raw 0.925 / κ 0.639 (FAIL on κ). The three disagreements are
+  an instruction to the assistant (`S2IE-003`), past/emotional musing
+  (`S2IE-021`), and a completed-action vs factual-claim boundary (`S2IE-025`).
+  The status ontology is working; the dimension gate is a boundary/prevalence
+  issue, not a broad failure. v2.3 adds examples for all three. Next: a new
+  40-item set under v2.3, or a third-person adjudication of the three items
+  with unadjudicated and adjudicated results reported side by side. Do not lower
+  the gate post hoc.
+- **Third-person adjudication passes both gold gates.** `S2IE-003` and
+  `S2IE-021` are E0; `S2IE-025` is intentional COMPLETED. Adjudicated:
+  `gold_dimension` 1.000 / κ 1.000; `gold_status` 0.975 / κ 0.969;
+  `gold_strength` 0.725 / κ 0.472 (descriptive). Gold calibration is complete
+  with adjudication. This is not a full Stage 2 freeze: LSF/SSF calibration,
+  the cue table, inclusion rules, adjudication order, and the analysis plan
+  remain to be frozen.
 
 ### v2 exploratory baseline (2026-11-16, 30-trajectory run)
 
@@ -520,11 +594,14 @@ V3 statuses are authoritative; v2 evidence is kept as supporting history.
   retention: 300/330 V3 items preserve the proposition; 88/300 are status
   omissions. Proposition loss (10–20% in chained conditions) does not explain
   the omission contrast.
-- **H4 — supported for distortion.** P4: present 2/30 unauthorized, omitted
-  0/30 (but evidence-consistent −26.7 points), distorted 20/30 (+0.600
-  [0.433, 0.767]). The asymmetry replicates on gemma3:12b (distorted 20/30,
-  present 0/30). Omission is the common, safe failure; distortion is the rare,
-  harmful one.
+- **H4 — supported for distortion; omission is task-dependent.** P4: present
+  2/30 unauthorized, omitted 0/30 (but evidence-consistent −26.7 points),
+  distorted 20/30 (+0.600 [0.433, 0.767]); this replicates on gemma3:12b. P4.2
+  (English high-stakes, 304 calls) reproduces the distortion harm but not the
+  omission side: omitted 6/38 and 5/38, distorted 9/38 and 8/38; over-commitment
+  only, omitted 2/34 and 3/34 (intervals touch zero) vs distorted 9/34 and 8/34.
+  Distortion is the robust harm; omission is a common failure whose behavioral
+  profile depends on the task and request framing.
 - **H5 — supported.** status-aware 27/30 faithful vs neutral 14/26 at 1.05×
   budget; source access 30/30 at 1.23×; combination 28/30 at 1.38× with a
   −0.500 interaction. Source access is the stronger mitigation; status-aware is

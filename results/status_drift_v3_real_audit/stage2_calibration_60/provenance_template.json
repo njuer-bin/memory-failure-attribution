@@ -1,0 +1,11 @@
+{
+  "annotator": "",
+  "role": "human",
+  "date": "",
+  "independent": true,
+  "blind_to_gold": true,
+  "blind_to_other_annotator": true,
+  "blind_to_composition_key": true,
+  "model_assistance": false,
+  "notes": ""
+}

@@ -1,0 +1,73 @@
+{
+  "n_items": 40,
+  "adjudicated_items": [
+    {
+      "item_id": "S2IE-003",
+      "gold_dimension": "E0",
+      "gold_status": "N/A",
+      "gold_strength": "N/A",
+      "rationale": "按 §8d「对助手的指令/角色扮演」规则：目标句的唯一命题是派给助手的写作任务（it will be your job to write up a detailed statement），不是说话人自身的动作、状态或信念，故判 E0，status/strength/condition/action 全部 N/A。"
+    },
+    {
+      "item_id": "S2IE-021",
+      "gold_dimension": "E0",
+      "gold_status": "N/A",
+      "gold_strength": "N/A",
+      "rationale": "按 §8d「过去/情绪性回想」规则：feel like writing a drama 只是过去的一闪念，既非当前也非未来的动作状态，I think about my life too sometimes 亦为习惯性回想而非状态命题，故判 E0，status/strength/condition/action 全部 N/A。"
+    },
+    {
+      "item_id": "S2IE-025",
+      "gold_dimension": "intentional",
+      "gold_status": "COMPLETED",
+      "gold_strength": "strong",
+      "rationale": "按 §8d「I've managed to X」规则：X（make it work with dogs while still living in the city）是说话人自己已完成的动作，故判 intentional COMPLETED（§8c 强度锚点：completed action = strong，I think 的 hedge 降低的是置信度而非状态）；while still living in the city 属事实性背景，按 §8c「若第二维度是背景则用主维度并在 notes 说明」写入本理由而不另立维度，故不用 mixed。"
+    }
+  ],
+  "unadjudicated": {
+    "gold_dimension": {
+      "raw": 0.925,
+      "kappa": 0.6385542168674702,
+      "n_disagreements": 3
+    },
+    "gold_status": {
+      "raw": 0.9,
+      "kappa": 0.875195007800312,
+      "n_disagreements": 4
+    },
+    "gold_strength": {
+      "raw": 0.675,
+      "kappa": 0.3264248704663214,
+      "n_disagreements": 13
+    }
+  },
+  "adjudicated": {
+    "gold_dimension": {
+      "raw": 1.0,
+      "kappa": 1.0,
+      "n_disagreements": 0
+    },
+    "gold_status": {
+      "raw": 0.975,
+      "kappa": 0.9689922480620156,
+      "n_disagreements": 1
+    },
+    "gold_strength": {
+      "raw": 0.725,
+      "kappa": 0.47242206235011985,
+      "n_disagreements": 11
+    }
+  },
+  "gates": {
+    "gold_dimension": {
+      "raw": 1.0,
+      "kappa": 1.0,
+      "pass": true
+    },
+    "gold_status": {
+      "raw": 0.975,
+      "kappa": 0.9689922480620156,
+      "pass": true
+    }
+  },
+  "all_gates_pass": true
+}

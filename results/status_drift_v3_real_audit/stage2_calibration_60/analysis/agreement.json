@@ -1,0 +1,428 @@
+{
+  "n_items": 60,
+  "n_conditional": 4,
+  "fields": {
+    "gold_dimension": {
+      "n": 60,
+      "raw_agreement": 0.9166666666666666,
+      "cohen_kappa": 0.8089171974522292,
+      "A_distribution": {
+        "conditional": 4,
+        "intentional": 44,
+        "mixed": 1,
+        "E0": 7,
+        "epistemic": 4
+      },
+      "B_distribution": {
+        "conditional": 3,
+        "intentional": 44,
+        "E0": 10,
+        "epistemic": 3
+      },
+      "disagreements": [
+        {
+          "item_id": "S2C-009",
+          "A": "mixed",
+          "B": "intentional"
+        },
+        {
+          "item_id": "S2C-020",
+          "A": "conditional",
+          "B": "E0"
+        },
+        {
+          "item_id": "S2C-025",
+          "A": "intentional",
+          "B": "E0"
+        },
+        {
+          "item_id": "S2C-034",
+          "A": "epistemic",
+          "B": "intentional"
+        },
+        {
+          "item_id": "S2C-036",
+          "A": "intentional",
+          "B": "E0"
+        }
+      ]
+    },
+    "gold_status": {
+      "n": 60,
+      "raw_agreement": 0.6333333333333333,
+      "cohen_kappa": 0.584251968503937,
+      "A_distribution": {
+        "N/A": 4,
+        "CONSIDERING": 9,
+        "INTENDING": 18,
+        "NOT_EXPRESSED": 7,
+        "EXECUTING": 6,
+        "COMMITTED": 8,
+        "PROBABLE": 1,
+        "COMPLETED": 4,
+        "POSSIBLE": 1,
+        "UNKNOWN": 2
+      },
+      "B_distribution": {
+        "N/A": 13,
+        "CONSIDERING": 9,
+        "INTENDING": 10,
+        "EXECUTING": 4,
+        "COMMITTED": 9,
+        "PROBABLE": 2,
+        "COMPLETED": 3,
+        "INTERESTED": 9,
+        "UNKNOWN": 1
+      },
+      "disagreements": [
+        {
+          "item_id": "S2C-010",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-015",
+          "A": "INTENDING",
+          "B": "COMMITTED"
+        },
+        {
+          "item_id": "S2C-018",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-021",
+          "A": "POSSIBLE",
+          "B": "PROBABLE"
+        },
+        {
+          "item_id": "S2C-024",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-025",
+          "A": "COMPLETED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-027",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-030",
+          "A": "CONSIDERING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2C-031",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2C-032",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-034",
+          "A": "UNKNOWN",
+          "B": "CONSIDERING"
+        },
+        {
+          "item_id": "S2C-036",
+          "A": "INTENDING",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-038",
+          "A": "EXECUTING",
+          "B": "INTENDING"
+        },
+        {
+          "item_id": "S2C-040",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2C-047",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2C-050",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2C-052",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2C-055",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2C-057",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-058",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2C-059",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2C-060",
+          "A": "EXECUTING",
+          "B": "INTERESTED"
+        }
+      ]
+    },
+    "gold_condition_state": {
+      "n": 4,
+      "raw_agreement": 0.5,
+      "cohen_kappa": 0.0,
+      "A_distribution": {
+        "ACTIVE_UNSATISFIED": 4
+      },
+      "B_distribution": {
+        "ACTIVE_UNSATISFIED": 2,
+        "UNKNOWN": 1,
+        "N/A": 1
+      },
+      "disagreements": [
+        {
+          "item_id": "S2C-004",
+          "A": "ACTIVE_UNSATISFIED",
+          "B": "UNKNOWN"
+        },
+        {
+          "item_id": "S2C-020",
+          "A": "ACTIVE_UNSATISFIED",
+          "B": "N/A"
+        }
+      ]
+    },
+    "gold_action_state": {
+      "n": 4,
+      "raw_agreement": 0.5,
+      "cohen_kappa": 0.3333333333333333,
+      "A_distribution": {
+        "CONSIDERING": 2,
+        "INTENDING": 2
+      },
+      "B_distribution": {
+        "CONSIDERING": 1,
+        "NOT_EXPRESSED": 1,
+        "INTENDING": 1,
+        "N/A": 1
+      },
+      "disagreements": [
+        {
+          "item_id": "S2C-004",
+          "A": "CONSIDERING",
+          "B": "NOT_EXPRESSED"
+        },
+        {
+          "item_id": "S2C-020",
+          "A": "INTENDING",
+          "B": "N/A"
+        }
+      ]
+    },
+    "gold_strength": {
+      "n": 60,
+      "raw_agreement": 0.75,
+      "cohen_kappa": 0.5699952221691351,
+      "A_distribution": {
+        "weak": 13,
+        "moderate": 42,
+        "strong": 5
+      },
+      "B_distribution": {
+        "weak": 26,
+        "moderate": 27,
+        "strong": 7
+      },
+      "disagreements": [
+        {
+          "item_id": "S2C-002",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-003",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-006",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-007",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-012",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-015",
+          "A": "moderate",
+          "B": "strong"
+        },
+        {
+          "item_id": "S2C-021",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-025",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-029",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-035",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-036",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-042",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-048",
+          "A": "moderate",
+          "B": "strong"
+        },
+        {
+          "item_id": "S2C-055",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2C-056",
+          "A": "moderate",
+          "B": "weak"
+        }
+      ]
+    },
+    "gold_confidence": {
+      "n": 60,
+      "raw_agreement": 0.85,
+      "cohen_kappa": 0.2241379310344823,
+      "A_distribution": {
+        "high": 54,
+        "medium": 6
+      },
+      "B_distribution": {
+        "high": 53,
+        "medium": 7
+      },
+      "disagreements": [
+        {
+          "item_id": "S2C-010",
+          "A": "medium",
+          "B": "high"
+        },
+        {
+          "item_id": "S2C-012",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2C-020",
+          "A": "medium",
+          "B": "high"
+        },
+        {
+          "item_id": "S2C-021",
+          "A": "medium",
+          "B": "high"
+        },
+        {
+          "item_id": "S2C-025",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2C-033",
+          "A": "medium",
+          "B": "high"
+        },
+        {
+          "item_id": "S2C-034",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2C-047",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2C-055",
+          "A": "high",
+          "B": "medium"
+        }
+      ]
+    },
+    "target_proposition": {
+      "n": 60,
+      "normalized_exact_agreement": 0.0,
+      "mean_token_jaccard": 0.01944444444444444
+    },
+    "evidence_quote": {
+      "n": 60,
+      "normalized_exact_agreement": 0.7833333333333333,
+      "mean_token_jaccard": 0.9066759259259259
+    }
+  },
+  "gates": {
+    "gold_dimension": {
+      "raw": 0.9166666666666666,
+      "kappa": 0.8089171974522292,
+      "pass": true
+    },
+    "gold_status": {
+      "raw": 0.6333333333333333,
+      "kappa": 0.584251968503937,
+      "pass": false
+    },
+    "gold_condition_state": {
+      "raw": 0.5,
+      "kappa": 0.0,
+      "pass": false
+    },
+    "gold_action_state": {
+      "raw": 0.5,
+      "kappa": 0.3333333333333333,
+      "pass": false
+    }
+  },
+  "all_gates_pass": false
+}

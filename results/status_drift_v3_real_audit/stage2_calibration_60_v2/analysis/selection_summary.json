@@ -1,0 +1,24 @@
+{
+  "items": 60,
+  "datasets": {
+    "locomo": 35,
+    "longmemeval": 25
+  },
+  "auto_primary_dimension": {
+    "intentional": 41,
+    "epistemic": 12,
+    "conditional": 7
+  },
+  "proposed_stratum": {
+    "CONSIDERING_INTENDING": 27,
+    "COMMITTED_COMPLETED": 13,
+    "OTHER": 19,
+    "MIXED": 1
+  },
+  "boundary_items": 10,
+  "cue_mismatch_items": 6,
+  "screening_overlap_excluded": 110,
+  "lo_como_conversations_available": 10,
+  "lo_como_conversations_used_in_screening": 10,
+  "caveat": "The LoCoMo-Refined public split has only 10 conversations and all were used in the 50-item screening set. This calibration set excludes the exact screening items but reuses the conversations; agreement may be mildly inflated. longmemeval_s items are from 10 instances not used in screening. Proposed strata and flags are heuristic and live only in the key, not in the annotator sheet."
+}

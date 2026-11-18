@@ -1,0 +1,13 @@
+{
+  "annotator": "YTB",
+  "role": "model-assisted",
+  "date": "2026-11-18",
+  "independent": true,
+  "blind_to_expected": false,
+  "read_other_annotator": false,
+  "read_screening_labels": false,
+  "read_model_draft": false,
+  "read_mapping_key": false,
+  "model_assistance": true,
+  "notes": "The 25 screening items were re-annotated with model assistance (WorkBuddy, MiniMax-M3.1-Flash) using docs/research/REAL_SCREENING_ANNOTATION_HOWTO.md plus the V3_REAL_STAGE2_DRAFT.md 8a corrections. screening_A.csv, screening_B.csv, diagnostic_read.csv, screening_50.csv and the item->candidate_id mapping key were not opened (they only appeared as file names in a repository-wide file listing). The raw source dialogues (longmemeval_oracle.json, locomo_refined_dataset/public/conversations.jsonl) were read to recover the full text of later mentions, because the sheet's update_evidence column is truncated at 300 characters. NOT blind to the cue-derived filter columns carried by the sheet itself (dimensions, primary_dimension, matched_markers, potential_update, later_mention), so this is a model-assisted anchoring check and not an independent human re-annotation; every notes cell is marked 'model-assisted'."
+}

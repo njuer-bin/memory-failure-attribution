@@ -1,0 +1,284 @@
+{
+  "n_items": 40,
+  "n_conditional": 0,
+  "fields": {
+    "gold_dimension": {
+      "n": 40,
+      "raw_agreement": 0.875,
+      "cohen_kappa": 0.6,
+      "A_distribution": {
+        "mixed": 4,
+        "intentional": 32,
+        "E0": 2,
+        "epistemic": 2
+      },
+      "B_distribution": {
+        "intentional": 34,
+        "E0": 4,
+        "epistemic": 2
+      },
+      "disagreements": [
+        {
+          "item_id": "S2IE-001",
+          "A": "mixed",
+          "B": "intentional"
+        },
+        {
+          "item_id": "S2IE-010",
+          "A": "mixed",
+          "B": "intentional"
+        },
+        {
+          "item_id": "S2IE-012",
+          "A": "mixed",
+          "B": "E0"
+        },
+        {
+          "item_id": "S2IE-021",
+          "A": "intentional",
+          "B": "E0"
+        },
+        {
+          "item_id": "S2IE-029",
+          "A": "mixed",
+          "B": "intentional"
+        }
+      ]
+    },
+    "gold_status": {
+      "n": 40,
+      "raw_agreement": 0.675,
+      "cohen_kappa": 0.6069538926681785,
+      "A_distribution": {
+        "EXECUTING": 11,
+        "CONSIDERING": 6,
+        "NOT_EXPRESSED": 2,
+        "INTENDING": 10,
+        "COMMITTED": 6,
+        "INTERESTED": 2,
+        "SUPPORTED": 1,
+        "COMPLETED": 1,
+        "PROBABLE": 1
+      },
+      "B_distribution": {
+        "INTENDING": 13,
+        "CONSIDERING": 6,
+        "N/A": 4,
+        "EXECUTING": 8,
+        "INTERESTED": 4,
+        "COMMITTED": 2,
+        "SUPPORTED": 1,
+        "COMPLETED": 1,
+        "PROBABLE": 1
+      },
+      "disagreements": [
+        {
+          "item_id": "S2IE-001",
+          "A": "EXECUTING",
+          "B": "INTENDING"
+        },
+        {
+          "item_id": "S2IE-003",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2IE-006",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2IE-008",
+          "A": "COMMITTED",
+          "B": "INTENDING"
+        },
+        {
+          "item_id": "S2IE-011",
+          "A": "COMMITTED",
+          "B": "INTENDING"
+        },
+        {
+          "item_id": "S2IE-012",
+          "A": "EXECUTING",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2IE-019",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2IE-021",
+          "A": "INTERESTED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2IE-028",
+          "A": "INTENDING",
+          "B": "INTERESTED"
+        },
+        {
+          "item_id": "S2IE-031",
+          "A": "NOT_EXPRESSED",
+          "B": "N/A"
+        },
+        {
+          "item_id": "S2IE-032",
+          "A": "COMMITTED",
+          "B": "INTENDING"
+        },
+        {
+          "item_id": "S2IE-034",
+          "A": "COMMITTED",
+          "B": "INTENDING"
+        },
+        {
+          "item_id": "S2IE-039",
+          "A": "EXECUTING",
+          "B": "INTENDING"
+        }
+      ]
+    },
+    "gold_condition_state": {
+      "n": 0
+    },
+    "gold_action_state": {
+      "n": 0
+    },
+    "gold_strength": {
+      "n": 40,
+      "raw_agreement": 0.825,
+      "cohen_kappa": 0.5597484276729559,
+      "A_distribution": {
+        "moderate": 34,
+        "weak": 4,
+        "strong": 2
+      },
+      "B_distribution": {
+        "moderate": 27,
+        "weak": 10,
+        "strong": 3
+      },
+      "disagreements": [
+        {
+          "item_id": "S2IE-002",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2IE-009",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2IE-012",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2IE-015",
+          "A": "moderate",
+          "B": "strong"
+        },
+        {
+          "item_id": "S2IE-033",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2IE-036",
+          "A": "moderate",
+          "B": "weak"
+        },
+        {
+          "item_id": "S2IE-038",
+          "A": "moderate",
+          "B": "weak"
+        }
+      ]
+    },
+    "gold_confidence": {
+      "n": 40,
+      "raw_agreement": 0.775,
+      "cohen_kappa": 0.2173913043478258,
+      "A_distribution": {
+        "high": 37,
+        "medium": 3
+      },
+      "B_distribution": {
+        "medium": 10,
+        "high": 30
+      },
+      "disagreements": [
+        {
+          "item_id": "S2IE-001",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2IE-003",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2IE-010",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2IE-014",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2IE-021",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2IE-023",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2IE-025",
+          "A": "medium",
+          "B": "high"
+        },
+        {
+          "item_id": "S2IE-029",
+          "A": "high",
+          "B": "medium"
+        },
+        {
+          "item_id": "S2IE-040",
+          "A": "high",
+          "B": "medium"
+        }
+      ]
+    },
+    "target_proposition": {
+      "n": 40,
+      "normalized_exact_agreement": 0.0,
+      "mean_token_jaccard": 0.016666666666666666
+    },
+    "evidence_quote": {
+      "n": 40,
+      "normalized_exact_agreement": 0.75,
+      "mean_token_jaccard": 0.8894940476190476
+    }
+  },
+  "gates": {
+    "gold_dimension": {
+      "raw": 0.875,
+      "kappa": 0.6,
+      "pass": false
+    },
+    "gold_status": {
+      "raw": 0.675,
+      "kappa": 0.6069538926681785,
+      "pass": false
+    }
+  },
+  "all_gates_pass": false
+}

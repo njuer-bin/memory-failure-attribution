@@ -1,0 +1,15 @@
+{
+  "annotator": "",
+  "role": "human",
+  "date": "",
+  "independent": true,
+  "blind_to_expected": true,
+  "blind_to_cue_columns": true,
+  "blind_to_source_identifiers": true,
+  "read_other_files": false,
+  "read_mapping_key": false,
+  "searched_full_corpus": false,
+  "model_assistance": false,
+  "prior_exposure": "",
+  "notes": ""
+}
