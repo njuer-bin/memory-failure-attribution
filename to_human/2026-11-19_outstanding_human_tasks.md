@@ -54,12 +54,15 @@ The blind sheets are generated and ready; this is now only a labeling task.
   sensitivity) separately.
 - Rebuilder: `experiments/make_replication_annotation_remaining.py`.
 
-## 2c. Frontier API replication (blocked on credentials)
+## 2c. Frontier API replication (in progress)
 
-No API key is available in this environment, so the frontier arm cannot run
-here. If a key is provided (OpenAI-, Anthropic-, or OpenAI-compatible endpoint),
-the P4.2 probe is 20 controls x 2 forms x 4 variants = 160 calls per model; it
-must pass the control gate before the full 864-call matrix. Do not use the
+A gateway credential became available for `glm-5.3-flash` (OpenCode Zen,
+Anthropic-compatible endpoint). The 160-call probe passed its control gate, and
+the full 54-scenario matrix ran: 432/432 calls. That matrix used the
+pre-amendment `items.jsonl` (`1c6481ef…`), not the v3.1 file (`a77dd300…`), so
+it is reported as a v3-design replication and is not pooled with v3.1. The v3.1
+rerun on the same model is the remaining step; no human action is required for
+it. See `docs/research/2026-11-19-v3-p4-2-api-full-run.md`. Do not use the
 Claude Code session token for bulk experiment calls.
 
 ## 3. Build the 8-page PDF — DONE locally (2026-11-19)

@@ -331,19 +331,55 @@ request-dependence of omission over-action does not replicate at this size; the
 one omission execution per form is the O2 mechanism (mention upgraded to
 commitment).
 
-## 7e. P4.2 v3.1 API probe on glm-5.3-flash (2026-11-19)
+## 7e. P4.2 API probe on glm-5.3-flash (2026-11-19; pre-amendment clause)
 
 Source: `docs/research/2026-11-19-v3-p4-2-api-probe.md`;
 `results/status_drift_v3_p4_2_v3/api_probe/`.
 
-The 20 authorized-execution controls of the frozen v3.1 design on
-`glm-5.3-flash` through an Anthropic-compatible gateway: 160/160 calls parsed
-(1.000). Present-status controls execute 20/20 in both request forms, so the
-control gate passes. Distorted controls (user withdrew) execute 0/20 in both
-forms. Omitted controls execute 1/20 neutral and 6/20 action; no-memory controls
-execute 1/20 neutral and 4/20 action, so this model has a non-zero action-form
-baseline that `gemma3:12b` (0/20) does not have. Probe only, not an
-over-commitment result.
+Correction: the probe used `items.jsonl` `1c6481ef…`, the pre-amendment (v3)
+file, not the v3.1 file (`a77dd300…`). The probe is therefore a probe of the
+old clause, not of v3.1.
+
+The 20 authorized-execution controls on `glm-5.3-flash` through an
+Anthropic-compatible gateway: 160/160 calls parsed (1.000). Present-status
+controls execute 20/20 in both request forms, so the control gate passes.
+Distorted controls (user withdrew) execute 0/20 in both forms. Omitted controls
+execute 1/20 neutral and 6/20 action; no-memory controls execute 1/20 neutral
+and 4/20 action, so this model has a non-zero action-form baseline that
+`gemma3:12b` (0/20) does not have. Probe only, not an over-commitment result.
+
+## 7f. P4.2 full matrix on glm-5.3-flash (pre-amendment clause)
+
+Source: `docs/research/2026-11-19-v3-p4-2-api-full-run.md`;
+`results/status_drift_v3_p4_2_v3_api/`.
+
+54 scenarios x 2 request forms x 4 variants = 432 calls, 432/432 complete,
+parse 0.988 (5 two-line DEFER/CONFIRM outputs scored OTHER). The run uses the
+pre-amendment `items.jsonl` `1c6481ef…`; the only prompt difference from v3.1
+is the missing positive authorization sentence. Not poolable with v3.1.
+
+Control gate: present 20/20 both forms; distorted controls execute 0/20 neutral
+and 1/20 action; omitted controls are gold-authorized 0/20 with 18/20 and 16/20
+under-action; no-memory controls authorize 0/20 with 17/20 under-action.
+
+Over-commitment unauthorized (n=34), neutral / action: present 1/34 and 1/34;
+omitted 6/34 and 4/34; distorted 18/34 and 18/34; no memory 1/34 and 1/34.
+Paired vs present: omitted +0.147 [0.000, 0.294] / +0.088 [0.000, 0.206];
+distorted +0.500 [0.324, 0.676] / +0.500 [0.324, 0.676]; no memory 0.000.
+Excluding the 6 action-completed distortions (n=28): omitted +0.179
+[0.000, 0.357] / +0.107 [0.000, 0.214]; distorted +0.464 [0.250, 0.679] /
++0.500 [0.321, 0.679]; present baseline 0/28. Request-form interaction:
+omission −0.059 [−0.206, 0.088] (n=34) and −0.071 [−0.250, 0.107] (n=28);
+distortion 0.000 and +0.036 [−0.143, 0.214]. Conditional distorted 8/10 neutral,
+6/10 action; omitted 1/10 each; collapse 0/10.
+
+Reason coding (analyst, post hoc, 50 records): 36 D1 (all distorted), 8 O2
+(omitted; "mentioned X" upgraded to "explicitly authorized"), 5 O3 (2 present,
+2 no memory, 1 omitted), 1 L1 decision-label misread (MON-06 neutral omitted),
+0 O1. Distortion harm replicates on a third model; omission over-action appears
+in both forms without the gemma action-form attenuation; the model has a small
+request-driven floor (1/34 present and 1/34 no memory, all O3).
+
 
 ## 8. P4.2 control-wording probe (v2)
 
