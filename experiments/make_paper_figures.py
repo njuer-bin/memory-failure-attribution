@@ -203,7 +203,7 @@ def fig4_behavior() -> None:
     ax1.set_xticklabels([display[v] for v in variants])
     ax1.set_ylim(0, 0.95)
     ax1.set_ylabel("unauthorized action")
-    ax1.set_title("P4: synthetic decision task (qwen)", loc="left", pad=4)
+    ax1.set_title("Study 2a: synthetic decision task (qwen)", loc="left", pad=4)
     ax1.grid(axis="y", color=GRID, linewidth=0.5)
     ax1.set_axisbelow(True)
 
@@ -222,7 +222,7 @@ def fig4_behavior() -> None:
     ax2.set_xticks(range(len(variants)))
     ax2.set_xticklabels([display[v] for v in variants])
     ax2.set_ylim(0, 0.95)
-    ax2.set_title("P4.2: over-commitment scenarios, gemma3:12b", loc="left", pad=4)
+    ax2.set_title("Study 2b: over-commitment scenarios, gemma3:12b", loc="left", pad=4)
     ax2.grid(axis="y", color=GRID, linewidth=0.5)
     ax2.set_axisbelow(True)
     handles = [plt.Rectangle((0, 0), 1, 1, color=color) for _, _, color in forms]

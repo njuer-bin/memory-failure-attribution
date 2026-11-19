@@ -1,0 +1,766 @@
+% !TEX program = pdflatex
+% Anonymous submission draft for an *ACL venue (8-page main body).
+%
+% Build: see README.md. The official style files (acl.sty, acl_natbib.bst) are
+% not included; start from the official *ACL template and copy this file, the
+% .bib, and figures/ into it.
+
+\documentclass[11pt]{article}
+\usepackage[review]{acl}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Status Fidelity Under Chained Memory Rewriting:\\
+Omission, Distortion, and Downstream Behavior}
+
+\author{Anonymous ACL submission}
+
+\newcommand{\st}[1]{\textsc{#1}}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Long-term conversational agents compress dialogue into memory. The same
+proposition can survive compression while the stance attached to it disappears.
+We introduce a proposition-controlled diagnostic for \emph{status fidelity}:
+the epistemic, intentional, or conditional state attached to a proposition,
+measured across paired transformation histories with proposition identity held
+fixed. In a 30-trajectory paired study with 330 blind human-labeled items,
+chained rewriting omitted the status of 44--54\% of proposition-preserved
+memories, while unsupported distortion was rare (3/330). Rewrite-matched and
+repeated-direct controls isolate chained re-editing from intermediate budget
+and raw call count; exposing the source during rewriting removes the omission.
+Downstream, distortion robustly raises unauthorized action (66.7\% vs 6.7\% in
+a synthetic task; 24/34 vs 0/34 in a high-stakes authorization bank). Omission's
+profile is task- and request-dependent: conservative under-action in the
+synthetic task, and over-action in high-stakes authorization only when the agent
+is asked to judge whether an action is permitted and fills the missing status
+from a bare mention; when asked to act, omission produces no over-action. Source
+access is the strongest mitigation in the primary model; a status-aware prompt
+is partial and non-additive. A real-dialogue audit shows intentional status is
+findable and gold-codeable, but a lexical/semantic status-fidelity annotation
+instrument fails calibration; we report that as a measurement lesson. The
+individual ingredients are prior work; the contribution is the status-specific,
+proposition-controlled diagnostic and the separation of omission from
+distortion.
+\end{abstract}
+
+\section{Introduction}
+
+A user says: ``I'm still comparing standing desks. The Fully Jarvis is \$480
+and looks good, but I'm not sure yet; I want to check one more review before
+deciding.'' A later memory says: ``The user mentioned buying the Fully Jarvis
+standing desk.'' The fact survives; the stance does not. An agent that reads the
+second memory may place the order.
+
+Memory evaluation usually asks whether a fact was recalled. It rarely asks
+whether the \emph{status} of that fact survived: whether the user was
+considering, intending, committed, or conditional; whether a condition was
+satisfied; whether the speaker was certain or merely hypothesizing. We call this
+\textbf{status fidelity}. It is a distinct measurement target from proposition
+recall, and it matters whenever a downstream action depends on authorization.
+
+We ask three questions. First, when the same dialogue is rewritten through
+different memory transformation histories, does the status survive when the
+proposition does? Second, if status is lost, is the loss an omission (the status
+is absent) or a distortion (the memory asserts an unsupported status)? Third, do
+status-only differences change downstream decisions?
+
+We answer with a proposition-controlled paired design. The same evidence is
+compressed under direct, recursive, rewrite-matched, repeated-direct, and
+source-peek histories; proposition identity is held fixed; two annotators label
+proposition identity, status, and evidence support without seeing the condition.
+We then construct memory variants that differ only in status and place them in a
+sandboxed downstream decision task, in both a synthetic task and a curated
+English authorization bank with two request forms. A second model repeats both
+the writer and the agent role.
+
+The main findings are:
+\begin{itemize}
+\item Chained rewriting causes \textbf{status omission}: 44--54\% of
+  proposition-preserved memories lose the status, versus 3.7\% for direct
+  compression.
+\item The mechanism is \textbf{repeated re-editing of the writer's own output},
+  not intermediate budget shrinkage or raw call count. Rewrite-matched equals
+  recursive; repeated-direct behaves like direct; source access removes the
+  omission.
+\item \textbf{Distortion is the robust behavioral harm.} Omission is common but
+  not uniformly safe: in a synthetic task it is conservative, while in
+  high-stakes authorization it produces over-action only under a
+  permission-judgment request.
+\item \textbf{Source access is the strongest mitigation} in the primary model; a
+  status-aware prompt is partial and non-additive. The ranking is
+  model-dependent.
+\end{itemize}
+
+The individual ingredients are prior work. State tracking, structured belief
+states, recursive-summarization omission, source access, and memory-to-action
+effects have all been studied. The contribution is the status-specific,
+proposition-controlled combination and the separation of two failure modes with
+opposite behavioral profiles: (1) a measurement design that fixes proposition
+identity and separates omission from unsupported distortion under blind human
+labels; (2) the mechanism result that chained re-editing, not budget or call
+count, drives the loss; (3) a status-only downstream intervention showing that
+distortion is dangerous and omission is request-dependent; and (4) a mitigation
+comparison that separates prompt from source access.
+
+\section{Related Work}
+
+\textbf{State tracking versus recall.} StateMem frames state tracking as distinct
+from recall and studies current versus superseded state with five failure modes
+and human plus judge labels \citep{statemen}. Our unit is similar---a proposition
+plus its current state---but we hold proposition identity fixed and vary the
+transformation history. StateMem does not test rewriting histories or a status
+tuple.
+
+\textbf{Structured state and belief revision.} ProgMem studies structured memory
+programs for temporal updates, plan changes, and uncertainty \citep{progmem};
+BELIEFMEM studies AGM belief revision with a history-preserving belief base
+\citep{beliefmem}. Structured state representation and belief revision are prior
+work. We do not claim the state tuple as a method contribution; we measure
+whether a status survives ordinary compression.
+
+\textbf{Recursive summarization and chained rewriting.} ABBEL diagnoses omission
+and incorrect updates under recursive summarization into natural-language belief
+states \citep{abbel}; ReSum studies periodic recursive context summarization
+\citep{resum}; LightMem studies a compression lifecycle with topic-aware
+short-term memory and sleep-time consolidation \citep{lightmem}; Supersede
+rewrites a bounded notes memory per session and shows that failure grows with
+conversation length rather than compression ratio \citep{supersede}.
+Recursive-summary omission and chained-rewriting harm are therefore prior work.
+Our claim is status-specificity: the proposition survives while the stance is
+dropped, and omission is separated from unsupported distortion.
+
+\textbf{Source access and raw history.} LiveCtx preserves raw history and
+retrieves evidence at query time \citep{livectx}. Source access is not new. We
+use it as a mechanism control and as a mitigation: if exposing the source during
+rewriting removes status omission, the loss is a property of chained re-editing,
+not of compression per se.
+
+\textbf{Stale state and memory-to-action.} STALE studies implicit stale state and
+downstream policy adaptation \citep{stale}; StateAuditor studies state-to-draft
+transition verification and response repair \citep{stateauditor}; MemTX studies
+transactional belief commit and action-safety gating \citep{memtx}; EAL-Bench
+measures false authority formed in memory and propagated to unauthorized action
+\citep{ealbench}. Memory state to action is prior work. Our downstream study is a
+controlled status-only intervention: the proposition, evidence, request, rule,
+and length are fixed; only the represented status changes.
+
+\textbf{Interventions and derived state.} TWIST evaluates intervention quality at
+belief change points with human validation \citep{twist}; MemDerive builds a
+derived-state benchmark with a gold DAG \citep{memderive}. We do not claim
+belief-change intervention or state-derivation correctness; our mitigation
+comparison asks where to intervene in a rewriting pipeline.
+
+\textbf{Position.} This is a controlled diagnostic, not a new architecture. The
+defensible contribution is the combination: a status tuple measured across
+paired transformation histories with proposition identity fixed, blind human
+labels, an omission/distortion split, a status-only downstream intervention, and
+a second-model replication.
+
+\section{Definitions and Measurement}
+
+\subsection{Unit of analysis}
+
+For each item we define the target proposition $P$ (a testable claim about the
+speaker's own action, state, or belief), the minimal evidence span $E$ in the
+source dialogue (session and turn ids, with surrounding turns needed to
+interpret $P$), the transformation history $H$ applied to $E$, the resulting
+memory $M$, and the evaluation time $t$. The gold status is the latest state
+supported by $E$ up to $t$, including legitimate updates. A status change
+supported by later evidence is a legitimate update, not drift; the gold status
+is not ``the first thing said.''
+
+\subsection{Status tuple}
+
+We use a typed state
+$S(p,t) = (\text{epistemic}, \text{intentional}, \text{conditional}, \text{action},
+\text{polarity}, \text{scope}, \text{time})$. The three dimensions studied here
+are:
+\begin{itemize}
+\item \textbf{Epistemic}: \st{UNKNOWN}, \st{POSSIBLE}, \st{PROBABLE},
+  \st{SUPPORTED}, \st{ESTABLISHED}, \st{REJECTED}.
+\item \textbf{Intentional}: \st{NOT\_EXPRESSED}, \st{CONSIDERING},
+  \st{INTERESTED}, \st{INTENDING}, \st{COMMITTED}, \st{EXECUTING},
+  \st{COMPLETED}, \st{CANCELLED}, \st{NOT\_INTENDED}.
+\item \textbf{Conditional}: condition state (\st{UNKNOWN},
+  \st{ACTIVE\_UNSATISFIED}, \st{SATISFIED}, \st{FAILED}, \st{WAIVED}) and action
+  state stored separately.
+\end{itemize}
+A satisfied condition does not imply a committed action: a conditional memory can
+preserve the condition and lose the action, or the reverse.
+
+The confirmatory annotation uses one primary dimension per item and a collapsed
+label set: epistemic \st{POSSIBLE}/\st{ESTABLISHED}/\st{UNKNOWN}; intentional
+\st{CONSIDERING}/\st{COMMITTED}/\st{UNKNOWN}; conditional
+\st{CONDITION\_ACTIVE}/\st{CONDITION\_SATISFIED}/\st{UNKNOWN}; action
+\st{ACTION\_NOT\_STARTED}/\st{ACTION\_STARTED}/\st{UNKNOWN}; plus
+\st{NOT\_EXPRESSED} and \st{UNRECOVERABLE} for omission. The richer ontology is
+used only for calibration and descriptive analysis.
+
+\subsection{Outcomes}
+
+Proposition identity is scored \st{PRESERVED}, \st{PARTIAL}, or \st{LOST}; any
+\st{PARTIAL} is counted as proposition loss. Status is scored against the gold
+status at $t$:
+\begin{itemize}
+\item \st{NO\_DISTORTION}: status expressed and supported;
+\item \st{STATUS\_OMISSION}: proposition preserved, no status expressible from
+  the memory;
+\item \st{UNSUPPORTED\_STATUS\_DISTORTION}: an expressed status the memory does
+  not support;
+\item \st{LEGITIMATE\_UPDATE}: the expressed status matches a gold update;
+\item \st{AMBIGUOUS\_UNASSESSABLE}.
+\end{itemize}
+Omission is always conditioned on proposition preservation. This separation is
+the measurement, not a post-hoc recoding: a missing fact and a missing stance
+are different failures with different downstream consequences.
+
+\subsection{Annotation and adjudication}
+
+Items are blind: condition, gold status, and dimension are hidden. Annotators
+label proposition identity, whether a status is expressed, the expressed status,
+the action state for conditional items, and whether the evidence supports it.
+Disagreements are adjudicated field by field; original labels are preserved. In
+Study 1, primary-judgment reliability over 330 items was 0.967 raw / 0.944
+Cohen's $\kappa$ (proposition identity 0.991/0.943; action status 0.961/0.924;
+expressed status 0.991/0.989; evidence support 0.988/0.972). Adjudication
+overrode 23 fields, including 11 primary judgments. Adjudication is
+model-assisted, and annotator provenance is not recorded; we report the synthetic
+annotation as annotator-unspecified and do not describe it as independent human
+reliability.
+
+\subsection{Inference}
+
+We report counts and proportions with Wilson intervals. For paired designs we
+report trajectory- or scenario-level paired mean differences with cluster
+bootstrap 95\% intervals (10,000 resamples). We do not report $p$-values or make
+a formal power claim; the intervals describe precision at the observed sample
+sizes.
+
+\section{Study 1: Chained Rewriting Omits Status}
+
+\subsection{Design}
+
+We generated 30 trajectories over five topics and three status dimensions, with
+stable and updated variants, using a neutral Chinese writing prompt and a final
+budget of 100 characters. Each trajectory was generated under ten conditions
+plus a raw reference: raw, direct, recursive, rewrite-matched, repeated-direct,
+source-peek, paraphrase, two temperature settings, a second rewrite schedule,
+and retrieval. Generation was 30/30 trajectories and 300/300 conditions with
+zero errors and no empty finals. The blind evaluation set contains 330 items
+(30 trajectories $\times$ 11 conditions), balanced across dimension, gold
+status, and condition. Figure~\ref{fig:design} summarizes the design.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig1_design.pdf}
+\caption{Design. Paired transformation histories act on the same evidence; the
+memory is scored on proposition identity and status; status-only variants drive
+a downstream decision.}
+\label{fig:design}
+\end{figure}
+
+\subsection{Main result: omission, not distortion}
+
+Of the 330 items, 300 preserve the proposition. The adjudicated distribution is
+\st{NO\_DISTORTION} 182, \st{STATUS\_OMISSION} 88, \st{PROPOSITION\_LOSS} 30,
+\st{LEGITIMATE\_UPDATE} 27, and \st{UNSUPPORTED\_STATUS\_DISTORTION} 3. Among
+the 300 preserved items, 88 are status omissions (29.3\%); unsupported
+distortion is 3/330 (0.9\%). The dominant failure is omission, not distortion.
+
+Figure~\ref{fig:omission} shows omission among preserved items by condition.
+Direct, repeated-direct, source-peek, and raw are at or below 3.7\%; chained
+conditions are 42--54\%. Dimension rates among preserved items are conditional
+27.6\%, epistemic 33.0\%, and intentional 27.3\%. An earlier deterministic-cue
+result that intentional commitment cues are uniquely vulnerable does not
+replicate in these blind labels.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig2_omission.pdf}
+\caption{Status omission among proposition-preserved items by condition, with
+95\% Wilson intervals. Colors group direct rewriting, chained rewriting, and
+source access.}
+\label{fig:omission}
+\end{figure}
+
+\subsection{Mechanism: chaining, not budget or call count}
+
+We predeclared three mechanism contrasts. Rewrite-matched holds intermediate
+budgets constant and recovers the same degradation as the shrinking schedule
+(paired omission difference $0.000$ $[-0.167, 0.167]$). Repeated-direct matches
+the writer-call count but behaves like direct ($-0.367$ $[-0.567, -0.167]$).
+Source-peek, which exposes the original dialogue at every rewrite, removes the
+omission ($-0.400$ $[-0.567, -0.233]$). The mechanism is therefore repeated
+re-editing of the writer's own output, not intermediate budget shrinkage or raw
+call count. Proposition-loss differences for these three contrasts are near zero
+with intervals including zero, so the omission contrast is not produced by
+differential proposition loss. Unsupported distortion has only three events;
+condition contrasts for it are uninformative and must not be read as evidence of
+equivalence.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig3_mechanism.pdf}
+\caption{Mechanism contrasts on status omission, conditional on proposition
+preservation. Error bars are paired bootstrap 95\% intervals.}
+\label{fig:mechanism}
+\end{figure}
+
+\section{Study 2: Downstream Behavior}
+
+\subsection{Study 2a: synthetic decision task}
+
+Thirty trajectories were paired with four memory variants: present, omitted,
+distorted, and no-memory. The agent chooses \st{PROCEED}, \st{CONFIRM},
+\st{ABSTAIN}, or \st{OTHER} in a sandboxed task. Evidence supports execution only
+for \st{COMMITTED} in the intentional dimension and \st{ESTABLISHED} in the
+epistemic dimension; conditional items never support execution because their gold
+action is only considering.
+
+Present status produced unauthorized action in 2/30 cases (6.7\%) and
+evidence-consistent action in 28/30. Omitted status produced no unauthorized
+action (0/30) but only 20/30 evidence-consistent actions: the agent asks instead
+of acting. Distorted status produced unauthorized action in 20/30 (66.7\%) and
+evidence-consistent action in 0/30. No-memory produced no unauthorized action.
+Paired against present, omitted unauthorized is $-0.067$ $[-0.167, 0.000]$ and
+evidence-consistent $-0.267$ $[-0.467, -0.067]$; distorted unauthorized is
+$+0.600$ $[0.433, 0.767]$ and evidence-consistent $-0.933$ $[-1.000, -0.833]$.
+A second agent model (gemma3:12b) reproduces the asymmetry: present 0/30,
+omitted 0/30, distorted 20/30 unauthorized. The omission/distortion asymmetry is
+therefore not a single-model artifact.
+
+\subsection{Study 2b: high-stakes authorization bank}
+
+Study 2b is a stricter, English authorization bank: 54 scenarios (34
+over-commitment, 20 authorized-execution controls) $\times$ 2 request forms
+(neutral permission judgment; action) $\times$ 4 memory variants $\times$ 2
+models, for 864 calls, all parsed. Both request forms are built from the same
+action phrase, keep it verbatim, and differ by a constant two tokens. The
+authorization rule states both that the current request is not evidence of prior
+authorization and that a memory stating the user decided, committed, or
+authorized the action is prior authorization.
+
+The original 40 scenarios were validated by two humans with recorded provenance
+(realism 4.11/5 pooled; \emph{only-status-differs} 38/40, $\kappa$ 0.655).
+Sixteen further controls were authored for precision and are mechanically
+checked but not human-validated; this is disclosed wherever they enter a rate.
+Variant lengths are not filler-matched (present 15.7 tokens on average, omitted
+9.4, distorted 10.3); the distorted memory is the shorter one yet produces more
+execution, and the rank correlation between the distorted-minus-present length
+difference and execution is 0.16, so length does not explain the effect.
+
+Table~\ref{tab:auth} reports the primary model. Present status executes nothing
+in either form, and no-memory executes nothing in either form, so every
+execution in the omitted and distorted cells requires the memory. Distortion
+raises unauthorized execution from 0/34 to 24/34 under the permission judgment
+and to 10/34 under the action request. Omission raises it to 5/34 only under the
+permission judgment. The difference-in-differences is $-0.429$
+$[-0.607, -0.250]$ for distortion and $-0.179$ $[-0.321, -0.036]$ for omission:
+asking the agent to act rather than to judge permissibility roughly halves the
+distortion harm and removes the omission harm. Excluding six scenarios whose
+distortion asserts that the action is already completed leaves the pattern
+(neutral omitted $+0.179$ $[0.036, 0.321]$; neutral distorted $+0.679$
+$[0.500, 0.857]$; action distorted $+0.250$ $[0.107, 0.429]$).
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcc}
+\toprule
+Memory & Neutral & Action \\
+\midrule
+Present & 0/34 & 0/34 \\
+Omitted & 5/34 (14.7\%) & 0/34 \\
+Distorted & 24/34 (70.6\%) & 10/34 (29.4\%) \\
+No memory & 0/34 & 0/34 \\
+\bottomrule
+\end{tabular}
+\caption{Study 2b: unauthorized execution on the 34 over-commitment scenarios
+(primary agent, gemma3:12b).}
+\label{tab:auth}
+\end{table}
+
+By dimension, distortion is 16/24 intentional and 8/10 conditional under the
+neutral form, and 4/24 and 6/10 under the action form; omission is 3/24 and 2/10
+(neutral) and 0 in both (action). Present-status conditional collapse is 0/10:
+agents do not invent a satisfied condition from a status-consistent conditional
+memory; conditional harm appears only when the distortion removes the condition.
+On the 20 authorized controls, present executes 20/20 (neutral) and 18/20
+(action); omitted controls execute 7/20 and 2/20, which is the same defect seen
+from the correct-action side, not evidence that omission preserves
+authorization.
+
+Figure~\ref{fig:behavior} places the two downstream studies side by side. The
+second agent model (qwen2.5:7b) executes one distorted scenario in each form and
+contradicts the memory in its reasons; it does not pass the action-form control
+gate (10/20). A third local model family also fails that gate (9/20). Among the
+local models we tested, only gemma3:12b passes the action-form gate, so the
+weaponized authorization result is reported for that model and the failure is
+reported as a model-class limitation.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig4_behavior.pdf}
+\caption{Downstream behavior. Left: Study 2a unauthorized action by variant.
+Right: Study 2b over-commitment unauthorized execution by request form and
+memory variant.}
+\label{fig:behavior}
+\end{figure*}
+
+\subsection{Mechanism of unauthorized action}
+
+We coded all 39 over-commitment executions of the primary model from the reason
+text. Every distorted execution (34; 24 neutral, 10 action) follows a memory
+that states a decision or authorization. Every omission execution (5, all
+neutral) turns ``the user mentioned consenting/agreeing/committing'' into ``the
+user consented/agreed/committed''; one also treats the conditional clause as
+satisfied. No case uses the current request as authorization, and no omission
+case executes while acknowledging that the memory lacks a status. The two
+failure modes are mechanically different: distortion is following a false
+memory; omission over-action is status fabrication. The coding is post hoc,
+gold-unblinded, and analyst-performed; it identifies mechanisms, not prevalence.
+
+\subsection{Do not pool the downstream tasks}
+
+Study 2a and Study 2b are different task families: a synthetic decision task
+with short Chinese templates, and a curated English authorization bank with
+positive controls and two request forms. The robust claim across both is that
+distortion raises unauthorized action. The omission claim is task- and
+request-dependent and must be stated as such. Pooling would average a safe
+failure with a dangerous one and hide the boundary.
+
+\section{Mitigation}
+
+Study 3 asks which writer mitigation preserves status at matched budget. The
+confirmatory design is a $2\times2$ crossing of prompt (neutral vs status-aware)
+and source access (memory-only vs memory plus source) on 30 trajectories, using
+the same five-stage chain $220 \to 180 \to 140 \to 120 \to 100$. Generation was
+120/120 with zero errors. Budget inflation relative to neutral was $1.05\times$
+for status-aware, $1.23\times$ for source access, and $1.38\times$ for the
+combination, all below the pre-registered $1.5\times$ flag.
+
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lccc}
+\toprule
+Condition & Faithful & Omission & Budget \\
+\midrule
+Neutral & 14/26 & 11/26 & $1.00\times$ \\
+Status-aware prompt & 27/30 & 0/30 & $1.05\times$ \\
+Source access & 30/30 & 0/30 & $1.23\times$ \\
+Status-aware + source & 28/30 & 0/30 & $1.38\times$ \\
+\bottomrule
+\end{tabular}
+\caption{Study 3: faithful status (gold labels) by condition, 30 trajectories;
+primary annotator $\kappa$ 0.974 after the final recheck.}
+\label{tab:mitigation}
+\end{table}
+
+Source access is the stronger mitigation ($+0.533$ faithful $[0.367, 0.700]$);
+the prompt is partial ($+0.433$ $[0.267, 0.600]$); the combination adds nothing
+($+0.467$ $[0.300, 0.633]$; interaction $-0.500$ $[-0.667, -0.333]$) and
+introduces an escalation pattern in the primary model. The practical
+recommendation is to expose the source at rewrite time and treat prompting as a
+fallback.
+
+The ranking is model-dependent. In the second-writer replication (first 12
+pre-registered trajectories), faithful status is direct 11/12, repeated-direct
+11/12, source 10/12, status-aware 11/12, combination 12/12, recursive 8/12, and
+rewrite-matched 6/12. The chain effect replicates in direction: rewrite-matched
+is the worst condition. But source access alone is weaker in the second writer
+(0.83) than in the primary one (1.00), while the prompt and the combination are
+at or above the primary values. Report the model boundary, not a universal
+mitigation ranking.
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig5_mitigation.pdf}
+\caption{Faithful status by condition for the primary writer and the
+replication.}
+\label{fig:mitigation}
+\end{figure*}
+
+\section{Real-Dialogue Feasibility and Measurement Attempt}
+
+The real-dialogue arm asks whether the phenomenon can be studied outside
+synthetic templates. A rule-based screen over two long-conversation benchmarks,
+LoCoMo \citep{locomo} and LongMemEval \citep{longmemeval}, produced 2,135
+candidate spans (intentional 1,123, epistemic 981, conditional 31); 725 are
+re-mentioned in a later session (34.0\%) and 269 contain a potential change cue
+(12.6\%). On semantic reading of a 50-item balanced screen,
+intentional status dominates (32/50), epistemic is nearly absent (2/50), and
+only 4/50 are clearly consequential for a downstream authorization decision.
+
+The screening rubric itself exposed measurement problems. Two annotators worked
+independently, but one used an AI first draft and reviewed every cell, so the
+pair is a mixed-provenance diagnostic. Agreement was usable for dimension (0.920
+raw / 0.826 $\kappa$) but weak for status-bearing (0.920/0.606) and update
+presence (0.840/0.170). The failures were systematic: a lexical cue was counted
+as a labelable status, later re-mentions were counted as updates, and evidence
+sufficiency was conflated with later comparison.
+
+A 40-item gold-coding calibration was then built. Run 1 failed both gates
+(dimension 0.875/0.600, status 0.675/0.607); most status disagreements were rule
+violations by one annotator. Run 2 passed status (0.900/0.875) but failed
+dimension on $\kappa$ (0.925/0.639) with three boundary items. Third-person
+adjudication resolved them, after which dimension was 1.000/1.000 and status
+0.975/0.969. We then built a 45-memory lexical/semantic status-fidelity (LSF/SSF)
+sheet: 15 gold items $\times$ direct, recursive, and source-peek. LSF asks
+whether the explicit status expression was kept; SSF asks whether its meaning
+was kept. Calibration failed twice (run 2: LSF 0.800/0.689, SSF 0.756/0.625,
+proposition identity 0.800/0.607). LSF and SSF sit near their gates; proposition
+identity is the blocker, because memories replace the target speech act. We
+therefore scope the real-dialogue arm to feasibility and gold coding and report
+the failed LSF/SSF calibration as a measurement lesson and future work, not as
+evidence about memory systems (Figure~\ref{fig:real} in the appendix).
+
+\section{Discussion}
+
+\textbf{Two failure modes, two mechanisms.} Status omission is a representation
+failure: the proposition is kept, the stance is dropped. Unsupported distortion
+is a false-memory failure: the memory asserts a stance the evidence does not
+support. They have different behavioral profiles. Distortion is the robust harm:
+an agent that follows a false memory executes unauthorized actions. Omission is
+the common failure, but it is not uniformly safe.
+
+\textbf{Why ``omission is conservative'' is not a law.} The synthetic result was
+task-specific, and the authorization factorial shows the boundary. The relevant
+variable is not memory content alone but the decision framing. When the agent is
+asked to rule on whether an action is permitted, a bare mention in memory can be
+read as authorization and the agent executes; when asked to perform the action,
+the same memory yields a request for confirmation. Papers that report a single
+``status drift'' effect would miss this. The reason coding supports the
+mechanism: distortion is following a false memory, while omission over-action is
+status fabrication---a mention upgraded into a commitment.
+
+\textbf{Measurement.} Fact recall is not enough. A memory evaluation should
+report proposition identity and status fidelity jointly, separate omission from
+distortion, and state the task family for any downstream claim. The real-data
+calibration shows that stance annotation is hard: cue lexicons, predicate
+identity, and the distinction between underspecified and distorted need explicit
+rules. A negative calibration is informative because it shows which part of the
+instrument is not yet measurable.
+
+\textbf{Design.} Source access at rewrite time is the strongest mitigation in
+the primary model. A status-aware prompt helps but is partial and can introduce
+escalations when the source is available. The practical recommendation is to
+expose the source during rewriting and treat prompting as a fallback. The
+second-writer replication cautions that the ranking is model-dependent; the safe
+claim is about direction, not a universal ordering.
+
+\section{Conclusion}
+
+Status fidelity is a distinct measurement target for long-term memory. Chained
+rewriting omits the status of a proposition while keeping the proposition;
+unsupported distortion is rare in rewriting but dominates downstream behavior.
+In the high-stakes authorization factorial, a distorted status raised
+unauthorized execution from 0/34 to 24/34 under a permission judgment and to
+10/34 under an action request. Omission over-action (5/34) appeared only under
+the permission judgment and only by upgrading a bare mention into a commitment;
+under the action request it produced none. Omission is common and sometimes
+safe, but not a general guarantee, and whether it is safe depends on how the
+downstream decision is framed. Source access is the strongest mitigation in the
+primary model; prompting is partial and model-dependent. Real-dialogue stance
+annotation remains an open measurement problem.
+
+\section*{Limitations}
+
+The synthetic study uses templates and local 7B--12B models; it is a mechanism
+study, not a model-ranking claim, and no API model was tested. Unsupported
+distortion is underpowered in the rewriting study (3/330); Study 2b has 34
+unauthorized distorted executions, so the ``rare but harmful'' framing depends
+on that event count. Human-label provenance is unrecorded for the synthetic
+annotation and adjudication is model-assisted; we report it as
+annotator-unspecified. The real-dialogue instrument failed calibration and is a
+measurement appendix. The authorization bank mixes 4 human-validated and 16
+mechanically checked controls, and its scenario list was not human-reviewed
+before the run; the amended design has no separate signed protocol record, only
+SHA-256 pins of the items, bank, and runner. Variant lengths are not
+filler-matched, though the direction is conservative. The reason coding is post
+hoc and analyst-performed. The second-writer annotation is 12 trajectories and
+its reliability is 0.834 $\kappa$. No formal power claim is made; the intervals
+describe precision at the observed sample sizes. All decisions are sandboxed
+labels; no real action was executed.
+
+\section*{Ethics Statement}
+
+The downstream studies use simulated high-stakes authorization: no action is
+executed, and the models only emit a decision label. The scenarios are
+author-written and concern money, health, authorization, and commitments; they
+are not drawn from real users, and no personal data are processed. The
+conversational data in the real-dialogue audit come from public benchmarks. Human
+annotators labeled synthetic or public items only. We do not recommend deploying
+any of the tested models as an authorization gate. The paper reports a
+user-safety failure mode---an agent acting on a status it was never given---and
+the intended use is evaluation and mitigation, not exploitation.
+
+\bibliography{custom}
+
+\appendix
+
+\section{Status Tuple and Conditions}
+\label{app:details}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.26\columnwidth}p{0.64\columnwidth}}
+\toprule
+Component & Values / definition \\
+\midrule
+Epistemic & UNKNOWN, POSSIBLE, PROBABLE, SUPPORTED, ESTABLISHED, REJECTED \\
+Intentional & NOT\_EXPRESSED, CONSIDERING, INTERESTED, INTENDING, COMMITTED, EXECUTING, COMPLETED, CANCELLED, NOT\_INTENDED \\
+Conditional & condition state UNKNOWN, ACTIVE\_UNSATISFIED, SATISFIED, FAILED, WAIVED; action state stored separately \\
+Polarity & affirmative, negated \\
+Scope & proposition object and its qualifiers \\
+Time & evaluation time $t$; latest supported state up to $t$ \\
+\bottomrule
+\end{tabular}
+\caption{Status tuple components. Confirmatory annotation uses the collapsed
+label sets described in Section~3.}
+\label{tab:tuple}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.24\columnwidth}p{0.66\columnwidth}}
+\toprule
+Condition & Control it provides \\
+\midrule
+Raw & no compression reference \\
+Direct & one writer call, final budget \\
+Recursive & shrinking intermediate budgets \\
+Rewrite-matched & constant intermediate budgets, same call count as recursive \\
+Repeated-direct & same writer-call count, no shrinking \\
+Source-peek & original dialogue visible at every rewrite \\
+Paraphrase & prompt variation \\
+Temperature 1/2 & sampling variation \\
+Path schedule 2 & alternative rewrite schedule \\
+Retrieval & source access at query time \\
+\bottomrule
+\end{tabular}
+\caption{Transformation conditions in Study 1.}
+\label{tab:conditions}
+\end{table}
+
+\section{Study 2a Counts}
+\label{app:synthetic}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+Variant & PROCEED & CONFIRM & ABSTAIN & Unauthorized & Evidence-consistent \\
+\midrule
+Present & 12 & 18 & 0 & 2/30 & 28/30 \\
+Omitted & 0 & 30 & 0 & 0/30 & 20/30 \\
+Distorted & 20 & 10 & 0 & 20/30 & 0/30 \\
+No memory & 0 & 13 & 17 & 0/30 & 20/30 \\
+\bottomrule
+\end{tabular}
+\caption{Study 2a decisions (30 trajectories; primary agent).}
+\label{tab:synthetic}
+\end{table}
+
+\section{Bank Validation and Control Gates}
+\label{app:bank}
+
+The original 40 scenarios were rated by two humans on 1--5 scales (realism
+4.113 pooled; status clarity 4.975; rule clarity 4.950; distortion plausibility
+4.250; stake severity 3.350). \emph{Only-status-differs} was 38/40 yes-both
+($\kappa$ 0.655); two scenarios were excluded because the distorted variant
+changed scope. Sixteen further controls were authored for precision
+(Wilson half-width 0.29--0.35 at $n=4$ versus 0.14--0.20 at $n=20$) and are
+mechanically checked but not human-validated.
+
+\begin{table}[h]
+\centering
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccc}
+\toprule
+Variant & \multicolumn{2}{c}{Neutral} & \multicolumn{2}{c}{Action} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & EXEC & under & EXEC & under \\
+\midrule
+Present & 20/20 & 0 & 18/20 & 2/20 \\
+Omitted & 7/20 & 13/20 & 2/20 & 18/20 \\
+Distorted & 1/20 & 19/20 & 0/20 & 20/20 \\
+No memory & 0/20 & 20/20 & 0/20 & 20/20 \\
+\bottomrule
+\end{tabular}
+\caption{Authorized-execution controls: EXECUTE and under-action counts
+(primary agent, 20 controls).}
+\label{tab:controls}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lc}
+\toprule
+Code & Count \\
+\midrule
+D1 followed distorted memory & 34 \\
+O2 mention as commitment & 5 \\
+O1 asserted unstated commitment & 0 \\
+O3 request as authorization & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Unauthorized-reason codes for all 39 over-commitment executions of the
+primary agent (post hoc, analyst, gold-unblinded).}
+\label{tab:reasons}
+\end{table}
+
+\section{Second-Writer Replication}
+\label{app:repl}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Condition & Faithful & Omission & Unsupported \\
+\midrule
+Direct & 11/12 & 1/12 & 0/12 \\
+Repeated-direct & 11/12 & 1/12 & 0/12 \\
+Source access & 10/12 & 1/12 & 1/12 \\
+Status-aware & 11/12 & 0/12 & 1/12 \\
+Status-aware + source & 12/12 & 0/12 & 0/12 \\
+Recursive & 8/12 & 1/12 & 3/12 \\
+Rewrite-matched & 6/12 & 1/12 & 3/12 \\
+\bottomrule
+\end{tabular}
+\caption{Second-writer replication (first 12 pre-registered trajectories;
+primary annotator $\kappa$ 0.834).}
+\label{tab:repl}
+\end{table}
+
+\section{Real-Data Calibration}
+\label{app:real}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig6_calibration.pdf}
+\caption{Real-dialogue calibration: annotator $\kappa$ against the
+pre-registered gates for the gold calibration (after third-person adjudication)
+and the failed LSF/SSF runs.}
+\label{fig:real}
+\end{figure}
+
+\end{document}
