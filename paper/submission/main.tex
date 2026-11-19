@@ -230,8 +230,9 @@ Items are blind: condition, gold status, and dimension are hidden. Annotators
 label proposition identity, whether a status is expressed, the expressed status,
 the action state for conditional items, and whether the evidence supports it.
 Disagreements are adjudicated field by field; original labels are preserved. In
-Study 1, primary-judgment reliability over 330 items was 0.967 raw / 0.944
-Cohen's $\kappa$ (proposition identity 0.991/0.943; action status 0.961/0.924;
+Study 1, post-adjudication primary-judgment reliability over 330 items was 0.967
+raw / 0.944 Cohen's $\kappa$ (proposition identity 0.991/0.943; action status
+0.961/0.924;
 expressed status 0.991/0.989; evidence support 0.988/0.972). Adjudication
 overrode 23 fields, including 11 primary judgments. Adjudication is
 model-assisted, and annotator provenance is not recorded; we report the synthetic
@@ -354,6 +355,13 @@ The original 40 scenarios were validated by two humans with recorded provenance
 (realism 4.11/5 pooled; \emph{only-status-differs} 38/40, $\kappa$ 0.655).
 Sixteen further controls were authored for precision and are mechanically
 checked but not human-validated; this is disclosed wherever they enter a rate.
+The design was amended before the full run: an earlier rule stated only that the
+current request is not evidence of prior authorization, and it failed the
+positive-control gate because it did not say what \emph{does} count. The amended
+rule adds the positive clause and was adopted after a probe; the earlier run is
+not pooled with the reported one. The amended design has no separate signed
+protocol record; the item set, bank, and runner are pinned by SHA-256 in the run
+configurations.
 Variant lengths are not filler-matched (present 15.7 tokens on average, omitted
 9.4, distorted 10.3); the distorted memory is the shorter one yet produces more
 execution, and the rank correlation between the distorted-minus-present length
@@ -387,7 +395,9 @@ No memory & 0/34 & 0/34 \\
 \bottomrule
 \end{tabular}
 \caption{Study 2b: unauthorized execution on the 34 over-commitment scenarios
-(primary agent, gemma3:12b).}
+(primary agent, gemma3:12b). All 34 are from the human-validated scenario set;
+the 20 authorized controls are not part of this table and 16 of them are not
+human-validated.}
 \label{tab:auth}
 \end{table}
 
@@ -429,7 +439,9 @@ satisfied. No case uses the current request as authorization, and no omission
 case executes while acknowledging that the memory lacks a status. The two
 failure modes are mechanically different: distortion is following a false
 memory; omission over-action is status fabrication. The coding is post hoc,
-gold-unblinded, and analyst-performed; it identifies mechanisms, not prevalence.
+gold-unblinded, and analyst-performed; no independent second rater was run, and
+a blind coding sheet is available for one. The coding identifies mechanisms, not
+prevalence.
 
 \subsection{Do not pool the downstream tasks}
 
@@ -465,7 +477,7 @@ Status-aware + source & 28/30 & 0/30 & $1.38\times$ \\
 \bottomrule
 \end{tabular}
 \caption{Study 3: faithful status (gold labels) by condition, 30 trajectories;
-primary annotator $\kappa$ 0.974 after the final recheck.}
+primary annotator $\kappa$ 0.974 post-adjudication, after the final recheck.}
 \label{tab:mitigation}
 \end{table}
 
@@ -578,22 +590,40 @@ annotation remains an open measurement problem.
 
 \section*{Limitations}
 
-The synthetic study uses templates and local 7B--12B models; it is a mechanism
-study, not a model-ranking claim, and no API model was tested. Unsupported
-distortion is underpowered in the rewriting study (3/330); Study 2b has 34
-unauthorized distorted executions, so the ``rare but harmful'' framing depends
-on that event count. Human-label provenance is unrecorded for the synthetic
-annotation and adjudication is model-assisted; we report it as
-annotator-unspecified. The real-dialogue instrument failed calibration and is a
-measurement appendix. The authorization bank mixes 4 human-validated and 16
-mechanically checked controls, and its scenario list was not human-reviewed
-before the run; the amended design has no separate signed protocol record, only
-SHA-256 pins of the items, bank, and runner. Variant lengths are not
-filler-matched, though the direction is conservative. The reason coding is post
-hoc and analyst-performed. The second-writer annotation is 12 trajectories and
-its reliability is 0.834 $\kappa$. No formal power claim is made; the intervals
-describe precision at the observed sample sizes. All decisions are sandboxed
-labels; no real action was executed.
+\begin{itemize}
+\item \textbf{Scope and models.} The synthetic study uses templates and local
+  7B--12B models. It is a mechanism study, not a model-ranking claim, and no
+  API model was tested.
+\item \textbf{Power and multiplicity.} Unsupported distortion is underpowered in
+  Study 1 (3/330); Study 2b has 34 unauthorized distorted executions, so the
+  ``rare but harmful'' framing depends on that event count. Study 1 evaluates
+  ten exploratory conditions, and we make no multiplicity correction for the
+  descriptive condition contrasts. We report intervals, not $p$-values, and make
+  no formal power claim. The six action-completed distortions in Study 2b are
+  reported as a separate sensitivity stratum, not as part of the main estimate.
+\item \textbf{Annotation provenance and adjudication.} Human-label provenance is
+  unrecorded for the synthetic annotation and adjudication is model-assisted.
+  We report those labels as annotator-unspecified, not as independent human
+  reliability; all reported $\kappa$ values are post-adjudication. The
+  second-writer replication covers 12 trajectories and its reliability is 0.834
+  $\kappa$.
+\item \textbf{Bank construction.} Study 2b mixes 4 human-validated and 16
+  mechanically checked controls, so control rates carry unvalidated items. The
+  scenario list was not human-reviewed before the run. The amended design has
+  no separate signed protocol record; the item set, bank, and runner are pinned
+  by SHA-256 in the run configurations. Variant lengths are not filler-matched
+  (present 15.7 tokens on average, distorted 10.3); the direction is
+  conservative, but the check is correlational.
+\item \textbf{Reason coding.} The unauthorized-reason coding is post hoc,
+  gold-unblinded, and analyst-performed; no independent second rater was run.
+\item \textbf{Real-dialogue arm.} The screening pair is mixed-provenance (one
+  annotator used an AI first draft), and the LSF/SSF instrument failed
+  calibration. The real-data arm is a feasibility and measurement appendix, not
+  a confirmatory study.
+\item \textbf{External validity.} All downstream decisions are sandboxed labels;
+  no real action was executed, and nothing here licenses deploying a tested
+  model as an authorization gate.
+\end{itemize}
 
 \section*{Ethics Statement}
 
