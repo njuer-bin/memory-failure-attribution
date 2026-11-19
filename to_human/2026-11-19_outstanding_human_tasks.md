@@ -62,20 +62,15 @@ the P4.2 probe is 20 controls x 2 forms x 4 variants = 160 calls per model; it
 must pass the control gate before the full 864-call matrix. Do not use the
 Claude Code session token for bulk experiment calls.
 
-## 3. Build the 8-page PDF (needs Overleaf or a local TeX install)
+## 3. Build the 8-page PDF — DONE locally (2026-11-19)
 
-There is no TeX distribution on this machine and installing one was blocked by
-the permission policy. Structural checks pass (balanced environments, every
-cross-reference and citation resolves), and the source is in
-`paper/submission/main.tex`. Either:
-
-- build on Overleaf using `paper/submission/README.md` (recommended; no local
-  install), or
-- authorize a portable TeX install (for example TinyTeX or MiKTeX) if the page
-  count must be checked locally.
-
-The body is estimated at 7-7.5 pages of the 8-page main body; this is not yet
-verified.
+MiKTeX 25.12 is installed. `paper/submission/main.pdf` now builds with
+pdfLaTeX (see `paper/submission/README.md`). It is 12 pages total; the main
+body ends at the Conclusion and Limitations begins on page 8, so the body is
+within the 8-page main-body limit. Zero overfull boxes, zero unresolved
+references or citations. If the venue counts Limitations toward the 8 pages
+(uncommon for *ACL/COLING), re-check the budget; otherwise no action needed.
+Rebuild in `.tools/build/` with `latexmk -pdf main.tex`.
 
 ## 4. Not needed under decision C
 

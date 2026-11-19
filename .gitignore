@@ -14,3 +14,6 @@ literature/pdfs_txt/
 results/**/_work/
 results/**/acl-recovery/
 results/**/v28_sidecar_60_INVALID_ATTEMPT1/
+
+# Local toolchain (portable TeX engine for the submission build)
+.tools/

@@ -181,10 +181,9 @@ is not ``the first thing said.''
 
 \subsection{Status tuple}
 
-We use a typed state
-$S(p,t) = (\text{epistemic}, \text{intentional}, \text{conditional}, \text{action},
-\text{polarity}, \text{scope}, \text{time})$. The three dimensions studied here
-are:
+We use a typed state $S(p,t)$ over seven components---epistemic,
+intentional, conditional, action, polarity, scope, and time. The three
+dimensions studied here are:
 \begin{itemize}
 \item \textbf{Epistemic}: \st{UNKNOWN}, \st{POSSIBLE}, \st{PROBABLE},
   \st{SUPPORTED}, \st{ESTABLISHED}, \st{REJECTED}.
@@ -199,10 +198,10 @@ A satisfied condition does not imply a committed action: a conditional memory ca
 preserve the condition and lose the action, or the reverse.
 
 The confirmatory annotation uses one primary dimension per item and a collapsed
-label set: epistemic \st{POSSIBLE}/\st{ESTABLISHED}/\st{UNKNOWN}; intentional
-\st{CONSIDERING}/\st{COMMITTED}/\st{UNKNOWN}; conditional
-\st{CONDITION\_ACTIVE}/\st{CONDITION\_SATISFIED}/\st{UNKNOWN}; action
-\st{ACTION\_NOT\_STARTED}/\st{ACTION\_STARTED}/\st{UNKNOWN}; plus
+label set: epistemic \st{POSSIBLE}/\allowbreak\st{ESTABLISHED}/\allowbreak\st{UNKNOWN}; intentional
+\st{CONSIDERING}/\allowbreak\st{COMMITTED}/\allowbreak\st{UNKNOWN}; conditional
+\st{CONDITION\_ACTIVE}/\allowbreak\st{CONDITION\_SATISFIED}/\allowbreak\st{UNKNOWN}; action
+\st{ACTION\_NOT\_STARTED}/\allowbreak\st{ACTION\_STARTED}/\allowbreak\st{UNKNOWN}; plus
 \st{NOT\_EXPRESSED} and \st{UNRECOVERABLE} for omission. The richer ontology is
 used only for calibration and descriptive analysis.
 
@@ -215,7 +214,7 @@ status at $t$:
 \item \st{NO\_DISTORTION}: status expressed and supported;
 \item \st{STATUS\_OMISSION}: proposition preserved, no status expressible from
   the memory;
-\item \st{UNSUPPORTED\_STATUS\_DISTORTION}: an expressed status the memory does
+\item \st{UNSUPPORTED\_STATUS\_\-DISTORTION}: an expressed status the memory does
   not support;
 \item \st{LEGITIMATE\_UPDATE}: the expressed status matches a gold update;
 \item \st{AMBIGUOUS\_UNASSESSABLE}.
@@ -381,6 +380,13 @@ distortion harm and removes the omission harm. Excluding six scenarios whose
 distortion asserts that the action is already completed leaves the pattern
 (neutral omitted $+0.179$ $[0.036, 0.321]$; neutral distorted $+0.679$
 $[0.500, 0.857]$; action distorted $+0.250$ $[0.107, 0.429]$).
+
+A ten-scenario analyst-translated Chinese slice reproduces the distortion effect
+and its attenuation under the action request (7/7 distorted executions under the
+permission judgment versus 4/7 under the action request;
+difference-in-differences $-0.429$), but with seven items per cell it does not
+reproduce the request-dependence of omission over-action
+(Appendix~\ref{app:zh}).
 
 \begin{table}[t]
 \centering
@@ -598,7 +604,8 @@ annotation remains an open measurement problem.
 \begin{itemize}
 \item \textbf{Scope and models.} The synthetic study uses templates and local
   7B--12B models. It is a mechanism study, not a model-ranking claim, and no
-  API model was tested.
+  API model was tested. The Chinese parallel slice is analyst-translated and is
+  not human-validated.
 \item \textbf{Power and multiplicity.} Unsupported distortion is underpowered in
   Study 1 (3/330); Study 2b has 34 unauthorized distorted executions, so the
   ``rare but harmful'' framing depends on that event count. Study 1 evaluates
@@ -617,8 +624,9 @@ annotation remains an open measurement problem.
   scenario list was not human-reviewed before the run. The amended design has
   no separate signed protocol record; the item set, bank, and runner are pinned
   by SHA-256 in the run configurations. Variant lengths are not filler-matched
-  (present 15.7 tokens on average, distorted 10.3); the direction is
-  conservative, but the check is correlational.
+  (over the 34 over-commitment scenarios: present 15.4 whitespace tokens on
+  average, omitted 10.1, distorted 10.5); the check is correlational but the
+  direction is conservative.
 \item \textbf{Reason coding.} The unauthorized-reason coding is post hoc,
   gold-unblinded, and analyst-performed; no independent second rater was run.
 \item \textbf{Real-dialogue arm.} The screening pair is mixed-provenance (one
@@ -652,7 +660,7 @@ the intended use is evaluation and mitigation, not exploitation.
 \begin{table}[h]
 \centering
 \small
-\begin{tabular}{p{0.26\columnwidth}p{0.64\columnwidth}}
+\begin{tabular}{p{0.25\columnwidth}p{0.62\columnwidth}}
 \toprule
 Component & Values / definition \\
 \midrule
@@ -672,7 +680,7 @@ label sets described in Section~3.}
 \begin{table}[h]
 \centering
 \small
-\begin{tabular}{p{0.24\columnwidth}p{0.66\columnwidth}}
+\begin{tabular}{p{0.23\columnwidth}p{0.63\columnwidth}}
 \toprule
 Condition & Control it provides \\
 \midrule
@@ -695,7 +703,7 @@ Retrieval & source access at query time \\
 \section{Study 2a Counts}
 \label{app:synthetic}
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lccccc}
@@ -710,7 +718,7 @@ No memory & 0 & 13 & 17 & 0/30 & 20/30 \\
 \end{tabular}
 \caption{Study 2a decisions (30 trajectories; primary agent).}
 \label{tab:synthetic}
-\end{table}
+\end{table*}
 
 \section{Bank Validation and Control Gates}
 \label{app:bank}
@@ -765,7 +773,7 @@ primary agent (post hoc, analyst, gold-unblinded).}
 \section{Second-Writer Replication}
 \label{app:repl}
 
-\begin{table}[h]
+\begin{table*}[t]
 \centering
 \small
 \begin{tabular}{lcccc}
@@ -784,7 +792,7 @@ Rewrite-matched & 6/12 & 1/12 & 3/12 & 2/12 \\
 \caption{Second-writer replication (first 12 pre-registered trajectories;
 primary annotator $\kappa$ 0.834).}
 \label{tab:repl}
-\end{table}
+\end{table*}
 
 \section{Real-Data Calibration}
 \label{app:real}
@@ -797,5 +805,45 @@ pre-registered gates for the gold calibration (after third-person adjudication)
 and the failed LSF/SSF runs.}
 \label{fig:real}
 \end{figure}
+
+\section{Chinese Parallel Check}
+\label{app:zh}
+
+Ten English scenarios (seven over-commitment, three authorized-execution
+controls) were translated to Chinese and run with the same four memory
+variants, authorization rules, evidentiary clause, and two request forms; the
+only change is the language. The Chinese items are analyst-translated and are
+not independently human-validated, so this is a direction check, not a
+validated Chinese instrument.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Form & Present & Omitted & Distorted & No memory \\
+\midrule
+\multicolumn{5}{l}{\emph{Over-commitment: unauthorized \st{EXECUTE} ($n=7$)}} \\
+Neutral & 0/7 & 1/7 & 7/7 & 0/7 \\
+Action & 0/7 & 1/7 & 4/7 & 0/7 \\
+\midrule
+\multicolumn{5}{l}{\emph{Authorized controls: \st{EXECUTE} ($n=3$)}} \\
+Neutral & 3/3 & 3/3 & 2/3 & 0/3 \\
+Action & 3/3 & 1/3 & 1/3 & 1/3 \\
+\bottomrule
+\end{tabular}
+\caption{Chinese parallel slice (ten analyst-translated scenarios, primary
+agent, 80/80 parsed). The Chinese items are not human-validated.}
+\label{tab:zh}
+\end{table}
+
+The distortion effect replicates: the distorted status produces 7/7
+unauthorized executions under the permission judgment against 0/7 for present,
+and the action request reduces it to 4/7 (difference-in-differences $-0.429$).
+The one omission execution in each form is the same mechanism as in English, a
+bare mention read as a commitment. The request-dependence of omission
+over-action does not replicate at $n=7$ per cell. Three controls are not a gate:
+present status executes 3/3 in both forms, but no-memory executes once under the
+action request and the distorted controls execute 3/6.
 
 \end{document}

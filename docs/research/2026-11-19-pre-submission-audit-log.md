@@ -137,18 +137,56 @@ the 8 pt text prints at 8 pt. Fig. 1 is included as a full-width `figure*` at
 `\textwidth`. Text blocks were checked programmatically for page-edge overflow;
 none remain. The six submission copies were regenerated from the same script.
 
+## A12. Chinese parallel check (2026-11-19)
+
+Ten English Study 2b scenarios (7 over-commitment, 3 authorized controls) were
+mirrored to Chinese and run with the same four memory variants and two request
+forms (80 calls, `gemma3:12b`, 80/80 parsed). The Chinese items are
+analyst-translated, not human-validated. Distortion harm replicates (7/7
+neutral, 4/7 action; DiD $-0.429$), and the action-form attenuation matches the
+English sign and size. The request-dependence of omission over-action does not
+replicate at $n=7$ per cell: one omitted scenario executes in each form, and its
+stated reason is the O2 mechanism. Three controls are not a gate: present 3/3 in
+both forms, but no-memory executes once under the action request and distorted
+controls execute 3/6. Artifact:
+`results/status_drift_v3_p4_2_zh_parallel/`; note:
+`docs/research/2026-11-19-v3-p4-2-zh-parallel.md`; number registry
+`paper/V3_NUMBERS.md` §7d. The paper's Study 2b paragraph and Appendix
+(`app:zh`) state the analyst-translated provenance and the non-replication.
+
+## A13. Supplementary package (2026-11-19)
+
+`experiments/make_supplementary.py` assembles and zips
+`paper/supplementary/` (46 files, 747 KiB; zip 179 KiB) from curated sources:
+four scenario banks, prompt sources, nine frozen analysis scripts, aggregate
+label tables for Studies 1, 2a, 2b (including the Chinese slice), 3, the
+replication and the real-data audit, the annotation protocol, and Figures 1–6.
+The builder strips local interpreter
+and machine paths and refuses to include raw annotation sheets, provenance
+files, or model-output records. A SHA-256 manifest verifies every file
+(46/46 OK). An identifier scan finds no user name, initials, repository URL, or
+absolute path in the package.
+
 ## Open audit items
 
 - Provenance and adjudication disclosure pass: **read complete**. Limitations
   states annotator-unspecified for the synthetic annotation, model-assisted
   adjudication, 12-trajectory replication, and analyst-only reason coding; the
   P4.2 bank keeps its recorded two-human provenance. No overclaim found.
-- Anonymity pass: source, bibliography, and figures are clean (A10). The built
-  PDF metadata and any supplementary archive can only be checked after a build.
-- 8-page build: **blocked locally**. No TeX distribution is installed, and
-  installing one requires explicit user authorization. Structural checks pass
-  (A10); the page budget is estimated at 7-7.5 main-body pages but is not
-  verified. Build on Overleaf with `paper/submission/README.md` or authorize a
-  local portable TeX install.
-- Supplementary archive: not yet assembled (no repository URLs, `results/`,
-  state files, or `.git` may enter it).
+- Anonymity pass: source, bibliography, figures, and the supplementary package
+  are clean (A10, A13). Only the built PDF metadata still needs a post-build
+  check.
+- 8-page build: **done locally** (2026-11-19). MiKTeX 25.12 is now
+  installed; the submission builds with pdfLaTeX -> BibTeX -> pdfLaTeX x2.
+  Output `paper/submission/main.pdf` is 12 pages total; the main body ends at
+  the Conclusion and ``Limitations`` begins on page 8, so the body is within
+  the 8-page main-body limit (Limitations/Ethics/References/Appendix are
+  exempt). Structural checks pass; 0 unresolved references or citations and
+  0 ``??``. Overfull boxes were eliminated by rewriting the long status-tuple
+  math atom, adding breakpoints to the slash-joined small-caps label runs,
+  widening the two parameter columns, and promoting the two widest appendix
+  tables (Study 2a counts, second-writer replication) to full-width
+  ``table*``. The only remaining warnings are the harmless ``T1/ptm/m/scit
+  undefined`` font-shape fallback and ``h float specifier changed to ht``.
+  Rebuild: `cd .tools/build && latexmk -pdf main.tex`, or pdflatex/bibtex/pdflatex/pdflatex as above.
+- Supplementary archive: **assembled** (A13, 44 files, manifest 44/44 OK).
