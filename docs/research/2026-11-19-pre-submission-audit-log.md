@@ -36,11 +36,12 @@ numbers match the analysis artifacts. Denominators audited: over-commitment
 `experiments/make_paper_figures.py` reads only frozen CSV/JSON analysis
 artifacts; no number is typed into the script. Generated: Fig. 1 (schematic),
 Fig. 2 (P3 omission), Fig. 3 (P3 mechanism), Fig. 4 (P4 + P4.2 behavior),
-Fig. 5 (P5 mitigation). Palette: categorical slots 1–3 of the validated
+Fig. 5 (P5 mitigation), Fig. 6 (real-data calibration; gold fields after
+third-person adjudication, LSF/SSF unadjudicated, gates from
+`V3_REAL_STAGE2_PREFREEZE.md`). Palette: categorical slots 1–3 of the validated
 reference palette (blue `#2a78d6`, orange `#eb6834`, aqua `#1baf7a`), which
 passes the all-pairs CVD and normal-vision checks in light mode; aqua is below
-3:1 contrast, so every aqua mark carries a direct label. Fig. 6 (real-data
-calibration) still needs a reader over the stage-2 agreement artifacts.
+3:1 contrast, so every aqua mark carries a direct label.
 
 ## A4. Novelty appendix check
 

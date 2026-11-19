@@ -323,12 +323,57 @@ def fig1_design() -> None:
     save(fig, "fig1_design")
 
 
+# --------------------------------------------------------------------------
+# Fig 6 (appendix) — real-data calibration gates
+# --------------------------------------------------------------------------
+# Gates from V3_REAL_STAGE2_PREFREEZE.md: gold fields raw >=0.85 / kappa >=0.70;
+# identity raw >=0.90 / kappa >=0.80; LSF raw >=0.85 / kappa >=0.70; SSF
+# raw >=0.80 / kappa >=0.65.
+def fig6_real_calibration() -> None:
+    gold = read_json(Path("results/status_drift_v3_real_audit/stage2_calibration_40_intent_epi/analysis/agreement_adjudicated.json"))
+    lsf = read_json(Path("results/status_drift_v3_real_audit/stage2_lsf_ssf/analysis/agreement.json"))
+
+    rows = [
+        ("gold dimension (adj.)", gold["adjudicated"]["gold_dimension"]["raw"],
+         gold["adjudicated"]["gold_dimension"]["kappa"], 0.70),
+        ("gold status (adj.)", gold["adjudicated"]["gold_status"]["raw"],
+         gold["adjudicated"]["gold_status"]["kappa"], 0.70),
+        ("LSF outcome", lsf["fields"]["lsf_outcome"]["raw_agreement"],
+         lsf["fields"]["lsf_outcome"]["cohen_kappa"], 0.70),
+        ("SSF outcome", lsf["fields"]["ssf_outcome"]["raw_agreement"],
+         lsf["fields"]["ssf_outcome"]["cohen_kappa"], 0.65),
+        ("proposition identity", lsf["fields"]["proposition_identity_in_memory"]["raw_agreement"],
+         lsf["fields"]["proposition_identity_in_memory"]["cohen_kappa"], 0.80),
+    ]
+    rows.sort(key=lambda row: row[2])
+
+    fig, ax = plt.subplots(figsize=(SINGLE_COL, 2.0))
+    for i, (label, raw, kappa, gate) in enumerate(rows):
+        color = BLUE if kappa >= gate else ORANGE
+        ax.barh(i, kappa, height=0.55, color=color, linewidth=0)
+        ax.plot([gate, gate], [i - 0.32, i + 0.32], color=INK, linewidth=0.9)
+        ax.annotate(f"κ {kappa:.2f} (raw {raw:.2f})", (max(kappa, gate) + 0.015, i),
+                    va="center", fontsize=6.8, color=INK)
+    ax.set_yticks(range(len(rows)))
+    ax.set_yticklabels([row[0] for row in rows])
+    ax.set_xlim(0, 1.12)
+    ax.set_xlabel("Cohen's κ between annotators; tick marks the pre-registered gate")
+    ax.grid(axis="x", color=GRID, linewidth=0.5)
+    ax.set_axisbelow(True)
+    handles = [plt.Rectangle((0, 0), 1, 1, color=BLUE),
+               plt.Rectangle((0, 0), 1, 1, color=ORANGE)]
+    ax.legend(handles, ["passes gate", "fails gate"], frameon=False,
+              loc="lower right", handlelength=1.0, handleheight=0.8)
+    save(fig, "fig6_real_calibration")
+
+
 def main() -> None:
     fig1_design()
     fig2_p3_omission()
     fig3_p3_mechanism()
     fig4_behavior()
     fig5_mitigation()
+    fig6_real_calibration()
 
 
 if __name__ == "__main__":

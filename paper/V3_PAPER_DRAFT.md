@@ -765,8 +765,8 @@ lesson and future work, not as evidence about memory systems. We do not claim
 natural-dialogue replication or conditional reliability. The paper's primary
 claims remain the synthetic V3 line and P4.2.
 
-*[Figure 6 about here: real-data calibration gates and the failed LSF/SSF
-runs.]*
+*[Fig. 6 — `paper/figures/fig6_real_calibration.pdf`: annotator kappa against the
+pre-registered gates for the gold calibration and the failed LSF/SSF runs.]*
 
 ## 8. Discussion
 
@@ -1064,9 +1064,9 @@ only frozen analysis artifacts and writes vector PDFs and PNG previews to
   form) × 4 (memory variant), gemma only.
 - **Fig. 5 — P5 mitigation** (`fig5_mitigation.pdf`). Faithful status by
   condition for the primary and replicated writer.
-- **Fig. 6 (appendix, not yet generated) — Real-data calibration.** Gold
-  calibration and LSF/SSF gates; requires a small reader over the stage-2
-  agreement artifacts.
+- **Fig. 6 (appendix) — Real-data calibration** (`fig6_real_calibration.pdf`).
+  Annotator kappa against the pre-registered gates for the gold calibration and
+  the failed LSF/SSF runs.
 
 ## Draft Status and Pre-Submission Audits
 
