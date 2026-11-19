@@ -68,12 +68,12 @@ distortion.
 | C1 | Chained rewriting omits status while the proposition survives. | P3: 330 items, primary κ 0.944; omission 44-54% vs 3.7% direct. | Supported | §5 |
 | C2 | Chained re-editing, not budget or call count, drives the loss. | P3: rewrite-matched = recursive (0.000 [−0.167, 0.167]); repeated-direct = direct; source-peek −0.400. | Supported | §5 |
 | C3 | Unsupported distortion is rare under rewriting. | P3: 3/330 (0.9%); underpowered for condition contrasts. | Supported with caveat | §5 |
-| C4 | Distortion raises unauthorized action. | P4: 66.7% vs 6.7%; P4.2: 23.7%/21.1% vs 0%. | Supported | §6 |
-| C5 | Omission's behavioral profile is task-dependent. | P4: 0/30 unauthorized, under-action; P4.2: 6/38 and 5/38 unauthorized overall, 2/34 and 3/34 over-commitment only. | Supported as task-dependence | §6 |
+| C4 | Distortion raises unauthorized action. | P4: 66.7% vs 6.7%. P4.2 v3.1 (gemma, 34 over-commitment): 24/34 vs 0/34 under a permission judgment; 10/34 vs 0/34 under an action request. | Supported | §5.2-5.3 |
+| C5 | Omission's behavioral profile is task- and request-dependent. | P4: 0/30 unauthorized, under-action. P4.2 v3.1: 5/34 over-commitment unauthorized under a permission judgment, 0/34 under an action request; every case upgrades 'mentioned X'. | Supported as task/request dependence | §5.3 |
 | C6 | Source access is the strongest mitigation in the primary model. | P5: 30/30 faithful vs 14/26 neutral; +0.533 [0.367, 0.700]. | Supported (qwen); model-dependent | §7 |
 | C7 | Status-aware prompting is partial and non-additive. | P5: 27/30; interaction −0.500 [−0.667, −0.333]. | Supported | §7 |
 | C8 | Intentional status is findable and gold-codeable on real dialogue. | Feasibility audit; 40-item gold calibration with adjudication: dimension 1.000/1.000, status 0.975/0.969. | Supported with caveats | §8/appendix |
-| C9 | LSF/SSF annotation is reliable on real dialogue. | Runs 1-2 failed (run 2: LSF 0.800/0.689; SSF 0.756/0.625; identity 0.800/0.607). | **Not supported** — report negative | §8/appendix |
+| C9 | LSF/SSF annotation is reliable on real dialogue. | Runs 1-2 failed (run 2 raw/kappa: LSF 0.800/0.689; SSF 0.756/0.625; identity 0.800/0.607). | **Not supported** — report negative | §8/appendix |
 
 ## 5. Section plan
 

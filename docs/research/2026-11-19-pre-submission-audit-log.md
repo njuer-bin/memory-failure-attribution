@@ -61,14 +61,36 @@ blind second-rater sheet (no analyst code, no variant, shuffled order). The
 analyst distribution is 34 D1 + 5 O2; the second-rater columns are blank, so
 the sheet is ready for an independent rater but the claim remains analyst-only.
 
+## A7. Claim audit against C1-C9
+
+| Claim | Draft location | Evidence | Verdict |
+|---|---|---|---|
+| C1 chained rewriting omits status | Abstract, section 4.2, Table 3 | P3 330 items, 44-54% vs 3.7% | supported |
+| C2 re-editing, not budget/call count | section 4.3, Fig. 3 | rewrite-matched = recursive; repeated-direct = direct; source peek -0.400 | supported |
+| C3 distortion is rare | section 4.2 | 3/330, underpowered | supported with caveat |
+| C4 distortion raises unauthorized action | Abstract, section 5.3, Table 8 | P4 20/30 vs 2/30; P4.2 24/34 and 10/34 vs 0/34 | supported |
+| C5 omission is task/request-dependent | Abstract, section 5.3, section 8 | P4 0/30; P4.2 5/34 neutral, 0/34 action | supported |
+| C6 source access strongest (primary) | Abstract, section 6 | 30/30 vs 14/26; +0.533 | supported, model-dependent |
+| C7 status-aware prompt partial, non-additive | section 6 | 27/30; interaction -0.500 | supported |
+| C8 intentional status gold-codeable | section 7 | adjudicated 1.000/1.000 and 0.975/0.969 | supported with caveats |
+| C9 LSF/SSF reliable | section 7, Fig. 6 | 0.689/0.625/0.607 kappa | **not supported**; reported negative |
+
+The do-not-say list is respected: no "first" claim for state tracking, recursive
+omission, source access, or memory-to-action; no universal omission claim; no
+LSF/SSF or conditional reliability claim; no natural-dialogue replication.
+
+## A8. Citations
+
+All 14 audited PDFs were re-read at the title page; authors, titles, venues, and
+arXiv identifiers in the draft match. LongMemEval and LoCoMo have no local PDF
+and use the published records (arXiv:2410.10813; arXiv:2402.17753); re-check at
+build time.
+
 ## Open audit items
 
-- Fig. 6.
-- Citation placeholders: verify authors, venues, years, and IDs for all 2026
-  preprints and Findings papers.
-- Claim audit against the C1–C9 matrix in `docs/research/V3_PAPER_PLAN.md`.
 - Provenance and adjudication disclosure pass (annotator-unspecified for
-  P3/P5; model-assisted override counts).
+  P3/P5; model-assisted override counts) - stated in Limitations, final read
+  still pending.
 - Anonymity pass (no repository URLs, usernames, or local paths in the main
   PDF, appendices, or supplementary metadata).
 - COLING/ACL 8-page compression and LaTeX build; limitations and ethics
