@@ -330,7 +330,7 @@ primary-judgment reliability was 0.967 raw / 0.944 kappa;
 proposition identity 0.991 / 0.943; action status 0.961 / 0.924; expressed
 status 0.991 / 0.989; evidence support 0.988 / 0.972; primary dimension 1.000.
 
-*[Figure 1 about here: design, conditions, and the status tuple.]*
+*[Fig. 1 — `paper/figures/fig1_design.pdf`: design, conditions, and the status tuple.]*
 
 ### 4.2 Main result: omission, not distortion
 
@@ -361,8 +361,8 @@ The dominant failure is therefore omission, not distortion.
 | Path schedule 2 | 30 | 0.133 | 26 | 0.000 | 0.538 | 0.462 |
 | Paraphrase | 30 | 0.200 | 24 | 0.000 | 0.542 | 0.458 |
 
-*[Figure 2 about here: omission among preserved items by condition, with
-Wilson intervals.]*
+*[Fig. 2 — `paper/figures/fig2_p3_omission.pdf`: omission among preserved items by
+condition, Wilson intervals.]*
 
 The dimension breakdown among preserved items is conditional 27.6%, epistemic
 33.0%, and intentional 27.3%; proposition-loss rates are 10.9%, 6.4%, and
@@ -402,8 +402,9 @@ produced by differential proposition loss. USDR has only three events (one in
 recursive and two in temperature 1); condition contrasts for USDR are
 uninformative and must not be read as evidence of equivalence.
 
-*[Figure 3 about here: paired mechanism contrasts (rewrite-matched vs
-recursive, repeated-direct vs direct, source-peek vs recursive).]*
+*[Fig. 3 — `paper/figures/fig3_p3_mechanism.pdf`: paired mechanism contrasts
+(rewrite-matched vs recursive, repeated-direct vs direct, source-peek vs
+recursive).]*
 
 This is also why the paper does not claim schedule-level "path dependence." A
 within-condition schedule pilot was near-null (S1–S2 pairwise divergence 9.1%);
@@ -479,9 +480,9 @@ The pattern replicates on `gemma3:12b`: present 0/30, omitted 0/30 (all
 present-status conditional-collapse errors. The omission/distortion asymmetry
 is not a qwen artifact.
 
-*[Figure 4 about here: P4 and P4.2 unauthorized action; for P4.2, a
-2 (request form) × 3 (memory variant) panel over the 34 over-commitment
-scenarios.]*
+*[Fig. 4 — `paper/figures/fig4_behavior.pdf`: P4 and P4.2 unauthorized action;
+P4.2 is a 2 (request form) × 4 (memory variant) panel over the 34
+over-commitment scenarios.]*
 
 ### 5.2 P4.2: high-stakes authorization bank
 
@@ -709,7 +710,8 @@ kappa 0.834).**
 | Recursive | 8/12 | 1/12 | 3/12 |
 | Rewrite-matched | 6/12 | 1/12 | 3/12 |
 
-*[Figure 5 about here: P5 faithful status by condition and the interaction.]*
+*[Fig. 5 — `paper/figures/fig5_mitigation.pdf`: P5 faithful status by condition,
+primary writer and replication.]*
 
 ## 7. Real-Dialogue Feasibility and Measurement Attempt
 
@@ -1046,18 +1048,25 @@ bank validation is the recorded-provenance exception.
 
 ## Figure Plan
 
-- **Fig. 1 — Design.** Proposition/evidence/history/memory; conditions and
-  controls; the status tuple.
-- **Fig. 2 — P3 omission by condition.** Bars with Wilson intervals;
-  raw/direct/recursive/rewrite-matched/repeated-direct/source-peek.
-- **Fig. 3 — P3 mechanism.** Paired differences: rewrite-matched vs recursive,
-  repeated-direct vs direct, source-peek vs recursive.
-- **Fig. 4 — P4 and P4.2 behavior.** Left: P4 unauthorized action by variant.
-  Right: P4.2 over-commitment unauthorized action, 2 (request form) × 3 (memory
-  variant), gemma only, with the action-completed subset marked.
-- **Fig. 5 — P5 mitigation.** Faithful rate by condition; interaction.
-- **Fig. 6 (appendix) — Real-data calibration.** Gold calibration and LSF/SSF
-  gates; failed LSF/SSF runs.
+Generated deterministically by `experiments/make_paper_figures.py`, which reads
+only frozen analysis artifacts and writes vector PDFs and PNG previews to
+`paper/figures/`.
+
+- **Fig. 1 — Design** (`fig1_design.pdf`). Source dialogue → transformation
+  histories → memory with a status tuple → agent decision.
+- **Fig. 2 — P3 omission by condition** (`fig2_p3_omission.pdf`). Bars with 95%
+  Wilson intervals, colored by rewriting family.
+- **Fig. 3 — P3 mechanism** (`fig3_p3_mechanism.pdf`). Paired differences:
+  rewrite-matched vs recursive, repeated-direct vs direct, source-peek vs
+  recursive, with bootstrap intervals.
+- **Fig. 4 — P4 and P4.2 behavior** (`fig4_behavior.pdf`). Left: P4 unauthorized
+  action by variant. Right: P4.2 over-commitment unauthorized action, 2 (request
+  form) × 4 (memory variant), gemma only.
+- **Fig. 5 — P5 mitigation** (`fig5_mitigation.pdf`). Faithful status by
+  condition for the primary and replicated writer.
+- **Fig. 6 (appendix, not yet generated) — Real-data calibration.** Gold
+  calibration and LSF/SSF gates; requires a small reader over the stage-2
+  agreement artifacts.
 
 ## Draft Status and Pre-Submission Audits
 
