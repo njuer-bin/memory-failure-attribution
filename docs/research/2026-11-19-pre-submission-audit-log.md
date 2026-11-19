@@ -121,6 +121,22 @@ The direction of the argument is unchanged and stronger.
   `main.tex`, `custom.bib`, or the six figure PDFs; figure metadata carries only
   the Matplotlib producer string.
 
+## A11. Figure scale audit
+
+The figure PDFs did not match the widths at which `main.tex` included them.
+Fig. 1 was drawn on a 6.9 in canvas but included at `\columnwidth`, so its
+7.6 pt labels would have printed at about 4.7 pt. Figs. 3 and 6 had tight
+bounding boxes of 3.9 in and 3.6 in because annotations and tick labels
+overflowed, shrinking their text to about 6.8 pt.
+
+Fixed in `make_paper_figures.py`: `save()` now calls `tight_layout(pad=0.25)`
+and saves at the nominal canvas size, tick labels no longer sit on the axes
+edge, and the long annotations are shortened or moved inside the axes. Every
+single-column PDF is now exactly 3.3 in and every double-column PDF 6.9 in, so
+the 8 pt text prints at 8 pt. Fig. 1 is included as a full-width `figure*` at
+`\textwidth`. Text blocks were checked programmatically for page-edge overflow;
+none remain. The six submission copies were regenerated from the same script.
+
 ## Open audit items
 
 - Provenance and adjudication disclosure pass: **read complete**. Limitations

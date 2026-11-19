@@ -943,6 +943,13 @@ No commits made.
   source, the bib, nor the six figure PDFs contain a URL, username, path, or
   repository name. Added explicit table/figure references in the mechanism and
   mitigation sections.
+- **Figure scale.** The PDFs did not match their include widths: fig1 (6.9 in
+  canvas) was included at column width, and fig3/fig6 had overflowed bounding
+  boxes, so 8 pt labels would have printed at 4.7-6.8 pt. `save()` now uses
+  `tight_layout(pad=0.25)` at the nominal canvas size, edge tick labels and
+  long annotations were fixed, and every single-column figure is exactly 3.3 in
+  / double-column 6.9 in. Fig1 is now a full-width `figure*`. No text block
+  overflows the page; the six submission copies were regenerated.
 - **Second-writer n=30 prepared.** `make_replication_annotation_remaining.py`
   generates blind A/B sheets for the remaining 18 trajectories (126 items,
   `REPR-0085`–`REPR-0210`) with a separate gold key. This is the CCF-B plan's

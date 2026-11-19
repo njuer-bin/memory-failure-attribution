@@ -48,7 +48,7 @@ plt.rcParams.update({
     "axes.spines.top": False,
     "axes.spines.right": False,
     "figure.dpi": 150,
-    "savefig.bbox": "tight",
+    "savefig.bbox": "standard",
     "savefig.pad_inches": 0.02,
 })
 
@@ -67,6 +67,7 @@ def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
 
 def save(fig: plt.Figure, name: str) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    fig.tight_layout(pad=0.25)
     fig.savefig(OUT / f"{name}.pdf")
     fig.savefig(OUT / f"{name}.png", dpi=220)
     plt.close(fig)
@@ -126,7 +127,7 @@ def fig2_p3_omission() -> None:
                     ha="left", fontsize=7, color=INK)
     ax.set_yticks(list(ys))
     ax.set_yticklabels([entry[4] for entry in data])
-    ax.set_xlim(0, 0.72)
+    ax.set_xlim(0, 0.80)
     ax.set_xlabel("status omission among proposition-preserved items")
     ax.xaxis.set_major_formatter(matplotlib.ticker.PercentFormatter(1.0))
     ax.grid(axis="x", color=GRID, linewidth=0.5)
@@ -134,7 +135,7 @@ def fig2_p3_omission() -> None:
     handles = [plt.Rectangle((0, 0), 1, 1, color=FAMILY_COLOR[f]) for f in ("direct", "chained", "source")]
     ax.legend(handles, [FAMILY_LABEL[f] for f in ("direct", "chained", "source")],
               frameon=False, loc="lower right", handlelength=1.0, handleheight=0.8)
-    ax.set_title("Qwen writer, 30 trajectories; whiskers: 95% Wilson interval",
+    ax.set_title("Qwen writer, 30 trajectories\nwhiskers: 95% Wilson interval",
                  loc="left", pad=4)
     save(fig, "fig2_p3_omission")
 
@@ -145,9 +146,9 @@ def fig2_p3_omission() -> None:
 def fig3_p3_mechanism() -> None:
     rows = read_csv(Path("results/status_drift_v3_p2/analysis/paired_contrasts.csv"))
     wanted = {
-        ("rewrite_matched", "recursive"): ("rewrite-matched $-$ recursive", "chained"),
-        ("repeated_direct", "direct"): ("repeated-direct $-$ direct", "direct"),
-        ("source_peek", "recursive"): ("source peek $-$ recursive", "source"),
+        ("rewrite_matched", "recursive"): ("rewrite-matched\nvs recursive", "chained"),
+        ("repeated_direct", "direct"): ("repeated-direct\nvs direct", "direct"),
+        ("source_peek", "recursive"): ("source peek\nvs recursive", "source"),
     }
     data = []
     for row in rows:
@@ -163,14 +164,16 @@ def fig3_p3_mechanism() -> None:
                 solid_capstyle="round")
         ax.plot([mean], [y], "o", color=FAMILY_COLOR[family], markersize=5.5,
                 markeredgecolor="white", markeredgewidth=0.8)
-        ax.annotate(f"{mean:+.2f}  [{low:+.2f}, {high:+.2f}]",
-                    (high + 0.02, y), va="center", fontsize=7, color=INK)
+        ax.annotate(f"{mean:+.2f}", xy=(0.98, y),
+                    xycoords=("axes fraction", "data"),
+                    ha="right", va="center", fontsize=7, color=INK)
     ax.axvline(0, color=INK_2, linewidth=0.7)
     ax.set_yticks(range(len(data)))
     ax.set_yticklabels([entry[3] for entry in data])
     ax.set_ylim(-0.6, len(data) - 0.4)
-    ax.set_xlim(-0.62, 0.3)
-    ax.set_xlabel("paired change in status omission (conditional on proposition preservation)")
+    ax.set_xlim(-0.7, 0.5)
+    ax.set_xticks([-0.6, -0.4, -0.2, 0.0, 0.2, 0.4])
+    ax.set_xlabel("paired change in omission")
     ax.grid(axis="x", color=GRID, linewidth=0.5)
     ax.set_axisbelow(True)
     save(fig, "fig3_p3_mechanism")
@@ -352,12 +355,14 @@ def fig6_real_calibration() -> None:
         color = BLUE if kappa >= gate else ORANGE
         ax.barh(i, kappa, height=0.55, color=color, linewidth=0)
         ax.plot([gate, gate], [i - 0.32, i + 0.32], color=INK, linewidth=0.9)
-        ax.annotate(f"κ {kappa:.2f} (raw {raw:.2f})", (max(kappa, gate) + 0.015, i),
-                    va="center", fontsize=6.8, color=INK)
+        ax.annotate(f"$\\kappa$ {kappa:.2f}\nraw {raw:.2f}",
+                    (max(kappa, gate) + 0.02, i),
+                    va="center", fontsize=6.5, color=INK, linespacing=1.1)
     ax.set_yticks(range(len(rows)))
     ax.set_yticklabels([row[0] for row in rows])
-    ax.set_xlim(0, 1.12)
-    ax.set_xlabel("Cohen's κ between annotators; tick marks the pre-registered gate")
+    ax.set_xlim(0, 1.4)
+    ax.set_xticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0, 1.2])
+    ax.set_xlabel("Cohen's $\\kappa$ (tick = gate)")
     ax.grid(axis="x", color=GRID, linewidth=0.5)
     ax.set_axisbelow(True)
     handles = [plt.Rectangle((0, 0), 1, 1, color=BLUE),
