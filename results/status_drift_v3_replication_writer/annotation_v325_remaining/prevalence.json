@@ -1,0 +1,26 @@
+{
+  "n_items": 126,
+  "n_trajectories": 18,
+  "gold_status_counts": {
+    "COMMITTED": 21,
+    "POSSIBLE": 21,
+    "CONDITION_SATISFIED": 21,
+    "CONSIDERING": 21,
+    "CERTAIN": 21,
+    "CONDITION_ACTIVE": 21
+  },
+  "condition_counts": {
+    "neutral_source": 18,
+    "repeated_direct": 18,
+    "status_aware_source": 18,
+    "rewrite_matched": 18,
+    "recursive": 18,
+    "status_aware": 18,
+    "direct": 18
+  },
+  "item_id_range": [
+    "REPR-0085",
+    "REPR-0210"
+  ],
+  "seed": 20261119
+}

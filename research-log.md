@@ -873,11 +873,17 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   example episodes. Neither contains a proposition-controlled status split.
   Recorded in `docs/research/2026-11-17-novelty-audit.md` §8; the open risk item
   is closed.
-- **Length confound check (P4.2 v3.1).** The factorial builder does not apply
-  the earlier runner's neutral filler: present memories average 15.7 tokens,
-  omitted 9.4, distorted 10.3. The distorted memory is the shorter one yet
-  produces more execution; rank correlation between the distorted-minus-present
-  length difference and execution is 0.16. Direction is conservative, disclosed.
+- **Length confound check (P4.2 v3.1; recomputed 2026-11-19).** The factorial
+  builder does not apply the earlier runner's neutral filler. Over the 34
+  over-commitment scenarios, present memories average 15.4 tokens, omitted
+  10.1, distorted 10.5 (`analyze_p4_2_lengths.py`). The distorted memory is the
+  shorter one yet produces more execution; the Spearman correlation between the
+  distorted-minus-present length difference and execution is 0.02 (Pearson
+  -0.06). The previously logged 15.7 / 9.4 / 10.3 and 0.16 came from all 54
+  scenarios, which mixes in the 20 authorized controls, and from an ordinal-rank
+  tie handling; both are superseded by
+  `results/status_drift_v3_p4_2_v3_v31/analysis/variant_length_check.json`.
+  Direction is conservative, disclosed.
 - **Figures.** `experiments/make_paper_figures.py` builds Figs. 1–6 from the
   analysis artifacts only; the three-slot categorical palette passes the
   all-pairs CVD check. Fig. 6 uses the adjudicated gold agreements and the
@@ -918,3 +924,31 @@ No commits made.
 
 
 
+
+## 2026-11-19 — pre-submission audit and CCF-B upgrade prep
+
+- **Length numbers reconciled.** The draft's 15.7 / 9.4 / 10.3 and rank
+  correlation 0.16 had no artifact. Recomputed with
+  `experiments/analyze_p4_2_lengths.py`: over the 34 over-commitment scenarios,
+  present 15.353, omitted 10.059, distorted 10.471 whitespace tokens, and
+  Spearman 0.020 (Pearson -0.059). The old values reproduce only on all 54
+  scenarios including the 20 controls; the 0.16 came from ordinal tie ranks.
+  Frozen in `analysis/variant_length_check.json`, `V3_NUMBERS.md` §7c, and both
+  drafts.
+- **Table completeness.** Added the ambiguous column to the second-writer table
+  (rewrite-matched had 10/12 accounted for; now 6/1/3/2) and accounted for the
+  unsupported/ambiguous items in the mitigation table caption.
+- **Structure and anonymity.** `main.tex` has balanced environments and braces,
+  every `\ref` resolves, every citation key exists and is cited, and neither the
+  source, the bib, nor the six figure PDFs contain a URL, username, path, or
+  repository name. Added explicit table/figure references in the mechanism and
+  mitigation sections.
+- **Second-writer n=30 prepared.** `make_replication_annotation_remaining.py`
+  generates blind A/B sheets for the remaining 18 trajectories (126 items,
+  `REPR-0085`–`REPR-0210`) with a separate gold key. This is the CCF-B plan's
+  first empirical upgrade; it now waits only on two human annotators.
+- **Blocked.** No frontier API key is available for the P4.2/P5 replication,
+  and installing a local TeX distribution for the 8-page build was denied by the
+  permission policy. Both are recorded in
+  `to_human/2026-11-19_outstanding_human_tasks.md`; the Overleaf route avoids the
+  TeX install.

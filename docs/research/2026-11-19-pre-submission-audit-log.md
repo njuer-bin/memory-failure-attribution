@@ -86,12 +86,53 @@ arXiv identifiers in the draft match. LongMemEval and LoCoMo have no local PDF
 and use the published records (arXiv:2410.10813; arXiv:2402.17753); re-check at
 build time.
 
+## A9. Variant-length reconciliation (2026-11-19)
+
+The draft's "present 15.7 / omitted 9.4 / distorted 10.3 tokens, rank
+correlation 0.16" had no artifact and no longer reproduced. Recomputed from
+`results/status_drift_v3_p4_2_v3_v31/run/records_gemma3_12b.jsonl` by
+`experiments/analyze_p4_2_lengths.py` (whitespace tokens of the `memory` field,
+neutral form):
+
+| Stratum | Present | Omitted | Distorted | Spearman vs execution |
+|---|---:|---:|---:|---:|
+| 34 over-commitment (paper) | 15.353 | 10.059 | 10.471 | 0.020 |
+| all 54 incl. controls | 15.667 | 9.370 | 10.278 | 0.236 |
+
+The old values reproduce only on the all-54 stratum, which mixes in the 20
+authorized controls (distorted execution is near zero there by construction),
+and the old 0.16 came from ordinal tie ranks. The paper now uses the 34-scenario
+values and reports Spearman 0.02 / Pearson -0.06. Artifact:
+`analysis/variant_length_check.json`; registry: `paper/V3_NUMBERS.md` §7c.
+The direction of the argument is unchanged and stronger.
+
+## A10. Table completeness and LaTeX structure
+
+- The second-writer table omitted the ambiguous column, so row sums were 10/12
+  for rewrite-matched. Added the ambiguous column (2/12) in both the draft and
+  `main.tex`.
+- The mitigation table dropped unsupported and ambiguous items; the caption now
+  accounts for them (neutral 1 unsupported; status-aware 2 + 1; combination
+  1 + 1; source access none).
+- Structural check of `main.tex`: environments balanced, braces balanced, every
+  `\ref` has a label, every citation key exists in `custom.bib`, and every bib
+  entry is cited.
+- Anonymity: no URL, username, machine path, repository name, or commit hash in
+  `main.tex`, `custom.bib`, or the six figure PDFs; figure metadata carries only
+  the Matplotlib producer string.
+
 ## Open audit items
 
-- Provenance and adjudication disclosure pass (annotator-unspecified for
-  P3/P5; model-assisted override counts) - stated in Limitations, final read
-  still pending.
-- Anonymity pass (no repository URLs, usernames, or local paths in the main
-  PDF, appendices, or supplementary metadata).
-- COLING/ACL 8-page compression and LaTeX build; limitations and ethics
-  sections after the reference-free page budget.
+- Provenance and adjudication disclosure pass: **read complete**. Limitations
+  states annotator-unspecified for the synthetic annotation, model-assisted
+  adjudication, 12-trajectory replication, and analyst-only reason coding; the
+  P4.2 bank keeps its recorded two-human provenance. No overclaim found.
+- Anonymity pass: source, bibliography, and figures are clean (A10). The built
+  PDF metadata and any supplementary archive can only be checked after a build.
+- 8-page build: **blocked locally**. No TeX distribution is installed, and
+  installing one requires explicit user authorization. Structural checks pass
+  (A10); the page budget is estimated at 7-7.5 main-body pages but is not
+  verified. Build on Overleaf with `paper/submission/README.md` or authorize a
+  local portable TeX install.
+- Supplementary archive: not yet assembled (no repository URLs, `results/`,
+  state files, or `.git` may enter it).

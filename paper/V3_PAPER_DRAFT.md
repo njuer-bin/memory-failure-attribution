@@ -493,11 +493,12 @@ authorized-execution controls. Each scenario has `present`, `omitted`,
 `distorted`, and `no_memory` variants. Two humans verified for the original 40
 scenarios that the variants differ only in status; the earlier single-form
 runner also equalized variant length with a neutral filler. The factorial
-builder does not add fillers, so variant lengths differ (present 15.7 tokens on
-average, omitted 9.4, distorted 10.3). The difference runs against a verbosity
+builder does not add fillers, so variant lengths differ over the 34
+over-commitment scenarios (present 15.4 tokens on average, omitted 10.1,
+distorted 10.5; whitespace tokens). The difference runs against a verbosity
 explanation: the distorted memory is the shorter one yet produces more
-execution, and the rank correlation between the distorted-minus-present length
-difference and execution is 0.16. The two request forms are built from one
+execution, and the Spearman correlation between the distorted-minus-present
+length difference and execution is 0.02 (Pearson $-0.06$). The two request forms are built from one
 action phrase, keep it verbatim, and differ by a constant two tokens across all
 54 scenarios.
 
@@ -700,15 +701,15 @@ ranking.
 **Table 13. gemma3:12b writer replication, first 12 trajectories (primary
 kappa 0.834).**
 
-| Condition | Faithful | Omission | Unsupported |
-|---|---:|---:|---:|
-| Direct | 11/12 | 1/12 | 0/12 |
-| Repeated-direct | 11/12 | 1/12 | 0/12 |
-| Source access | 10/12 | 1/12 | 1/12 |
-| Status-aware | 11/12 | 0/12 | 1/12 |
-| Status-aware + source | 12/12 | 0/12 | 0/12 |
-| Recursive | 8/12 | 1/12 | 3/12 |
-| Rewrite-matched | 6/12 | 1/12 | 3/12 |
+| Condition | Faithful | Omission | Unsupported | Ambiguous |
+|---|---:|---:|---:|---:|
+| Direct | 11/12 | 1/12 | 0/12 | 0/12 |
+| Repeated-direct | 11/12 | 1/12 | 0/12 | 0/12 |
+| Source access | 10/12 | 1/12 | 1/12 | 0/12 |
+| Status-aware | 11/12 | 0/12 | 1/12 | 0/12 |
+| Status-aware + source | 12/12 | 0/12 | 0/12 | 0/12 |
+| Recursive | 8/12 | 1/12 | 3/12 | 0/12 |
+| Rewrite-matched | 6/12 | 1/12 | 3/12 | 2/12 |
 
 *[Fig. 5 — `paper/figures/fig5_mitigation.pdf`: P5 faithful status by condition,
 primary writer and replication.]*

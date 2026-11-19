@@ -301,7 +301,8 @@ budgets constant and recovers the same degradation as the shrinking schedule
 (paired omission difference $0.000$ $[-0.167, 0.167]$). Repeated-direct matches
 the writer-call count but behaves like direct ($-0.367$ $[-0.567, -0.167]$).
 Source-peek, which exposes the original dialogue at every rewrite, removes the
-omission ($-0.400$ $[-0.567, -0.233]$). The mechanism is therefore repeated
+omission ($-0.400$ $[-0.567, -0.233]$). Figure~\ref{fig:mechanism} shows the
+three contrasts. The mechanism is therefore repeated
 re-editing of the writer's own output, not intermediate budget shrinkage or raw
 call count. Proposition-loss differences for these three contrasts are near zero
 with intervals including zero, so the omission contrast is not produced by
@@ -362,10 +363,11 @@ rule adds the positive clause and was adopted after a probe; the earlier run is
 not pooled with the reported one. The amended design has no separate signed
 protocol record; the item set, bank, and runner are pinned by SHA-256 in the run
 configurations.
-Variant lengths are not filler-matched (present 15.7 tokens on average, omitted
-9.4, distorted 10.3); the distorted memory is the shorter one yet produces more
-execution, and the rank correlation between the distorted-minus-present length
-difference and execution is 0.16, so length does not explain the effect.
+Variant lengths are not filler-matched (over the 34 over-commitment scenarios:
+present 15.4 whitespace tokens on average, omitted 10.1, distorted 10.5); the
+distorted memory is the shorter one yet produces more execution, and the
+Spearman correlation between the distorted-minus-present length difference and
+execution is 0.02 (Pearson $-0.06$), so length does not explain the effect.
 
 Table~\ref{tab:auth} reports the primary model. Present status executes nothing
 in either form, and no-memory executes nothing in either form, so every
@@ -477,16 +479,19 @@ Status-aware + source & 28/30 & 0/30 & $1.38\times$ \\
 \bottomrule
 \end{tabular}
 \caption{Study 3: faithful status (gold labels) by condition, 30 trajectories;
-primary annotator $\kappa$ 0.974 post-adjudication, after the final recheck.}
+primary annotator $\kappa$ 0.974 post-adjudication, after the final recheck.
+Remaining items are unsupported (neutral 1, status-aware 2, combination 1) or
+ambiguous (status-aware 1, combination 1); source access has none.}
 \label{tab:mitigation}
 \end{table}
 
 Source access is the stronger mitigation ($+0.533$ faithful $[0.367, 0.700]$);
 the prompt is partial ($+0.433$ $[0.267, 0.600]$); the combination adds nothing
 ($+0.467$ $[0.300, 0.633]$; interaction $-0.500$ $[-0.667, -0.333]$) and
-introduces an escalation pattern in the primary model. The practical
-recommendation is to expose the source at rewrite time and treat prompting as a
-fallback.
+introduces an escalation pattern in the primary model. Table~\ref{tab:mitigation}
+reports the per-condition counts; Figure~\ref{fig:mitigation} compares the
+primary and replication writers. The practical recommendation is to expose the
+source at rewrite time and treat prompting as a fallback.
 
 The ranking is model-dependent. In the second-writer replication (first 12
 pre-registered trajectories), faithful status is direct 11/12, repeated-direct
@@ -763,17 +768,17 @@ primary agent (post hoc, analyst, gold-unblinded).}
 \begin{table}[h]
 \centering
 \small
-\begin{tabular}{lccc}
+\begin{tabular}{lcccc}
 \toprule
-Condition & Faithful & Omission & Unsupported \\
+Condition & Faithful & Omission & Unsupported & Ambiguous \\
 \midrule
-Direct & 11/12 & 1/12 & 0/12 \\
-Repeated-direct & 11/12 & 1/12 & 0/12 \\
-Source access & 10/12 & 1/12 & 1/12 \\
-Status-aware & 11/12 & 0/12 & 1/12 \\
-Status-aware + source & 12/12 & 0/12 & 0/12 \\
-Recursive & 8/12 & 1/12 & 3/12 \\
-Rewrite-matched & 6/12 & 1/12 & 3/12 \\
+Direct & 11/12 & 1/12 & 0/12 & 0/12 \\
+Repeated-direct & 11/12 & 1/12 & 0/12 & 0/12 \\
+Source access & 10/12 & 1/12 & 1/12 & 0/12 \\
+Status-aware & 11/12 & 0/12 & 1/12 & 0/12 \\
+Status-aware + source & 12/12 & 0/12 & 0/12 & 0/12 \\
+Recursive & 8/12 & 1/12 & 3/12 & 0/12 \\
+Rewrite-matched & 6/12 & 1/12 & 3/12 & 2/12 \\
 \bottomrule
 \end{tabular}
 \caption{Second-writer replication (first 12 pre-registered trajectories;

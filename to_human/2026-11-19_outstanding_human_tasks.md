@@ -37,14 +37,45 @@ mechanically checked but not two-human-validated".
   is not available, keep the current sentence: "analyst, post hoc,
   gold-unblinded".
 
-## 3. Optional, only if there is time
+## 2b. Annotate the remaining 18 writer-replication trajectories (CCF-B upgrade)
 
-- **Chinese parallel subset.** Ten scenarios translated and re-run under the
-  same factorial, to rule out an English-prompt artifact. Needs its own
-  mechanical checks; do not merge it into the 54-scenario matrix.
-- **Frontier API model.** Must pass the same 20-control × 2-form probe before a
-  full matrix. The local probe showed `mistral:7b` fails the action gate
-  (9/20), so a small local model is not a shortcut.
+The blind sheets are generated and ready; this is now only a labeling task.
+
+- Directory: `results/status_drift_v3_replication_writer/annotation_v325_remaining/`.
+- 126 items (18 trajectories x 7 conditions), item ids `REPR-0085`–`REPR-0210`.
+- Give `annotator_A.csv` to one person and `annotator_B.csv` to another. Do not
+  give either of them `key.csv` (gold/condition), and do not use a model to
+  draft labels.
+- Protocol: `docs/research/V3_ANNOTATION_GUIDELINES.md` (v3.2.5); instructions
+  in the directory's `README.md`.
+- After labeling: run `experiments.check_v3_annotations`, adjudicate
+  disagreements, and merge with `annotation_v325/adjudication.csv`. Report
+  n = 12 (pre-registered, already in the paper) and n = 30 (post-hoc
+  sensitivity) separately.
+- Rebuilder: `experiments/make_replication_annotation_remaining.py`.
+
+## 2c. Frontier API replication (blocked on credentials)
+
+No API key is available in this environment, so the frontier arm cannot run
+here. If a key is provided (OpenAI-, Anthropic-, or OpenAI-compatible endpoint),
+the P4.2 probe is 20 controls x 2 forms x 4 variants = 160 calls per model; it
+must pass the control gate before the full 864-call matrix. Do not use the
+Claude Code session token for bulk experiment calls.
+
+## 3. Build the 8-page PDF (needs Overleaf or a local TeX install)
+
+There is no TeX distribution on this machine and installing one was blocked by
+the permission policy. Structural checks pass (balanced environments, every
+cross-reference and citation resolves), and the source is in
+`paper/submission/main.tex`. Either:
+
+- build on Overleaf using `paper/submission/README.md` (recommended; no local
+  install), or
+- authorize a portable TeX install (for example TinyTeX or MiKTeX) if the page
+  count must be checked locally.
+
+The body is estimated at 7-7.5 pages of the 8-page main body; this is not yet
+verified.
 
 ## 4. Not needed under decision C
 
@@ -54,8 +85,8 @@ mechanically checked but not two-human-validated".
 
 ## Where things stand
 
-- Branch `research/path-dependent-state-distortion-v3`, commits through
-  `f85e927`. Push is blocked from this machine (local proxy 127.0.0.1:443 is
-  unreachable); the commits are local and ready to push.
+- Branch `research/path-dependent-state-distortion-v3`; commits are local and
+  pushed when the network allows. Push from this machine failed earlier (local
+  proxy 127.0.0.1:443 unreachable); the commits are local and ready.
 - Audit log: `docs/research/2026-11-19-pre-submission-audit-log.md`.
 - Run note: `docs/research/2026-11-19-v3-p4-2-v31-run.md`.
