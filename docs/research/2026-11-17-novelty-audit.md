@@ -127,8 +127,8 @@ existence of state tracking, recursive summarization, or memory→action effects
 - The writer-side replication is model-dependent and uses 12 trajectories.
 - Human annotation is model-assisted at adjudication; provenance is
   unrecorded.
-- Supersede/ABBEL may already contain a proposition/status-like split in their
-  appendices; check before submission.
+- Supersede/ABBEL appendix check completed 2026-11-19 (§8): neither contains a
+  proposition-controlled status split.
 - The "status-only downstream" design is novel in this combination, but the
   general memory→action finding is not.
 
@@ -148,3 +148,33 @@ existence of state tracking, recursive summarization, or memory→action effects
 - MemTX: `2607.23929_memtx.pdf`
 - EAL-Bench: `2609.01836_ealbench.pdf`
 - TWIST: `2609.28575_twist.pdf`
+
+## 8. Appendix check — ABBEL and Supersede (2026-11-19)
+
+The remaining open risk was that ABBEL or Supersede already contains a
+proposition-controlled status split in its appendices. Both PDFs were
+re-extracted with `pdftotext -layout` and read to the end.
+
+**ABBEL (2512.20111).** Appendices: A prompts and environment details, B belief
+state examples, C.1 reasoning lengths, C.2 unnecessary belief-state
+reconstruction, C.3 hallucinating past observations during belief update. The
+paper's error analysis separates *omitting information* from *incorrectly
+updating information*, and C.3 documents hallucinated observations. Evaluation
+is task success, not status fidelity; there is no proposition-identity control,
+no typed status, and no human status annotation. Overlap: omission and
+hallucinated update under recursive summarization. Non-overlap: the status
+tuple, proposition-controlled pairing, and the omission/distortion split
+measured on proposition-preserved items.
+
+**Supersede (2606.27472).** Appendices: A reward/matcher details, B additional
+results, C two procedurally generated training episodes. The whole design is a
+bounded-notes memory rewritten per session, evaluated by whether the final
+answer conveys the current value rather than a superseded one. The related-work
+section notes that multi-session dialogue work "does not annotate a dedicated
+update category", which is also true of Supersede itself. No status dimension,
+no uncertainty/authorization state, no human annotation. Overlap:
+chained-rewriting harm. Non-overlap: what is lost (status vs value) and the
+downstream status-only intervention.
+
+Verdict: the defensible-claim wording in `research-state.yaml` stands. Remove
+the "check before submission" risk item; both checks are now done.

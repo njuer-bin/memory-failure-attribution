@@ -860,6 +860,32 @@ Prior project history: `docs/RESEARCH_LOG.md`.
 - The 6 action-completed distortions are kept in a separate sensitivity stratum.
 - Reason coding is analyst, post hoc, gold-unblinded.
 
+### Audits run after the factorial
+
+- **Third model family.** `mistral:7b` (llama) on the 20 controls × 2 forms ×
+  4 variants (160 calls, parse 1.000): neutral gate 18/20 (0.90), action gate
+  9/20 (0.45). It fails the action gate, so per the amendment rule it was not
+  run on the full matrix. Only `gemma3:12b` passes the action-form control gate
+  among the three local models tested; the qwen failure is not model-specific.
+- **ABBEL/Supersede appendix check.** Both PDFs re-extracted and read to the
+  end. ABBEL's appendices cover reasoning length, unnecessary reconstruction,
+  and hallucinated observations; Supersede's cover reward/matcher details and
+  example episodes. Neither contains a proposition-controlled status split.
+  Recorded in `docs/research/2026-11-17-novelty-audit.md` §8; the open risk item
+  is closed.
+- **Length confound check (P4.2 v3.1).** The factorial builder does not apply
+  the earlier runner's neutral filler: present memories average 15.7 tokens,
+  omitted 9.4, distorted 10.3. The distorted memory is the shorter one yet
+  produces more execution; rank correlation between the distorted-minus-present
+  length difference and execution is 0.16. Direction is conservative, disclosed.
+
+### v3.1 artifact integrity
+
+- `items.jsonl` sha256 `a77dd300…`, bank `d3b1152b…`, runner `3b5c15e7…`, as
+  pinned in both run configs.
+- The resumed gemma run overwrote `summary.json` with gemma only; it was
+  regenerated from both record files with the runner's own `summarize()`.
+
 No commits made.
 
 

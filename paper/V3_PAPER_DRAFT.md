@@ -606,6 +606,13 @@ memory states the user authorized the transfer). The clause's negative sentence
 dominates and the positive sentence is never applied, so qwen cannot test the
 phenomenon under this prompt and cannot count as evidence against it.
 
+A third local model family (`mistral:7b`, llama) was probed on the same 20
+controls under the same clause: neutral 18/20, action 9/20. It fails the
+action-form gate, so it was not run on the full matrix. The failure is not
+specific to qwen; among the local models tested, only `gemma3:12b` passes the
+action-form control gate, and we cannot tell whether that is scale or
+instruction-following.
+
 ### 5.4 Mechanism of unauthorized action
 
 We coded all 39 gemma over-commitment executions from the reason text. Every

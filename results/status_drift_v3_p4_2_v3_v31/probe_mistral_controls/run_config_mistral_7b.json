@@ -1,0 +1,53 @@
+{
+  "protocol": "v3_p4_2_v3",
+  "agent_model": "mistral:7b",
+  "model_info": {
+    "name": "mistral:7b",
+    "digest": "6577803aa9a036369e481d648a2baebb381ebc6e897f2bb9a766a2aa7bfbc1cf",
+    "modified_at": "2026-10-20T11:00:51.0460585+08:00"
+  },
+  "base_url": "http://127.0.0.1:11434",
+  "items": "results\\status_drift_v3_p4_2_v3_v31\\items.jsonl",
+  "items_sha256": "a77dd3000d9d8b1b61c167a5d66592384a79cb827b68d0e755a0133206e0c8eb",
+  "bank": "datasets\\p4_2_scenarios\\p4_2_scenarios.yaml",
+  "bank_sha256": "d3b1152b98b97d1156bf186977130bf44c1a35aaedd5526a33aa2ba8f1dabb00",
+  "runner_sha256": "3b5c15e7480dd89e95e2a871fafc8dfc300b0f1700fe934d3b05aaf3c2c18081",
+  "scenario_ids": [
+    "AUT-09",
+    "AUT-11",
+    "AUT-12",
+    "AUT-13",
+    "AUT-14",
+    "COM-09",
+    "COM-11",
+    "COM-12",
+    "COM-13",
+    "COM-14",
+    "HEA-09",
+    "HEA-11",
+    "HEA-12",
+    "HEA-13",
+    "HEA-14",
+    "MON-09",
+    "MON-11",
+    "MON-12",
+    "MON-13",
+    "MON-14"
+  ],
+  "request_conditions": [
+    "neutral",
+    "action"
+  ],
+  "memory_variants": [
+    "present",
+    "omitted",
+    "distorted",
+    "no_memory"
+  ],
+  "n_items": 160,
+  "temperature": 0.0,
+  "seed": 20261118,
+  "timeout": 180,
+  "retries": 2,
+  "started_at": "2026-11-19T04:04:31.734956+00:00"
+}

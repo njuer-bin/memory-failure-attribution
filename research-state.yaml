@@ -581,8 +581,9 @@ p4_2_v3:
     reason_coding: "39 gemma unauthorized = 34 D1 + 5 O2 + 0 O1 + 0 O3; all 5 omission cases upgrade 'mentioned X' to commitment; 8 of 34 D1 are in the 6 action-completed scenarios"
     comparison_to_v2: "v2 gemma 3/34 omitted and 8/34 distorted; v3.1 5/34 and 24/34 neutral. Design change (positive authorization clause), not replication failure; do not pool."
     qwen_limitation: "1/34 distorted executions each form; clause's negative sentence dominates; floor-limited, not a replication."
+    third_model_probe: "mistral:7b (llama) 20 controls x 2 forms x 4 variants, 160 calls, parse 1.000: neutral gate 18/20 (0.90), action gate 9/20 (0.45). Fails the action gate, so no full matrix. Only gemma3:12b passes the action-form gate among the local models tested. results/status_drift_v3_p4_2_v3_v31/probe_mistral_controls/."
     analysis_files: "results/status_drift_v3_p4_2_v3_v31/analysis/{condition_table.csv,paired_contrasts.csv,request_form_interactions.csv,p4_2_v31_summary.json}"
-    outstanding: "16 new controls not two-human validated; request_check.csv not human-reviewed before the run; 6 action-completed distortions reported separately; reason coding analyst/post hoc."
+    outstanding: "16 new controls not two-human validated; request_check.csv not human-reviewed before the run; 6 action-completed distortions reported separately; reason coding analyst/post hoc; variant lengths not filler-matched (present 15.7 vs distorted 10.3 tokens, direction conservative, rank corr 0.16); no separate signed protocol record for the amended design."
   next:
     - "Decide whether to obtain two-human validation of the 16 new authorized controls and a human review of request_check.csv before submission; currently disclosed as a limitation."
     - "Prepare Figs. 1-6, complete references, run the numbers/claim/citation/anonymity audits."
