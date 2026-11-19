@@ -331,6 +331,20 @@ request-dependence of omission over-action does not replicate at this size; the
 one omission execution per form is the O2 mechanism (mention upgraded to
 commitment).
 
+## 7e. P4.2 v3.1 API probe on glm-5.3-flash (2026-11-19)
+
+Source: `docs/research/2026-11-19-v3-p4-2-api-probe.md`;
+`results/status_drift_v3_p4_2_v3/api_probe/`.
+
+The 20 authorized-execution controls of the frozen v3.1 design on
+`glm-5.3-flash` through an Anthropic-compatible gateway: 160/160 calls parsed
+(1.000). Present-status controls execute 20/20 in both request forms, so the
+control gate passes. Distorted controls (user withdrew) execute 0/20 in both
+forms. Omitted controls execute 1/20 neutral and 6/20 action; no-memory controls
+execute 1/20 neutral and 4/20 action, so this model has a non-zero action-form
+baseline that `gemma3:12b` (0/20) does not have. Probe only, not an
+over-commitment result.
+
 ## 8. P4.2 control-wording probe (v2)
 
 Source: `docs/research/2026-11-18-v3-p4-2-results.md` §control probe;

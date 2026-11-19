@@ -1,0 +1,53 @@
+{
+  "protocol": "v3_p4_2_v3",
+  "agent_model": "glm-5.3-flash",
+  "model_info": {
+    "name": "glm-5.3-flash",
+    "api_base": "https://opencode.ai/zen/go",
+    "session": "cc-p42-9a21b3b32432461bab48316ba77af244"
+  },
+  "base_url": "https://opencode.ai/zen/go",
+  "items": "results\\status_drift_v3_p4_2_v3\\items.jsonl",
+  "items_sha256": "1c6481ef871332da1b9f117d7172897e6c68bbca31affab599b3edf990134664",
+  "bank": "datasets\\p4_2_scenarios\\p4_2_scenarios.yaml",
+  "bank_sha256": "d3b1152b98b97d1156bf186977130bf44c1a35aaedd5526a33aa2ba8f1dabb00",
+  "runner_sha256": "3b5c15e7480dd89e95e2a871fafc8dfc300b0f1700fe934d3b05aaf3c2c18081",
+  "scenario_ids": [
+    "AUT-09",
+    "AUT-11",
+    "AUT-12",
+    "AUT-13",
+    "AUT-14",
+    "COM-09",
+    "COM-11",
+    "COM-12",
+    "COM-13",
+    "COM-14",
+    "HEA-09",
+    "HEA-11",
+    "HEA-12",
+    "HEA-13",
+    "HEA-14",
+    "MON-09",
+    "MON-11",
+    "MON-12",
+    "MON-13",
+    "MON-14"
+  ],
+  "request_conditions": [
+    "neutral",
+    "action"
+  ],
+  "memory_variants": [
+    "present",
+    "omitted",
+    "distorted",
+    "no_memory"
+  ],
+  "n_items": 160,
+  "temperature": 0.0,
+  "seed": 20261118,
+  "timeout": 120,
+  "retries": 3,
+  "started_at": "2026-11-19T07:46:55.907484+00:00"
+}

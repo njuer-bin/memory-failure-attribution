@@ -1,0 +1,34 @@
+{
+  "protocol": "v3_p4_2_v3",
+  "agent_model": "glm-5.3-flash",
+  "model_info": {
+    "name": "glm-5.3-flash",
+    "api_base": "https://opencode.ai/zen/go",
+    "session": "cc-p42-a412b059810d4c15b128c76a05bc45ac"
+  },
+  "base_url": "https://opencode.ai/zen/go",
+  "items": "results\\status_drift_v3_p4_2_v3\\items.jsonl",
+  "items_sha256": "1c6481ef871332da1b9f117d7172897e6c68bbca31affab599b3edf990134664",
+  "bank": "datasets\\p4_2_scenarios\\p4_2_scenarios.yaml",
+  "bank_sha256": "d3b1152b98b97d1156bf186977130bf44c1a35aaedd5526a33aa2ba8f1dabb00",
+  "runner_sha256": "3b5c15e7480dd89e95e2a871fafc8dfc300b0f1700fe934d3b05aaf3c2c18081",
+  "scenario_ids": [
+    "AUT-09"
+  ],
+  "request_conditions": [
+    "neutral",
+    "action"
+  ],
+  "memory_variants": [
+    "present",
+    "omitted",
+    "distorted",
+    "no_memory"
+  ],
+  "n_items": 8,
+  "temperature": 0.0,
+  "seed": 20261118,
+  "timeout": 120,
+  "retries": 2,
+  "started_at": "2026-11-19T07:44:55.707403+00:00"
+}
