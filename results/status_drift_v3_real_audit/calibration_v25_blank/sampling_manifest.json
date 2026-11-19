@@ -1,0 +1,29 @@
+{
+  "protocol": "real_v25_blank_calibration",
+  "seed": 20261118,
+  "n_items": 40,
+  "n_update_sources_targeted": 10,
+  "n_update_sources_selected": 10,
+  "n_sources_available": 333,
+  "n_used_sources_excluded": 60,
+  "eligible_pool": 908,
+  "selection_rule": "LongMemEval only; intentional primary dimension; source conversation not used in any earlier audit CSV; one candidate per source; target sentence 40-300 chars; context >= 200 chars; 10 update sources targeted.",
+  "annotation_fields": [
+    "target_proposition",
+    "action_predicate",
+    "key_arguments",
+    "identity",
+    "gold_dimension",
+    "gold_status",
+    "gold_condition_state",
+    "gold_action_state",
+    "gold_strength",
+    "outcome",
+    "evidence_quote",
+    "confidence",
+    "eligible",
+    "notes"
+  ],
+  "prefilled_labels": false,
+  "rule_document": "docs/research/V3_REAL_PROPOSITION_IDENTITY_V25.md"
+}
