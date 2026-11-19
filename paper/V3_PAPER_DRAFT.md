@@ -810,7 +810,8 @@ some models), not a universal ordering.
 ## 9. Limitations
 
 - The synthetic study uses templates and local 7B/12B models; it is a mechanism
-  study, not a model-ranking claim. No API model was tested.
+  study, not a model-ranking claim. A gateway model was also tested as a
+  non-pooled replication; it does not enter the primary estimates.
 - Unsupported distortion is underpowered in the rewriting study (3/330); P4.2
   has 34 unauthorized distorted executions. The "rare but harmful" framing
   depends on this event count.
