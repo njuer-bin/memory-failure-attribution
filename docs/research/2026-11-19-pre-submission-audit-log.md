@@ -54,6 +54,13 @@ proposition-controlled status split. See
 `mistral:7b` fails the P4.2 action-form control gate (9/20); not run on the
 full matrix. Reported as a model limitation, not a replication.
 
+## A6. Unauthorized-reason sheet
+
+`experiments/make_v31_reason_sheet.py` regenerates the 39-row audit record and a
+blind second-rater sheet (no analyst code, no variant, shuffled order). The
+analyst distribution is 34 D1 + 5 O2; the second-rater columns are blank, so
+the sheet is ready for an independent rater but the claim remains analyst-only.
+
 ## Open audit items
 
 - Fig. 6.
