@@ -1,0 +1,10 @@
+{
+  "bank": "datasets/p4_2_scenarios/p4_2_zh_parallel.yaml",
+  "bank_version": "p4.2-zh-parallel-2026-11-19",
+  "language": "zh",
+  "model": "gemma3:12b",
+  "base_url": "http://127.0.0.1:11434",
+  "n_items": 80,
+  "provenance": "analyst-translated Chinese parallel slice; not human-validated",
+  "started_at": "2026-11-19T06:39:49.658115+00:00"
+}

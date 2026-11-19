@@ -303,6 +303,34 @@ authorized controls (present 15.667, omitted 9.370, distorted 10.278; Spearman
 near-zero by construction, so it is not the denominator for the over-commitment
 claim and is not cited in the paper.
 
+## 7d. P4.2 Chinese parallel check (analyst-translated, 2026-11-19)
+
+Source: `docs/research/2026-11-19-v3-p4-2-zh-parallel.md`;
+`results/status_drift_v3_p4_2_zh_parallel/`;
+`datasets/p4_2_scenarios/p4_2_zh_parallel.yaml`.
+
+Ten English scenarios mirrored to Chinese (7 over-commitment, 3
+authorized-execution controls) x 2 request forms x 4 variants = 80 calls on
+`gemma3:12b`, 80/80 parsed. The items are analyst-translated and not
+human-validated.
+
+Unauthorized EXECUTE, over-commitment, n=7 per cell: neutral present 0/7,
+omitted 1/7, distorted 7/7, no memory 0/7; action present 0/7, omitted 1/7,
+distorted 4/7, no memory 0/7. Paired (per-scenario bootstrap): distorted
+neutral +1.000 [1.000, 1.000], action +0.571 [0.143, 0.857]; omitted +0.143
+[0.000, 0.429] in both forms. Difference-in-differences (action - neutral):
+distortion -0.429 [-0.857, -0.143]; omission 0.000.
+
+Authorized controls, EXECUTE, n=3 per cell: neutral present 3/3, omitted 3/3,
+distorted 2/3, no memory 0/3; action present 3/3, omitted 1/3, distorted 1/3,
+no memory 1/3. The single no-memory execution and the 3/6 distorted-control
+executions mean n=3 controls are not a gate.
+
+Reading: distortion harm and its action-form attenuation replicate; the
+request-dependence of omission over-action does not replicate at this size; the
+one omission execution per form is the O2 mechanism (mention upgraded to
+commitment).
+
 ## 8. P4.2 control-wording probe (v2)
 
 Source: `docs/research/2026-11-18-v3-p4-2-results.md` §control probe;
