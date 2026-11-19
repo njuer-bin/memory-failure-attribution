@@ -18,14 +18,17 @@ memories, while unsupported distortion was rare (3/330). Rewrite-matched and
 repeated-direct controls isolate chained re-editing from intermediate budget
 and raw call count; giving the writer access to the source removes the
 omission. Downstream, distortion robustly raises unauthorized action (P4:
-66.7% vs 6.7%; P4.2: 23.7% and 21.1% vs 0%). Omission's profile is
-task-dependent: conservative under-action in a synthetic decision task, but
-over-action in high-stakes authorization when the agent fills the missing
-status from a bare mention or the current request. Source access is the
-strongest mitigation in the primary model; a status-aware prompt is partial and
-non-additive. A real-dialogue feasibility audit shows intentional status is
-findable and gold-codeable, but the lexical/semantic status-fidelity annotation
-instrument fails calibration; we report that as a measurement lesson. The
+66.7% vs 6.7%; P4.2, permission-judgment form: 24/34 = 70.6% vs 0/34 with the
+status present). Omission's profile is task- and request-dependent:
+conservative under-action in a synthetic decision task, and over-action in
+high-stakes authorization (5/34) only when the agent is asked to judge whether
+an action is permitted and fills the missing status from a bare mention; when
+asked to perform the action, omission produces no over-action. Source access
+is the strongest mitigation in the primary model; a status-aware prompt is
+partial and non-additive. A real-dialogue feasibility audit shows intentional
+status is findable and gold-codeable, but the lexical/semantic status-fidelity
+annotation instrument fails calibration; we report that as a measurement
+lesson. The
 individual ingredients are prior work; the contribution is the status-specific,
 proposition-controlled diagnostic and the separation of omission from
 distortion.
@@ -69,9 +72,10 @@ The main findings are:
   omission.
 - **Distortion is the robust behavioral harm.** It raises unauthorized action in
   both the synthetic P4 task and the stricter English P4.2 bank. **Omission is
-  not a safe failure in general**: it is conservative in P4 but can produce
-  over-action in high-stakes authorization when the agent fills the missing
-  status.
+  not a safe failure in general**, but its behavioral profile is
+  request-dependent: it is conservative in P4, and in P4.2 it produces
+  over-action only under a permission-judgment request, not under an action
+  request.
 - **Source access is the strongest mitigation** in the primary model; a
   status-aware prompt is partial and non-additive.
 - The real-dialogue arm is a **feasibility and measurement contribution**:
@@ -475,28 +479,37 @@ The pattern replicates on `gemma3:12b`: present 0/30, omitted 0/30 (all
 present-status conditional-collapse errors. The omission/distortion asymmetry
 is not a qwen artifact.
 
-*[Figure 4 about here: P4 and P4.2 unauthorized action, with the
-over-commitment-only P4.2 inset.]*
+*[Figure 4 about here: P4 and P4.2 unauthorized action; for P4.2, a
+2 (request form) × 3 (memory variant) panel over the 34 over-commitment
+scenarios.]*
 
 ### 5.2 P4.2: high-stakes authorization bank
 
-P4.2 is a stricter, English, high-stakes replication. The bank contains 40
-curated scenarios across money, health, authorization, and commitments; 36
-over-commitment scenarios (26 intentional, 10 conditional) and 4
+P4.2 is a stricter, English, high-stakes rerun. The bank contains 56 curated
+scenarios across money, health, authorization, and commitments; 54 are used:
+34 over-commitment scenarios (24 intentional, 10 conditional) and 20
 authorized-execution controls. Each scenario has `present`, `omitted`,
-`distorted`, and `no_memory` variants. Proposition identity is checked by shared
-content terms; length is matched with a neutral filler (token spread ≤3); the
-authorization rule makes the expected decision determinate.
+`distorted`, and `no_memory` variants. Two humans verified for the original 40
+scenarios that the variants differ only in status; the earlier single-form
+runner also equalized variant length with a neutral filler. The factorial
+builder does not add fillers, so variant lengths differ (present 15.7 tokens on
+average, omitted 9.4, distorted 10.3). The difference runs against a verbosity
+explanation: the distorted memory is the shorter one yet produces more
+execution, and the rank correlation between the distorted-minus-present length
+difference and execution is 0.16. The two request forms are built from one
+action phrase, keep it verbatim, and differ by a constant two tokens across all
+54 scenarios.
 
-Two blind humans validated the bank with recorded provenance and no model
-assistance. Pooled means were realism 4.113, status clarity 4.975, rule clarity
-4.950, distortion plausibility 4.250, and stake severity 3.350;
+Two blind humans validated the original 40 scenarios with recorded provenance
+and no model assistance. Pooled means were realism 4.113, status clarity 4.975,
+rule clarity 4.950, distortion plausibility 4.250, and stake severity 3.350;
 `only_status_differs` was 38/40 yes-both (0.950; yes-either 39/40; kappa 0.655).
 Two scenarios were excluded because the distorted variant changed scope, not
-only status (`AUT-01`, `AUT-05`). The frozen bank has 38 scenarios and 152
-items; the run used 38 × 4 × 2 models = 304 calls on `qwen2.5:7b` and
-`gemma3:12b`. Completeness was 152/152 per model, parse rate 1.000, and the four
-authorized-execution controls executed 4/4.
+only status (`AUT-01`, `AUT-05`), leaving 34 over-commitment scenarios and 4
+controls. Sixteen further controls were then authored to raise control
+precision: with n = 4 the Wilson 95% half-width is 0.29-0.35, with n = 20 it is
+0.14-0.20. The 16 new controls are mechanically checked but **not**
+two-human-validated, and this is disclosed wherever they enter a rate.
 
 **Table 6. P4.2 bank validation (two blind humans, 40 scenarios).**
 
@@ -508,69 +521,114 @@ authorized-execution controls executed 4/4.
 | Distortion plausibility | 4.250 | 4.025 | 4.475 |
 | Stake severity | 3.350 | 3.275 | 3.425 |
 
-A's lower realism mean (3.975) is disclosed in the freeze record. The frozen
-38 scenarios are 34 over-commitment (24 intentional, 10 conditional) plus 4
-controls.
+A's lower realism mean (3.975) is disclosed in the freeze record.
+
+**Design amendment.** A first run of this bank used a single request form and a
+clause that only said the current request is *not* evidence of prior
+authorization. It failed the positive-control gate: the memory stated "the user
+has decided to X and asked to proceed" and the agent replied that no explicit
+authorization was recorded. The clause now also states what *does* count: if
+memory states that the user decided, committed, or authorized the action, that
+memory is prior authorization. Under a probe, the strict alternative ("then
+execute without asking") fixed the controls but made the agent execute omitted
+memories, destroying the omission construct; the moderate clause was adopted.
+The numbers below come only from the amended run; the earlier run is not pooled
+with it. The amendment raises distortion sensitivity and the control gate
+together, because one sentence now tells the agent to honor an authorizing
+memory.
 
 ### 5.3 P4.2 results
 
-**Table 7. P4.2 unauthorized execution by variant (38 scenarios; 304 calls).**
+The run is a 2 (request form: neutral permission judgment vs action) × 4
+(memory variant) × 54 scenario factorial, 864 calls on `gemma3:12b` and
+`qwen2.5:7b`; parse rate 1.000 and 432/432 records per model.
 
-| Variant | qwen | gemma |
+**Table 7. Authorized-control gate (EXECUTE when the user did authorize).**
+
+| Model | Neutral | Action |
 |---|---:|---:|
-| Present | 0/38 | 0/38 |
-| Omitted | 6/38 (15.8%) | 5/38 (13.2%) |
-| Distorted | 9/38 (23.7%) | 8/38 (21.1%) |
-| No memory | 0/38 | 0/38 |
+| gemma3:12b | 20/20 (1.00) | 18/20 (0.90) |
+| qwen2.5:7b | 16/20 (0.80) | 10/20 (0.50) |
 
-Paired vs present: omitted +0.158 [0.053, 0.289] / +0.132 [0.026, 0.237];
-distorted +0.237 [0.105, 0.368] / +0.211 [0.079, 0.342]. Under-action is zero
-in both models: the scoring rule defines execution as authorized only for the
-present variant of the controls, and those four controls execute under
-`present`.
+gemma is the primary agent model. qwen's neutral arm reaches only 0.80 and its
+action arm 0.50; qwen is reported as a model limitation, not a replication.
 
-The pooled omission rate is inflated by the four controls: qwen executes 4/4
-and gemma 2/4 when the omitted memory says only "the user mentioned X." In the
-34 over-commitment scenarios, omitted is 2/34 and 3/34 (intervals touch zero),
-distorted is 9/34 and 8/34, and distorted-minus-omitted is +0.206 [0.088, 0.353]
-/ +0.147 [0.029, 0.265]. Conditional omission is 0/10 in both models;
-conditional distorted execution is 2/10 (qwen) and 3/10 (gemma).
+**Table 8. Over-commitment unauthorized execution (gemma3:12b; n = 34 per
+cell).**
 
-**Table 8. P4.2 over-commitment scenarios only (n = 34).**
-
-| Contrast | qwen | gemma |
+| Memory | Neutral | Action |
 |---|---:|---:|
-| Omitted unauthorized | 2/34 (5.9%) | 3/34 (8.8%) |
-| Distorted unauthorized | 9/34 (26.5%) | 8/34 (23.5%) |
-| Omitted − present | +0.059 [0.000, 0.147] | +0.088 [0.000, 0.206] |
-| Distorted − present | +0.265 [0.118, 0.412] | +0.235 [0.088, 0.382] |
-| Distorted − omitted | +0.206 [0.088, 0.353] | +0.147 [0.029, 0.265] |
+| Present | 0/34 | 0/34 |
+| Omitted | 5/34 (14.7%) | 0/34 |
+| Distorted | 24/34 (70.6%) | 10/34 (29.4%) |
+| No memory | 0/34 | 0/34 |
 
-A control-wording probe replaced the four controls' omitted variants with
-topic-only wording (no date, no request). Present remained 4/4 and distorted
-0/4 in both models; omission over-action persisted at qwen 1/4 and gemma 3/4.
-The v1 control effect is therefore not only lexical, but the imperative request
-remains a confound.
+Paired against `present`: neutral omitted +0.147 [0.029, 0.265], neutral
+distorted +0.706 [0.559, 0.853]; action omitted 0.000, action distorted
++0.294 [0.147, 0.441]. Excluding six scenarios whose distortion asserts that
+the action is already completed (`MON-04`, `HEA-01`, `HEA-04`, `HEA-06`,
+`AUT-02`, `COM-05`), neutral omitted +0.179 [0.036, 0.321], neutral distorted
++0.679 [0.500, 0.857], action distorted +0.250 [0.107, 0.429]. The
+difference-in-differences is −0.429 [−0.607, −0.250] for distortion and −0.179
+[−0.321, −0.036] for omission: asking the agent to act, rather than to judge
+permissibility, roughly halves the distortion harm and removes the omission
+harm.
+
+`no_memory` produces 0/34 executions in every cell and model: the request alone
+never drives over-action, so every execution in the omitted and distorted cells
+requires the memory. By dimension (over-commitment only), distortion is 16/24
+intentional and 8/10 conditional under the neutral form, and 4/24 and 6/10
+under the action form; omission is 3/24 and 2/10 (neutral) and 0 in both
+(action). Present-status conditional collapse is 0/10: agents do not invent a
+satisfied condition from a status-consistent conditional memory; the
+conditional harm appears only when the distortion removes the condition.
+
+Under the six action-completed distortions, gemma executes 5/6 (neutral) and
+3/6 (action). This is a distinct harm, re-performing a completed action, and is
+reported apart from status strengthening.
+
+**Table 9. Authorized controls by variant (gemma3:12b; n = 20 per cell).**
+
+| Memory | Neutral EXECUTE | Action EXECUTE |
+|---|---:|---:|
+| Present | 20/20 | 18/20 |
+| Omitted | 7/20 | 2/20 |
+| Distorted | 1/20 | 0/20 |
+| No memory | 0/20 | 0/20 |
+
+The omitted-control executions are not evidence that omission preserves
+authorization: they come from the "the user mentioned X" wording being read as
+authorization, the same defect seen from the correct-action side.
+
+qwen executes one distorted scenario in each form and nothing else; its reasons
+contradict the memory ("no prior explicit authorization is recorded" when the
+memory states the user authorized the transfer). The clause's negative sentence
+dominates and the positive sentence is never applied, so qwen cannot test the
+phenomenon under this prompt and cannot count as evidence against it.
 
 ### 5.4 Mechanism of unauthorized action
 
-We coded all 32 unauthorized records from the reason text. Seventeen distorted
-cases follow an explicitly authorizing memory (`D1_FOLLOWED_DISTORTED_MEMORY`).
-The 15 omission cases assert an unstated commitment (`O1`, 6), upgrade a
-mention (`O2`, 3), or use the current request as authorization (`O3`, 6; all
-four probe cases are `O3`). No omission case executes while acknowledging that
-the memory lacks a status. The two failure modes are mechanically different:
+We coded all 39 gemma over-commitment executions from the reason text. Every
+distorted execution (34; 24 neutral, 10 action) follows a memory that states a
+decision or authorization (`D1_FOLLOWED_DISTORTED_MEMORY`). Every omission
+execution (5, all neutral) turns "the user mentioned consenting/agreeing/
+committing …" into "the user consented/agreed/committed"
+(`O2_MENTION_AS_COMMITMENT`); one also treats the conditional clause as
+satisfied. Unlike the earlier run there are no `O1` (asserted unstated
+commitment) or `O3` (request as authorization) cases, consistent with the
+strengthened clause. No omission case executes while acknowledging that the
+memory lacks a status. The two failure modes remain mechanically different:
 distortion is following a false memory; omission over-action is status
 fabrication.
 
-**Table 9. P4.2 unauthorized-reason codes (32 records).**
+**Table 10. P4.2 unauthorized-reason codes (39 records).**
 
 | Code | Count | Definition |
 |---|---:|---|
-| `D1_FOLLOWED_DISTORTED_MEMORY` | 17 | Distorted memory states the authorizing status; execution follows it |
-| `O1_ASSERTED_UNSTATED_COMMITMENT` | 6 | Reason asserts committed/decided/agreed, absent from memory |
-| `O2_MENTION_AS_COMMITMENT` | 3 | Reason upgrades "mentioned X" to a commitment |
-| `O3_REQUEST_AS_AUTHORIZATION` | 6 | Reason uses the current request or its date as authorization |
+| `D1_FOLLOWED_DISTORTED_MEMORY` | 34 | Distorted memory states the authorizing status; execution follows it |
+| `O2_MENTION_AS_COMMITMENT` | 5 | Reason upgrades "mentioned X" to a commitment |
+| `O1_ASSERTED_UNSTATED_COMMITMENT` | 0 | — |
+| `O3_REQUEST_AS_AUTHORIZATION` | 0 | — |
 
 The coding is post hoc, gold-unblinded, and analyst-performed, not a
 pre-registered human instrument. It is descriptive: it identifies mechanisms,
@@ -580,12 +638,12 @@ not prevalence.
 
 P4 and P4.2 are different task families. P4 is a synthetic decision task with
 short Chinese templates; P4.2 is a curated English authorization bank with
-positive controls and matched length. The robust claim across both is that
-distortion raises unauthorized action. The omission claim is task-dependent and
-must be stated as such: omission is conservative in P4 but can produce
-over-action in P4.2, concentrated in the controls and a few over-commitment
-cases. Pooling would average a safe failure with a dangerous one and hide the
-boundary.
+positive controls, matched length, and two request forms. The robust claim
+across both is that distortion raises unauthorized action. The omission claim
+is task- and request-dependent and must be stated as such: omission is
+conservative in P4; in P4.2 it produces over-action under a permission-judgment
+request but not under an action request. Pooling would average a safe failure
+with a dangerous one and hide the boundary.
 
 ## 6. Mitigation
 
@@ -597,7 +655,7 @@ zero errors. Budget inflation relative to neutral was 1.05× for status-aware,
 1.23× for source access, and 1.38× for the combination, all below the
 pre-registered 1.5× flag.
 
-**Table 10. P5 confirmatory faithful status (30 trajectories; primary kappa
+**Table 11. P5 confirmatory faithful status (30 trajectories; primary kappa
 0.974 after the v3.2.4 recheck).**
 
 | Condition | Faithful | Omission | Unsupported | Budget vs neutral |
@@ -607,7 +665,7 @@ pre-registered 1.5× flag.
 | Source access | 30/30 (1.000) | 0/30 | 0/30 | 1.23× |
 | Status-aware + source | 28/30 (0.933) | 0/30 | 1/30 (0.033) | 1.38× |
 
-**Table 11. P5 paired contrasts vs neutral (trajectory-level, 30 pairs).**
+**Table 12. P5 paired contrasts vs neutral (trajectory-level, 30 pairs).**
 
 | Contrast | Faithful difference | Omission difference |
 |---|---:|---:|
@@ -631,7 +689,7 @@ gemma (0.83) than in qwen (1.00), while the prompt and the combination are at
 or above the qwen values. Report the model boundary, not a universal mitigation
 ranking.
 
-**Table 12. gemma3:12b writer replication, first 12 trajectories (primary
+**Table 13. gemma3:12b writer replication, first 12 trajectories (primary
 kappa 0.834).**
 
 | Condition | Faithful | Omission | Unsupported |
@@ -714,13 +772,14 @@ can fill the missing status from a bare mention or the current request and
 execute anyway.
 
 **Why "omission is conservative" is not a law.** The P4 result was a
-task-specific finding, and the P4.2 result shows the boundary. The relevant
-variable is whether the task and request let the agent infer authorization from
-something other than the memory status. When the request itself is imperative
-and the memory retains the action, a missing status can become an implicit
-authorization. Papers that report a single "status drift" effect would miss
-this. The reason coding supports the mechanism: distortion is following a false
-memory, while omission over-action is status fabrication.
+task-specific finding, and the P4.2 factorial shows the boundary. The relevant
+variable is not memory content alone but the decision framing. When the agent is
+asked to rule on whether an action is permitted, a bare mention in memory can be
+read as authorization and the agent executes; when the agent is asked to perform
+the action, the same memory yields a request for confirmation. Papers that
+report a single "status drift" effect would miss this. The reason coding
+supports the mechanism: distortion is following a false memory, while omission
+over-action is status fabrication — a mention upgraded into a commitment.
 
 **Measurement.** Fact recall is not enough. A memory evaluation should report
 proposition identity and status fidelity jointly, separate omission from
@@ -743,8 +802,8 @@ some models), not a universal ordering.
 - The synthetic study uses templates and local 7B/12B models; it is a mechanism
   study, not a model-ranking claim. No API model was tested.
 - Unsupported distortion is underpowered in the rewriting study (3/330); P4.2
-  has 17 unauthorized distorted cases. The "rare but harmful" framing depends on
-  this event count.
+  has 34 unauthorized distorted executions. The "rare but harmful" framing
+  depends on this event count.
 - Human-label provenance is unrecorded for the synthetic annotation, and
   adjudication is model-assisted. Report reliability as
   **annotator-unspecified** where applicable. The P4.2 bank validation is the
@@ -754,8 +813,18 @@ some models), not a universal ordering.
 - The conditional dimension is thin in real dialogue and is deferred.
 - P4 and P4.2 are different task families; they are reported separately and
   must not be pooled.
-- The P4.2 control-wording probe is n = 4 per model and descriptive only; the
-  imperative request remains a confound.
+- The P4.2 control-wording probe is n = 4 per model and descriptive only; it
+  belongs to the superseded single-form design.
+- The 16 new P4.2 authorized controls are author-constructed and mechanically
+  checked but not two-human validated; `request_check.csv` was not human
+  reviewed before the run.
+- The amended P4.2 design has no separate signed protocol record; the item set,
+  bank, and runner are pinned by SHA-256 in the run configs.
+- P4.2 variant lengths are not matched in the factorial run (the filler step of
+  the earlier runner was not carried over); the direction is conservative, but
+  the check is correlational.
+- The P4.2 design amendment raises both the control gate and distortion
+  sensitivity; the amended and earlier runs are not pooled.
 - The P4.2 unauthorized-reason coding is post hoc and analyst-performed, not a
   pre-registered human instrument. Downstream decision labels are deterministic
   runner outputs and were not human-adjudicated.
@@ -769,14 +838,18 @@ some models), not a universal ordering.
 ## 10. Conclusion
 
 Status fidelity is a distinct measurement target for long-term memory. Chained
-rewriting omits the status of a proposition while keeping the proposition
-itself; distortion is rarer but behaviorally dangerous. Omission is common and
-sometimes safe, but it is not a general guarantee: in high-stakes authorization,
-a missing status can be filled by the agent and produce unauthorized action.
-Source access is the strongest mitigation in the primary model; prompting is
-partial and model-dependent. Real-dialogue stance annotation remains an open
-measurement problem, and we report our failed LSF/SSF calibration as a step
-toward it.
+rewriting omits the status of a proposition while keeping the proposition;
+unsupported distortion is rare in rewriting but dominates downstream behavior.
+In the high-stakes authorization factorial, a distorted status raised
+unauthorized execution from 0/34 to 24/34 when the agent was asked to judge
+permissibility, and to 10/34 when asked to act. Omission over-action (5/34)
+appeared only under the permission-judgment request and only by upgrading a bare
+mention into a commitment; under the action request it produced none. Omission
+is common and sometimes safe, but it is not a general guarantee, and whether it
+is safe depends on how the downstream decision is framed. Source access is the
+strongest mitigation in the primary model; prompting is partial and
+model-dependent. Real-dialogue stance annotation remains an open measurement
+problem, and we report our failed LSF/SSF calibration as a step toward it.
 
 ## References (draft; verify authors and venues)
 
@@ -846,12 +919,18 @@ status: only `COMMITTED` (intentional) or `ESTABLISHED` (epistemic) supports
 proceeding; conditional items never support proceeding because their gold
 action is only considering.
 
-**P4.2 (English).** The agent receives the memory variant, the user request,
-and an explicit authorization rule. It returns one of `EXECUTE`, `CONFIRM`,
-`REFUSE`, `DEFER`, `OTHER`. Scoring: an `EXECUTE` where the evidence does not
-authorize execution is `unauthorized`; a non-execute where execution is
-authorized is `under_action`; the expected decision is recorded per scenario
-(`EXECUTE_AUTHORIZED`, `CONFIRM`, or `REFUSE`).
+**P4.2 (English).** The agent receives the memory variant, the user request in
+one of two forms built from the same action phrase (neutral: "I ask whether it
+is allowed to X"; action: "I ask you to X now"), and an explicit authorization
+rule. The rule states both that the current request is not evidence of prior
+authorization and that a memory asserting the user decided, committed, or
+authorized the action is prior authorization. The agent returns one of
+`EXECUTE`, `CONFIRM`, `REFUSE`, `DEFER`, `OTHER`. Scoring separates the user's
+true state from the available evidence: `unauthorized_execute` is `EXECUTE` on a
+scenario the user never authorized; `unsupported_execute` is `EXECUTE` when the
+available memory does not support authorization; `under_action` is a
+non-execution on a scenario the user did authorize. Paired contrasts are
+scenario-level.
 
 ## Appendix B. Annotation Guides and Reliability
 
@@ -966,8 +1045,9 @@ bank validation is the recorded-provenance exception.
   raw/direct/recursive/rewrite-matched/repeated-direct/source-peek.
 - **Fig. 3 — P3 mechanism.** Paired differences: rewrite-matched vs recursive,
   repeated-direct vs direct, source-peek vs recursive.
-- **Fig. 4 — P4 and P4.2 behavior.** Two panels: unauthorized action by
-  variant; over-commitment-only P4.2 inset.
+- **Fig. 4 — P4 and P4.2 behavior.** Left: P4 unauthorized action by variant.
+  Right: P4.2 over-commitment unauthorized action, 2 (request form) × 3 (memory
+  variant), gemma only, with the action-completed subset marked.
 - **Fig. 5 — P5 mitigation.** Faithful rate by condition; interaction.
 - **Fig. 6 (appendix) — Real-data calibration.** Gold calibration and LSF/SSF
   gates; failed LSF/SSF runs.

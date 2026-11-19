@@ -768,6 +768,100 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   intervention + second-model replication. Individual ingredients are prior
   work; the combination and measurement target are the novelty.
 
+## 2026-11-18 — P4.2 v3 factorial (in progress, paused)
+
+- Rebuilt P4.2 as a 2x4 request-form x memory-state design: 54 scenarios,
+  432 items, 864 calls for two models. Added 16 authorized controls (20 total)
+  after a precision analysis: n=4 gives Wilson half-width 0.29-0.35; n=20
+  gives 0.14-0.20.
+- Fixed a bank-builder variable leak that mislabelled every request-check row
+  with COM-10's request; prompts were unaffected. Neutral and action requests
+  now use condition-specific decision-label definitions, and both carry an
+  explicit clause that the current request is not evidence of prior
+  authorization.
+- Split gold-authorized from memory-authorized scoring. The old "omitted 6/38"
+  includes authorized-control executions (qwen 4/4, gemma 2/4); the gold-based
+  over-commitment omission estimate is 2/34 qwen and 3/34 gemma. The paper must
+  not call 6/38 unauthorized action.
+- Pilot v2: qwen 96/96 complete; gemma 37/96 and stopped on request. Resume
+  before analyzing. See docs/research/2026-11-18-v3-p4-2-v3-progress.md.
+- Real-dialogue v2.5: proposition-identity rule written; blank 40-item
+  LongMemEval intentional calibration sheet built from unused sources. Blocked
+  on two independent annotators; no memory generation until kappa gates pass.
+
+## 2026-11-19 — P4.2 v3.1 clause amendment and full factorial
+
+### Clause amendment (before the full run)
+
+- Pilot v2 failed the authorized-control gate: the present memory said "decided
+  … asked to proceed" and the agents answered "no explicit authorization".
+  The clause defined what is not evidence but not what is. A 20-control probe
+  compared base / mid / strict clauses. Strict fixed the controls (20/20 both
+  models) but made gemma execute **omitted** memories 4/6, destroying the
+  omission construct; mid kept present and omitted at 0 and restored distortion
+  execution. Mid adopted as v3.1.
+- Consequence: gemma is the primary agent model; qwen is floor-limited on the
+  action form and reported as a model limitation.
+- Recorded in `docs/research/2026-11-19-v3-p4-2-v31-clause-amendment.md`.
+
+### Full 54-scenario matrix — completed
+
+- 864/864 calls (54 scenarios × 2 request forms × 4 variants × 2 models),
+  parse 1.000, 432/432 per model. The resumed gemma run overwrote
+  `summary.json` with gemma only; it was regenerated from both record files
+  with the runner's own `summarize()`.
+- Control gate: gemma neutral 20/20, action 18/20; qwen 16/20 and 10/20.
+- gemma over-commitment unauthorized — present 0/34 (both forms), no_memory
+  0/34 (both forms), omitted 5/34 neutral / 0/34 action, distorted 24/34
+  neutral (0.706) / 10/34 action (0.294).
+- Paired vs present (gemma): neutral omitted +0.147 [0.029, 0.265], neutral
+  distorted +0.706 [0.559, 0.853]; action omitted 0.000, action distorted
+  +0.294 [0.147, 0.441]. Excluding the 6 action-completed distortions (n=28):
+  neutral omitted +0.179 [0.036, 0.321], neutral distorted +0.679
+  [0.500, 0.857], action distorted +0.250 [0.107, 0.429].
+- Request-form interaction (action minus neutral, n=28): distortion −0.429
+  [−0.607, −0.250]; omission −0.179 [−0.321, −0.036]. Asking the agent to act
+  rather than to judge permissibility roughly halves the distortion harm and
+  removes the omission harm.
+- `no_memory` executed nothing in any cell of either model: the request alone
+  never drives over-action, so the effects are memory-borne.
+- Conditional: distorted 8/10 neutral, 6/10 action; omission 2/10 neutral,
+  0/10 action; present-status conditional collapse 0/10.
+- Reason coding of all 39 gemma unauthorized records (analyst, post hoc):
+  34 `D1` follow the distorted memory; 5 `O2` upgrade "the user mentioned X" to
+  "the user X-ed" (all neutral omitted, one also treats the condition as
+  satisfied); 0 `O1`; 0 `O3`. No omission case executes while acknowledging the
+  missing status.
+- qwen: 1/34 distorted executions in each form, reasons contradicting the
+  memory; the clause's negative sentence dominates. Floor-limited, not a
+  replication and not evidence against the phenomenon.
+- Do not pool v2 and v3.1: the addition of the positive authorization sentence
+  raises both the control gate and distortion sensitivity. The omission
+  estimate is stable across designs (3/34 → 5/34).
+- Analysis script `experiments/analyze_v31_p4_2.py`; tables in
+  `results/status_drift_v3_p4_2_v3_v31/analysis/`; write-up in
+  `docs/research/2026-11-19-v3-p4-2-v31-run.md`.
+
+### Paper updates
+
+- `paper/V3_PAPER_DRAFT.md`: abstract, intro bullet, §5.2–5.5 (design
+  amendment, Tables 7–10), §8 discussion ("omission is conservative" now
+  framed as decision-framing-dependent), §9 limitations, Appendix A P4.2
+  prompt, Fig. 4 spec. Tables renumbered 11–13 downstream.
+- `paper/V3_NUMBERS.md`: §7 and §9 marked superseded; new §7b (v3.1 run) and
+  §9b (39-record reason coding).
+
+### Outstanding (disclosed, not resolved)
+
+- The 16 new authorized controls are author-constructed and mechanically
+  checked but not two-human validated.
+- `request_check.csv` was specified for two-human review before the formal run;
+  that review did not happen.
+- The 6 action-completed distortions are kept in a separate sensitivity stratum.
+- Reason coding is analyst, post hoc, gold-unblinded.
+
+No commits made.
+
 
 
 

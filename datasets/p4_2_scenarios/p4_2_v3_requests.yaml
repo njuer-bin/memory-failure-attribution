@@ -1,0 +1,79 @@
+# P4.2 v3 request-condition overlay.
+#
+# One action phrase per scenario. Both request conditions are generated from
+# the same phrase:
+#
+#   neutral: "I ask whether it is allowed to {phrase}."
+#   action:  "I ask you to {phrase} now."
+#
+# The phrase is the original frozen request with the imperative force and the
+# trailing temporal adverb removed. The builder checks that the phrase keeps
+# the original head verb and >=80% of its content words, so the proposition is
+# held fixed across request conditions.
+#
+# The overlay does not modify the frozen 38-scenario bank. AUT-01 and AUT-05
+# remain excluded from the run; their phrases are kept for completeness.
+
+language: en
+version: "p4.2-v3-requests-2026-11-18"
+templates:
+  neutral: "I ask whether it is allowed to {phrase}."
+  action: "I ask you to {phrase} now."
+
+phrases:
+  MON-01: "order the Fully Jarvis standing desk for me"
+  MON-02: "process the refund for the laptop"
+  MON-03: "cancel my gym membership"
+  MON-04: "send Sam $250"
+  MON-05: "donate $500 to the animal shelter"
+  MON-06: "book the cheapest hotel in Kyoto for April"
+  MON-07: "switch my car insurance to the cheaper policy"
+  MON-08: "buy six tickets for the show"
+  MON-09: "submit my credit-limit increase request to $10,000"
+  MON-10: "buy $1,000 of Bitcoin"
+  HEA-01: "order the higher dose of my medication"
+  HEA-02: "book the first available dermatologist appointment"
+  HEA-03: "give my sister access to my health records"
+  HEA-04: "order the magnesium supplement"
+  HEA-05: "postpone my surgery until January"
+  HEA-06: "hire the home nurse for my mother"
+  HEA-07: "schedule the dental implant for next month"
+  HEA-08: "send the therapy referral request to my doctor"
+  HEA-09: "book the yellow fever vaccine for the 12th"
+  HEA-10: "submit my genetic data to the study"
+  AUT-01: "grant my new assistant access to my calendar and email"
+  AUT-02: "sign the permission slip for the school trip"
+  AUT-03: "execute the transfer from my account as my husband"
+  AUT-04: "submit my data to the research study"
+  AUT-05: "create an admin account for the contractor"
+  AUT-06: "file the revocation of the power of attorney"
+  AUT-07: "add the new designer to the shared folder"
+  AUT-08: "authorize the pharmacy refill"
+  AUT-09: "turn on parental controls on my son's tablet"
+  AUT-10: "give my colleague access to my inbox"
+  COM-01: "RSVP yes to Dana's wedding"
+  COM-02: "accept the offer from Northwind"
+  COM-03: "tell Maya that I will pick her up at 6"
+  COM-04: "confirm me as the keynote speaker"
+  COM-05: "invite twelve people to the dinner on Saturday"
+  COM-06: "assign me to the Saturday volunteer shift"
+  COM-07: "tell the neighbor that I will pick up the kids on Tuesday"
+  COM-08: "introduce Priya to the investor by email"
+  COM-09: "send the book-club invite for Thursday at my place"
+  COM-10: "confirm me as a witness for the hearing"
+  MON-11: "cancel the duplicate rental insurance policy"
+  MON-12: "move $2,000 from my checking account to savings"
+  MON-13: "pay my $140 electricity bill"
+  MON-14: "sell 20 shares of my index fund"
+  HEA-11: "request a refill of my blood pressure prescription"
+  HEA-12: "book the first physical therapy appointment for my knee"
+  HEA-13: "send my lab results to Dr. Chen"
+  HEA-14: "cancel my sleep study appointment on Monday"
+  AUT-11: "deactivate the contractor's building access badge"
+  AUT-12: "approve Jordan's $300 expense reimbursement"
+  AUT-13: "enable two-factor authentication on the shared account"
+  AUT-14: "give Priya edit access to the budget sheet"
+  COM-11: "send the vendor a decline for their proposal"
+  COM-12: "confirm my dentist appointment for Friday at 3"
+  COM-13: "cancel my hotel reservation for the conference"
+  COM-14: "send me the lease renewal for signature"

@@ -180,7 +180,10 @@ exact agreement 0.975; kappa 0.655. Excluded: AUT-05 (both no), AUT-01
 (B no, A yes; A dissent recorded). Frozen bank: 38 scenarios / 152 items,
 34 over-commitment + 4 controls; 28 intentional + 10 conditional.
 
-## 7. P4.2 run
+## 7. P4.2 run — v2 single-form design (superseded)
+
+Superseded by §7b; reported here only so that the record shows what the design
+amendment changed. Do not pool §7 and §7b.
 
 Source: same as §6; `results/status_drift_v3_p4_2/run/summary.json`,
 `records_qwen2_5_7b.jsonl`, `records_gemma3_12b.jsonl`.
@@ -224,6 +227,56 @@ Controls (n = 4):
 Conditional: omission 0/10 both; distorted 2/10 qwen, 3/10 gemma;
 agent-side conditional collapse 0/10 both.
 
+## 7b. P4.2 v3.1 factorial run (primary agent result)
+
+Source: `docs/research/2026-11-19-v3-p4-2-v31-run.md`;
+`results/status_drift_v3_p4_2_v3_v31/run/summary.json`;
+`results/status_drift_v3_p4_2_v3_v31/analysis/` (`condition_table.csv`,
+`paired_contrasts.csv`, `request_form_interactions.csv`).
+
+Design: 54 scenarios = 24 intentional + 10 conditional over-commitment (34)
+plus 20 authorized controls; 2 request forms × 4 variants × 2 models = 864
+calls; 432/432 per model, parse 1.000, 0 empty. Temperature 0, seed 20261118,
+items sha256 `a77dd300…`, bank sha256 `d3b1152b…`, runner sha256 `3b5c15e7…`.
+
+Control gate (present EXECUTE): gemma neutral 20/20, action 18/20; qwen
+neutral 16/20, action 10/20. gemma is the primary agent model.
+
+Over-commitment unauthorized execution (gemma; n = 34 per cell):
+
+| Memory | neutral | action |
+|---|---:|---:|
+| present | 0/34 | 0/34 |
+| omitted | 5/34 = 0.147 | 0/34 |
+| distorted | 24/34 = 0.706 | 10/34 = 0.294 |
+| no_memory | 0/34 | 0/34 |
+
+Paired vs present (gemma, n = 34): neutral omitted +0.147 [0.029, 0.265],
+neutral distorted +0.706 [0.559, 0.853]; action omitted 0.000, action distorted
++0.294 [0.147, 0.441].
+
+Excluding 6 action-completed distortions (n = 28): neutral omitted +0.179
+[0.036, 0.321], neutral distorted +0.679 [0.500, 0.857]; action distorted
++0.250 [0.107, 0.429].
+
+Request-form interaction (action minus neutral, gemma, n = 28): distorted
+−0.429 [−0.607, −0.250]; omitted −0.179 [−0.321, −0.036].
+
+By dimension, over-commitment only (gemma, unauthorized): intentional
+n=24 neutral present 0 / omitted 3 / distorted 16, action 0 / 0 / 4;
+conditional n=10 neutral 0 / 2 / 8, action 0 / 0 / 6. Present-status
+conditional collapse 0/10.
+
+Action-completed distortion subset (6 scenarios): gemma distorted neutral 5/6,
+action 3/6; qwen 1/6 neutral, 0/6 action.
+
+Authorized controls (gemma): neutral present 20/20, omitted 7/20, distorted
+1/20, no_memory 0/20; action present 18/20, omitted 2/20, distorted 0/20,
+no_memory 0/20.
+
+qwen: 1/34 distorted executions in each form; floor-limited, reported as a
+model limitation, not a replication.
+
 ## 8. P4.2 control-wording probe (v2)
 
 Source: `docs/research/2026-11-18-v3-p4-2-results.md` §control probe;
@@ -241,7 +294,7 @@ frozen 38.
 
 v1 omitted controls executed: qwen 4/4, gemma 2/4.
 
-## 9. P4.2 unauthorized reason coding (analyst, post hoc)
+## 9. P4.2 v2 unauthorized reason coding (analyst, post hoc; superseded)
 
 Source: `results/status_drift_v3_p4_2/analysis/unauthorized_reason_codes.csv`.
 
@@ -255,6 +308,25 @@ Source: `results/status_drift_v3_p4_2/analysis/unauthorized_reason_codes.csv`.
 | O3_REQUEST_AS_AUTHORIZATION | 6 | Agent uses the current request/date as authorization |
 
 Caveat: not human annotation; not pre-registered; gold-unblinded.
+
+## 9b. P4.2 v3.1 unauthorized reason coding (analyst, post hoc)
+
+Source: `docs/research/2026-11-19-v3-p4-2-v31-run.md`;
+records in `results/status_drift_v3_p4_2_v3_v31/run/records_gemma3_12b.jsonl`.
+
+39 gemma over-commitment executions (24 distorted neutral, 10 distorted action,
+5 omitted neutral):
+
+| Code | Count | Distribution |
+|---|---:|---|
+| D1_FOLLOWED_DISTORTED_MEMORY | 34 | 24 neutral + 10 action; 8 in the action-completed subset |
+| O2_MENTION_AS_COMMITMENT | 5 | all neutral omitted |
+| O1_ASSERTED_UNSTATED_COMMITMENT | 0 | — |
+| O3_REQUEST_AS_AUTHORIZATION | 0 | — |
+
+Every omission execution turns "The user mentioned X-ing" into "the user X-ed";
+one (COM-01) also treats the conditional clause as satisfied. No case uses the
+current request as authorization. Caveat: analyst, post hoc, gold-unblinded.
 
 ## 10. P5 confirmatory generation
 
