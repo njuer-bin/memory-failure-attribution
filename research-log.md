@@ -878,6 +878,17 @@ Prior project history: `docs/RESEARCH_LOG.md`.
   omitted 9.4, distorted 10.3. The distorted memory is the shorter one yet
   produces more execution; rank correlation between the distorted-minus-present
   length difference and execution is 0.16. Direction is conservative, disclosed.
+- **Figures.** `experiments/make_paper_figures.py` builds Figs. 1–6 from the
+  analysis artifacts only; the three-slot categorical palette passes the
+  all-pairs CVD check. Fig. 6 uses the adjudicated gold agreements and the
+  failed LSF/SSF run against the pre-registered gates.
+- **Citations and claims.** All 14 audited PDFs re-read at the title page;
+  reference entries now match authors/titles/venues/IDs. The C1–C9 matrix is
+  updated to the v3.1 numbers and each claim is mapped to evidence in
+  `docs/research/2026-11-19-pre-submission-audit-log.md`.
+- **Reason sheet.** The 39 gemma unauthorized records are exported with the
+  analyst codes plus a blind second-rater sheet (no code, no variant, shuffled).
+  The second rater has not run.
 
 ### v3.1 artifact integrity
 

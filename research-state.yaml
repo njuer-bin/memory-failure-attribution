@@ -586,7 +586,8 @@ p4_2_v3:
     outstanding: "16 new controls not two-human validated; request_check.csv not human-reviewed before the run; 6 action-completed distortions reported separately; reason coding analyst/post hoc; variant lengths not filler-matched (present 15.7 vs distorted 10.3 tokens, direction conservative, rank corr 0.16); no separate signed protocol record for the amended design."
   next:
     - "Decide whether to obtain two-human validation of the 16 new authorized controls and a human review of request_check.csv before submission; currently disclosed as a limitation."
-    - "Prepare Figs. 1-6, complete references, run the numbers/claim/citation/anonymity audits."
+    - "Figures 1-6, references, numbers and claim audits are done (docs/research/2026-11-19-pre-submission-audit-log.md); remaining audits are anonymity and the 8-page LaTeX build."
+    - "Human-only tasks are listed in to_human/2026-11-19_outstanding_human_tasks.md: two-human validation of the 16 new controls, request_check.csv review, and an independent second reason rater."
   note: "No commits made. The resumed gemma run overwrote summary.json with gemma only; it was regenerated from both record files with the runner's own summarize()."
   v31_amendment:
     date: "2026-11-19"
