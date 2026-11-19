@@ -1,0 +1,15 @@
+{
+  "model": "gemma3:12b",
+  "n_unauthorized_over_commitment": 39,
+  "by_code": {
+    "D1_FOLLOWED_DISTORTED_MEMORY": 34,
+    "O2_MENTION_AS_COMMITMENT": 5
+  },
+  "by_variant_form": {
+    "omitted/neutral": 5,
+    "omitted/action": 0,
+    "distorted/neutral": 24,
+    "distorted/action": 10
+  },
+  "second_rater": "reason_sheet_blind.csv has no analyst code, no variant, and a shuffled order; the analyst coding is post hoc and gold-unblinded"
+}

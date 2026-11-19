@@ -1,0 +1,5 @@
+﻿condition,n,preserved,loss_n,faithful_n,faithful_rate,omission_n,omission_rate,unsupported_n,unsupported_rate,ambiguous_n
+neutral,30,26,4,14,0.5384615384615384,11,0.4230769230769231,1,0.038461538461538464,0
+status_aware,30,30,0,27,0.9,0,0.0,2,0.06666666666666667,1
+neutral_source,30,30,0,30,1.0,0,0.0,0,0.0,0
+status_aware_source,30,30,0,28,0.9333333333333333,0,0.0,1,0.03333333333333333,1

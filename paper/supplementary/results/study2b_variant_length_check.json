@@ -1,0 +1,60 @@
+{
+  "source": "results\\status_drift_v3_p4_2_v3_v31\\run\\records_gemma3_12b.jsonl",
+  "model": "gemma3:12b",
+  "token_unit": "whitespace tokens of the record memory field",
+  "request_form": "neutral",
+  "over_commitment": {
+    "stratum": "over_commitment (paper denominator)",
+    "n_scenarios": 34,
+    "variants": {
+      "omitted": {
+        "mean_tokens": 10.059,
+        "min": 7,
+        "max": 12,
+        "n": 34
+      },
+      "distorted": {
+        "mean_tokens": 10.471,
+        "min": 7,
+        "max": 15,
+        "n": 34
+      },
+      "present": {
+        "mean_tokens": 15.353,
+        "min": 11,
+        "max": 19,
+        "n": 34
+      }
+    },
+    "present_minus_distorted_tokens": 4.882,
+    "spearman_length_diff_vs_distorted_execution": 0.02,
+    "distorted_executions": 24
+  },
+  "all_54": {
+    "stratum": "all 54 scenarios incl. 20 controls",
+    "n_scenarios": 54,
+    "variants": {
+      "omitted": {
+        "mean_tokens": 9.37,
+        "min": 6,
+        "max": 12,
+        "n": 54
+      },
+      "distorted": {
+        "mean_tokens": 10.278,
+        "min": 7,
+        "max": 15,
+        "n": 54
+      },
+      "present": {
+        "mean_tokens": 15.667,
+        "min": 11,
+        "max": 19,
+        "n": 54
+      }
+    },
+    "present_minus_distorted_tokens": 5.389,
+    "spearman_length_diff_vs_distorted_execution": 0.236,
+    "distorted_executions": 24
+  }
+}

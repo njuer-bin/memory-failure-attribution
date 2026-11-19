@@ -1,0 +1,56 @@
+{
+  "status_bearing": {
+    "raw": 0.92,
+    "kappa": 0.6063,
+    "n": 50,
+    "disagreements": 4
+  },
+  "dimension": {
+    "raw": 0.92,
+    "kappa": 0.8259,
+    "n": 50,
+    "disagreements": 4
+  },
+  "proposition_clear": {
+    "raw": 0.96,
+    "kappa": 0.6479,
+    "n": 50,
+    "disagreements": 2
+  },
+  "evidence_sufficient": {
+    "raw": 0.82,
+    "kappa": 0.5351,
+    "n": 50,
+    "disagreements": 9
+  },
+  "lexical_cue_present": {
+    "raw": 1.0,
+    "kappa": NaN,
+    "n": 50,
+    "disagreements": 0
+  },
+  "lexical_labelable": {
+    "raw": 0.66,
+    "kappa": 0.2259,
+    "n": 50,
+    "disagreements": 17
+  },
+  "semantic_labelable": {
+    "raw": 0.96,
+    "kappa": 0.7297,
+    "n": 50,
+    "disagreements": 2
+  },
+  "update_present": {
+    "raw": 0.84,
+    "kappa": 0.1701,
+    "n": 50,
+    "disagreements": 8
+  },
+  "difficulty_1_3": {
+    "raw": 0.84,
+    "kappa": 0.7497,
+    "n": 50,
+    "disagreements": 8
+  }
+}

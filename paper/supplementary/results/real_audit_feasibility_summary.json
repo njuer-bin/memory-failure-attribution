@@ -1,0 +1,29 @@
+{
+  "all_candidates": 2135,
+  "by_dataset_dimension": {
+    "locomo/conditional": 10,
+    "locomo/epistemic": 46,
+    "locomo/intentional": 84,
+    "longmemeval/conditional": 21,
+    "longmemeval/epistemic": 935,
+    "longmemeval/intentional": 1039
+  },
+  "potential_updates": 269,
+  "later_mentions": 725,
+  "screening_later_mentions": 35,
+  "screening_items": 50,
+  "screening_by_dataset": {
+    "locomo": 20,
+    "longmemeval": 30
+  },
+  "screening_by_dimension": {
+    "conditional": 13,
+    "epistemic": 14,
+    "intentional": 23
+  },
+  "unique_sources": {
+    "all": 429,
+    "screening": 36
+  },
+  "note": "Automated candidate detection; over-generates. Human screening columns are blank and must be filled by two independent annotators."
+}
