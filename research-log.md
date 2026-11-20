@@ -1099,5 +1099,9 @@ No commits made.
   76 rows auto-filled where A = B; 50 rows left blank for third-reviewer
   adjudication (dimension 26, primary judgment 27, evidence support 20,
   status expressed 14, action status 6, proposition identity 2, confidence 31).
+- Added `adjudication_disagreements.csv` (50 rows with target proposition,
+  memory, and dialogue) as the working view for that adjudication, and made
+  `check_p4_2_validation` print `n/a` instead of crashing while ratings are
+  still blank.
 - The n = 30 cohort remains a post-hoc sensitivity analysis, not
   pre-registered, until adjudication is complete.
