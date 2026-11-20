@@ -1123,3 +1123,9 @@ No commits made.
   1 LEGITIMATE_UPDATE.
 - Remaining human-only annotation: the five 1–5 ratings and `notes` on
   `validation_A_16.csv` / `validation_B_16.csv`.
+- `validation_A_16.csv` is now complete (16/16 ratings and notes; `HEA-11`
+  excluded by both raters). A-only means over the 15 surviving controls:
+  realism 4.93, status clarity 5.00, rule clarity 5.00, distortion
+  plausibility 3.93, stake severity 2.60; `only_status_differs` 15/15.
+  `validation_B_16.csv` still has only the flag column; its five ratings and
+  notes await the second independent annotator.
