@@ -23,7 +23,11 @@ in the main text.
 - `results/` — aggregate condition tables, paired contrasts, interaction
   estimates, reason-code counts, bank validation summary, and the length
   check. File names map to the paper's studies (Study 1 = P3; Study 2a = P4;
-  Study 2b = P4.2 v3.1; Study 3 = P5).
+  Study 2b = P4.2 v3.1; Study 3 = P5). The `study2b_glm_*` files are the
+  third agent model (`glm-5.3-flash`) on the same v3.1 design; its per-record
+  outputs and run configuration are withheld because the configuration
+  carries a gateway session identifier. The aggregate tables reproduce every
+  cross-model number in the paper.
 - `annotation/` — the blind annotation guideline and the bank-validation
   rubric.
 - `figures/` — Figures 1–6 as vector PDFs.

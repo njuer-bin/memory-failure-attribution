@@ -24,6 +24,7 @@ from experiments.v3_p4_2_v3_runner import (
     index_records,
     interaction,
     rate,
+    slug,
 )
 
 ACTION_COMPLETED_DISTORTIONS = {
@@ -119,7 +120,6 @@ def main() -> None:
     args = parser.parse_args()
     args.out_dir.mkdir(parents=True, exist_ok=True)
 
-    slug = lambda model: model.replace(":", "_").replace(".", "_")
     summary = {}
     table_rows = []
     contrast_rows = []

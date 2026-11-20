@@ -184,15 +184,22 @@ def fig3_p3_mechanism() -> None:
 # --------------------------------------------------------------------------
 def fig4_behavior() -> None:
     p4 = read_json(Path("results/status_drift_v3_p4/summary.json"))["by_variant"]
-    p41 = read_json(Path("results/status_drift_v3_p4_2_v3_v31/analysis/p4_2_v31_summary.json"))
-    table = p41["gemma3:12b"]["tables"]["all_over_commitment"]
+    local = read_json(Path("results/status_drift_v3_p4_2_v3_v31/analysis/p4_2_v31_summary.json"))
+    gateway = read_json(Path(
+        "results/status_drift_v3_p4_2_v3_v31_api/analysis/p4_2_v31_summary.json"))
+    models = [
+        ("qwen2.5:7b", local["qwen2.5:7b"], BLUE),
+        ("gemma3:12b", local["gemma3:12b"], ORANGE),
+        ("glm-5.3-flash", gateway["glm-5.3-flash"], AQUA),
+    ]
 
     variants = ["present", "omitted", "distorted", "no_memory"]
     display = {"present": "present", "omitted": "omitted",
-               "distorted": "distorted", "no_memory": "no memory"}
+               "distorted": "distorted", "no_memory": "no mem."}
 
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(DOUBLE_COL, 2.4),
-                                   gridspec_kw={"width_ratios": [1.0, 1.35]})
+    fig, (ax1, ax2, ax3) = plt.subplots(
+        1, 3, figsize=(DOUBLE_COL, 2.55),
+        gridspec_kw={"width_ratios": [0.78, 1.15, 1.15]})
 
     for i, variant in enumerate(variants):
         cell = p4[variant]["unauthorized_action"]
@@ -201,36 +208,39 @@ def fig4_behavior() -> None:
         ax1.bar(i, k / n, width=0.62, color=BLUE, linewidth=0)
         ax1.plot([i, i], [low, high], color=INK, linewidth=0.9)
         ax1.annotate(f"{k}/{n}", (i, max(high, k / n) + 0.03), ha="center",
-                     fontsize=7, color=INK)
+                     fontsize=6.6, color=INK, rotation=90)
     ax1.set_xticks(range(len(variants)))
-    ax1.set_xticklabels([display[v] for v in variants])
-    ax1.set_ylim(0, 0.95)
+    ax1.set_xticklabels([display[v] for v in variants], rotation=30, ha="right")
+    ax1.set_ylim(0, 1.0)
     ax1.set_ylabel("unauthorized action")
-    ax1.set_title("Study 2a: synthetic decision task (qwen)", loc="left", pad=4)
+    ax1.set_title("(a) Study 2a: synthetic\n(primary agent qwen)", loc="left", pad=3)
     ax1.grid(axis="y", color=GRID, linewidth=0.5)
     ax1.set_axisbelow(True)
 
-    width = 0.36
-    forms = [("neutral", "permission judgment", BLUE), ("action", "action request", ORANGE)]
-    for j, (form, label, color) in enumerate(forms):
-        for i, variant in enumerate(variants):
-            cell = table[form][variant]["unauthorized_execute"]
-            k, n = cell["count"], cell["denominator"]
-            low, high = wilson(k, n)
-            x = i + (j - 0.5) * width
-            ax2.bar(x, k / n, width=width - 0.03, color=color, linewidth=0)
-            ax2.plot([x, x], [low, high], color=INK, linewidth=0.8)
-            ax2.annotate(f"{k}/{n}", (x, max(high, k / n) + 0.02), ha="center",
-                         fontsize=6.4, color=INK, rotation=0)
-    ax2.set_xticks(range(len(variants)))
-    ax2.set_xticklabels([display[v] for v in variants])
-    ax2.set_ylim(0, 0.95)
-    ax2.set_title("Study 2b: over-commitment scenarios, gemma3:12b", loc="left", pad=4)
-    ax2.grid(axis="y", color=GRID, linewidth=0.5)
-    ax2.set_axisbelow(True)
-    handles = [plt.Rectangle((0, 0), 1, 1, color=color) for _, _, color in forms]
-    ax2.legend(handles, [label for _, label, _ in forms], frameon=False,
-               loc="upper left", handlelength=1.0, handleheight=0.8)
+    width = 0.26
+    for ax, form, title in ((ax2, "neutral", "(b) Study 2b: permission judgment"),
+                            (ax3, "action", "(c) Study 2b: action request")):
+        for j, (model, data, color) in enumerate(models):
+            table = data["tables"]["all_over_commitment"][form]
+            for i, variant in enumerate(variants):
+                cell = table[variant]["unauthorized_execute"]
+                k, n = cell["count"], cell["denominator"]
+                low, high = wilson(k, n)
+                x = i + (j - 1) * width
+                ax.bar(x, k / n, width=width - 0.02, color=color, linewidth=0)
+                ax.plot([x, x], [low, high], color=INK, linewidth=0.7)
+                ax.annotate(f"{k}/{n}", (x, max(high, k / n) + 0.015),
+                            ha="center", fontsize=5.2, color=INK, rotation=90)
+        ax.set_xticks(range(len(variants)))
+        ax.set_xticklabels([display[v] for v in variants], rotation=30, ha="right")
+        ax.set_ylim(0, 1.0)
+        ax.set_title(title, loc="left", pad=3)
+        ax.grid(axis="y", color=GRID, linewidth=0.5)
+        ax.set_axisbelow(True)
+    handles = [plt.Rectangle((0, 0), 1, 1, color=color) for _, _, color in models]
+    ax2.legend(handles, [m for m, _, _ in models], frameon=False,
+               loc="upper left", handlelength=0.9, handleheight=0.7,
+               fontsize=6.2)
     save(fig, "fig4_behavior")
 
 

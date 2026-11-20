@@ -1,0 +1,115 @@
+\begin{thebibliography}{16}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Fan et~al.(2026)Fan, Liu, Yang, Ouyang, and Han]{statemen}
+Xinyi Fan, Miri Liu, Ruozhen Yang, Siru Ouyang, and Jiawei Han.
+\newblock Can agent memory systems track evolving state?, 2026.
+\newblock arXiv:2608.19652.
+
+\bibitem[Zheng et~al.(2026)Zheng, Wang, Wei, Liu, Wei, Niu, Guo, and
+  Wu]{progmem}
+Pengchao Zheng, Xinan Wang, Ziyi Wei, Haoran Liu, Lei Wei, Jiajun Niu, Bohan
+  Guo, and Han Wu.
+\newblock {ProgMem}: Programmatic belief-state memory for long-horizon
+  conversational agents.
+\newblock In \emph{Findings of AACL}, 2026.
+
+\bibitem[Meng et~al.(2026)Meng, Wu, and McAuley]{beliefmem}
+Felix Meng, Junda Wu, and Julian McAuley.
+\newblock {BELIEFMEM}: Belief-revising memory for conversational {LLM} agents.
+\newblock In \emph{Findings of EMNLP}, 2026.
+
+\bibitem[Lidayan et~al.(2026)Lidayan, Bjorner, Golechha, and Suhr]{abbel}
+Aly Lidayan, Jakob Bjorner, Satvik Golechha, and Alane Suhr.
+\newblock {ABBEL}: Learning natural-language belief states for memory-efficient
+  interaction, 2026.
+\newblock arXiv:2512.20111.
+
+\bibitem[Wu et~al.(2026)Wu, Li, Zhao, Zhang, Ou, Yin, Zhang, Yu, Zhang, Jiang,
+  Xie, Huang, Cheng, Wang, Cheng, and Zhou]{resum}
+Xixi Wu, Kuan Li, Yida Zhao, Liwen Zhang, Litu Ou, Huifeng Yin, Zhongwang
+  Zhang, Xinmiao Yu, Dingchu Zhang, Yong Jiang, Pengjun Xie, Fei Huang, Minhao
+  Cheng, Shuai Wang, Hong Cheng, and Jingren Zhou.
+\newblock {ReSum}: Unlocking long-horizon search intelligence via context
+  summarization, 2026.
+\newblock arXiv:2509.13313.
+
+\bibitem[Fang et~al.(2026)Fang, Deng, Xu, Jiang, Tang, Xu, Deng, Yao, Wang,
+  Qiao, Chen, and Zhang]{lightmem}
+Jizhan Fang, Xinle Deng, Haoming Xu, Ziyan Jiang, Yuqi Tang, Ziwen Xu, Shumin
+  Deng, Yunzhi Yao, Mengru Wang, Shuofei Qiao, Huajun Chen, and Ningyu Zhang.
+\newblock {LightMem}: Lightweight and efficient memory-augmented generation.
+\newblock In \emph{ICLR}, 2026.
+\newblock arXiv:2510.18866.
+
+\bibitem[Patel(2026)]{supersede}
+Vedant Patel.
+\newblock Supersede: Diagnosing and training the memory-update gap in {LLM}
+  agents, 2026.
+\newblock arXiv:2606.27472.
+
+\bibitem[Liu and Wang(2026)]{livectx}
+Yu~Liu and Chuanshuang Wang.
+\newblock {LiveCtx}: Context selection at query time for long conversational
+  histories.
+\newblock \emph{Discover Computing}, 29:\penalty0 855, 2026.
+\newblock \doi{10.1007/s10791-026-10807-5}.
+
+\bibitem[Chao et~al.(2026)Chao, Bai, Sheng, Li, and Sun]{stale}
+Hanxiang Chao, Yihan Bai, Rui Sheng, Tianle Li, and Yushi Sun.
+\newblock {STALE}: Can {LLM} agents know when their memories are no longer
+  valid?, 2026.
+\newblock arXiv:2605.06527.
+
+\bibitem[Sun and He(2026)]{stateauditor}
+Haofei Sun and Lin He.
+\newblock When memory updates but behavior does not: Repairing implicit stale
+  dependencies in personalized agent responses, 2026.
+\newblock arXiv:2608.01619.
+
+\bibitem[Li et~al.(2026)Li, Wang, Lu, Chen, Li, Song, Zheng, and Cai]{memtx}
+Xiaoyang Li, Yiqi Wang, Haohui Lu, Zhi Chen, Mo~Li, Pingan Song, Mingkai Zheng,
+  and Taotao Cai.
+\newblock {MemTX}: Transactional belief commit for stateful agent memory, 2026.
+\newblock arXiv:2607.23929.
+
+\bibitem[Cerruti et~al.(2026)Cerruti, Okamoto, and Erol]{ealbench}
+Tommaso Cerruti, Mika Okamoto, and Ansel~Kaplan Erol.
+\newblock Agent memory is a surface for endogenous authorization laundering,
+  2026.
+\newblock arXiv:2609.01836.
+
+\bibitem[Panda(2026)]{twist}
+Subrat Panda.
+\newblock {TWIST}: A proposed benchmark for intervention quality in
+  conversational memory, with a human-validated draft-alignment track, 2026.
+\newblock arXiv:2609.28575.
+
+\bibitem[Gao et~al.(2026)Gao, Li, Chen, He, Wu, Zeng, Heinrich, and
+  Sun]{memderive}
+Sen Gao, Yongan Li, Han Chen, Bingsheng He, Ming Wu, Jason Zeng, Michael
+  Heinrich, and Shixuan Sun.
+\newblock {MemDerive}: A diagnostic benchmark for agent memory over evolving
+  data, 2026.
+\newblock arXiv:2610.25373.
+
+\bibitem[Maharana et~al.(2024)Maharana, Lee, Tulyakov, Bansal, Barbieri, and
+  Fang]{locomo}
+Adyasha Maharana, Dong-Ho Lee, Sergey Tulyakov, Mohit Bansal, Francesco
+  Barbieri, and Yuwei Fang.
+\newblock Evaluating very long-term conversational memory of {LLM} agents.
+\newblock In \emph{ACL}, 2024.
+\newblock arXiv:2402.17753.
+
+\bibitem[Wu et~al.(2025)Wu, Wang, Yu, Zhang, Chang, and Yu]{longmemeval}
+Di~Wu, Hongwei Wang, Wenhao Yu, Yuwei Zhang, Kai-Wei Chang, and Dong Yu.
+\newblock {LongMemEval}: Benchmarking chat assistants on long-term interactive
+  memory.
+\newblock In \emph{ICLR}, 2025.
+\newblock arXiv:2410.10813.
+
+\end{thebibliography}

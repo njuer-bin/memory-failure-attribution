@@ -1057,3 +1057,24 @@ No commits made.
   paragraph uses the v3.1 or the pre-amendment numbers. Rebuild the submission
   PDF after any wording change.
 
+
+## 2026-11-20 — ECAI 2027 port (7+1 pages) and artifact resync
+
+- Regenerated Fig. 4 as a three-panel plot: Study 2a plus Study 2b by request
+  form across qwen2.5:7b, gemma3:12b, and glm-5.3-flash (v3.1). Copied into
+  `paper/submission/figures/` and `paper/supplementary/figures/`.
+- Resynced `experiments/make_supplementary.py` to include the glm v3.1
+  aggregate tables (`study2b_glm_*`); excluded the glm run config (gateway
+  session id). Rebuilt archive: 50 files, manifest rehashed, identifier scan
+  clean.
+- Added `paper/submission_ecai/` (ECAI build): `main.tex` (7-page body incl.
+  Limitations + references), standalone `appendix.tex`, `custom.bib`,
+  `figures/`, and a local `ecai.cls` stand-in reproducing ECAI geometry.
+  Measured: main.pdf 6 pages, appendix.pdf 4 pages, 0 overfull, 0 unresolved.
+- Fixed a double-blind leak: pdfTeX embeds the local path of included figures
+  as `/PTEX.FileName`; `\pdfsuppressptexinfo=-1` removes it (both PDFs
+  byte-scan clean).
+- Honest scope held: controls still mechanically checked (not validated),
+  reason coding analyst-only, replication n = 12 (not n = 30).
+- Write-ups: `docs/research/2026-11-20-ecai-2027-port.md`,
+  `to_human/2026-11-20_ecai_submission_tasks.md`.

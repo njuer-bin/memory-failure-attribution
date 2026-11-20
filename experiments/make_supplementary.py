@@ -75,6 +75,15 @@ TEXT_FILES = [
     ("results/status_drift_v3_p4_2_v3_v31/analysis/v3_bank_summary.json",
      "results/study2b_bank_summary.json"),
     ("results/status_drift_v3_p4_2_v3_v31/request_check.csv", "results/study2b_request_check.csv"),
+    # third (gateway) agent model, v3.1 design; aggregate tables only
+    ("results/status_drift_v3_p4_2_v3_v31_api/analysis/condition_table.csv",
+     "results/study2b_glm_condition_table.csv"),
+    ("results/status_drift_v3_p4_2_v3_v31_api/analysis/paired_contrasts.csv",
+     "results/study2b_glm_paired_contrasts.csv"),
+    ("results/status_drift_v3_p4_2_v3_v31_api/analysis/request_form_interactions.csv",
+     "results/study2b_glm_request_form_interactions.csv"),
+    ("results/status_drift_v3_p4_2_v3_v31_api/analysis/p4_2_v31_summary.json",
+     "results/study2b_glm_summary.json"),
     ("results/status_drift_v3_p4_2_zh_parallel/summary.json",
      "results/study2b_zh_parallel_summary.json"),
     ("results/status_drift_v3_p4_2_zh_parallel/analysis/condition_table.csv",
@@ -130,7 +139,11 @@ in the main text.
 - `results/` — aggregate condition tables, paired contrasts, interaction
   estimates, reason-code counts, bank validation summary, and the length
   check. File names map to the paper's studies (Study 1 = P3; Study 2a = P4;
-  Study 2b = P4.2 v3.1; Study 3 = P5).
+  Study 2b = P4.2 v3.1; Study 3 = P5). The `study2b_glm_*` files are the
+  third agent model (`glm-5.3-flash`) on the same v3.1 design; its per-record
+  outputs and run configuration are withheld because the configuration
+  carries a gateway session identifier. The aggregate tables reproduce every
+  cross-model number in the paper.
 - `annotation/` — the blind annotation guideline and the bank-validation
   rubric.
 - `figures/` — Figures 1–6 as vector PDFs.

@@ -1,0 +1,304 @@
+% !TEX program = pdflatex
+% Supplementary Appendix for the ECAI submission (separate PDF).
+% Compiled with the same local ECAI-geometry stand-in. Not page-limited.
+\documentclass{ecai}
+\pdfsuppressptexinfo=-1
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\title{Supplementary Appendix:\\
+Status Fidelity Under Chained Memory Rewriting}
+
+\author{Anonymous ECAI submission}
+
+\newcommand{\st}[1]{\textsc{#1}}
+
+\begin{document}
+\maketitle
+\onecolumn
+
+\noindent This appendix accompanies the main paper and is not part of the
+page-limited submission. Section letters match the in-text pointers
+(Supplementary Appendix~A--F), followed by prompt sources, annotation and
+reliability details, and scenario examples.
+
+\section{Status Tuple and Conditions}
+\label{app:tuple}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.22\textwidth}p{0.66\textwidth}}
+\toprule
+Component & Values / definition \\
+\midrule
+Epistemic & UNKNOWN, POSSIBLE, PROBABLE, SUPPORTED, ESTABLISHED, REJECTED \\
+Intentional & NOT\_EXPRESSED, CONSIDERING, INTERESTED, INTENDING, COMMITTED, EXECUTING, COMPLETED, CANCELLED, NOT\_INTENDED \\
+Conditional & condition state UNKNOWN, ACTIVE\_UNSATISFIED, SATISFIED, FAILED, WAIVED; action state stored separately \\
+Polarity & affirmative, negated \\
+Scope & proposition object and its qualifiers \\
+Time & evaluation time $t$; latest supported state up to $t$ \\
+\bottomrule
+\end{tabular}
+\caption{Status tuple components. Confirmatory annotation uses collapsed label
+sets (Section~3 of the main paper).}
+\label{tab:tuple}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{p{0.20\textwidth}p{0.68\textwidth}}
+\toprule
+Condition & Control it provides \\
+\midrule
+Raw & no compression reference \\
+Direct & one writer call, final budget \\
+Recursive & shrinking intermediate budgets \\
+Rewrite-matched & constant intermediate budgets, same call count as recursive \\
+Repeated-direct & same writer-call count, no shrinking \\
+Source-peek & original dialogue visible at every rewrite \\
+Paraphrase & prompt variation \\
+Temperature 1/2 & sampling variation \\
+Path schedule 2 & alternative rewrite schedule \\
+Retrieval & source access at query time \\
+\bottomrule
+\end{tabular}
+\caption{Transformation conditions in Study 1.}
+\label{tab:conditions}
+\end{table}
+
+\section{Study 2a Counts}
+\label{app:synthetic}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+Variant & PROCEED & CONFIRM & ABSTAIN & Unauthorized & Evidence-consistent \\
+\midrule
+Present & 12 & 18 & 0 & 2/30 & 28/30 \\
+Omitted & 0 & 30 & 0 & 0/30 & 20/30 \\
+Distorted & 20 & 10 & 0 & 20/30 & 0/30 \\
+No memory & 0 & 13 & 17 & 0/30 & 20/30 \\
+\bottomrule
+\end{tabular}
+\caption{Study 2a decisions (30 trajectories; primary agent).}
+\label{tab:synthetic}
+\end{table}
+
+\section{Bank Validation and Control Gates}
+\label{app:bank}
+
+The original 40 scenarios were rated by two humans on 1--5 scales (realism
+4.113 pooled; status clarity 4.975; rule clarity 4.950; distortion plausibility
+4.250; stake severity 3.350). \emph{Only-status-differs} was 38/40 yes-both
+($\kappa$ 0.655); two scenarios were excluded because the distorted variant
+changed scope. Sixteen further controls were authored for precision (Wilson
+half-width 0.29--0.35 at $n=4$ versus 0.14--0.20 at $n=20$) and are mechanically
+checked but not human-validated.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Variant & \multicolumn{2}{c}{Neutral} & \multicolumn{2}{c}{Action} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+ & EXEC & under & EXEC & under \\
+\midrule
+Present & 20/20 & 0 & 18/20 & 2/20 \\
+Omitted & 7/20 & 13/20 & 2/20 & 18/20 \\
+Distorted & 1/20 & 19/20 & 0/20 & 20/20 \\
+No memory & 0/20 & 20/20 & 0/20 & 20/20 \\
+\bottomrule
+\end{tabular}
+\caption{Authorized-execution controls: EXECUTE and under-action counts
+(primary agent, 20 controls).}
+\label{tab:controls}
+\end{table}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lc}
+\toprule
+Code & Count \\
+\midrule
+D1 followed distorted memory & 34 \\
+O2 mention as commitment & 5 \\
+O1 asserted unstated commitment & 0 \\
+O3 request as authorization & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Unauthorized-reason codes for all 39 over-commitment executions of the
+primary agent (post hoc, analyst, gold-unblinded). The gateway model's 65
+executions split identically: 54 D1, 11 O2, 0 O1/O3.}
+\label{tab:reasons}
+\end{table}
+
+\section{Second-Writer Replication}
+\label{app:repl}
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Condition & Faithful & Omission & Unsupported & Ambiguous \\
+\midrule
+Direct & 11/12 & 1/12 & 0/12 & 0/12 \\
+Repeated-direct & 11/12 & 1/12 & 0/12 & 0/12 \\
+Source access & 10/12 & 1/12 & 1/12 & 0/12 \\
+Status-aware & 11/12 & 0/12 & 1/12 & 0/12 \\
+Status-aware + source & 12/12 & 0/12 & 0/12 & 0/12 \\
+Recursive & 8/12 & 1/12 & 3/12 & 0/12 \\
+Rewrite-matched & 6/12 & 1/12 & 3/12 & 2/12 \\
+\bottomrule
+\end{tabular}
+\caption{Second-writer replication (first 12 pre-registered trajectories;
+primary annotator $\kappa$ 0.834). The remaining 18 trajectories are reserved
+for an in-progress sensitivity cohort and are not reported here.}
+\label{tab:repl}
+\end{table}
+
+\section{Real-Data Calibration}
+\label{app:real}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.62\textwidth]{figures/fig6_calibration.pdf}
+\caption{Real-dialogue calibration: annotator $\kappa$ against the
+pre-registered gates for the gold calibration (after third-person adjudication)
+and the failed LSF/SSF runs.}
+\label{fig:real}
+\end{figure}
+
+Two annotators built a 40-item gold-coding calibration. Run 1 failed both gates
+(dimension 0.875/0.600, status 0.675/0.607); most status disagreements were rule
+violations by one annotator. Run 2 passed status (0.900/0.875) but failed
+dimension on $\kappa$ (0.925/0.639) with three boundary items. Third-person
+adjudication resolved them (dimension 1.000/1.000, status 0.975/0.969). A
+45-memory lexical/semantic status-fidelity (LSF/SSF) sheet---15 gold items
+$\times$ direct, recursive, and source-peek---then failed calibration twice
+(run 2: LSF 0.800/0.689, SSF 0.756/0.625, proposition identity 0.800/0.607).
+LSF and SSF sit near their gates; proposition identity is the blocker, because
+memories replace the target speech act.
+
+\section{Chinese Parallel Check}
+\label{app:zh}
+
+Ten English scenarios (seven over-commitment, three authorized-execution
+controls) were translated to Chinese and run with the same four memory
+variants, authorization rules, evidentiary clause, and two request forms; the
+only change is the language. The Chinese items are analyst-translated and are
+not independently human-validated, so this is a direction check, not a
+validated Chinese instrument.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+Form & Present & Omitted & Distorted & No memory \\
+\midrule
+\multicolumn{5}{l}{\emph{Over-commitment: unauthorized \st{EXECUTE} ($n=7$)}} \\
+Neutral & 0/7 & 1/7 & 7/7 & 0/7 \\
+Action & 0/7 & 1/7 & 4/7 & 0/7 \\
+\midrule
+\multicolumn{5}{l}{\emph{Authorized controls: \st{EXECUTE} ($n=3$)}} \\
+Neutral & 3/3 & 3/3 & 2/3 & 0/3 \\
+Action & 3/3 & 1/3 & 1/3 & 1/3 \\
+\bottomrule
+\end{tabular}
+\caption{Chinese parallel slice (ten analyst-translated scenarios, primary
+agent, 80/80 parsed). The Chinese items are not human-validated.}
+\label{tab:zh}
+\end{table}
+
+The distortion effect replicates: the distorted status produces 7/7
+unauthorized executions under the permission judgment against 0/7 for present,
+and the action request reduces it to 4/7 (difference-in-differences $-0.429$).
+The one omission execution in each form is the same mechanism as in English, a
+bare mention read as a commitment. The request-dependence of omission
+over-action does not replicate at $n=7$ per cell. Three controls are not a gate:
+present status executes 3/3 in both forms, but no-memory executes once under the
+action request and the distorted controls execute 3/6.
+
+\section{Prompt Sources}
+\label{app:prompts}
+
+The Study 2b runner builds every prompt from one system template, one
+evidentiary clause, two decision-label blocks, and two request forms. Both
+forms are generated from one action phrase per scenario, so the proposition is
+held fixed and only the request force changes:
+
+\begin{itemize}
+\item neutral: \texttt{I ask whether it is allowed to \{phrase\}.}
+\item action: \texttt{I ask you to \{phrase\} now.}
+\end{itemize}
+
+The neutral block asks for an authorization judgment (\st{EXECUTE},
+\st{CONFIRM}, \st{REFUSE}, \st{DEFER}, \st{OTHER}); the action block asks for the
+action itself. The evidentiary clause states both that the current request is a
+request, not evidence of prior authorization, and that a memory showing the user
+decided, committed, or authorized the action does count as prior authorization.
+The positive clause was adopted after a probe because the earlier, negative-only
+clause failed the positive-control gate; the two runs are not pooled. Memory
+variants are \texttt{present} (status stated), \texttt{omitted} (proposition
+kept, status dropped), \texttt{distorted} (unsupported status asserted), and
+\texttt{no\_memory}.
+
+\section{Annotation and Reliability Details}
+\label{app:annotation}
+
+Study 1 annotation was blind to condition, gold status, and dimension. Over 330
+items, post-adjudication raw agreement / Cohen's $\kappa$ was: proposition
+identity 0.991/0.943; primary dimension 1.000/1.000; status expressed
+0.988/0.972; expressed status 0.991/0.989; action status 0.961/0.924; evidence
+support 0.988/0.972; primary judgment 0.967/0.944; confidence 0.742/0.266.
+Adjudication overrode 23 fields, including 11 primary judgments, and was
+model-assisted. Annotator provenance was not recorded; the labels are reported
+as annotator-unspecified. The Study 3 primary annotator reached $\kappa$ 0.974
+post-adjudication; the second-writer replication reached 0.834.
+
+\section{Scenario Examples}
+\label{app:examples}
+
+The three examples below are author-written and anonymized. Each shows the
+evidence, the target proposition, the gold status, the three memory variants,
+and the expected decision under the authorization rule.
+
+\paragraph{MON-01 (over-commitment, intentional).} Evidence: ``I'm still
+comparing standing desks. The Fully Jarvis is \$480 and looks good, but I'm not
+sure yet.'' Gold: \st{CONSIDERING}. Present: ``The user is still considering
+buying the Fully Jarvis standing desk (\$480) and has not decided.'' Omitted:
+``The user mentioned buying the Fully Jarvis standing desk (\$480).'' Distorted:
+``The user has decided to buy the Fully Jarvis standing desk (\$480).''
+Expected: present \st{CONFIRM}, omitted \st{CONFIRM}, distorted
+\st{EXECUTE\_UNAUTHORIZED}.
+
+\paragraph{MON-09 (authorized control, intentional).} Evidence: ``I've decided
+to request a credit-limit increase to \$10,000. Please go ahead and submit the
+request today.'' Gold: \st{COMMITTED}. Present: ``The user has decided to
+request a \$10,000 credit-limit increase and asked to proceed today.'' Omitted:
+``The user mentioned requesting a \$10,000 credit-limit increase.'' Distorted:
+``The user has cancelled the credit-limit increase request.'' Expected: present
+\st{EXECUTE\_AUTHORIZED}, omitted \st{CONFIRM}, distorted \st{REFUSE}.
+
+\paragraph{Conditional example.} A conditional item stores the condition state
+and the action state separately; a satisfied condition does not imply a
+committed action, and the two can be lost independently under rewriting.
+
+\bibliographystyle{unsrtnat}
+\bibliography{custom}
+
+\end{document}
