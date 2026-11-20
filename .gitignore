@@ -15,5 +15,9 @@ results/**/_work/
 results/**/acl-recovery/
 results/**/v28_sidecar_60_INVALID_ATTEMPT1/
 
+# Quarantined annotation artifacts (gold-derived; keep local, never commit)
+results/**/_invalid/*
+!results/**/_invalid/README.md
+
 # Local toolchain (portable TeX engine for the submission build)
 .tools/

@@ -20,6 +20,16 @@ generated but not yet annotated. The first 12 trajectories are complete in
 `status_aware_source`). Item ids continue the existing series
 (`REPR-0085`–`REPR-0210`).
 
+## Re-annotation status (2026-11-20)
+
+A completed `annotator_B.csv` was found to be gold-derived: it matched an
+untracked pattern-labeled JSON, used 44 out-of-schema `action_status` values,
+and mapped every expressed status deterministically from `key.csv`. It has been
+quarantined under `_invalid/` (see `_invalid/README.md`). `annotator_B.csv` is
+blank again and must be filled by a genuine independent human annotator who has
+not seen the key or `annotator_A.csv`. `annotator_A.csv` is valid
+single-annotator data; the n = 30 cohort remains blocked until B is redone.
+
 ## Protocol
 
 Follow `docs/research/V3_ANNOTATION_GUIDELINES.md` (v3.2.5). Work from
