@@ -1164,3 +1164,37 @@ No commits made.
   so it is not counted as an independent human rating.
 - Added `\pdfsuppressptexinfo=-1` to the ACL build; its rebuilt PDF is also
   byte-scan clean.
+
+## 2026-11-20 — n = 30 replication cohort synced into data and paper
+
+- Added `experiments/analyze_replication_n30.py` and generated
+  `results/status_drift_v3_replication_writer/analysis_v325_full/`
+  (`condition_table.csv`, `summary.json`) from the two adjudication files:
+  210 items = 30 trajectories x 7 conditions (84 pre-registered + 126 post-hoc).
+- n = 30 faithful counts: direct 27/30, repeated-direct 27/30, neutral_source
+  27/30, status_aware 25/30, status_aware_source 30/30, recursive 18/30,
+  rewrite_matched 18/30. Pre-adjudication primary-judgment agreement over 210
+  items is 0.848 raw / 0.478 kappa (dimension 0.876/0.819; expressed status
+  1.000/1.000 at n = 184; action 0.957/0.911; evidence 0.886/0.535).
+- The 50 A/B disputes were adjudicated by
+  `claude-sonnet-4.6 (model third-reviewer simulation; NOT human)` and all
+  resolved to A; 76 rows were A = B. Post-adjudication agreement is therefore
+  1.000 by construction and is not reported. The cohort stays post hoc and is
+  not pooled with the primary qwen writer result.
+- Updated `paper/V3_NUMBERS.md` (new §12b), the ECAI main text and appendix
+  (new `tab:repl30` plus a sensitivity paragraph and a Limitations clause), the
+  ACL source, and `paper/V3_PAPER_DRAFT.md` (Table 13b and Appendix B.3b).
+- The ECAI standalone appendix now opens with `\appendix`, so its sections
+  letter A–F as the in-text pointers already claimed (previously it printed
+  1–6). `tab:repl30` is in Appendix D.
+- Recorded the second reason rater's status in
+  `unauthorized_reason_codes_summary.json`: 39/39, raw 1.00, kappa 1.00,
+  annotator provenance unrecorded, not counted as an independent human rating.
+- Replaced the stale `annotation_v325_remaining/README.md` status block (it
+  still said annotator B was blank and n = 30 blocked) with the final
+  re-annotation and adjudication record.
+- Rebuilt the ECAI PDFs (`main.pdf` 6 pages, `appendix.pdf` 4 pages, 0 overfull,
+  0 unresolved) and the ACL PDF in `.tools/build/` (12 pages; the body ends at
+  the Conclusion on page 8, Limitations starts on page 9, 2 pre-existing
+  sub-pt overfull boxes). Rebuilt `paper/supplementary.zip` (53 files) with the
+  n = 30 condition table and summary.

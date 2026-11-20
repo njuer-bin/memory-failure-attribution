@@ -503,6 +503,16 @@ second writer (0.83) than in the primary one (1.00), while the prompt and the
 combination are at or above the primary values. Report the model boundary, not a
 universal mitigation ranking.
 
+The 18 remaining trajectories were annotated after the run as a post-hoc
+sensitivity cohort ($n = 30$). The chain effect replicates in direction:
+rewrite-matched and recursive are 18/30 faithful versus 27/30 for direct and
+repeated-direct. The mitigation ranking does not stabilize: source access is
+27/30 and no longer exceeds the direct controls, while the combination is 30/30.
+This cohort was not pre-registered, and its 50 annotator disagreements were
+resolved by a model third-reviewer that followed annotator A throughout; we
+report it as a sensitivity check, not as independent human confirmation.
+Supplementary Appendix~D reports the full table.
+
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig5_mitigation.pdf}
@@ -595,7 +605,9 @@ problem.
   unrecorded for the synthetic annotation and adjudication is model-assisted; we
   report those labels as annotator-unspecified, not as independent human
   reliability. All reported $\kappa$ values are post-adjudication. The
-  second-writer replication covers 12 trajectories ($\kappa$ 0.834).
+  pre-registered second-writer replication covers 12 trajectories
+  ($\kappa$ 0.834); a post-hoc 30-trajectory sensitivity cohort uses
+  model adjudication and is reported separately.
 \item \textbf{Bank construction.} Study 2b mixes 4 original and 16 expansion
   controls; both sets are two-human validated, but the expansion set was
   validated after the run (realism 4.97, \emph{only-status-differs} 15/16,

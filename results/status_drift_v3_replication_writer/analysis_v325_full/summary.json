@@ -1,0 +1,73 @@
+{
+  "cohort": "full 30 trajectories x 7 conditions = 210 items",
+  "cohorts": {
+    "n12_pre_registered": 84,
+    "n18_post_hoc": 126
+  },
+  "judgment": {
+    "NO_DISTORTION": 166,
+    "UNSUPPORTED_STATUS_DISTORTION": 14,
+    "AMBIGUOUS_UNASSESSABLE": 2,
+    "STATUS_OMISSION": 20,
+    "LEGITIMATE_UPDATE": 6,
+    "PROPOSITION_LOSS": 2
+  },
+  "identity": {
+    "PRESERVED": 208,
+    "PARTIAL": 2
+  },
+  "adjudicators": {
+    "claude-sonnet-4.6 (model third-reviewer simulation; NOT human)": 134,
+    "auto (A=B, no adjudication)": 76
+  },
+  "agreement_pre_adjudication": {
+    "n_common_items": 210,
+    "fields": {
+      "proposition_identity": {
+        "n_pairs": 210,
+        "raw_agreement": 0.9904761904761905,
+        "cohen_kappa": 0.0
+      },
+      "primary_dimension": {
+        "n_pairs": 210,
+        "raw_agreement": 0.8761904761904762,
+        "cohen_kappa": 0.8194444444444444
+      },
+      "status_expressed": {
+        "n_pairs": 210,
+        "raw_agreement": 0.9333333333333333,
+        "cohen_kappa": 0.5625000000000001
+      },
+      "expressed_status": {
+        "n_pairs": 184,
+        "raw_agreement": 1.0,
+        "cohen_kappa": 1.0
+      },
+      "action_status": {
+        "n_pairs": 210,
+        "raw_agreement": 0.9571428571428572,
+        "cohen_kappa": 0.910861670518323
+      },
+      "evidence_support": {
+        "n_pairs": 210,
+        "raw_agreement": 0.8857142857142857,
+        "cohen_kappa": 0.5350553505535056
+      },
+      "primary_judgment": {
+        "n_pairs": 210,
+        "raw_agreement": 0.8476190476190476,
+        "cohen_kappa": 0.4778554778554777
+      },
+      "confidence": {
+        "n_pairs": 210,
+        "raw_agreement": 0.8047619047619048,
+        "cohen_kappa": 0.19457436856875632
+      }
+    }
+  },
+  "warnings": [
+    "n = 12 is the pre-registered cohort; n = 30 adds 18 post-hoc trajectories.",
+    "Adjudication is a model third-reviewer simulation; 50 disputes were resolved to A.",
+    "Not independent human adjudication; not poolable with the primary qwen writer."
+  ]
+}

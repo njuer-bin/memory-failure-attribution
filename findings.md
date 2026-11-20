@@ -649,14 +649,17 @@ V3 statuses are authoritative; v2 evidence is kept as supporting history.
 
 - Does the omission effect hold on natural dialogue, not only synthetic Chinese
   templates?
-- The writer replication covers 12 pre-registered trajectories on one second
-  model; does the mitigation ranking stabilize at 30 trajectories or a third
-  writer?
+- The writer replication now covers 30 trajectories: 12 pre-registered plus 18
+  post-hoc. The chain effect survives (recursive and rewrite-matched 18/30
+  faithful), but the mitigation ranking does not (source 27/30, combination
+  30/30); a third writer is still untested.
 - Can a separate status extractor (beyond the blocked one-call 7B sidecar)
   preserve commitment status without templated prose?
 - Do the ABBEL/Supersede appendices already contain a proposition/status split?
   This is the main remaining novelty risk.
-- Annotator provenance is unrecorded and adjudication is model-assisted; how
-  much of the κ stability survives fully independent annotation?
+- Annotator provenance is unrecorded and adjudication is model-assisted. On the
+  18 post-hoc trajectories, pre-adjudication primary-judgment agreement is only
+  0.478 κ and every dispute was model-resolved to A; how much of the reported κ
+  stability survives fully independent annotation is still open.
 - Unsupported distortion is underpowered (3/330); is the P4 distortion effect
   stable at a larger event count?

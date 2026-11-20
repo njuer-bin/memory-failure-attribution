@@ -11,5 +11,13 @@
     "distorted/neutral": 24,
     "distorted/action": 10
   },
-  "second_rater": "reason_sheet_blind.csv has no analyst code, no variant, and a shuffled order; the analyst coding is post hoc and gold-unblinded"
+  "second_rater": {
+    "sheet": "analysis/reason_sheet_blind.csv",
+    "n_items": 39,
+    "raw_agreement": 1.0,
+    "cohen_kappa": 1.0,
+    "annotator_provenance": "unrecorded",
+    "independent_human_rating": false,
+    "note": "Second blind coding agrees 39/39 with the analyst; the annotator identity and independence are unrecorded, so it is not counted as an independent human rating."
+  }
 }

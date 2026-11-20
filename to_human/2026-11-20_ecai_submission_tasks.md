@@ -2,8 +2,8 @@
 
 The ECAI 7+1-page port is built (`paper/submission_ecai/`), and the figures and
 supplementary archive are resynced to include the glm-5.3-flash v3.1 matrix.
-Everything below needs a person. Items 1–3 were completed on 2026-11-20;
-items 4–5 remain before submission (~April 2027).
+Everything below needs a person. Items 1–3 and 5 were completed on 2026-11-20;
+item 4 remains before submission (~April 2027).
 
 ## 1. Validate the 16 new authorized controls — DONE (2026-11-20)
 
@@ -41,9 +41,15 @@ geometry. When the official kit appears: replace `ecai.cls`/`.bst`, recompile
 may use 10 pt and grow the body) and the PDF metadata. Only the front matter
 (`\title`, `\author`, abstract) should need touching.
 
-## 5. Final read-through against the frozen state
+## 5. Final read-through against the frozen state — DONE (2026-11-20)
 
-Items (1)–(3) are complete. Refresh `paper/V3_NUMBERS.md` and the ECAI main
-text so the disclosures match the final state: validated controls, n = 30
-post-hoc sensitivity, and the second reason rater. Rebuild the PDF after any
-wording change.
+`paper/V3_NUMBERS.md` now carries §12b for the n = 30 cohort, and the ECAI
+main text, ECAI appendix (`tab:repl30`), ACL source, and `V3_PAPER_DRAFT.md`
+report it as a post-hoc, model-adjudicated sensitivity analysis alongside the
+pre-registered n = 12 cohort. The reason-rater provenance is recorded in
+`unauthorized_reason_codes_summary.json` as unrecorded / not an independent
+human rating. PDFs were rebuilt: ECAI `main.pdf` 6 pages and `appendix.pdf`
+4 pages (0 overfull, 0 unresolved); ACL `main.pdf` 12 pages with the body ending
+on page 8. `paper/supplementary.zip` was rebuilt (53 files).
+
+Only item 4 (swap in the official ECAI class when released) remains.

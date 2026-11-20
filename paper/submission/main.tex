@@ -512,6 +512,13 @@ is the worst condition. But source access alone is weaker in the second writer
 at or above the primary values. Report the model boundary, not a universal
 mitigation ranking.
 
+The 18 remaining trajectories form a post-hoc sensitivity cohort ($n = 30$).
+The chain effect replicates in direction (recursive and rewrite-matched 18/30
+faithful versus 27/30 for direct and repeated-direct), but the mitigation
+ranking does not stabilize (source access 27/30, combination 30/30). The cohort
+is not pre-registered and its disagreements were model-adjudicated to annotator
+A; treat it as a sensitivity check (Table~\ref{tab:repl30}).
+
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig5_mitigation.pdf}
@@ -622,8 +629,9 @@ annotation remains an open measurement problem.
   unrecorded for the synthetic annotation and adjudication is model-assisted.
   We report those labels as annotator-unspecified, not as independent human
   reliability; all reported $\kappa$ values are post-adjudication. The
-  second-writer replication covers 12 trajectories and its reliability is 0.834
-  $\kappa$.
+  pre-registered second-writer replication covers 12 trajectories and its
+  reliability is 0.834 $\kappa$; a post-hoc 30-trajectory sensitivity cohort
+  uses model adjudication and is reported separately.
 \item \textbf{Bank construction.} Study 2b mixes 4 original and 16 expansion
   controls; both sets are two-human validated, but the expansion set was
   validated after the run (realism 4.97, \emph{only-status-differs} 15/16,
@@ -799,9 +807,39 @@ Recursive & 8/12 & 1/12 & 3/12 & 0/12 \\
 Rewrite-matched & 6/12 & 1/12 & 3/12 & 2/12 \\
 \bottomrule
 \end{tabular}
-\caption{Second-writer replication (first 12 pre-registered trajectories;
-primary annotator $\kappa$ 0.834).}
+\caption{Second-writer replication, pre-registered cohort (first 12
+trajectories; primary annotator $\kappa$ 0.834).}
 \label{tab:repl}
+\end{table*}
+
+The remaining 18 trajectories form a post-hoc sensitivity cohort ($n = 30$,
+210 items). Pre-adjudication agreement over the full cohort is 0.848 raw /
+0.478 $\kappa$ for the primary judgment (dimension 0.876/0.819; expressed
+status 1.000/1.000 at $n = 184$). The 50 A/B disagreements were resolved by a
+model third-reviewer that followed annotator A throughout, so post-adjudication
+agreement would be 1.000 by construction and is not reported. The cohort is not
+pre-registered and is not pooled with the primary writer result.
+
+\begin{table*}[h]
+\centering
+\small
+\begin{tabular}{lccccc}
+\toprule
+Condition & Faithful & Omission & Unsupported & Ambiguous & Loss \\
+\midrule
+Direct & 27/30 & 3/30 & 0/30 & 0/30 & 0/30 \\
+Repeated-direct & 27/30 & 3/30 & 0/30 & 0/30 & 0/30 \\
+Source access & 27/30 & 2/30 & 1/30 & 0/30 & 0/30 \\
+Status-aware & 25/30 & 1/30 & 4/30 & 0/30 & 0/30 \\
+Status-aware + source & 30/30 & 0/30 & 0/30 & 0/30 & 0/30 \\
+Recursive & 18/30 & 7/30 & 4/30 & 0/30 & 1/30 \\
+Rewrite-matched & 18/30 & 4/30 & 5/30 & 2/30 & 1/30 \\
+\bottomrule
+\end{tabular}
+\caption{Post-hoc 30-trajectory sensitivity cohort. Faithful, omission, and
+unsupported rates are conditional on proposition preservation; loss is over all
+items. Adjudication is model-assisted.}
+\label{tab:repl30}
 \end{table*}
 
 \section{Real-Data Calibration}

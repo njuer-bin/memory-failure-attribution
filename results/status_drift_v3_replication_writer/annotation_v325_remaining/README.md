@@ -20,15 +20,25 @@ generated but not yet annotated. The first 12 trajectories are complete in
 `status_aware_source`). Item ids continue the existing series
 (`REPR-0085`–`REPR-0210`).
 
-## Re-annotation status (2026-11-20)
+## Annotation status (final, 2026-11-20)
 
-A completed `annotator_B.csv` was found to be gold-derived: it matched an
-untracked pattern-labeled JSON, used 44 out-of-schema `action_status` values,
-and mapped every expressed status deterministically from `key.csv`. It has been
-quarantined under `_invalid/` (see `_invalid/README.md`). `annotator_B.csv` is
-blank again and must be filled by a genuine independent human annotator who has
-not seen the key or `annotator_A.csv`. `annotator_A.csv` is valid
-single-annotator data; the n = 30 cohort remains blocked until B is redone.
+A morning `annotator_B.csv` was found to be gold-derived and quarantined under
+`_invalid/` (see `_invalid/README.md`). The maintainer re-annotated the sheet
+in the afternoon; the replacement passes schema validation (126/126, 0 missing,
+0 invalid) and is accepted. `annotator_A.csv` and the re-annotated
+`annotator_B.csv` are both complete.
+
+`adjudication.csv` is complete (126/126). The 50 A/B disagreements were
+adjudicated by `claude-sonnet-4.6 (model third-reviewer simulation; NOT human)`
+and all resolved to A's labels; the other 76 rows are marked
+`auto (A=B, no adjudication)`. This is rule-consistent model adjudication, not
+independent human adjudication.
+
+Merged with `../annotation_v325/adjudication.csv`, the full cohort is
+210 items = 30 trajectories x 7 conditions. It is analysed separately in
+`../analysis_v325_full/` (`condition_table.csv`, `summary.json`): report n = 12
+as the pre-registered cohort and n = 30 as a post-hoc sensitivity analysis, and
+do not pool either with the primary qwen writer result.
 
 ## Protocol
 
