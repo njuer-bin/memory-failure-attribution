@@ -1303,3 +1303,22 @@ round is frozen at
 
 No manuscript number changes until both human sheets return and a human
 adjudicator completes the disputed fields.
+
+## 2026-11-20 — n=30 re-annotation: AI adjudication rejected, human redo queued
+
+Both human sheets returned (210/210 each; dimension kappa 0.705, expressed-status
+kappa 0.978, primary-judgment raw 0.857 / kappa 0.353). The first adjudication
+was filled with `adjudicator = ADJ-AI` for all 125 disputed items. It was merged
+and summarized only to inspect it, then rejected for paper use:
+
+- 30 primary-judgment disputes were 29/30 resolved to annotator B;
+- `STATUS_OMISSION` fell from 20 in the old n=30 labels to 5;
+- 15 old omission items became `NO_DISTORTION`;
+- 18 `EPISTEMIC` items were given `POSSIBLE` from a memory containing only
+  `考虑/打算`, which the guideline classifies as an INTENTIONAL cue.
+
+The AI artifacts are archived under
+`results/status_drift_v3_replication_writer/reannotation_2026-11-20/_ADJ-AI/`
+with a warning README. The active `adjudication_sheet.csv` was regenerated blank
+for a human adjudicator and annotated with the 18 borderline and 30
+primary-judgment dispute IDs. No manuscript or canonical number changes.

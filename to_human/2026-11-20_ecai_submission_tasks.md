@@ -94,3 +94,13 @@ changed.
 - 两人独立完成、交回前不讨论；第三人用 `adjudication_sheet.csv` 只裁决分歧字段，并填写 `adjudicator` 与 `rule`。
 - 流程：`python -m experiments.reannotation_round check --a ... --b ...` → 人工填写 → `merge --sheet ...` → `summarize`。
 - 旧标签保留；在 merge 完成前，论文继续使用现行 n=30 弱支持表述，不提前替换数字。
+
+## n=30 人工重裁决（当前待办）
+
+第一轮 125 条分歧由 `ADJ-AI` 填写并合并，已归档到
+`results/status_drift_v3_replication_writer/reannotation_2026-11-20/_ADJ-AI/`，
+不得作为人类裁决使用。当前 `adjudication_sheet.csv` 已重置为空白，等待人工裁决。
+
+重点：先定主维度；EPISTEMIC 下“考虑/打算”不是 POSSIBLE 的线索。需重点核对的
+18 条边界项和 30 条主判断分歧项列在 `ADJUDICATION_GUIDE.md`。分工须保持两名原批注者
+互不看表，裁决人不参考旧标签或 `_ADJ-AI/`。

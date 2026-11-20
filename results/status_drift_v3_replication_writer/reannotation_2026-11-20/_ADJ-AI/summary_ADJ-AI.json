@@ -1,0 +1,117 @@
+{
+  "status": "reannotated",
+  "n_items": 210,
+  "judgment": {
+    "NO_DISTORTION": 173,
+    "UNSUPPORTED_STATUS_DISTORTION": 14,
+    "LEGITIMATE_UPDATE": 14,
+    "AMBIGUOUS_UNASSESSABLE": 2,
+    "PROPOSITION_LOSS": 2,
+    "STATUS_OMISSION": 5
+  },
+  "identity": {
+    "PRESERVED": 208,
+    "PARTIAL": 2
+  },
+  "condition_table": [
+    {
+      "condition": "direct",
+      "n": 30,
+      "faithful_n": 30,
+      "faithful_rate": 1.0,
+      "joint_fidelity_low": 0.8864866068260312,
+      "joint_fidelity_high": 0.9999999999999999,
+      "omission_n": 0,
+      "unsupported_n": 0,
+      "ambiguous_n": 0,
+      "loss_n": 0,
+      "preserved_n": 30,
+      "conditional_status_fidelity": 1.0
+    },
+    {
+      "condition": "recursive",
+      "n": 30,
+      "faithful_n": 22,
+      "faithful_rate": 0.7333333333333333,
+      "joint_fidelity_low": 0.555520383048111,
+      "joint_fidelity_high": 0.8581733668040368,
+      "omission_n": 3,
+      "unsupported_n": 4,
+      "ambiguous_n": 0,
+      "loss_n": 1,
+      "preserved_n": 29,
+      "conditional_status_fidelity": 0.7586206896551724
+    },
+    {
+      "condition": "rewrite_matched",
+      "n": 30,
+      "faithful_n": 20,
+      "faithful_rate": 0.6666666666666666,
+      "joint_fidelity_low": 0.4878005164454384,
+      "joint_fidelity_high": 0.8076950191632386,
+      "omission_n": 2,
+      "unsupported_n": 5,
+      "ambiguous_n": 2,
+      "loss_n": 1,
+      "preserved_n": 29,
+      "conditional_status_fidelity": 0.6896551724137931
+    },
+    {
+      "condition": "repeated_direct",
+      "n": 30,
+      "faithful_n": 30,
+      "faithful_rate": 1.0,
+      "joint_fidelity_low": 0.8864866068260312,
+      "joint_fidelity_high": 0.9999999999999999,
+      "omission_n": 0,
+      "unsupported_n": 0,
+      "ambiguous_n": 0,
+      "loss_n": 0,
+      "preserved_n": 30,
+      "conditional_status_fidelity": 1.0
+    },
+    {
+      "condition": "neutral_source",
+      "n": 30,
+      "faithful_n": 29,
+      "faithful_rate": 0.9666666666666667,
+      "joint_fidelity_low": 0.8332960900859082,
+      "joint_fidelity_high": 0.9940914096183874,
+      "omission_n": 0,
+      "unsupported_n": 1,
+      "ambiguous_n": 0,
+      "loss_n": 0,
+      "preserved_n": 30,
+      "conditional_status_fidelity": 0.9666666666666667
+    },
+    {
+      "condition": "status_aware",
+      "n": 30,
+      "faithful_n": 26,
+      "faithful_rate": 0.8666666666666667,
+      "joint_fidelity_low": 0.703186733179637,
+      "joint_fidelity_high": 0.9469034451594526,
+      "omission_n": 0,
+      "unsupported_n": 4,
+      "ambiguous_n": 0,
+      "loss_n": 0,
+      "preserved_n": 30,
+      "conditional_status_fidelity": 0.8666666666666667
+    },
+    {
+      "condition": "status_aware_source",
+      "n": 30,
+      "faithful_n": 30,
+      "faithful_rate": 1.0,
+      "joint_fidelity_low": 0.8864866068260312,
+      "joint_fidelity_high": 0.9999999999999999,
+      "omission_n": 0,
+      "unsupported_n": 0,
+      "ambiguous_n": 0,
+      "loss_n": 0,
+      "preserved_n": 30,
+      "conditional_status_fidelity": 1.0
+    }
+  ],
+  "reliability_source": "agreement.json"
+}

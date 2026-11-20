@@ -2,7 +2,7 @@
   "RA": {
     "rows": 210,
     "missing_required": 0,
-    "invalid_values": 1,
+    "invalid_values": 0,
     "details": {
       "proposition_identity": {
         "missing": 0,
@@ -22,12 +22,7 @@
       },
       "action_status": {
         "missing": 0,
-        "invalid": [
-          {
-            "item_id": "REPR-0206",
-            "value": "NOT_PURSUING but primary_dimension=ACTION"
-          }
-        ]
+        "invalid": []
       },
       "evidence_support": {
         "missing": 0,

@@ -126,10 +126,10 @@
   "action_status": {
     "n_pairs": 210,
     "raw_agreement": 0.7,
-    "cohen_kappa": 0.4489795918367346,
+    "cohen_kappa": 0.445910290237467,
     "label_counts_a": {
-      "NOT_APPLICABLE": 140,
-      "NOT_PURSUING": 70
+      "NOT_APPLICABLE": 141,
+      "NOT_PURSUING": 69
     },
     "label_counts_b": {
       "NOT_APPLICABLE": 140,
@@ -140,13 +140,13 @@
     },
     "confusion_matrix": {
       "NOT_APPLICABLE": {
-        "NOT_APPLICABLE": 140
+        "NOT_APPLICABLE": 140,
+        "COMMITTED": 1
       },
       "NOT_PURSUING": {
         "NOT_EXPRESSED": 55,
         "NOT_PURSUING": 7,
-        "CONSIDERING": 7,
-        "COMMITTED": 1
+        "CONSIDERING": 7
       }
     }
   },

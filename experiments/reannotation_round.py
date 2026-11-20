@@ -26,6 +26,7 @@ import csv
 import hashlib
 import json
 import random
+import re
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -365,7 +366,7 @@ def merge(sheet_path: Path, out: Path) -> None:
             "condition": key[item_id]["condition"],
             "dimension": key[item_id]["dimension"],
             "gold_status": key[item_id]["gold_status"],
-            "adjudicator": (disputed or {}).get("adjudicator", "").strip() or "human-adjudicator",
+            "adjudicator": (disputed or {}).get("adjudicator", "").strip() or "none (agreement)",
             "rule": (disputed or {}).get("rule", "").strip() or "agreement",
         }
         for field in LABEL_FIELDS:
@@ -388,14 +389,25 @@ def merge(sheet_path: Path, out: Path) -> None:
                          "see merge_report.json")
 
     write_csv(out / "adjudication.csv", merged, ADJUDICATION_FIELDS)
-    (out / "merge_report.json").write_text(json.dumps({
+    adjudicators = Counter(row["adjudicator"] for row in merged)
+    machine_like = sorted(name for name in adjudicators
+                          if re.search(r"\b(ai|model|gpt|claude|llm)\b", name, re.I))
+    report_payload = {
         "status": "merged",
         "n_items": len(merged),
         "n_disputed_items": len(sheet),
         "missing_required": missing,
         "invalid_values": invalid,
-    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        "adjudicator_counts": dict(adjudicators),
+        "human_adjudication_consistent": not machine_like,
+    }
+    (out / "merge_report.json").write_text(
+        json.dumps(report_payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"wrote {out / 'adjudication.csv'} ({len(merged)} rows, {len(sheet)} disputed)")
+    if machine_like:
+        print("WARNING: adjudicator label looks machine-assisted: "
+              + ", ".join(machine_like)
+              + "; do not describe this round as human-adjudicated")
 
 
 def summarize(out: Path) -> None:

@@ -479,7 +479,7 @@ REPR-0205,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUI
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"
-REPR-0206,primary_dimension;expressed_status;action_status;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_PURSUING,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"T3 仅确认奖学金到账、条件满足，未提及开始安排考试；记忆""正在安排考试""断言了对话不支持的动作状态。",MEDIUM,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,COMMITTED,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,CONDITIONAL_COLLAPSE,T3 只说明条件满足并会考虑，未支持“正在安排考试”等执行动作，记忆把考虑升级为执行。,HIGH,T1;T3,,,,,,,,,,,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，符合驾考条件，正在安排考试。近期天气多变，课程作业及日常事务已完成。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+REPR-0206,primary_dimension;expressed_status;action_status;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"T3 仅确认奖学金到账、条件满足，未提及开始安排考试；记忆""正在安排考试""断言了对话不支持的动作状态。",MEDIUM,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,COMMITTED,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,CONDITIONAL_COLLAPSE,T3 只说明条件满足并会考虑，未支持“正在安排考试”等执行动作，记忆把考虑升级为执行。,HIGH,T1;T3,,,,,,,,,,,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，符合驾考条件，正在安排考试。近期天气多变，课程作业及日常事务已完成。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
 [Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
 [Turn 3] 我已经拿到奖学金了，条件已经满足。
 [Turn 4] 今天还处理了课程作业和一些日常事务。"

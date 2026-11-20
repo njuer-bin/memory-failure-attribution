@@ -1,0 +1,501 @@
+﻿item_id,disputed_fields,A_proposition_identity,A_primary_dimension,A_status_expressed,A_expressed_status,A_action_status,A_evidence_support,A_primary_judgment,A_subtype,A_rationale,A_confidence,A_turn_references,B_proposition_identity,B_primary_dimension,B_status_expressed,B_expressed_status,B_action_status,B_evidence_support,B_primary_judgment,B_subtype,B_rationale,B_confidence,B_turn_references,adj_proposition_identity,adj_primary_dimension,adj_status_expressed,adj_expressed_status,adj_action_status,adj_evidence_support,adj_primary_judgment,adj_subtype,adjudicator,rule,target_proposition,target_question,memory_text,dialogue
+REPR-0002,evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已决定换工作并会按计划推进，记忆的计划进行/备考表述与该承诺状态一致。,MEDIUM,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 仅决定后会推进，未支持已开始/进行中；记忆把未来执行写成进行中，时间提前。,MEDIUM,T1;T3,,,,,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话仅“决定按计划推进”，记忆写“计划进行中”把将来执行写成进行中，属时间提前（§10 temporal escalation）。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,换工作计划进行中，课程作业和日常事务繁忙，关注天气变化。,"[Turn 1] 我正在考虑换一份工作，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要换一份工作，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0003,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑更换工作，未确定；天气变化大，整理日程中；已完成课程作业和日常事务。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会换一份工作。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0004,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定换工作并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑换工作已决定，计划推进中。最近天气变化大，同时整理日程、处理课程作业和日常事务。,"[Turn 1] 我正在考虑换一份工作，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要换一份工作，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0005,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定换工作并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑换工作已决定，计划推进中。最近天气变化大，同时整理日程、处理课程作业和日常事务。,"[Turn 1] 我正在考虑换一份工作，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要换一份工作，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0006,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金已到账，满足换工作条件，正在整理日程。今日处理课程作业，近期天气多变。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0007,primary_dimension;expressed_status;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"记忆""已开始健身计划""超出 T3 仅确认会开始健身的状态，动作被提前。",HIGH,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 只确认“会做”，未支持已开始或进行中；记忆把未来状态写成已发生，属时间提前。,MEDIUM,T1;T3,,EPISTEMIC,,ESTABLISHED,,,,TEMPORAL,ADJ-AI,对话T3“确认会X”为EPISTEMIC确立；记忆写“已开始/已学会”把将来确认升级为已发生，属temporal escalation（§10）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,已开始健身计划，调整日程应对天气。今日已完成课程作业及日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会开始健身，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0008,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果待定，是换工作的条件。最近天气多变，日程整理中。已完成课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0009,primary_dimension;status_expressed;expressed_status;primary_judgment;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_APPLICABLE,AMBIGUOUS,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"T3 明确""仍只是可能、未确认""，记忆却称已安排健身时间，既超出对话依据又与其自身""计划待定""矛盾。",MEDIUM,T1;T3,PRESERVED,EPISTEMIC,UNCLEAR,UNKNOWN,NOT_APPLICABLE,AMBIGUOUS,AMBIGUOUS_UNASSESSABLE,NONE,记忆中“待定”与“已安排时间”相互冲突，同一命题的状态无法解析。,HIGH,T3,,EPISTEMIC,UNCLEAR,UNKNOWN,,,AMBIGUOUS_UNASSESSABLE,NONE,ADJ-AI,记忆“计划待定+已安排健身时间”为矛盾cue对（§9/§10），状态不可解析→AMBIGUOUS_UNASSESSABLE。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身计划待定，已安排健身时间，关注天气。作业事务已完成。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开始健身。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0010,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，影响健身。近期事务繁杂，包括课程作业、日程整理和天气多变。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0011,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,考虑开始健身，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开始健身。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0012,primary_judgment,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已确认会换工作，记忆的确认/已确定状态与对话最终状态一致。,HIGH,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑/可能、T3 转为确认，记忆同时保留旧状态与最终确认，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,已确认更换工作（此前考虑过），天气变化大，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会换一份工作，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0015,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，健身达标，日程调整中。近期天气多变，课程作业及日常事务已完成。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0017,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足换工作条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0018,primary_dimension;expressed_status;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"T3 确认会开始健身，记忆称""健身已开始""，把意向写成已发生。",HIGH,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 只确认“会做”，未支持已开始或进行中；记忆把未来状态写成已发生，属时间提前。,MEDIUM,T1;T3,,EPISTEMIC,,ESTABLISHED,,,,TEMPORAL,ADJ-AI,对话T3“确认会X”为EPISTEMIC确立；记忆写“已开始/已学会”把将来确认升级为已发生，属temporal escalation（§10）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身已开始，不再猜测；近期天气变化大，正在整理日程，兼顾课程作业和日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会开始健身，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0020,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑换工作，但尚未确定。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会换一份工作。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0022,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身考虑中，未确定。近期天气变化大，日程繁忙，有课程作业和日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开始健身。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0023,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足健身条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0024,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足换工作条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0029,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑换工作，近期日程紧张，课程作业多，受天气影响。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会换一份工作。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0030,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑换工作，天气多变，正在整理日程，兼顾课程作业和日常事务。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会换一份工作。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0031,evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已决定健身并会按计划推进，记忆的计划进行/备考表述与该承诺状态一致。,MEDIUM,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 仅决定后会推进，未支持已开始/进行中；记忆把未来执行写成进行中，时间提前。,MEDIUM,T1;T3,,,,,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话仅“决定按计划推进”，记忆写“计划进行中”把将来执行写成进行中，属时间提前（§10 temporal escalation）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身计划进行中，近期日程紧张，兼顾课程作业和日常事务。关注天气调整计划。,"[Turn 1] 我正在考虑开始健身，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要开始健身，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0032,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果待定，换工作条件未满足；天气变化大，正在整理日程；课程作业和日常事务已完成。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0033,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，影响工作；天气多变，整理日程中；作业事务已完成。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0034,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金已获，健身条件满足。近期天气变化，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0036,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足健身条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0037,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，影响健身。近期天气多变，日程繁忙，兼顾课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0038,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,考虑开始健身，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开始健身。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0039,primary_dimension;expressed_status;evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已确认会健身，记忆的计划/备考表述与该确认状态一致。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 只确认“会做”，未支持已开始或进行中；记忆把未来状态写成已发生，属时间提前。,MEDIUM,T1;T3,,EPISTEMIC,,ESTABLISHED,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话T3“确认会X”为EPISTEMIC确立；记忆“计划进行中”把将来执行写成进行中，不被对话支持（§10 TEMPORAL）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身计划进行中，日程略有调整。已完成课程作业及日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会开始健身，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0040,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定健身并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,考虑健身并已决定开始，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我正在考虑开始健身，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要开始健身，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0044,primary_judgment,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已确认会换工作，记忆的确认/已确定状态与对话最终状态一致。,HIGH,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑/可能、T3 转为确认，记忆同时保留旧状态与最终确认，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,已确定更换工作，此前考虑过。近期天气变化大，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会换一份工作，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0045,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足健身条件。近期天气多变，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0046,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 条件已满足，记忆写“考虑该行动”，与对话中“拿到后才考虑”一致。,HIGH,T1;T3,,,,,CONSIDERING,,,,ADJ-AI,记忆明确写“考虑换工作/开店/考驾照”，为显式consideration cue；按§D action_status=CONSIDERING。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足换工作条件，用户考虑换工作。近期日程紧张，正在整理日程，受天气、作业和事务影响。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0049,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，满足换工作条件，整理日程中。近期天气多变，已完成课程作业及日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0050,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，健身计划受其影响。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0051,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身计划因天气和日程未定，已完成作业和日常事务，具体开始时间待定。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开始健身。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0052,status_expressed;expressed_status;action_status;evidence_support;primary_judgment,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,UNCLEAR,UNKNOWN,NOT_EXPRESSED,AMBIGUOUS,AMBIGUOUS_UNASSESSABLE,NONE,记忆中“到账”与“需满足”线索并存，条件状态自相矛盾，无法判定。,HIGH,T1;T3,,,UNCLEAR,UNKNOWN,NOT_EXPRESSED,AMBIGUOUS,AMBIGUOUS_UNASSESSABLE,,ADJ-AI,记忆“奖学金到账+需满足健身条件”为矛盾cue对（§10），条件状态不可解析→AMBIGUOUS。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，需满足健身条件。课程作业多，日程因天气调整。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0053,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，影响工作计划。事务繁杂，需整理日程、作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0055,primary_dimension;expressed_status;evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已确认会健身，记忆的计划/备考表述与该确认状态一致。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 只确认“会做”，未支持已开始或进行中；记忆把未来状态写成已发生，属时间提前。,MEDIUM,T1;T3,,EPISTEMIC,,ESTABLISHED,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话T3“确认会X”为EPISTEMIC确立；记忆“计划进行中”把将来执行写成进行中，不被对话支持（§10 TEMPORAL）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身计划进行中，日程略有调整。已完成课程作业及日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会开始健身，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0057,expressed_status;evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已决定换工作并会按计划推进，记忆的计划进行/备考表述与该承诺状态一致。,MEDIUM,T1;T3,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,CONTRADICTED_BY_LATER_DIALOGUE,UNSUPPORTED_STATUS_DISTORTION,COMMITMENT_DEFLATION,T3 已决定并推进，记忆仍写作“计划中/计划进行中”，把承诺弱化了。,HIGH,T1;T3,,,,CONSIDERING,,CONTRADICTED_BY_LATER_DIALOGUE,UNSUPPORTED_STATUS_DISTORTION,COMMITMENT_DEFLATION,ADJ-AI,对话T3已决定要换工作（COMMITTED）；记忆仅“计划中”，按§10为commitment deflation=CONSIDERING。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,换工作计划中，近期日程紧张，兼顾课程作业、日常事务，关注天气。,"[Turn 1] 我正在考虑换一份工作，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要换一份工作，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0058,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果待定，影响健身计划，条件未满足。天气变化大，日程整理中。已完成课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0059,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未果，影响工作考虑。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0061,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足健身条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0062,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果待定，影响健身计划。近期天气多变，正整理日程，兼顾课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0063,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑换工作，近期日程紧张，课程作业多，受天气影响。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会换一份工作。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0064,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 条件已满足，记忆写“考虑该行动”，与对话中“拿到后才考虑”一致。,HIGH,T1;T3,,,,,CONSIDERING,,,,ADJ-AI,记忆明确写“考虑换工作/开店/考驾照”，为显式consideration cue；按§D action_status=CONSIDERING。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足换工作条件，用户考虑换工作。近期天气变化大，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0065,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，健身计划受其影响。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开始健身。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0066,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身计划待定，已考虑中。近期天气多变，已完成课程作业和日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开始健身。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0067,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，满足换工作条件，整理日程中。近期天气多变，已完成课程作业及日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0068,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑更换工作，尚未确定；最近天气变化大，正在整理日程；已处理课程作业和日常事务。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会换一份工作。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0069,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未果，影响工作考虑。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0074,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,考虑换工作，但尚未确定。最近天气多变，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会换一份工作。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0075,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,"T3 已确认会换工作，记忆""已定/已决定""与对话最终状态一致。",HIGH,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确确认会做该事，记忆的“已确认”与对话最终状态一致。,HIGH,T1;T3,,EPISTEMIC,,ESTABLISHED,,,,,ADJ-AI,对话T3“已确认会X”为确定性确立（EPISTEMIC）；记忆“已定/准备会”表达ESTABLISHED，与对话一致。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,换工作已定，细节待定。近期天气多变，日程紧张，需平衡课程作业和日常事务。,"[Turn 1] 我可能会换一份工作，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会换一份工作，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0077,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,用户考虑健身，尚未确定，近期天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 我可能会开始健身，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开始健身。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0080,evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已决定健身并会按计划推进，记忆的计划进行/备考表述与该承诺状态一致。,MEDIUM,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 仅决定后会推进，未支持已开始/进行中；记忆把未来执行写成进行中，时间提前。,MEDIUM,T1;T3,,,,,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话仅“决定按计划推进”，记忆写“计划进行中”把将来执行写成进行中，属时间提前（§10 temporal escalation）。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,健身计划进行中，需兼顾天气、日程、作业和日常事务，注意平衡。,"[Turn 1] 我正在考虑开始健身，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要开始健身，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0082,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,换一份工作,目标命题：换一份工作。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未出，未满足换工作条件；天气变化大，正在整理日程；已处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑换一份工作。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0084,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定健身并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,开始健身,目标命题：开始健身。请判断记忆是否保留该命题及其在对话中的状态。,考虑健身并已决定开始，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我正在考虑开始健身，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要开始健身，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0085,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,考虑开网店，但尚未确定。最近天气多变，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开一家网店。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0086,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,考虑开设网店，近期日程紧张，课程作业多，事务繁杂，受天气影响需灵活调整。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开一家网店。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0087,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,考虑开设网店，目前计划未定，近期日程繁忙，需兼顾学业和日常事务。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开一家网店。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0088,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,考虑开网店，但尚未确定。最近天气多变，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开一家网店。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0089,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,考虑开设网店，近期天气多变，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开一家网店。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0090,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,考虑开设网店，未确定；近期天气变化大，正在整理日程；今日已完成课程作业和日常事务。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开一家网店。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0091,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,用户考虑开设网店，尚未确定，正在整理日程，受天气影响。已完成课程作业和日常事务。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会开一家网店。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0099,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，影响网店计划。近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0100,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，影响网店启动。课程事务繁杂，受天气影响，日程紧张。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0101,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未出，影响网店启动。近期天气不稳定，用户课程作业、事务繁忙，正在整理日程。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0102,action_status;evidence_support;primary_judgment;subtype,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,CONSIDERING,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,CONDITIONAL_COLLAPSE,T3 条件仍未满足，记忆却写作“考虑开网店”，在前提达成前给出考虑状态，缺乏对话支持。,MEDIUM,T3,,,,,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,ADJ-AI,记忆明确“考虑开网店”=CONSIDERING；T3确认条件未满足，CONDITION_ACTIVE受支持；非COMMITTED升级，不构CONDITIONAL_COLLAPSE，与组5口径一致。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,等待奖学金结果，条件未满足。近期天气变化大，正在整理日程，处理课程作业和日常事务，考虑开网店。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0103,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,等待奖学金结果，是开网店的前提。近期兼顾课程作业、日常事务和日程整理，天气多变。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0107,proposition_identity;primary_dimension;status_expressed;expressed_status;evidence_support;primary_judgment;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"T3 仅确认会开网店，记忆""网店运营繁忙""预设店铺已开业运营。",HIGH,T1;T3,PARTIAL,EPISTEMIC,NO,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,PROPOSITION_LOSS,NONE,记忆只留下“网店运营/经营”这一话题，目标谓语“开”无法找回，命题仅部分保留。,MEDIUM,T1;T3,PARTIAL,EPISTEMIC,NO,NOT_EXPRESSED,,NOT_ASSESSABLE,PROPOSITION_LOSS,NONE,ADJ-AI,记忆只留“网店运营/经营”话题名词，丢掉目标谓语“开”，identity=PARTIAL→PROPOSITION_LOSS（§A/§4）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,网店运营、学习、日常事务繁忙，近期天气不稳定。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会开一家网店，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0108,proposition_identity;primary_dimension;status_expressed;expressed_status;evidence_support;primary_judgment;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"T3 仅确认会开网店，记忆""网店经营紧张""预设店铺已在经营。",HIGH,T1;T3,PARTIAL,EPISTEMIC,NO,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,PROPOSITION_LOSS,NONE,记忆只留下“网店运营/经营”这一话题，目标谓语“开”无法找回，命题仅部分保留。,MEDIUM,T1;T3,PARTIAL,EPISTEMIC,NO,NOT_EXPRESSED,,NOT_ASSESSABLE,PROPOSITION_LOSS,NONE,ADJ-AI,记忆只留“网店运营/经营”话题名词，丢掉目标谓语“开”，identity=PARTIAL→PROPOSITION_LOSS（§A/§4）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,网店经营紧张，课程作业与日常事务并行，近期天气不稳定。,"[Turn 1] 我可能会开一家网店，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会开一家网店，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0113,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定开网店并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,考虑开网店已决定，计划推进中。近期天气变化大，同时整理日程、处理课程作业和日常事务。,"[Turn 1] 我正在考虑开一家网店，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要开一家网店，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0114,evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已决定开网店并会按计划推进，记忆的计划进行/备考表述与该承诺状态一致。,MEDIUM,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 仅决定后会推进，未支持已开始/进行中；记忆把未来执行写成进行中，时间提前。,MEDIUM,T1;T3,,,,,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话仅“决定按计划推进”，记忆写“计划进行中”把将来执行写成进行中，属时间提前（§10 temporal escalation）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,开网店计划进行中，近期需兼顾天气、日程、课程作业和日常事务。,"[Turn 1] 我正在考虑开一家网店，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要开一家网店，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0116,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定开网店并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,考虑开网店已决定，计划推进中。近期天气变化大，同时整理日程、处理课程作业和日常事务。,"[Turn 1] 我正在考虑开一家网店，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要开一家网店，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0118,evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已决定开网店并会按计划推进，记忆的计划进行/备考表述与该承诺状态一致。,MEDIUM,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 仅决定后会推进，未支持已开始/进行中；记忆把未来执行写成进行中，时间提前。,MEDIUM,T1;T3,,,,,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话仅“决定按计划推进”，记忆写“计划进行中”把将来执行写成进行中，属时间提前（§10 temporal escalation）。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,开网店计划进行中，日程受天气影响；兼顾课程作业和日常事务。,"[Turn 1] 我正在考虑开一家网店，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要开一家网店，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0120,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足开网店条件。近期天气变化大，正在整理日程，并处理课程作业及日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0121,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，符合开网店条件，正在整理日程。近期天气不稳定，已完成课程作业及日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0122,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,"T3 已拿到奖学金、条件满足，记忆一致；""开店准备""表述略超出对话但属次要，整体状态一致。",MEDIUM,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 条件已满足，记忆也表示条件达成，未额外断言行动状态。,MEDIUM,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，满足开网店条件，正安排日程。近期课程繁重，天气多变，需平衡学习、日常事务和开店准备。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0123,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足开网店条件。近期天气变化大，正在整理日程，并处理课程作业及日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0124,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足开网店条件，正在整理日程兼顾课程作业，并关注天气变化。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0125,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 条件已满足，记忆写“考虑该行动”，与对话中“拿到后才考虑”一致。,HIGH,T1;T3,,,,,CONSIDERING,,,,ADJ-AI,记忆明确写“考虑换工作/开店/考驾照”，为显式consideration cue；按§D action_status=CONSIDERING。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足开网店条件，用户考虑开网店。近期天气变化大，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0126,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 条件已满足，记忆写“考虑该行动”，与对话中“拿到后才考虑”一致。,HIGH,T1;T3,,,,,CONSIDERING,,,,ADJ-AI,记忆明确写“考虑换工作/开店/考驾照”，为显式consideration cue；按§D action_status=CONSIDERING。,开一家网店,目标命题：开一家网店。请判断记忆是否保留该命题及其在对话中的状态。,奖学金已到账，开网店条件满足，用户考虑开网店。近期天气变化大，正在整理日程、处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑开一家网店。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0127,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,考虑学习游泳，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会学会游泳，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会学会游泳。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0128,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,考虑学习游泳，受天气影响，日程待定。日常事务已了，游泳学习仍在考虑中。,"[Turn 1] 我可能会学会游泳，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会学会游泳。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0129,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,游泳学习因天气待定，今日已完成作业事务，计划未定。,"[Turn 1] 我可能会学会游泳，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会学会游泳。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0130,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,考虑学习游泳，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会学会游泳，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会学会游泳。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0131,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,考虑学习游泳，近期天气多变，正在整理日程。已完成作业，游泳学习仍是潜在选项，尚未确定。,"[Turn 1] 我可能会学会游泳，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会学会游泳。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0141,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，游泳条件未满足。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0143,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，游泳未达标。近期事务繁杂，包括日程整理、课程作业处理等。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0144,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，游泳条件未满足。最近天气变化大，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0145,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，游泳条件未达标。近期天气多变，忙于课程作业、日常事务和日程整理。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0150,primary_judgment,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已确认会学游泳，记忆的确认/已确定状态与对话最终状态一致。,HIGH,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为确认，记忆保留了先前考虑与最终确认，属有依据的变化。,MEDIUM,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,学习游泳已确认，原考虑中级。因天气调整日程，今日已完成作业和日常事务。,"[Turn 1] 我可能会学会游泳，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会学会游泳，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0153,primary_dimension;expressed_status;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"T3 确认会学会游泳，记忆""已学会游泳""把意向写成已完成。",HIGH,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 只确认“会做”，未支持已开始或进行中；记忆把未来状态写成已发生，属时间提前。,MEDIUM,T1;T3,,EPISTEMIC,,ESTABLISHED,,,,TEMPORAL,ADJ-AI,对话T3“确认会X”为EPISTEMIC确立；记忆写“已开始/已学会”把将来确认升级为已发生，属temporal escalation（§10）。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,已学会游泳，天气变化大，正在整理日程；课程作业和日常事务已处理。,"[Turn 1] 我可能会学会游泳，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会学会游泳，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0155,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定学游泳并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,考虑游泳已决定开始，近期天气变化大，正在整理日程并处理课程作业及日常事务。,"[Turn 1] 我正在考虑学会游泳，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要学会游泳，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0156,status_expressed;expressed_status;evidence_support;primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已决定学游泳并会按计划推进，记忆的计划进行/备考表述与该承诺状态一致。,MEDIUM,T1;T3,PRESERVED,INTENTIONAL,NO,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,T3 已明确决定并推进，记忆只提到制定计划/规划日程，未明确写出承诺状态。,MEDIUM,T1;T3,,,NO,NOT_EXPRESSED,,NOT_ASSESSABLE,STATUS_OMISSION,,ADJ-AI,记忆“学习游泳、制定计划”为裸动作，无显式决定/承诺cue；主维度无状态词→STATUS_OMISSION（§C）。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,学习游泳，制定计划，关注天气。已完成作业及日常事务。,"[Turn 1] 我正在考虑学会游泳，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要学会游泳，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0158,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定学游泳并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,考虑游泳并已决定开始，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我正在考虑学会游泳，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要学会游泳，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0162,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足学习游泳条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0163,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，可游泳。近期日程紧张，兼顾课程作业、日常事务，关注天气。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0164,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，可参加游泳。近期日程紧张，课程作业繁杂，天气多变。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0165,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足学习游泳条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0166,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足游泳条件。近期天气多变，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0167,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,奖学金已获，满足游泳条件。近期天气变化大，正在整理日程，已完成课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0168,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,学会游泳,目标命题：学会游泳。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足“拿到奖学金，我才考虑学会游泳”条件；最近天气变化大，今天已处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑学会游泳。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0169,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考虑考驾照，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会考驾照，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会考驾照。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0170,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考驾照待定，日程调整中，已完成作业，驾照考试为潜在计划。,"[Turn 1] 我可能会考驾照，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会考驾照。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0171,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“仍然只是可能、尚未确认”，记忆表达的可能/未确定与最终状态一致。,HIGH,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考驾照考虑中，近期日程调整，已完成日常事务，驾照考试为潜在计划。,"[Turn 1] 我可能会考驾照，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会考驾照。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0172,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,CONSIDERING,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍只是可能、未确认，记忆的考虑/未决表述与对话的未定状态一致，无升级。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,POSSIBLE,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 仍为可能未确认，记忆以“考虑”表达同一未定状态，与最终状态一致。,MEDIUM,T3,,EPISTEMIC,,POSSIBLE,,,,,ADJ-AI,T1/T3均为可能、未确认的确定性表述，更新围绕EPISTEMIC；考虑/待定在epistemic维度下为POSSIBLE（§10）。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考虑考驾照，近期天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我可能会考驾照，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 目前仍然只是可能，我还没有确认会考驾照。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0183,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金未定，影响驾照计划。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0184,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，影响驾照计划。近期事务繁杂，包括日程、作业和天气多变。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0185,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，影响驾照计划。近期事务繁杂，包括日程、作业和天气多变。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0186,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果未定，影响驾照考虑。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0187,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果待定，影响驾照计划。近期天气多变，正整理日程，兼顾课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0188,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 奖学金尚无结果、条件未满足，记忆的条件未满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_ACTIVE,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“奖学金尚无结果、条件未满足”，记忆的条件状态与对话一致。,HIGH,T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金结果待定，驾照条件未满足。近期天气变化大，正在整理日程。已完成课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 奖学金还没有结果，条件尚未满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0191,primary_dimension;status_expressed;expressed_status;evidence_support;primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已确认会考驾照，记忆的计划/备考表述与该确认状态一致。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,NO,NOT_EXPRESSED,NOT_APPLICABLE,NOT_ASSESSABLE,STATUS_OMISSION,NONE,T3 已明确确认状态，但记忆没有给出明确的状态词，仅保留话题。,HIGH,T1;T3,,EPISTEMIC,NO,NOT_EXPRESSED,,NOT_ASSESSABLE,STATUS_OMISSION,,ADJ-AI,对话为“已确认会考驾照”的EPISTEMIC轨迹；记忆“计划因天气调整”无显式状态词→STATUS_OMISSION。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考驾照计划因天气调整，今日已完成作业及日常事务。,"[Turn 1] 我可能会考驾照，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会考驾照，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0192,primary_dimension;expressed_status;evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已确认会考驾照，记忆的计划/备考表述与该确认状态一致。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 只确认“会做”，未支持已开始或进行中；记忆把未来状态写成已发生，属时间提前。,MEDIUM,T1;T3,,EPISTEMIC,,ESTABLISHED,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话T3“确认会X”为EPISTEMIC确立；记忆“计划进行中”把将来执行写成进行中，不被对话支持（§10 TEMPORAL）。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考驾照计划进行中，需兼顾课程作业、日常事务，关注天气调整日程。,"[Turn 1] 我可能会考驾照，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会考驾照，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0195,primary_dimension;expressed_status,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已确认会考驾照，记忆的计划/备考表述与该确认状态一致。,MEDIUM,T1;T3,PRESERVED,EPISTEMIC,YES,ESTABLISHED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 由“可能”更新为“确认”，记忆表达的确认与最终状态一致。,MEDIUM,T1;T3,,EPISTEMIC,,ESTABLISHED,,,,,ADJ-AI,对话T3“已确认会X”为确定性确立（EPISTEMIC）；记忆“已定/准备会”表达ESTABLISHED，与对话一致。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,准备会考驾照，近期天气多变，正在整理日程。已完成课程作业和日常事务。,"[Turn 1] 我可能会考驾照，但现在还不能确定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经确认会考驾照，这不是猜测了。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0197,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定考驾照并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考虑考驾照已决定，计划推进中。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我正在考虑考驾照，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要考驾照，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0200,primary_judgment,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确已决定考驾照并按计划推进，记忆的决定/已定状态与对话一致。,HIGH,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,LEGITIMATE_UPDATE,NONE,T1 为考虑、T3 转为已决定并按计划推进，记忆保留前后两种状态，是有依据的变化。,HIGH,T1;T3,,,,,,,LEGITIMATE_UPDATE,,ADJ-AI,记忆保留“此前考虑过→已决定/已确认”的有序链，把后续变化表示为变化；按§F step3=LEGITIMATE_UPDATE。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考虑考驾照已决定，计划推进中。最近天气变化大，正在整理日程，同时处理课程作业和日常事务。,"[Turn 1] 我正在考虑考驾照，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要考驾照，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0202,evidence_support;primary_judgment;subtype,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已决定考驾照并会按计划推进，记忆的计划进行/备考表述与该承诺状态一致。,MEDIUM,T1;T3,PRESERVED,INTENTIONAL,YES,COMMITTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,T3 仅决定后会推进，未支持已开始/进行中；记忆把未来执行写成进行中，时间提前。,MEDIUM,T1;T3,,,,,,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,TEMPORAL,ADJ-AI,对话仅“决定按计划推进”，记忆写“计划进行中”把将来执行写成进行中，属时间提前（§10 temporal escalation）。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,考驾照计划进行中，日程因天气调整。已完成课程作业和日常事务。,"[Turn 1] 我正在考虑考驾照，还没有作出决定。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经决定要考驾照，会按这个计划推进。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0204,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足考驾照条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0205,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，符合驾考条件，正安排日程。已完成今日事务，注意近期天气。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0206,primary_dimension;expressed_status;action_status;subtype,PRESERVED,ACTION,YES,ACTION_STARTED,NOT_APPLICABLE,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,ESCALATION,"T3 仅确认奖学金到账、条件满足，未提及开始安排考试；记忆""正在安排考试""断言了对话不支持的动作状态。",MEDIUM,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,COMMITTED,NOT_SUPPORTED,UNSUPPORTED_STATUS_DISTORTION,CONDITIONAL_COLLAPSE,T3 只说明条件满足并会考虑，未支持“正在安排考试”等执行动作，记忆把考虑升级为执行。,HIGH,T1;T3,,CONDITIONAL,,CONDITION_SATISFIED,COMMITTED,,,CONDITIONAL_COLLAPSE,ADJ-AI,条件轨迹维度=CONDITIONAL；T3条件满足受支持，但记忆“正在安排考试”把行动升级为COMMITTED，无对话支持→CONDITIONAL_COLLAPSE（§F/§9）。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,奖学金到账，符合驾考条件，正在安排考试。近期天气多变，课程作业及日常事务已完成。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0207,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足考驾照条件。最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0208,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_EXPRESSED,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 明确“已拿到奖学金、条件已满足”，记忆的条件状态与对话一致。,HIGH,T1;T3,,,,,NOT_EXPRESSED,,,,ADJ-AI,记忆仅陈述条件状态并用裸动作动词（换工作/健身等），无明确追求状态词；按§D/§9 bare verb=NOT_EXPRESSED。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足考驾照条件，正在整理日程，处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0209,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 条件已满足，记忆停在“考虑”层面，与对话支持的状态一致。,MEDIUM,T1;T3,,,,,CONSIDERING,,,,ADJ-AI,记忆明确写“考虑换工作/开店/考驾照”，为显式consideration cue；按§D action_status=CONSIDERING。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,已获奖学金，满足考驾照条件，承诺考虑考驾照。近期日程紧张，兼顾课程作业和日常事务，受天气影响。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
+REPR-0210,action_status,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,NOT_PURSUING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 已拿到奖学金、条件已满足，记忆的条件满足表述与对话一致。,HIGH,T1;T3,PRESERVED,CONDITIONAL,YES,CONDITION_SATISFIED,CONSIDERING,SUPPORTED_BY_DIALOGUE,NO_DISTORTION,NONE,T3 条件已满足，记忆停在“考虑”层面，与对话支持的状态一致。,MEDIUM,T1;T3,,,,,CONSIDERING,,,,ADJ-AI,记忆明确写“考虑换工作/开店/考驾照”，为显式consideration cue；按§D action_status=CONSIDERING。,考驾照,目标命题：考驾照。请判断记忆是否保留该命题及其在对话中的状态。,已获得奖学金，满足考驾照条件，用户承诺考虑考驾照；最近天气变化大，正在整理日程，并处理课程作业和日常事务。,"[Turn 1] 如果拿到奖学金，我才考虑考驾照。
+[Turn 2] 顺便说一下，最近天气变化很大，我还在整理日程。
+[Turn 3] 我已经拿到奖学金了，条件已经满足。
+[Turn 4] 今天还处理了课程作业和一些日常事务。"
