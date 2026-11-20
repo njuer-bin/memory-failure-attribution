@@ -160,8 +160,9 @@ into the plotting code.
 - The synthetic annotation is reported as **annotator-unspecified**: human
   label provenance was not recorded. All reported kappa values are
   post-adjudication, and adjudication was model-assisted.
-- The 16 expansion controls (`*-11` through `*-14`) are mechanically checked
-  but not two-human validated; the original 40 scenarios carry recorded
+- The 16 expansion controls (`*-11` through `*-14`) were two-human validated
+  after the main run (realism 4.97/5 pooled; `only_status_differs` 15/16,
+  kappa 1.000; `HEA-11` excluded). The original 40 scenarios carry the pre-run
   two-human ratings.
 - The unauthorized-reason coding is post hoc, gold-unblinded, and analyst
   performed; no independent second rater is included.

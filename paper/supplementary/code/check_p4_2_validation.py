@@ -70,6 +70,10 @@ def mean(values: list[float]) -> float | None:
     return sum(values) / len(values) if values else None
 
 
+def fmt(value: float | None) -> str:
+    return "n/a" if value is None else f"{value:.3f}"
+
+
 def check_provenance(path: Path) -> dict:
     if not path.exists():
         return {"present": False}
@@ -89,6 +93,7 @@ def main() -> None:
     parser.add_argument("--b", type=Path, default=root / "validation_B.csv")
     parser.add_argument("--out", type=Path,
                         default=root / "analysis" / "validation_summary.json")
+    parser.add_argument("--provenance-prefix", default="validation_provenance")
     args = parser.parse_args()
 
     sheets = {"A": load(args.a), "B": load(args.b)}
@@ -207,7 +212,7 @@ def main() -> None:
         "all_pass": all(check["pass"] for check in gate_results.values()),
     }
 
-    provenance = {name: check_provenance(args.a.parent / f"validation_provenance_{name}.json")
+    provenance = {name: check_provenance(args.a.parent / f"{args.provenance_prefix}_{name}.json")
                   for name in ("A", "B")}
     report["provenance"] = provenance
     report["warnings"] = problems
@@ -224,13 +229,13 @@ def main() -> None:
     for field in list(RATING_FIELDS) + [FLAG_FIELD]:
         item = report["items"][field]
         if field == FLAG_FIELD:
-            print(f"{field}: yes_both={item['yes_both']:.3f} "
-                  f"agreement={item['exact_agreement']:.3f} kappa={item['cohen_kappa']}")
+            print(f"{field}: yes_both={fmt(item['yes_both'])} "
+                  f"agreement={fmt(item['exact_agreement'])} kappa={fmt(item['cohen_kappa'])}")
         else:
-            print(f"{field}: pooled_mean={item['pooled_mean']:.3f} "
-                  f"A={item['per_annotator']['A']['mean']:.3f} "
-                  f"B={item['per_annotator']['B']['mean']:.3f} "
-                  f"agreement={item['exact_agreement']:.3f}")
+            print(f"{field}: pooled_mean={fmt(item['pooled_mean'])} "
+                  f"A={fmt(item['per_annotator']['A']['mean'])} "
+                  f"B={fmt(item['per_annotator']['B']['mean'])} "
+                  f"agreement={fmt(item['exact_agreement'])}")
     for name, check in gate_results.items():
         print(f"gate {name}: value={check['value']} threshold={check['threshold']} "
               f"{'PASS' if check['pass'] else 'FAIL'}")

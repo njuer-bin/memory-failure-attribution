@@ -180,6 +180,29 @@ exact agreement 0.975; kappa 0.655. Excluded: AUT-05 (both no), AUT-01
 (B no, A yes; A dissent recorded). Frozen bank: 38 scenarios / 152 items,
 34 over-commitment + 4 controls; 28 intentional + 10 conditional.
 
+### 6b. P4.2 expansion controls (16)
+
+Source: `results/status_drift_v3_p4_2/analysis/validation_16_summary.json`,
+`validation_16_provenance_A.json` / `_B.json`.
+
+Sixteen authorized-execution controls (`MON/HEA/AUT/COM-11..14`), validated by
+the same two blind annotators (WMY, YTB) after the main run; provenance
+recorded, no model assistance.
+
+| Field | Pooled mean | A | B |
+|---|---:|---:|---:|
+| realism (1-5) | 4.969 | 4.938 | 5.000 |
+| status clarity | 5.000 | 5.000 | 5.000 |
+| rule clarity | 4.969 | 5.000 | 4.938 |
+| distortion plausibility | 4.312 | 3.875 | 4.750 |
+| stake severity | 2.875 | 2.688 | 3.062 |
+
+`only_status_differs`: yes-both 15/16 = 0.9375; exact agreement 1.000; kappa
+1.000. Excluded: HEA-11 (both no; the distorted variant changes the
+proposition). Fifteen expansion controls survive; the expansion acceptance
+(realism >= 3.5, yes-both >= 0.90) passes. Means are over all 16 before the
+exclusion.
+
 ## 7. P4.2 run — v2 single-form design (superseded)
 
 Superseded by §7b; reported here only so that the record shows what the design

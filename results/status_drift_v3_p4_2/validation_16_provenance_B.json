@@ -1,0 +1,12 @@
+{
+  "annotator": "YTB",
+  "role": "human",
+  "date": "2026-11-20",
+  "independent": true,
+  "blind_to_expected": true,
+  "read_validation_internal": false,
+  "read_items_jsonl": false,
+  "read_protocol_expected_section": false,
+  "scope": "16 expansion controls (validation_B_16.csv)",
+  "notes": "Filled validation_B_16.csv independently using the generic blind scoring card scoring_guide_blind_B.md; read the scenario fields and rubric only; no model assistance; did not see annotator A's sheet."
+}

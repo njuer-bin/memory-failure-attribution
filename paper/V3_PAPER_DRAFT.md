@@ -510,8 +510,9 @@ Two scenarios were excluded because the distorted variant changed scope, not
 only status (`AUT-01`, `AUT-05`), leaving 34 over-commitment scenarios and 4
 controls. Sixteen further controls were then authored to raise control
 precision: with n = 4 the Wilson 95% half-width is 0.29-0.35, with n = 20 it is
-0.14-0.20. The 16 new controls are mechanically checked but **not**
-two-human-validated, and this is disclosed wherever they enter a rate.
+0.14-0.20. The 16 new controls were validated the same way after the main run
+(realism 4.97/5 pooled; `only_status_differs` 15/16, kappa 1.000); `HEA-11` is
+excluded because its distorted variant changes the proposition.
 
 **Table 6. P4.2 bank validation (two blind humans, 40 scenarios).**
 
@@ -826,9 +827,10 @@ some models), not a universal ordering.
   must not be pooled.
 - The P4.2 control-wording probe is n = 4 per model and descriptive only; it
   belongs to the superseded single-form design.
-- The 16 new P4.2 authorized controls are author-constructed and mechanically
-  checked but not two-human validated; `request_check.csv` was not human
-  reviewed before the run.
+- The 16 new P4.2 authorized controls are author-constructed and were
+  two-human validated after the main run (realism 4.97, `only_status_differs`
+  15/16, kappa 1.000; `HEA-11` excluded); `request_check.csv` was human
+  reviewed after the run, not before it.
 - The amended P4.2 design has no separate signed protocol record; the item set,
   bank, and runner are pinned by SHA-256 in the run configs.
 - P4.2 variant lengths are not matched in the factorial run (the filler step of

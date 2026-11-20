@@ -2,35 +2,36 @@
 
 The ECAI 7+1-page port is built (`paper/submission_ecai/`), and the figures and
 supplementary archive are resynced to include the glm-5.3-flash v3.1 matrix.
-Everything below needs a person; none blocks the current build, but the first
-two should be resolved or disclosed before submission (~April 2027).
+Everything below needs a person. Items 1–3 were completed on 2026-11-20;
+items 4–5 remain before submission (~April 2027).
 
-## 1. Validate the 16 new authorized controls (highest priority)
+## 1. Validate the 16 new authorized controls — DONE (2026-11-20)
 
-Unchanged from 2026-11-19. Scenarios `MON/HEA/AUT/COM-11..14` in
-`datasets/p4_2_scenarios/p4_2_scenarios.yaml`. Score realism, status clarity,
-rule clarity, distortion plausibility, stake severity (1–5), and
-`only_status_differs` with `experiments/check_p4_2_validation.py`; also review
-the 54-row `request_check.csv`. Acceptance: pooled realism ≥ 3.5,
-only-status-differs yes-both ≥ 0.90; exclude and recompute any failure.
+WMY (A) and YTB (B) completed `validation_A_16.csv` / `validation_B_16.csv`
+independently. Pooled over 16: realism 4.97, status clarity 5.00, rule clarity
+4.97, distortion plausibility 4.31, stake severity 2.88;
+`only_status_differs` yes-both 0.9375 (kappa 1.000); `HEA-11` excluded, 15
+survivors. Acceptance (realism ≥ 3.5, yes-both ≥ 0.90) passes.
+`request_check.csv` is 54/54 `manipulation_ok=yes` with notes. Provenance is in
+`validation_16_provenance_A.json` / `_B.json`.
 
-Until done, the ECAI paper keeps: "the 16 new controls are mechanically
-checked but not two-human-validated."
-
-## 2. Independent second rater for the reason coding
+## 2. Independent second rater for the reason coding — DONE (2026-11-20)
 
 Sheet: `results/status_drift_v3_p4_2_v3_v31/analysis/reason_sheet_blind.csv`
-(39 rows). Report raw agreement and kappa against the analyst codes. If no
-rater is available, keep "analyst, post hoc, gold-unblinded."
+(39 rows) is complete (D1 34, O2 5). Agreement with `analyst_code` is raw 1.000,
+kappa 1.000; `unauthorized_reason_codes.csv` now carries `rater_b_code` /
+`rater_b_note`. Record the rater's identity and independence in
+`unauthorized_reason_codes_summary.json` before citing this as human.
 
-## 3. Annotate the remaining 18 writer-replication trajectories
+## 3. Annotate the remaining 18 writer-replication trajectories — DONE (2026-11-20)
 
 Directory: `results/status_drift_v3_replication_writer/annotation_v325_remaining/`
-(126 items, ids `REPR-0085`–`REPR-0210`). Give `annotator_A.csv` and
-`annotator_B.csv` to two people without `key.csv`; no model-drafted labels.
-Then run `experiments.check_v3_annotations`, adjudicate, and merge with the
-n = 12 cohort. Report n = 12 (pre-registered) and n = 30 (sensitivity)
-separately. The ECAI paper currently reports n = 12 only.
+(126 items, ids `REPR-0085`–`REPR-0210`). `annotator_A.csv` and
+`annotator_B.csv` are complete (126/126, schema-clean). The 50 A/B
+disagreements were adjudicated by
+`claude-sonnet-4.6 (model third-reviewer simulation; NOT human)`; all 50
+resolved to A. Report n = 12 (pre-registered) and n = 30 (post-hoc
+sensitivity, model-adjudicated) separately.
 
 ## 4. Swap in the official ECAI 2027 class when released
 
@@ -42,7 +43,7 @@ may use 10 pt and grow the body) and the PDF metadata. Only the front matter
 
 ## 5. Final read-through against the frozen state
 
-After (1)–(3), update `paper/V3_NUMBERS.md` and the ECAI main text so the
-disclosures match the final state: validated controls, n = 30 writer
-replication, and (if run) a second reason coder. Do not claim these before
-they are done.
+Items (1)–(3) are complete. Refresh `paper/V3_NUMBERS.md` and the ECAI main
+text so the disclosures match the final state: validated controls, n = 30
+post-hoc sensitivity, and the second reason rater. Rebuild the PDF after any
+wording change.

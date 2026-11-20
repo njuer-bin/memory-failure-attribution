@@ -1140,3 +1140,27 @@ No commits made.
   not evidence for the 16 sheets. Confirm the second annotator and record or
   disclose the 16-sheet provenance before changing the paper from
   "mechanically checked" to "two-human validated".
+
+## 2026-11-20 — 16-control provenance and paper disclosure update
+
+- Recorded the 16-sheet provenance as WMY (A) and YTB (B), 2026-11-20,
+  independent, blind, no model assistance, in
+  `validation_16_provenance_A.json` / `_B.json`. The original-40 provenance
+  files are unchanged.
+- Added `--provenance-prefix` to `experiments.check_p4_2_validation` and
+  regenerated `analysis/validation_16_summary.json` against the 16-sheet
+  provenance.
+- Updated the control-validation disclosures in the ECAI main text, the ECAI
+  table caption and appendix, the ACL source, `V3_PAPER_DRAFT.md`,
+  `V3_NUMBERS.md` (§6b), the supplementary README/builder, the port note,
+  `research-state.yaml`, and the human-task list. The paper now reports the 16
+  controls as two-human validated, with the post-hoc timing disclosed.
+- Rebuilt `paper/submission_ecai/main.pdf` (6 pages) and `appendix.pdf` (4
+  pages), plus `paper/submission/main.pdf` (12 pages; Limitations on p. 8).
+  Zero overfull boxes, zero unresolved references, byte-scan clean of local
+  paths. Rebuilt `paper/supplementary.zip` (50 files).
+- Reason coding: the paper now reports the second blind coding (39/39, raw
+  1.00, kappa 1.00) but states that its annotator provenance is unrecorded,
+  so it is not counted as an independent human rating.
+- Added `\pdfsuppressptexinfo=-1` to the ACL build; its rebuilt PDF is also
+  byte-scan clean.

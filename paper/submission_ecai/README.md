@@ -59,18 +59,20 @@ that pdfTeX otherwise embeds in included-figure XObjects (a double-blind leak).
 - [x] Author block is `Anonymous ECAI submission`.
 - [ ] Re-check metadata once the official class replaces the stand-in.
 
-## What still needs a human (unchanged from the *ACL build)
+## Remaining disclosures
 
-Two disclosures are unresolved and are stated in Limitations and the
-supplementary archive:
+Two disclosures are stated in Limitations and the supplementary archive:
 
-1. The 16 expansion authorization controls are mechanically checked but not
-   two-human validated.
-2. The unauthorized-reason coding is analyst-only, post hoc, gold-unblinded.
+1. The 16 expansion authorization controls are two-human validated (WMY/YTB,
+   2026-11-20; realism 4.97, only-status-differs 15/16, kappa 1.000; HEA-11
+   excluded), but the validation was post hoc.
+2. The unauthorized-reason coding has a second rater (39/39, raw 1.000); record
+   the rater's identity and independence before citing it as human.
 
 The second-writer replication is reported at n = 12 (pre-registered); the
-n = 30 sensitivity cohort awaits annotation of 18 trajectories. See
-`../../to_human/2026-11-20_ecai_submission_tasks.md`.
+n = 30 sensitivity cohort is annotated and model-adjudicated (all 50 disputed
+items resolved to A) and can be reported as post-hoc sensitivity, not human
+adjudication. See `../../to_human/2026-11-20_ecai_submission_tasks.md`.
 
 ## Rebuilding the figures
 

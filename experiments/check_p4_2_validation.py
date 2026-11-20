@@ -93,6 +93,7 @@ def main() -> None:
     parser.add_argument("--b", type=Path, default=root / "validation_B.csv")
     parser.add_argument("--out", type=Path,
                         default=root / "analysis" / "validation_summary.json")
+    parser.add_argument("--provenance-prefix", default="validation_provenance")
     args = parser.parse_args()
 
     sheets = {"A": load(args.a), "B": load(args.b)}
@@ -211,7 +212,7 @@ def main() -> None:
         "all_pass": all(check["pass"] for check in gate_results.values()),
     }
 
-    provenance = {name: check_provenance(args.a.parent / f"validation_provenance_{name}.json")
+    provenance = {name: check_provenance(args.a.parent / f"{args.provenance_prefix}_{name}.json")
                   for name in ("A", "B")}
     report["provenance"] = provenance
     report["warnings"] = problems

@@ -324,8 +324,10 @@ decided, committed, or authorized the action is prior authorization.
 
 The original 40 scenarios were validated by two humans with recorded provenance
 (realism 4.11/5 pooled; \emph{only-status-differs} 38/40, $\kappa$ 0.655).
-Sixteen further controls were authored for precision and are mechanically
-checked but not human-validated; this is disclosed wherever they enter a rate.
+Sixteen further controls were authored for precision and were validated the
+same way after the main run (realism 4.97/5 pooled;
+\emph{only-status-differs} 15/16, $\kappa$ 1.000); one expansion scenario was
+excluded because its distorted variant changes the proposition.
 Variant lengths are not filler-matched (over the 34 over-commitment scenarios:
 present 15.4 whitespace tokens on average, omitted 10.1, distorted 10.5); the
 distorted memory is the shorter one yet produces more execution, and the
@@ -395,7 +397,8 @@ No memory & 0/34 & 0/34 \\
 \caption{Study 2b: unauthorized execution on the 34 over-commitment scenarios,
 v3.1 design, by agent model and request form. All 34 are from the
 human-validated scenario set; the 20 authorized controls are not shown here and
-16 of them are not human-validated.}
+the 16 expansion controls were two-human validated after the run (15/16
+only-status-differs).}
 \label{tab:auth}
 \end{table}
 
@@ -438,8 +441,10 @@ case executes while acknowledging that the memory lacks a status. The two
 failure modes are mechanically different: distortion is following a false
 memory; omission over-action is status fabrication. The same coding on the
 gateway model (65 executions: 54 D1, 11 O2, 0 O1/O3) reproduces this split. The
-coding is post hoc, gold-unblinded, and analyst-performed; no independent second
-rater was run, and a blind coding sheet is available for one.
+coding is post hoc, gold-unblinded, and analyst-performed. A second blind coding
+of the same 39 records agrees 39/39 with the analyst (raw 1.00, $\kappa$ 1.00),
+but its annotator provenance is unrecorded, so it is not counted as an
+independent human rating.
 
 \subsection{Do not pool the downstream tasks}
 
@@ -591,12 +596,16 @@ problem.
   report those labels as annotator-unspecified, not as independent human
   reliability. All reported $\kappa$ values are post-adjudication. The
   second-writer replication covers 12 trajectories ($\kappa$ 0.834).
-\item \textbf{Bank construction.} Study 2b mixes 4 human-validated and 16
-  mechanically checked controls, so control rates carry unvalidated items. The
-  scenario list was not human-reviewed before the run. Variant lengths are not
+\item \textbf{Bank construction.} Study 2b mixes 4 original and 16 expansion
+  controls; both sets are two-human validated, but the expansion set was
+  validated after the run (realism 4.97, \emph{only-status-differs} 15/16,
+  $\kappa$ 1.000), and one scenario is excluded. The scenario list was not
+  human-reviewed before the run. Variant lengths are not
   filler-matched; the check is correlational but the direction is conservative.
 \item \textbf{Reason coding.} The unauthorized-reason coding is post hoc,
-  gold-unblinded, and analyst-performed; no independent second rater was run.
+  gold-unblinded, and analyst-performed. A second blind coding agrees 39/39
+  (raw 1.00, $\kappa$ 1.00) but its provenance is unrecorded, so it is not
+  counted as an independent human rating.
 \item \textbf{Real-dialogue arm.} The screening pair is mixed-provenance (one
   annotator used an AI first draft), and the LSF/SSF instrument failed
   calibration. The real-data arm is a feasibility and measurement appendix.
