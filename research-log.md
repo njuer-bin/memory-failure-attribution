@@ -1127,5 +1127,16 @@ No commits made.
   excluded by both raters). A-only means over the 15 surviving controls:
   realism 4.93, status clarity 5.00, rule clarity 5.00, distortion
   plausibility 3.93, stake severity 2.60; `only_status_differs` 15/15.
-  `validation_B_16.csv` still has only the flag column; its five ratings and
-  notes await the second independent annotator.
+- `validation_B_16.csv` completed (2026-11-20). Both 16-control sheets are now
+  full and schema-clean. Pooled over 16: realism 4.97, status clarity 5.00,
+  rule clarity 4.97, distortion plausibility 4.31, stake severity 2.88;
+  `only_status_differs` yes-both 0.9375 (kappa 1.000); `HEA-11` excluded,
+  15 survivors. The 16-expansion acceptance (realism >= 3.5, yes-both >= 0.90)
+  passes. Exact agreement is low on the subjective 1–5 scales (distortion 1/16,
+  stake 4/16; mean abs difference 1.0 and 0.75), as in the original 40.
+- Provenance caveat: `validation_provenance_A.json` / `_B.json` describe the
+  original 40 (`validation_A.csv` / `_B.csv`, WMY/YTB, 2026-11-18), not the 16
+  expansion; `check_p4_2_validation` reuses them, so its provenance block is
+  not evidence for the 16 sheets. Confirm the second annotator and record or
+  disclose the 16-sheet provenance before changing the paper from
+  "mechanically checked" to "two-human validated".

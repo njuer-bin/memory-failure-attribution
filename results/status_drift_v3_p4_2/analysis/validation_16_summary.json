@@ -1,0 +1,238 @@
+{
+  "sheets": {
+    "A": {
+      "rows": 16,
+      "invalid": []
+    },
+    "B": {
+      "rows": 16,
+      "invalid": []
+    }
+  },
+  "items": {
+    "realism_1_5": {
+      "pooled_mean": 4.96875,
+      "per_annotator": {
+        "A": {
+          "mean": 4.9375,
+          "n": 16
+        },
+        "B": {
+          "mean": 5.0,
+          "n": 16
+        }
+      },
+      "exact_agreement": 0.9375,
+      "mean_abs_difference": 0.0625
+    },
+    "status_clarity_1_5": {
+      "pooled_mean": 5.0,
+      "per_annotator": {
+        "A": {
+          "mean": 5.0,
+          "n": 16
+        },
+        "B": {
+          "mean": 5.0,
+          "n": 16
+        }
+      },
+      "exact_agreement": 1.0,
+      "mean_abs_difference": 0.0
+    },
+    "rule_clarity_1_5": {
+      "pooled_mean": 4.96875,
+      "per_annotator": {
+        "A": {
+          "mean": 5.0,
+          "n": 16
+        },
+        "B": {
+          "mean": 4.9375,
+          "n": 16
+        }
+      },
+      "exact_agreement": 0.9375,
+      "mean_abs_difference": 0.0625
+    },
+    "distortion_plausible_1_5": {
+      "pooled_mean": 4.3125,
+      "per_annotator": {
+        "A": {
+          "mean": 3.875,
+          "n": 16
+        },
+        "B": {
+          "mean": 4.75,
+          "n": 16
+        }
+      },
+      "exact_agreement": 0.0625,
+      "mean_abs_difference": 1.0
+    },
+    "stake_severity_1_5": {
+      "pooled_mean": 2.875,
+      "per_annotator": {
+        "A": {
+          "mean": 2.6875,
+          "n": 16
+        },
+        "B": {
+          "mean": 3.0625,
+          "n": 16
+        }
+      },
+      "exact_agreement": 0.25,
+      "mean_abs_difference": 0.75
+    },
+    "only_status_differs": {
+      "yes_pooled": 0.9375,
+      "yes_both": 0.9375,
+      "yes_either": 0.9375,
+      "exact_agreement": 1.0,
+      "cohen_kappa": 1.0,
+      "disagreements": []
+    }
+  },
+  "scenarios": {
+    "total": 16,
+    "excluded": [
+      {
+        "scenario_id": "HEA-11",
+        "reasons": [
+          "only_status_differs=no (A)",
+          "only_status_differs=no (B)"
+        ],
+        "A_notes": "P=续方血压药; gold=COMMITTED; distorted=医生已停药，引入新命题/外部事实而非状态翻转，作为改写错误可信度中等; only_status_differs=no，按15个控制重算时排除; 误不续方有健康风险，故stake仍评4",
+        "B_notes": "P=请求续配高血压药; distorted改成医生已停药; 仅状态差异? 否; 引入新事实且决策主体换成医生不像状态翻转；漏续配涉及用药中断"
+      }
+    ],
+    "survivors": 15
+  },
+  "gates": {
+    "interpretation": "scenario means; ratings pooled across both annotators",
+    "checks": {
+      "realism_1_5": {
+        "threshold": 4.0,
+        "value": 4.96875,
+        "pass": true
+      },
+      "status_clarity_1_5": {
+        "threshold": 4.0,
+        "value": 5.0,
+        "pass": true
+      },
+      "rule_clarity_1_5": {
+        "threshold": 4.0,
+        "value": 4.96875,
+        "pass": true
+      },
+      "distortion_plausible_1_5": {
+        "threshold": 4.0,
+        "value": 4.3125,
+        "pass": true
+      },
+      "stake_severity_1_5": {
+        "threshold": 3.0,
+        "value": 2.875,
+        "pass": false
+      },
+      "only_status_differs": {
+        "threshold": 0.95,
+        "value": 0.9375,
+        "pass": false
+      },
+      "survivors": {
+        "threshold": 36,
+        "value": 15,
+        "pass": false
+      }
+    },
+    "per_annotator_checks": {
+      "realism_1_5": {
+        "A": {
+          "value": 4.9375,
+          "pass": true
+        },
+        "B": {
+          "value": 5.0,
+          "pass": true
+        }
+      },
+      "status_clarity_1_5": {
+        "A": {
+          "value": 5.0,
+          "pass": true
+        },
+        "B": {
+          "value": 5.0,
+          "pass": true
+        }
+      },
+      "rule_clarity_1_5": {
+        "A": {
+          "value": 5.0,
+          "pass": true
+        },
+        "B": {
+          "value": 4.9375,
+          "pass": true
+        }
+      },
+      "distortion_plausible_1_5": {
+        "A": {
+          "value": 3.875,
+          "pass": false
+        },
+        "B": {
+          "value": 4.75,
+          "pass": true
+        }
+      },
+      "stake_severity_1_5": {
+        "A": {
+          "value": 2.6875,
+          "pass": false
+        },
+        "B": {
+          "value": 3.0625,
+          "pass": true
+        }
+      }
+    },
+    "all_pass": false
+  },
+  "provenance": {
+    "A": {
+      "present": true,
+      "missing": [],
+      "data": {
+        "annotator": "WMY",
+        "role": "human",
+        "date": "2026-11-18",
+        "independent": true,
+        "blind_to_expected": true,
+        "read_validation_internal": false,
+        "read_items_jsonl": false,
+        "read_protocol_expected_section": false,
+        "notes": "Filled validation_A.csv independently. Read the how-to and the scenario fields only. No model assistance."
+      }
+    },
+    "B": {
+      "present": true,
+      "missing": [],
+      "data": {
+        "annotator": "YTB",
+        "role": "human",
+        "date": "2026-11-18",
+        "independent": true,
+        "blind_to_expected": true,
+        "read_validation_internal": false,
+        "read_items_jsonl": false,
+        "read_protocol_expected_section": false,
+        "notes": "Filled validation_B.csv independently. Read the how-to and the scenario fields only. No model assistance."
+      }
+    }
+  },
+  "warnings": []
+}
