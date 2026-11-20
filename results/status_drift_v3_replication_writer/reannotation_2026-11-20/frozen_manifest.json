@@ -1,0 +1,68 @@
+{
+  "status": "awaiting_labels",
+  "created_at": "2026-11-20T13:29:13.842888+00:00",
+  "n_items": 210,
+  "n_trajectories": 30,
+  "conditions": {
+    "direct": 30,
+    "recursive": 30,
+    "rewrite_matched": 30,
+    "repeated_direct": 30,
+    "neutral_source": 30,
+    "status_aware": 30,
+    "status_aware_source": 30
+  },
+  "seeds": {
+    "RA": 20261120,
+    "RB": 20261121
+  },
+  "inputs": [
+    {
+      "path": "docs\\research\\V3_ANNOTATION_GUIDELINES.md",
+      "sha256": "b9d2be5ab2c21654dc1712150f455ced3bc506075c27b7f91794ad762514157a"
+    },
+    {
+      "path": "results\\status_drift_v3_replication_writer\\annotation_v325\\annotation_items.csv",
+      "sha256": "611eb139f5c1fc710d0aa57d23522c372969e2e9b0c4a40c1fe1fff94d276c40"
+    },
+    {
+      "path": "results\\status_drift_v3_replication_writer\\annotation_v325\\adjudication.csv",
+      "sha256": "26df01237ca9c1ee7a69ee6bab1792b5d62210f6058b02ed3a5954d0399e0c15"
+    },
+    {
+      "path": "results\\status_drift_v3_replication_writer\\annotation_v325_remaining\\annotation_items.csv",
+      "sha256": "786473c9859e440c2e172a5d0e6a4d60b454924c83b5f15e6f0e3dfc092874f5"
+    },
+    {
+      "path": "results\\status_drift_v3_replication_writer\\annotation_v325_remaining\\adjudication.csv",
+      "sha256": "85661a2e1a7c1654e859b1ec8b4f946e11973f36c722288d1666c06613093420"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "annotation_items.csv",
+      "sha256": "cc556ece36ff5560b64fe9973b3b9bc1fb6ec3bcf277ddcdf28244d9b04f6e9f",
+      "curator_only": false
+    },
+    {
+      "path": "key.csv",
+      "sha256": "9de5e77ad31f94118f20b38ff502f77fa0643c2a2fe8f8162f4c7f2ff591e5c6",
+      "curator_only": true
+    },
+    {
+      "path": "annotator_RA.csv",
+      "sha256": "38378783bb4b692b51798d2cf8fc49fe8dbdc9c00d580e9e20de1b9e8c1a496f",
+      "curator_only": false
+    },
+    {
+      "path": "annotator_RB.csv",
+      "sha256": "0ba89ad69af5ff174550731682474ea5011621aab6fcda9362834c05b3b0d562",
+      "curator_only": false
+    },
+    {
+      "path": "README.md",
+      "sha256": "161839a1321d1acf4d78832903971950f7b26f6f0eb740414d171c0547077ff7",
+      "curator_only": false
+    }
+  ]
+}

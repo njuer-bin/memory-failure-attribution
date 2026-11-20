@@ -1277,3 +1277,29 @@ Plan: ECAI 2027 Submission Readiness & Evidence Remediation Plan v2.0.
   appendix 5 pages; ACL 13 pages (body ends page 8, Limitations page 9);
   0 overfull boxes; supplement 56 files. Anonymity scans clean; no Author/Title
   metadata.
+
+## 2026-11-20 — n=30 full re-annotation package frozen
+
+The n=30 sensitivity cohort needs a clean re-annotation: the added 18-trajectory
+round has 0.786 raw / 0.126 kappa pre-adjudication agreement, and the paper
+currently calls it weakly supported. A full 210-item, two-human re-annotation
+round is frozen at
+`results/status_drift_v3_replication_writer/reannotation_2026-11-20/`:
+
+- `annotator_RA.csv` and `annotator_RB.csv` are independent-order blind sheets
+  (different seeds), with no condition, gold status, trajectory id, or old
+  labels; both contain 210 items.
+- `key.csv` is curator-only (condition/gold mapping) and is git-ignored;
+  `frozen_manifest.json` hashes the sheets, items, guidelines, old inputs, and
+  README.
+- `experiments/reannotation_round.py` provides `init` (refuses overwrite
+  without `--force`), `check` (schema validation, raw/kappa agreement,
+  confusion matrices, disputed-item sheet), `merge` (refuses to auto-resolve a
+  disagreement; requires an adjudicated value and adjudicator), and
+  `summarize` (210-item condition table with Wilson intervals).
+- The pipeline was dry-run on synthetic copies: perfect-agreement merge and a
+  one-item dispute/block/resolve cycle both behave as intended. Old labels are
+  untouched.
+
+No manuscript number changes until both human sheets return and a human
+adjudicator completes the disputed fields.

@@ -1,6 +1,7 @@
 
 # Curator-only annotation key; never commit (blind annotation)
 results/**/annotation/condition_key.csv
+results/**/reannotation_*/key.csv
 
 # Local Python/build artifacts
 __pycache__/

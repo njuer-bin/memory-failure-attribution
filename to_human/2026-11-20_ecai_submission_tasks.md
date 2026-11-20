@@ -85,3 +85,12 @@ rebuild, and anonymity scans. Remaining human inputs are unchanged: an optional
 independent third annotator for the n=30 disputes, and the official ECAI 2027
 class/kit when it is released. No thresholds, labels, or denominators were
 changed.
+
+## n=30 全量重批（已冻结，等待人工）
+
+目录：`results/status_drift_v3_replication_writer/reannotation_2026-11-20/`
+
+- 两名独立批注者分别使用 `annotator_RA.csv`、`annotator_RB.csv`（行序不同，均无 condition/gold/旧标签）。`key.csv` 只给协调者，已加入 gitignore。
+- 两人独立完成、交回前不讨论；第三人用 `adjudication_sheet.csv` 只裁决分歧字段，并填写 `adjudicator` 与 `rule`。
+- 流程：`python -m experiments.reannotation_round check --a ... --b ...` → 人工填写 → `merge --sheet ...` → `summarize`。
+- 旧标签保留；在 merge 完成前，论文继续使用现行 n=30 弱支持表述，不提前替换数字。
