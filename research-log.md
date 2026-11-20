@@ -1105,3 +1105,21 @@ No commits made.
   still blank.
 - The n = 30 cohort remains a post-hoc sensitivity analysis, not
   pre-registered, until adjudication is complete.
+
+## 2026-11-20 — adjudication and request-check completion
+
+- `request_check.csv` completed by human review: 54/54 `manipulation_ok=yes`,
+  `notes` filled. The automated columns already showed phrase retention 1.0
+  and same head verb in all 54 rows; the review adds the human sign-off.
+- `adjudication.csv` completed: 126/126 rows, 0 schema violations. The 50
+  disputed rows were adjudicated by
+  `claude-sonnet-4.6 (model third-reviewer simulation; NOT human)` and all
+  resolved to A's labels; adjusted dimension matches gold 126/126. This is a
+  rule-consistency adjudication, not an independent human adjudication, and
+  the n = 30 cohort remains post-hoc sensitivity.
+- Synced `adjudication_disagreements.csv` (50 rows) to the final adjudication.
+- Adjusted judgment distribution over the 126 items: 102 NO_DISTORTION,
+  15 STATUS_OMISSION, 6 UNSUPPORTED_STATUS_DISTORTION, 2 PROPOSITION_LOSS,
+  1 LEGITIMATE_UPDATE.
+- Remaining human-only annotation: the five 1–5 ratings and `notes` on
+  `validation_A_16.csv` / `validation_B_16.csv`.
