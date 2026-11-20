@@ -21,3 +21,15 @@ results/**/_invalid/*
 
 # Local toolchain (portable TeX engine for the submission build)
 .tools/
+
+# LaTeX build intermediates (PDF outputs stay tracked)
+*.aux
+*.log
+*.out
+*.blg
+*.fls
+*.fdb_latexmk
+
+# Local scratch backups and tool notes
+*.bak*
+.workbuddy/
