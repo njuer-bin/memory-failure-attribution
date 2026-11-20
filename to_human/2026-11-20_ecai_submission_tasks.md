@@ -53,3 +53,25 @@ human rating. PDFs were rebuilt: ECAI `main.pdf` 6 pages and `appendix.pdf`
 on page 8. `paper/supplementary.zip` was rebuilt (53 files).
 
 Only item 4 (swap in the official ECAI class when released) remains.
+
+## 6. Optional: a real human third rater for the 50 n=30 disagreements
+
+The 50 A/B disagreements in the n=30 cohort were resolved by a model
+third-reviewer, not a human. If a qualified third annotator is available
+before submission:
+
+- Freeze and hash the items, annotation guide, A/B sheets, and the existing
+  model adjudication output.
+- Give the adjudicator the item and the guide only, with A/B labels, the model
+  decision, condition summaries, and the expected direction hidden.
+- Collect the independent third label before any discussion, then document a
+  resolution step for whatever still disagrees.
+- Keep A/B, third-rater, model-adjudicated, and final labels in separate
+  fields; do not overwrite the current adjudication file.
+
+If this is not done, the paper keeps the current wording: model-assisted
+adjudication, n = 30 post-hoc sensitivity, not independent human confirmation.
+The 210-item reconciliation (`analysis_v325_full/reconciliation.json`) shows
+every condition has 30 items and the five categories partition each condition;
+the rewrite-matched row sums to 30 only when its two ambiguous items are kept,
+so that column must stay in the table.

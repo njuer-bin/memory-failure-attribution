@@ -1198,3 +1198,52 @@ No commits made.
   the Conclusion on page 8, Limitations starts on page 9, 2 pre-existing
   sub-pt overfull boxes). Rebuilt `paper/supplementary.zip` (53 files) with the
   n = 30 condition table and summary.
+
+## 2026-11-20 — submission-readiness remediation (v2.0 plan)
+
+Plan: ECAI 2027 Submission Readiness & Evidence Remediation Plan v2.0.
+
+- P4.2 control audit: added `experiments/audit_p4_2_controls.py`, which
+  re-scores every authorized-control outcome from the stored `raw` responses
+  for qwen2.5:7b, gemma3:12b, glm-5.3-flash, and the mistral:7b probe. Wrote
+  `results/status_drift_v3_p4_2/analysis/control_audit.json` and
+  `control_items.csv`. Strict 19-control (HEA-11 excluded) and inclusive
+  20-control results are both reported; the 34-scenario over-commitment
+  denominator is unchanged.
+- Gate rule: `control_half_floor_warning()` in the runner now applies the
+  post-hoc 0.50 rule inclusively (rate <= 0.50), so qwen action 10/20 is
+  flagged. Added `tests/test_p4_2_controls.py` covering exactly 0.50. The
+  frozen protocol gate remains "rate > 0 (not at floor)".
+- Threshold decision record: `docs/research/2026-11-20-p4-2-control-audit.md`
+  states the >=0.95 protocol threshold, the >=0.90 validation-sheet
+  acceptance, and that the expansion gate is a post-hoc decision.
+- n = 30 reconciliation: `experiments/analyze_replication_n30.py` now asserts
+  all 210 item ids, 30 trajectories, and 30 items per condition, and emits
+  `analysis_v325_full/reconciliation.json`. Every condition partitions into
+  faithful + omission + unsupported + ambiguous + loss = 30; the
+  rewrite-matched row's two ambiguous items (REPR-0009, REPR-0052) explain the
+  earlier 28/30 total. The condition table now also carries preserved_n,
+  joint-fidelity Wilson intervals, and conditional status fidelity.
+- Reason-code provenance: `docs/research/2026-11-20-reason-code-provenance.md`
+  records the Gemma 39-record coding and the GLM 65-record coding as
+  single-analyst, post hoc, gold-unblinded. The second Gemma blind coding is
+  39/39 but its annotator provenance is unrecorded, so it is not an
+  independent human rating; the GLM records have no second rater.
+- Figures: `fig5_mitigation` plots joint fidelity (faithful / expected) to
+  match the paired contrasts and the Study 3 table, which now uses 30-item
+  denominators and gives conditional values in the caption. `fig6` legend
+  moved below the axes to clear the proposition-identity row.
+- Manuscripts: ECAI main/appendix and the ACL source now report strict and
+  inclusive control results, the 0.50 boundary as a post-hoc diagnostic, the
+  call-attempt accounting (864 local + 432 gateway = 1,296 attempts; gateway
+  parse 429/432), and the n = 30 reconciliation. ECAI main builds to 6 pages
+  and appendix to 4 pages with 0 overfull boxes; the ACL build is 12 pages with
+  the main body ending on page 8 (Limitations at the top of page 9).
+- Supplementary archive rebuilt to 55 files, including the control audit and
+  the n = 30 reconciliation JSON.
+- Anonymity: byte scan of both ECAI PDFs, the ACL PDF, and the supplementary
+  zip found no local paths, repository URL, or annotator labels; PDFs carry no
+  Author/Title metadata.
+- Not fixed by this stage: the official ECAI 2027 kit is still unreleased, so
+  the class and page limits remain provisional; the 16 expansion controls are
+  author-constructed; the gateway model label is gateway-reported.

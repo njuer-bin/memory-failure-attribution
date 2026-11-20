@@ -273,15 +273,15 @@ def fig5_mitigation() -> None:
             low, high = wilson(k, n)
             ax.bar(i, k / n, width=0.6, color=color, linewidth=0)
             ax.plot([i, i], [low, high], color=INK, linewidth=0.9)
-            ax.annotate(f"{k}/{n}", (i, max(high, k / n) + 0.025), ha="center",
-                        fontsize=6.8, color=INK)
+            ax.annotate(f"{k}/{n}", (i, max(high, k / n) + 0.025),
+                        ha="center", fontsize=6.8, color=INK)
         ax.set_xticks(range(len(cells)))
         ax.set_xticklabels([label for _, label, _ in cells])
         ax.set_ylim(0, 1.1)
         ax.set_title(title, loc="left", pad=4)
         ax.grid(axis="y", color=GRID, linewidth=0.5)
         ax.set_axisbelow(True)
-    axes[0].set_ylabel("faithful status (gold labels)")
+    axes[0].set_ylabel("faithful status (all items)")
     handles = [plt.Rectangle((0, 0), 1, 1, color=BLUE),
                plt.Rectangle((0, 0), 1, 1, color=ORANGE)]
     axes[0].legend(handles, ["memory only", "+ source access"], frameon=False,
@@ -378,7 +378,8 @@ def fig6_real_calibration() -> None:
     handles = [plt.Rectangle((0, 0), 1, 1, color=BLUE),
                plt.Rectangle((0, 0), 1, 1, color=ORANGE)]
     ax.legend(handles, ["passes gate", "fails gate"], frameon=False,
-              loc="lower right", handlelength=1.0, handleheight=0.8)
+              loc="upper center", bbox_to_anchor=(0.5, -0.22), ncol=2,
+              handlelength=1.0, handleheight=0.8)
     save(fig, "fig6_real_calibration")
 
 

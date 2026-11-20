@@ -326,8 +326,15 @@ The original 40 scenarios were validated by two humans with recorded provenance
 (realism 4.11/5 pooled; \emph{only-status-differs} 38/40, $\kappa$ 0.655).
 Sixteen further controls were authored for precision and were validated the
 same way after the main run (realism 4.97/5 pooled;
-\emph{only-status-differs} 15/16, $\kappa$ 1.000); one expansion scenario was
-excluded because its distorted variant changes the proposition.
+\emph{only-status-differs} 15/16, $\kappa$ 1.000). HEA-11 failed the criterion
+under both annotators, because its distorted variant introduces a new
+proposition instead of flipping the status, and is excluded from the strict
+control analysis; the 19-control strict results and a 20-control inclusive
+sensitivity are reported together (Supplementary Appendix~C). The protocol
+threshold was $\ge 0.95$; the validation sheet used here accepted
+$\ge 0.90$, a post-hoc relaxation that 15/16 ($0.9375$) satisfies and the
+protocol threshold does not, so the expansion gate is reported as a
+post-hoc decision.
 Variant lengths are not filler-matched (over the 34 over-commitment scenarios:
 present 15.4 whitespace tokens on average, omitted 10.1, distorted 10.5); the
 distorted memory is the shorter one yet produces more execution, and the
@@ -371,7 +378,7 @@ reproduce the request-dependence of omission over-action
 \setlength{\tabcolsep}{3.2pt}
 \begin{tabular}{lccc}
 \toprule
- & \multicolumn{2}{c}{unauthorized exec.} & \\
+ & \multicolumn{2}{c}{unauthorized exec.} \\
 \cmidrule(lr){2-3}
 Memory & neutral & action & \\
 \midrule
@@ -396,9 +403,10 @@ No memory & 0/34 & 0/34 \\
 \end{tabular}
 \caption{Study 2b: unauthorized execution on the 34 over-commitment scenarios,
 v3.1 design, by agent model and request form. All 34 are from the
-human-validated scenario set; the 20 authorized controls are not shown here and
+human-validated scenario set; the authorized controls are not shown here and
 the 16 expansion controls were two-human validated after the run (15/16
-only-status-differs).}
+only-status-differs, HEA-11 excluded; the strict and inclusive control
+sensitivity is in Supplementary Appendix~C).}
 \label{tab:auth}
 \end{table}
 
@@ -407,17 +415,20 @@ conditional under the neutral form, and 4/24 and 6/10 under the action form;
 omission is 3/24 and 2/10 (neutral) and 0 in both (action). Present-status
 conditional collapse is 0/10: agents do not invent a satisfied condition from a
 status-consistent conditional memory; conditional harm appears only when the
-distortion removes the condition. On the 20 authorized controls, present
-executes 20/20 (neutral) and 18/20 (action); omitted controls execute 7/20 and
-2/20, which is the same defect seen from the correct-action side, not evidence
-that omission preserves authorization.
+distortion removes the condition. On the 19 strictly validated authorized
+controls, present executes 19/19 (neutral) and 17/19 (action); omitted controls
+execute 7/19 and 2/19, which is the same defect seen from the correct-action
+side, not evidence that omission preserves authorization. The inclusive
+20-control set gives present 20/20 and 18/20, and omitted 7/20 and 2/20.
 
 Figure~\ref{fig:behavior} places the two downstream studies side by side and
-shows the three-model comparison. Among the local models we tested, only
-gemma3:12b passes the action-form control gate; qwen2.5:7b executes one distorted
-scenario in each form but fails the gate (10/20), and a third local family also
-fails it (9/20). The gateway model passes the gate once one format-only parse
-artifact is read semantically (20/20).
+shows the three-model comparison. Under the preregistered not-at-floor rule
+every model passes its control gate. gemma3:12b is the only local model near
+the action-form ceiling (17/19 strict, 18/20 inclusive);
+qwen2.5:7b is exactly at the 50\% boundary (10/20), which triggers the
+post-hoc half-floor flag, and mistral:7b is below it (9/20). Both are reported
+as floor-limited. The gateway model executes all 20 controls once one
+format-only parse artifact is read semantically (19/20 mechanically).
 
 \begin{figure*}[t]
 \centering
@@ -444,7 +455,10 @@ gateway model (65 executions: 54 D1, 11 O2, 0 O1/O3) reproduces this split. The
 coding is post hoc, gold-unblinded, and analyst-performed. A second blind coding
 of the same 39 records agrees 39/39 with the analyst (raw 1.00, $\kappa$ 1.00),
 but its annotator provenance is unrecorded, so it is not counted as an
-independent human rating.
+independent human rating. The 65 gateway records have no second rater, and the
+coding round's date and codebook version were not recorded; this coding remains
+a single-analyst description of the output text, not a causal account of the
+model's behavior.
 
 \subsection{Do not pool the downstream tasks}
 
@@ -473,16 +487,19 @@ combination, all below the pre-registered $1.5\times$ flag.
 \toprule
 Condition & Faithful & Omission & Budget \\
 \midrule
-Neutral & 14/26 & 11/26 & $1.00\times$ \\
+Neutral & 14/30 & 11/30 & $1.00\times$ \\
 Status-aware prompt & 27/30 & 0/30 & $1.05\times$ \\
 Source access & 30/30 & 0/30 & $1.23\times$ \\
 Status-aware + source & 28/30 & 0/30 & $1.38\times$ \\
 \bottomrule
 \end{tabular}
-\caption{Study 3: faithful status (gold labels) by condition, 30 trajectories;
-primary annotator $\kappa$ 0.974 post-adjudication. Remaining items are
-unsupported (neutral 1, status-aware 2, combination 1) or ambiguous
-(status-aware 1, combination 1); source access has none.}
+\caption{Study 3: faithful status by condition, 30 trajectories, all
+denominators 30 (joint fidelity); primary annotator $\kappa$ 0.974
+post-adjudication. Proposition identity is preserved for 26 of the 30 neutral
+items; the other four lose the proposition, so the remaining neutral items are
+4 proposition losses, 11 omissions, and 1 unsupported item. Conditional status
+fidelity within preserved items is 14/26 for neutral and 27/30, 30/30, 28/30
+for the other conditions.}
 \label{tab:mitigation}
 \end{table}
 
@@ -516,8 +533,11 @@ Supplementary Appendix~D reports the full table.
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig5_mitigation.pdf}
-\caption{Faithful status by condition for the primary writer and the
-replication.}
+\caption{Faithful status out of all expected trajectories (joint fidelity) for
+the primary writer and the replication. Labels give faithful/expected counts;
+the primary writer's neutral denominator is 30, of which four items lose the
+proposition (conditional status fidelity for those items is in
+Table~\ref{tab:mitigation}).}
 \label{fig:mitigation}
 \end{figure*}
 

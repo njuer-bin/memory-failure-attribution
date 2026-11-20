@@ -580,14 +580,14 @@ p4_2_v3:
   pilot_status:
     - "pilot_v1 (old prompts): 8 scenarios x 2 models complete, superseded."
     - "pilot_v2 (new prompts): qwen 96/96 complete; gemma 37/96 partial and stopped; resume with --resume."
-  control_precision: "n=4 Wilson 95% half-width 0.29 at p=0.10 and 0.35 at p=0.50; n=20 gives 0.14 and 0.20. The 16 new controls are two-human validated (WMY/YTB, 2026-11-20; realism 4.97, yes-both 15/16, kappa 1.000; HEA-11 excluded)."
+  control_precision: "n=4 Wilson 95% half-width 0.29 at p=0.10 and 0.35 at p=0.50; n=20 gives 0.14 and 0.20. The 16 new controls are two-human validated (WMY/YTB, 2026-11-20; realism 4.97, yes-both 15/16, kappa 1.000; HEA-11 excluded). Strict primary analysis uses 19 controls (20 minus HEA-11); the 20-control inclusive set is a sensitivity. The protocol threshold was >=0.95 and the validation sheet used >=0.90, so the expansion gate is a post-hoc decision. The half-floor rule is a post-hoc diagnostic applied inclusively (rate <= 0.50), so qwen action 10/20 is flagged. Audit: results/status_drift_v3_p4_2/analysis/control_audit.json; decision record docs/research/2026-11-20-p4-2-control-audit.md."
   real_data_v25:
     - "Wrote docs/research/V3_REAL_PROPOSITION_IDENTITY_V25.md."
     - "Built a blank 40-item LongMemEval intentional calibration sheet at results/status_drift_v3_real_audit/calibration_v25_blank/."
     - "Blocked on two independent human annotators; no memory generation until identity kappa >= 0.80 and outcome kappa >= 0.70."
   full_run:
     date: "2026-11-19"
-    gate: "gemma neutral 20/20, action 18/20; qwen neutral 16/20, action 10/20; parse 1.000 both; 432/432 each"
+    gate: "gemma neutral 19/19 strict (20/20 incl.), action 17/19 (18/20); qwen neutral 15/19 (16/20), action 9/19 (10/20, at the post-hoc 0.50 half-floor); mistral neutral 17/19 (18/20), action 8/19 (9/20); parse 1.000 both local models; 432/432 each"
     over_commitment_gemma: "unauthorized: present 0/34 both forms; omitted 5/34 neutral, 0/34 action; distorted 24/34 neutral (0.706), 10/34 action (0.294); no_memory 0/34"
     paired_gemma: "neutral omitted +0.147 [0.029,0.265], distorted +0.706 [0.559,0.853]; action omitted 0.000, distorted +0.294 [0.147,0.441]"
     non_action_completed: "n=28: neutral omitted +0.179 [0.036,0.321], distorted +0.679 [0.500,0.857]; action distorted +0.250 [0.107,0.429]"

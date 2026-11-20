@@ -48,6 +48,16 @@ def outcome(row: dict) -> dict[str, bool]:
     }
 
 
+def wilson(k: int, n: int, z: float = 1.959963984540054) -> tuple[float, float]:
+    if n == 0:
+        return (0.0, 1.0)
+    p = k / n
+    denominator = 1 + z * z / n
+    centre = (p + z * z / (2 * n)) / denominator
+    half = z * ((p * (1 - p) / n + z * z / (4 * n * n)) ** 0.5) / denominator
+    return (max(0.0, centre - half), min(1.0, centre + half))
+
+
 def agreement(a_rows: list[dict], b_rows: list[dict]) -> dict:
     from experiments.check_v3_annotations import agreement as compute
 
@@ -89,27 +99,80 @@ def main() -> None:
     for row in rows:
         by_condition[row["condition"]].append(row)
 
+    # Raw-to-summary reconciliation: every condition must hold 30 distinct
+    # item ids, and the five reported categories must partition those items.
+    reconciliation = {"conditions": {}, "checks": {}}
+    seen_ids = [row["item_id"] for row in rows]
+    reconciliation["checks"]["unique_item_ids"] = len(set(seen_ids)) == len(seen_ids)
+    reconciliation["checks"]["item_count"] = len(rows)
+    reconciliation["checks"]["trajectory_count"] = len(trajectories)
+    reconciliation["checks"]["cohort_split"] = cohort_counts
+    per_trajectory = defaultdict(set)
+    for row in rows:
+        per_trajectory[row["trajectory_id"]].add(row["condition"])
+    reconciliation["checks"]["trajectories_complete"] = all(
+        len(conditions) == len(CONDITIONS) for conditions in per_trajectory.values())
+
     table = []
     for condition in CONDITIONS:
         group = by_condition[condition]
         values = [outcome(row) for row in group]
         n = len(group)
+        faithful_n = sum(value["faithful"] for value in values)
+        loss_n = sum(value["loss"] for value in values)
+        ambiguous_n = sum(value["ambiguous"] for value in values)
+        category_sum = (faithful_n
+                        + sum(value["omission"] for value in values)
+                        + sum(value["unsupported"] for value in values)
+                        + ambiguous_n + loss_n)
+        preserved_n = n - loss_n
+        joint_low, joint_high = wilson(faithful_n, n)
+        cond_low, cond_high = wilson(faithful_n, preserved_n)
+        reconciliation["conditions"][condition] = {
+            "n": n,
+            "distinct_item_ids": len({row["item_id"] for row in group}),
+            "category_sum": category_sum,
+            "partition_ok": category_sum == n,
+            "preserved_n": preserved_n,
+            "ambiguous_ids": [row["item_id"] for row, value in zip(group, values)
+                              if value["ambiguous"]],
+            "loss_ids": [row["item_id"] for row, value in zip(group, values)
+                         if value["loss"]],
+            "faithful_ids": [row["item_id"] for row, value in zip(group, values)
+                             if value["faithful"]],
+        }
         table.append({
             "condition": condition,
             "n": n,
-            "faithful_n": sum(value["faithful"] for value in values),
-            "faithful_rate": sum(value["faithful"] for value in values) / n,
+            "faithful_n": faithful_n,
+            "faithful_rate": faithful_n / n,
+            "joint_fidelity_low": joint_low,
+            "joint_fidelity_high": joint_high,
             "omission_n": sum(value["omission"] for value in values),
             "unsupported_n": sum(value["unsupported"] for value in values),
-            "ambiguous_n": sum(value["ambiguous"] for value in values),
-            "loss_n": sum(value["loss"] for value in values),
+            "ambiguous_n": ambiguous_n,
+            "loss_n": loss_n,
+            "preserved_n": preserved_n,
+            "conditional_status_fidelity": (faithful_n / preserved_n
+                                            if preserved_n else None),
+            "conditional_low": cond_low,
+            "conditional_high": cond_high,
         })
+    reconciliation["checks"]["all_conditions_30"] = all(
+        entry["n"] == 30 for entry in reconciliation["conditions"].values())
+    reconciliation["checks"]["all_partitions_ok"] = all(
+        entry["partition_ok"] for entry in reconciliation["conditions"].values())
 
     a_rows = []
     b_rows = []
+    agreement_by_cohort = {}
     for name, directory in COHORTS.items():
-        a_rows.extend(load(directory / "annotator_A.csv"))
-        b_rows.extend(load(directory / "annotator_B.csv"))
+        cohort_a = load(directory / "annotator_A.csv")
+        cohort_b = load(directory / "annotator_B.csv")
+        agreement_by_cohort[name] = agreement(cohort_a, cohort_b)
+        a_rows.extend(cohort_a)
+        b_rows.extend(cohort_b)
+    agreement_by_cohort["full_210"] = agreement(a_rows, b_rows)
 
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
@@ -125,15 +188,21 @@ def main() -> None:
         "judgment": dict(Counter(row["adj_primary_judgment"] for row in rows)),
         "identity": dict(Counter(row["adj_proposition_identity"] for row in rows)),
         "adjudicators": dict(Counter(row["adjudicator"] for row in rows)),
-        "agreement_pre_adjudication": agreement(a_rows, b_rows),
+        "agreement_pre_adjudication": agreement_by_cohort["full_210"],
+        "agreement_by_cohort": agreement_by_cohort,
+        "reconciliation": reconciliation,
         "warnings": [
             "n = 12 is the pre-registered cohort; n = 30 adds 18 post-hoc trajectories.",
             "Adjudication is a model third-reviewer simulation; 50 disputes were resolved to A.",
             "Not independent human adjudication; not poolable with the primary qwen writer.",
+            "Condition counts partition all 30 items per condition; the ambiguous "
+            "category is reported separately and must not be dropped from the table.",
         ],
     }
     (out / "summary.json").write_text(
         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+    (out / "reconciliation.json").write_text(
+        json.dumps(reconciliation, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"wrote {out / 'condition_table.csv'} and {out / 'summary.json'}")
     for row in table:

@@ -86,8 +86,8 @@ the writer and the agent role.
 
 The main findings are:
 \begin{itemize}
-\item Chained rewriting causes \textbf{status omission}: 44--54\% of
-  proposition-preserved memories lose the status, versus 3.7\% for direct
+\item Chained rewriting causes \textbf{status omission}: between 44\% and 54\%
+  of proposition-preserved memories lose the status, versus 3.7\% for direct
   compression.
 \item The mechanism is \textbf{repeated re-editing of the writer's own output},
   not intermediate budget shrinkage or raw call count. Rewrite-matched equals
@@ -346,7 +346,9 @@ therefore not a single-model artifact.
 Study 2b is a stricter, English authorization bank: 54 scenarios (34
 over-commitment, 20 authorized-execution controls) $\times$ 2 request forms
 (neutral permission judgment; action) $\times$ 4 memory variants $\times$ 2
-models, for 864 calls, all parsed. Both request forms are built from the same
+local models (864 call attempts, all parsed), plus 432 gateway call attempts
+for a third agent model (429 parsed; failures are format-only). Both request
+forms are built from the same
 action phrase, keep it verbatim, and differ by a constant two tokens. The
 authorization rule states both that the current request is not evidence of prior
 authorization and that a memory stating the user decided, committed, or
@@ -356,8 +358,9 @@ The original 40 scenarios were validated by two humans with recorded provenance
 (realism 4.11/5 pooled; \emph{only-status-differs} 38/40, $\kappa$ 0.655).
 Sixteen further controls were authored for precision and were validated the
 same way after the main run (realism 4.97/5 pooled; \emph{only-status-differs}
-15/16, $\kappa$ 1.000); one expansion scenario was excluded because its
-distorted variant changes the proposition.
+15/16, $\kappa$ 1.000). HEA-11 failed under both annotators and is excluded
+from the strict 19-control analysis; the 20-control inclusive set is a
+sensitivity (Appendix~\ref{app:bank}).
 The design was amended before the full run: an earlier rule stated only that the
 current request is not evidence of prior authorization, and it failed the
 positive-control gate because it did not say what \emph{does} count. The amended
@@ -385,11 +388,9 @@ distortion asserts that the action is already completed leaves the pattern
 $[0.500, 0.857]$; action distorted $+0.250$ $[0.107, 0.429]$).
 
 A ten-scenario analyst-translated Chinese slice reproduces the distortion effect
-and its attenuation under the action request (7/7 distorted executions under the
-permission judgment versus 4/7 under the action request;
-difference-in-differences $-0.429$), but with seven items per cell it does not
-reproduce the request-dependence of omission over-action
-(Appendix~\ref{app:zh}).
+and its attenuation under the action request (7/7 versus 4/7;
+difference-in-differences $-0.429$) but not the request-dependence of omission
+over-action (Appendix~\ref{app:zh}).
 
 \begin{table}[t]
 \centering
@@ -407,8 +408,9 @@ No memory & 0/34 & 0/34 \\
 \end{tabular}
 \caption{Study 2b: unauthorized execution on the 34 over-commitment scenarios
 (primary agent, gemma3:12b). All 34 are from the human-validated scenario set;
-the 20 authorized controls are not part of this table and 16 of them are not
-human-validated.}
+the authorized controls are not part of this table and the 16 expansion
+controls were two-human validated after the run (15/16
+only-status-differs, HEA-11 excluded).}
 \label{tab:auth}
 \end{table}
 
@@ -417,18 +419,21 @@ neutral form, and 4/24 and 6/10 under the action form; omission is 3/24 and 2/10
 (neutral) and 0 in both (action). Present-status conditional collapse is 0/10:
 agents do not invent a satisfied condition from a status-consistent conditional
 memory; conditional harm appears only when the distortion removes the condition.
-On the 20 authorized controls, present executes 20/20 (neutral) and 18/20
-(action); omitted controls execute 7/20 and 2/20, which is the same defect seen
-from the correct-action side, not evidence that omission preserves
-authorization.
+On the 19 strictly validated authorized controls, present executes 19/19
+(neutral) and 17/19 (action); omitted controls execute 7/19 and 2/19, which is
+the same defect seen from the correct-action side, not evidence that omission
+preserves authorization (inclusive 20-control set: 20/20 and 18/20 present,
+7/20 and 2/20 omitted).
 
-Figure~\ref{fig:behavior} places the two downstream studies side by side. The
+Figure~\ref{fig:behavior} places the two downstream studies side by side. Under
+the preregistered not-at-floor rule every model passes its control gate. The
 second agent model (qwen2.5:7b) executes one distorted scenario in each form and
-contradicts the memory in its reasons; it does not pass the action-form control
-gate (10/20). A third local model family also fails that gate (9/20). Among the
-local models we tested, only gemma3:12b passes the action-form gate, so the
-weaponized authorization result is reported for that model and the failure is
-reported as a model-class limitation.
+contradicts the memory in its reasons; its action-form control rate is exactly
+10/20, which triggers the post-hoc half-floor flag, and a third local model
+family is below it (9/20). gemma3:12b is the only local model near the
+action-form ceiling (17/19 strict, 18/20 inclusive), so the weaponized
+authorization result is reported for that model and the failures are reported
+as model-class limitations.
 
 \begin{figure*}[t]
 \centering
@@ -452,7 +457,8 @@ failure modes are mechanically different: distortion is following a false
 memory; omission over-action is status fabrication. The coding is post hoc,
 gold-unblinded, and analyst-performed. A second blind coding of the same 39
 records agrees 39/39 (raw 1.00, $\kappa$ 1.00) but its annotator provenance is
-unrecorded, so it is not counted as an independent human rating. The coding
+unrecorded, so it is not counted as an independent human rating. The gateway
+model's 65 records have no second rater and no recorded provenance. The coding
 identifies mechanisms, not prevalence.
 
 \subsection{Do not pool the downstream tasks}
@@ -482,16 +488,17 @@ combination, all below the pre-registered $1.5\times$ flag.
 \toprule
 Condition & Faithful & Omission & Budget \\
 \midrule
-Neutral & 14/26 & 11/26 & $1.00\times$ \\
+Neutral & 14/30 & 11/30 & $1.00\times$ \\
 Status-aware prompt & 27/30 & 0/30 & $1.05\times$ \\
 Source access & 30/30 & 0/30 & $1.23\times$ \\
 Status-aware + source & 28/30 & 0/30 & $1.38\times$ \\
 \bottomrule
 \end{tabular}
-\caption{Study 3: faithful status (gold labels) by condition, 30 trajectories;
-primary annotator $\kappa$ 0.974 post-adjudication, after the final recheck.
-Remaining items are unsupported (neutral 1, status-aware 2, combination 1) or
-ambiguous (status-aware 1, combination 1); source access has none.}
+\caption{Study 3: faithful status by condition, 30 trajectories (joint fidelity;
+denominator 30); primary annotator $\kappa$ 0.974 post-adjudication.
+Proposition identity is preserved for 26/30 neutral items, so conditional
+status fidelity within preserved items is 14/26 for neutral and 27/30, 30/30,
+28/30 for the others.}
 \label{tab:mitigation}
 \end{table}
 
@@ -517,13 +524,17 @@ The chain effect replicates in direction (recursive and rewrite-matched 18/30
 faithful versus 27/30 for direct and repeated-direct), but the mitigation
 ranking does not stabilize (source access 27/30, combination 30/30). The cohort
 is not pre-registered and its disagreements were model-adjudicated to annotator
-A; treat it as a sensitivity check (Table~\ref{tab:repl30}).
+A; treat it as a sensitivity check (Table~\ref{tab:repl30}). The category counts
+partition all 30 items per condition, and the rewrite-matched row sums to 30
+only when its two ambiguous items are kept, so that column is reported rather
+than dropped.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig5_mitigation.pdf}
-\caption{Faithful status by condition for the primary writer and the
-replication.}
+\caption{Faithful status out of all expected trajectories (joint fidelity);
+conditional status fidelity for the four proposition-losing neutral items is
+in Table~\ref{tab:mitigation}.}
 \label{fig:mitigation}
 \end{figure*}
 
@@ -538,28 +549,19 @@ re-mentioned in a later session (34.0\%) and 269 contain a potential change cue
 intentional status dominates (32/50), epistemic is nearly absent (2/50), and
 only 4/50 are clearly consequential for a downstream authorization decision.
 
-The screening rubric itself exposed measurement problems. Two annotators worked
-independently, but one used an AI first draft and reviewed every cell, so the
-pair is a mixed-provenance diagnostic. Agreement was usable for dimension (0.920
-raw / 0.826 $\kappa$) but weak for status-bearing (0.920/0.606) and update
-presence (0.840/0.170). The failures were systematic: a lexical cue was counted
-as a labelable status, later re-mentions were counted as updates, and evidence
-sufficiency was conflated with later comparison.
-
-A 40-item gold-coding calibration was then built. Run 1 failed both gates
-(dimension 0.875/0.600, status 0.675/0.607); most status disagreements were rule
-violations by one annotator. Run 2 passed status (0.900/0.875) but failed
-dimension on $\kappa$ (0.925/0.639) with three boundary items. Third-person
-adjudication resolved them, after which dimension was 1.000/1.000 and status
-0.975/0.969. We then built a 45-memory lexical/semantic status-fidelity (LSF/SSF)
-sheet: 15 gold items $\times$ direct, recursive, and source-peek. LSF asks
-whether the explicit status expression was kept; SSF asks whether its meaning
-was kept. Calibration failed twice (run 2: LSF 0.800/0.689, SSF 0.756/0.625,
-proposition identity 0.800/0.607). LSF and SSF sit near their gates; proposition
-identity is the blocker, because memories replace the target speech act. We
-therefore scope the real-dialogue arm to feasibility and gold coding and report
-the failed LSF/SSF calibration as a measurement lesson and future work, not as
-evidence about memory systems (Figure~\ref{fig:real} in the appendix).
+The screening rubric itself exposed measurement problems: two annotators worked
+independently but one used an AI first draft (a mixed-provenance diagnostic);
+agreement was weak for status-bearing (0.920/0.606) and update presence
+(0.840/0.170), and the failures were systematic (a lexical cue counted as a
+status, a re-mention counted as an update, evidence sufficiency conflated with
+later comparison). A 40-item gold calibration failed both gates on run 1, passed
+status but failed dimension on run 2, and passed after third-person adjudication
+(dimension 1.000/1.000, status 0.975/0.969). The 45-memory LSF/SSF sheet failed
+calibration twice (run 2: LSF 0.800/0.689, SSF 0.756/0.625, proposition
+identity 0.800/0.607); proposition identity is the blocker. We therefore scope
+the arm to feasibility and gold coding and report the failed calibration as a
+measurement lesson, not as evidence about memory systems
+(Appendix~\ref{app:real}).
 
 \section{Discussion}
 
@@ -635,7 +637,11 @@ annotation remains an open measurement problem.
 \item \textbf{Bank construction.} Study 2b mixes 4 original and 16 expansion
   controls; both sets are two-human validated, but the expansion set was
   validated after the run (realism 4.97, \emph{only-status-differs} 15/16,
-  $\kappa$ 1.000), and one scenario is excluded. The scenario list was not
+  $\kappa$ 1.000). HEA-11 failed the criterion under both annotators and is
+  excluded from the strict 19-control analysis; the 20-control inclusive set is
+  reported as a sensitivity. The protocol threshold was $\ge 0.95$ and the
+  validation sheet accepted $\ge 0.90$, so the expansion gate is a post-hoc
+  decision. The scenario list was not
   human-reviewed before the run. The amended design has
   no separate signed protocol record; the item set, bank, and runner are pinned
   by SHA-256 in the run configurations. Variant lengths are not filler-matched
@@ -645,7 +651,8 @@ annotation remains an open measurement problem.
 \item \textbf{Reason coding.} The unauthorized-reason coding is post hoc,
   gold-unblinded, and analyst-performed. A second blind coding agrees 39/39
   (raw 1.00, $\kappa$ 1.00) but its provenance is unrecorded, so it is not
-  counted as an independent human rating.
+  counted as an independent human rating. The gateway model's 65 records have no
+  second rater, and that round's date and codebook version were not recorded.
 \item \textbf{Real-dialogue arm.} The screening pair is mixed-provenance (one
   annotator used an AI first draft), and the LSF/SSF instrument failed
   calibration. The real-data arm is a feasibility and measurement appendix, not
@@ -747,7 +754,12 @@ The original 40 scenarios were rated by two humans on 1--5 scales (realism
 changed scope. Sixteen further controls were authored for precision
 (Wilson half-width 0.29--0.35 at $n=4$ versus 0.14--0.20 at $n=20$) and were
 validated the same way after the main run (realism 4.97/5 pooled;
-\emph{only-status-differs} 15/16, $\kappa$ 1.000).
+\emph{only-status-differs} 15/16, $\kappa$ 1.000). The protocol threshold was
+$\ge 0.95$ and the validation sheet accepted $\ge 0.90$; 15/16 ($0.9375$)
+passes only the latter, so the expansion gate is a post-hoc decision. HEA-11 is
+the single failure: both annotators said its distorted variant introduces a new
+proposition rather than flipping the user's status. It is excluded from the
+strict 19-control analysis and retained in an inclusive 20-control sensitivity.
 
 \begin{table}[h]
 \centering
@@ -759,14 +771,16 @@ Variant & \multicolumn{2}{c}{Neutral} & \multicolumn{2}{c}{Action} \\
 \cmidrule(lr){2-3}\cmidrule(lr){4-5}
  & EXEC & under & EXEC & under \\
 \midrule
-Present & 20/20 & 0 & 18/20 & 2/20 \\
-Omitted & 7/20 & 13/20 & 2/20 & 18/20 \\
-Distorted & 1/20 & 19/20 & 0/20 & 20/20 \\
-No memory & 0/20 & 20/20 & 0/20 & 20/20 \\
+Present & 19/19 & 0 & 17/19 & 2/19 \\
+Omitted & 7/19 & 12/19 & 2/19 & 17/19 \\
+Distorted & 1/19 & 18/19 & 0/19 & 19/19 \\
+No memory & 0/19 & 19/19 & 0/19 & 19/19 \\
 \bottomrule
 \end{tabular}
 \caption{Authorized-execution controls: EXECUTE and under-action counts
-(primary agent, 20 controls).}
+(primary agent, strict 19-control set). Inclusive 20-control set: present
+20/20 and 18/20, omitted 7/20 and 2/20, distorted 1/20 and 0/20, no memory
+0/20 in both forms.}
 \label{tab:controls}
 \end{table}
 
@@ -818,7 +832,11 @@ The remaining 18 trajectories form a post-hoc sensitivity cohort ($n = 30$,
 status 1.000/1.000 at $n = 184$). The 50 A/B disagreements were resolved by a
 model third-reviewer that followed annotator A throughout, so post-adjudication
 agreement would be 1.000 by construction and is not reported. The cohort is not
-pre-registered and is not pooled with the primary writer result.
+pre-registered and is not pooled with the primary writer result. The five
+reported categories partition all 30 items in every condition; the two
+ambiguous rewrite-matched items are kept in the table so that row also sums to
+30. Proposition identity is preserved for 29 of 30 items in Recursive and
+Rewrite-matched, which sets their conditional status denominator to 29.
 
 \begin{table*}[h]
 \centering
@@ -867,6 +885,7 @@ validated Chinese instrument.
 \begin{table}[h]
 \centering
 \small
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{lcccc}
 \toprule
 Form & Present & Omitted & Distorted & No memory \\
