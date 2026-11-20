@@ -44,16 +44,22 @@ LABEL_FIELDS = (
 )
 SHEET_FIELDS = ["item_id", "annotator_id", *LABEL_FIELDS,
                 "target_proposition", "target_question", "memory_text", "dialogue"]
+ADJUDICABLE = (
+    "proposition_identity", "primary_dimension", "status_expressed",
+    "expressed_status", "action_status", "evidence_support", "primary_judgment",
+    "subtype",
+)
 ADJ_FIELDS = ["item_id", "disputed_fields",
               *(f"A_{field}" for field in LABEL_FIELDS),
               *(f"B_{field}" for field in LABEL_FIELDS),
-              *(f"adj_{field}" for field in LABEL_FIELDS),
+              *(f"adj_{field}" for field in ADJUDICABLE),
               "adjudicator", "rule",
               "target_proposition", "target_question", "memory_text", "dialogue"]
 ADJUDICATION_FIELDS = ["item_id", "trajectory_id", "condition", "dimension",
                        "gold_status", "adjudicator",
-                       *(f"{side}_{field}" for field in LABEL_FIELDS for side in ("A", "B", "adj")),
-                       "rule"]
+                       *(f"{side}_{field}" for field in LABEL_FIELDS for side in ("A", "B")),
+                       *(f"adj_{field}" for field in ADJUDICABLE),
+                       "adj_confidence", "rule"]
 SEED_A = 20261120
 SEED_B = 20261121
 
@@ -177,9 +183,12 @@ python -m experiments.reannotation_round check --a annotator_RA.csv --b annotato
 ```
 
 This writes `validation.json`, `agreement.json`, and
-`adjudication_sheet.csv` containing only disputed items. A third human fills
-the `adj_*` fields for the fields listed in `disputed_fields`, signs
-`adjudicator`, and records a short `rule`. Then:
+`adjudication_sheet.csv` containing only substantively disputed items. A third
+human fills the `adj_*` fields for the fields listed in `disputed_fields`,
+signs `adjudicator`, and records a short `rule`. `rationale` and
+`turn_references` are never adjudicated: the merged file keeps annotator RA's
+wording, with RB's wording preserved in the `B_*` columns. Final confidence is
+the lower of the two annotators' values. Then:
 
 ```
 python -m experiments.reannotation_round merge --sheet adjudication_sheet.csv
@@ -281,13 +290,14 @@ def check(a_path: Path, b_path: Path, out: Path) -> None:
     disputes = []
     for item_id in sorted(key):
         left, right = a_map[item_id], b_map[item_id]
-        differing = [field for field in LABEL_FIELDS
+        differing = [field for field in ADJUDICABLE
                      if (left.get(field) or "").strip() != (right.get(field) or "").strip()]
         if differing:
             row = {"item_id": item_id, "disputed_fields": ";".join(differing)}
             for field in LABEL_FIELDS:
                 row[f"A_{field}"] = left.get(field, "")
                 row[f"B_{field}"] = right.get(field, "")
+            for field in ADJUDICABLE:
                 row[f"adj_{field}"] = ""
             for field in ("target_proposition", "target_question", "memory_text", "dialogue"):
                 row[field] = left[field]
@@ -311,6 +321,9 @@ def check(a_path: Path, b_path: Path, out: Path) -> None:
         if report["missing_required"] or report["invalid_values"]:
             print(f"{name}: missing={report['missing_required']} "
                   f"invalid={report['invalid_values']} (see validation.json)")
+    if any(report["missing_required"] or report["invalid_values"]
+           for report in validation.values()):
+        raise SystemExit(1)
 
 
 def merge(sheet_path: Path, out: Path) -> None:
@@ -321,7 +334,8 @@ def merge(sheet_path: Path, out: Path) -> None:
 
     a_map = {row["item_id"]: row for row in a_rows}
     b_map = {row["item_id"]: row for row in b_rows}
-    merged, problems = [], []
+    confidence_rank = {"LOW": 0, "MEDIUM": 1, "HIGH": 2}
+    merged, final_rows, problems = [], [], []
     for item_id in sorted(key):
         left, right = a_map[item_id], b_map[item_id]
         disputed = sheet.get(item_id)
@@ -329,13 +343,20 @@ def merge(sheet_path: Path, out: Path) -> None:
         for field in LABEL_FIELDS:
             a_value = (left.get(field) or "").strip()
             b_value = (right.get(field) or "").strip()
-            if a_value == b_value:
-                adj[field] = a_value
-                continue
-            value = (disputed or {}).get(f"adj_{field}", "").strip()
-            if not value:
-                problems.append(f"{item_id}:{field} adjudicated value required")
-            adj[field] = value
+            if field in ADJUDICABLE:
+                if a_value == b_value:
+                    adj[field] = a_value
+                    continue
+                value = (disputed or {}).get(f"adj_{field}", "").strip()
+                if not value:
+                    problems.append(f"{item_id}:{field} adjudicated value required")
+                adj[field] = value
+            elif field == "confidence":
+                values = [value for value in (a_value, b_value) if value]
+                adj[field] = (min(values, key=confidence_rank.get)
+                              if values else "")
+            else:
+                adj[field] = a_value or b_value
         if disputed and not (disputed.get("adjudicator") or "").strip():
             problems.append(f"{item_id}: adjudicator missing")
         row = {
@@ -350,14 +371,15 @@ def merge(sheet_path: Path, out: Path) -> None:
         for field in LABEL_FIELDS:
             row[f"A_{field}"] = (left.get(field) or "").strip()
             row[f"B_{field}"] = (right.get(field) or "").strip()
+        for field in ADJUDICABLE:
             row[f"adj_{field}"] = adj[field]
+        row["adj_confidence"] = adj["confidence"]
         merged.append(row)
+        final_rows.append(adj | {"item_id": item_id})
 
     if problems:
         raise SystemExit("merge blocked:\n" + "\n".join(problems[:20]))
 
-    final_rows = [{field: row[f"adj_{field}"] for field in LABEL_FIELDS}
-                  | {"item_id": row["item_id"]} for row in merged]
     report = validate(final_rows)
     missing = sum(value["missing"] for value in report.values())
     invalid = sum(len(value["invalid"]) for value in report.values())

@@ -1,0 +1,252 @@
+{
+  "proposition_identity": {
+    "n_pairs": 210,
+    "raw_agreement": 0.9904761904761905,
+    "cohen_kappa": 0.0,
+    "label_counts_a": {
+      "PRESERVED": 210
+    },
+    "label_counts_b": {
+      "PRESERVED": 208,
+      "PARTIAL": 2
+    },
+    "confusion_matrix": {
+      "PRESERVED": {
+        "PRESERVED": 208,
+        "PARTIAL": 2
+      }
+    }
+  },
+  "primary_dimension": {
+    "n_pairs": 210,
+    "raw_agreement": 0.8,
+    "cohen_kappa": 0.7049180327868854,
+    "label_counts_a": {
+      "EPISTEMIC": 29,
+      "INTENTIONAL": 105,
+      "CONDITIONAL": 69,
+      "ACTION": 7
+    },
+    "label_counts_b": {
+      "EPISTEMIC": 70,
+      "INTENTIONAL": 70,
+      "CONDITIONAL": 70
+    },
+    "confusion_matrix": {
+      "EPISTEMIC": {
+        "EPISTEMIC": 29
+      },
+      "INTENTIONAL": {
+        "INTENTIONAL": 70,
+        "EPISTEMIC": 35
+      },
+      "CONDITIONAL": {
+        "CONDITIONAL": 69
+      },
+      "ACTION": {
+        "EPISTEMIC": 6,
+        "CONDITIONAL": 1
+      }
+    }
+  },
+  "status_expressed": {
+    "n_pairs": 210,
+    "raw_agreement": 0.9714285714285714,
+    "cohen_kappa": 0.4902912621359209,
+    "label_counts_a": {
+      "YES": 207,
+      "NO": 3
+    },
+    "label_counts_b": {
+      "YES": 201,
+      "UNCLEAR": 2,
+      "NO": 7
+    },
+    "confusion_matrix": {
+      "YES": {
+        "YES": 201,
+        "UNCLEAR": 2,
+        "NO": 4
+      },
+      "NO": {
+        "NO": 3
+      }
+    }
+  },
+  "expressed_status": {
+    "n_pairs": 168,
+    "raw_agreement": 0.9821428571428571,
+    "cohen_kappa": 0.9781136008337675,
+    "label_counts_a": {
+      "ESTABLISHED": 23,
+      "COMMITTED": 33,
+      "CONDITION_SATISFIED": 34,
+      "CONDITION_ACTIVE": 35,
+      "CONSIDERING": 35,
+      "NOT_EXPRESSED": 3,
+      "POSSIBLE": 5
+    },
+    "label_counts_b": {
+      "ESTABLISHED": 23,
+      "COMMITTED": 31,
+      "CONDITION_SATISFIED": 33,
+      "CONDITION_ACTIVE": 35,
+      "CONSIDERING": 36,
+      "UNKNOWN": 1,
+      "NOT_EXPRESSED": 4,
+      "POSSIBLE": 5
+    },
+    "confusion_matrix": {
+      "ESTABLISHED": {
+        "ESTABLISHED": 23
+      },
+      "COMMITTED": {
+        "COMMITTED": 31,
+        "CONSIDERING": 1,
+        "NOT_EXPRESSED": 1
+      },
+      "CONDITION_SATISFIED": {
+        "CONDITION_SATISFIED": 33,
+        "UNKNOWN": 1
+      },
+      "CONDITION_ACTIVE": {
+        "CONDITION_ACTIVE": 35
+      },
+      "CONSIDERING": {
+        "CONSIDERING": 35
+      },
+      "NOT_EXPRESSED": {
+        "NOT_EXPRESSED": 3
+      },
+      "POSSIBLE": {
+        "POSSIBLE": 5
+      }
+    }
+  },
+  "action_status": {
+    "n_pairs": 210,
+    "raw_agreement": 0.7,
+    "cohen_kappa": 0.4489795918367346,
+    "label_counts_a": {
+      "NOT_APPLICABLE": 140,
+      "NOT_PURSUING": 70
+    },
+    "label_counts_b": {
+      "NOT_APPLICABLE": 140,
+      "NOT_EXPRESSED": 55,
+      "NOT_PURSUING": 7,
+      "CONSIDERING": 7,
+      "COMMITTED": 1
+    },
+    "confusion_matrix": {
+      "NOT_APPLICABLE": {
+        "NOT_APPLICABLE": 140
+      },
+      "NOT_PURSUING": {
+        "NOT_EXPRESSED": 55,
+        "NOT_PURSUING": 7,
+        "CONSIDERING": 7,
+        "COMMITTED": 1
+      }
+    }
+  },
+  "evidence_support": {
+    "n_pairs": 210,
+    "raw_agreement": 0.9238095238095239,
+    "cohen_kappa": 0.5053731782717508,
+    "label_counts_a": {
+      "SUPPORTED_BY_DIALOGUE": 200,
+      "NOT_SUPPORTED": 6,
+      "AMBIGUOUS": 1,
+      "NOT_ASSESSABLE": 3
+    },
+    "label_counts_b": {
+      "SUPPORTED_BY_DIALOGUE": 186,
+      "NOT_SUPPORTED": 14,
+      "AMBIGUOUS": 2,
+      "CONTRADICTED_BY_LATER_DIALOGUE": 1,
+      "NOT_ASSESSABLE": 7
+    },
+    "confusion_matrix": {
+      "SUPPORTED_BY_DIALOGUE": {
+        "SUPPORTED_BY_DIALOGUE": 186,
+        "NOT_SUPPORTED": 10,
+        "AMBIGUOUS": 1,
+        "CONTRADICTED_BY_LATER_DIALOGUE": 1,
+        "NOT_ASSESSABLE": 2
+      },
+      "NOT_SUPPORTED": {
+        "NOT_SUPPORTED": 4,
+        "NOT_ASSESSABLE": 2
+      },
+      "AMBIGUOUS": {
+        "AMBIGUOUS": 1
+      },
+      "NOT_ASSESSABLE": {
+        "NOT_ASSESSABLE": 3
+      }
+    }
+  },
+  "primary_judgment": {
+    "n_pairs": 210,
+    "raw_agreement": 0.8571428571428571,
+    "cohen_kappa": 0.353049907578558,
+    "label_counts_a": {
+      "NO_DISTORTION": 199,
+      "UNSUPPORTED_STATUS_DISTORTION": 7,
+      "LEGITIMATE_UPDATE": 1,
+      "STATUS_OMISSION": 3
+    },
+    "label_counts_b": {
+      "NO_DISTORTION": 172,
+      "UNSUPPORTED_STATUS_DISTORTION": 15,
+      "LEGITIMATE_UPDATE": 14,
+      "AMBIGUOUS_UNASSESSABLE": 2,
+      "PROPOSITION_LOSS": 2,
+      "STATUS_OMISSION": 5
+    },
+    "confusion_matrix": {
+      "NO_DISTORTION": {
+        "NO_DISTORTION": 172,
+        "UNSUPPORTED_STATUS_DISTORTION": 11,
+        "LEGITIMATE_UPDATE": 13,
+        "AMBIGUOUS_UNASSESSABLE": 1,
+        "STATUS_OMISSION": 2
+      },
+      "UNSUPPORTED_STATUS_DISTORTION": {
+        "UNSUPPORTED_STATUS_DISTORTION": 4,
+        "AMBIGUOUS_UNASSESSABLE": 1,
+        "PROPOSITION_LOSS": 2
+      },
+      "LEGITIMATE_UPDATE": {
+        "LEGITIMATE_UPDATE": 1
+      },
+      "STATUS_OMISSION": {
+        "STATUS_OMISSION": 3
+      }
+    }
+  },
+  "confidence": {
+    "n_pairs": 210,
+    "raw_agreement": 0.8333333333333334,
+    "cohen_kappa": 0.5058491327148045,
+    "label_counts_a": {
+      "HIGH": 157,
+      "MEDIUM": 53
+    },
+    "label_counts_b": {
+      "HIGH": 174,
+      "MEDIUM": 36
+    },
+    "confusion_matrix": {
+      "HIGH": {
+        "HIGH": 148,
+        "MEDIUM": 9
+      },
+      "MEDIUM": {
+        "MEDIUM": 27,
+        "HIGH": 26
+      }
+    }
+  }
+}
