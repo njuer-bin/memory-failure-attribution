@@ -1,0 +1,22 @@
+{
+  "status": "frozen",
+  "generated_at": "2026-11-20T13:21:56.837309+00:00",
+  "releases": [
+    {
+      "path": "paper/submission_ecai/main.pdf",
+      "sha256": "04d695768f748652d48888f9ee4dca97b85eca5656fe3aff662deff4b2ae551e"
+    },
+    {
+      "path": "paper/submission_ecai/appendix.pdf",
+      "sha256": "9c454efc7a296117146db3653cbc81738a13b64696082ff92e17520e78c043cf"
+    },
+    {
+      "path": "paper/submission/main.pdf",
+      "sha256": "d81f597c49626de8650629197e5091ba066b0f370a9ea2ba152ecf9b45651305"
+    },
+    {
+      "path": "paper/supplementary.zip",
+      "sha256": "2b67c928ac5102670731fa8333eb829a20757bac75c3a119db94e877e486444f"
+    }
+  ]
+}

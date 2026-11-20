@@ -178,3 +178,62 @@ downstream status-only intervention.
 
 Verdict: the defensible-claim wording in `research-state.yaml` stands. Remove
 the "check before submission" risk item; both checks are now done.
+
+## 9. v2.1 contribution-to-evidence and objection audit (2026-11-20)
+
+**One-sentence contribution.** Under chained memory rewriting, a memory can
+keep the target proposition while dropping or falsifying its epistemic,
+intentional, or conditional status; this status loss is measurable with
+proposition identity held fixed, separates omission from unsupported
+distortion, and changes downstream authorization behavior in a model-dependent
+way.
+
+### 9.1 Contribution-to-evidence map
+
+| Proposed contribution | Required evidence | Current evidence | Claim status |
+|---|---|---|---|
+| Proposition recall can overestimate memory reliability when status is omitted | Same-dataset comparison of proposition identity/recall with status fidelity | Study 1: 300/330 proposition-preserved; 88/300 status omissions (29.3\%); Tables 1--2, Fig.~2 | Supported for the audited synthetic cohort |
+| Chained rewriting causes status omission beyond call count | Recursive vs rewrite-matched and repeated-direct contrasts | Rewrite-matched equals recursive (0.000 [−0.167, 0.167]); repeated-direct behaves like direct (−0.367 [−0.567, −0.167]); Fig.~3 | Supported in the primary writer; model-bounded |
+| Status errors affect downstream behavior | P4 / P4.2 condition contrasts with valid controls | Study 2a distortion 20/30 unauthorized; Study 2b gemma 24/34 neutral, 10/34 action; strict 19-control gate reported | Supported per task/model; not universal |
+| Status-aware or source-access interventions mitigate errors | P5 comparisons and writer replication | Source access +0.533 [0.367, 0.700]; prompt +0.433 [0.267, 0.600]; second writer ranking differs | Supported only as model-dependent |
+| A distinct status-fidelity evaluation is useful for agent memory | Construct definition + prior-work comparison | Section 3, Related Work, this audit | Supported as a combination claim, not a first |
+
+### 9.2 Alternative explanations
+
+| Objection | Treatment | Residual risk |
+|---|---|---|
+| Repeated generation or style drift, not status-sensitive rewriting | Rewrite-matched holds budgets constant and matches recursive; repeated-direct matches call count but behaves like direct | Writer-specific effects cannot be fully separated from status sensitivity |
+| Synthetic construction drives the effect | The authorization bank is a second task family; real-dialogue calibration failed and is disclosed (Decision C) | No real-dialogue confirmation |
+| Proposition-preservation judgments too strict/lenient | 300/330 preserved; conditional denominators reported separately; loss reported over all items | Rubric sensitivity not fully tested |
+| Downstream effect from prompt wording or request framing | Two request forms built from the same phrase, constant token gap, DiD reported | Framing effect is itself a finding, not fully ruled out as a confound |
+| Weak positive controls make model comparisons uninterpretable | Strict/inclusive control gates reported per model and form; mechanical and semantic layers separated; floor-limited models labeled | Small control sets; HEA-11 exclusion |
+| Model heterogeneity limits general claims | All behavioral claims reported per model; no pooled universal ranking | Only three model families plus one gateway endpoint |
+| Temporal/state-tracking work already covers the construct | Full-text matrix above: no audited paper pairs a status tuple with controlled transformation histories | New closest work could appear before submission |
+
+### 9.3 Reviewer-style challenge (answers recorded)
+
+1. **One-sentence contribution?** Status can survive as a proposition while its
+   stance is lost through rewriting; measuring that separately changes what
+   memory evaluation should report and predicts authorization failures.
+2. **Closest paper likely to invalidate novelty?** ABBEL for recursive-summary
+   omission and EAL-Bench for memory-to-action; neither measures a typed status
+   tuple under paired transformation histories.
+3. **What is measured here that existing evaluations do not?** Proposition
+   identity and epistemic/intentional/conditional status scored jointly, with
+   omission separated from unsupported distortion and from legitimate update.
+4. **What survives if the strongest model result fails to replicate?** The
+   measurement separation and the rewriting-history contrasts; the behavioral
+   and mitigation rankings are explicitly model-bounded.
+5. **Strongest alternative explanation not ruled out?** That the downstream
+   effect is partly a request-framing effect. It is measured (two forms) and
+   reported, but not eliminated.
+
+### 9.4 Unresolved novelty and evidence risks
+
+- Synthetic-dialogue external validity; no real-dialogue confirmation.
+- Writer/model dependence, including the gateway-reported endpoint label.
+- The added n=18 annotation cohort has weak pre-adjudication reliability
+  (0.786 raw / 0.126 kappa); n=30 remains a weakly supported sensitivity set.
+- Reason codes are exploratory and post hoc, not causal.
+- The novelty boundary depends on the audited 14-paper set; a fresh search is
+  required before submission.

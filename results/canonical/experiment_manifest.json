@@ -1,0 +1,56 @@
+{
+  "status": "frozen",
+  "generated_at": "2026-11-20T13:21:56.837309+00:00",
+  "artifacts": [
+    {
+      "file": "annotation_reliability.json",
+      "sha256": "e64806b3b81a9cd82ef6c28cffa78e99ba6b250f875a0557f1307b1814979cf1",
+      "status": "audited"
+    },
+    {
+      "file": "consistency_report.json",
+      "sha256": "1577554d78c32db66e58a453aee3b86b1c55cfaebcd2cb03519b8fc248cc9ac8",
+      "status": null
+    },
+    {
+      "file": "figures_manifest.json",
+      "sha256": "e37901fcf4d6fa60bae561f0e0b96ea65d61961239cd9394716d61b6f032cbda",
+      "status": "audited"
+    },
+    {
+      "file": "p3_results.json",
+      "sha256": "61436d41241d5dc7cbb01a98454dd7fd0147b0080f6ef04b2ab7b19c74c37352",
+      "status": "audited"
+    },
+    {
+      "file": "p4_2_controls.json",
+      "sha256": "37e7101b53c5231d649b11a316146ef7ccc6498e1eaf320aa4fe4aef691cdd37",
+      "status": "audited"
+    },
+    {
+      "file": "p4_results.json",
+      "sha256": "a7477949630cc6b573b9c55340a4a76cb367ea0a4163e8a66bed32ff0fdff0ae",
+      "status": "audited"
+    },
+    {
+      "file": "p5_results.json",
+      "sha256": "00ce019ed394419284248f007f36035896bf196bd2762aad24c83cb8b6762c2c",
+      "status": "audited"
+    },
+    {
+      "file": "reason_code_audit.json",
+      "sha256": "b0136f70097e944590756010dbb4493e54120bf196d2c03f6ab3a0328c3ba249",
+      "status": "exploratory"
+    },
+    {
+      "file": "release_manifest.json",
+      "sha256": "a29e612ded07960906216d3815bc39406cfd5ee6c2cefe434b7164da920c30d3",
+      "status": "frozen"
+    },
+    {
+      "file": "replication_n30.json",
+      "sha256": "ec4ba0d71f1570c588144148f7f34522f6c656339c91cb73fbf3b84575fca615",
+      "status": "audited"
+    }
+  ]
+}

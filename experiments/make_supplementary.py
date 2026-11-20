@@ -65,6 +65,8 @@ TEXT_FILES = [
      "results/replication_summary_n30.json"),
     ("results/status_drift_v3_replication_writer/analysis_v325_full/reconciliation.json",
      "results/replication_reconciliation_n30.json"),
+    ("results/status_drift_v3_replication_writer/analysis_v325_full/reliability_by_cohort.json",
+     "results/replication_reliability_by_cohort.json"),
     ("results/status_drift_v3_p4_2/analysis/control_audit.json",
      "results/study2b_control_audit.json"),
     ("results/status_drift_v3_p4_2_v3_v31/analysis/condition_table.csv",
@@ -167,8 +169,9 @@ into the plotting code.
 ## Disclosures
 
 - The synthetic annotation is reported as **annotator-unspecified**: human
-  label provenance was not recorded. All reported kappa values are
-  post-adjudication, and adjudication was model-assisted.
+  label provenance was not recorded. Kappa values for the main cohorts are
+  post-adjudication; the n = 30 sensitivity cohort reports pre-adjudication
+  agreement separately, and adjudication was model-assisted.
 - The 16 expansion controls (`*-11` through `*-14`) were two-human validated
   after the main run (realism 4.97/5 pooled; `only_status_differs` 15/16,
   kappa 1.000; `HEA-11` excluded). The original 40 scenarios carry the pre-run

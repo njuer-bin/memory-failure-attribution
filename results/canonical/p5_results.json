@@ -1,0 +1,741 @@
+{
+  "status": "audited",
+  "generated_at": "2026-11-20T13:21:56.837309+00:00",
+  "sources": [
+    {
+      "path": "results/status_drift_v3_p5/analysis_v324/condition_table.csv",
+      "sha256": "4863003c00e7c355b45df6fbce057470f5dd27689ab122182b6040a7fa5834a6",
+      "status": "audited",
+      "data": [
+        {
+          "condition": "neutral",
+          "n": "30",
+          "preserved": "26",
+          "loss_n": "4",
+          "faithful_n": "14",
+          "faithful_rate": "0.5384615384615384",
+          "omission_n": "11",
+          "omission_rate": "0.4230769230769231",
+          "unsupported_n": "1",
+          "unsupported_rate": "0.038461538461538464",
+          "ambiguous_n": "0"
+        },
+        {
+          "condition": "status_aware",
+          "n": "30",
+          "preserved": "30",
+          "loss_n": "0",
+          "faithful_n": "27",
+          "faithful_rate": "0.9",
+          "omission_n": "0",
+          "omission_rate": "0.0",
+          "unsupported_n": "2",
+          "unsupported_rate": "0.06666666666666667",
+          "ambiguous_n": "1"
+        },
+        {
+          "condition": "neutral_source",
+          "n": "30",
+          "preserved": "30",
+          "loss_n": "0",
+          "faithful_n": "30",
+          "faithful_rate": "1.0",
+          "omission_n": "0",
+          "omission_rate": "0.0",
+          "unsupported_n": "0",
+          "unsupported_rate": "0.0",
+          "ambiguous_n": "0"
+        },
+        {
+          "condition": "status_aware_source",
+          "n": "30",
+          "preserved": "30",
+          "loss_n": "0",
+          "faithful_n": "28",
+          "faithful_rate": "0.9333333333333333",
+          "omission_n": "0",
+          "omission_rate": "0.0",
+          "unsupported_n": "1",
+          "unsupported_rate": "0.03333333333333333",
+          "ambiguous_n": "1"
+        }
+      ]
+    },
+    {
+      "path": "results/status_drift_v3_p5/analysis_v324/paired_contrasts.csv",
+      "sha256": "d48ed81bf88e6c016f5591c12f9f46686a887122e549e70ec21bb170ddd0f848",
+      "status": "audited",
+      "data": [
+        {
+          "condition": "status_aware",
+          "reference": "neutral",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.43333333333333335",
+          "bootstrap_low": "0.26666666666666666",
+          "bootstrap_high": "0.6",
+          "n_condition_positive": "13",
+          "n_reference_positive": "0",
+          "n_ties": "17"
+        },
+        {
+          "condition": "status_aware",
+          "reference": "neutral",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.36666666666666664",
+          "bootstrap_low": "-0.5333333333333333",
+          "bootstrap_high": "-0.2",
+          "n_condition_positive": "0",
+          "n_reference_positive": "11",
+          "n_ties": "19"
+        },
+        {
+          "condition": "status_aware",
+          "reference": "neutral",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "0.03333333333333333",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.1",
+          "n_condition_positive": "1",
+          "n_reference_positive": "0",
+          "n_ties": "29"
+        },
+        {
+          "condition": "status_aware",
+          "reference": "neutral",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "-0.13333333333333333",
+          "bootstrap_low": "-0.26666666666666666",
+          "bootstrap_high": "-0.03333333333333333",
+          "n_condition_positive": "0",
+          "n_reference_positive": "4",
+          "n_ties": "26"
+        },
+        {
+          "condition": "neutral_source",
+          "reference": "neutral",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.5333333333333333",
+          "bootstrap_low": "0.36666666666666664",
+          "bootstrap_high": "0.7",
+          "n_condition_positive": "16",
+          "n_reference_positive": "0",
+          "n_ties": "14"
+        },
+        {
+          "condition": "neutral_source",
+          "reference": "neutral",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.36666666666666664",
+          "bootstrap_low": "-0.5333333333333333",
+          "bootstrap_high": "-0.2",
+          "n_condition_positive": "0",
+          "n_reference_positive": "11",
+          "n_ties": "19"
+        },
+        {
+          "condition": "neutral_source",
+          "reference": "neutral",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "neutral_source",
+          "reference": "neutral",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "-0.13333333333333333",
+          "bootstrap_low": "-0.26666666666666666",
+          "bootstrap_high": "-0.03333333333333333",
+          "n_condition_positive": "0",
+          "n_reference_positive": "4",
+          "n_ties": "26"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "status_aware",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.03333333333333333",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.1",
+          "n_condition_positive": "1",
+          "n_reference_positive": "0",
+          "n_ties": "29"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "status_aware",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "0",
+          "n_ties": "30"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "status_aware",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "status_aware",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "0",
+          "n_ties": "30"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "neutral_source",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "-0.06666666666666667",
+          "bootstrap_low": "-0.16666666666666666",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "2",
+          "n_ties": "28"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "neutral_source",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "0",
+          "n_ties": "30"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "neutral_source",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "0.03333333333333333",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.1",
+          "n_condition_positive": "1",
+          "n_reference_positive": "0",
+          "n_ties": "29"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "neutral_source",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "0",
+          "n_ties": "30"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "neutral",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.4666666666666667",
+          "bootstrap_low": "0.3",
+          "bootstrap_high": "0.6333333333333333",
+          "n_condition_positive": "14",
+          "n_reference_positive": "0",
+          "n_ties": "16"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "neutral",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.36666666666666664",
+          "bootstrap_low": "-0.5333333333333333",
+          "bootstrap_high": "-0.2",
+          "n_condition_positive": "0",
+          "n_reference_positive": "11",
+          "n_ties": "19"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "neutral",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "0",
+          "n_ties": "30"
+        },
+        {
+          "condition": "status_aware_source",
+          "reference": "neutral",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "-0.13333333333333333",
+          "bootstrap_low": "-0.26666666666666666",
+          "bootstrap_high": "-0.03333333333333333",
+          "n_condition_positive": "0",
+          "n_reference_positive": "4",
+          "n_ties": "26"
+        },
+        {
+          "condition": "interaction",
+          "reference": "faithful",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "-0.5",
+          "bootstrap_low": "-0.6666666666666666",
+          "bootstrap_high": "-0.3333333333333333",
+          "n_condition_positive": "0",
+          "n_reference_positive": "15",
+          "n_ties": "15"
+        }
+      ]
+    },
+    {
+      "path": "results/status_drift_v3_p5/analysis_v324/p5_confirmatory_human_summary.json",
+      "sha256": "7e7915b1e5c68cce9ded3199add059f49371eeacccf5b7ac94dda6e1133b0560",
+      "status": "audited",
+      "data": {
+        "protocol": "v3_p5_confirmatory_human",
+        "n_items": 120,
+        "by_condition": {
+          "neutral": {
+            "n": 30,
+            "identity": {
+              "PRESERVED": 26,
+              "PARTIAL": 4
+            },
+            "judgment": {
+              "STATUS_OMISSION": 11,
+              "NO_DISTORTION": 13,
+              "PROPOSITION_LOSS": 4,
+              "LEGITIMATE_UPDATE": 1,
+              "UNSUPPORTED_STATUS_DISTORTION": 1
+            },
+            "faithful": {
+              "count": 14,
+              "denominator": 26,
+              "rate": 0.5384615384615384
+            },
+            "omission": {
+              "count": 11,
+              "denominator": 26,
+              "rate": 0.4230769230769231
+            },
+            "unsupported": {
+              "count": 1,
+              "denominator": 26,
+              "rate": 0.038461538461538464
+            },
+            "loss": {
+              "count": 4,
+              "denominator": 30,
+              "rate": 0.13333333333333333
+            },
+            "ambiguous": {
+              "count": 0,
+              "denominator": 26,
+              "rate": 0.0
+            }
+          },
+          "status_aware": {
+            "n": 30,
+            "identity": {
+              "PRESERVED": 30
+            },
+            "judgment": {
+              "NO_DISTORTION": 27,
+              "AMBIGUOUS_UNASSESSABLE": 1,
+              "UNSUPPORTED_STATUS_DISTORTION": 2
+            },
+            "faithful": {
+              "count": 27,
+              "denominator": 30,
+              "rate": 0.9
+            },
+            "omission": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0
+            },
+            "unsupported": {
+              "count": 2,
+              "denominator": 30,
+              "rate": 0.06666666666666667
+            },
+            "loss": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "count": 1,
+              "denominator": 30,
+              "rate": 0.03333333333333333
+            }
+          },
+          "neutral_source": {
+            "n": 30,
+            "identity": {
+              "PRESERVED": 30
+            },
+            "judgment": {
+              "NO_DISTORTION": 30
+            },
+            "faithful": {
+              "count": 30,
+              "denominator": 30,
+              "rate": 1.0
+            },
+            "omission": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0
+            },
+            "loss": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0
+            }
+          },
+          "status_aware_source": {
+            "n": 30,
+            "identity": {
+              "PRESERVED": 30
+            },
+            "judgment": {
+              "NO_DISTORTION": 28,
+              "AMBIGUOUS_UNASSESSABLE": 1,
+              "UNSUPPORTED_STATUS_DISTORTION": 1
+            },
+            "faithful": {
+              "count": 28,
+              "denominator": 30,
+              "rate": 0.9333333333333333
+            },
+            "omission": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0
+            },
+            "unsupported": {
+              "count": 1,
+              "denominator": 30,
+              "rate": 0.03333333333333333
+            },
+            "loss": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0
+            },
+            "ambiguous": {
+              "count": 1,
+              "denominator": 30,
+              "rate": 0.03333333333333333
+            }
+          }
+        },
+        "contrasts": [
+          {
+            "condition": "status_aware",
+            "reference": "neutral",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.43333333333333335,
+            "bootstrap_low": 0.26666666666666666,
+            "bootstrap_high": 0.6,
+            "n_condition_positive": 13,
+            "n_reference_positive": 0,
+            "n_ties": 17
+          },
+          {
+            "condition": "status_aware",
+            "reference": "neutral",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.36666666666666664,
+            "bootstrap_low": -0.5333333333333333,
+            "bootstrap_high": -0.2,
+            "n_condition_positive": 0,
+            "n_reference_positive": 11,
+            "n_ties": 19
+          },
+          {
+            "condition": "status_aware",
+            "reference": "neutral",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": 0.03333333333333333,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.1,
+            "n_condition_positive": 1,
+            "n_reference_positive": 0,
+            "n_ties": 29
+          },
+          {
+            "condition": "status_aware",
+            "reference": "neutral",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": -0.13333333333333333,
+            "bootstrap_low": -0.26666666666666666,
+            "bootstrap_high": -0.03333333333333333,
+            "n_condition_positive": 0,
+            "n_reference_positive": 4,
+            "n_ties": 26
+          },
+          {
+            "condition": "neutral_source",
+            "reference": "neutral",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.5333333333333333,
+            "bootstrap_low": 0.36666666666666664,
+            "bootstrap_high": 0.7,
+            "n_condition_positive": 16,
+            "n_reference_positive": 0,
+            "n_ties": 14
+          },
+          {
+            "condition": "neutral_source",
+            "reference": "neutral",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.36666666666666664,
+            "bootstrap_low": -0.5333333333333333,
+            "bootstrap_high": -0.2,
+            "n_condition_positive": 0,
+            "n_reference_positive": 11,
+            "n_ties": 19
+          },
+          {
+            "condition": "neutral_source",
+            "reference": "neutral",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "neutral_source",
+            "reference": "neutral",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": -0.13333333333333333,
+            "bootstrap_low": -0.26666666666666666,
+            "bootstrap_high": -0.03333333333333333,
+            "n_condition_positive": 0,
+            "n_reference_positive": 4,
+            "n_ties": 26
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "status_aware",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.03333333333333333,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.1,
+            "n_condition_positive": 1,
+            "n_reference_positive": 0,
+            "n_ties": 29
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "status_aware",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 0,
+            "n_ties": 30
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "status_aware",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "status_aware",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 0,
+            "n_ties": 30
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "neutral_source",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": -0.06666666666666667,
+            "bootstrap_low": -0.16666666666666666,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 2,
+            "n_ties": 28
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "neutral_source",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 0,
+            "n_ties": 30
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "neutral_source",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": 0.03333333333333333,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.1,
+            "n_condition_positive": 1,
+            "n_reference_positive": 0,
+            "n_ties": 29
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "neutral_source",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 0,
+            "n_ties": 30
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "neutral",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.4666666666666667,
+            "bootstrap_low": 0.3,
+            "bootstrap_high": 0.6333333333333333,
+            "n_condition_positive": 14,
+            "n_reference_positive": 0,
+            "n_ties": 16
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "neutral",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.36666666666666664,
+            "bootstrap_low": -0.5333333333333333,
+            "bootstrap_high": -0.2,
+            "n_condition_positive": 0,
+            "n_reference_positive": 11,
+            "n_ties": 19
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "neutral",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 0,
+            "n_ties": 30
+          },
+          {
+            "condition": "status_aware_source",
+            "reference": "neutral",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": -0.13333333333333333,
+            "bootstrap_low": -0.26666666666666666,
+            "bootstrap_high": -0.03333333333333333,
+            "n_condition_positive": 0,
+            "n_reference_positive": 4,
+            "n_ties": 26
+          },
+          {
+            "condition": "interaction",
+            "reference": "faithful",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": -0.5,
+            "bootstrap_low": -0.6666666666666666,
+            "bootstrap_high": -0.3333333333333333,
+            "n_condition_positive": 0,
+            "n_reference_positive": 15,
+            "n_ties": 15
+          }
+        ],
+        "warnings": [
+          "Adjudication is model-assisted; original A/B labels are preserved.",
+          "Primary-judgment kappa 0.689 is below the calibration gate; treat as provisional.",
+          "Rates over PRESERVED for faithful/omission/unsupported/ambiguous; loss over all items.",
+          "Paired by trajectory (30 clusters); no power claim.",
+          "Do not pool with P2/P3/P4 or the P5 pilot."
+        ]
+      }
+    }
+  ]
+}

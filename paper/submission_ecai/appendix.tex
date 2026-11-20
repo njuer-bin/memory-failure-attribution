@@ -139,6 +139,19 @@ retains HEA-11, gives present 20/20 and 18/20, omitted 7/20 and 2/20, distorted
 \label{tab:controls}
 \end{table}
 
+Item validity, mechanical output compliance, and semantic compliance are
+reported separately. Present-status EXECUTE by model and form, strict 19
+(inclusive 20): gemma3:12b 19/19 neutral and 17/19 action (20/20, 18/20);
+qwen2.5:7b 15/19 and 9/19 (16/20, 10/20); mistral:7b 17/19 and 8/19 (18/20,
+9/20); the gateway-reported model 19/19 in both forms (20/20). Mechanical
+compliance is identical except for the gateway neutral cell, where AUT-11's
+output begins with \texttt{EXECUTE} but omits the \texttt{DECISION:} prefix:
+it is a mechanical parse failure (18/19) and a semantic EXECUTE (19/19).
+Qwen's action form is exactly 10/20, which triggers the post-hoc half-floor
+diagnostic (rate $\le 0.50$); the frozen protocol gate is only ``not at
+floor'' (rate $> 0$), so 10/20 is reported as a boundary result rather than a
+preregistered failure.
+
 \begin{table}[h]
 \centering
 \small
@@ -183,13 +196,42 @@ trajectories; primary annotator $\kappa$ 0.834 post-adjudication).}
 \end{table}
 
 The remaining 18 trajectories were annotated after the run and form a post-hoc
-sensitivity cohort ($n = 30$, 210 items). Pre-adjudication agreement over the
-full cohort is 0.848 raw / 0.478 $\kappa$ for the primary judgment (dimension
-0.876/0.819; expressed status 1.000/1.000 at $n = 184$). The 50 A/B
-disagreements were resolved by a model third-reviewer that followed annotator A
-throughout, so post-adjudication agreement would be 1.000 by construction and is
-not reported. This cohort is not pre-registered and must not be pooled with the
+sensitivity cohort ($n = 30$, 210 items). Pre-adjudication agreement is
+reported separately for the pre-registered and added cohorts
+(Table~\ref{tab:reliability}). The 50 A/B disagreements in the added cohort
+were resolved by a model third-reviewer that followed annotator A throughout,
+so post-adjudication agreement would be 1.000 by construction and is not
+reported. This cohort is not pre-registered and must not be pooled with the
 primary writer result.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lccc}
+\toprule
+Cohort & Items & Raw agreement & Cohen's $\kappa$ \\
+\midrule
+Pre-registered ($n=12$) & 84 & 0.940 & 0.834 \\
+Added post hoc ($n=18$) & 126 & 0.786 & 0.126 \\
+Full sensitivity ($n=30$) & 210 & 0.848 & 0.478 \\
+\bottomrule
+\end{tabular}
+\caption{Pre-adjudication agreement for the primary judgment, by cohort.
+Agreement is computed on paired A/B labels only.}
+\label{tab:reliability}
+\end{table}
+
+The added cohort is markedly less reliable than the pre-registered cohort. The
+disagreement is concentrated in omission: annotator A assigned
+\emph{status omission} to 15 of 126 items and annotator B to 3, and the largest
+single confusion cell is 14 items labeled omission by A and no distortion by B.
+Annotator B also used \emph{no distortion} for 117 of 126 items, so high
+marginal prevalence depresses $\kappa$; raw agreement (0.786) is therefore
+reported alongside it. This pattern is consistent with annotator
+interpretation drift between the two rounds, but the repository cannot
+establish that drift causally. The n = 30 cohort is consequently treated as a
+weakly supported post-hoc sensitivity analysis; its model-assisted
+adjudication and its weaker added-cohort reliability are both disclosed.
 
 The category counts partition all 30 items in every condition
 (faithful + omission + unsupported + ambiguous + proposition loss $= 30$); the

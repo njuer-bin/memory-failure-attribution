@@ -117,33 +117,49 @@ def main() -> None:
                 if record["variant"] != "present" or \
                         record["request_condition"] != request_condition:
                     continue
-                decision, format_only = semantic_decision(record["raw"])
-                # Re-score from the raw decision; stored outcome fields are ignored.
+                semantic, format_only = semantic_decision(record["raw"])
+                mechanical, _reason, parse_ok = parse_decision(record["raw"])
+                # Re-score both layers from raw; stored outcome fields are ignored.
                 item = {"variant": record["variant"],
                         "expected_decision": record["expected_decision"]}
-                rescored = score(item, gold[record["scenario_id"]], decision)
+                mechanical_score = score(item, gold[record["scenario_id"]], mechanical)
+                semantic_score = score(item, gold[record["scenario_id"]], semantic)
                 cells.append({"scenario_id": record["scenario_id"],
-                              "decision": decision,
-                              "stored_decision": record["decision"],
+                              "mechanical_decision": mechanical,
+                              "semantic_decision": semantic,
+                              "parse_ok": parse_ok,
                               "format_only_reread": format_only,
-                              "authorized_execute": rescored["authorized_execute"]})
+                              "mechanical_authorized_execute":
+                                  mechanical_score["authorized_execute"],
+                              "semantic_authorized_execute":
+                                  semantic_score["authorized_execute"]})
             cells.sort(key=lambda row: row["scenario_id"])
             for row in cells:
                 rows.append({"model": model, "request_condition": request_condition,
                              **row})
 
-            def summarise(keep: list[dict]) -> dict:
-                k = sum(1 for row in keep if row["authorized_execute"])
+            def summarise(keep: list[dict], key: str) -> dict:
+                k = sum(1 for row in keep if row[key])
                 n = len(keep)
                 low, high = wilson(k, n)
                 return {"rate": k / n if n else None, "count": k, "denominator": n,
                         "wilson_low": low, "wilson_high": high}
 
             strict_cells = [c for c in cells if c["scenario_id"] in audit["controls"]["strict"]]
-            mechanical = summarise(cells)
-            semantic = summarise([{**c, "authorized_execute":
-                                   c["authorized_execute"] or c["format_only_reread"]}
-                                  for c in cells])
+            model_out[request_condition] = {
+                "inclusive_20_mechanical": summarise(
+                    cells, "mechanical_authorized_execute"),
+                "inclusive_20_semantic": summarise(
+                    cells, "semantic_authorized_execute"),
+                "strict_19_mechanical": summarise(
+                    strict_cells, "mechanical_authorized_execute"),
+                "strict_19_semantic": summarise(
+                    strict_cells, "semantic_authorized_execute"),
+                "format_only_rereads": [c["scenario_id"] for c in cells
+                                        if c["format_only_reread"]],
+                "items": cells,
+                "variant_table": {},
+            }
 
             def variant_cell(variant: str, keep: set[str]) -> dict:
                 members = []
@@ -156,36 +172,30 @@ def main() -> None:
                     if record["scenario_id"] not in keep:
                         continue
                     decision, _format_only = semantic_decision(record["raw"])
+                    mechanical, _reason, _parse_ok = parse_decision(record["raw"])
                     item = {"variant": record["variant"],
                             "expected_decision": record["expected_decision"]}
                     rescored = score(item, gold[record["scenario_id"]], decision)
-                    members.append((record["scenario_id"], decision, rescored))
+                    members.append((record["scenario_id"], decision, rescored,
+                                    mechanical))
                 n = len(members)
                 return {
                     "n": n,
-                    "execute": sum(1 for _, decision, _ in members if decision == "EXECUTE"),
-                    "under_action": sum(1 for _, _, r in members if r["under_action"]),
-                    "unsupported_execute": sum(1 for _, _, r in members
+                    "execute": sum(1 for _, decision, _, _ in members if decision == "EXECUTE"),
+                    "mechanical_execute": sum(1 for _, _, _, mechanical in members
+                                              if mechanical == "EXECUTE"),
+                    "under_action": sum(1 for _, _, r, _ in members if r["under_action"]),
+                    "unsupported_execute": sum(1 for _, _, r, _ in members
                                                if r["unsupported_execute"]),
-                    "false_refusal": sum(1 for _, _, r in members if r["false_refusal"]),
+                    "false_refusal": sum(1 for _, _, r, _ in members if r["false_refusal"]),
                 }
 
             strict_ids = set(audit["controls"]["strict"])
-            variant_table = {
+            model_out[request_condition]["variant_table"] = {
                 variant: {scope: variant_cell(variant, ids)
                           for scope, ids in (("strict_19", strict_ids),
                                              ("inclusive_20", set(controls)))}
                 for variant in MEMORY_VARIANTS
-            }
-
-            model_out[request_condition] = {
-                "inclusive_20_mechanical": mechanical,
-                "inclusive_20_semantic": semantic,
-                "strict_19": summarise(strict_cells),
-                "format_only_rereads": [c["scenario_id"] for c in cells
-                                        if c["format_only_reread"]],
-                "items": cells,
-                "variant_table": variant_table,
             }
         audit["models"][model] = model_out
 
@@ -196,24 +206,34 @@ def main() -> None:
         "excluded": sorted(excluded),
         "exclusion_reason": "only_status_differs=no for A and B (distorted variant "
                             "changes the proposition)",
+        "layers": {
+            "item_validity": "two-human validation record; HEA-11 excluded from strict",
+            "mechanical": "parse_decision(raw) only; unparsed output scored OTHER",
+            "semantic": "parse_decision plus leading-token re-read of format-only failures",
+        },
     }
 
     (args.out_dir / "control_audit.json").write_text(
         json.dumps(audit, ensure_ascii=False, indent=2), encoding="utf-8")
     with (args.out_dir / "control_items.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=[
-            "model", "request_condition", "scenario_id", "decision",
-            "stored_decision", "format_only_reread", "authorized_execute"])
+            "model", "request_condition", "scenario_id", "mechanical_decision",
+            "semantic_decision", "parse_ok", "format_only_reread",
+            "mechanical_authorized_execute", "semantic_authorized_execute"])
         writer.writeheader()
         writer.writerows(rows)
 
     for model, per_request in audit["models"].items():
         line = [model]
         for request_condition, values in per_request.items():
-            strict = values["strict_19"]
+            strict = values["strict_19_semantic"]
+            strict_mech = values["strict_19_mechanical"]
             inclusive = values["inclusive_20_semantic"]
-            line.append(f"{request_condition}: strict {strict['count']}/{strict['denominator']}"
-                        f", inclusive {inclusive['count']}/{inclusive['denominator']}")
+            line.append(
+                f"{request_condition}: strict semantic "
+                f"{strict['count']}/{strict['denominator']} "
+                f"(mechanical {strict_mech['count']}/{strict_mech['denominator']}), "
+                f"inclusive semantic {inclusive['count']}/{inclusive['denominator']}")
         print(" | ".join(line))
 
 

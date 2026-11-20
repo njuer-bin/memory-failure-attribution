@@ -1,0 +1,30 @@
+{
+  "status": "audited",
+  "generated_at": "2026-11-20T13:21:56.837309+00:00",
+  "figures": [
+    {
+      "path": "paper\\figures\\fig1_design.pdf",
+      "sha256": "da9b13e5bac5e93f40e7d0fd51d7dfed9f570b6356d0372521d86f8a32a9f5be"
+    },
+    {
+      "path": "paper\\figures\\fig2_p3_omission.pdf",
+      "sha256": "06a746e8c56553c5fcadf817a492f10f7aecbd998f7b4ecae2354228f7c8369a"
+    },
+    {
+      "path": "paper\\figures\\fig3_p3_mechanism.pdf",
+      "sha256": "e2c8fab34a30241abebefe01dd0217c1cd90e826501dbfddebaf5b272920f4c7"
+    },
+    {
+      "path": "paper\\figures\\fig4_behavior.pdf",
+      "sha256": "7069a5bb7c7e20ef79beb620f13d076a4746219a30a885a5bd9cc0815523e90a"
+    },
+    {
+      "path": "paper\\figures\\fig5_mitigation.pdf",
+      "sha256": "1dfe11c87cdeab92b284240f710dc4501c570535ffdfc3dc0d61de560cb48f34"
+    },
+    {
+      "path": "paper\\figures\\fig6_real_calibration.pdf",
+      "sha256": "cc57bba806c7e7f6e3ff5ed44c4096ccd11ef93cddad15f886c2152f06d50eb0"
+    }
+  ]
+}

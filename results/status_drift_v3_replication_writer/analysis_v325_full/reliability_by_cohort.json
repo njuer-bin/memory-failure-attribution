@@ -1,0 +1,119 @@
+{
+  "n12_pre_registered": {
+    "n_pairs": 84,
+    "raw_agreement": 0.9404761904761905,
+    "cohen_kappa": 0.8343195266272189,
+    "label_counts_a": {
+      "NO_DISTORTION": 67,
+      "UNSUPPORTED_STATUS_DISTORTION": 8,
+      "AMBIGUOUS_UNASSESSABLE": 2,
+      "STATUS_OMISSION": 5,
+      "LEGITIMATE_UPDATE": 2
+    },
+    "label_counts_b": {
+      "NO_DISTORTION": 66,
+      "UNSUPPORTED_STATUS_DISTORTION": 8,
+      "AMBIGUOUS_UNASSESSABLE": 2,
+      "STATUS_OMISSION": 5,
+      "LEGITIMATE_UPDATE": 3
+    },
+    "top_disagreements": [
+      [
+        "NO_DISTORTION",
+        "LEGITIMATE_UPDATE",
+        3
+      ],
+      [
+        "LEGITIMATE_UPDATE",
+        "NO_DISTORTION",
+        2
+      ]
+    ]
+  },
+  "n18_post_hoc": {
+    "n_pairs": 126,
+    "raw_agreement": 0.7857142857142857,
+    "cohen_kappa": 0.12567463377023871,
+    "label_counts_a": {
+      "NO_DISTORTION": 102,
+      "STATUS_OMISSION": 15,
+      "PROPOSITION_LOSS": 2,
+      "UNSUPPORTED_STATUS_DISTORTION": 6,
+      "LEGITIMATE_UPDATE": 1
+    },
+    "label_counts_b": {
+      "NO_DISTORTION": 117,
+      "STATUS_OMISSION": 3,
+      "LEGITIMATE_UPDATE": 6
+    },
+    "top_disagreements": [
+      [
+        "STATUS_OMISSION",
+        "NO_DISTORTION",
+        14
+      ],
+      [
+        "UNSUPPORTED_STATUS_DISTORTION",
+        "NO_DISTORTION",
+        6
+      ],
+      [
+        "NO_DISTORTION",
+        "LEGITIMATE_UPDATE",
+        5
+      ],
+      [
+        "PROPOSITION_LOSS",
+        "STATUS_OMISSION",
+        2
+      ]
+    ]
+  },
+  "full_210": {
+    "n_pairs": 210,
+    "raw_agreement": 0.8476190476190476,
+    "cohen_kappa": 0.4778554778554777,
+    "label_counts_a": {
+      "NO_DISTORTION": 169,
+      "UNSUPPORTED_STATUS_DISTORTION": 14,
+      "AMBIGUOUS_UNASSESSABLE": 2,
+      "STATUS_OMISSION": 20,
+      "LEGITIMATE_UPDATE": 3,
+      "PROPOSITION_LOSS": 2
+    },
+    "label_counts_b": {
+      "NO_DISTORTION": 183,
+      "UNSUPPORTED_STATUS_DISTORTION": 8,
+      "AMBIGUOUS_UNASSESSABLE": 2,
+      "STATUS_OMISSION": 8,
+      "LEGITIMATE_UPDATE": 9
+    },
+    "top_disagreements": [
+      [
+        "STATUS_OMISSION",
+        "NO_DISTORTION",
+        14
+      ],
+      [
+        "NO_DISTORTION",
+        "LEGITIMATE_UPDATE",
+        8
+      ],
+      [
+        "UNSUPPORTED_STATUS_DISTORTION",
+        "NO_DISTORTION",
+        6
+      ],
+      [
+        "LEGITIMATE_UPDATE",
+        "NO_DISTORTION",
+        2
+      ],
+      [
+        "PROPOSITION_LOSS",
+        "STATUS_OMISSION",
+        2
+      ]
+    ]
+  }
+}

@@ -1,0 +1,1958 @@
+{
+  "status": "audited",
+  "generated_at": "2026-11-20T13:21:56.837309+00:00",
+  "sources": [
+    {
+      "path": "results/status_drift_v3_p2/analysis/condition_table.csv",
+      "sha256": "4cc17804f413cab6ce85d899bde23c7063241acc978e8bcb18f51dbf62901c26",
+      "status": "audited",
+      "data": [
+        {
+          "condition": "raw",
+          "n": "30",
+          "prop_loss_n": "0",
+          "prop_loss_rate": "0.0",
+          "unsupported_n": "0",
+          "preserved_n": "30",
+          "usdr": "0.0",
+          "omission_n": "0",
+          "omission_rate": "0.0",
+          "faithful_n": "30",
+          "faithful_rate": "1.0",
+          "lua_n": "15",
+          "no_distortion_n": "15"
+        },
+        {
+          "condition": "direct",
+          "n": "30",
+          "prop_loss_n": "3",
+          "prop_loss_rate": "0.1",
+          "unsupported_n": "0",
+          "preserved_n": "27",
+          "usdr": "0.0",
+          "omission_n": "1",
+          "omission_rate": "0.037037037037037035",
+          "faithful_n": "26",
+          "faithful_rate": "0.9629629629629629",
+          "lua_n": "1",
+          "no_distortion_n": "25"
+        },
+        {
+          "condition": "recursive",
+          "n": "30",
+          "prop_loss_n": "3",
+          "prop_loss_rate": "0.1",
+          "unsupported_n": "1",
+          "preserved_n": "27",
+          "usdr": "0.037037037037037035",
+          "omission_n": "12",
+          "omission_rate": "0.4444444444444444",
+          "faithful_n": "14",
+          "faithful_rate": "0.5185185185185185",
+          "lua_n": "0",
+          "no_distortion_n": "14"
+        },
+        {
+          "condition": "rewrite_matched",
+          "n": "30",
+          "prop_loss_n": "4",
+          "prop_loss_rate": "0.13333333333333333",
+          "unsupported_n": "0",
+          "preserved_n": "26",
+          "usdr": "0.0",
+          "omission_n": "12",
+          "omission_rate": "0.46153846153846156",
+          "faithful_n": "14",
+          "faithful_rate": "0.5384615384615384",
+          "lua_n": "0",
+          "no_distortion_n": "14"
+        },
+        {
+          "condition": "repeated_direct",
+          "n": "30",
+          "prop_loss_n": "3",
+          "prop_loss_rate": "0.1",
+          "unsupported_n": "0",
+          "preserved_n": "27",
+          "usdr": "0.0",
+          "omission_n": "1",
+          "omission_rate": "0.037037037037037035",
+          "faithful_n": "26",
+          "faithful_rate": "0.9629629629629629",
+          "lua_n": "1",
+          "no_distortion_n": "25"
+        },
+        {
+          "condition": "source_peek",
+          "n": "30",
+          "prop_loss_n": "0",
+          "prop_loss_rate": "0.0",
+          "unsupported_n": "0",
+          "preserved_n": "30",
+          "usdr": "0.0",
+          "omission_n": "0",
+          "omission_rate": "0.0",
+          "faithful_n": "30",
+          "faithful_rate": "1.0",
+          "lua_n": "0",
+          "no_distortion_n": "30"
+        },
+        {
+          "condition": "para",
+          "n": "30",
+          "prop_loss_n": "6",
+          "prop_loss_rate": "0.2",
+          "unsupported_n": "0",
+          "preserved_n": "24",
+          "usdr": "0.0",
+          "omission_n": "13",
+          "omission_rate": "0.5416666666666666",
+          "faithful_n": "11",
+          "faithful_rate": "0.4583333333333333",
+          "lua_n": "0",
+          "no_distortion_n": "11"
+        },
+        {
+          "condition": "temp1",
+          "n": "30",
+          "prop_loss_n": "4",
+          "prop_loss_rate": "0.13333333333333333",
+          "unsupported_n": "2",
+          "preserved_n": "26",
+          "usdr": "0.07692307692307693",
+          "omission_n": "11",
+          "omission_rate": "0.4230769230769231",
+          "faithful_n": "13",
+          "faithful_rate": "0.5",
+          "lua_n": "0",
+          "no_distortion_n": "13"
+        },
+        {
+          "condition": "temp2",
+          "n": "30",
+          "prop_loss_n": "3",
+          "prop_loss_rate": "0.1",
+          "unsupported_n": "0",
+          "preserved_n": "27",
+          "usdr": "0.0",
+          "omission_n": "14",
+          "omission_rate": "0.5185185185185185",
+          "faithful_n": "13",
+          "faithful_rate": "0.48148148148148145",
+          "lua_n": "0",
+          "no_distortion_n": "13"
+        },
+        {
+          "condition": "path_s2",
+          "n": "30",
+          "prop_loss_n": "4",
+          "prop_loss_rate": "0.13333333333333333",
+          "unsupported_n": "0",
+          "preserved_n": "26",
+          "usdr": "0.0",
+          "omission_n": "14",
+          "omission_rate": "0.5384615384615384",
+          "faithful_n": "12",
+          "faithful_rate": "0.46153846153846156",
+          "lua_n": "0",
+          "no_distortion_n": "12"
+        },
+        {
+          "condition": "retrieval",
+          "n": "30",
+          "prop_loss_n": "0",
+          "prop_loss_rate": "0.0",
+          "unsupported_n": "0",
+          "preserved_n": "30",
+          "usdr": "0.0",
+          "omission_n": "10",
+          "omission_rate": "0.3333333333333333",
+          "faithful_n": "20",
+          "faithful_rate": "0.6666666666666666",
+          "lua_n": "10",
+          "no_distortion_n": "10"
+        }
+      ]
+    },
+    {
+      "path": "results/status_drift_v3_p2/analysis/p3_summary.json",
+      "sha256": "ac65f05543b95e76eec17f49a512f5ca7a2624e1ae05304469e3530fee1f7c19",
+      "status": "audited",
+      "data": {
+        "n_items": 330,
+        "identity": {
+          "PRESERVED": 300,
+          "PARTIAL": 29,
+          "LOST": 1
+        },
+        "judgment": {
+          "NO_DISTORTION": 182,
+          "PROPOSITION_LOSS": 30,
+          "STATUS_OMISSION": 88,
+          "LEGITIMATE_UPDATE": 27,
+          "UNSUPPORTED_STATUS_DISTORTION": 3
+        },
+        "joint": {
+          "preserved_faithful": 209,
+          "proposition_loss": 30,
+          "preserved_omission": 88,
+          "preserved_unsupported": 3
+        },
+        "by_condition": [
+          {
+            "condition": "raw",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 30
+            },
+            "judgment": {
+              "NO_DISTORTION": 15,
+              "LEGITIMATE_UPDATE": 15
+            },
+            "joint": {
+              "preserved_faithful": 30
+            },
+            "loss": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            },
+            "omission": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            },
+            "faithful": {
+              "count": 30,
+              "denominator": 30,
+              "rate": 1.0,
+              "wilson_low": 0.8864829086095221,
+              "wilson_high": 1.0
+            },
+            "no_distortion": {
+              "count": 15,
+              "denominator": 30,
+              "rate": 0.5,
+              "wilson_low": 0.33153851227173764,
+              "wilson_high": 0.6684614877282624
+            },
+            "lua": {
+              "count": 15,
+              "denominator": 30,
+              "rate": 0.5,
+              "wilson_low": 0.33153851227173764,
+              "wilson_high": 0.6684614877282624
+            }
+          },
+          {
+            "condition": "direct",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 27,
+              "PARTIAL": 3
+            },
+            "judgment": {
+              "NO_DISTORTION": 25,
+              "PROPOSITION_LOSS": 3,
+              "STATUS_OMISSION": 1,
+              "LEGITIMATE_UPDATE": 1
+            },
+            "joint": {
+              "preserved_faithful": 26,
+              "proposition_loss": 3,
+              "preserved_omission": 1
+            },
+            "loss": {
+              "count": 3,
+              "denominator": 30,
+              "rate": 0.1,
+              "wilson_low": 0.03459925995971615,
+              "wilson_high": 0.25621441315266624
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 27,
+              "rate": 0.0,
+              "wilson_low": 6.938893903907228e-18,
+              "wilson_high": 0.12455903714463581
+            },
+            "omission": {
+              "count": 1,
+              "denominator": 27,
+              "rate": 0.037037037037037035,
+              "wilson_low": 0.006567976533097597,
+              "wilson_high": 0.1828385393415652
+            },
+            "faithful": {
+              "count": 26,
+              "denominator": 27,
+              "rate": 0.9629629629629629,
+              "wilson_low": 0.8171614606584348,
+              "wilson_high": 0.9934320234669025
+            },
+            "no_distortion": {
+              "count": 25,
+              "denominator": 27,
+              "rate": 0.9259259259259259,
+              "wilson_low": 0.7663002270926937,
+              "wilson_high": 0.9794457783026165
+            },
+            "lua": {
+              "count": 1,
+              "denominator": 27,
+              "rate": 0.037037037037037035,
+              "wilson_low": 0.006567976533097597,
+              "wilson_high": 0.1828385393415652
+            }
+          },
+          {
+            "condition": "recursive",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 27,
+              "PARTIAL": 3
+            },
+            "judgment": {
+              "NO_DISTORTION": 14,
+              "STATUS_OMISSION": 12,
+              "PROPOSITION_LOSS": 3,
+              "UNSUPPORTED_STATUS_DISTORTION": 1
+            },
+            "joint": {
+              "preserved_faithful": 14,
+              "preserved_omission": 12,
+              "proposition_loss": 3,
+              "preserved_unsupported": 1
+            },
+            "loss": {
+              "count": 3,
+              "denominator": 30,
+              "rate": 0.1,
+              "wilson_low": 0.03459925995971615,
+              "wilson_high": 0.25621441315266624
+            },
+            "unsupported": {
+              "count": 1,
+              "denominator": 27,
+              "rate": 0.037037037037037035,
+              "wilson_low": 0.006567976533097597,
+              "wilson_high": 0.1828385393415652
+            },
+            "omission": {
+              "count": 12,
+              "denominator": 27,
+              "rate": 0.4444444444444444,
+              "wilson_low": 0.2758559767007283,
+              "wilson_high": 0.6268728052042312
+            },
+            "faithful": {
+              "count": 14,
+              "denominator": 27,
+              "rate": 0.5185185185185185,
+              "wilson_low": 0.3398532458621043,
+              "wilson_high": 0.6925704935029092
+            },
+            "no_distortion": {
+              "count": 14,
+              "denominator": 27,
+              "rate": 0.5185185185185185,
+              "wilson_low": 0.3398532458621043,
+              "wilson_high": 0.6925704935029092
+            },
+            "lua": {
+              "count": 0,
+              "denominator": 27,
+              "rate": 0.0,
+              "wilson_low": 6.938893903907228e-18,
+              "wilson_high": 0.12455903714463581
+            }
+          },
+          {
+            "condition": "rewrite_matched",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 26,
+              "PARTIAL": 4
+            },
+            "judgment": {
+              "NO_DISTORTION": 14,
+              "PROPOSITION_LOSS": 4,
+              "STATUS_OMISSION": 12
+            },
+            "joint": {
+              "preserved_faithful": 14,
+              "proposition_loss": 4,
+              "preserved_omission": 12
+            },
+            "loss": {
+              "count": 4,
+              "denominator": 30,
+              "rate": 0.13333333333333333,
+              "wilson_low": 0.05309569424218104,
+              "wilson_high": 0.2968168394441695
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 26,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.12873304380462175
+            },
+            "omission": {
+              "count": 12,
+              "denominator": 26,
+              "rate": 0.46153846153846156,
+              "wilson_low": 0.28755582695234905,
+              "wilson_high": 0.6454236379556988
+            },
+            "faithful": {
+              "count": 14,
+              "denominator": 26,
+              "rate": 0.5384615384615384,
+              "wilson_low": 0.3545763620443012,
+              "wilson_high": 0.712444173047651
+            },
+            "no_distortion": {
+              "count": 14,
+              "denominator": 26,
+              "rate": 0.5384615384615384,
+              "wilson_low": 0.3545763620443012,
+              "wilson_high": 0.712444173047651
+            },
+            "lua": {
+              "count": 0,
+              "denominator": 26,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.12873304380462175
+            }
+          },
+          {
+            "condition": "repeated_direct",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 27,
+              "PARTIAL": 3
+            },
+            "judgment": {
+              "NO_DISTORTION": 25,
+              "PROPOSITION_LOSS": 3,
+              "STATUS_OMISSION": 1,
+              "LEGITIMATE_UPDATE": 1
+            },
+            "joint": {
+              "preserved_faithful": 26,
+              "proposition_loss": 3,
+              "preserved_omission": 1
+            },
+            "loss": {
+              "count": 3,
+              "denominator": 30,
+              "rate": 0.1,
+              "wilson_low": 0.03459925995971615,
+              "wilson_high": 0.25621441315266624
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 27,
+              "rate": 0.0,
+              "wilson_low": 6.938893903907228e-18,
+              "wilson_high": 0.12455903714463581
+            },
+            "omission": {
+              "count": 1,
+              "denominator": 27,
+              "rate": 0.037037037037037035,
+              "wilson_low": 0.006567976533097597,
+              "wilson_high": 0.1828385393415652
+            },
+            "faithful": {
+              "count": 26,
+              "denominator": 27,
+              "rate": 0.9629629629629629,
+              "wilson_low": 0.8171614606584348,
+              "wilson_high": 0.9934320234669025
+            },
+            "no_distortion": {
+              "count": 25,
+              "denominator": 27,
+              "rate": 0.9259259259259259,
+              "wilson_low": 0.7663002270926937,
+              "wilson_high": 0.9794457783026165
+            },
+            "lua": {
+              "count": 1,
+              "denominator": 27,
+              "rate": 0.037037037037037035,
+              "wilson_low": 0.006567976533097597,
+              "wilson_high": 0.1828385393415652
+            }
+          },
+          {
+            "condition": "source_peek",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 30
+            },
+            "judgment": {
+              "NO_DISTORTION": 30
+            },
+            "joint": {
+              "preserved_faithful": 30
+            },
+            "loss": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            },
+            "omission": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            },
+            "faithful": {
+              "count": 30,
+              "denominator": 30,
+              "rate": 1.0,
+              "wilson_low": 0.8864829086095221,
+              "wilson_high": 1.0
+            },
+            "no_distortion": {
+              "count": 30,
+              "denominator": 30,
+              "rate": 1.0,
+              "wilson_low": 0.8864829086095221,
+              "wilson_high": 1.0
+            },
+            "lua": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            }
+          },
+          {
+            "condition": "para",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 24,
+              "PARTIAL": 6
+            },
+            "judgment": {
+              "NO_DISTORTION": 11,
+              "STATUS_OMISSION": 13,
+              "PROPOSITION_LOSS": 6
+            },
+            "joint": {
+              "preserved_faithful": 11,
+              "preserved_omission": 13,
+              "proposition_loss": 6
+            },
+            "loss": {
+              "count": 6,
+              "denominator": 30,
+              "rate": 0.2,
+              "wilson_low": 0.09504978102401235,
+              "wilson_high": 0.37306047381027446
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 24,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.13798057582897535
+            },
+            "omission": {
+              "count": 13,
+              "denominator": 24,
+              "rate": 0.5416666666666666,
+              "wilson_low": 0.35074553553106635,
+              "wilson_high": 0.7210894164831857
+            },
+            "faithful": {
+              "count": 11,
+              "denominator": 24,
+              "rate": 0.4583333333333333,
+              "wilson_low": 0.2789105835168143,
+              "wilson_high": 0.6492544644689336
+            },
+            "no_distortion": {
+              "count": 11,
+              "denominator": 24,
+              "rate": 0.4583333333333333,
+              "wilson_low": 0.2789105835168143,
+              "wilson_high": 0.6492544644689336
+            },
+            "lua": {
+              "count": 0,
+              "denominator": 24,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.13798057582897535
+            }
+          },
+          {
+            "condition": "temp1",
+            "n": 30,
+            "identity": {
+              "PARTIAL": 3,
+              "PRESERVED": 26,
+              "LOST": 1
+            },
+            "judgment": {
+              "PROPOSITION_LOSS": 4,
+              "STATUS_OMISSION": 11,
+              "NO_DISTORTION": 13,
+              "UNSUPPORTED_STATUS_DISTORTION": 2
+            },
+            "joint": {
+              "proposition_loss": 4,
+              "preserved_omission": 11,
+              "preserved_faithful": 13,
+              "preserved_unsupported": 2
+            },
+            "loss": {
+              "count": 4,
+              "denominator": 30,
+              "rate": 0.13333333333333333,
+              "wilson_low": 0.05309569424218104,
+              "wilson_high": 0.2968168394441695
+            },
+            "unsupported": {
+              "count": 2,
+              "denominator": 26,
+              "rate": 0.07692307692307693,
+              "wilson_low": 0.02135463918337556,
+              "wilson_high": 0.24141947480515052
+            },
+            "omission": {
+              "count": 11,
+              "denominator": 26,
+              "rate": 0.4230769230769231,
+              "wilson_low": 0.255441899027294,
+              "wilson_high": 0.6105170307888017
+            },
+            "faithful": {
+              "count": 13,
+              "denominator": 26,
+              "rate": 0.5,
+              "wilson_low": 0.32060306315002074,
+              "wilson_high": 0.6793969368499793
+            },
+            "no_distortion": {
+              "count": 13,
+              "denominator": 26,
+              "rate": 0.5,
+              "wilson_low": 0.32060306315002074,
+              "wilson_high": 0.6793969368499793
+            },
+            "lua": {
+              "count": 0,
+              "denominator": 26,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.12873304380462175
+            }
+          },
+          {
+            "condition": "temp2",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 27,
+              "PARTIAL": 3
+            },
+            "judgment": {
+              "NO_DISTORTION": 13,
+              "STATUS_OMISSION": 14,
+              "PROPOSITION_LOSS": 3
+            },
+            "joint": {
+              "preserved_faithful": 13,
+              "preserved_omission": 14,
+              "proposition_loss": 3
+            },
+            "loss": {
+              "count": 3,
+              "denominator": 30,
+              "rate": 0.1,
+              "wilson_low": 0.03459925995971615,
+              "wilson_high": 0.25621441315266624
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 27,
+              "rate": 0.0,
+              "wilson_low": 6.938893903907228e-18,
+              "wilson_high": 0.12455903714463581
+            },
+            "omission": {
+              "count": 14,
+              "denominator": 27,
+              "rate": 0.5185185185185185,
+              "wilson_low": 0.3398532458621043,
+              "wilson_high": 0.6925704935029092
+            },
+            "faithful": {
+              "count": 13,
+              "denominator": 27,
+              "rate": 0.48148148148148145,
+              "wilson_low": 0.3074295064970908,
+              "wilson_high": 0.6601467541378958
+            },
+            "no_distortion": {
+              "count": 13,
+              "denominator": 27,
+              "rate": 0.48148148148148145,
+              "wilson_low": 0.3074295064970908,
+              "wilson_high": 0.6601467541378958
+            },
+            "lua": {
+              "count": 0,
+              "denominator": 27,
+              "rate": 0.0,
+              "wilson_low": 6.938893903907228e-18,
+              "wilson_high": 0.12455903714463581
+            }
+          },
+          {
+            "condition": "path_s2",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 26,
+              "PARTIAL": 4
+            },
+            "judgment": {
+              "STATUS_OMISSION": 14,
+              "NO_DISTORTION": 12,
+              "PROPOSITION_LOSS": 4
+            },
+            "joint": {
+              "preserved_omission": 14,
+              "preserved_faithful": 12,
+              "proposition_loss": 4
+            },
+            "loss": {
+              "count": 4,
+              "denominator": 30,
+              "rate": 0.13333333333333333,
+              "wilson_low": 0.05309569424218104,
+              "wilson_high": 0.2968168394441695
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 26,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.12873304380462175
+            },
+            "omission": {
+              "count": 14,
+              "denominator": 26,
+              "rate": 0.5384615384615384,
+              "wilson_low": 0.3545763620443012,
+              "wilson_high": 0.712444173047651
+            },
+            "faithful": {
+              "count": 12,
+              "denominator": 26,
+              "rate": 0.46153846153846156,
+              "wilson_low": 0.28755582695234905,
+              "wilson_high": 0.6454236379556988
+            },
+            "no_distortion": {
+              "count": 12,
+              "denominator": 26,
+              "rate": 0.46153846153846156,
+              "wilson_low": 0.28755582695234905,
+              "wilson_high": 0.6454236379556988
+            },
+            "lua": {
+              "count": 0,
+              "denominator": 26,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.12873304380462175
+            }
+          },
+          {
+            "condition": "retrieval",
+            "n": 30,
+            "identity": {
+              "PRESERVED": 30
+            },
+            "judgment": {
+              "STATUS_OMISSION": 10,
+              "LEGITIMATE_UPDATE": 10,
+              "NO_DISTORTION": 10
+            },
+            "joint": {
+              "preserved_omission": 10,
+              "preserved_faithful": 20
+            },
+            "loss": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            },
+            "unsupported": {
+              "count": 0,
+              "denominator": 30,
+              "rate": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.113517091390478
+            },
+            "omission": {
+              "count": 10,
+              "denominator": 30,
+              "rate": 0.3333333333333333,
+              "wilson_low": 0.19230295526846194,
+              "wilson_high": 0.5122027418616973
+            },
+            "faithful": {
+              "count": 20,
+              "denominator": 30,
+              "rate": 0.6666666666666666,
+              "wilson_low": 0.48779725813830266,
+              "wilson_high": 0.807697044731538
+            },
+            "no_distortion": {
+              "count": 10,
+              "denominator": 30,
+              "rate": 0.3333333333333333,
+              "wilson_low": 0.19230295526846194,
+              "wilson_high": 0.5122027418616973
+            },
+            "lua": {
+              "count": 10,
+              "denominator": 30,
+              "rate": 0.3333333333333333,
+              "wilson_low": 0.19230295526846194,
+              "wilson_high": 0.5122027418616973
+            }
+          }
+        ],
+        "by_dimension": [
+          {
+            "dimension": "conditional",
+            "n": 110,
+            "judgment": {
+              "PROPOSITION_LOSS": 12,
+              "STATUS_OMISSION": 27,
+              "NO_DISTORTION": 65,
+              "LEGITIMATE_UPDATE": 5,
+              "UNSUPPORTED_STATUS_DISTORTION": 1
+            },
+            "loss": {
+              "count": 12,
+              "denominator": 110,
+              "rate": 0.10909090909090909,
+              "wilson_low": 0.06351398138853154,
+              "wilson_high": 0.18105039578114984
+            },
+            "unsupported": {
+              "count": 1,
+              "denominator": 98,
+              "rate": 0.01020408163265306,
+              "wilson_low": 0.0018035013277367812,
+              "wilson_high": 0.055556163092303754
+            },
+            "omission": {
+              "count": 27,
+              "denominator": 98,
+              "rate": 0.2755102040816326,
+              "wilson_low": 0.19679426941928943,
+              "wilson_high": 0.3711622434398958
+            },
+            "faithful": {
+              "count": 70,
+              "denominator": 98,
+              "rate": 0.7142857142857143,
+              "wilson_low": 0.6180914698303978,
+              "wilson_high": 0.7943136769858347
+            }
+          },
+          {
+            "dimension": "epistemic",
+            "n": 110,
+            "judgment": {
+              "NO_DISTORTION": 58,
+              "STATUS_OMISSION": 34,
+              "LEGITIMATE_UPDATE": 10,
+              "PROPOSITION_LOSS": 7,
+              "UNSUPPORTED_STATUS_DISTORTION": 1
+            },
+            "loss": {
+              "count": 7,
+              "denominator": 110,
+              "rate": 0.06363636363636363,
+              "wilson_low": 0.03116412133993078,
+              "wilson_high": 0.12555890433785305
+            },
+            "unsupported": {
+              "count": 1,
+              "denominator": 103,
+              "rate": 0.009708737864077669,
+              "wilson_low": 0.0017158473082714565,
+              "wilson_high": 0.05295948514650271
+            },
+            "omission": {
+              "count": 34,
+              "denominator": 103,
+              "rate": 0.3300970873786408,
+              "wilson_low": 0.24682835312636037,
+              "wilson_high": 0.425583890793611
+            },
+            "faithful": {
+              "count": 68,
+              "denominator": 103,
+              "rate": 0.6601941747572816,
+              "wilson_low": 0.5644371441570133,
+              "wilson_high": 0.7444313115755854
+            }
+          },
+          {
+            "dimension": "intentional",
+            "n": 110,
+            "judgment": {
+              "NO_DISTORTION": 59,
+              "PROPOSITION_LOSS": 11,
+              "STATUS_OMISSION": 27,
+              "LEGITIMATE_UPDATE": 12,
+              "UNSUPPORTED_STATUS_DISTORTION": 1
+            },
+            "loss": {
+              "count": 11,
+              "denominator": 110,
+              "rate": 0.1,
+              "wilson_low": 0.05675953504141412,
+              "wilson_high": 0.17023657182988777
+            },
+            "unsupported": {
+              "count": 1,
+              "denominator": 99,
+              "rate": 0.010101010101010102,
+              "wilson_low": 0.0017852613200520298,
+              "wilson_high": 0.05501665541403223
+            },
+            "omission": {
+              "count": 27,
+              "denominator": 99,
+              "rate": 0.2727272727272727,
+              "wilson_low": 0.1947227886340705,
+              "wilson_high": 0.367711090263185
+            },
+            "faithful": {
+              "count": 71,
+              "denominator": 99,
+              "rate": 0.7171717171717171,
+              "wilson_low": 0.6216369977049233,
+              "wilson_high": 0.796481740237699
+            }
+          }
+        ],
+        "paired_contrasts": [
+          {
+            "condition": "raw",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": -0.1,
+            "bootstrap_low": -0.23333333333333334,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 3,
+            "n_ties": 27
+          },
+          {
+            "condition": "raw",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "raw",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.4,
+            "bootstrap_low": -0.5666666666666667,
+            "bootstrap_high": -0.23333333333333334,
+            "n_condition_positive": 0,
+            "n_reference_positive": 12,
+            "n_ties": 18
+          },
+          {
+            "condition": "raw",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.5333333333333333,
+            "bootstrap_low": 0.36666666666666664,
+            "bootstrap_high": 0.7,
+            "n_condition_positive": 16,
+            "n_reference_positive": 0,
+            "n_ties": 14
+          },
+          {
+            "condition": "direct",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": -0.13333333333333333,
+            "bootstrap_high": 0.13333333333333333,
+            "n_condition_positive": 2,
+            "n_reference_positive": 2,
+            "n_ties": 26
+          },
+          {
+            "condition": "direct",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "direct",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.36666666666666664,
+            "bootstrap_low": -0.5666666666666667,
+            "bootstrap_high": -0.16666666666666666,
+            "n_condition_positive": 1,
+            "n_reference_positive": 12,
+            "n_ties": 17
+          },
+          {
+            "condition": "direct",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.4,
+            "bootstrap_low": 0.2,
+            "bootstrap_high": 0.6,
+            "n_condition_positive": 13,
+            "n_reference_positive": 1,
+            "n_ties": 16
+          },
+          {
+            "condition": "rewrite_matched",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.03333333333333333,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.1,
+            "n_condition_positive": 1,
+            "n_reference_positive": 0,
+            "n_ties": 29
+          },
+          {
+            "condition": "rewrite_matched",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "rewrite_matched",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": -0.16666666666666666,
+            "bootstrap_high": 0.16666666666666666,
+            "n_condition_positive": 3,
+            "n_reference_positive": 3,
+            "n_ties": 24
+          },
+          {
+            "condition": "rewrite_matched",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": -0.16666666666666666,
+            "bootstrap_high": 0.16666666666666666,
+            "n_condition_positive": 3,
+            "n_reference_positive": 3,
+            "n_ties": 24
+          },
+          {
+            "condition": "repeated_direct",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": -0.13333333333333333,
+            "bootstrap_high": 0.13333333333333333,
+            "n_condition_positive": 2,
+            "n_reference_positive": 2,
+            "n_ties": 26
+          },
+          {
+            "condition": "repeated_direct",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "repeated_direct",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.36666666666666664,
+            "bootstrap_low": -0.5666666666666667,
+            "bootstrap_high": -0.16666666666666666,
+            "n_condition_positive": 1,
+            "n_reference_positive": 12,
+            "n_ties": 17
+          },
+          {
+            "condition": "repeated_direct",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.4,
+            "bootstrap_low": 0.2,
+            "bootstrap_high": 0.6,
+            "n_condition_positive": 13,
+            "n_reference_positive": 1,
+            "n_ties": 16
+          },
+          {
+            "condition": "source_peek",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": -0.1,
+            "bootstrap_low": -0.23333333333333334,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 3,
+            "n_ties": 27
+          },
+          {
+            "condition": "source_peek",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "source_peek",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.4,
+            "bootstrap_low": -0.5666666666666667,
+            "bootstrap_high": -0.23333333333333334,
+            "n_condition_positive": 0,
+            "n_reference_positive": 12,
+            "n_ties": 18
+          },
+          {
+            "condition": "source_peek",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.5333333333333333,
+            "bootstrap_low": 0.36666666666666664,
+            "bootstrap_high": 0.7,
+            "n_condition_positive": 16,
+            "n_reference_positive": 0,
+            "n_ties": 14
+          },
+          {
+            "condition": "para",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.1,
+            "bootstrap_low": -0.06666666666666667,
+            "bootstrap_high": 0.26666666666666666,
+            "n_condition_positive": 5,
+            "n_reference_positive": 2,
+            "n_ties": 23
+          },
+          {
+            "condition": "para",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "para",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": 0.03333333333333333,
+            "bootstrap_low": -0.16666666666666666,
+            "bootstrap_high": 0.23333333333333334,
+            "n_condition_positive": 6,
+            "n_reference_positive": 5,
+            "n_ties": 19
+          },
+          {
+            "condition": "para",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": -0.1,
+            "bootstrap_low": -0.3,
+            "bootstrap_high": 0.1,
+            "n_condition_positive": 3,
+            "n_reference_positive": 6,
+            "n_ties": 21
+          },
+          {
+            "condition": "temp1",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.03333333333333333,
+            "bootstrap_low": -0.06666666666666667,
+            "bootstrap_high": 0.13333333333333333,
+            "n_condition_positive": 2,
+            "n_reference_positive": 1,
+            "n_ties": 27
+          },
+          {
+            "condition": "temp1",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": 0.03333333333333333,
+            "bootstrap_low": -0.06666666666666667,
+            "bootstrap_high": 0.13333333333333333,
+            "n_condition_positive": 2,
+            "n_reference_positive": 1,
+            "n_ties": 27
+          },
+          {
+            "condition": "temp1",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.23333333333333334,
+            "bootstrap_high": 0.16666666666666666,
+            "n_condition_positive": 4,
+            "n_reference_positive": 5,
+            "n_ties": 21
+          },
+          {
+            "condition": "temp1",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.2,
+            "bootstrap_high": 0.13333333333333333,
+            "n_condition_positive": 3,
+            "n_reference_positive": 4,
+            "n_ties": 23
+          },
+          {
+            "condition": "temp2",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.0,
+            "bootstrap_low": -0.13333333333333333,
+            "bootstrap_high": 0.13333333333333333,
+            "n_condition_positive": 2,
+            "n_reference_positive": 2,
+            "n_ties": 26
+          },
+          {
+            "condition": "temp2",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "temp2",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": 0.06666666666666667,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.23333333333333334,
+            "n_condition_positive": 5,
+            "n_reference_positive": 3,
+            "n_ties": 22
+          },
+          {
+            "condition": "temp2",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.13333333333333333,
+            "bootstrap_high": 0.06666666666666667,
+            "n_condition_positive": 1,
+            "n_reference_positive": 2,
+            "n_ties": 27
+          },
+          {
+            "condition": "path_s2",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": 0.03333333333333333,
+            "bootstrap_low": 0.0,
+            "bootstrap_high": 0.1,
+            "n_condition_positive": 1,
+            "n_reference_positive": 0,
+            "n_ties": 29
+          },
+          {
+            "condition": "path_s2",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "path_s2",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": 0.06666666666666667,
+            "bootstrap_low": -0.06666666666666667,
+            "bootstrap_high": 0.2,
+            "n_condition_positive": 3,
+            "n_reference_positive": 1,
+            "n_ties": 26
+          },
+          {
+            "condition": "path_s2",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": -0.06666666666666667,
+            "bootstrap_low": -0.16666666666666666,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 2,
+            "n_ties": 28
+          },
+          {
+            "condition": "retrieval",
+            "reference": "recursive",
+            "outcome": "loss",
+            "n_pairs": 30,
+            "mean_difference": -0.1,
+            "bootstrap_low": -0.23333333333333334,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 3,
+            "n_ties": 27
+          },
+          {
+            "condition": "retrieval",
+            "reference": "recursive",
+            "outcome": "unsupported",
+            "n_pairs": 30,
+            "mean_difference": -0.03333333333333333,
+            "bootstrap_low": -0.1,
+            "bootstrap_high": 0.0,
+            "n_condition_positive": 0,
+            "n_reference_positive": 1,
+            "n_ties": 29
+          },
+          {
+            "condition": "retrieval",
+            "reference": "recursive",
+            "outcome": "omission",
+            "n_pairs": 30,
+            "mean_difference": -0.06666666666666667,
+            "bootstrap_low": -0.3333333333333333,
+            "bootstrap_high": 0.2,
+            "n_condition_positive": 7,
+            "n_reference_positive": 9,
+            "n_ties": 14
+          },
+          {
+            "condition": "retrieval",
+            "reference": "recursive",
+            "outcome": "faithful",
+            "n_pairs": 30,
+            "mean_difference": 0.2,
+            "bootstrap_low": -0.06666666666666667,
+            "bootstrap_high": 0.4666666666666667,
+            "n_condition_positive": 11,
+            "n_reference_positive": 5,
+            "n_ties": 14
+          }
+        ],
+        "warnings": [
+          "Adjudication is model-assisted; original A/B labels are preserved.",
+          "USDR/omission/faithful rates use PRESERVED as the denominator.",
+          "PLR uses all items as the denominator.",
+          "Paired contrasts are trajectory-level intention-to-treat differences.",
+          "Unsupported distortion is rare; do not interpret a null as equivalence.",
+          "P2 is not pooled with v2.x or P1."
+        ]
+      }
+    },
+    {
+      "path": "results/status_drift_v3_p2/analysis/paired_contrasts.csv",
+      "sha256": "f45c8075bd3d87dd409d351313b49e8914422a5d8d2761fded9b8ac31743b355",
+      "status": "audited",
+      "data": [
+        {
+          "condition": "raw",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "-0.1",
+          "bootstrap_low": "-0.23333333333333334",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "3",
+          "n_ties": "27"
+        },
+        {
+          "condition": "raw",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "raw",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.4",
+          "bootstrap_low": "-0.5666666666666667",
+          "bootstrap_high": "-0.23333333333333334",
+          "n_condition_positive": "0",
+          "n_reference_positive": "12",
+          "n_ties": "18"
+        },
+        {
+          "condition": "raw",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.5333333333333333",
+          "bootstrap_low": "0.36666666666666664",
+          "bootstrap_high": "0.7",
+          "n_condition_positive": "16",
+          "n_reference_positive": "0",
+          "n_ties": "14"
+        },
+        {
+          "condition": "direct",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "-0.13333333333333333",
+          "bootstrap_high": "0.13333333333333333",
+          "n_condition_positive": "2",
+          "n_reference_positive": "2",
+          "n_ties": "26"
+        },
+        {
+          "condition": "direct",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "direct",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.36666666666666664",
+          "bootstrap_low": "-0.5666666666666667",
+          "bootstrap_high": "-0.16666666666666666",
+          "n_condition_positive": "1",
+          "n_reference_positive": "12",
+          "n_ties": "17"
+        },
+        {
+          "condition": "direct",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.4",
+          "bootstrap_low": "0.2",
+          "bootstrap_high": "0.6",
+          "n_condition_positive": "13",
+          "n_reference_positive": "1",
+          "n_ties": "16"
+        },
+        {
+          "condition": "rewrite_matched",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.03333333333333333",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.1",
+          "n_condition_positive": "1",
+          "n_reference_positive": "0",
+          "n_ties": "29"
+        },
+        {
+          "condition": "rewrite_matched",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "rewrite_matched",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "-0.16666666666666666",
+          "bootstrap_high": "0.16666666666666666",
+          "n_condition_positive": "3",
+          "n_reference_positive": "3",
+          "n_ties": "24"
+        },
+        {
+          "condition": "rewrite_matched",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "-0.16666666666666666",
+          "bootstrap_high": "0.16666666666666666",
+          "n_condition_positive": "3",
+          "n_reference_positive": "3",
+          "n_ties": "24"
+        },
+        {
+          "condition": "repeated_direct",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "-0.13333333333333333",
+          "bootstrap_high": "0.13333333333333333",
+          "n_condition_positive": "2",
+          "n_reference_positive": "2",
+          "n_ties": "26"
+        },
+        {
+          "condition": "repeated_direct",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "repeated_direct",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.36666666666666664",
+          "bootstrap_low": "-0.5666666666666667",
+          "bootstrap_high": "-0.16666666666666666",
+          "n_condition_positive": "1",
+          "n_reference_positive": "12",
+          "n_ties": "17"
+        },
+        {
+          "condition": "repeated_direct",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.4",
+          "bootstrap_low": "0.2",
+          "bootstrap_high": "0.6",
+          "n_condition_positive": "13",
+          "n_reference_positive": "1",
+          "n_ties": "16"
+        },
+        {
+          "condition": "source_peek",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "-0.1",
+          "bootstrap_low": "-0.23333333333333334",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "3",
+          "n_ties": "27"
+        },
+        {
+          "condition": "source_peek",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "source_peek",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.4",
+          "bootstrap_low": "-0.5666666666666667",
+          "bootstrap_high": "-0.23333333333333334",
+          "n_condition_positive": "0",
+          "n_reference_positive": "12",
+          "n_ties": "18"
+        },
+        {
+          "condition": "source_peek",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.5333333333333333",
+          "bootstrap_low": "0.36666666666666664",
+          "bootstrap_high": "0.7",
+          "n_condition_positive": "16",
+          "n_reference_positive": "0",
+          "n_ties": "14"
+        },
+        {
+          "condition": "para",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.1",
+          "bootstrap_low": "-0.06666666666666667",
+          "bootstrap_high": "0.26666666666666666",
+          "n_condition_positive": "5",
+          "n_reference_positive": "2",
+          "n_ties": "23"
+        },
+        {
+          "condition": "para",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "para",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "0.03333333333333333",
+          "bootstrap_low": "-0.16666666666666666",
+          "bootstrap_high": "0.23333333333333334",
+          "n_condition_positive": "6",
+          "n_reference_positive": "5",
+          "n_ties": "19"
+        },
+        {
+          "condition": "para",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "-0.1",
+          "bootstrap_low": "-0.3",
+          "bootstrap_high": "0.1",
+          "n_condition_positive": "3",
+          "n_reference_positive": "6",
+          "n_ties": "21"
+        },
+        {
+          "condition": "temp1",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.03333333333333333",
+          "bootstrap_low": "-0.06666666666666667",
+          "bootstrap_high": "0.13333333333333333",
+          "n_condition_positive": "2",
+          "n_reference_positive": "1",
+          "n_ties": "27"
+        },
+        {
+          "condition": "temp1",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "0.03333333333333333",
+          "bootstrap_low": "-0.06666666666666667",
+          "bootstrap_high": "0.13333333333333333",
+          "n_condition_positive": "2",
+          "n_reference_positive": "1",
+          "n_ties": "27"
+        },
+        {
+          "condition": "temp1",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.23333333333333334",
+          "bootstrap_high": "0.16666666666666666",
+          "n_condition_positive": "4",
+          "n_reference_positive": "5",
+          "n_ties": "21"
+        },
+        {
+          "condition": "temp1",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.2",
+          "bootstrap_high": "0.13333333333333333",
+          "n_condition_positive": "3",
+          "n_reference_positive": "4",
+          "n_ties": "23"
+        },
+        {
+          "condition": "temp2",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.0",
+          "bootstrap_low": "-0.13333333333333333",
+          "bootstrap_high": "0.13333333333333333",
+          "n_condition_positive": "2",
+          "n_reference_positive": "2",
+          "n_ties": "26"
+        },
+        {
+          "condition": "temp2",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "temp2",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "0.06666666666666667",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.23333333333333334",
+          "n_condition_positive": "5",
+          "n_reference_positive": "3",
+          "n_ties": "22"
+        },
+        {
+          "condition": "temp2",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.13333333333333333",
+          "bootstrap_high": "0.06666666666666667",
+          "n_condition_positive": "1",
+          "n_reference_positive": "2",
+          "n_ties": "27"
+        },
+        {
+          "condition": "path_s2",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "0.03333333333333333",
+          "bootstrap_low": "0.0",
+          "bootstrap_high": "0.1",
+          "n_condition_positive": "1",
+          "n_reference_positive": "0",
+          "n_ties": "29"
+        },
+        {
+          "condition": "path_s2",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "path_s2",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "0.06666666666666667",
+          "bootstrap_low": "-0.06666666666666667",
+          "bootstrap_high": "0.2",
+          "n_condition_positive": "3",
+          "n_reference_positive": "1",
+          "n_ties": "26"
+        },
+        {
+          "condition": "path_s2",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "-0.06666666666666667",
+          "bootstrap_low": "-0.16666666666666666",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "2",
+          "n_ties": "28"
+        },
+        {
+          "condition": "retrieval",
+          "reference": "recursive",
+          "outcome": "loss",
+          "n_pairs": "30",
+          "mean_difference": "-0.1",
+          "bootstrap_low": "-0.23333333333333334",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "3",
+          "n_ties": "27"
+        },
+        {
+          "condition": "retrieval",
+          "reference": "recursive",
+          "outcome": "unsupported",
+          "n_pairs": "30",
+          "mean_difference": "-0.03333333333333333",
+          "bootstrap_low": "-0.1",
+          "bootstrap_high": "0.0",
+          "n_condition_positive": "0",
+          "n_reference_positive": "1",
+          "n_ties": "29"
+        },
+        {
+          "condition": "retrieval",
+          "reference": "recursive",
+          "outcome": "omission",
+          "n_pairs": "30",
+          "mean_difference": "-0.06666666666666667",
+          "bootstrap_low": "-0.3333333333333333",
+          "bootstrap_high": "0.2",
+          "n_condition_positive": "7",
+          "n_reference_positive": "9",
+          "n_ties": "14"
+        },
+        {
+          "condition": "retrieval",
+          "reference": "recursive",
+          "outcome": "faithful",
+          "n_pairs": "30",
+          "mean_difference": "0.2",
+          "bootstrap_low": "-0.06666666666666667",
+          "bootstrap_high": "0.4666666666666667",
+          "n_condition_positive": "11",
+          "n_reference_positive": "5",
+          "n_ties": "14"
+        }
+      ]
+    }
+  ]
+}

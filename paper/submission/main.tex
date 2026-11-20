@@ -435,6 +435,16 @@ action-form ceiling (17/19 strict, 18/20 inclusive), so the weaponized
 authorization result is reported for that model and the failures are reported
 as model-class limitations.
 
+A non-local gateway model (reported as glm-5.3-flash) reproduces the distortion
+effect more strongly: neutral distorted 28/34 and action 26/34 unauthorized;
+omitted 7/34 and 4/34; present and no-memory 0/34. Its request-form
+interactions are $-0.059$ $[-0.206, 0.088]$ for distortion and $-0.088$
+$[-0.206, 0.000]$ for omission, neither excluding zero, so the action-form
+attenuation does not replicate on it. It passes the control gate at 20/20
+semantic (19/20 mechanical; AUT-11 lacks the \texttt{DECISION:} prefix). The
+endpoint label is gateway-reported and not independently authenticated, and
+this model is not pooled with the local results.
+
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig4_behavior.pdf}
@@ -630,8 +640,10 @@ annotation remains an open measurement problem.
 \item \textbf{Annotation provenance and adjudication.} Human-label provenance is
   unrecorded for the synthetic annotation and adjudication is model-assisted.
   We report those labels as annotator-unspecified, not as independent human
-  reliability; all reported $\kappa$ values are post-adjudication. The
-  pre-registered second-writer replication covers 12 trajectories and its
+  reliability; $\kappa$ values for the main cohorts are post-adjudication. The
+  pre-adjudication agreement for the post-hoc n = 30 sensitivity cohort is
+  reported as such in the appendix and is not pooled with the pre-registered
+  cohort. The pre-registered second-writer replication covers 12 trajectories and its
   reliability is 0.834 $\kappa$; a post-hoc 30-trajectory sensitivity cohort
   uses model adjudication and is reported separately.
 \item \textbf{Bank construction.} Study 2b mixes 4 original and 16 expansion
@@ -837,6 +849,13 @@ reported categories partition all 30 items in every condition; the two
 ambiguous rewrite-matched items are kept in the table so that row also sums to
 30. Proposition identity is preserved for 29 of 30 items in Recursive and
 Rewrite-matched, which sets their conditional status denominator to 29.
+Pre-adjudication agreement on the primary judgment is 0.940 raw / 0.834
+$\kappa$ in the pre-registered 12-trajectory cohort, 0.786 / 0.126 in the
+added 18-trajectory cohort, and 0.848 / 0.478 over the full 30. The added
+cohort's disagreement is concentrated in omission (annotator A assigns
+\emph{status omission} to 15/126 items and annotator B to 3/126), consistent
+with annotator interpretation drift between rounds; the n = 30 cohort is
+therefore a weakly supported sensitivity analysis.
 
 \begin{table*}[h]
 \centering

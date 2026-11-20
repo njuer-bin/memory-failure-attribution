@@ -12,8 +12,8 @@ backfilled from memory.
 | Records coded | 39 (34 distorted, 5 omitted) |
 | Rater | single analyst (project maintainer) |
 | Reviewer type | human |
-| Timing | post hoc, after the frozen v3.1 run |
-| Codebook | four codes: D1, O1, O2, O3 (`analysis/unauthorized_reason_codes.csv`) |
+| Timing | post hoc, after the frozen v3.1 run; exact date not recorded |
+| Codebook | four codes: D1, O1, O2, O3 (`analysis/unauthorized_reason_codes.csv`); version not recorded |
 | Saw model identity | yes |
 | Saw condition/variant | yes |
 | Saw gold labels | yes (gold-unblinded) |
@@ -34,8 +34,8 @@ recorded as `second_rater` in `unauthorized_reason_codes_summary.json` with
 | Records coded | 65 (54 D1, 11 O2, 0 O1/O3) |
 | Rater | single analyst (project maintainer) |
 | Reviewer type | human |
-| Timing | post hoc, after the v3.1 gateway run |
-| Codebook | same four codes as the Gemma round |
+| Timing | post hoc, after the v3.1 gateway run; exact date not recorded |
+| Codebook | same four codes as the Gemma round; version not recorded |
 | Saw model identity | yes |
 | Saw condition/variant | yes |
 | Saw gold labels | yes (gold-unblinded) |

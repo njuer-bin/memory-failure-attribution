@@ -65,9 +65,10 @@ def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
     return max(0.0, centre - half), min(1.0, centre + half)
 
 
-def save(fig: plt.Figure, name: str) -> None:
+def save(fig: plt.Figure, name: str, tight: bool = True) -> None:
     OUT.mkdir(parents=True, exist_ok=True)
-    fig.tight_layout(pad=0.25)
+    if tight:
+        fig.tight_layout(pad=0.25)
     fig.savefig(OUT / f"{name}.pdf")
     fig.savefig(OUT / f"{name}.png", dpi=220)
     plt.close(fig)
@@ -253,19 +254,20 @@ def fig5_mitigation() -> None:
     replication = {row["condition"]: row for row in
                    read_csv(Path("results/status_drift_v3_replication_writer/analysis_v325/condition_table.csv"))}
     panels = [
-        ("qwen2.5:7b writer",
+        ("qwen2.5:7b writer (primary, n=30)",
          [("neutral", "neutral", BLUE), ("status_aware", "status-aware", BLUE),
           ("neutral_source", "neutral\n+ source", ORANGE),
           ("status_aware_source", "status-aware\n+ source", ORANGE)],
          primary),
-        ("gemma3:12b writer",
+        ("gemma3:12b writer (pre-registered, n=12)",
          [("direct", "direct\n(baseline)", BLUE), ("status_aware", "status-aware", BLUE),
           ("neutral_source", "neutral\n+ source", ORANGE),
           ("status_aware_source", "status-aware\n+ source", ORANGE)],
          replication),
     ]
 
-    fig, axes = plt.subplots(1, 2, figsize=(DOUBLE_COL, 2.35), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(DOUBLE_COL, 2.6), sharey=True)
+    fig.subplots_adjust(left=0.10, right=0.98, top=0.90, bottom=0.28, wspace=0.12)
     for ax, (title, cells, data) in zip(axes, panels):
         for i, (condition, label, color) in enumerate(cells):
             row = data[condition]
@@ -278,15 +280,16 @@ def fig5_mitigation() -> None:
         ax.set_xticks(range(len(cells)))
         ax.set_xticklabels([label for _, label, _ in cells])
         ax.set_ylim(0, 1.1)
-        ax.set_title(title, loc="left", pad=4)
+        ax.set_title(title, loc="left", pad=4, fontsize=8)
         ax.grid(axis="y", color=GRID, linewidth=0.5)
         ax.set_axisbelow(True)
-    axes[0].set_ylabel("faithful status (all items)")
+    axes[0].set_ylabel("faithful status (joint fidelity)")
     handles = [plt.Rectangle((0, 0), 1, 1, color=BLUE),
                plt.Rectangle((0, 0), 1, 1, color=ORANGE)]
-    axes[0].legend(handles, ["memory only", "+ source access"], frameon=False,
-                   loc="lower left", handlelength=1.0, handleheight=0.8)
-    save(fig, "fig5_mitigation")
+    fig.legend(handles, ["memory only", "+ source access"], frameon=False,
+               loc="lower center", bbox_to_anchor=(0.5, 0.012), ncol=2,
+               handlelength=1.0, handleheight=0.8)
+    save(fig, "fig5_mitigation", tight=False)
 
 
 # --------------------------------------------------------------------------

@@ -111,7 +111,10 @@ The individual ingredients are prior work. State tracking, structured belief
 states, recursive-summarization omission, source access, and memory-to-action
 effects have all been studied. The contribution is the status-specific,
 proposition-controlled combination and the separation of two failure modes with
-opposite behavioral profiles, measured under blind human labels.
+opposite behavioral profiles, measured under blind human labels. We do not
+claim that proposition recall is universally unreliable, that all models show
+the same distortion pattern, or that post-hoc reason codes establish causal
+mechanisms; the claims are bounded to the tasks and model families studied.
 
 \section{Related Work}
 
@@ -526,17 +529,21 @@ rewrite-matched and recursive are 18/30 faithful versus 27/30 for direct and
 repeated-direct. The mitigation ranking does not stabilize: source access is
 27/30 and no longer exceeds the direct controls, while the combination is 30/30.
 This cohort was not pre-registered, and its 50 annotator disagreements were
-resolved by a model third-reviewer that followed annotator A throughout; we
-report it as a sensitivity check, not as independent human confirmation.
-Supplementary Appendix~D reports the full table.
+resolved by a model third-reviewer that followed annotator A throughout; its
+added 18-trajectory subset also has much weaker pre-adjudication agreement
+(0.786 raw, $\kappa$ 0.126) than the pre-registered 12 (0.940 raw,
+$\kappa$ 0.834). We therefore report it as a weakly supported sensitivity
+check, not as independent human confirmation. Supplementary Appendix~D reports
+the full table and the cohort-stratified reliability.
 
 \begin{figure*}[t]
 \centering
 \includegraphics[width=\textwidth]{figures/fig5_mitigation.pdf}
 \caption{Faithful status out of all expected trajectories (joint fidelity) for
-the primary writer and the replication. Labels give faithful/expected counts;
-the primary writer's neutral denominator is 30, of which four items lose the
-proposition (conditional status fidelity for those items is in
+the primary writer (Study 3, $n=30$) and the pre-registered second-writer
+replication ($n=12$). Labels give faithful/expected counts; the primary
+writer's neutral denominator is 30, of which four items lose the proposition
+(conditional status fidelity for those items is in
 Table~\ref{tab:mitigation}).}
 \label{fig:mitigation}
 \end{figure*}
@@ -624,10 +631,14 @@ problem.
 \item \textbf{Annotation provenance and adjudication.} Human-label provenance is
   unrecorded for the synthetic annotation and adjudication is model-assisted; we
   report those labels as annotator-unspecified, not as independent human
-  reliability. All reported $\kappa$ values are post-adjudication. The
-  pre-registered second-writer replication covers 12 trajectories
-  ($\kappa$ 0.834); a post-hoc 30-trajectory sensitivity cohort uses
-  model adjudication and is reported separately.
+  reliability. Reported $\kappa$ values for the main cohorts are
+  post-adjudication; the pre-adjudication agreement for the post-hoc n = 30
+  sensitivity cohort is reported as such in Supplementary Appendix~D and is
+  not pooled with the pre-registered cohort. The pre-registered second-writer
+  replication covers 12 trajectories ($\kappa$ 0.834); a post-hoc
+  30-trajectory sensitivity cohort uses model adjudication, and its added
+  18-trajectory subset has pre-adjudication raw agreement 0.786 and
+  $\kappa$ 0.126, so it is reported separately and interpreted with caution.
 \item \textbf{Bank construction.} Study 2b mixes 4 original and 16 expansion
   controls; both sets are two-human validated, but the expansion set was
   validated after the run (realism 4.97, \emph{only-status-differs} 15/16,

@@ -75,3 +75,13 @@ The 210-item reconciliation (`analysis_v325_full/reconciliation.json`) shows
 every condition has 30 items and the five categories partition each condition;
 the rewrite-matched row sums to 30 only when its two ambiguous items are kept,
 so that column must stay in the table.
+
+## Status after v2.1 (2026-11-20)
+
+Done locally: three-layer control audit, stratified n=30 reliability, canonical
+results layer with consistency checks, novelty-audit extension, GLM Study 2b
+sync into the ACL manuscript, fig5 legend repair, both PDF rebuilds, supplement
+rebuild, and anonymity scans. Remaining human inputs are unchanged: an optional
+independent third annotator for the n=30 disputes, and the official ECAI 2027
+class/kit when it is released. No thresholds, labels, or denominators were
+changed.

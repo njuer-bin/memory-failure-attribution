@@ -1,0 +1,2011 @@
+{
+  "status": "audited",
+  "generated_at": "2026-11-20T13:21:56.837309+00:00",
+  "pre_registered_cohort": "n12",
+  "post_hoc_cohort": "n18",
+  "sources": [
+    {
+      "path": "results/status_drift_v3_replication_writer/analysis_v325_full/condition_table.csv",
+      "sha256": "c1f2917c2f9b70fddfc403329818165da1a39c7068ed4d7218fc0b908fcdef54",
+      "status": "audited",
+      "data": [
+        {
+          "condition": "direct",
+          "n": "30",
+          "faithful_n": "27",
+          "faithful_rate": "0.9",
+          "joint_fidelity_low": "0.7437891742081593",
+          "joint_fidelity_high": "0.9654001112526658",
+          "omission_n": "3",
+          "unsupported_n": "0",
+          "ambiguous_n": "0",
+          "loss_n": "0",
+          "preserved_n": "30",
+          "conditional_status_fidelity": "0.9",
+          "conditional_low": "0.7437891742081593",
+          "conditional_high": "0.9654001112526658"
+        },
+        {
+          "condition": "recursive",
+          "n": "30",
+          "faithful_n": "18",
+          "faithful_rate": "0.6",
+          "joint_fidelity_low": "0.42320360253322475",
+          "joint_fidelity_high": "0.7540937188319815",
+          "omission_n": "7",
+          "unsupported_n": "4",
+          "ambiguous_n": "0",
+          "loss_n": "1",
+          "preserved_n": "29",
+          "conditional_status_fidelity": "0.6206896551724138",
+          "conditional_low": "0.4400254420598852",
+          "conditional_high": "0.7731197789919015"
+        },
+        {
+          "condition": "rewrite_matched",
+          "n": "30",
+          "faithful_n": "18",
+          "faithful_rate": "0.6",
+          "joint_fidelity_low": "0.42320360253322475",
+          "joint_fidelity_high": "0.7540937188319815",
+          "omission_n": "4",
+          "unsupported_n": "5",
+          "ambiguous_n": "2",
+          "loss_n": "1",
+          "preserved_n": "29",
+          "conditional_status_fidelity": "0.6206896551724138",
+          "conditional_low": "0.4400254420598852",
+          "conditional_high": "0.7731197789919015"
+        },
+        {
+          "condition": "repeated_direct",
+          "n": "30",
+          "faithful_n": "27",
+          "faithful_rate": "0.9",
+          "joint_fidelity_low": "0.7437891742081593",
+          "joint_fidelity_high": "0.9654001112526658",
+          "omission_n": "3",
+          "unsupported_n": "0",
+          "ambiguous_n": "0",
+          "loss_n": "0",
+          "preserved_n": "30",
+          "conditional_status_fidelity": "0.9",
+          "conditional_low": "0.7437891742081593",
+          "conditional_high": "0.9654001112526658"
+        },
+        {
+          "condition": "neutral_source",
+          "n": "30",
+          "faithful_n": "27",
+          "faithful_rate": "0.9",
+          "joint_fidelity_low": "0.7437891742081593",
+          "joint_fidelity_high": "0.9654001112526658",
+          "omission_n": "2",
+          "unsupported_n": "1",
+          "ambiguous_n": "0",
+          "loss_n": "0",
+          "preserved_n": "30",
+          "conditional_status_fidelity": "0.9",
+          "conditional_low": "0.7437891742081593",
+          "conditional_high": "0.9654001112526658"
+        },
+        {
+          "condition": "status_aware",
+          "n": "30",
+          "faithful_n": "25",
+          "faithful_rate": "0.8333333333333334",
+          "joint_fidelity_low": "0.6643564949358398",
+          "joint_fidelity_high": "0.9266345762815145",
+          "omission_n": "1",
+          "unsupported_n": "4",
+          "ambiguous_n": "0",
+          "loss_n": "0",
+          "preserved_n": "30",
+          "conditional_status_fidelity": "0.8333333333333334",
+          "conditional_low": "0.6643564949358398",
+          "conditional_high": "0.9266345762815145"
+        },
+        {
+          "condition": "status_aware_source",
+          "n": "30",
+          "faithful_n": "30",
+          "faithful_rate": "1.0",
+          "joint_fidelity_low": "0.8864866068260312",
+          "joint_fidelity_high": "0.9999999999999999",
+          "omission_n": "0",
+          "unsupported_n": "0",
+          "ambiguous_n": "0",
+          "loss_n": "0",
+          "preserved_n": "30",
+          "conditional_status_fidelity": "1.0",
+          "conditional_low": "0.8864866068260312",
+          "conditional_high": "0.9999999999999999"
+        }
+      ]
+    },
+    {
+      "path": "results/status_drift_v3_replication_writer/analysis_v325_full/summary.json",
+      "sha256": "cb267664d1bf97b6723e407bf64ab78b413b42caaf9ebf645da7d867c4862523",
+      "status": "audited",
+      "data": {
+        "cohort": "full 30 trajectories x 7 conditions = 210 items",
+        "cohorts": {
+          "n12_pre_registered": 84,
+          "n18_post_hoc": 126
+        },
+        "judgment": {
+          "NO_DISTORTION": 166,
+          "UNSUPPORTED_STATUS_DISTORTION": 14,
+          "AMBIGUOUS_UNASSESSABLE": 2,
+          "STATUS_OMISSION": 20,
+          "LEGITIMATE_UPDATE": 6,
+          "PROPOSITION_LOSS": 2
+        },
+        "identity": {
+          "PRESERVED": 208,
+          "PARTIAL": 2
+        },
+        "adjudicators": {
+          "claude-sonnet-4.6 (model third-reviewer simulation; NOT human)": 134,
+          "auto (A=B, no adjudication)": 76
+        },
+        "agreement_pre_adjudication": {
+          "n_common_items": 210,
+          "fields": {
+            "proposition_identity": {
+              "n_pairs": 210,
+              "raw_agreement": 0.9904761904761905,
+              "cohen_kappa": 0.0,
+              "label_counts_a": {
+                "PRESERVED": 208,
+                "PARTIAL": 2
+              },
+              "label_counts_b": {
+                "PRESERVED": 210
+              },
+              "confusion_matrix": {
+                "PRESERVED": {
+                  "PRESERVED": 208
+                },
+                "PARTIAL": {
+                  "PRESERVED": 2
+                }
+              }
+            },
+            "primary_dimension": {
+              "n_pairs": 210,
+              "raw_agreement": 0.8761904761904762,
+              "cohen_kappa": 0.8194444444444444,
+              "label_counts_a": {
+                "EPISTEMIC": 70,
+                "INTENTIONAL": 70,
+                "CONDITIONAL": 70
+              },
+              "label_counts_b": {
+                "EPISTEMIC": 52,
+                "INTENTIONAL": 76,
+                "CONDITIONAL": 70,
+                "ACTION": 12
+              },
+              "confusion_matrix": {
+                "EPISTEMIC": {
+                  "EPISTEMIC": 52,
+                  "INTENTIONAL": 14,
+                  "ACTION": 4
+                },
+                "INTENTIONAL": {
+                  "INTENTIONAL": 62,
+                  "ACTION": 8
+                },
+                "CONDITIONAL": {
+                  "CONDITIONAL": 70
+                }
+              }
+            },
+            "status_expressed": {
+              "n_pairs": 210,
+              "raw_agreement": 0.9333333333333333,
+              "cohen_kappa": 0.5625000000000001,
+              "label_counts_a": {
+                "YES": 186,
+                "UNCLEAR": 2,
+                "NO": 22
+              },
+              "label_counts_b": {
+                "YES": 200,
+                "UNCLEAR": 2,
+                "NO": 8
+              },
+              "confusion_matrix": {
+                "YES": {
+                  "YES": 186
+                },
+                "UNCLEAR": {
+                  "UNCLEAR": 2
+                },
+                "NO": {
+                  "NO": 8,
+                  "YES": 14
+                }
+              }
+            },
+            "expressed_status": {
+              "n_pairs": 184,
+              "raw_agreement": 1.0,
+              "cohen_kappa": 1.0,
+              "label_counts_a": {
+                "ESTABLISHED": 29,
+                "CONSIDERING": 39,
+                "POSSIBLE": 15,
+                "COMMITTED": 22,
+                "CONDITION_SATISFIED": 34,
+                "CONDITION_ACTIVE": 35,
+                "UNKNOWN": 2,
+                "NOT_EXPRESSED": 8
+              },
+              "label_counts_b": {
+                "ESTABLISHED": 29,
+                "CONSIDERING": 39,
+                "POSSIBLE": 15,
+                "COMMITTED": 22,
+                "CONDITION_SATISFIED": 34,
+                "CONDITION_ACTIVE": 35,
+                "UNKNOWN": 2,
+                "NOT_EXPRESSED": 8
+              },
+              "confusion_matrix": {
+                "ESTABLISHED": {
+                  "ESTABLISHED": 29
+                },
+                "CONSIDERING": {
+                  "CONSIDERING": 39
+                },
+                "POSSIBLE": {
+                  "POSSIBLE": 15
+                },
+                "COMMITTED": {
+                  "COMMITTED": 22
+                },
+                "CONDITION_SATISFIED": {
+                  "CONDITION_SATISFIED": 34
+                },
+                "CONDITION_ACTIVE": {
+                  "CONDITION_ACTIVE": 35
+                },
+                "UNKNOWN": {
+                  "UNKNOWN": 2
+                },
+                "NOT_EXPRESSED": {
+                  "NOT_EXPRESSED": 8
+                }
+              }
+            },
+            "action_status": {
+              "n_pairs": 210,
+              "raw_agreement": 0.9571428571428572,
+              "cohen_kappa": 0.910861670518323,
+              "label_counts_a": {
+                "NOT_APPLICABLE": 140,
+                "NOT_EXPRESSED": 59,
+                "CONSIDERING": 9,
+                "NOT_PURSUING": 1,
+                "COMMITTED": 1
+              },
+              "label_counts_b": {
+                "NOT_APPLICABLE": 140,
+                "NOT_EXPRESSED": 54,
+                "CONSIDERING": 12,
+                "UNKNOWN": 1,
+                "COMMITTED": 2,
+                "NOT_PURSUING": 1
+              },
+              "confusion_matrix": {
+                "NOT_APPLICABLE": {
+                  "NOT_APPLICABLE": 140
+                },
+                "NOT_EXPRESSED": {
+                  "NOT_EXPRESSED": 52,
+                  "UNKNOWN": 1,
+                  "CONSIDERING": 5,
+                  "COMMITTED": 1
+                },
+                "CONSIDERING": {
+                  "CONSIDERING": 7,
+                  "NOT_EXPRESSED": 2
+                },
+                "NOT_PURSUING": {
+                  "NOT_PURSUING": 1
+                },
+                "COMMITTED": {
+                  "COMMITTED": 1
+                }
+              }
+            },
+            "evidence_support": {
+              "n_pairs": 210,
+              "raw_agreement": 0.8857142857142857,
+              "cohen_kappa": 0.5350553505535056,
+              "label_counts_a": {
+                "SUPPORTED_BY_DIALOGUE": 172,
+                "CONTRADICTED_BY_LATER_DIALOGUE": 7,
+                "NOT_SUPPORTED": 7,
+                "AMBIGUOUS": 2,
+                "NOT_ASSESSABLE": 22
+              },
+              "label_counts_b": {
+                "SUPPORTED_BY_DIALOGUE": 192,
+                "NOT_SUPPORTED": 8,
+                "AMBIGUOUS": 2,
+                "NOT_ASSESSABLE": 8
+              },
+              "confusion_matrix": {
+                "SUPPORTED_BY_DIALOGUE": {
+                  "SUPPORTED_BY_DIALOGUE": 172
+                },
+                "CONTRADICTED_BY_LATER_DIALOGUE": {
+                  "NOT_SUPPORTED": 4,
+                  "SUPPORTED_BY_DIALOGUE": 3
+                },
+                "NOT_SUPPORTED": {
+                  "NOT_SUPPORTED": 4,
+                  "SUPPORTED_BY_DIALOGUE": 3
+                },
+                "AMBIGUOUS": {
+                  "AMBIGUOUS": 2
+                },
+                "NOT_ASSESSABLE": {
+                  "NOT_ASSESSABLE": 8,
+                  "SUPPORTED_BY_DIALOGUE": 14
+                }
+              }
+            },
+            "primary_judgment": {
+              "n_pairs": 210,
+              "raw_agreement": 0.8476190476190476,
+              "cohen_kappa": 0.4778554778554777,
+              "label_counts_a": {
+                "NO_DISTORTION": 169,
+                "UNSUPPORTED_STATUS_DISTORTION": 14,
+                "AMBIGUOUS_UNASSESSABLE": 2,
+                "STATUS_OMISSION": 20,
+                "LEGITIMATE_UPDATE": 3,
+                "PROPOSITION_LOSS": 2
+              },
+              "label_counts_b": {
+                "NO_DISTORTION": 183,
+                "UNSUPPORTED_STATUS_DISTORTION": 8,
+                "AMBIGUOUS_UNASSESSABLE": 2,
+                "STATUS_OMISSION": 8,
+                "LEGITIMATE_UPDATE": 9
+              },
+              "confusion_matrix": {
+                "NO_DISTORTION": {
+                  "NO_DISTORTION": 161,
+                  "LEGITIMATE_UPDATE": 8
+                },
+                "UNSUPPORTED_STATUS_DISTORTION": {
+                  "UNSUPPORTED_STATUS_DISTORTION": 8,
+                  "NO_DISTORTION": 6
+                },
+                "AMBIGUOUS_UNASSESSABLE": {
+                  "AMBIGUOUS_UNASSESSABLE": 2
+                },
+                "STATUS_OMISSION": {
+                  "STATUS_OMISSION": 6,
+                  "NO_DISTORTION": 14
+                },
+                "LEGITIMATE_UPDATE": {
+                  "NO_DISTORTION": 2,
+                  "LEGITIMATE_UPDATE": 1
+                },
+                "PROPOSITION_LOSS": {
+                  "STATUS_OMISSION": 2
+                }
+              }
+            },
+            "confidence": {
+              "n_pairs": 210,
+              "raw_agreement": 0.8047619047619048,
+              "cohen_kappa": 0.19457436856875632,
+              "label_counts_a": {
+                "HIGH": 185,
+                "MEDIUM": 25
+              },
+              "label_counts_b": {
+                "HIGH": 176,
+                "MEDIUM": 34
+              },
+              "confusion_matrix": {
+                "HIGH": {
+                  "HIGH": 160,
+                  "MEDIUM": 25
+                },
+                "MEDIUM": {
+                  "HIGH": 16,
+                  "MEDIUM": 9
+                }
+              }
+            }
+          }
+        },
+        "agreement_by_cohort": {
+          "n12_pre_registered": {
+            "n_common_items": 84,
+            "fields": {
+              "proposition_identity": {
+                "n_pairs": 84,
+                "raw_agreement": 1.0,
+                "cohen_kappa": null,
+                "label_counts_a": {
+                  "PRESERVED": 84
+                },
+                "label_counts_b": {
+                  "PRESERVED": 84
+                },
+                "confusion_matrix": {
+                  "PRESERVED": {
+                    "PRESERVED": 84
+                  }
+                }
+              },
+              "primary_dimension": {
+                "n_pairs": 84,
+                "raw_agreement": 1.0,
+                "cohen_kappa": 1.0,
+                "label_counts_a": {
+                  "EPISTEMIC": 28,
+                  "INTENTIONAL": 28,
+                  "CONDITIONAL": 28
+                },
+                "label_counts_b": {
+                  "EPISTEMIC": 28,
+                  "INTENTIONAL": 28,
+                  "CONDITIONAL": 28
+                },
+                "confusion_matrix": {
+                  "EPISTEMIC": {
+                    "EPISTEMIC": 28
+                  },
+                  "INTENTIONAL": {
+                    "INTENTIONAL": 28
+                  },
+                  "CONDITIONAL": {
+                    "CONDITIONAL": 28
+                  }
+                }
+              },
+              "status_expressed": {
+                "n_pairs": 84,
+                "raw_agreement": 1.0,
+                "cohen_kappa": 1.0,
+                "label_counts_a": {
+                  "YES": 77,
+                  "UNCLEAR": 2,
+                  "NO": 5
+                },
+                "label_counts_b": {
+                  "YES": 77,
+                  "UNCLEAR": 2,
+                  "NO": 5
+                },
+                "confusion_matrix": {
+                  "YES": {
+                    "YES": 77
+                  },
+                  "UNCLEAR": {
+                    "UNCLEAR": 2
+                  },
+                  "NO": {
+                    "NO": 5
+                  }
+                }
+              },
+              "expressed_status": {
+                "n_pairs": 84,
+                "raw_agreement": 1.0,
+                "cohen_kappa": 1.0,
+                "label_counts_a": {
+                  "ESTABLISHED": 14,
+                  "CONSIDERING": 18,
+                  "POSSIBLE": 8,
+                  "COMMITTED": 10,
+                  "CONDITION_SATISFIED": 13,
+                  "CONDITION_ACTIVE": 14,
+                  "UNKNOWN": 2,
+                  "NOT_EXPRESSED": 5
+                },
+                "label_counts_b": {
+                  "ESTABLISHED": 14,
+                  "CONSIDERING": 18,
+                  "POSSIBLE": 8,
+                  "COMMITTED": 10,
+                  "CONDITION_SATISFIED": 13,
+                  "CONDITION_ACTIVE": 14,
+                  "UNKNOWN": 2,
+                  "NOT_EXPRESSED": 5
+                },
+                "confusion_matrix": {
+                  "ESTABLISHED": {
+                    "ESTABLISHED": 14
+                  },
+                  "CONSIDERING": {
+                    "CONSIDERING": 18
+                  },
+                  "POSSIBLE": {
+                    "POSSIBLE": 8
+                  },
+                  "COMMITTED": {
+                    "COMMITTED": 10
+                  },
+                  "CONDITION_SATISFIED": {
+                    "CONDITION_SATISFIED": 13
+                  },
+                  "CONDITION_ACTIVE": {
+                    "CONDITION_ACTIVE": 14
+                  },
+                  "UNKNOWN": {
+                    "UNKNOWN": 2
+                  },
+                  "NOT_EXPRESSED": {
+                    "NOT_EXPRESSED": 5
+                  }
+                }
+              },
+              "action_status": {
+                "n_pairs": 84,
+                "raw_agreement": 0.9642857142857143,
+                "cohen_kappa": 0.9239130434782609,
+                "label_counts_a": {
+                  "NOT_APPLICABLE": 56,
+                  "NOT_EXPRESSED": 24,
+                  "CONSIDERING": 4
+                },
+                "label_counts_b": {
+                  "NOT_APPLICABLE": 56,
+                  "NOT_EXPRESSED": 25,
+                  "CONSIDERING": 2,
+                  "UNKNOWN": 1
+                },
+                "confusion_matrix": {
+                  "NOT_APPLICABLE": {
+                    "NOT_APPLICABLE": 56
+                  },
+                  "NOT_EXPRESSED": {
+                    "NOT_EXPRESSED": 23,
+                    "UNKNOWN": 1
+                  },
+                  "CONSIDERING": {
+                    "CONSIDERING": 2,
+                    "NOT_EXPRESSED": 2
+                  }
+                }
+              },
+              "evidence_support": {
+                "n_pairs": 84,
+                "raw_agreement": 0.9523809523809523,
+                "cohen_kappa": 0.8495971351835272,
+                "label_counts_a": {
+                  "SUPPORTED_BY_DIALOGUE": 69,
+                  "CONTRADICTED_BY_LATER_DIALOGUE": 4,
+                  "NOT_SUPPORTED": 4,
+                  "AMBIGUOUS": 2,
+                  "NOT_ASSESSABLE": 5
+                },
+                "label_counts_b": {
+                  "SUPPORTED_BY_DIALOGUE": 69,
+                  "NOT_SUPPORTED": 8,
+                  "AMBIGUOUS": 2,
+                  "NOT_ASSESSABLE": 5
+                },
+                "confusion_matrix": {
+                  "SUPPORTED_BY_DIALOGUE": {
+                    "SUPPORTED_BY_DIALOGUE": 69
+                  },
+                  "CONTRADICTED_BY_LATER_DIALOGUE": {
+                    "NOT_SUPPORTED": 4
+                  },
+                  "NOT_SUPPORTED": {
+                    "NOT_SUPPORTED": 4
+                  },
+                  "AMBIGUOUS": {
+                    "AMBIGUOUS": 2
+                  },
+                  "NOT_ASSESSABLE": {
+                    "NOT_ASSESSABLE": 5
+                  }
+                }
+              },
+              "primary_judgment": {
+                "n_pairs": 84,
+                "raw_agreement": 0.9404761904761905,
+                "cohen_kappa": 0.8343195266272189,
+                "label_counts_a": {
+                  "NO_DISTORTION": 67,
+                  "UNSUPPORTED_STATUS_DISTORTION": 8,
+                  "AMBIGUOUS_UNASSESSABLE": 2,
+                  "STATUS_OMISSION": 5,
+                  "LEGITIMATE_UPDATE": 2
+                },
+                "label_counts_b": {
+                  "NO_DISTORTION": 66,
+                  "UNSUPPORTED_STATUS_DISTORTION": 8,
+                  "AMBIGUOUS_UNASSESSABLE": 2,
+                  "STATUS_OMISSION": 5,
+                  "LEGITIMATE_UPDATE": 3
+                },
+                "confusion_matrix": {
+                  "NO_DISTORTION": {
+                    "NO_DISTORTION": 64,
+                    "LEGITIMATE_UPDATE": 3
+                  },
+                  "UNSUPPORTED_STATUS_DISTORTION": {
+                    "UNSUPPORTED_STATUS_DISTORTION": 8
+                  },
+                  "AMBIGUOUS_UNASSESSABLE": {
+                    "AMBIGUOUS_UNASSESSABLE": 2
+                  },
+                  "STATUS_OMISSION": {
+                    "STATUS_OMISSION": 5
+                  },
+                  "LEGITIMATE_UPDATE": {
+                    "NO_DISTORTION": 2
+                  }
+                }
+              },
+              "confidence": {
+                "n_pairs": 84,
+                "raw_agreement": 0.8809523809523809,
+                "cohen_kappa": 0.11016949152542431,
+                "label_counts_a": {
+                  "HIGH": 80,
+                  "MEDIUM": 4
+                },
+                "label_counts_b": {
+                  "HIGH": 76,
+                  "MEDIUM": 8
+                },
+                "confusion_matrix": {
+                  "HIGH": {
+                    "HIGH": 73,
+                    "MEDIUM": 7
+                  },
+                  "MEDIUM": {
+                    "HIGH": 3,
+                    "MEDIUM": 1
+                  }
+                }
+              }
+            }
+          },
+          "n18_post_hoc": {
+            "n_common_items": 126,
+            "fields": {
+              "proposition_identity": {
+                "n_pairs": 126,
+                "raw_agreement": 0.9841269841269841,
+                "cohen_kappa": 0.0,
+                "label_counts_a": {
+                  "PRESERVED": 124,
+                  "PARTIAL": 2
+                },
+                "label_counts_b": {
+                  "PRESERVED": 126
+                },
+                "confusion_matrix": {
+                  "PRESERVED": {
+                    "PRESERVED": 124
+                  },
+                  "PARTIAL": {
+                    "PRESERVED": 2
+                  }
+                }
+              },
+              "primary_dimension": {
+                "n_pairs": 126,
+                "raw_agreement": 0.7936507936507936,
+                "cohen_kappa": 0.7045454545454546,
+                "label_counts_a": {
+                  "EPISTEMIC": 42,
+                  "INTENTIONAL": 42,
+                  "CONDITIONAL": 42
+                },
+                "label_counts_b": {
+                  "INTENTIONAL": 48,
+                  "CONDITIONAL": 42,
+                  "EPISTEMIC": 24,
+                  "ACTION": 12
+                },
+                "confusion_matrix": {
+                  "EPISTEMIC": {
+                    "INTENTIONAL": 14,
+                    "EPISTEMIC": 24,
+                    "ACTION": 4
+                  },
+                  "INTENTIONAL": {
+                    "INTENTIONAL": 34,
+                    "ACTION": 8
+                  },
+                  "CONDITIONAL": {
+                    "CONDITIONAL": 42
+                  }
+                }
+              },
+              "status_expressed": {
+                "n_pairs": 126,
+                "raw_agreement": 0.8888888888888888,
+                "cohen_kappa": 0.27047146401985067,
+                "label_counts_a": {
+                  "YES": 109,
+                  "NO": 17
+                },
+                "label_counts_b": {
+                  "YES": 123,
+                  "NO": 3
+                },
+                "confusion_matrix": {
+                  "YES": {
+                    "YES": 109
+                  },
+                  "NO": {
+                    "YES": 14,
+                    "NO": 3
+                  }
+                }
+              },
+              "expressed_status": {
+                "n_pairs": 100,
+                "raw_agreement": 1.0,
+                "cohen_kappa": 1.0,
+                "label_counts_a": {
+                  "CONSIDERING": 21,
+                  "CONDITION_ACTIVE": 21,
+                  "ESTABLISHED": 15,
+                  "NOT_EXPRESSED": 3,
+                  "COMMITTED": 12,
+                  "CONDITION_SATISFIED": 21,
+                  "POSSIBLE": 7
+                },
+                "label_counts_b": {
+                  "CONSIDERING": 21,
+                  "CONDITION_ACTIVE": 21,
+                  "ESTABLISHED": 15,
+                  "NOT_EXPRESSED": 3,
+                  "COMMITTED": 12,
+                  "CONDITION_SATISFIED": 21,
+                  "POSSIBLE": 7
+                },
+                "confusion_matrix": {
+                  "CONSIDERING": {
+                    "CONSIDERING": 21
+                  },
+                  "CONDITION_ACTIVE": {
+                    "CONDITION_ACTIVE": 21
+                  },
+                  "ESTABLISHED": {
+                    "ESTABLISHED": 15
+                  },
+                  "NOT_EXPRESSED": {
+                    "NOT_EXPRESSED": 3
+                  },
+                  "COMMITTED": {
+                    "COMMITTED": 12
+                  },
+                  "CONDITION_SATISFIED": {
+                    "CONDITION_SATISFIED": 21
+                  },
+                  "POSSIBLE": {
+                    "POSSIBLE": 7
+                  }
+                }
+              },
+              "action_status": {
+                "n_pairs": 126,
+                "raw_agreement": 0.9523809523809523,
+                "cohen_kappa": 0.9024767801857584,
+                "label_counts_a": {
+                  "NOT_APPLICABLE": 84,
+                  "NOT_EXPRESSED": 35,
+                  "CONSIDERING": 5,
+                  "NOT_PURSUING": 1,
+                  "COMMITTED": 1
+                },
+                "label_counts_b": {
+                  "NOT_APPLICABLE": 84,
+                  "NOT_EXPRESSED": 29,
+                  "CONSIDERING": 10,
+                  "COMMITTED": 2,
+                  "NOT_PURSUING": 1
+                },
+                "confusion_matrix": {
+                  "NOT_APPLICABLE": {
+                    "NOT_APPLICABLE": 84
+                  },
+                  "NOT_EXPRESSED": {
+                    "NOT_EXPRESSED": 29,
+                    "CONSIDERING": 5,
+                    "COMMITTED": 1
+                  },
+                  "CONSIDERING": {
+                    "CONSIDERING": 5
+                  },
+                  "NOT_PURSUING": {
+                    "NOT_PURSUING": 1
+                  },
+                  "COMMITTED": {
+                    "COMMITTED": 1
+                  }
+                }
+              },
+              "evidence_support": {
+                "n_pairs": 126,
+                "raw_agreement": 0.8412698412698413,
+                "cohen_kappa": 0.2015209125475288,
+                "label_counts_a": {
+                  "SUPPORTED_BY_DIALOGUE": 103,
+                  "NOT_ASSESSABLE": 17,
+                  "CONTRADICTED_BY_LATER_DIALOGUE": 3,
+                  "NOT_SUPPORTED": 3
+                },
+                "label_counts_b": {
+                  "SUPPORTED_BY_DIALOGUE": 123,
+                  "NOT_ASSESSABLE": 3
+                },
+                "confusion_matrix": {
+                  "SUPPORTED_BY_DIALOGUE": {
+                    "SUPPORTED_BY_DIALOGUE": 103
+                  },
+                  "NOT_ASSESSABLE": {
+                    "SUPPORTED_BY_DIALOGUE": 14,
+                    "NOT_ASSESSABLE": 3
+                  },
+                  "CONTRADICTED_BY_LATER_DIALOGUE": {
+                    "SUPPORTED_BY_DIALOGUE": 3
+                  },
+                  "NOT_SUPPORTED": {
+                    "SUPPORTED_BY_DIALOGUE": 3
+                  }
+                }
+              },
+              "primary_judgment": {
+                "n_pairs": 126,
+                "raw_agreement": 0.7857142857142857,
+                "cohen_kappa": 0.12567463377023871,
+                "label_counts_a": {
+                  "NO_DISTORTION": 102,
+                  "STATUS_OMISSION": 15,
+                  "PROPOSITION_LOSS": 2,
+                  "UNSUPPORTED_STATUS_DISTORTION": 6,
+                  "LEGITIMATE_UPDATE": 1
+                },
+                "label_counts_b": {
+                  "NO_DISTORTION": 117,
+                  "STATUS_OMISSION": 3,
+                  "LEGITIMATE_UPDATE": 6
+                },
+                "confusion_matrix": {
+                  "NO_DISTORTION": {
+                    "NO_DISTORTION": 97,
+                    "LEGITIMATE_UPDATE": 5
+                  },
+                  "STATUS_OMISSION": {
+                    "NO_DISTORTION": 14,
+                    "STATUS_OMISSION": 1
+                  },
+                  "PROPOSITION_LOSS": {
+                    "STATUS_OMISSION": 2
+                  },
+                  "UNSUPPORTED_STATUS_DISTORTION": {
+                    "NO_DISTORTION": 6
+                  },
+                  "LEGITIMATE_UPDATE": {
+                    "LEGITIMATE_UPDATE": 1
+                  }
+                }
+              },
+              "confidence": {
+                "n_pairs": 126,
+                "raw_agreement": 0.753968253968254,
+                "cohen_kappa": 0.1913043478260868,
+                "label_counts_a": {
+                  "HIGH": 105,
+                  "MEDIUM": 21
+                },
+                "label_counts_b": {
+                  "MEDIUM": 26,
+                  "HIGH": 100
+                },
+                "confusion_matrix": {
+                  "HIGH": {
+                    "MEDIUM": 18,
+                    "HIGH": 87
+                  },
+                  "MEDIUM": {
+                    "HIGH": 13,
+                    "MEDIUM": 8
+                  }
+                }
+              }
+            }
+          },
+          "full_210": {
+            "n_common_items": 210,
+            "fields": {
+              "proposition_identity": {
+                "n_pairs": 210,
+                "raw_agreement": 0.9904761904761905,
+                "cohen_kappa": 0.0,
+                "label_counts_a": {
+                  "PRESERVED": 208,
+                  "PARTIAL": 2
+                },
+                "label_counts_b": {
+                  "PRESERVED": 210
+                },
+                "confusion_matrix": {
+                  "PRESERVED": {
+                    "PRESERVED": 208
+                  },
+                  "PARTIAL": {
+                    "PRESERVED": 2
+                  }
+                }
+              },
+              "primary_dimension": {
+                "n_pairs": 210,
+                "raw_agreement": 0.8761904761904762,
+                "cohen_kappa": 0.8194444444444444,
+                "label_counts_a": {
+                  "EPISTEMIC": 70,
+                  "INTENTIONAL": 70,
+                  "CONDITIONAL": 70
+                },
+                "label_counts_b": {
+                  "EPISTEMIC": 52,
+                  "INTENTIONAL": 76,
+                  "CONDITIONAL": 70,
+                  "ACTION": 12
+                },
+                "confusion_matrix": {
+                  "EPISTEMIC": {
+                    "EPISTEMIC": 52,
+                    "INTENTIONAL": 14,
+                    "ACTION": 4
+                  },
+                  "INTENTIONAL": {
+                    "INTENTIONAL": 62,
+                    "ACTION": 8
+                  },
+                  "CONDITIONAL": {
+                    "CONDITIONAL": 70
+                  }
+                }
+              },
+              "status_expressed": {
+                "n_pairs": 210,
+                "raw_agreement": 0.9333333333333333,
+                "cohen_kappa": 0.5625000000000001,
+                "label_counts_a": {
+                  "YES": 186,
+                  "UNCLEAR": 2,
+                  "NO": 22
+                },
+                "label_counts_b": {
+                  "YES": 200,
+                  "UNCLEAR": 2,
+                  "NO": 8
+                },
+                "confusion_matrix": {
+                  "YES": {
+                    "YES": 186
+                  },
+                  "UNCLEAR": {
+                    "UNCLEAR": 2
+                  },
+                  "NO": {
+                    "NO": 8,
+                    "YES": 14
+                  }
+                }
+              },
+              "expressed_status": {
+                "n_pairs": 184,
+                "raw_agreement": 1.0,
+                "cohen_kappa": 1.0,
+                "label_counts_a": {
+                  "ESTABLISHED": 29,
+                  "CONSIDERING": 39,
+                  "POSSIBLE": 15,
+                  "COMMITTED": 22,
+                  "CONDITION_SATISFIED": 34,
+                  "CONDITION_ACTIVE": 35,
+                  "UNKNOWN": 2,
+                  "NOT_EXPRESSED": 8
+                },
+                "label_counts_b": {
+                  "ESTABLISHED": 29,
+                  "CONSIDERING": 39,
+                  "POSSIBLE": 15,
+                  "COMMITTED": 22,
+                  "CONDITION_SATISFIED": 34,
+                  "CONDITION_ACTIVE": 35,
+                  "UNKNOWN": 2,
+                  "NOT_EXPRESSED": 8
+                },
+                "confusion_matrix": {
+                  "ESTABLISHED": {
+                    "ESTABLISHED": 29
+                  },
+                  "CONSIDERING": {
+                    "CONSIDERING": 39
+                  },
+                  "POSSIBLE": {
+                    "POSSIBLE": 15
+                  },
+                  "COMMITTED": {
+                    "COMMITTED": 22
+                  },
+                  "CONDITION_SATISFIED": {
+                    "CONDITION_SATISFIED": 34
+                  },
+                  "CONDITION_ACTIVE": {
+                    "CONDITION_ACTIVE": 35
+                  },
+                  "UNKNOWN": {
+                    "UNKNOWN": 2
+                  },
+                  "NOT_EXPRESSED": {
+                    "NOT_EXPRESSED": 8
+                  }
+                }
+              },
+              "action_status": {
+                "n_pairs": 210,
+                "raw_agreement": 0.9571428571428572,
+                "cohen_kappa": 0.910861670518323,
+                "label_counts_a": {
+                  "NOT_APPLICABLE": 140,
+                  "NOT_EXPRESSED": 59,
+                  "CONSIDERING": 9,
+                  "NOT_PURSUING": 1,
+                  "COMMITTED": 1
+                },
+                "label_counts_b": {
+                  "NOT_APPLICABLE": 140,
+                  "NOT_EXPRESSED": 54,
+                  "CONSIDERING": 12,
+                  "UNKNOWN": 1,
+                  "COMMITTED": 2,
+                  "NOT_PURSUING": 1
+                },
+                "confusion_matrix": {
+                  "NOT_APPLICABLE": {
+                    "NOT_APPLICABLE": 140
+                  },
+                  "NOT_EXPRESSED": {
+                    "NOT_EXPRESSED": 52,
+                    "UNKNOWN": 1,
+                    "CONSIDERING": 5,
+                    "COMMITTED": 1
+                  },
+                  "CONSIDERING": {
+                    "CONSIDERING": 7,
+                    "NOT_EXPRESSED": 2
+                  },
+                  "NOT_PURSUING": {
+                    "NOT_PURSUING": 1
+                  },
+                  "COMMITTED": {
+                    "COMMITTED": 1
+                  }
+                }
+              },
+              "evidence_support": {
+                "n_pairs": 210,
+                "raw_agreement": 0.8857142857142857,
+                "cohen_kappa": 0.5350553505535056,
+                "label_counts_a": {
+                  "SUPPORTED_BY_DIALOGUE": 172,
+                  "CONTRADICTED_BY_LATER_DIALOGUE": 7,
+                  "NOT_SUPPORTED": 7,
+                  "AMBIGUOUS": 2,
+                  "NOT_ASSESSABLE": 22
+                },
+                "label_counts_b": {
+                  "SUPPORTED_BY_DIALOGUE": 192,
+                  "NOT_SUPPORTED": 8,
+                  "AMBIGUOUS": 2,
+                  "NOT_ASSESSABLE": 8
+                },
+                "confusion_matrix": {
+                  "SUPPORTED_BY_DIALOGUE": {
+                    "SUPPORTED_BY_DIALOGUE": 172
+                  },
+                  "CONTRADICTED_BY_LATER_DIALOGUE": {
+                    "NOT_SUPPORTED": 4,
+                    "SUPPORTED_BY_DIALOGUE": 3
+                  },
+                  "NOT_SUPPORTED": {
+                    "NOT_SUPPORTED": 4,
+                    "SUPPORTED_BY_DIALOGUE": 3
+                  },
+                  "AMBIGUOUS": {
+                    "AMBIGUOUS": 2
+                  },
+                  "NOT_ASSESSABLE": {
+                    "NOT_ASSESSABLE": 8,
+                    "SUPPORTED_BY_DIALOGUE": 14
+                  }
+                }
+              },
+              "primary_judgment": {
+                "n_pairs": 210,
+                "raw_agreement": 0.8476190476190476,
+                "cohen_kappa": 0.4778554778554777,
+                "label_counts_a": {
+                  "NO_DISTORTION": 169,
+                  "UNSUPPORTED_STATUS_DISTORTION": 14,
+                  "AMBIGUOUS_UNASSESSABLE": 2,
+                  "STATUS_OMISSION": 20,
+                  "LEGITIMATE_UPDATE": 3,
+                  "PROPOSITION_LOSS": 2
+                },
+                "label_counts_b": {
+                  "NO_DISTORTION": 183,
+                  "UNSUPPORTED_STATUS_DISTORTION": 8,
+                  "AMBIGUOUS_UNASSESSABLE": 2,
+                  "STATUS_OMISSION": 8,
+                  "LEGITIMATE_UPDATE": 9
+                },
+                "confusion_matrix": {
+                  "NO_DISTORTION": {
+                    "NO_DISTORTION": 161,
+                    "LEGITIMATE_UPDATE": 8
+                  },
+                  "UNSUPPORTED_STATUS_DISTORTION": {
+                    "UNSUPPORTED_STATUS_DISTORTION": 8,
+                    "NO_DISTORTION": 6
+                  },
+                  "AMBIGUOUS_UNASSESSABLE": {
+                    "AMBIGUOUS_UNASSESSABLE": 2
+                  },
+                  "STATUS_OMISSION": {
+                    "STATUS_OMISSION": 6,
+                    "NO_DISTORTION": 14
+                  },
+                  "LEGITIMATE_UPDATE": {
+                    "NO_DISTORTION": 2,
+                    "LEGITIMATE_UPDATE": 1
+                  },
+                  "PROPOSITION_LOSS": {
+                    "STATUS_OMISSION": 2
+                  }
+                }
+              },
+              "confidence": {
+                "n_pairs": 210,
+                "raw_agreement": 0.8047619047619048,
+                "cohen_kappa": 0.19457436856875632,
+                "label_counts_a": {
+                  "HIGH": 185,
+                  "MEDIUM": 25
+                },
+                "label_counts_b": {
+                  "HIGH": 176,
+                  "MEDIUM": 34
+                },
+                "confusion_matrix": {
+                  "HIGH": {
+                    "HIGH": 160,
+                    "MEDIUM": 25
+                  },
+                  "MEDIUM": {
+                    "HIGH": 16,
+                    "MEDIUM": 9
+                  }
+                }
+              }
+            }
+          }
+        },
+        "reliability_by_cohort": {
+          "n12_pre_registered": {
+            "n_pairs": 84,
+            "raw_agreement": 0.9404761904761905,
+            "cohen_kappa": 0.8343195266272189,
+            "label_counts_a": {
+              "NO_DISTORTION": 67,
+              "UNSUPPORTED_STATUS_DISTORTION": 8,
+              "AMBIGUOUS_UNASSESSABLE": 2,
+              "STATUS_OMISSION": 5,
+              "LEGITIMATE_UPDATE": 2
+            },
+            "label_counts_b": {
+              "NO_DISTORTION": 66,
+              "UNSUPPORTED_STATUS_DISTORTION": 8,
+              "AMBIGUOUS_UNASSESSABLE": 2,
+              "STATUS_OMISSION": 5,
+              "LEGITIMATE_UPDATE": 3
+            },
+            "top_disagreements": [
+              [
+                "NO_DISTORTION",
+                "LEGITIMATE_UPDATE",
+                3
+              ],
+              [
+                "LEGITIMATE_UPDATE",
+                "NO_DISTORTION",
+                2
+              ]
+            ]
+          },
+          "n18_post_hoc": {
+            "n_pairs": 126,
+            "raw_agreement": 0.7857142857142857,
+            "cohen_kappa": 0.12567463377023871,
+            "label_counts_a": {
+              "NO_DISTORTION": 102,
+              "STATUS_OMISSION": 15,
+              "PROPOSITION_LOSS": 2,
+              "UNSUPPORTED_STATUS_DISTORTION": 6,
+              "LEGITIMATE_UPDATE": 1
+            },
+            "label_counts_b": {
+              "NO_DISTORTION": 117,
+              "STATUS_OMISSION": 3,
+              "LEGITIMATE_UPDATE": 6
+            },
+            "top_disagreements": [
+              [
+                "STATUS_OMISSION",
+                "NO_DISTORTION",
+                14
+              ],
+              [
+                "UNSUPPORTED_STATUS_DISTORTION",
+                "NO_DISTORTION",
+                6
+              ],
+              [
+                "NO_DISTORTION",
+                "LEGITIMATE_UPDATE",
+                5
+              ],
+              [
+                "PROPOSITION_LOSS",
+                "STATUS_OMISSION",
+                2
+              ]
+            ]
+          },
+          "full_210": {
+            "n_pairs": 210,
+            "raw_agreement": 0.8476190476190476,
+            "cohen_kappa": 0.4778554778554777,
+            "label_counts_a": {
+              "NO_DISTORTION": 169,
+              "UNSUPPORTED_STATUS_DISTORTION": 14,
+              "AMBIGUOUS_UNASSESSABLE": 2,
+              "STATUS_OMISSION": 20,
+              "LEGITIMATE_UPDATE": 3,
+              "PROPOSITION_LOSS": 2
+            },
+            "label_counts_b": {
+              "NO_DISTORTION": 183,
+              "UNSUPPORTED_STATUS_DISTORTION": 8,
+              "AMBIGUOUS_UNASSESSABLE": 2,
+              "STATUS_OMISSION": 8,
+              "LEGITIMATE_UPDATE": 9
+            },
+            "top_disagreements": [
+              [
+                "STATUS_OMISSION",
+                "NO_DISTORTION",
+                14
+              ],
+              [
+                "NO_DISTORTION",
+                "LEGITIMATE_UPDATE",
+                8
+              ],
+              [
+                "UNSUPPORTED_STATUS_DISTORTION",
+                "NO_DISTORTION",
+                6
+              ],
+              [
+                "LEGITIMATE_UPDATE",
+                "NO_DISTORTION",
+                2
+              ],
+              [
+                "PROPOSITION_LOSS",
+                "STATUS_OMISSION",
+                2
+              ]
+            ]
+          }
+        },
+        "reconciliation": {
+          "conditions": {
+            "direct": {
+              "n": 30,
+              "distinct_item_ids": 30,
+              "category_sum": 30,
+              "partition_ok": true,
+              "preserved_n": 30,
+              "ambiguous_ids": [],
+              "loss_ids": [],
+              "faithful_ids": [
+                "REPR-0004",
+                "REPR-0017",
+                "REPR-0020",
+                "REPR-0027",
+                "REPR-0036",
+                "REPR-0040",
+                "REPR-0048",
+                "REPR-0050",
+                "REPR-0069",
+                "REPR-0076",
+                "REPR-0083",
+                "REPR-0085",
+                "REPR-0092",
+                "REPR-0099",
+                "REPR-0106",
+                "REPR-0113",
+                "REPR-0120",
+                "REPR-0134",
+                "REPR-0141",
+                "REPR-0148",
+                "REPR-0155",
+                "REPR-0162",
+                "REPR-0176",
+                "REPR-0183",
+                "REPR-0190",
+                "REPR-0197",
+                "REPR-0204"
+              ]
+            },
+            "recursive": {
+              "n": 30,
+              "distinct_item_ids": 30,
+              "category_sum": 30,
+              "partition_ok": true,
+              "preserved_n": 29,
+              "ambiguous_ids": [],
+              "loss_ids": [
+                "REPR-0107"
+              ],
+              "faithful_ids": [
+                "REPR-0015",
+                "REPR-0021",
+                "REPR-0037",
+                "REPR-0047",
+                "REPR-0053",
+                "REPR-0066",
+                "REPR-0067",
+                "REPR-0081",
+                "REPR-0093",
+                "REPR-0100",
+                "REPR-0121",
+                "REPR-0135",
+                "REPR-0142",
+                "REPR-0163",
+                "REPR-0170",
+                "REPR-0177",
+                "REPR-0184",
+                "REPR-0205"
+              ]
+            },
+            "rewrite_matched": {
+              "n": 30,
+              "distinct_item_ids": 30,
+              "category_sum": 30,
+              "partition_ok": true,
+              "preserved_n": 29,
+              "ambiguous_ids": [
+                "REPR-0009",
+                "REPR-0052"
+              ],
+              "loss_ids": [
+                "REPR-0108"
+              ],
+              "faithful_ids": [
+                "REPR-0010",
+                "REPR-0026",
+                "REPR-0033",
+                "REPR-0049",
+                "REPR-0073",
+                "REPR-0075",
+                "REPR-0087",
+                "REPR-0094",
+                "REPR-0101",
+                "REPR-0122",
+                "REPR-0129",
+                "REPR-0136",
+                "REPR-0143",
+                "REPR-0150",
+                "REPR-0164",
+                "REPR-0171",
+                "REPR-0178",
+                "REPR-0185"
+              ]
+            },
+            "repeated_direct": {
+              "n": 30,
+              "distinct_item_ids": 30,
+              "category_sum": 30,
+              "partition_ok": true,
+              "preserved_n": 30,
+              "ambiguous_ids": [],
+              "loss_ids": [],
+              "faithful_ids": [
+                "REPR-0001",
+                "REPR-0005",
+                "REPR-0023",
+                "REPR-0024",
+                "REPR-0028",
+                "REPR-0054",
+                "REPR-0056",
+                "REPR-0059",
+                "REPR-0065",
+                "REPR-0074",
+                "REPR-0084",
+                "REPR-0088",
+                "REPR-0095",
+                "REPR-0102",
+                "REPR-0109",
+                "REPR-0116",
+                "REPR-0123",
+                "REPR-0137",
+                "REPR-0144",
+                "REPR-0151",
+                "REPR-0158",
+                "REPR-0165",
+                "REPR-0179",
+                "REPR-0186",
+                "REPR-0193",
+                "REPR-0200",
+                "REPR-0207"
+              ]
+            },
+            "neutral_source": {
+              "n": 30,
+              "distinct_item_ids": 30,
+              "category_sum": 30,
+              "partition_ok": true,
+              "preserved_n": 30,
+              "ambiguous_ids": [],
+              "loss_ids": [],
+              "faithful_ids": [
+                "REPR-0006",
+                "REPR-0008",
+                "REPR-0013",
+                "REPR-0035",
+                "REPR-0041",
+                "REPR-0043",
+                "REPR-0045",
+                "REPR-0051",
+                "REPR-0062",
+                "REPR-0079",
+                "REPR-0096",
+                "REPR-0103",
+                "REPR-0110",
+                "REPR-0117",
+                "REPR-0124",
+                "REPR-0131",
+                "REPR-0138",
+                "REPR-0145",
+                "REPR-0152",
+                "REPR-0159",
+                "REPR-0166",
+                "REPR-0173",
+                "REPR-0180",
+                "REPR-0187",
+                "REPR-0194",
+                "REPR-0201",
+                "REPR-0208"
+              ]
+            },
+            "status_aware": {
+              "n": 30,
+              "distinct_item_ids": 30,
+              "category_sum": 30,
+              "partition_ok": true,
+              "preserved_n": 30,
+              "ambiguous_ids": [],
+              "loss_ids": [],
+              "faithful_ids": [
+                "REPR-0003",
+                "REPR-0016",
+                "REPR-0022",
+                "REPR-0032",
+                "REPR-0034",
+                "REPR-0042",
+                "REPR-0044",
+                "REPR-0046",
+                "REPR-0058",
+                "REPR-0071",
+                "REPR-0072",
+                "REPR-0090",
+                "REPR-0097",
+                "REPR-0104",
+                "REPR-0111",
+                "REPR-0125",
+                "REPR-0132",
+                "REPR-0139",
+                "REPR-0146",
+                "REPR-0160",
+                "REPR-0167",
+                "REPR-0174",
+                "REPR-0181",
+                "REPR-0188",
+                "REPR-0209"
+              ]
+            },
+            "status_aware_source": {
+              "n": 30,
+              "distinct_item_ids": 30,
+              "category_sum": 30,
+              "partition_ok": true,
+              "preserved_n": 30,
+              "ambiguous_ids": [],
+              "loss_ids": [],
+              "faithful_ids": [
+                "REPR-0012",
+                "REPR-0014",
+                "REPR-0019",
+                "REPR-0025",
+                "REPR-0060",
+                "REPR-0061",
+                "REPR-0064",
+                "REPR-0068",
+                "REPR-0070",
+                "REPR-0077",
+                "REPR-0078",
+                "REPR-0082",
+                "REPR-0091",
+                "REPR-0098",
+                "REPR-0105",
+                "REPR-0112",
+                "REPR-0119",
+                "REPR-0126",
+                "REPR-0133",
+                "REPR-0140",
+                "REPR-0147",
+                "REPR-0154",
+                "REPR-0161",
+                "REPR-0168",
+                "REPR-0175",
+                "REPR-0182",
+                "REPR-0189",
+                "REPR-0196",
+                "REPR-0203",
+                "REPR-0210"
+              ]
+            }
+          },
+          "checks": {
+            "unique_item_ids": true,
+            "item_count": 210,
+            "trajectory_count": 30,
+            "cohort_split": {
+              "n12_pre_registered": 84,
+              "n18_post_hoc": 126
+            },
+            "trajectories_complete": true,
+            "all_conditions_30": true,
+            "all_partitions_ok": true
+          }
+        },
+        "warnings": [
+          "n = 12 is the pre-registered cohort; n = 30 adds 18 post-hoc trajectories.",
+          "Adjudication is a model third-reviewer simulation; 50 disputes were resolved to A.",
+          "Not independent human adjudication; not poolable with the primary qwen writer.",
+          "Condition counts partition all 30 items per condition; the ambiguous category is reported separately and must not be dropped from the table."
+        ]
+      }
+    },
+    {
+      "path": "results/status_drift_v3_replication_writer/analysis_v325_full/reconciliation.json",
+      "sha256": "16f35d8e5e02da4eb8808251a9293c1ef7c74ab43ec3e9e4aade23598b2c76ab",
+      "status": "audited",
+      "data": {
+        "conditions": {
+          "direct": {
+            "n": 30,
+            "distinct_item_ids": 30,
+            "category_sum": 30,
+            "partition_ok": true,
+            "preserved_n": 30,
+            "ambiguous_ids": [],
+            "loss_ids": [],
+            "faithful_ids": [
+              "REPR-0004",
+              "REPR-0017",
+              "REPR-0020",
+              "REPR-0027",
+              "REPR-0036",
+              "REPR-0040",
+              "REPR-0048",
+              "REPR-0050",
+              "REPR-0069",
+              "REPR-0076",
+              "REPR-0083",
+              "REPR-0085",
+              "REPR-0092",
+              "REPR-0099",
+              "REPR-0106",
+              "REPR-0113",
+              "REPR-0120",
+              "REPR-0134",
+              "REPR-0141",
+              "REPR-0148",
+              "REPR-0155",
+              "REPR-0162",
+              "REPR-0176",
+              "REPR-0183",
+              "REPR-0190",
+              "REPR-0197",
+              "REPR-0204"
+            ]
+          },
+          "recursive": {
+            "n": 30,
+            "distinct_item_ids": 30,
+            "category_sum": 30,
+            "partition_ok": true,
+            "preserved_n": 29,
+            "ambiguous_ids": [],
+            "loss_ids": [
+              "REPR-0107"
+            ],
+            "faithful_ids": [
+              "REPR-0015",
+              "REPR-0021",
+              "REPR-0037",
+              "REPR-0047",
+              "REPR-0053",
+              "REPR-0066",
+              "REPR-0067",
+              "REPR-0081",
+              "REPR-0093",
+              "REPR-0100",
+              "REPR-0121",
+              "REPR-0135",
+              "REPR-0142",
+              "REPR-0163",
+              "REPR-0170",
+              "REPR-0177",
+              "REPR-0184",
+              "REPR-0205"
+            ]
+          },
+          "rewrite_matched": {
+            "n": 30,
+            "distinct_item_ids": 30,
+            "category_sum": 30,
+            "partition_ok": true,
+            "preserved_n": 29,
+            "ambiguous_ids": [
+              "REPR-0009",
+              "REPR-0052"
+            ],
+            "loss_ids": [
+              "REPR-0108"
+            ],
+            "faithful_ids": [
+              "REPR-0010",
+              "REPR-0026",
+              "REPR-0033",
+              "REPR-0049",
+              "REPR-0073",
+              "REPR-0075",
+              "REPR-0087",
+              "REPR-0094",
+              "REPR-0101",
+              "REPR-0122",
+              "REPR-0129",
+              "REPR-0136",
+              "REPR-0143",
+              "REPR-0150",
+              "REPR-0164",
+              "REPR-0171",
+              "REPR-0178",
+              "REPR-0185"
+            ]
+          },
+          "repeated_direct": {
+            "n": 30,
+            "distinct_item_ids": 30,
+            "category_sum": 30,
+            "partition_ok": true,
+            "preserved_n": 30,
+            "ambiguous_ids": [],
+            "loss_ids": [],
+            "faithful_ids": [
+              "REPR-0001",
+              "REPR-0005",
+              "REPR-0023",
+              "REPR-0024",
+              "REPR-0028",
+              "REPR-0054",
+              "REPR-0056",
+              "REPR-0059",
+              "REPR-0065",
+              "REPR-0074",
+              "REPR-0084",
+              "REPR-0088",
+              "REPR-0095",
+              "REPR-0102",
+              "REPR-0109",
+              "REPR-0116",
+              "REPR-0123",
+              "REPR-0137",
+              "REPR-0144",
+              "REPR-0151",
+              "REPR-0158",
+              "REPR-0165",
+              "REPR-0179",
+              "REPR-0186",
+              "REPR-0193",
+              "REPR-0200",
+              "REPR-0207"
+            ]
+          },
+          "neutral_source": {
+            "n": 30,
+            "distinct_item_ids": 30,
+            "category_sum": 30,
+            "partition_ok": true,
+            "preserved_n": 30,
+            "ambiguous_ids": [],
+            "loss_ids": [],
+            "faithful_ids": [
+              "REPR-0006",
+              "REPR-0008",
+              "REPR-0013",
+              "REPR-0035",
+              "REPR-0041",
+              "REPR-0043",
+              "REPR-0045",
+              "REPR-0051",
+              "REPR-0062",
+              "REPR-0079",
+              "REPR-0096",
+              "REPR-0103",
+              "REPR-0110",
+              "REPR-0117",
+              "REPR-0124",
+              "REPR-0131",
+              "REPR-0138",
+              "REPR-0145",
+              "REPR-0152",
+              "REPR-0159",
+              "REPR-0166",
+              "REPR-0173",
+              "REPR-0180",
+              "REPR-0187",
+              "REPR-0194",
+              "REPR-0201",
+              "REPR-0208"
+            ]
+          },
+          "status_aware": {
+            "n": 30,
+            "distinct_item_ids": 30,
+            "category_sum": 30,
+            "partition_ok": true,
+            "preserved_n": 30,
+            "ambiguous_ids": [],
+            "loss_ids": [],
+            "faithful_ids": [
+              "REPR-0003",
+              "REPR-0016",
+              "REPR-0022",
+              "REPR-0032",
+              "REPR-0034",
+              "REPR-0042",
+              "REPR-0044",
+              "REPR-0046",
+              "REPR-0058",
+              "REPR-0071",
+              "REPR-0072",
+              "REPR-0090",
+              "REPR-0097",
+              "REPR-0104",
+              "REPR-0111",
+              "REPR-0125",
+              "REPR-0132",
+              "REPR-0139",
+              "REPR-0146",
+              "REPR-0160",
+              "REPR-0167",
+              "REPR-0174",
+              "REPR-0181",
+              "REPR-0188",
+              "REPR-0209"
+            ]
+          },
+          "status_aware_source": {
+            "n": 30,
+            "distinct_item_ids": 30,
+            "category_sum": 30,
+            "partition_ok": true,
+            "preserved_n": 30,
+            "ambiguous_ids": [],
+            "loss_ids": [],
+            "faithful_ids": [
+              "REPR-0012",
+              "REPR-0014",
+              "REPR-0019",
+              "REPR-0025",
+              "REPR-0060",
+              "REPR-0061",
+              "REPR-0064",
+              "REPR-0068",
+              "REPR-0070",
+              "REPR-0077",
+              "REPR-0078",
+              "REPR-0082",
+              "REPR-0091",
+              "REPR-0098",
+              "REPR-0105",
+              "REPR-0112",
+              "REPR-0119",
+              "REPR-0126",
+              "REPR-0133",
+              "REPR-0140",
+              "REPR-0147",
+              "REPR-0154",
+              "REPR-0161",
+              "REPR-0168",
+              "REPR-0175",
+              "REPR-0182",
+              "REPR-0189",
+              "REPR-0196",
+              "REPR-0203",
+              "REPR-0210"
+            ]
+          }
+        },
+        "checks": {
+          "unique_item_ids": true,
+          "item_count": 210,
+          "trajectory_count": 30,
+          "cohort_split": {
+            "n12_pre_registered": 84,
+            "n18_post_hoc": 126
+          },
+          "trajectories_complete": true,
+          "all_conditions_30": true,
+          "all_partitions_ok": true
+        }
+      }
+    },
+    {
+      "path": "results/status_drift_v3_replication_writer/analysis_v325_full/reliability_by_cohort.json",
+      "sha256": "f96a5e088416bedf383551024289bd4ce2e47da0e6802dc6a2663a43a4aa4bb1",
+      "status": "audited",
+      "data": {
+        "n12_pre_registered": {
+          "n_pairs": 84,
+          "raw_agreement": 0.9404761904761905,
+          "cohen_kappa": 0.8343195266272189,
+          "label_counts_a": {
+            "NO_DISTORTION": 67,
+            "UNSUPPORTED_STATUS_DISTORTION": 8,
+            "AMBIGUOUS_UNASSESSABLE": 2,
+            "STATUS_OMISSION": 5,
+            "LEGITIMATE_UPDATE": 2
+          },
+          "label_counts_b": {
+            "NO_DISTORTION": 66,
+            "UNSUPPORTED_STATUS_DISTORTION": 8,
+            "AMBIGUOUS_UNASSESSABLE": 2,
+            "STATUS_OMISSION": 5,
+            "LEGITIMATE_UPDATE": 3
+          },
+          "top_disagreements": [
+            [
+              "NO_DISTORTION",
+              "LEGITIMATE_UPDATE",
+              3
+            ],
+            [
+              "LEGITIMATE_UPDATE",
+              "NO_DISTORTION",
+              2
+            ]
+          ]
+        },
+        "n18_post_hoc": {
+          "n_pairs": 126,
+          "raw_agreement": 0.7857142857142857,
+          "cohen_kappa": 0.12567463377023871,
+          "label_counts_a": {
+            "NO_DISTORTION": 102,
+            "STATUS_OMISSION": 15,
+            "PROPOSITION_LOSS": 2,
+            "UNSUPPORTED_STATUS_DISTORTION": 6,
+            "LEGITIMATE_UPDATE": 1
+          },
+          "label_counts_b": {
+            "NO_DISTORTION": 117,
+            "STATUS_OMISSION": 3,
+            "LEGITIMATE_UPDATE": 6
+          },
+          "top_disagreements": [
+            [
+              "STATUS_OMISSION",
+              "NO_DISTORTION",
+              14
+            ],
+            [
+              "UNSUPPORTED_STATUS_DISTORTION",
+              "NO_DISTORTION",
+              6
+            ],
+            [
+              "NO_DISTORTION",
+              "LEGITIMATE_UPDATE",
+              5
+            ],
+            [
+              "PROPOSITION_LOSS",
+              "STATUS_OMISSION",
+              2
+            ]
+          ]
+        },
+        "full_210": {
+          "n_pairs": 210,
+          "raw_agreement": 0.8476190476190476,
+          "cohen_kappa": 0.4778554778554777,
+          "label_counts_a": {
+            "NO_DISTORTION": 169,
+            "UNSUPPORTED_STATUS_DISTORTION": 14,
+            "AMBIGUOUS_UNASSESSABLE": 2,
+            "STATUS_OMISSION": 20,
+            "LEGITIMATE_UPDATE": 3,
+            "PROPOSITION_LOSS": 2
+          },
+          "label_counts_b": {
+            "NO_DISTORTION": 183,
+            "UNSUPPORTED_STATUS_DISTORTION": 8,
+            "AMBIGUOUS_UNASSESSABLE": 2,
+            "STATUS_OMISSION": 8,
+            "LEGITIMATE_UPDATE": 9
+          },
+          "top_disagreements": [
+            [
+              "STATUS_OMISSION",
+              "NO_DISTORTION",
+              14
+            ],
+            [
+              "NO_DISTORTION",
+              "LEGITIMATE_UPDATE",
+              8
+            ],
+            [
+              "UNSUPPORTED_STATUS_DISTORTION",
+              "NO_DISTORTION",
+              6
+            ],
+            [
+              "LEGITIMATE_UPDATE",
+              "NO_DISTORTION",
+              2
+            ],
+            [
+              "PROPOSITION_LOSS",
+              "STATUS_OMISSION",
+              2
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

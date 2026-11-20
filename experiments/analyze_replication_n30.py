@@ -59,15 +59,37 @@ def wilson(k: int, n: int, z: float = 1.959963984540054) -> tuple[float, float]:
 
 
 def agreement(a_rows: list[dict], b_rows: list[dict]) -> dict:
+    from collections import Counter
+
     from experiments.check_v3_annotations import agreement as compute
 
     result = compute(a_rows, b_rows)
+    a_map = {row["item_id"]: row for row in a_rows}
+    b_map = {row["item_id"]: row for row in b_rows}
+    common = sorted(set(a_map) & set(b_map))
     kept = {}
     for field, value in result["fields"].items():
+        pairs = []
+        for key in common:
+            left, right = a_map[key], b_map[key]
+            if not (left.get(field) or "").strip() or not (right.get(field) or "").strip():
+                continue
+            if field == "expressed_status" and (
+                    (left.get("primary_dimension") or "").strip()
+                    != (right.get("primary_dimension") or "").strip()):
+                continue
+            pairs.append((left[field].strip(), right[field].strip()))
+        confusion: dict[str, dict[str, int]] = {}
+        for label_a, label_b in pairs:
+            confusion.setdefault(label_a, {})
+            confusion[label_a][label_b] = confusion[label_a].get(label_b, 0) + 1
         kept[field] = {
             "n_pairs": value["n_pairs"],
             "raw_agreement": value["raw_agreement"],
             "cohen_kappa": value["cohen_kappa"],
+            "label_counts_a": dict(Counter(label_a for label_a, _ in pairs)),
+            "label_counts_b": dict(Counter(label_b for _, label_b in pairs)),
+            "confusion_matrix": confusion,
         }
     return {"n_common_items": result["n_common_items"], "fields": kept}
 
@@ -174,6 +196,23 @@ def main() -> None:
         b_rows.extend(cohort_b)
     agreement_by_cohort["full_210"] = agreement(a_rows, b_rows)
 
+    reliability = {}
+    for name, data in agreement_by_cohort.items():
+        field = data["fields"]["primary_judgment"]
+        disagreements = sorted(
+            ((label_a, label_b, count)
+             for label_a, row in field["confusion_matrix"].items()
+             for label_b, count in row.items() if label_a != label_b),
+            key=lambda entry: -entry[2])
+        reliability[name] = {
+            "n_pairs": field["n_pairs"],
+            "raw_agreement": field["raw_agreement"],
+            "cohen_kappa": field["cohen_kappa"],
+            "label_counts_a": field["label_counts_a"],
+            "label_counts_b": field["label_counts_b"],
+            "top_disagreements": disagreements[:8],
+        }
+
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
 
@@ -190,6 +229,7 @@ def main() -> None:
         "adjudicators": dict(Counter(row["adjudicator"] for row in rows)),
         "agreement_pre_adjudication": agreement_by_cohort["full_210"],
         "agreement_by_cohort": agreement_by_cohort,
+        "reliability_by_cohort": reliability,
         "reconciliation": reconciliation,
         "warnings": [
             "n = 12 is the pre-registered cohort; n = 30 adds 18 post-hoc trajectories.",
@@ -203,6 +243,8 @@ def main() -> None:
         json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     (out / "reconciliation.json").write_text(
         json.dumps(reconciliation, ensure_ascii=False, indent=2), encoding="utf-8")
+    (out / "reliability_by_cohort.json").write_text(
+        json.dumps(reliability, ensure_ascii=False, indent=2), encoding="utf-8")
 
     print(f"wrote {out / 'condition_table.csv'} and {out / 'summary.json'}")
     for row in table:

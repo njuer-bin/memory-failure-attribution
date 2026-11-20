@@ -1247,3 +1247,33 @@ Plan: ECAI 2027 Submission Readiness & Evidence Remediation Plan v2.0.
 - Not fixed by this stage: the official ECAI 2027 kit is still unreleased, so
   the class and page limits remain provisional; the 16 expansion controls are
   author-constructed; the gateway model label is gateway-reported.
+
+## 2026-11-20 — v2.1 evidence remediation
+
+- Three-layer P4.2 control audit: item validity, mechanical parse compliance,
+  and semantic compliance are reported separately in
+  `results/status_drift_v3_p4_2/analysis/control_audit.json`. The only
+  mechanical/semantic divergence is the gateway neutral cell (AUT-11 lacks the
+  `DECISION:` prefix: 18/19 mechanical, 19/19 semantic).
+- Stratified n=30 reliability (pre-adjudication, paired A/B): n=12 0.940 raw /
+  0.834 kappa; added n=18 0.786 / 0.126; full 0.848 / 0.478. Disagreement is
+  omission-concentrated (A 15 vs B 3 of 126) and the n=18 cohort is reported as
+  annotator drift, not as reliable added evidence.
+- Canonical results layer: `results/canonical/` records source hashes,
+  denominators, analysis status, figure hashes, and release hashes;
+  `experiments/check_canonical_consistency.py` checks 27 canonical values in
+  both manuscript sources (0 missing, 0 blacklisted).
+- Novelty audit extended with a contribution-to-evidence map, alternative
+  explanations, reviewer-style challenge, and unresolved risks
+  (`docs/research/2026-11-17-novelty-audit.md` §9).
+- ACL main now carries the gateway Study 2b results and stratified n=30
+  reliability; the ECAI appendix reports mechanical vs semantic control
+  compliance per model.
+- Figure 5 legend was moved to a figure-level lower-center position outside
+  the axes; `tight_layout` is skipped for that figure so the legend cannot
+  overlap the x-label. Rendered PNG margins and bands were measured
+  programmatically (no overlap; >=27 px bottom margin).
+- Rebuilt: ECAI main 7 pages (body ends page 6, references on page 7),
+  appendix 5 pages; ACL 13 pages (body ends page 8, Limitations page 9);
+  0 overfull boxes; supplement 56 files. Anonymity scans clean; no Author/Title
+  metadata.
