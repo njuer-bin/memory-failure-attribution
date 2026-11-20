@@ -1078,3 +1078,26 @@ No commits made.
   reason coding analyst-only, replication n = 12 (not n = 30).
 - Write-ups: `docs/research/2026-11-20-ecai-2027-port.md`,
   `to_human/2026-11-20_ecai_submission_tasks.md`.
+
+## 2026-11-20 — n = 30 annotation bookkeeping
+
+- `annotator_B.csv` (126 items) was re-annotated by the maintainer and passes
+  schema validation (126/126, 0 missing, 0 invalid). Agreement with A:
+  dimension κ 0.705, expressed-status κ 1.000 (n=100), action-status κ 0.902;
+  status-expressed κ 0.270, evidence-support κ 0.202, primary-judgment κ 0.126
+  are prevalence-limited. 50/126 items carry at least one disagreement.
+- Repaired the `validation_B_16.csv` column shift (the yes/no judgment had been
+  written into `rule_clarity_1_5`); both 16-control sheets now agree 16/16 on
+  `only_status_differs` (`HEA-11` = no). The five 1–5 ratings and `notes`
+  remain blank in both sheets for the two human annotators.
+- Merged the completed second-rater reason sheet into
+  `unauthorized_reason_codes.csv`: 39/39 coded, raw agreement 1.000, κ 1.000;
+  `adjudicated_code` set to the agreed analyst code. Record the rater's
+  identity and whether any model assisted before citing this as an independent
+  human second rating.
+- Built `annotation_v325_remaining/adjudication.csv` (126 rows, n=12 schema):
+  76 rows auto-filled where A = B; 50 rows left blank for third-reviewer
+  adjudication (dimension 26, primary judgment 27, evidence support 20,
+  status expressed 14, action status 6, proposition identity 2, confidence 31).
+- The n = 30 cohort remains a post-hoc sensitivity analysis, not
+  pre-registered, until adjudication is complete.
