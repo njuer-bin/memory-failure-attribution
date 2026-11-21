@@ -34,3 +34,8 @@ results/**/_invalid/*
 # Local scratch backups and tool notes
 *.bak*
 .workbuddy/
+
+# Non-anonymous arXiv preprint bundle: keep local until arXiv is live and the
+# ECAI double-blind review window closes, so author identity is not committed
+# to the public repository first.
+paper/preprint_arxiv/
