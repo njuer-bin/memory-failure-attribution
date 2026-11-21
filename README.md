@@ -18,8 +18,8 @@ memory transformation histories, does the **status** attached to a proposition
 (epistemic / intentional / conditional) survive even when the proposition does,
 and do status-only differences change downstream agent behavior?
 
-Headline from the frozen paired study with blind human labels: chained
-rewriting causes **status omission** in 44–54% of proposition-preserved
+Headline from the frozen paired study with blind annotation: chained
+rewriting causes **status omission** in 42–54% of proposition-preserved
 memories, while unsupported distortion is rare (0.9%). Rewrite-matched equals
 recursive and repeated-direct equals direct, isolating chained re-editing from
 budget shrinkage and call count; source access during rewriting removes the

@@ -619,7 +619,7 @@ committed. No single judge is a valid instrument.
 V3 statuses are authoritative; v2 evidence is kept as supporting history.
 
 - **H1 — supported.** Writer/transformation strategies differ strongly in
-  status preservation. V3: chained conditions omit status in 44–54% of
+  status preservation. V3: chained conditions omit status in 42–54% of
   proposition-preserved items vs 3.7% for direct; v2: status-aware 256/270 vs
   neutral 221/270 both-judge-correct.
 - **H2 — supported, mechanism refined.** Repeated chained rewriting of the

@@ -12,8 +12,8 @@ proposition can survive compression while the stance attached to it disappears.
 We introduce a proposition-controlled diagnostic for **status fidelity**: the
 epistemic, intentional, or conditional state attached to a proposition,
 measured across paired transformation histories with proposition identity held
-fixed. In a 30-trajectory paired study with 330 blind human-labeled items,
-chained rewriting omitted the status of 44-54% of proposition-preserved
+fixed. In a 30-trajectory paired study with 330 blindly evaluated and adjudicated items,
+chained rewriting omitted the status of 42-54% of proposition-preserved
 memories, while unsupported distortion was rare (3/330). Rewrite-matched and
 repeated-direct controls isolate chained re-editing from intermediate budget
 and raw call count; giving the writer access to the source removes the
@@ -64,7 +64,7 @@ role.
 
 The main findings are:
 
-- Chained rewriting causes **status omission**: 44-54% of proposition-preserved
+- Chained rewriting causes **status omission**: 42-54% of proposition-preserved
   memories lose the status, versus 3.7% for direct compression.
 - The mechanism is **repeated re-editing of the writer's own output**, not
   intermediate budget shrinkage or raw call count. Rewrite-matched equals
@@ -92,7 +92,7 @@ have opposite behavioral profiles.
 
 1. **Measurement.** A typed status tuple and a paired transformation-history
    design that fixes proposition identity, separates status omission from
-   unsupported distortion, and combines blind human labels with deterministic
+   unsupported distortion, and combines blind annotation with deterministic
    controls.
 2. **Mechanism.** Chained re-editing of the writer's own output, not budget
    shrinkage or call count, drives status loss; source access removes it.
@@ -165,7 +165,7 @@ derivation correctness.
 closest prior work already covers state tracking, structured state, recursive
 summarization, source access, and memory-to-action effects. The defensible
 contribution is the combination: a status tuple measured across paired
-transformation histories with proposition identity fixed, blind human labels,
+transformation histories with proposition identity fixed, blind annotation,
 an omission/distortion split, a status-only downstream intervention, and a
 second-model replication.
 
@@ -368,7 +368,7 @@ The dimension breakdown among preserved items is conditional 27.6%, epistemic
 33.0%, and intentional 27.3%; proposition-loss rates are 10.9%, 6.4%, and
 10.0%. There is one unsupported case in each dimension. The earlier v2 pattern
 that intentional commitment cues are uniquely vulnerable does **not** replicate
-in the V3 blind human labels.
+in the V3 blind annotation.
 
 ### 4.3 Mechanism: chaining, not budget or call count
 
