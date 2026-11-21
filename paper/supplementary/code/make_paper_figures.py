@@ -12,6 +12,7 @@ from __future__ import annotations
 import csv
 import json
 import math
+import shutil
 from pathlib import Path
 
 import matplotlib
@@ -53,6 +54,30 @@ plt.rcParams.update({
 })
 
 OUT = Path("paper/figures")
+
+# The submission builds keep their own figure copies (some with different file
+# names). Mirror every generated figure into both so the compiled PDFs never
+# embed a stale vector file.
+SUBMISSION_DIRS = (Path("paper/submission_ecai/figures"), Path("paper/submission/figures"))
+SUBMISSION_NAMES = {
+    "fig1_design": "fig1_design",
+    "fig2_p3_omission": "fig2_omission",
+    "fig3_p3_mechanism": "fig3_mechanism",
+    "fig4_behavior": "fig4_behavior",
+    "fig5_mitigation": "fig5_mitigation",
+    "fig6_real_calibration": "fig6_calibration",
+}
+
+
+def mirror_to_submissions() -> None:
+    for directory in SUBMISSION_DIRS:
+        if not directory.is_dir():
+            continue
+        for master, target in SUBMISSION_NAMES.items():
+            source = OUT / f"{master}.pdf"
+            if source.exists():
+                shutil.copy2(source, directory / f"{target}.pdf")
+                print(f"mirrored {source} -> {directory / (target + '.pdf')}")
 
 
 def wilson(k: int, n: int, z: float = 1.96) -> tuple[float, float]:
@@ -393,6 +418,7 @@ def main() -> None:
     fig4_behavior()
     fig5_mitigation()
     fig6_real_calibration()
+    mirror_to_submissions()
 
 
 if __name__ == "__main__":

@@ -62,6 +62,7 @@ Figures are generated from the frozen analysis artifacts, never retyped:
 G:/aconda/python.exe -m experiments.make_paper_figures
 ```
 
-then copy `paper/figures/fig*.pdf` into `paper/submission/figures/` with the
-short names used by `main.tex` (`fig2_omission.pdf`, `fig3_mechanism.pdf`,
-`fig6_calibration.pdf`).
+The generator now mirrors every figure into `paper/submission/figures/` (and
+`paper/submission_ecai/figures/`) with the short names used by `main.tex`
+(`fig2_omission.pdf`, `fig3_mechanism.pdf`, `fig6_calibration.pdf`), so no manual
+copy step is needed.

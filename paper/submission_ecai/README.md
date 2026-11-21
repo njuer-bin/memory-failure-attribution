@@ -42,11 +42,12 @@ latexmk -pdf appendix.tex
 Both files set `\pdfsuppressptexinfo=-1`, which strips the local build path
 that pdfTeX otherwise embeds in included-figure XObjects (a double-blind leak).
 
-## Measured page budget (stand-in class, 2026-11-20)
+## Measured page budget (stand-in class, 2026-11-21)
 
-- `main.pdf`: **6 pages total** — body (incl. Limitations) and references
-  both fit inside 6 pages, i.e. within the 7+1 ceiling with margin.
-- `appendix.pdf`: 4 pages, unconstrained.
+- `main.pdf`: **7 pages total** — body (incl. Limitations) ends on page 6;
+  references run across pages 6–7 and occupy under one page, so the 7-body +
+  1-reference ceiling holds with margin.
+- `appendix.pdf`: 5 pages, unconstrained.
 - 0 overfull boxes, 0 unresolved references/citations.
 
 ## Anonymization checklist
@@ -79,6 +80,11 @@ adjudication. See `../../to_human/2026-11-20_ecai_submission_tasks.md`.
 ```bash
 G:/aconda/python.exe -m experiments.make_paper_figures
 ```
+
+The generator writes the master PDFs to `paper/figures/` and mirrors all six
+into `figures/` here (and into `../submission/figures/`), preserving this
+folder's `fig6_calibration.pdf` target name, so the compiled PDFs never embed a
+stale vector file.
 
 Fig. 4 is a three-panel plot (Study 2a, plus Study 2b by request form across
 qwen2.5:7b, gemma3:12b, and glm-5.3-flash), generated from the frozen
