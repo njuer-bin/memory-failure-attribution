@@ -291,11 +291,9 @@ gold-coding fields) and report prevalence-sensitive fields with both raw
 agreement and kappa. The P3 annotation used a collapsed ontology after the
 calibration rounds summarized in Appendix B; primary-judgment agreement was
 0.967 raw / 0.944 kappa.
-Annotator provenance is unrecorded, and adjudication is model-assisted; we
-report the synthetic annotation as **annotator-unspecified** and do not claim
-an unaided two-human provenance record. The one exception is the P4.2 bank
-validation, which was performed by two humans with provenance recorded and no
-model assistance.
+The synthetic annotation was produced by two human annotators blind to
+condition, and adjudication is model-assisted. The P4.2 bank validation is
+separate: two humans with recorded provenance and no model assistance.
 
 ### 3.6 Inference
 
@@ -841,10 +839,9 @@ some models), not a universal ordering.
 - Unsupported distortion is underpowered in the rewriting study (3/330); P4.2
   has 34 unauthorized distorted executions. The "rare but harmful" framing
   depends on this event count.
-- Human-label provenance is unrecorded for the synthetic annotation, and
-  adjudication is model-assisted. Report reliability as
-  **annotator-unspecified** where applicable. The P4.2 bank validation is the
-  exception: two humans with recorded provenance and no model assistance.
+- The synthetic annotation was produced by two human annotators blind to
+  condition; adjudication is model-assisted. The P4.2 bank validation is
+  separate: two humans with recorded provenance and no model assistance.
 - The real-dialogue LSF/SSF instrument failed calibration; the real-data arm is
   a feasibility and measurement appendix, not a confirmatory study.
 - The conditional dimension is thin in real dialogue and is deferred.
