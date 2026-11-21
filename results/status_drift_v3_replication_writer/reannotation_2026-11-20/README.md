@@ -62,3 +62,25 @@ dispute automatically. `summarize` writes `condition_table.csv`,
 - key.csv 含条件与 gold，只能由协调者保管。
 - 两人都交回后再由第三人人工裁决分歧；脚本不会自动替任何一方裁决。
 - 旧标签原样保留，重批结果写入本目录。
+
+## Status (2026-11-21) — merged but not adopted for the paper
+
+This round is merged (`adjudication.csv`, `summary.json`, `condition_table.csv`,
+`reliability.json`, `merge_report.json`): 125/210 disputed items, adjudicator
+`RC`, 85 rows auto-agreed. `human_adjudication_consistent: true` only means the
+adjudicator string is not machine-like; RC's provenance and independence are not
+recorded in the artifact.
+
+RC changed 36 `adj_primary_dimension` labels (EPISTEMIC -> INTENTIONAL/ACTION,
+the borderline items flagged in `ADJUDICATION_GUIDE.md`) but left every
+`adj_primary_judgment` identical to the rejected `_ADJ-AI/` run. The merged
+`summary.json` and `condition_table.csv` are therefore byte-identical to the
+archived AI run (direct/repeated 30/30, source 29/30, status_aware 26/30,
+combination 30/30, recursive 22/30, rewrite_matched 20/30).
+
+These numbers differ from the manuscript's current n = 30 table
+(`../analysis_v325_full/`: direct/repeated 27/30, source 27/30, status_aware
+25/30, combination 30/30, recursive 18/30, rewrite 18/30). Per the maintainer
+decision, the paper's n = 30 numbers are kept unchanged; this re-annotated round
+is retained as an audit/sensitivity record and does not replace the reported
+table.

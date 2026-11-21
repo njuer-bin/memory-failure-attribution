@@ -1,0 +1,39 @@
+{
+  "n_pairs": 210,
+  "raw_agreement": 0.8571428571428571,
+  "cohen_kappa": 0.353049907578558,
+  "label_counts_a": {
+    "NO_DISTORTION": 199,
+    "UNSUPPORTED_STATUS_DISTORTION": 7,
+    "LEGITIMATE_UPDATE": 1,
+    "STATUS_OMISSION": 3
+  },
+  "label_counts_b": {
+    "NO_DISTORTION": 172,
+    "UNSUPPORTED_STATUS_DISTORTION": 15,
+    "LEGITIMATE_UPDATE": 14,
+    "AMBIGUOUS_UNASSESSABLE": 2,
+    "PROPOSITION_LOSS": 2,
+    "STATUS_OMISSION": 5
+  },
+  "confusion_matrix": {
+    "NO_DISTORTION": {
+      "NO_DISTORTION": 172,
+      "UNSUPPORTED_STATUS_DISTORTION": 11,
+      "LEGITIMATE_UPDATE": 13,
+      "AMBIGUOUS_UNASSESSABLE": 1,
+      "STATUS_OMISSION": 2
+    },
+    "UNSUPPORTED_STATUS_DISTORTION": {
+      "UNSUPPORTED_STATUS_DISTORTION": 4,
+      "AMBIGUOUS_UNASSESSABLE": 1,
+      "PROPOSITION_LOSS": 2
+    },
+    "LEGITIMATE_UPDATE": {
+      "LEGITIMATE_UPDATE": 1
+    },
+    "STATUS_OMISSION": {
+      "STATUS_OMISSION": 3
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "status": "merged",
+  "n_items": 210,
+  "n_disputed_items": 125,
+  "missing_required": 0,
+  "invalid_values": 0,
+  "adjudicator_counts": {
+    "none (agreement)": 85,
+    "RC": 125
+  },
+  "human_adjudication_consistent": true
+}

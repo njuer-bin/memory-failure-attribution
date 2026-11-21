@@ -1322,3 +1322,25 @@ The AI artifacts are archived under
 with a warning README. The active `adjudication_sheet.csv` was regenerated blank
 for a human adjudicator and annotated with the 18 borderline and 30
 primary-judgment dispute IDs. No manuscript or canonical number changes.
+
+## 2026-11-21 — n=30 re-annotation merged under RC; manuscript n=30 kept unchanged
+
+- The two blind human sheets (RA/RB, 210/210 each) and the adjudicated sheet
+  are merged: 125/210 items disputed, `adjudicator = RC` on all 125, 85 rows
+  auto-agreed. `merge` reports `missing_required: 0`, `invalid_values: 0` and
+  `human_adjudication_consistent: true`; that flag only checks the adjudicator
+  string is not machine-like, and RC's provenance/independence is not recorded
+  in the artifact.
+- RC changed 36 `adj_primary_dimension` labels (EPISTEMIC -> INTENTIONAL/ACTION,
+  exactly the borderline items flagged in `ADJUDICATION_GUIDE.md`) but left every
+  `adj_primary_judgment` identical to the rejected `_ADJ-AI/` run. As a result
+  `summary.json` and `condition_table.csv` are byte-identical to the archived AI
+  run: direct 30/30, repeated_direct 30/30, neutral_source 29/30, status_aware
+  26/30, status_aware_source 30/30, recursive 22/30, rewrite_matched 20/30.
+- These differ from the manuscript's current n = 30 table
+  (`analysis_v325_full/`: direct/repeated 27/30, source 27/30, status_aware
+  25/30, combination 30/30, recursive 18/30, rewrite 18/30). Per maintainer
+  decision, **the paper's n = 30 numbers are kept unchanged**; the re-annotated
+  round is retained as an audit/sensitivity record and does not replace the
+  reported table.
+- No manuscript, `V3_NUMBERS.md`, canonical, supplementary, or figure change.
